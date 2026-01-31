@@ -45,7 +45,6 @@ gaxi                  = { workspace = true, features = ["_internal-http-client"]
 grafeas.workspace     = true
 iam_v1.workspace      = true
 lazy_static.workspace = true
-reqwest.workspace     = true
 serde.workspace       = true
 serde_json.workspace  = true
 serde_with.workspace  = true

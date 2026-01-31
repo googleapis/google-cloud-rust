@@ -46,6 +46,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDeliveryPipelinesResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -64,13 +65,13 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -97,7 +98,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -109,6 +110,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DeliveryPipeline>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -129,9 +131,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -160,7 +162,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -172,6 +174,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -190,12 +193,12 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("deliveryPipelineId", &req.delivery_pipeline_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -222,7 +225,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.delivery_pipeline, &method);
         self.inner.execute(builder, body, options).await
@@ -234,6 +237,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -257,7 +261,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -274,7 +278,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -306,7 +310,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.delivery_pipeline, &method);
         self.inner.execute(builder, body, options).await
@@ -318,6 +322,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -338,14 +343,14 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -374,7 +379,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -386,6 +391,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListTargetsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -404,13 +410,13 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -437,7 +443,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -449,6 +455,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RollbackTargetResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -469,9 +476,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -500,7 +507,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -512,6 +519,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Target>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -532,9 +540,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -563,7 +571,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -575,6 +583,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -593,12 +602,12 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("targetId", &req.target_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -625,7 +634,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.target, &method);
         self.inner.execute(builder, body, options).await
@@ -637,6 +646,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -660,7 +670,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -677,7 +687,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -709,7 +719,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.target, &method);
         self.inner.execute(builder, body, options).await
@@ -721,6 +731,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -741,13 +752,13 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -776,7 +787,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -788,6 +799,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCustomTargetTypesResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -806,13 +818,13 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -839,7 +851,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -851,6 +863,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CustomTargetType>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -871,9 +884,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -902,7 +915,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -914,6 +927,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -932,12 +946,12 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("customTargetTypeId", &req.custom_target_type_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -964,7 +978,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.custom_target_type, &method);
         self.inner.execute(builder, body, options).await
@@ -976,6 +990,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -999,7 +1014,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -1016,7 +1031,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1048,7 +1063,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.custom_target_type, &method);
         self.inner.execute(builder, body, options).await
@@ -1060,6 +1075,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1080,13 +1096,13 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1115,7 +1131,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1127,6 +1143,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListReleasesResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1147,13 +1164,13 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1182,7 +1199,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1194,6 +1211,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Release>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1216,9 +1234,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1249,7 +1267,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1261,6 +1279,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1281,7 +1300,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("releaseId", &req.release_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -1292,7 +1311,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                         builder.query(&[("overrideDeployPolicy", p)])
                     });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1321,7 +1340,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.release, &method);
         self.inner.execute(builder, body, options).await
@@ -1333,6 +1352,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AbandonReleaseResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1355,9 +1375,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1388,7 +1408,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -1400,6 +1420,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1418,12 +1439,12 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("deployPolicyId", &req.deploy_policy_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1450,7 +1471,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.deploy_policy, &method);
         self.inner.execute(builder, body, options).await
@@ -1462,6 +1483,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1485,7 +1507,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -1502,7 +1524,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1534,7 +1556,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.deploy_policy, &method);
         self.inner.execute(builder, body, options).await
@@ -1546,6 +1568,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1566,13 +1589,13 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1601,7 +1624,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1613,6 +1636,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDeployPoliciesResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1631,13 +1655,13 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1664,7 +1688,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1676,6 +1700,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DeployPolicy>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1696,9 +1721,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1727,7 +1752,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1739,6 +1764,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ApproveRolloutResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1763,9 +1789,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1798,7 +1824,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -1810,6 +1836,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AdvanceRolloutResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1834,9 +1861,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1869,7 +1896,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -1881,6 +1908,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CancelRolloutResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1905,9 +1933,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1940,7 +1968,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -1952,6 +1980,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRolloutsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1974,13 +2003,13 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2011,7 +2040,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2023,6 +2052,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Rollout>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2047,9 +2077,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2082,7 +2112,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2094,6 +2124,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2116,7 +2147,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("rolloutId", &req.rollout_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -2128,7 +2159,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     });
                 let builder = builder.query(&[("startingPhaseId", &req.starting_phase_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2159,7 +2190,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.rollout, &method);
         self.inner.execute(builder, body, options).await
@@ -2171,6 +2202,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IgnoreJobResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2195,9 +2227,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2230,7 +2262,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -2242,6 +2274,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RetryJobResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2266,9 +2299,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2301,7 +2334,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -2313,6 +2346,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListJobRunsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2337,13 +2371,13 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2376,7 +2410,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2388,6 +2422,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::JobRun>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2398,11 +2433,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/deliveryPipelines/"), Segment::SingleWildcard, Segment::Literal("/releases/"), Segment::SingleWildcard, Segment::Literal("/rollouts/"), Segment::SingleWildcard, Segment::Literal("/jobRuns/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2423,7 +2456,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2435,6 +2468,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TerminateJobRunResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2445,11 +2479,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/deliveryPipelines/"), Segment::SingleWildcard, Segment::Literal("/releases/"), Segment::SingleWildcard, Segment::Literal("/rollouts/"), Segment::SingleWildcard, Segment::Literal("/jobRuns/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::POST, path);
+            let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::POST)))
+            Some(builder.map(|b| (b, Method::POST)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2470,7 +2502,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -2482,6 +2514,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Config>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2501,9 +2534,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2531,7 +2564,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2543,6 +2576,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2563,12 +2597,12 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("automationId", &req.automation_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2597,7 +2631,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.automation, &method);
         self.inner.execute(builder, body, options).await
@@ -2609,6 +2643,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2634,7 +2669,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -2651,7 +2686,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2685,7 +2720,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.automation, &method);
         self.inner.execute(builder, body, options).await
@@ -2697,6 +2732,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2719,13 +2755,13 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2756,7 +2792,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2768,6 +2804,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Automation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2790,9 +2827,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2823,7 +2860,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2835,6 +2872,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAutomationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2855,13 +2893,13 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2890,7 +2928,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2902,6 +2940,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AutomationRun>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2924,9 +2963,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2957,7 +2996,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2969,6 +3008,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAutomationRunsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2989,13 +3029,13 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3024,7 +3064,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3036,6 +3076,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CancelAutomationRunResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3058,9 +3099,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3091,7 +3132,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -3103,6 +3144,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3116,12 +3158,12 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3143,7 +3185,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3155,6 +3197,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3173,9 +3216,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3202,7 +3245,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3214,6 +3257,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3234,9 +3278,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3254,9 +3298,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3274,9 +3318,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3294,9 +3338,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3376,7 +3420,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -3388,6 +3432,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3408,7 +3453,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
                         .options
@@ -3422,7 +3467,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3440,7 +3485,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
                         .options
@@ -3454,7 +3499,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3472,7 +3517,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
                         .options
@@ -3486,7 +3531,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3504,7 +3549,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
                         .options
@@ -3518,7 +3563,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3598,7 +3643,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3610,6 +3655,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3630,9 +3676,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3650,9 +3696,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3698,7 +3744,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -3710,6 +3756,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3728,14 +3775,14 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3762,7 +3809,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3774,6 +3821,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3794,9 +3842,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3825,7 +3873,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3837,6 +3885,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3857,9 +3906,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3888,7 +3937,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -3905,6 +3954,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3925,9 +3975,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3956,7 +4006,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(

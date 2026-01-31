@@ -46,6 +46,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -64,9 +65,9 @@ impl super::stub::DataPolicyService for DataPolicyService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -93,7 +94,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -105,6 +106,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -125,9 +127,9 @@ impl super::stub::DataPolicyService for DataPolicyService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -156,7 +158,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -168,6 +170,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -188,9 +191,9 @@ impl super::stub::DataPolicyService for DataPolicyService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -219,7 +222,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -231,6 +234,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -254,7 +258,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -269,7 +273,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
                     let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -301,7 +305,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.data_policy, &method);
         self.inner.execute(builder, body, options).await
@@ -313,6 +317,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -333,9 +338,9 @@ impl super::stub::DataPolicyService for DataPolicyService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -364,7 +369,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -381,6 +386,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -401,9 +407,9 @@ impl super::stub::DataPolicyService for DataPolicyService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -432,7 +438,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -444,6 +450,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDataPoliciesResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -462,12 +469,12 @@ impl super::stub::DataPolicyService for DataPolicyService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -494,7 +501,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -506,6 +513,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -526,9 +534,9 @@ impl super::stub::DataPolicyService for DataPolicyService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -557,7 +565,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -569,6 +577,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -589,9 +598,9 @@ impl super::stub::DataPolicyService for DataPolicyService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -620,7 +629,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -632,6 +641,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -652,9 +662,9 @@ impl super::stub::DataPolicyService for DataPolicyService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -683,7 +693,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await

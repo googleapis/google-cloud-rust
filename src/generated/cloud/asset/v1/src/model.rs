@@ -29,7 +29,6 @@ extern crate longrunning;
 extern crate lro;
 extern crate orgpolicy_v1;
 extern crate osconfig_v1;
-extern crate reqwest;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;

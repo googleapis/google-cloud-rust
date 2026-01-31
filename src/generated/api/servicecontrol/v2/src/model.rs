@@ -22,7 +22,6 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate lazy_static;
-extern crate reqwest;
 extern crate rpc;
 extern crate rpc_context;
 extern crate serde;

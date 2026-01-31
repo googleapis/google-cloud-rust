@@ -46,6 +46,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Api>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -64,10 +65,10 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("apiId", &req.api_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -94,7 +95,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.api, &method);
         self.inner.execute(builder, body, options).await
@@ -106,6 +107,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Api>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -126,9 +128,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -157,7 +159,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -169,6 +171,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListApisResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -187,12 +190,12 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -219,7 +222,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -231,6 +234,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Api>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -254,7 +258,7 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -268,7 +272,7 @@ impl super::stub::ApiHub for ApiHub {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -300,7 +304,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.api, &method);
         self.inner.execute(builder, body, options).await
@@ -312,6 +316,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -332,10 +337,10 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -364,7 +369,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -381,6 +386,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Version>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -401,10 +407,10 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("versionId", &req.version_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -433,7 +439,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.version, &method);
         self.inner.execute(builder, body, options).await
@@ -445,6 +451,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Version>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -467,9 +474,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -500,7 +507,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -512,6 +519,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListVersionsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -532,12 +540,12 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -566,7 +574,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -578,6 +586,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Version>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -603,7 +612,7 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -617,7 +626,7 @@ impl super::stub::ApiHub for ApiHub {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -651,7 +660,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.version, &method);
         self.inner.execute(builder, body, options).await
@@ -663,6 +672,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -685,10 +695,10 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -719,7 +729,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -736,6 +746,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Spec>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -758,10 +769,10 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("specId", &req.spec_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -792,7 +803,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.spec, &method);
         self.inner.execute(builder, body, options).await
@@ -804,6 +815,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Spec>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -828,9 +840,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -863,7 +875,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -875,6 +887,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SpecContents>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -899,9 +912,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -934,7 +947,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -946,6 +959,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSpecsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -968,12 +982,12 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1004,7 +1018,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1016,6 +1030,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Spec>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1043,7 +1058,7 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -1057,7 +1072,7 @@ impl super::stub::ApiHub for ApiHub {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1093,7 +1108,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.spec, &method);
         self.inner.execute(builder, body, options).await
@@ -1105,6 +1120,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1129,9 +1145,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1164,7 +1180,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -1181,6 +1197,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ApiOperation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1203,10 +1220,10 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("apiOperationId", &req.api_operation_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1237,7 +1254,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.api_operation, &method);
         self.inner.execute(builder, body, options).await
@@ -1249,6 +1266,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ApiOperation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1273,9 +1291,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1308,7 +1326,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1320,6 +1338,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListApiOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1342,12 +1361,12 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1378,7 +1397,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1390,6 +1409,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ApiOperation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1417,7 +1437,7 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -1431,7 +1451,7 @@ impl super::stub::ApiHub for ApiHub {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1467,7 +1487,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.api_operation, &method);
         self.inner.execute(builder, body, options).await
@@ -1479,6 +1499,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1503,9 +1524,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1538,7 +1559,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -1555,6 +1576,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Definition>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1579,9 +1601,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1614,7 +1636,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1626,6 +1648,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1644,10 +1667,10 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("deploymentId", &req.deployment_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1674,7 +1697,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.deployment, &method);
         self.inner.execute(builder, body, options).await
@@ -1686,6 +1709,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1706,9 +1730,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1737,7 +1761,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1749,6 +1773,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDeploymentsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1767,12 +1792,12 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1799,7 +1824,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1811,6 +1836,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1834,7 +1860,7 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -1848,7 +1874,7 @@ impl super::stub::ApiHub for ApiHub {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1880,7 +1906,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.deployment, &method);
         self.inner.execute(builder, body, options).await
@@ -1892,6 +1918,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1912,9 +1939,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1943,7 +1970,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -1960,6 +1987,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Attribute>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1978,10 +2006,10 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("attributeId", &req.attribute_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2008,7 +2036,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.attribute, &method);
         self.inner.execute(builder, body, options).await
@@ -2020,6 +2048,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Attribute>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2040,9 +2069,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2071,7 +2100,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2083,6 +2112,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Attribute>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2106,7 +2136,7 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -2120,7 +2150,7 @@ impl super::stub::ApiHub for ApiHub {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2152,7 +2182,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.attribute, &method);
         self.inner.execute(builder, body, options).await
@@ -2164,6 +2194,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2184,9 +2215,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2215,7 +2246,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -2232,6 +2263,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAttributesResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2250,12 +2282,12 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2282,7 +2314,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2294,6 +2326,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchResourcesResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2312,9 +2345,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2341,7 +2374,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -2353,6 +2386,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ExternalApi>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2371,10 +2405,10 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("externalApiId", &req.external_api_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2401,7 +2435,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.external_api, &method);
         self.inner.execute(builder, body, options).await
@@ -2413,6 +2447,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ExternalApi>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2433,9 +2468,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2464,7 +2499,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2476,6 +2511,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ExternalApi>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2499,7 +2535,7 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -2513,7 +2549,7 @@ impl super::stub::ApiHub for ApiHub {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2545,7 +2581,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.external_api, &method);
         self.inner.execute(builder, body, options).await
@@ -2557,6 +2593,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2577,9 +2614,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2608,7 +2645,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -2625,6 +2662,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListExternalApisResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2643,11 +2681,11 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2674,7 +2712,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2686,6 +2724,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2699,12 +2738,12 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2726,7 +2765,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2738,6 +2777,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2756,9 +2796,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2785,7 +2825,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2797,6 +2837,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2815,14 +2856,14 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2849,7 +2890,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2861,6 +2902,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2881,9 +2923,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2912,7 +2954,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2924,6 +2966,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2944,9 +2987,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2975,7 +3018,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -2992,6 +3035,7 @@ impl super::stub::ApiHub for ApiHub {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3012,9 +3056,9 @@ impl super::stub::ApiHub for ApiHub {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3043,7 +3087,7 @@ impl super::stub::ApiHub for ApiHub {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -3083,6 +3127,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dependency>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3101,10 +3146,10 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("dependencyId", &req.dependency_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3131,7 +3176,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.dependency, &method);
         self.inner.execute(builder, body, options).await
@@ -3143,6 +3188,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dependency>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3163,9 +3209,9 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3194,7 +3240,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3206,6 +3252,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dependency>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3229,7 +3276,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -3243,7 +3290,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3275,7 +3322,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.dependency, &method);
         self.inner.execute(builder, body, options).await
@@ -3287,6 +3334,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3307,9 +3355,9 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3338,7 +3386,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -3355,6 +3403,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDependenciesResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3373,12 +3422,12 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3405,7 +3454,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3417,6 +3466,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3430,12 +3480,12 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3457,7 +3507,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3469,6 +3519,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3487,9 +3538,9 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3516,7 +3567,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3528,6 +3579,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3546,14 +3598,14 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3580,7 +3632,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3592,6 +3644,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3612,9 +3665,9 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3643,7 +3696,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3655,6 +3708,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3675,9 +3729,9 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3706,7 +3760,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -3723,6 +3777,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3743,9 +3798,9 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3774,7 +3829,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -3814,6 +3869,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3832,9 +3888,9 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3861,7 +3917,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -3873,6 +3929,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3886,12 +3943,12 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3913,7 +3970,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3925,6 +3982,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3943,9 +4001,9 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3972,7 +4030,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3984,6 +4042,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4002,14 +4061,14 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4036,7 +4095,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -4048,6 +4107,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4068,9 +4128,9 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4099,7 +4159,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -4111,6 +4171,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4131,9 +4192,9 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4162,7 +4223,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -4179,6 +4240,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4199,9 +4261,9 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4230,7 +4292,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -4284,6 +4346,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Curation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4302,10 +4365,10 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("curationId", &req.curation_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4332,7 +4395,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.curation, &method);
         self.inner.execute(builder, body, options).await
@@ -4344,6 +4407,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Curation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4364,9 +4428,9 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4395,7 +4459,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -4407,6 +4471,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCurationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4425,12 +4490,12 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4457,7 +4522,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -4469,6 +4534,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Curation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4492,7 +4558,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -4506,7 +4572,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4538,7 +4604,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.curation, &method);
         self.inner.execute(builder, body, options).await
@@ -4550,6 +4616,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4570,9 +4637,9 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4601,7 +4668,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -4618,6 +4685,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4631,12 +4699,12 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4658,7 +4726,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -4670,6 +4738,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4688,9 +4757,9 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4717,7 +4786,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -4729,6 +4798,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4747,14 +4817,14 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4781,7 +4851,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -4793,6 +4863,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4813,9 +4884,9 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4844,7 +4915,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -4856,6 +4927,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4876,9 +4948,9 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4907,7 +4979,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -4924,6 +4996,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4944,9 +5017,9 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4975,7 +5048,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -5015,6 +5088,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDiscoveredApiObservationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5033,11 +5107,11 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5064,7 +5138,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5076,6 +5150,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DiscoveredApiObservation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5096,9 +5171,9 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5127,7 +5202,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5139,6 +5214,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDiscoveredApiOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5159,11 +5235,11 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5192,7 +5268,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5204,6 +5280,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DiscoveredApiOperation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5214,11 +5291,9 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/discoveredApiObservations/"), Segment::SingleWildcard, Segment::Literal("/discoveredApiOperations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -5239,7 +5314,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5251,6 +5326,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5264,12 +5340,12 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5291,7 +5367,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5303,6 +5379,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5321,9 +5398,9 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5350,7 +5427,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5362,6 +5439,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5380,14 +5458,14 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5414,7 +5492,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5426,6 +5504,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5446,9 +5525,9 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5477,7 +5556,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5489,6 +5568,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5509,9 +5589,9 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5540,7 +5620,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -5557,6 +5637,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5577,9 +5658,9 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5608,7 +5689,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -5648,6 +5729,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::HostProjectRegistration>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5666,13 +5748,13 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[(
                     "hostProjectRegistrationId",
                     &req.host_project_registration_id,
                 )]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5699,7 +5781,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.host_project_registration, &method);
         self.inner.execute(builder, body, options).await
@@ -5711,6 +5793,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::HostProjectRegistration>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5731,9 +5814,9 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5762,7 +5845,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5774,6 +5857,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListHostProjectRegistrationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5792,13 +5876,13 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5825,7 +5909,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5837,6 +5921,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5850,12 +5935,12 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5877,7 +5962,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5889,6 +5974,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5907,9 +5993,9 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5936,7 +6022,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5948,6 +6034,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5966,14 +6053,14 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6000,7 +6087,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -6012,6 +6099,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6032,9 +6120,9 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6063,7 +6151,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -6075,6 +6163,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6095,9 +6184,9 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6126,7 +6215,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -6143,6 +6232,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6163,9 +6253,9 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6194,7 +6284,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -6234,6 +6324,7 @@ impl super::stub::LintingService for LintingService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::StyleGuide>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6255,9 +6346,9 @@ impl super::stub::LintingService for LintingService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6287,7 +6378,7 @@ impl super::stub::LintingService for LintingService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -6299,6 +6390,7 @@ impl super::stub::LintingService for LintingService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::StyleGuide>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6323,7 +6415,7 @@ impl super::stub::LintingService for LintingService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -6337,7 +6429,7 @@ impl super::stub::LintingService for LintingService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6370,7 +6462,7 @@ impl super::stub::LintingService for LintingService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.style_guide, &method);
         self.inner.execute(builder, body, options).await
@@ -6382,6 +6474,7 @@ impl super::stub::LintingService for LintingService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::StyleGuideContents>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6403,9 +6496,9 @@ impl super::stub::LintingService for LintingService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6435,7 +6528,7 @@ impl super::stub::LintingService for LintingService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -6447,6 +6540,7 @@ impl super::stub::LintingService for LintingService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6471,9 +6565,9 @@ impl super::stub::LintingService for LintingService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6506,7 +6600,7 @@ impl super::stub::LintingService for LintingService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -6523,6 +6617,7 @@ impl super::stub::LintingService for LintingService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6536,12 +6631,12 @@ impl super::stub::LintingService for LintingService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6563,7 +6658,7 @@ impl super::stub::LintingService for LintingService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -6575,6 +6670,7 @@ impl super::stub::LintingService for LintingService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6593,9 +6689,9 @@ impl super::stub::LintingService for LintingService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6622,7 +6718,7 @@ impl super::stub::LintingService for LintingService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -6634,6 +6730,7 @@ impl super::stub::LintingService for LintingService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6652,14 +6749,14 @@ impl super::stub::LintingService for LintingService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6686,7 +6783,7 @@ impl super::stub::LintingService for LintingService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -6698,6 +6795,7 @@ impl super::stub::LintingService for LintingService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6718,9 +6816,9 @@ impl super::stub::LintingService for LintingService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6749,7 +6847,7 @@ impl super::stub::LintingService for LintingService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -6761,6 +6859,7 @@ impl super::stub::LintingService for LintingService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6781,9 +6880,9 @@ impl super::stub::LintingService for LintingService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6812,7 +6911,7 @@ impl super::stub::LintingService for LintingService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -6829,6 +6928,7 @@ impl super::stub::LintingService for LintingService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6849,9 +6949,9 @@ impl super::stub::LintingService for LintingService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6880,7 +6980,7 @@ impl super::stub::LintingService for LintingService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -6920,6 +7020,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Plugin>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6940,9 +7041,9 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6971,7 +7072,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -6983,6 +7084,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Plugin>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7003,9 +7105,9 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7034,7 +7136,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -7046,6 +7148,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Plugin>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7066,9 +7169,9 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7097,7 +7200,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -7109,6 +7212,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Plugin>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7127,10 +7231,10 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("pluginId", &req.plugin_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7157,7 +7261,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.plugin, &method);
         self.inner.execute(builder, body, options).await
@@ -7169,6 +7273,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListPluginsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7187,12 +7292,12 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7219,7 +7324,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -7231,6 +7336,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7251,9 +7357,9 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7282,7 +7388,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -7294,6 +7400,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7314,10 +7421,10 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("pluginInstanceId", &req.plugin_instance_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7346,7 +7453,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.plugin_instance, &method);
         self.inner.execute(builder, body, options).await
@@ -7358,6 +7465,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7380,9 +7488,9 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7413,7 +7521,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -7425,6 +7533,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PluginInstance>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7447,9 +7556,9 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7480,7 +7589,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -7492,6 +7601,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListPluginInstancesResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7512,12 +7622,12 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7546,7 +7656,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -7558,6 +7668,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7580,9 +7691,9 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7613,7 +7724,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -7625,6 +7736,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7647,9 +7759,9 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7680,7 +7792,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -7692,6 +7804,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PluginInstance>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7717,7 +7830,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -7731,7 +7844,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7765,7 +7878,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.plugin_instance, &method);
         self.inner.execute(builder, body, options).await
@@ -7777,6 +7890,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7799,9 +7913,9 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7832,7 +7946,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -7844,6 +7958,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7857,12 +7972,12 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7884,7 +7999,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -7896,6 +8011,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7914,9 +8030,9 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7943,7 +8059,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -7955,6 +8071,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7973,14 +8090,14 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8007,7 +8124,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -8019,6 +8136,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8039,9 +8157,9 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8070,7 +8188,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -8082,6 +8200,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8102,9 +8221,9 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8133,7 +8252,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -8150,6 +8269,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8170,9 +8290,9 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8201,7 +8321,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -8255,6 +8375,7 @@ impl super::stub::Provisioning for Provisioning {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8273,10 +8394,10 @@ impl super::stub::Provisioning for Provisioning {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("apiHubInstanceId", &req.api_hub_instance_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8303,7 +8424,7 @@ impl super::stub::Provisioning for Provisioning {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.api_hub_instance, &method);
         self.inner.execute(builder, body, options).await
@@ -8315,6 +8436,7 @@ impl super::stub::Provisioning for Provisioning {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8335,9 +8457,9 @@ impl super::stub::Provisioning for Provisioning {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8366,7 +8488,7 @@ impl super::stub::Provisioning for Provisioning {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -8378,6 +8500,7 @@ impl super::stub::Provisioning for Provisioning {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ApiHubInstance>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8398,9 +8521,9 @@ impl super::stub::Provisioning for Provisioning {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8429,7 +8552,7 @@ impl super::stub::Provisioning for Provisioning {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -8441,6 +8564,7 @@ impl super::stub::Provisioning for Provisioning {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::LookupApiHubInstanceResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8459,9 +8583,9 @@ impl super::stub::Provisioning for Provisioning {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8488,7 +8612,7 @@ impl super::stub::Provisioning for Provisioning {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -8500,6 +8624,7 @@ impl super::stub::Provisioning for Provisioning {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8513,12 +8638,12 @@ impl super::stub::Provisioning for Provisioning {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8540,7 +8665,7 @@ impl super::stub::Provisioning for Provisioning {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -8552,6 +8677,7 @@ impl super::stub::Provisioning for Provisioning {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8570,9 +8696,9 @@ impl super::stub::Provisioning for Provisioning {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8599,7 +8725,7 @@ impl super::stub::Provisioning for Provisioning {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -8611,6 +8737,7 @@ impl super::stub::Provisioning for Provisioning {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8629,14 +8756,14 @@ impl super::stub::Provisioning for Provisioning {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8663,7 +8790,7 @@ impl super::stub::Provisioning for Provisioning {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -8675,6 +8802,7 @@ impl super::stub::Provisioning for Provisioning {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8695,9 +8823,9 @@ impl super::stub::Provisioning for Provisioning {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8726,7 +8854,7 @@ impl super::stub::Provisioning for Provisioning {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -8738,6 +8866,7 @@ impl super::stub::Provisioning for Provisioning {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8758,9 +8887,9 @@ impl super::stub::Provisioning for Provisioning {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8789,7 +8918,7 @@ impl super::stub::Provisioning for Provisioning {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -8806,6 +8935,7 @@ impl super::stub::Provisioning for Provisioning {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8826,9 +8956,9 @@ impl super::stub::Provisioning for Provisioning {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8857,7 +8987,7 @@ impl super::stub::Provisioning for Provisioning {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -8911,6 +9041,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RuntimeProjectAttachment>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8929,13 +9060,13 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[(
                     "runtimeProjectAttachmentId",
                     &req.runtime_project_attachment_id,
                 )]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8962,7 +9093,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.runtime_project_attachment, &method);
         self.inner.execute(builder, body, options).await
@@ -8974,6 +9105,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RuntimeProjectAttachment>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8994,9 +9126,9 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9025,7 +9157,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -9037,6 +9169,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRuntimeProjectAttachmentsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9055,13 +9188,13 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9088,7 +9221,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -9100,6 +9233,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9120,9 +9254,9 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9151,7 +9285,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -9168,6 +9302,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::LookupRuntimeProjectAttachmentResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9186,9 +9321,9 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9215,7 +9350,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -9227,6 +9362,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9240,12 +9376,12 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9267,7 +9403,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -9279,6 +9415,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9297,9 +9434,9 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9326,7 +9463,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -9338,6 +9475,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9356,14 +9494,14 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9390,7 +9528,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -9402,6 +9540,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9422,9 +9561,9 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9453,7 +9592,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -9465,6 +9604,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9485,9 +9625,9 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9516,7 +9656,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -9533,6 +9673,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9553,9 +9694,9 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9584,7 +9725,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(

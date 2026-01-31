@@ -73,6 +73,7 @@ impl super::stub::AssistantService for AssistantService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -83,15 +84,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -99,15 +98,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -115,15 +112,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -131,15 +126,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -147,15 +140,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -163,15 +154,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -179,15 +168,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -195,15 +182,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -211,15 +196,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -227,15 +210,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -243,15 +224,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -259,15 +238,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -275,15 +252,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -291,15 +266,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -307,15 +280,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -323,15 +294,13 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -487,7 +456,7 @@ impl super::stub::AssistantService for AssistantService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -499,6 +468,7 @@ impl super::stub::AssistantService for AssistantService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -509,11 +479,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -521,11 +489,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -533,11 +499,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -545,11 +509,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -557,11 +519,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -569,11 +529,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -581,11 +539,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -593,11 +549,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -605,11 +559,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -617,11 +569,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -629,11 +579,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -641,11 +589,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -653,11 +599,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -665,11 +609,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -677,11 +619,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -689,11 +629,9 @@ impl super::stub::AssistantService for AssistantService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -849,7 +787,7 @@ impl super::stub::AssistantService for AssistantService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -861,6 +799,7 @@ impl super::stub::AssistantService for AssistantService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -879,9 +818,9 @@ impl super::stub::AssistantService for AssistantService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -905,9 +844,9 @@ impl super::stub::AssistantService for AssistantService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -929,9 +868,9 @@ impl super::stub::AssistantService for AssistantService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -953,9 +892,9 @@ impl super::stub::AssistantService for AssistantService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1047,7 +986,7 @@ impl super::stub::AssistantService for AssistantService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -1091,6 +1030,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1113,10 +1053,10 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = builder.query(&[("setDefault", &req.set_default)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1137,10 +1077,10 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = builder.query(&[("setDefault", &req.set_default)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1191,7 +1131,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.config, &method);
         self.inner.execute(builder, body, options).await
@@ -1203,6 +1143,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CmekConfig>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1222,9 +1163,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1242,9 +1183,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1289,7 +1230,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1301,6 +1242,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCmekConfigsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1319,9 +1261,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1348,7 +1290,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1360,6 +1302,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1380,9 +1323,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1411,7 +1354,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1423,6 +1366,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1433,15 +1377,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1449,15 +1391,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1465,15 +1405,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1481,15 +1419,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1497,15 +1433,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1513,15 +1447,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1529,15 +1461,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1545,15 +1475,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1561,15 +1489,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1577,15 +1503,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1593,15 +1517,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1609,15 +1531,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1625,15 +1545,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1641,15 +1559,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1657,15 +1573,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1673,15 +1587,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -1837,7 +1749,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -1849,6 +1761,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1859,11 +1772,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1871,11 +1782,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1883,11 +1792,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1895,11 +1802,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1907,11 +1812,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1919,11 +1822,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1931,11 +1832,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1943,11 +1842,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1955,11 +1852,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1967,11 +1862,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1979,11 +1872,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -1991,11 +1882,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -2003,11 +1892,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -2015,11 +1902,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -2027,11 +1912,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -2039,11 +1922,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2199,7 +2080,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2211,6 +2092,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2229,9 +2111,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2255,9 +2137,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2279,9 +2161,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2303,9 +2185,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2397,7 +2279,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -2455,6 +2337,7 @@ impl super::stub::CompletionService for CompletionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CompleteQueryResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2475,14 +2358,14 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("query", &req.query)]);
                 let builder = builder.query(&[("queryModel", &req.query_model)]);
                 let builder = builder.query(&[("userPseudoId", &req.user_pseudo_id)]);
                 let builder =
                     builder.query(&[("includeTailSuggestions", &req.include_tail_suggestions)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2502,14 +2385,14 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("query", &req.query)]);
                 let builder = builder.query(&[("queryModel", &req.query_model)]);
                 let builder = builder.query(&[("userPseudoId", &req.user_pseudo_id)]);
                 let builder =
                     builder.query(&[("includeTailSuggestions", &req.include_tail_suggestions)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2557,7 +2440,7 @@ impl super::stub::CompletionService for CompletionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -2569,6 +2452,7 @@ impl super::stub::CompletionService for CompletionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2591,9 +2475,9 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2611,9 +2495,9 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2661,7 +2545,7 @@ impl super::stub::CompletionService for CompletionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -2673,6 +2557,7 @@ impl super::stub::CompletionService for CompletionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2695,9 +2580,9 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2715,9 +2600,9 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2765,7 +2650,7 @@ impl super::stub::CompletionService for CompletionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -2777,6 +2662,7 @@ impl super::stub::CompletionService for CompletionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2799,9 +2685,9 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2819,9 +2705,9 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2869,7 +2755,7 @@ impl super::stub::CompletionService for CompletionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -2881,6 +2767,7 @@ impl super::stub::CompletionService for CompletionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2903,9 +2790,9 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2923,9 +2810,9 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2973,7 +2860,7 @@ impl super::stub::CompletionService for CompletionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -2985,6 +2872,7 @@ impl super::stub::CompletionService for CompletionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2995,15 +2883,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3011,15 +2897,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3027,15 +2911,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3043,15 +2925,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3059,15 +2939,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3075,15 +2953,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3091,15 +2967,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3107,15 +2981,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3123,15 +2995,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3139,15 +3009,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3155,15 +3023,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3171,15 +3037,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3187,15 +3051,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3203,15 +3065,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3219,15 +3079,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3235,15 +3093,13 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -3399,7 +3255,7 @@ impl super::stub::CompletionService for CompletionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3411,6 +3267,7 @@ impl super::stub::CompletionService for CompletionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3421,11 +3278,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3433,11 +3288,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3445,11 +3298,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3457,11 +3308,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3469,11 +3318,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3481,11 +3328,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3493,11 +3338,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3505,11 +3348,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3517,11 +3358,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3529,11 +3368,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3541,11 +3378,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3553,11 +3388,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3565,11 +3398,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3577,11 +3408,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3589,11 +3418,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -3601,11 +3428,9 @@ impl super::stub::CompletionService for CompletionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -3761,7 +3586,7 @@ impl super::stub::CompletionService for CompletionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -3773,6 +3598,7 @@ impl super::stub::CompletionService for CompletionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3791,9 +3617,9 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3817,9 +3643,9 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3841,9 +3667,9 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3865,9 +3691,9 @@ impl super::stub::CompletionService for CompletionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3959,7 +3785,7 @@ impl super::stub::CompletionService for CompletionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -4017,6 +3843,7 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Control>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4037,10 +3864,10 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("controlId", &req.control_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4060,10 +3887,10 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("controlId", &req.control_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4083,10 +3910,10 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("controlId", &req.control_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4153,7 +3980,7 @@ impl super::stub::ControlService for ControlService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.control, &method);
         self.inner.execute(builder, body, options).await
@@ -4165,6 +3992,7 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4187,9 +4015,9 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4211,9 +4039,9 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4235,9 +4063,9 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4310,7 +4138,7 @@ impl super::stub::ControlService for ControlService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -4327,6 +4155,7 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Control>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4352,7 +4181,7 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -4366,7 +4195,7 @@ impl super::stub::ControlService for ControlService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4391,7 +4220,7 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -4405,7 +4234,7 @@ impl super::stub::ControlService for ControlService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4430,7 +4259,7 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -4444,7 +4273,7 @@ impl super::stub::ControlService for ControlService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4526,7 +4355,7 @@ impl super::stub::ControlService for ControlService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.control, &method);
         self.inner.execute(builder, body, options).await
@@ -4538,6 +4367,7 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Control>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4560,9 +4390,9 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4584,9 +4414,9 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4608,9 +4438,9 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4683,7 +4513,7 @@ impl super::stub::ControlService for ControlService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -4695,6 +4525,7 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListControlsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4715,12 +4546,12 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4740,12 +4571,12 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4765,12 +4596,12 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4837,7 +4668,7 @@ impl super::stub::ControlService for ControlService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -4849,6 +4680,7 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4859,15 +4691,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -4875,15 +4705,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -4891,15 +4719,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -4907,15 +4733,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -4923,15 +4747,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -4939,15 +4761,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -4955,15 +4775,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -4971,15 +4789,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -4987,15 +4803,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5003,15 +4817,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5019,15 +4831,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5035,15 +4845,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5051,15 +4859,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5067,15 +4873,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5083,15 +4887,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5099,15 +4901,13 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -5263,7 +5063,7 @@ impl super::stub::ControlService for ControlService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5275,6 +5075,7 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5285,11 +5086,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5297,11 +5096,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5309,11 +5106,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5321,11 +5116,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5333,11 +5126,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5345,11 +5136,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5357,11 +5146,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5369,11 +5156,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5381,11 +5166,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5393,11 +5176,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5405,11 +5186,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5417,11 +5196,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5429,11 +5206,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5441,11 +5216,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5453,11 +5226,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -5465,11 +5236,9 @@ impl super::stub::ControlService for ControlService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -5625,7 +5394,7 @@ impl super::stub::ControlService for ControlService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -5637,6 +5406,7 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5655,9 +5425,9 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5681,9 +5451,9 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5705,9 +5475,9 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5729,9 +5499,9 @@ impl super::stub::ControlService for ControlService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5823,7 +5593,7 @@ impl super::stub::ControlService for ControlService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -5867,6 +5637,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ConverseConversationResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5889,9 +5660,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5913,9 +5684,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5937,9 +5708,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6012,7 +5783,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -6024,6 +5795,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6044,9 +5816,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6066,9 +5838,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6088,9 +5860,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6157,7 +5929,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.conversation, &method);
         self.inner.execute(builder, body, options).await
@@ -6169,6 +5941,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6191,9 +5964,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6215,9 +5988,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6239,9 +6012,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6314,7 +6087,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -6331,6 +6104,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6356,7 +6130,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -6370,7 +6144,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6395,7 +6169,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -6409,7 +6183,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6434,7 +6208,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -6448,7 +6222,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6530,7 +6304,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.conversation, &method);
         self.inner.execute(builder, body, options).await
@@ -6542,6 +6316,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6564,9 +6339,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6588,9 +6363,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6612,9 +6387,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6687,7 +6462,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -6699,6 +6474,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListConversationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6719,13 +6495,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6745,13 +6521,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6771,13 +6547,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6844,7 +6620,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -6856,6 +6632,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnswerQueryResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6878,9 +6655,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6902,9 +6679,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6926,9 +6703,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7001,7 +6778,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -7013,6 +6790,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Answer>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7037,9 +6815,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7063,9 +6841,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7089,9 +6867,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7170,7 +6948,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -7182,6 +6960,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Session>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7202,9 +6981,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7224,9 +7003,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7246,9 +7025,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7315,7 +7094,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.session, &method);
         self.inner.execute(builder, body, options).await
@@ -7327,6 +7106,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7349,9 +7129,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7373,9 +7153,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7397,9 +7177,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7472,7 +7252,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -7489,6 +7269,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Session>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7514,7 +7295,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -7528,7 +7309,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7553,7 +7334,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -7567,7 +7348,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7592,7 +7373,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -7606,7 +7387,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7688,7 +7469,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.session, &method);
         self.inner.execute(builder, body, options).await
@@ -7700,6 +7481,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Session>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7722,11 +7504,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7748,11 +7530,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7774,11 +7556,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7851,7 +7633,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -7863,6 +7645,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSessionsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -7883,13 +7666,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7909,13 +7692,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7935,13 +7718,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8008,7 +7791,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -8020,6 +7803,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8030,15 +7814,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8046,15 +7828,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8062,15 +7842,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8078,15 +7856,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8094,15 +7870,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8110,15 +7884,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8126,15 +7898,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8142,15 +7912,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8158,15 +7926,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8174,15 +7940,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8190,15 +7954,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8206,15 +7968,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8222,15 +7982,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8238,15 +7996,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8254,15 +8010,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8270,15 +8024,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -8434,7 +8186,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -8446,6 +8198,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8456,11 +8209,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8468,11 +8219,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8480,11 +8229,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8492,11 +8239,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8504,11 +8249,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8516,11 +8259,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8528,11 +8269,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8540,11 +8279,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8552,11 +8289,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8564,11 +8299,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8576,11 +8309,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8588,11 +8319,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8600,11 +8329,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8612,11 +8339,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8624,11 +8349,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -8636,11 +8359,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -8796,7 +8517,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -8808,6 +8529,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -8826,9 +8548,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8852,9 +8574,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8876,9 +8598,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8900,9 +8622,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8994,7 +8716,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -9038,6 +8760,7 @@ impl super::stub::DataStoreService for DataStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9056,7 +8779,7 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = req.cmek_config_name().iter().fold(builder, |builder, p| {
                     builder.query(&[("cmekConfigName", p)])
                 });
@@ -9072,7 +8795,7 @@ impl super::stub::DataStoreService for DataStoreService {
                     &req.skip_default_schema_creation,
                 )]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9090,7 +8813,7 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = req.cmek_config_name().iter().fold(builder, |builder, p| {
                     builder.query(&[("cmekConfigName", p)])
                 });
@@ -9106,7 +8829,7 @@ impl super::stub::DataStoreService for DataStoreService {
                     &req.skip_default_schema_creation,
                 )]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9150,7 +8873,7 @@ impl super::stub::DataStoreService for DataStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.data_store, &method);
         self.inner.execute(builder, body, options).await
@@ -9162,6 +8885,7 @@ impl super::stub::DataStoreService for DataStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DataStore>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9182,9 +8906,9 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9204,9 +8928,9 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9254,7 +8978,7 @@ impl super::stub::DataStoreService for DataStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -9266,6 +8990,7 @@ impl super::stub::DataStoreService for DataStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDataStoresResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9284,12 +9009,12 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9307,12 +9032,12 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9356,7 +9081,7 @@ impl super::stub::DataStoreService for DataStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -9368,6 +9093,7 @@ impl super::stub::DataStoreService for DataStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9388,9 +9114,9 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9410,9 +9136,9 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9460,7 +9186,7 @@ impl super::stub::DataStoreService for DataStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -9472,6 +9198,7 @@ impl super::stub::DataStoreService for DataStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DataStore>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9495,7 +9222,7 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -9509,7 +9236,7 @@ impl super::stub::DataStoreService for DataStoreService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9532,7 +9259,7 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -9546,7 +9273,7 @@ impl super::stub::DataStoreService for DataStoreService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9600,7 +9327,7 @@ impl super::stub::DataStoreService for DataStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.data_store, &method);
         self.inner.execute(builder, body, options).await
@@ -9612,6 +9339,7 @@ impl super::stub::DataStoreService for DataStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -9622,15 +9350,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9638,15 +9364,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9654,15 +9378,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9670,15 +9392,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9686,15 +9406,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9702,15 +9420,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9718,15 +9434,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9734,15 +9448,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9750,15 +9462,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9766,15 +9476,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9782,15 +9490,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9798,15 +9504,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9814,15 +9518,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9830,15 +9532,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9846,15 +9546,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -9862,15 +9560,13 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -10026,7 +9722,7 @@ impl super::stub::DataStoreService for DataStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -10038,6 +9734,7 @@ impl super::stub::DataStoreService for DataStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -10048,11 +9745,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10060,11 +9755,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10072,11 +9765,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10084,11 +9775,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10096,11 +9785,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10108,11 +9795,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10120,11 +9805,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10132,11 +9815,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10144,11 +9825,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10156,11 +9835,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10168,11 +9845,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10180,11 +9855,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10192,11 +9865,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10204,11 +9875,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10216,11 +9885,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -10228,11 +9895,9 @@ impl super::stub::DataStoreService for DataStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -10388,7 +10053,7 @@ impl super::stub::DataStoreService for DataStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -10400,6 +10065,7 @@ impl super::stub::DataStoreService for DataStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -10418,9 +10084,9 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10444,9 +10110,9 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10468,9 +10134,9 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10492,9 +10158,9 @@ impl super::stub::DataStoreService for DataStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10586,7 +10252,7 @@ impl super::stub::DataStoreService for DataStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -10644,6 +10310,7 @@ impl super::stub::DocumentService for DocumentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -10668,9 +10335,9 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10694,9 +10361,9 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10752,7 +10419,7 @@ impl super::stub::DocumentService for DocumentService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -10764,6 +10431,7 @@ impl super::stub::DocumentService for DocumentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -10786,11 +10454,11 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10812,11 +10480,11 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10868,7 +10536,7 @@ impl super::stub::DocumentService for DocumentService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -10880,6 +10548,7 @@ impl super::stub::DocumentService for DocumentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -10902,10 +10571,10 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("documentId", &req.document_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10927,10 +10596,10 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("documentId", &req.document_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10982,7 +10651,7 @@ impl super::stub::DocumentService for DocumentService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.document, &method);
         self.inner.execute(builder, body, options).await
@@ -10994,6 +10663,7 @@ impl super::stub::DocumentService for DocumentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -11021,7 +10691,7 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
                     let builder = req
@@ -11036,7 +10706,7 @@ impl super::stub::DocumentService for DocumentService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11063,7 +10733,7 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
                     let builder = req
@@ -11078,7 +10748,7 @@ impl super::stub::DocumentService for DocumentService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11140,7 +10810,7 @@ impl super::stub::DocumentService for DocumentService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.document, &method);
         self.inner.execute(builder, body, options).await
@@ -11152,6 +10822,7 @@ impl super::stub::DocumentService for DocumentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -11176,9 +10847,9 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11202,9 +10873,9 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11260,7 +10931,7 @@ impl super::stub::DocumentService for DocumentService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -11277,6 +10948,7 @@ impl super::stub::DocumentService for DocumentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -11299,9 +10971,9 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11323,9 +10995,9 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11377,7 +11049,7 @@ impl super::stub::DocumentService for DocumentService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -11389,6 +11061,7 @@ impl super::stub::DocumentService for DocumentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -11411,9 +11084,9 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11435,9 +11108,9 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11489,7 +11162,7 @@ impl super::stub::DocumentService for DocumentService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -11501,6 +11174,7 @@ impl super::stub::DocumentService for DocumentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchGetDocumentsMetadataResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -11523,7 +11197,7 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
                         .matcher
@@ -11537,7 +11211,7 @@ impl super::stub::DocumentService for DocumentService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -11559,7 +11233,7 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
                         .matcher
@@ -11573,7 +11247,7 @@ impl super::stub::DocumentService for DocumentService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11625,7 +11299,7 @@ impl super::stub::DocumentService for DocumentService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -11637,6 +11311,7 @@ impl super::stub::DocumentService for DocumentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -11647,15 +11322,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11663,15 +11336,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11679,15 +11350,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11695,15 +11364,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11711,15 +11378,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11727,15 +11392,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11743,15 +11406,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11759,15 +11420,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11775,15 +11434,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11791,15 +11448,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11807,15 +11462,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11823,15 +11476,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11839,15 +11490,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11855,15 +11504,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11871,15 +11518,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -11887,15 +11532,13 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -12051,7 +11694,7 @@ impl super::stub::DocumentService for DocumentService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -12063,6 +11706,7 @@ impl super::stub::DocumentService for DocumentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -12073,11 +11717,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12085,11 +11727,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12097,11 +11737,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12109,11 +11747,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12121,11 +11757,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12133,11 +11767,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12145,11 +11777,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12157,11 +11787,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12169,11 +11797,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12181,11 +11807,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12193,11 +11817,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12205,11 +11827,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12217,11 +11837,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12229,11 +11847,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12241,11 +11857,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -12253,11 +11867,9 @@ impl super::stub::DocumentService for DocumentService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -12413,7 +12025,7 @@ impl super::stub::DocumentService for DocumentService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -12425,6 +12037,7 @@ impl super::stub::DocumentService for DocumentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -12443,9 +12056,9 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12469,9 +12082,9 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12493,9 +12106,9 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12517,9 +12130,9 @@ impl super::stub::DocumentService for DocumentService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12611,7 +12224,7 @@ impl super::stub::DocumentService for DocumentService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -12669,6 +12282,7 @@ impl super::stub::EngineService for EngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -12689,10 +12303,10 @@ impl super::stub::EngineService for EngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("engineId", &req.engine_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12721,7 +12335,7 @@ impl super::stub::EngineService for EngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.engine, &method);
         self.inner.execute(builder, body, options).await
@@ -12733,6 +12347,7 @@ impl super::stub::EngineService for EngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -12755,9 +12370,9 @@ impl super::stub::EngineService for EngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12788,7 +12403,7 @@ impl super::stub::EngineService for EngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -12800,6 +12415,7 @@ impl super::stub::EngineService for EngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Engine>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -12825,7 +12441,7 @@ impl super::stub::EngineService for EngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -12839,7 +12455,7 @@ impl super::stub::EngineService for EngineService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12873,7 +12489,7 @@ impl super::stub::EngineService for EngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.engine, &method);
         self.inner.execute(builder, body, options).await
@@ -12885,6 +12501,7 @@ impl super::stub::EngineService for EngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Engine>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -12907,9 +12524,9 @@ impl super::stub::EngineService for EngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12940,7 +12557,7 @@ impl super::stub::EngineService for EngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -12952,6 +12569,7 @@ impl super::stub::EngineService for EngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListEnginesResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -12972,12 +12590,12 @@ impl super::stub::EngineService for EngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13006,7 +12624,7 @@ impl super::stub::EngineService for EngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -13018,6 +12636,7 @@ impl super::stub::EngineService for EngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -13028,15 +12647,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13044,15 +12661,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13060,15 +12675,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13076,15 +12689,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13092,15 +12703,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13108,15 +12717,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13124,15 +12731,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13140,15 +12745,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13156,15 +12759,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13172,15 +12773,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13188,15 +12787,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13204,15 +12801,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13220,15 +12815,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13236,15 +12829,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13252,15 +12843,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13268,15 +12857,13 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -13432,7 +13019,7 @@ impl super::stub::EngineService for EngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -13444,6 +13031,7 @@ impl super::stub::EngineService for EngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -13454,11 +13042,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13466,11 +13052,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13478,11 +13062,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13490,11 +13072,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13502,11 +13082,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13514,11 +13092,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13526,11 +13102,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13538,11 +13112,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13550,11 +13122,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13562,11 +13132,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13574,11 +13142,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13586,11 +13152,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13598,11 +13162,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13610,11 +13172,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13622,11 +13182,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -13634,11 +13192,9 @@ impl super::stub::EngineService for EngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -13794,7 +13350,7 @@ impl super::stub::EngineService for EngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -13806,6 +13362,7 @@ impl super::stub::EngineService for EngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -13824,9 +13381,9 @@ impl super::stub::EngineService for EngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -13850,9 +13407,9 @@ impl super::stub::EngineService for EngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -13874,9 +13431,9 @@ impl super::stub::EngineService for EngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -13898,9 +13455,9 @@ impl super::stub::EngineService for EngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13992,7 +13549,7 @@ impl super::stub::EngineService for EngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -14050,6 +13607,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateGroundedContentResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -14068,9 +13626,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14097,7 +13655,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -14109,6 +13667,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CheckGroundingResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -14129,9 +13688,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14160,7 +13719,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -14172,6 +13731,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -14182,15 +13742,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14198,15 +13756,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14214,15 +13770,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14230,15 +13784,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14246,15 +13798,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14262,15 +13812,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14278,15 +13826,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14294,15 +13840,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14310,15 +13854,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14326,15 +13868,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14342,15 +13882,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14358,15 +13896,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14374,15 +13910,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14390,15 +13924,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14406,15 +13938,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14422,15 +13952,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -14586,7 +14114,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -14598,6 +14126,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -14608,11 +14137,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14620,11 +14147,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14632,11 +14157,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14644,11 +14167,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14656,11 +14177,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14668,11 +14187,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14680,11 +14197,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14692,11 +14207,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14704,11 +14217,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14716,11 +14227,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14728,11 +14237,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14740,11 +14247,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14752,11 +14257,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14764,11 +14267,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14776,11 +14277,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -14788,11 +14287,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -14948,7 +14445,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -14960,6 +14457,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -14978,9 +14476,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15004,9 +14502,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15028,9 +14526,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15052,9 +14550,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15146,7 +14644,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -15190,6 +14688,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IdentityMappingStore>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -15208,7 +14707,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = req.cmek_config_name().iter().fold(builder, |builder, p| {
                     builder.query(&[("cmekConfigName", p)])
                 });
@@ -15219,7 +14718,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 let builder =
                     builder.query(&[("identityMappingStoreId", &req.identity_mapping_store_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15246,7 +14745,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.identity_mapping_store, &method);
         self.inner.execute(builder, body, options).await
@@ -15258,6 +14757,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IdentityMappingStore>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -15278,9 +14778,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15309,7 +14809,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -15321,6 +14821,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -15341,9 +14842,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15372,7 +14873,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -15384,6 +14885,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -15406,9 +14908,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15439,7 +14941,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -15451,6 +14953,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -15473,9 +14976,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15506,7 +15009,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -15518,6 +15021,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListIdentityMappingsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -15540,11 +15044,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15575,7 +15079,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -15587,6 +15091,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListIdentityMappingStoresResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -15605,11 +15110,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15636,7 +15141,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -15648,6 +15153,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -15658,15 +15164,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15674,15 +15178,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15690,15 +15192,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15706,15 +15206,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15722,15 +15220,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15738,15 +15234,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15754,15 +15248,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15770,15 +15262,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15786,15 +15276,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15802,15 +15290,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15818,15 +15304,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15834,15 +15318,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15850,15 +15332,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15866,15 +15346,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15882,15 +15360,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -15898,15 +15374,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -16062,7 +15536,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -16074,6 +15548,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -16084,11 +15559,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16096,11 +15569,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16108,11 +15579,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16120,11 +15589,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16132,11 +15599,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16144,11 +15609,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16156,11 +15619,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16168,11 +15629,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16180,11 +15639,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16192,11 +15649,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16204,11 +15659,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16216,11 +15669,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16228,11 +15679,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16240,11 +15689,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16252,11 +15699,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16264,11 +15709,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -16424,7 +15867,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -16436,6 +15879,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -16454,9 +15898,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16480,9 +15924,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16504,9 +15948,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16528,9 +15972,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16622,7 +16066,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -16680,6 +16124,7 @@ impl super::stub::ProjectService for ProjectService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -16693,9 +16138,9 @@ impl super::stub::ProjectService for ProjectService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16717,7 +16162,7 @@ impl super::stub::ProjectService for ProjectService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -16729,6 +16174,7 @@ impl super::stub::ProjectService for ProjectService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -16739,15 +16185,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16755,15 +16199,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16771,15 +16213,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16787,15 +16227,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16803,15 +16241,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16819,15 +16255,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16835,15 +16269,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16851,15 +16283,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16867,15 +16297,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16883,15 +16311,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16899,15 +16325,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16915,15 +16339,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16931,15 +16353,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16947,15 +16367,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16963,15 +16381,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -16979,15 +16395,13 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -17143,7 +16557,7 @@ impl super::stub::ProjectService for ProjectService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -17155,6 +16569,7 @@ impl super::stub::ProjectService for ProjectService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -17165,11 +16580,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17177,11 +16590,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17189,11 +16600,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17201,11 +16610,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17213,11 +16620,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17225,11 +16630,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17237,11 +16640,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17249,11 +16650,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17261,11 +16660,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17273,11 +16670,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17285,11 +16680,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17297,11 +16690,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17309,11 +16700,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17321,11 +16710,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17333,11 +16720,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17345,11 +16730,9 @@ impl super::stub::ProjectService for ProjectService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -17505,7 +16888,7 @@ impl super::stub::ProjectService for ProjectService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -17517,6 +16900,7 @@ impl super::stub::ProjectService for ProjectService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -17535,9 +16919,9 @@ impl super::stub::ProjectService for ProjectService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17561,9 +16945,9 @@ impl super::stub::ProjectService for ProjectService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17585,9 +16969,9 @@ impl super::stub::ProjectService for ProjectService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17609,9 +16993,9 @@ impl super::stub::ProjectService for ProjectService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17703,7 +17087,7 @@ impl super::stub::ProjectService for ProjectService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -17761,6 +17145,7 @@ impl super::stub::RankService for RankService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RankResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -17781,9 +17166,9 @@ impl super::stub::RankService for RankService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17812,7 +17197,7 @@ impl super::stub::RankService for RankService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -17824,6 +17209,7 @@ impl super::stub::RankService for RankService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -17834,15 +17220,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17850,15 +17234,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17866,15 +17248,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17882,15 +17262,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17898,15 +17276,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17914,15 +17290,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17930,15 +17304,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17946,15 +17318,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17962,15 +17332,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17978,15 +17346,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -17994,15 +17360,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18010,15 +17374,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18026,15 +17388,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18042,15 +17402,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18058,15 +17416,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18074,15 +17430,13 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -18238,7 +17592,7 @@ impl super::stub::RankService for RankService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -18250,6 +17604,7 @@ impl super::stub::RankService for RankService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -18260,11 +17615,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18272,11 +17625,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18284,11 +17635,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18296,11 +17645,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18308,11 +17655,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18320,11 +17665,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18332,11 +17675,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18344,11 +17685,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18356,11 +17695,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18368,11 +17705,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18380,11 +17715,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18392,11 +17725,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18404,11 +17735,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18416,11 +17745,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18428,11 +17755,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -18440,11 +17765,9 @@ impl super::stub::RankService for RankService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -18600,7 +17923,7 @@ impl super::stub::RankService for RankService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -18612,6 +17935,7 @@ impl super::stub::RankService for RankService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -18630,9 +17954,9 @@ impl super::stub::RankService for RankService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18656,9 +17980,9 @@ impl super::stub::RankService for RankService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18680,9 +18004,9 @@ impl super::stub::RankService for RankService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18704,9 +18028,9 @@ impl super::stub::RankService for RankService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18798,7 +18122,7 @@ impl super::stub::RankService for RankService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -18842,6 +18166,7 @@ impl super::stub::RecommendationService for RecommendationService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RecommendResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -18864,9 +18189,9 @@ impl super::stub::RecommendationService for RecommendationService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18888,9 +18213,9 @@ impl super::stub::RecommendationService for RecommendationService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18912,9 +18237,9 @@ impl super::stub::RecommendationService for RecommendationService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18987,7 +18312,7 @@ impl super::stub::RecommendationService for RecommendationService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -18999,6 +18324,7 @@ impl super::stub::RecommendationService for RecommendationService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -19009,15 +18335,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19025,15 +18349,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19041,15 +18363,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19057,15 +18377,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19073,15 +18391,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19089,15 +18405,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19105,15 +18419,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19121,15 +18433,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19137,15 +18447,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19153,15 +18461,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19169,15 +18475,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19185,15 +18489,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19201,15 +18503,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19217,15 +18517,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19233,15 +18531,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19249,15 +18545,13 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -19413,7 +18707,7 @@ impl super::stub::RecommendationService for RecommendationService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -19425,6 +18719,7 @@ impl super::stub::RecommendationService for RecommendationService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -19435,11 +18730,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19447,11 +18740,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19459,11 +18750,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19471,11 +18760,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19483,11 +18770,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19495,11 +18780,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19507,11 +18790,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19519,11 +18800,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19531,11 +18810,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19543,11 +18820,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19555,11 +18830,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19567,11 +18840,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19579,11 +18850,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19591,11 +18860,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19603,11 +18870,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -19615,11 +18880,9 @@ impl super::stub::RecommendationService for RecommendationService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -19775,7 +19038,7 @@ impl super::stub::RecommendationService for RecommendationService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -19787,6 +19050,7 @@ impl super::stub::RecommendationService for RecommendationService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -19805,9 +19069,9 @@ impl super::stub::RecommendationService for RecommendationService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19831,9 +19095,9 @@ impl super::stub::RecommendationService for RecommendationService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19855,9 +19119,9 @@ impl super::stub::RecommendationService for RecommendationService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19879,9 +19143,9 @@ impl super::stub::RecommendationService for RecommendationService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19973,7 +19237,7 @@ impl super::stub::RecommendationService for RecommendationService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -20017,6 +19281,7 @@ impl super::stub::SchemaService for SchemaService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Schema>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -20039,9 +19304,9 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20063,9 +19328,9 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20117,7 +19382,7 @@ impl super::stub::SchemaService for SchemaService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -20129,6 +19394,7 @@ impl super::stub::SchemaService for SchemaService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSchemasResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -20149,11 +19415,11 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20173,11 +19439,11 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20225,7 +19491,7 @@ impl super::stub::SchemaService for SchemaService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -20237,6 +19503,7 @@ impl super::stub::SchemaService for SchemaService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -20257,10 +19524,10 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("schemaId", &req.schema_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20280,10 +19547,10 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("schemaId", &req.schema_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20331,7 +19598,7 @@ impl super::stub::SchemaService for SchemaService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.schema, &method);
         self.inner.execute(builder, body, options).await
@@ -20343,6 +19610,7 @@ impl super::stub::SchemaService for SchemaService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -20368,10 +19636,10 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20396,10 +19664,10 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20457,7 +19725,7 @@ impl super::stub::SchemaService for SchemaService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.schema, &method);
         self.inner.execute(builder, body, options).await
@@ -20469,6 +19737,7 @@ impl super::stub::SchemaService for SchemaService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -20491,9 +19760,9 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20515,9 +19784,9 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20569,7 +19838,7 @@ impl super::stub::SchemaService for SchemaService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -20581,6 +19850,7 @@ impl super::stub::SchemaService for SchemaService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -20591,15 +19861,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20607,15 +19875,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20623,15 +19889,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20639,15 +19903,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20655,15 +19917,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20671,15 +19931,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20687,15 +19945,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20703,15 +19959,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20719,15 +19973,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20735,15 +19987,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20751,15 +20001,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20767,15 +20015,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20783,15 +20029,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20799,15 +20043,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20815,15 +20057,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -20831,15 +20071,13 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -20995,7 +20233,7 @@ impl super::stub::SchemaService for SchemaService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -21007,6 +20245,7 @@ impl super::stub::SchemaService for SchemaService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -21017,11 +20256,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21029,11 +20266,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21041,11 +20276,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21053,11 +20286,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21065,11 +20296,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21077,11 +20306,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21089,11 +20316,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21101,11 +20326,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21113,11 +20336,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21125,11 +20346,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21137,11 +20356,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21149,11 +20366,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21161,11 +20376,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21173,11 +20386,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21185,11 +20396,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21197,11 +20406,9 @@ impl super::stub::SchemaService for SchemaService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -21357,7 +20564,7 @@ impl super::stub::SchemaService for SchemaService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -21369,6 +20576,7 @@ impl super::stub::SchemaService for SchemaService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -21387,9 +20595,9 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21413,9 +20621,9 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21437,9 +20645,9 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21461,9 +20669,9 @@ impl super::stub::SchemaService for SchemaService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21555,7 +20763,7 @@ impl super::stub::SchemaService for SchemaService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -21613,6 +20821,7 @@ impl super::stub::SearchService for SearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -21635,9 +20844,9 @@ impl super::stub::SearchService for SearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21659,9 +20868,9 @@ impl super::stub::SearchService for SearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21683,9 +20892,9 @@ impl super::stub::SearchService for SearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21758,7 +20967,7 @@ impl super::stub::SearchService for SearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -21770,6 +20979,7 @@ impl super::stub::SearchService for SearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -21792,9 +21002,9 @@ impl super::stub::SearchService for SearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21816,9 +21026,9 @@ impl super::stub::SearchService for SearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21840,9 +21050,9 @@ impl super::stub::SearchService for SearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21915,7 +21125,7 @@ impl super::stub::SearchService for SearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -21927,6 +21137,7 @@ impl super::stub::SearchService for SearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -21937,15 +21148,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21953,15 +21162,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21969,15 +21176,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -21985,15 +21190,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22001,15 +21204,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22017,15 +21218,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22033,15 +21232,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22049,15 +21246,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22065,15 +21260,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22081,15 +21274,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22097,15 +21288,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22113,15 +21302,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22129,15 +21316,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22145,15 +21330,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22161,15 +21344,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22177,15 +21358,13 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -22341,7 +21520,7 @@ impl super::stub::SearchService for SearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -22353,6 +21532,7 @@ impl super::stub::SearchService for SearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -22363,11 +21543,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22375,11 +21553,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22387,11 +21563,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22399,11 +21573,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22411,11 +21583,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22423,11 +21593,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22435,11 +21603,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22447,11 +21613,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22459,11 +21623,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22471,11 +21633,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22483,11 +21643,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22495,11 +21653,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22507,11 +21663,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22519,11 +21673,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22531,11 +21683,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -22543,11 +21693,9 @@ impl super::stub::SearchService for SearchService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -22703,7 +21851,7 @@ impl super::stub::SearchService for SearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -22715,6 +21863,7 @@ impl super::stub::SearchService for SearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -22733,9 +21882,9 @@ impl super::stub::SearchService for SearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -22759,9 +21908,9 @@ impl super::stub::SearchService for SearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -22783,9 +21932,9 @@ impl super::stub::SearchService for SearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -22807,9 +21956,9 @@ impl super::stub::SearchService for SearchService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22901,7 +22050,7 @@ impl super::stub::SearchService for SearchService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -22945,6 +22094,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -22967,9 +22117,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23000,7 +22150,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -23012,6 +22162,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCustomModelsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -23034,9 +22185,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23067,7 +22218,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -23079,6 +22230,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -23089,15 +22241,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23105,15 +22255,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23121,15 +22269,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23137,15 +22283,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23153,15 +22297,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23169,15 +22311,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23185,15 +22325,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23201,15 +22339,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23217,15 +22353,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23233,15 +22367,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23249,15 +22381,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23265,15 +22395,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23281,15 +22409,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23297,15 +22423,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23313,15 +22437,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23329,15 +22451,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -23493,7 +22613,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -23505,6 +22625,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -23515,11 +22636,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23527,11 +22646,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23539,11 +22656,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23551,11 +22666,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23563,11 +22676,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23575,11 +22686,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23587,11 +22696,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23599,11 +22706,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23611,11 +22716,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23623,11 +22726,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23635,11 +22736,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23647,11 +22746,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23659,11 +22756,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23671,11 +22766,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23683,11 +22776,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -23695,11 +22786,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -23855,7 +22944,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -23867,6 +22956,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -23885,9 +22975,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23911,9 +23001,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23935,9 +23025,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23959,9 +23049,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -24053,7 +23143,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -24111,6 +23201,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServingConfig>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -24136,7 +23227,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -24150,7 +23241,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24175,7 +23266,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -24189,7 +23280,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24214,7 +23305,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -24228,7 +23319,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -24310,7 +23401,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.serving_config, &method);
         self.inner.execute(builder, body, options).await
@@ -24322,6 +23413,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -24332,15 +23424,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24348,15 +23438,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24364,15 +23452,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24380,15 +23466,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24396,15 +23480,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24412,15 +23494,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24428,15 +23508,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24444,15 +23522,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24460,15 +23536,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24476,15 +23550,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24492,15 +23564,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24508,15 +23578,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24524,15 +23592,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24540,15 +23606,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24556,15 +23620,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24572,15 +23634,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -24736,7 +23796,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -24748,6 +23808,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -24758,11 +23819,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24770,11 +23829,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24782,11 +23839,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24794,11 +23849,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24806,11 +23859,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24818,11 +23869,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24830,11 +23879,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24842,11 +23889,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24854,11 +23899,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24866,11 +23909,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24878,11 +23919,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24890,11 +23929,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24902,11 +23939,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24914,11 +23949,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24926,11 +23959,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -24938,11 +23969,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -25098,7 +24127,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -25110,6 +24139,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -25128,9 +24158,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25154,9 +24184,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25178,9 +24208,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25202,9 +24232,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25296,7 +24326,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -25340,6 +24370,7 @@ impl super::stub::SessionService for SessionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Session>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -25360,9 +24391,9 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25382,9 +24413,9 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25404,9 +24435,9 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25473,7 +24504,7 @@ impl super::stub::SessionService for SessionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.session, &method);
         self.inner.execute(builder, body, options).await
@@ -25485,6 +24516,7 @@ impl super::stub::SessionService for SessionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -25507,9 +24539,9 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25531,9 +24563,9 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25555,9 +24587,9 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25630,7 +24662,7 @@ impl super::stub::SessionService for SessionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await.map(
@@ -25647,6 +24679,7 @@ impl super::stub::SessionService for SessionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Session>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -25672,7 +24705,7 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -25686,7 +24719,7 @@ impl super::stub::SessionService for SessionService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25711,7 +24744,7 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -25725,7 +24758,7 @@ impl super::stub::SessionService for SessionService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25750,7 +24783,7 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
                         .update_mask
@@ -25764,7 +24797,7 @@ impl super::stub::SessionService for SessionService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25846,7 +24879,7 @@ impl super::stub::SessionService for SessionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.session, &method);
         self.inner.execute(builder, body, options).await
@@ -25858,6 +24891,7 @@ impl super::stub::SessionService for SessionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Session>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -25880,11 +24914,11 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25906,11 +24940,11 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25932,11 +24966,11 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26009,7 +25043,7 @@ impl super::stub::SessionService for SessionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -26021,6 +25055,7 @@ impl super::stub::SessionService for SessionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSessionsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -26041,13 +25076,13 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -26067,13 +25102,13 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -26093,13 +25128,13 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26166,7 +25201,7 @@ impl super::stub::SessionService for SessionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -26178,6 +25213,7 @@ impl super::stub::SessionService for SessionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -26188,15 +25224,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26204,15 +25238,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26220,15 +25252,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26236,15 +25266,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26252,15 +25280,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26268,15 +25294,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26284,15 +25308,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26300,15 +25322,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26316,15 +25336,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26332,15 +25350,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26348,15 +25364,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26364,15 +25378,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26380,15 +25392,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26396,15 +25406,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26412,15 +25420,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26428,15 +25434,13 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -26592,7 +25596,7 @@ impl super::stub::SessionService for SessionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -26604,6 +25608,7 @@ impl super::stub::SessionService for SessionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -26614,11 +25619,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26626,11 +25629,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26638,11 +25639,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26650,11 +25649,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26662,11 +25659,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26674,11 +25669,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26686,11 +25679,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26698,11 +25689,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26710,11 +25699,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26722,11 +25709,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26734,11 +25719,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26746,11 +25729,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26758,11 +25739,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26770,11 +25749,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26782,11 +25759,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -26794,11 +25769,9 @@ impl super::stub::SessionService for SessionService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -26954,7 +25927,7 @@ impl super::stub::SessionService for SessionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -26966,6 +25939,7 @@ impl super::stub::SessionService for SessionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -26984,9 +25958,9 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -27010,9 +25984,9 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -27034,9 +26008,9 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -27058,9 +26032,9 @@ impl super::stub::SessionService for SessionService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27152,7 +26126,7 @@ impl super::stub::SessionService for SessionService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -27196,6 +26170,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SiteSearchEngine>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -27217,9 +26192,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -27240,9 +26215,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27292,7 +26267,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -27304,6 +26279,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -27325,9 +26301,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -27348,9 +26324,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27400,7 +26376,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.target_site, &method);
         self.inner.execute(builder, body, options).await
@@ -27412,6 +26388,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -27433,9 +26410,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -27456,9 +26433,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27508,7 +26485,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -27520,6 +26497,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TargetSite>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -27530,11 +26508,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -27542,11 +26518,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -27576,7 +26550,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -27588,6 +26562,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -27598,11 +26573,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).and_then(|m| m.target_site.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::PATCH, path);
+            let builder = self.inner.builder(Method::PATCH, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+            Some(builder.map(|b| (b, Method::PATCH)))
         })
         .or_else(|| {
             let path = format!(
@@ -27610,11 +26583,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).and_then(|m| m.target_site.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::PATCH, path);
+            let builder = self.inner.builder(Method::PATCH, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+            Some(builder.map(|b| (b, Method::PATCH)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -27644,7 +26615,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.target_site, &method);
         self.inner.execute(builder, body, options).await
@@ -27656,6 +26627,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -27666,11 +26638,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::DELETE, path);
+            let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE)))
         })
         .or_else(|| {
             let path = format!(
@@ -27678,11 +26648,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::DELETE, path);
+            let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -27712,7 +26680,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -27724,6 +26692,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListTargetSitesResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -27745,11 +26714,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -27770,11 +26739,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27824,7 +26793,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -27836,6 +26805,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -27857,9 +26827,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -27880,9 +26850,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27932,7 +26902,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.sitemap, &method);
         self.inner.execute(builder, body, options).await
@@ -27944,6 +26914,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -27954,11 +26925,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/sitemaps/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::DELETE, path);
+            let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE)))
         })
         .or_else(|| {
             let path = format!(
@@ -27966,11 +26935,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/sitemaps/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::DELETE, path);
+            let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -28000,7 +26967,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -28012,6 +26979,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FetchSitemapsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -28033,7 +27001,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
                         .matcher
@@ -28047,7 +27015,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28068,7 +27036,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
                         .matcher
@@ -28082,7 +27050,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28132,7 +27100,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -28144,6 +27112,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -28167,9 +27136,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28192,9 +27161,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28248,7 +27217,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -28260,6 +27229,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -28283,9 +27253,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28308,9 +27278,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28364,7 +27334,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -28376,6 +27346,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -28399,9 +27370,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -28424,9 +27395,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28480,7 +27451,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -28492,6 +27463,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -28515,9 +27487,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28549,7 +27521,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -28561,6 +27533,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FetchDomainVerificationStatusResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -28586,11 +27559,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28624,7 +27597,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -28636,6 +27609,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -28646,15 +27620,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28662,15 +27634,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28678,15 +27648,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28694,15 +27662,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28710,15 +27676,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28726,15 +27690,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28742,15 +27704,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28758,15 +27718,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28774,15 +27732,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28790,15 +27746,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28806,15 +27760,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28822,15 +27774,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28838,15 +27788,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28854,15 +27802,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28870,15 +27816,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -28886,15 +27830,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -29050,7 +27992,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -29062,6 +28004,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -29072,11 +28015,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29084,11 +28025,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29096,11 +28035,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29108,11 +28045,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29120,11 +28055,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29132,11 +28065,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29144,11 +28075,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29156,11 +28085,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29168,11 +28095,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29180,11 +28105,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29192,11 +28115,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29204,11 +28125,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29216,11 +28135,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29228,11 +28145,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29240,11 +28155,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -29252,11 +28165,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -29412,7 +28323,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -29424,6 +28335,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -29442,9 +28354,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29468,9 +28380,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29492,9 +28404,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29516,9 +28428,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -29610,7 +28522,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -29668,6 +28580,7 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UserEvent>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -29688,10 +28601,10 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("writeAsync", &req.write_async)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29711,10 +28624,10 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("writeAsync", &req.write_async)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29730,10 +28643,10 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("writeAsync", &req.write_async)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -29796,7 +28709,7 @@ impl super::stub::UserEventService for UserEventService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.user_event, &method);
         self.inner.execute(builder, body, options).await
@@ -29808,6 +28721,7 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<api::model::HttpBody>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -29828,7 +28742,7 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("userEvent", &req.user_event)]);
                 let builder = req
                     .uri
@@ -29839,7 +28753,7 @@ impl super::stub::UserEventService for UserEventService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("ets", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29859,7 +28773,7 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("userEvent", &req.user_event)]);
                 let builder = req
                     .uri
@@ -29870,7 +28784,7 @@ impl super::stub::UserEventService for UserEventService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("ets", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -29886,7 +28800,7 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("userEvent", &req.user_event)]);
                 let builder = req
                     .uri
@@ -29897,7 +28811,7 @@ impl super::stub::UserEventService for UserEventService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("ets", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -29960,7 +28874,7 @@ impl super::stub::UserEventService for UserEventService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -29972,6 +28886,7 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -29992,9 +28907,9 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30014,9 +28929,9 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -30064,7 +28979,7 @@ impl super::stub::UserEventService for UserEventService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -30076,6 +28991,7 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -30096,9 +29012,9 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30118,9 +29034,9 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -30136,9 +29052,9 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -30201,7 +29117,7 @@ impl super::stub::UserEventService for UserEventService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -30213,6 +29129,7 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -30223,15 +29140,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30239,15 +29154,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30255,15 +29168,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30271,15 +29182,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30287,15 +29196,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30303,15 +29210,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30319,15 +29224,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30335,15 +29238,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30351,15 +29252,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30367,15 +29266,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30383,15 +29280,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30399,15 +29294,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30415,15 +29308,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30431,15 +29322,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30447,15 +29336,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30463,15 +29350,13 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -30627,7 +29512,7 @@ impl super::stub::UserEventService for UserEventService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -30639,6 +29524,7 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -30649,11 +29535,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30661,11 +29545,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30673,11 +29555,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30685,11 +29565,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30697,11 +29575,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30709,11 +29585,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30721,11 +29595,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30733,11 +29605,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30745,11 +29615,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30757,11 +29625,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30769,11 +29635,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30781,11 +29645,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30793,11 +29655,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30805,11 +29665,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30817,11 +29675,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -30829,11 +29685,9 @@ impl super::stub::UserEventService for UserEventService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -30989,7 +29843,7 @@ impl super::stub::UserEventService for UserEventService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -31001,6 +29855,7 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -31019,9 +29874,9 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -31045,9 +29900,9 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -31069,9 +29924,9 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -31093,9 +29948,9 @@ impl super::stub::UserEventService for UserEventService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -31187,7 +30042,7 @@ impl super::stub::UserEventService for UserEventService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
@@ -31245,6 +30100,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUserLicensesResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -31265,12 +30121,12 @@ impl super::stub::UserLicenseService for UserLicenseService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -31299,7 +30155,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -31311,6 +30167,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -31331,9 +30188,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -31362,7 +30219,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
@@ -31374,6 +30231,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -31384,15 +30242,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31400,15 +30256,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31416,15 +30270,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31432,15 +30284,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31448,15 +30298,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31464,15 +30312,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31480,15 +30326,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine")])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31496,15 +30340,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31512,15 +30354,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31528,15 +30368,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31544,15 +30382,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31560,15 +30396,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31576,15 +30410,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31592,15 +30424,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31608,15 +30438,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31624,15 +30452,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
             let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -31788,7 +30614,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -31800,6 +30626,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -31810,11 +30637,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31822,11 +30647,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataConnector/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31834,11 +30657,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31846,11 +30667,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31858,11 +30677,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31870,11 +30687,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/schemas/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31882,11 +30697,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31894,11 +30707,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31906,11 +30717,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/engines/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31918,11 +30727,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31930,11 +30737,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/branches/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31942,11 +30747,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/models/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31954,11 +30757,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31966,11 +30767,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/identityMappingStores/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31978,11 +30777,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .or_else(|| {
             let path = format!(
@@ -31990,11 +30787,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
             );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
+            let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
+            Some(builder.map(|b| (b, Method::GET)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -32150,7 +30945,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
@@ -32162,6 +30957,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -32180,9 +30976,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -32206,9 +31002,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -32230,9 +31026,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -32254,9 +31050,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -32348,7 +31144,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await.map(
