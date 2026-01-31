@@ -92,6 +92,7 @@ wrappers = [
   "integration-tests-auth",
   "integration-tests-storage",
   "test-auth",
+  "user-guide-samples",
 ]
 
 [bans.workspace-dependencies]
