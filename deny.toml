@@ -75,9 +75,24 @@ allow = []
 # This is useful for organizations that want to deny all external dependencies by default
 # but allow their own workspace crates without having to explicitly list them
 allow-workspace = false
-# List of crates to deny.
-deny = []
-skip = []
+skip            = []
+
+[[bans.deny]]
+crate = "reqwest@0.13"
+wrappers = [
+  # Uses `reqwest` in its "public" API. The types are re-exported. This is
+  # the main motivation for denying reqwest in general: we want to avoid
+  # accidental use of the crate in other crates.
+  "google-cloud-gax-internal",
+  # Uses `reqwest` in the implementation, but does not expose any types in
+  # the public API.
+  "google-cloud-auth",
+  # Use in tests is fine.
+  "integration-tests",
+  "integration-tests-auth",
+  "integration-tests-storage",
+  "test-auth",
+]
 
 [bans.workspace-dependencies]
 # TODO(#4477) - use `duplicates = "deny"`.
