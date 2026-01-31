@@ -13,8 +13,8 @@
 # limitations under the License.
 
 [graph]
-targets = []
-all-features = false
+targets             = []
+all-features        = false
 no-default-features = false
 
 [output]
@@ -24,7 +24,7 @@ feature-depth = 1
 # More documentation for the advisories section can be found here:
 # https://embarkstudios.github.io/cargo-deny/checks/advisories/cfg.html
 [advisories]
-ignore = [{ id = "RUSTSEC-2023-0071", reason = "Only used in tests and no new version avaiable" }]
+ignore             = [{ id = "RUSTSEC-2023-0071", reason = "Only used in tests and no new version avaiable" }]
 git-fetch-with-cli = false
 
 [licenses]
