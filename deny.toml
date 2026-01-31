@@ -24,7 +24,7 @@ feature-depth = 1
 # More documentation for the advisories section can be found here:
 # https://embarkstudios.github.io/cargo-deny/checks/advisories/cfg.html
 [advisories]
-ignore             = [{ id = "RUSTSEC-2023-0071", reason = "Only used in tests and no new version avaiable" }]
+ignore             = [{ id = "RUSTSEC-2023-0071", reason = "Only used in tests and no new version available" }]
 git-fetch-with-cli = false
 
 [licenses]
