@@ -36,6 +36,7 @@ where
     T: Stub,
 {
     inner: Arc<T>,
+    options: RequestOptions,
     subscription: String,
     ack_deadline_seconds: i32,
 }
@@ -47,6 +48,7 @@ where
     fn clone(&self) -> Self {
         Self {
             inner: self.inner.clone(),
+            options: self.options.clone(),
             // TODO(#3975) - We can save some clones of the subscription if we
             // make the `Leaser` API functional.
             subscription: self.subscription.clone(),
@@ -62,6 +64,7 @@ where
     pub(super) fn new(inner: Arc<T>, subscription: String, ack_deadline_seconds: i32) -> Self {
         DefaultLeaser {
             inner,
+            options: no_retry(),
             subscription,
             ack_deadline_seconds,
         }
@@ -83,21 +86,27 @@ where
         let req = AcknowledgeRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids);
-        let _ = self.inner.acknowledge(req, no_retry()).await;
+        let _ = self.inner.acknowledge(req, self.options.clone()).await;
     }
     async fn nack(&self, ack_ids: Vec<String>) {
         let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids)
             .set_ack_deadline_seconds(0);
-        let _ = self.inner.modify_ack_deadline(req, no_retry()).await;
+        let _ = self
+            .inner
+            .modify_ack_deadline(req, self.options.clone())
+            .await;
     }
     async fn extend(&self, ack_ids: Vec<String>) {
         let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids)
             .set_ack_deadline_seconds(self.ack_deadline_seconds);
-        let _ = self.inner.modify_ack_deadline(req, no_retry()).await;
+        let _ = self
+            .inner
+            .modify_ack_deadline(req, self.options.clone())
+            .await;
     }
 }
 
