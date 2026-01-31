@@ -16,8 +16,9 @@
 name              = "common"
 description       = "Generated types for tests."
 version           = "0.0.0"
-edition.workspace = true
 publish           = false
+edition.workspace = true
+license.workspace = true
 
 [dependencies]
 bytes.workspace      = true

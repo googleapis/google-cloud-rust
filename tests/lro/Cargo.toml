@@ -14,10 +14,11 @@
 
 [package]
 description       = "Integration tests for LROs."
-edition.workspace = true
 name              = "integration-tests-lro"
 publish           = false
 version           = "0.0.0"
+edition.workspace = true
+license.workspace = true
 
 [features]
 # These are normally disabled because they run against production.

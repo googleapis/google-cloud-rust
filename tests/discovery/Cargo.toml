@@ -14,10 +14,11 @@
 
 [package]
 description       = "Integration tests for a Discovery docs-based service."
-edition.workspace = true
 name              = "integration-tests-discovery"
 publish           = false
 version           = "0.0.0"
+edition.workspace = true
+license.workspace = true
 
 [features]
 # These are normally disabled because they run against production.

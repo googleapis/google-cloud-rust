@@ -69,4 +69,4 @@ google-cloud-auth.workspace = true
 # is being used without TLS. Enabling the default provider in tests to
 # workaround this issue.
 gaxi = { workspace = true, features = ["_default-rustls-provider"] }
-lro  = { path = ".", package = "google-cloud-lro", features = ["unstable-stream"] }
+google-cloud-lro          = { path = ".", features = ["unstable-stream"] }

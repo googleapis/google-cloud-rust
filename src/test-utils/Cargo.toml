@@ -14,10 +14,11 @@
 
 [package]
 description       = "Internal test utilities for google-cloud-rust crates"
-edition.workspace = true
 name              = "google-cloud-test-utils"
 publish           = false
 version           = "0.0.0"
+edition.workspace = true
+license.workspace = true
 
 [dependencies]
 anyhow.workspace                   = true
