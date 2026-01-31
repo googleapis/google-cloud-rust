@@ -71,9 +71,10 @@ impl RetryPolicy for AtLeastOnceRetryPolicy {
             // can race with accepting one of our requests.
             //
             // It is safe to retry these requests immediately.
-            return RetryResult::Continue(error);
+            RetryResult::Continue(error)
+        } else {
+            RetryResult::Permanent(error)
         }
-        return RetryResult::Permanent(error);
     }
 }
 
