@@ -41,7 +41,7 @@ use std::time::Duration;
 const DEFAULT_REQUEST_BUFFER_CAPACITY: usize = 1024;
 
 #[cfg(not(google_cloud_unstable_tracing))]
-pub type GrpcService = tonic::transport::Channel;
+pub type GrpcService = Channel;
 
 #[cfg(google_cloud_unstable_tracing)]
 pub type GrpcService = tower::util::Either<
