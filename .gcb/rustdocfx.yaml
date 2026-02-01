@@ -31,4 +31,4 @@ steps:
 substitutions:
   _POOL_REGION: us-central1
   _POOL_ID: rust-sdk-pool
-  _GO_VERSION: '1.25.4'
+  _GO_VERSION: '1.25.6'
