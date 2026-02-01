@@ -50,7 +50,6 @@ longrunning.workspace             = true
 lro.workspace                     = true
 orgpolicy_v1.workspace            = true
 osconfig_v1.workspace             = true
-reqwest.workspace                 = true
 rpc.workspace                     = true
 serde.workspace                   = true
 serde_json.workspace              = true

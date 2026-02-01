@@ -112,7 +112,6 @@ gtype.workspace       = true
 lazy_static.workspace = true
 longrunning.workspace = true
 lro.workspace         = true
-reqwest.workspace     = true
 rpc.workspace         = true
 serde.workspace       = true
 serde_json.workspace  = true
