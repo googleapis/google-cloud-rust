@@ -54,12 +54,13 @@ impl Future for PublishFuture {
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         let result = ready!(Pin::new(&mut self.rx).poll(cx));
         // An error will only occur if the sender of the self.rx was dropped,
-        // which would be a bug.
-        Poll::Ready(
-            result
-                .expect("publisher should not close the sender for PublishFuture")
-                .map_err(convert_error),
-        )
+        // which can happen when the background worker is dropped.
+        match result {
+            Ok(result) => Poll::Ready(result.map_err(convert_error)),
+            Err(_) => Poll::Ready(Err(google_cloud_gax::error::Error::io(
+                "publisher is shutdown",
+            ))),
+        }
     }
 }
 
@@ -71,5 +72,51 @@ fn convert_error(e: crate::error::PublishError) -> Arc<crate::Error> {
         crate::error::PublishError::OrderingKeyPaused(e) => Arc::new(crate::Error::io(
             crate::error::PublishError::OrderingKeyPaused(e),
         )),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn resolve_publish_handle_success() {
+        let (tx, rx) = oneshot::channel();
+        let handle = PublishHandle { rx };
+        let _ = tx.send(Ok("message_id".to_string()));
+        let id = handle.await.expect("should have received a message ID");
+        assert_eq!(id, "message_id");
+    }
+
+    #[tokio::test]
+    async fn resolve_publish_handle_error() {
+        use std::error::Error as _;
+
+        let (tx, rx) = oneshot::channel();
+        let handle = PublishHandle { rx };
+        let _ = tx.send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+        let err = handle
+            .await
+            .expect_err("errors on channel should resolve to error");
+        let err = err
+            .source()
+            .unwrap()
+            .downcast_ref::<crate::error::PublishError>()
+            .unwrap();
+        match err {
+            crate::error::PublishError::OrderingKeyPaused(_) => {}
+            _ => panic!("expected OrderingKeyPaused error"),
+        }
+    }
+
+    #[tokio::test]
+    async fn resolve_publish_handle_error_send_error() {
+        let (tx, rx) = oneshot::channel();
+        let handle = PublishHandle { rx };
+        drop(tx);
+        let err = handle
+            .await
+            .expect_err("dropped channel should resolve to error");
+        assert!(err.to_string().contains("shutdown"));
     }
 }

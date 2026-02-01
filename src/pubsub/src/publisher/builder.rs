@@ -367,11 +367,18 @@ impl PublisherPartialBuilder {
     }
 
     /// Creates a new [`Publisher`] from the builder's configuration.
+    pub fn build(self) -> Publisher {
+        self.build_return_handle().0
+    }
+
     // This method starts a background task to manage the batching
     // and sending of messages. The returned `Publisher` is a
     // lightweight handle for sending messages to that background task
     // over a channel.
-    pub fn build(self) -> Publisher {
+    //
+    // This also returns a handle to the background task, which can be
+    // used in testing to manage the task's lifecycle.
+    pub(crate) fn build_return_handle(self) -> (Publisher, tokio::task::JoinHandle<()>) {
         // Enforce limits by clamping the user-provided options.
         let batching_options = BatchingOptions::new()
             .set_delay_threshold(
@@ -392,12 +399,15 @@ impl PublisherPartialBuilder {
         // Dropping the Publisher will drop the only sender to the channel.
         // This will cause the dispatcher to gracefully exit.
         let dispatcher = Dispatcher::new(self.topic, self.inner, batching_options.clone(), rx);
-        tokio::spawn(dispatcher.run());
+        let handle = tokio::spawn(dispatcher.run());
 
-        Publisher {
-            batching_options,
-            tx,
-        }
+        (
+            Publisher {
+                batching_options,
+                tx,
+            },
+            handle,
+        )
     }
 }
 
