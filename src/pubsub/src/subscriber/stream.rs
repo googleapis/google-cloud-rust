@@ -158,6 +158,7 @@ mod tests {
     use gax::backoff_policy::BackoffPolicy;
     use gax::error::rpc::{Code, Status};
     use gax::retry_state::RetryState;
+    use gaxi::grpc::tonic::Response as TonicResponse;
 
     mockall::mock! {
         #[derive(Debug)]
@@ -215,7 +216,7 @@ mod tests {
         let mut mock = MockStub::new();
         mock.expect_streaming_pull()
             .times(1)
-            .return_once(move |_r, _o| Ok(tonic::Response::from(response_rx)));
+            .return_once(move |_r, _o| Ok(TonicResponse::from(response_rx)));
 
         response_tx.send(Ok(test_response(1..10))).await?;
         response_tx.send(Ok(test_response(11..20))).await?;
@@ -252,7 +253,7 @@ mod tests {
                             .expect("forwarding writes always succeeds");
                     }
                 });
-                Ok(tonic::Response::from(response_rx))
+                Ok(TonicResponse::from(response_rx))
             });
 
         let mut stream = open_stream(Arc::new(mock), initial_request()).await?;
@@ -319,7 +320,7 @@ mod tests {
             .expect_streaming_pull()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(move |_r, _o| Ok(tonic::Response::from(response_rx)));
+            .return_once(move |_r, _o| Ok(TonicResponse::from(response_rx)));
 
         let mut stream = Stream::new_with_backoff(
             Arc::new(mock_stub),
