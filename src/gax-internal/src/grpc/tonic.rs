@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Re-exports symbols from [tonic][::tonic].
+//! Re-exports symbols from [tonic].
+//!
+//! [tonic]: https://docs.rs/tonic
 
 pub use ::tonic::Code;
 pub use ::tonic::Extensions;
