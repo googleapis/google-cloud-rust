@@ -95,6 +95,38 @@ wrappers = [
   "user-guide-samples",
 ]
 
+[[bans.deny]]
+crate = "tonic@0.14"
+wrappers = [
+  # Uses `reqwest` in its "public" API. The types are re-exported. This is
+  # the main motivation for denying reqwest in general: we want to avoid
+  # accidental use of the crate in other crates.
+  "google-cloud-gax-internal",
+  # Use in tests is fine.
+  "storage-grpc-mock",
+  "pubsub-grpc-mock",
+  "grpc-server",
+  "integration-tests-o11y",
+  # Indirect dependencies are fine.
+  "tonic-prost",
+  "opentelemetry-otlp",
+  "opentelemetry-proto",
+]
+
+[[bans.deny]]
+crate = "tonic-prost@0.14"
+wrappers = [
+  # Uses `reqwest` in its "public" API. The types are re-exported. This is
+  # the main motivation for denying reqwest in general: we want to avoid
+  # accidental use of the crate in other crates.
+  "google-cloud-gax-internal",
+  # Use in tests is fine.
+  "grpc-server",
+  "storage-grpc-mock",
+  "pubsub-grpc-mock",
+  "opentelemetry-proto",
+]
+
 [bans.workspace-dependencies]
 # TODO(#4477) - use `duplicates = "deny"`.
 duplicates                = "allow"

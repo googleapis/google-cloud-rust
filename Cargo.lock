@@ -2719,7 +2719,6 @@ dependencies = [
  "serde_with",
  "tokio",
  "tokio-test",
- "tonic",
  "tracing",
 ]
 
@@ -4061,7 +4060,6 @@ dependencies = [
  "tokio-stream",
  "tokio-test",
  "tokio-util",
- "tonic",
  "tracing",
  "uuid",
 ]
@@ -4620,7 +4618,6 @@ dependencies = [
  "tokio",
  "tokio-stream",
  "tokio-test",
- "tonic",
  "tracing",
  "url",
  "uuid",
