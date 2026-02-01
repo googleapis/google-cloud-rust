@@ -18,6 +18,7 @@ use super::{Client, Receiver, RequestOptions, TonicStreaming};
 use crate::google::storage::v2::{
     BidiReadObjectRequest, BidiReadObjectResponse, BidiReadObjectSpec,
 };
+use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult};
 use std::sync::Arc;
 use tokio::sync::mpsc::Sender;
 
@@ -38,13 +39,13 @@ impl Client for SharedMockClient {
 
     async fn start(
         &self,
-        extensions: tonic::Extensions,
+        extensions: Extensions,
         path: http::uri::PathAndQuery,
         rx: Receiver<BidiReadObjectRequest>,
         options: &RequestOptions,
         api_client_header: &'static str,
         request_params: &str,
-    ) -> crate::Result<tonic::Result<tonic::Response<Self::Stream>>> {
+    ) -> crate::Result<TonicResult<TonicResponse<Self::Stream>>> {
         self.0.start(
             extensions,
             path,
@@ -56,8 +57,8 @@ impl Client for SharedMockClient {
     }
 }
 
-impl TonicStreaming for Receiver<tonic::Result<BidiReadObjectResponse>> {
-    async fn next_message(&mut self) -> tonic::Result<Option<BidiReadObjectResponse>> {
+impl TonicStreaming for Receiver<TonicResult<BidiReadObjectResponse>> {
+    async fn next_message(&mut self) -> TonicResult<Option<BidiReadObjectResponse>> {
         self.recv().await.transpose()
     }
 }
@@ -66,17 +67,17 @@ impl TonicStreaming for Receiver<tonic::Result<BidiReadObjectResponse>> {
 pub trait TestClient: std::fmt::Debug {
     fn start(
         &self,
-        extensions: tonic::Extensions,
+        extensions: Extensions,
         path: http::uri::PathAndQuery,
         rx: Receiver<BidiReadObjectRequest>,
         options: &RequestOptions,
         api_client_header: &'static str,
         request_params: &str,
-    ) -> crate::Result<tonic::Result<tonic::Response<MockStream>>>;
+    ) -> crate::Result<TonicResult<TonicResponse<MockStream>>>;
 }
 
-pub type MockStream = Receiver<tonic::Result<BidiReadObjectResponse>>;
-pub type MockStreamSender = Sender<tonic::Result<BidiReadObjectResponse>>;
+pub type MockStream = Receiver<TonicResult<BidiReadObjectResponse>>;
+pub type MockStreamSender = Sender<TonicResult<BidiReadObjectResponse>>;
 
 pub fn mock_connector(mock: MockTestClient) -> Connector<SharedMockClient> {
     let client = SharedMockClient::new(mock);
