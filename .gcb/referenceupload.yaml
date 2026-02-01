@@ -40,8 +40,8 @@ steps:
       python3 -m venv .venv
       source .venv/bin/activate
       pip install gcp-docuploader
-      wget https://go.dev/dl/go1.25.1.linux-amd64.tar.gz
-      tar -C /usr/local -xzf ./go1.25.1.linux-amd64.tar.gz
+      wget https://go.dev/dl/go1.25.6.linux-amd64.tar.gz
+      tar -C /usr/local -xzf ./go1.25.6.linux-amd64.tar.gz
       export PATH=$PATH:/usr/local/go/bin
       cargo install --locked cargo-workspaces --version 0.4.1
       go -C tools run ./cmd/docfx -project-root .. -staging-bucket ${STAGING_BUCKET}
