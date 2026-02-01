@@ -16,7 +16,10 @@
 
 pub mod from_status;
 pub mod status;
+pub mod tonic;
 
+use ::tonic::client::Grpc;
+use ::tonic::transport::Channel;
 use from_status::to_gax_error;
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
@@ -42,12 +45,12 @@ pub type GrpcService = tonic::transport::Channel;
 
 #[cfg(google_cloud_unstable_tracing)]
 pub type GrpcService = tower::util::Either<
-    crate::observability::grpc_tracing::TracingTowerService<tonic::transport::Channel>,
-    crate::observability::grpc_tracing::NoTracingTowerService<tonic::transport::Channel>,
+    crate::observability::grpc_tracing::TracingTowerService<Channel>,
+    crate::observability::grpc_tracing::NoTracingTowerService<Channel>,
 >;
 
 /// The inner gRPC client type.
-pub type InnerClient = tonic::client::Grpc<GrpcService>;
+pub type InnerClient = Grpc<GrpcService>;
 
 #[derive(Clone, Debug)]
 pub struct Client {
@@ -156,7 +159,7 @@ impl Client {
         options: gax::options::RequestOptions,
         api_client_header: &'static str,
         request_params: &str,
-    ) -> Result<tonic::Response<tonic::codec::Streaming<Response>>>
+    ) -> Result<tonic::Response<::tonic::Streaming<Response>>>
     where
         Request: prost::Message + 'static,
         Response: prost::Message + Default + 'static,
@@ -186,16 +189,16 @@ impl Client {
         options: gax::options::RequestOptions,
         api_client_header: &'static str,
         request_params: &str,
-    ) -> Result<tonic::Result<tonic::Response<tonic::codec::Streaming<Response>>>>
+    ) -> Result<tonic::Result<tonic::Response<tonic::Streaming<Response>>>>
     where
         Request: prost::Message + 'static,
         Response: prost::Message + Default + 'static,
     {
-        use tonic::IntoStreamingRequest;
+        use ::tonic::IntoStreamingRequest;
         let headers = Self::make_headers(api_client_header, request_params, &options).await?;
         let headers = self.add_auth_headers(headers).await?;
-        let metadata = tonic::metadata::MetadataMap::from_headers(headers);
-        let request = tonic::Request::from_parts(metadata, extensions, request);
+        let metadata = tonic::MetadataMap::from_headers(headers);
+        let request = ::tonic::Request::from_parts(metadata, extensions, request);
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;
@@ -267,8 +270,8 @@ impl Client {
         Response: prost::Message + std::default::Default + 'static,
     {
         let headers = self.add_auth_headers(headers).await?;
-        let metadata = tonic::metadata::MetadataMap::from_headers(headers);
-        let mut request = tonic::Request::from_parts(metadata, extensions, request);
+        let metadata = tonic::MetadataMap::from_headers(headers);
+        let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
 
         #[cfg(google_cloud_unstable_tracing)]
         {
@@ -308,7 +311,7 @@ impl Client {
             &'static crate::options::InstrumentationClientInfo,
         >,
     ) -> gax::client_builder::Result<InnerClient> {
-        use tonic::transport::{Channel, channel::Change};
+        use ::tonic::transport::{Channel, channel::Change};
         let endpoint = Self::make_endpoint(config.endpoint.clone(), default_endpoint).await?;
         let (channel, tx) = Channel::balance_channel(
             config
@@ -335,7 +338,7 @@ impl Client {
 
             if tracing_enabled {
                 let default_uri = default_endpoint
-                    .parse::<tonic::transport::Uri>()
+                    .parse::<::tonic::transport::Uri>()
                     .map_err(BuilderError::transport)?;
                 let default_host = default_uri.host().unwrap_or("").to_string();
                 let layer = TracingTowerLayer::new(endpoint.uri(), default_host, instrumentation);
@@ -352,8 +355,8 @@ impl Client {
     async fn make_endpoint(
         endpoint: Option<String>,
         default_endpoint: &str,
-    ) -> gax::client_builder::Result<tonic::transport::Endpoint> {
-        use tonic::transport::{ClientTlsConfig, Endpoint};
+    ) -> gax::client_builder::Result<::tonic::transport::Endpoint> {
+        use ::tonic::transport::{ClientTlsConfig, Endpoint};
 
         let origin =
             crate::host::from_endpoint(endpoint.as_deref(), default_endpoint, |origin, _host| {
