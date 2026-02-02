@@ -170,7 +170,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UploadConversation;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -219,12 +219,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `upload_conversation`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `upload_conversation`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Conversation, crate::model::UploadConversationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Conversation,
+            crate::model::UploadConversationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Conversation,
                 crate::model::UploadConversationMetadata,
             >;
@@ -252,7 +254,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::UploadConversationRequest::parent].
@@ -700,7 +707,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateAnalysis;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -746,12 +753,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_analysis`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_analysis`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Analysis, crate::model::CreateAnalysisOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Analysis,
+            crate::model::CreateAnalysisOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Analysis,
                 crate::model::CreateAnalysisOperationMetadata,
             >;
@@ -779,7 +788,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAnalysisRequest::parent].
@@ -1058,7 +1072,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::BulkAnalyzeConversations;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1109,14 +1123,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `bulk_analyze_conversations`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `bulk_analyze_conversations`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BulkAnalyzeConversationsResponse,
             crate::model::BulkAnalyzeConversationsMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BulkAnalyzeConversationsResponse,
                 crate::model::BulkAnalyzeConversationsMetadata,
             >;
@@ -1144,7 +1158,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BulkAnalyzeConversationsRequest::parent].
@@ -1203,7 +1222,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::BulkDeleteConversations;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1254,14 +1273,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `bulk_delete_conversations`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `bulk_delete_conversations`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BulkDeleteConversationsResponse,
             crate::model::BulkDeleteConversationsMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BulkDeleteConversationsResponse,
                 crate::model::BulkDeleteConversationsMetadata,
             >;
@@ -1289,7 +1308,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BulkDeleteConversationsRequest::parent].
@@ -1332,7 +1356,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::IngestConversations;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1381,14 +1405,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `ingest_conversations`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `ingest_conversations`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::IngestConversationsResponse,
             crate::model::IngestConversationsMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::IngestConversationsResponse,
                 crate::model::IngestConversationsMetadata,
             >;
@@ -1416,7 +1440,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::IngestConversationsRequest::parent].
@@ -1575,7 +1604,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ExportInsightsData;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1624,14 +1653,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_insights_data`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_insights_data`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ExportInsightsDataResponse,
             crate::model::ExportInsightsDataMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExportInsightsDataResponse,
                 crate::model::ExportInsightsDataMetadata,
             >;
@@ -1659,7 +1688,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ExportInsightsDataRequest::parent].
@@ -1740,7 +1774,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateIssueModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1789,12 +1823,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_issue_model`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_issue_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::IssueModel, crate::model::CreateIssueModelMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::IssueModel,
+            crate::model::CreateIssueModelMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::IssueModel,
                 crate::model::CreateIssueModelMetadata,
             >;
@@ -1822,7 +1858,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateIssueModelRequest::parent].
@@ -2090,7 +2131,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteIssueModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2139,10 +2180,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_issue_model`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteIssueModelMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteIssueModelMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_issue_model`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteIssueModelMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteIssueModelMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2167,7 +2212,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2197,7 +2242,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeployIssueModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2246,14 +2291,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `deploy_issue_model`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `deploy_issue_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::DeployIssueModelResponse,
             crate::model::DeployIssueModelMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DeployIssueModelResponse,
                 crate::model::DeployIssueModelMetadata,
             >;
@@ -2281,7 +2326,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeployIssueModelRequest::name].
@@ -2306,7 +2356,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UndeployIssueModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2355,14 +2405,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undeploy_issue_model`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undeploy_issue_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::UndeployIssueModelResponse,
             crate::model::UndeployIssueModelMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::UndeployIssueModelResponse,
                 crate::model::UndeployIssueModelMetadata,
             >;
@@ -2390,7 +2440,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UndeployIssueModelRequest::name].
@@ -2415,7 +2470,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ExportIssueModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2464,14 +2519,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_issue_model`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_issue_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ExportIssueModelResponse,
             crate::model::ExportIssueModelMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExportIssueModelResponse,
                 crate::model::ExportIssueModelMetadata,
             >;
@@ -2499,7 +2554,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ExportIssueModelRequest::name].
@@ -2555,7 +2615,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ImportIssueModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2604,14 +2664,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_issue_model`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_issue_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ImportIssueModelResponse,
             crate::model::ImportIssueModelMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ImportIssueModelResponse,
                 crate::model::ImportIssueModelMetadata,
             >;
@@ -2639,7 +2699,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportIssueModelRequest::parent].
@@ -4182,7 +4247,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::InitializeEncryptionSpec;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4233,14 +4298,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `initialize_encryption_spec`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `initialize_encryption_spec`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::InitializeEncryptionSpecResponse,
             crate::model::InitializeEncryptionSpecMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::InitializeEncryptionSpecResponse,
                 crate::model::InitializeEncryptionSpecMetadata,
             >;
@@ -4268,7 +4333,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [encryption_spec][crate::model::InitializeEncryptionSpecRequest::encryption_spec].
@@ -4711,7 +4781,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::QueryMetrics;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4757,12 +4827,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `query_metrics`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `query_metrics`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::QueryMetricsResponse, crate::model::QueryMetricsMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::QueryMetricsResponse,
+            crate::model::QueryMetricsMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::QueryMetricsResponse,
                 crate::model::QueryMetricsMetadata,
             >;
@@ -4790,7 +4862,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [location][crate::model::QueryMetricsRequest::location].
@@ -5878,7 +5955,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::TuneQaScorecardRevision;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5929,14 +6006,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `tune_qa_scorecard_revision`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `tune_qa_scorecard_revision`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::TuneQaScorecardRevisionResponse,
             crate::model::TuneQaScorecardRevisionMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::TuneQaScorecardRevisionResponse,
                 crate::model::TuneQaScorecardRevisionMetadata,
             >;
@@ -5964,7 +6041,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::TuneQaScorecardRevisionRequest::parent].
@@ -6877,7 +6959,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::BulkUploadFeedbackLabels;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6928,14 +7010,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `bulk_upload_feedback_labels`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `bulk_upload_feedback_labels`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BulkUploadFeedbackLabelsResponse,
             crate::model::BulkUploadFeedbackLabelsMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BulkUploadFeedbackLabelsResponse,
                 crate::model::BulkUploadFeedbackLabelsMetadata,
             >;
@@ -6963,7 +7045,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BulkUploadFeedbackLabelsRequest::parent].
@@ -7025,7 +7112,7 @@ pub mod contact_center_insights {
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::BulkDownloadFeedbackLabels;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7076,14 +7163,14 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `bulk_download_feedback_labels`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `bulk_download_feedback_labels`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BulkDownloadFeedbackLabelsResponse,
             crate::model::BulkDownloadFeedbackLabelsMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BulkDownloadFeedbackLabelsResponse,
                 crate::model::BulkDownloadFeedbackLabelsMetadata,
             >;
@@ -7111,7 +7198,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BulkDownloadFeedbackLabelsRequest::parent].

@@ -339,7 +339,7 @@ pub mod folders {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::CreateFolder;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -383,12 +383,15 @@ pub mod folders {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_folder`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_folder`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Folder, crate::model::CreateFolderMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Folder, crate::model::CreateFolderMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Folder, crate::model::CreateFolderMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Folder,
+                crate::model::CreateFolderMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -413,7 +416,12 @@ pub mod folders {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [folder][crate::model::CreateFolderRequest::folder].
@@ -452,7 +460,7 @@ pub mod folders {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::UpdateFolder;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -496,12 +504,15 @@ pub mod folders {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_folder`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_folder`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Folder, crate::model::UpdateFolderMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Folder, crate::model::UpdateFolderMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Folder, crate::model::UpdateFolderMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Folder,
+                crate::model::UpdateFolderMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -526,7 +537,12 @@ pub mod folders {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [folder][crate::model::UpdateFolderRequest::folder].
@@ -587,7 +603,7 @@ pub mod folders {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::MoveFolder;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -631,12 +647,15 @@ pub mod folders {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `move_folder`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `move_folder`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Folder, crate::model::MoveFolderMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Folder, crate::model::MoveFolderMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Folder, crate::model::MoveFolderMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Folder,
+                crate::model::MoveFolderMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -661,7 +680,12 @@ pub mod folders {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::MoveFolderRequest::name].
@@ -694,7 +718,7 @@ pub mod folders {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::DeleteFolder;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -738,12 +762,15 @@ pub mod folders {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_folder`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_folder`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Folder, crate::model::DeleteFolderMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Folder, crate::model::DeleteFolderMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Folder, crate::model::DeleteFolderMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Folder,
+                crate::model::DeleteFolderMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -768,7 +795,12 @@ pub mod folders {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteFolderRequest::name].
@@ -793,7 +825,7 @@ pub mod folders {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::UndeleteFolder;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -837,11 +869,12 @@ pub mod folders {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undelete_folder`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undelete_folder`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Folder, crate::model::UndeleteFolderMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Folder, crate::model::UndeleteFolderMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Folder,
                 crate::model::UndeleteFolderMetadata,
             >;
@@ -869,7 +902,12 @@ pub mod folders {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UndeleteFolderRequest::name].
@@ -2077,7 +2115,7 @@ pub mod projects {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::CreateProject;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2121,11 +2159,12 @@ pub mod projects {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_project`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_project`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Project, crate::model::CreateProjectMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Project, crate::model::CreateProjectMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Project,
                 crate::model::CreateProjectMetadata,
             >;
@@ -2153,7 +2192,12 @@ pub mod projects {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [project][crate::model::CreateProjectRequest::project].
@@ -2192,7 +2236,7 @@ pub mod projects {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::UpdateProject;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2236,11 +2280,12 @@ pub mod projects {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_project`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_project`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Project, crate::model::UpdateProjectMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Project, crate::model::UpdateProjectMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Project,
                 crate::model::UpdateProjectMetadata,
             >;
@@ -2268,7 +2313,12 @@ pub mod projects {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [project][crate::model::UpdateProjectRequest::project].
@@ -2325,7 +2375,7 @@ pub mod projects {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::MoveProject;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2369,12 +2419,15 @@ pub mod projects {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `move_project`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `move_project`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Project, crate::model::MoveProjectMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Project, crate::model::MoveProjectMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Project, crate::model::MoveProjectMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Project,
+                crate::model::MoveProjectMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2399,7 +2452,12 @@ pub mod projects {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::MoveProjectRequest::name].
@@ -2432,7 +2490,7 @@ pub mod projects {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::DeleteProject;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2476,11 +2534,12 @@ pub mod projects {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_project`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_project`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Project, crate::model::DeleteProjectMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Project, crate::model::DeleteProjectMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Project,
                 crate::model::DeleteProjectMetadata,
             >;
@@ -2508,7 +2567,12 @@ pub mod projects {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteProjectRequest::name].
@@ -2533,7 +2597,7 @@ pub mod projects {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::UndeleteProject;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2577,12 +2641,12 @@ pub mod projects {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undelete_project`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undelete_project`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Project, crate::model::UndeleteProjectMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Project, crate::model::UndeleteProjectMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Project,
                 crate::model::UndeleteProjectMetadata,
             >;
@@ -2610,7 +2674,12 @@ pub mod projects {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UndeleteProjectRequest::name].
@@ -3110,7 +3179,7 @@ pub mod tag_bindings {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_bindings::CreateTagBinding;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3159,12 +3228,14 @@ pub mod tag_bindings {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_tag_binding`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_tag_binding`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::TagBinding, crate::model::CreateTagBindingMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::TagBinding,
+            crate::model::CreateTagBindingMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::TagBinding,
                 crate::model::CreateTagBindingMetadata,
             >;
@@ -3192,7 +3263,12 @@ pub mod tag_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [tag_binding][crate::model::CreateTagBindingRequest::tag_binding].
@@ -3237,7 +3313,7 @@ pub mod tag_bindings {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_bindings::DeleteTagBinding;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3286,10 +3362,14 @@ pub mod tag_bindings {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_tag_binding`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteTagBindingMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteTagBindingMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_tag_binding`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteTagBindingMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteTagBindingMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3314,7 +3394,7 @@ pub mod tag_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3568,7 +3648,7 @@ pub mod tag_holds {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_holds::CreateTagHold;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3612,11 +3692,12 @@ pub mod tag_holds {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_tag_hold`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_tag_hold`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::TagHold, crate::model::CreateTagHoldMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::TagHold, crate::model::CreateTagHoldMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::TagHold,
                 crate::model::CreateTagHoldMetadata,
             >;
@@ -3644,7 +3725,12 @@ pub mod tag_holds {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateTagHoldRequest::parent].
@@ -3697,7 +3783,7 @@ pub mod tag_holds {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_holds::DeleteTagHold;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3741,10 +3827,14 @@ pub mod tag_holds {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_tag_hold`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteTagHoldMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteTagHoldMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_tag_hold`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteTagHoldMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteTagHoldMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3769,7 +3859,7 @@ pub mod tag_holds {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -4251,7 +4341,7 @@ pub mod tag_keys {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_keys::CreateTagKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4295,12 +4385,15 @@ pub mod tag_keys {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_tag_key`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_tag_key`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::TagKey, crate::model::CreateTagKeyMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::TagKey, crate::model::CreateTagKeyMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::TagKey, crate::model::CreateTagKeyMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::TagKey,
+                crate::model::CreateTagKeyMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4325,7 +4418,12 @@ pub mod tag_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [tag_key][crate::model::CreateTagKeyRequest::tag_key].
@@ -4370,7 +4468,7 @@ pub mod tag_keys {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_keys::UpdateTagKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4414,12 +4512,15 @@ pub mod tag_keys {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_tag_key`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_tag_key`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::TagKey, crate::model::UpdateTagKeyMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::TagKey, crate::model::UpdateTagKeyMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::TagKey, crate::model::UpdateTagKeyMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::TagKey,
+                crate::model::UpdateTagKeyMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4444,7 +4545,12 @@ pub mod tag_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [tag_key][crate::model::UpdateTagKeyRequest::tag_key].
@@ -4507,7 +4613,7 @@ pub mod tag_keys {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_keys::DeleteTagKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4551,12 +4657,15 @@ pub mod tag_keys {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_tag_key`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_tag_key`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::TagKey, crate::model::DeleteTagKeyMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::TagKey, crate::model::DeleteTagKeyMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::TagKey, crate::model::DeleteTagKeyMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::TagKey,
+                crate::model::DeleteTagKeyMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4581,7 +4690,12 @@ pub mod tag_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTagKeyRequest::name].
@@ -5220,7 +5334,7 @@ pub mod tag_values {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_values::CreateTagValue;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5266,12 +5380,12 @@ pub mod tag_values {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_tag_value`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_tag_value`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::TagValue, crate::model::CreateTagValueMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::TagValue, crate::model::CreateTagValueMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::TagValue,
                 crate::model::CreateTagValueMetadata,
             >;
@@ -5299,7 +5413,12 @@ pub mod tag_values {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [tag_value][crate::model::CreateTagValueRequest::tag_value].
@@ -5344,7 +5463,7 @@ pub mod tag_values {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_values::UpdateTagValue;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5390,12 +5509,12 @@ pub mod tag_values {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_tag_value`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_tag_value`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::TagValue, crate::model::UpdateTagValueMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::TagValue, crate::model::UpdateTagValueMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::TagValue,
                 crate::model::UpdateTagValueMetadata,
             >;
@@ -5423,7 +5542,12 @@ pub mod tag_values {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [tag_value][crate::model::UpdateTagValueRequest::tag_value].
@@ -5486,7 +5610,7 @@ pub mod tag_values {
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_values::DeleteTagValue;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5532,12 +5656,12 @@ pub mod tag_values {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_tag_value`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_tag_value`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::TagValue, crate::model::DeleteTagValueMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::TagValue, crate::model::DeleteTagValueMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::TagValue,
                 crate::model::DeleteTagValueMetadata,
             >;
@@ -5565,7 +5689,12 @@ pub mod tag_values {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTagValueRequest::name].

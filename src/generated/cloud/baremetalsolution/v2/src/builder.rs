@@ -247,7 +247,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::UpdateInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -293,12 +293,15 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -323,7 +326,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
@@ -450,7 +458,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ResetInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -496,12 +504,14 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `reset_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `reset_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ResetInstanceResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ResetInstanceResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ResetInstanceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -529,7 +539,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ResetInstanceRequest::name].
@@ -554,7 +569,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::StartInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -600,12 +615,14 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `start_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `start_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::StartInstanceResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::StartInstanceResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::StartInstanceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -633,7 +650,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StartInstanceRequest::name].
@@ -658,7 +680,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::StopInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -704,12 +726,14 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `stop_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `stop_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::StopInstanceResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::StopInstanceResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::StopInstanceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -737,7 +761,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StopInstanceRequest::name].
@@ -762,7 +791,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::EnableInteractiveSerialConsole;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -813,14 +842,14 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `enable_interactive_serial_console`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `enable_interactive_serial_console`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::EnableInteractiveSerialConsoleResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::EnableInteractiveSerialConsoleResponse,
                 crate::model::OperationMetadata,
             >;
@@ -848,7 +877,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::EnableInteractiveSerialConsoleRequest::name].
@@ -873,7 +907,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::DisableInteractiveSerialConsole;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -924,14 +958,14 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `disable_interactive_serial_console`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `disable_interactive_serial_console`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::DisableInteractiveSerialConsoleResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DisableInteractiveSerialConsoleResponse,
                 crate::model::OperationMetadata,
             >;
@@ -959,7 +993,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DisableInteractiveSerialConsoleRequest::name].
@@ -984,7 +1023,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::DetachLun;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1030,12 +1069,15 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `detach_lun`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `detach_lun`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1060,7 +1102,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::DetachLunRequest::instance].
@@ -1525,7 +1572,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::UpdateVolume;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1571,12 +1618,15 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_volume`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_volume`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Volume, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Volume,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1601,7 +1651,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [volume][crate::model::UpdateVolumeRequest::volume].
@@ -1728,7 +1783,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::EvictVolume;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1774,9 +1829,10 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `evict_volume`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `evict_volume`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1801,7 +1857,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1831,7 +1887,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ResizeVolume;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1877,12 +1933,15 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `resize_volume`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `resize_volume`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Volume, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Volume,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1907,7 +1966,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [volume][crate::model::ResizeVolumeRequest::volume].
@@ -2173,7 +2237,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::UpdateNetwork;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2219,12 +2283,15 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_network`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_network`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Network, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Network, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Network, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Network,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2249,7 +2316,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [network][crate::model::UpdateNetworkRequest::network].
@@ -2393,7 +2465,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::RestoreVolumeSnapshot;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2442,12 +2514,12 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `restore_volume_snapshot`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_volume_snapshot`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::VolumeSnapshot, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::VolumeSnapshot, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::VolumeSnapshot,
                 crate::model::OperationMetadata,
             >;
@@ -2475,7 +2547,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [volume_snapshot][crate::model::RestoreVolumeSnapshotRequest::volume_snapshot].
@@ -2901,7 +2978,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::EvictLun;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2947,9 +3024,10 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `evict_lun`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `evict_lun`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2974,7 +3052,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3174,7 +3252,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::UpdateNfsShare;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3220,12 +3298,15 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_nfs_share`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_nfs_share`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::NfsShare, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::NfsShare, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::NfsShare, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::NfsShare,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3250,7 +3331,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [nfs_share][crate::model::UpdateNfsShareRequest::nfs_share].
@@ -3307,7 +3393,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::CreateNfsShare;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3353,12 +3439,15 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_nfs_share`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_nfs_share`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::NfsShare, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::NfsShare, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::NfsShare, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::NfsShare,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3383,7 +3472,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateNfsShareRequest::parent].
@@ -3500,7 +3594,7 @@ pub mod bare_metal_solution {
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::DeleteNfsShare;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3546,9 +3640,10 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_nfs_share`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_nfs_share`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3573,7 +3668,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

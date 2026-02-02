@@ -758,7 +758,7 @@ pub mod artifact_registry {
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ImportAptArtifacts;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -807,14 +807,14 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_apt_artifacts`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_apt_artifacts`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ImportAptArtifactsResponse,
             crate::model::ImportAptArtifactsMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ImportAptArtifactsResponse,
                 crate::model::ImportAptArtifactsMetadata,
             >;
@@ -842,7 +842,12 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportAptArtifactsRequest::parent].
@@ -892,7 +897,7 @@ pub mod artifact_registry {
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ImportYumArtifacts;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -941,14 +946,14 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_yum_artifacts`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_yum_artifacts`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ImportYumArtifactsResponse,
             crate::model::ImportYumArtifactsMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ImportYumArtifactsResponse,
                 crate::model::ImportYumArtifactsMetadata,
             >;
@@ -976,7 +981,12 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportYumArtifactsRequest::parent].
@@ -1205,7 +1215,7 @@ pub mod artifact_registry {
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::CreateRepository;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1254,12 +1264,15 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_repository`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_repository`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Repository, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Repository,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1284,7 +1297,12 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
@@ -1432,7 +1450,7 @@ pub mod artifact_registry {
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteRepository;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1481,9 +1499,10 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_repository`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_repository`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1508,7 +1527,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1714,7 +1733,7 @@ pub mod artifact_registry {
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeletePackage;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1760,9 +1779,10 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_package`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_package`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1787,7 +1807,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2001,7 +2021,7 @@ pub mod artifact_registry {
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2047,9 +2067,10 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_version`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_version`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2074,7 +2095,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2108,7 +2129,7 @@ pub mod artifact_registry {
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::BatchDeleteVersions;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2157,10 +2178,14 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_delete_versions`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::BatchDeleteVersionsMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::BatchDeleteVersionsMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_delete_versions`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::BatchDeleteVersionsMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::BatchDeleteVersionsMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2185,7 +2210,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2502,7 +2527,7 @@ pub mod artifact_registry {
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteFile;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2548,9 +2573,10 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_file`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_file`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2575,7 +2601,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -4338,7 +4364,7 @@ pub mod artifact_registry {
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::CreateAttachment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4387,12 +4413,15 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_attachment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_attachment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Attachment, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Attachment, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Attachment, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Attachment,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4417,7 +4446,12 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAttachmentRequest::parent].
@@ -4472,7 +4506,7 @@ pub mod artifact_registry {
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteAttachment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4521,9 +4555,10 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_attachment`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_attachment`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4548,7 +4583,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -4578,7 +4613,7 @@ pub mod artifact_registry {
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ExportArtifact;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4624,12 +4659,14 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_artifact`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_artifact`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExportArtifactResponse, crate::model::ExportArtifactMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ExportArtifactResponse,
+            crate::model::ExportArtifactMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExportArtifactResponse,
                 crate::model::ExportArtifactMetadata,
             >;
@@ -4657,7 +4694,12 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [repository][crate::model::ExportArtifactRequest::repository].

@@ -77,7 +77,7 @@ pub mod attached_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::CreateAttachedCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -126,12 +126,12 @@ pub mod attached_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_attached_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_attached_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AttachedCluster, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::AttachedCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AttachedCluster,
                 crate::model::OperationMetadata,
             >;
@@ -159,7 +159,12 @@ pub mod attached_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAttachedClusterRequest::parent].
@@ -220,7 +225,7 @@ pub mod attached_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::UpdateAttachedCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -269,12 +274,12 @@ pub mod attached_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_attached_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_attached_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AttachedCluster, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::AttachedCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AttachedCluster,
                 crate::model::OperationMetadata,
             >;
@@ -302,7 +307,12 @@ pub mod attached_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [attached_cluster][crate::model::UpdateAttachedClusterRequest::attached_cluster].
@@ -369,7 +379,7 @@ pub mod attached_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::ImportAttachedCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -418,12 +428,12 @@ pub mod attached_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_attached_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_attached_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AttachedCluster, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::AttachedCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AttachedCluster,
                 crate::model::OperationMetadata,
             >;
@@ -451,7 +461,12 @@ pub mod attached_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportAttachedClusterRequest::parent].
@@ -696,7 +711,7 @@ pub mod attached_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::DeleteAttachedCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -745,9 +760,10 @@ pub mod attached_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_attached_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_attached_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -772,7 +788,7 @@ pub mod attached_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1483,7 +1499,7 @@ pub mod aws_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::CreateAwsCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1532,12 +1548,15 @@ pub mod aws_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_aws_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_aws_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AwsCluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::AwsCluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::AwsCluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::AwsCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1562,7 +1581,12 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAwsClusterRequest::parent].
@@ -1623,7 +1647,7 @@ pub mod aws_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::UpdateAwsCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1672,12 +1696,15 @@ pub mod aws_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_aws_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_aws_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AwsCluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::AwsCluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::AwsCluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::AwsCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1702,7 +1729,12 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [aws_cluster][crate::model::UpdateAwsClusterRequest::aws_cluster].
@@ -1933,7 +1965,7 @@ pub mod aws_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::DeleteAwsCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1982,9 +2014,10 @@ pub mod aws_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_aws_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_aws_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2009,7 +2042,7 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2255,7 +2288,7 @@ pub mod aws_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::CreateAwsNodePool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2304,11 +2337,12 @@ pub mod aws_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_aws_node_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_aws_node_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AwsNodePool, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::AwsNodePool, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AwsNodePool,
                 crate::model::OperationMetadata,
             >;
@@ -2336,7 +2370,12 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAwsNodePoolRequest::parent].
@@ -2397,7 +2436,7 @@ pub mod aws_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::UpdateAwsNodePool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2446,11 +2485,12 @@ pub mod aws_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_aws_node_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_aws_node_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AwsNodePool, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::AwsNodePool, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AwsNodePool,
                 crate::model::OperationMetadata,
             >;
@@ -2478,7 +2518,12 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [aws_node_pool][crate::model::UpdateAwsNodePoolRequest::aws_node_pool].
@@ -2545,7 +2590,7 @@ pub mod aws_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::RollbackAwsNodePoolUpdate;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2596,11 +2641,12 @@ pub mod aws_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `rollback_aws_node_pool_update`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `rollback_aws_node_pool_update`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AwsNodePool, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::AwsNodePool, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AwsNodePool,
                 crate::model::OperationMetadata,
             >;
@@ -2628,7 +2674,12 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RollbackAwsNodePoolUpdateRequest::name].
@@ -2826,7 +2877,7 @@ pub mod aws_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::DeleteAwsNodePool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2875,9 +2926,10 @@ pub mod aws_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_aws_node_pool`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_aws_node_pool`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2902,7 +2954,7 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3515,7 +3567,7 @@ pub mod azure_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::CreateAzureClient;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3564,11 +3616,12 @@ pub mod azure_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_azure_client`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_azure_client`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AzureClient, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::AzureClient, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AzureClient,
                 crate::model::OperationMetadata,
             >;
@@ -3596,7 +3649,12 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureClientRequest::parent].
@@ -3824,7 +3882,7 @@ pub mod azure_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::DeleteAzureClient;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3873,9 +3931,10 @@ pub mod azure_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_azure_client`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_azure_client`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3900,7 +3959,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3942,7 +4001,7 @@ pub mod azure_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::CreateAzureCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3991,11 +4050,12 @@ pub mod azure_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_azure_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_azure_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AzureCluster, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::AzureCluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AzureCluster,
                 crate::model::OperationMetadata,
             >;
@@ -4023,7 +4083,12 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureClusterRequest::parent].
@@ -4084,7 +4149,7 @@ pub mod azure_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::UpdateAzureCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4133,11 +4198,12 @@ pub mod azure_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_azure_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_azure_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AzureCluster, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::AzureCluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AzureCluster,
                 crate::model::OperationMetadata,
             >;
@@ -4165,7 +4231,12 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [azure_cluster][crate::model::UpdateAzureClusterRequest::azure_cluster].
@@ -4399,7 +4470,7 @@ pub mod azure_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::DeleteAzureCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4448,9 +4519,10 @@ pub mod azure_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_azure_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_azure_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4475,7 +4547,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -4723,7 +4795,7 @@ pub mod azure_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::CreateAzureNodePool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4772,12 +4844,12 @@ pub mod azure_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_azure_node_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_azure_node_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AzureNodePool, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::AzureNodePool, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AzureNodePool,
                 crate::model::OperationMetadata,
             >;
@@ -4805,7 +4877,12 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureNodePoolRequest::parent].
@@ -4866,7 +4943,7 @@ pub mod azure_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::UpdateAzureNodePool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4915,12 +4992,12 @@ pub mod azure_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_azure_node_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_azure_node_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AzureNodePool, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::AzureNodePool, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AzureNodePool,
                 crate::model::OperationMetadata,
             >;
@@ -4948,7 +5025,12 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [azure_node_pool][crate::model::UpdateAzureNodePoolRequest::azure_node_pool].
@@ -5187,7 +5269,7 @@ pub mod azure_clusters {
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::DeleteAzureNodePool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5236,9 +5318,10 @@ pub mod azure_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_azure_node_pool`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_azure_node_pool`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5263,7 +5346,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

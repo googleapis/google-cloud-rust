@@ -668,7 +668,7 @@ pub mod translation_service {
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::BatchTranslateText;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -717,12 +717,14 @@ pub mod translation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_translate_text`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_translate_text`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BatchTranslateResponse, crate::model::BatchTranslateMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::BatchTranslateResponse,
+            crate::model::BatchTranslateMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchTranslateResponse,
                 crate::model::BatchTranslateMetadata,
             >;
@@ -750,7 +752,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchTranslateTextRequest::parent].
@@ -864,7 +871,7 @@ pub mod translation_service {
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::BatchTranslateDocument;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -913,14 +920,14 @@ pub mod translation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_translate_document`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_translate_document`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BatchTranslateDocumentResponse,
             crate::model::BatchTranslateDocumentMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchTranslateDocumentResponse,
                 crate::model::BatchTranslateDocumentMetadata,
             >;
@@ -948,7 +955,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchTranslateDocumentRequest::parent].
@@ -1081,7 +1093,7 @@ pub mod translation_service {
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::CreateGlossary;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1127,12 +1139,12 @@ pub mod translation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_glossary`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_glossary`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Glossary, crate::model::CreateGlossaryMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Glossary, crate::model::CreateGlossaryMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Glossary,
                 crate::model::CreateGlossaryMetadata,
             >;
@@ -1160,7 +1172,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateGlossaryRequest::parent].
@@ -1207,7 +1224,7 @@ pub mod translation_service {
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::UpdateGlossary;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1253,12 +1270,12 @@ pub mod translation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_glossary`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_glossary`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Glossary, crate::model::UpdateGlossaryMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Glossary, crate::model::UpdateGlossaryMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Glossary,
                 crate::model::UpdateGlossaryMetadata,
             >;
@@ -1286,7 +1303,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
@@ -1513,7 +1535,7 @@ pub mod translation_service {
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::DeleteGlossary;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1559,12 +1581,14 @@ pub mod translation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_glossary`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_glossary`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::DeleteGlossaryResponse, crate::model::DeleteGlossaryMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::DeleteGlossaryResponse,
+            crate::model::DeleteGlossaryMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DeleteGlossaryResponse,
                 crate::model::DeleteGlossaryMetadata,
             >;
@@ -1592,7 +1616,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteGlossaryRequest::name].
@@ -2020,7 +2049,7 @@ pub mod translation_service {
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::CreateDataset;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2066,11 +2095,12 @@ pub mod translation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_dataset`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_dataset`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Dataset, crate::model::CreateDatasetMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Dataset, crate::model::CreateDatasetMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Dataset,
                 crate::model::CreateDatasetMetadata,
             >;
@@ -2098,7 +2128,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateDatasetRequest::parent].
@@ -2309,7 +2344,7 @@ pub mod translation_service {
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::DeleteDataset;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2355,10 +2390,14 @@ pub mod translation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_dataset`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteDatasetMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteDatasetMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_dataset`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteDatasetMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteDatasetMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2383,7 +2422,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3335,7 +3374,7 @@ pub mod translation_service {
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ImportData;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3381,9 +3420,10 @@ pub mod translation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_data`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::ImportDataMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::ImportDataMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_data`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::ImportDataMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::ImportDataMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3408,7 +3448,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3460,7 +3500,7 @@ pub mod translation_service {
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ExportData;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3506,9 +3546,10 @@ pub mod translation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_data`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::ExportDataMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::ExportDataMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_data`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::ExportDataMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::ExportDataMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3533,7 +3574,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3693,7 +3734,7 @@ pub mod translation_service {
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::CreateModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3739,12 +3780,15 @@ pub mod translation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_model`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Model, crate::model::CreateModelMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Model, crate::model::CreateModelMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Model, crate::model::CreateModelMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Model,
+                crate::model::CreateModelMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3769,7 +3813,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateModelRequest::parent].
@@ -3986,7 +4035,7 @@ pub mod translation_service {
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::DeleteModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4032,10 +4081,14 @@ pub mod translation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_model`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteModelMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteModelMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_model`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteModelMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteModelMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4060,7 +4113,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
