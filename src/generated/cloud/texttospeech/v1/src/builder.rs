@@ -516,7 +516,7 @@ pub mod text_to_speech_long_audio_synthesize {
     /// ```
     /// # use google_cloud_texttospeech_v1::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -565,14 +565,14 @@ pub mod text_to_speech_long_audio_synthesize {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `synthesize_long_audio`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `synthesize_long_audio`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::SynthesizeLongAudioResponse,
             crate::model::SynthesizeLongAudioMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SynthesizeLongAudioResponse,
                 crate::model::SynthesizeLongAudioMetadata,
             >;
@@ -600,7 +600,12 @@ pub mod text_to_speech_long_audio_synthesize {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::SynthesizeLongAudioRequest::parent].

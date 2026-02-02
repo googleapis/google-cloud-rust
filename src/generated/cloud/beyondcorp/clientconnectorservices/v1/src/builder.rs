@@ -267,7 +267,7 @@ pub mod client_connector_services_service {
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::CreateClientConnectorService;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -318,14 +318,14 @@ pub mod client_connector_services_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_client_connector_service`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_client_connector_service`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ClientConnectorService,
             crate::model::ClientConnectorServiceOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ClientConnectorService,
                 crate::model::ClientConnectorServiceOperationMetadata,
             >;
@@ -353,7 +353,12 @@ pub mod client_connector_services_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateClientConnectorServiceRequest::parent].
@@ -421,7 +426,7 @@ pub mod client_connector_services_service {
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::UpdateClientConnectorService;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -472,14 +477,14 @@ pub mod client_connector_services_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_client_connector_service`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_client_connector_service`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ClientConnectorService,
             crate::model::ClientConnectorServiceOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ClientConnectorService,
                 crate::model::ClientConnectorServiceOperationMetadata,
             >;
@@ -507,7 +512,12 @@ pub mod client_connector_services_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClientConnectorServiceRequest::update_mask].
@@ -586,7 +596,7 @@ pub mod client_connector_services_service {
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::DeleteClientConnectorService;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -637,11 +647,12 @@ pub mod client_connector_services_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_client_connector_service`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_client_connector_service`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<(), crate::model::ClientConnectorServiceOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<(), crate::model::ClientConnectorServiceOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 wkt::Empty,
                 crate::model::ClientConnectorServiceOperationMetadata,
             >;
@@ -669,7 +680,7 @@ pub mod client_connector_services_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

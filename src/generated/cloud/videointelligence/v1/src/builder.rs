@@ -77,7 +77,7 @@ pub mod video_intelligence_service {
     /// ```
     /// # use google_cloud_videointelligence_v1::builder::video_intelligence_service::AnnotateVideo;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -123,12 +123,14 @@ pub mod video_intelligence_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `annotate_video`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `annotate_video`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AnnotateVideoResponse, crate::model::AnnotateVideoProgress>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AnnotateVideoResponse,
+            crate::model::AnnotateVideoProgress,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AnnotateVideoResponse,
                 crate::model::AnnotateVideoProgress,
             >;
@@ -156,7 +158,12 @@ pub mod video_intelligence_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [input_uri][crate::model::AnnotateVideoRequest::input_uri].

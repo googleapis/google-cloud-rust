@@ -253,7 +253,7 @@ pub mod workstations {
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::CreateWorkstationCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -304,12 +304,14 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_workstation_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_workstation_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::WorkstationCluster, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::WorkstationCluster,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::WorkstationCluster,
                 crate::model::OperationMetadata,
             >;
@@ -337,7 +339,12 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationClusterRequest::parent].
@@ -398,7 +405,7 @@ pub mod workstations {
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::UpdateWorkstationCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -449,12 +456,14 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_workstation_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_workstation_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::WorkstationCluster, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::WorkstationCluster,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::WorkstationCluster,
                 crate::model::OperationMetadata,
             >;
@@ -482,7 +491,12 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
@@ -555,7 +569,7 @@ pub mod workstations {
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::DeleteWorkstationCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -606,12 +620,14 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_workstation_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_workstation_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::WorkstationCluster, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::WorkstationCluster,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::WorkstationCluster,
                 crate::model::OperationMetadata,
             >;
@@ -639,7 +655,12 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationClusterRequest::name].
@@ -967,7 +988,7 @@ pub mod workstations {
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::CreateWorkstationConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1018,12 +1039,14 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_workstation_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_workstation_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::WorkstationConfig, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::WorkstationConfig,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::WorkstationConfig,
                 crate::model::OperationMetadata,
             >;
@@ -1051,7 +1074,12 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationConfigRequest::parent].
@@ -1112,7 +1140,7 @@ pub mod workstations {
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::UpdateWorkstationConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1163,12 +1191,14 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_workstation_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_workstation_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::WorkstationConfig, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::WorkstationConfig,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::WorkstationConfig,
                 crate::model::OperationMetadata,
             >;
@@ -1196,7 +1226,12 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
@@ -1269,7 +1304,7 @@ pub mod workstations {
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::DeleteWorkstationConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1320,12 +1355,14 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_workstation_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_workstation_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::WorkstationConfig, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::WorkstationConfig,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::WorkstationConfig,
                 crate::model::OperationMetadata,
             >;
@@ -1353,7 +1390,12 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationConfigRequest::name].
@@ -1672,7 +1714,7 @@ pub mod workstations {
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::CreateWorkstation;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1721,11 +1763,12 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_workstation`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_workstation`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Workstation, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Workstation,
                 crate::model::OperationMetadata,
             >;
@@ -1753,7 +1796,12 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationRequest::parent].
@@ -1814,7 +1862,7 @@ pub mod workstations {
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::UpdateWorkstation;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1863,11 +1911,12 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_workstation`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_workstation`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Workstation, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Workstation,
                 crate::model::OperationMetadata,
             >;
@@ -1895,7 +1944,12 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
@@ -1968,7 +2022,7 @@ pub mod workstations {
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::DeleteWorkstation;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2017,11 +2071,12 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_workstation`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_workstation`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Workstation, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Workstation,
                 crate::model::OperationMetadata,
             >;
@@ -2049,7 +2104,12 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationRequest::name].
@@ -2086,7 +2146,7 @@ pub mod workstations {
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::StartWorkstation;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2135,11 +2195,12 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `start_workstation`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `start_workstation`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Workstation, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Workstation,
                 crate::model::OperationMetadata,
             >;
@@ -2167,7 +2228,12 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StartWorkstationRequest::name].
@@ -2204,7 +2270,7 @@ pub mod workstations {
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::StopWorkstation;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2250,11 +2316,12 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `stop_workstation`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `stop_workstation`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Workstation, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Workstation,
                 crate::model::OperationMetadata,
             >;
@@ -2282,7 +2349,12 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StopWorkstationRequest::name].

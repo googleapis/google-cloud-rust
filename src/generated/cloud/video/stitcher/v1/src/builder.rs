@@ -77,7 +77,7 @@ pub mod video_stitcher_service {
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateCdnKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -123,12 +123,15 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_cdn_key`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_cdn_key`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CdnKey, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::CdnKey, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::CdnKey,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -153,7 +156,12 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateCdnKeyRequest::parent].
@@ -384,7 +392,7 @@ pub mod video_stitcher_service {
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteCdnKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -430,9 +438,10 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_cdn_key`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_cdn_key`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -457,7 +466,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -487,7 +496,7 @@ pub mod video_stitcher_service {
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::UpdateCdnKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -533,12 +542,15 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_cdn_key`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_cdn_key`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CdnKey, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::CdnKey, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::CdnKey,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -563,7 +575,12 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
@@ -1289,7 +1306,7 @@ pub mod video_stitcher_service {
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateSlate;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1335,12 +1352,15 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_slate`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_slate`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Slate, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Slate, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Slate, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Slate,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1365,7 +1385,12 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateSlateRequest::parent].
@@ -1602,7 +1627,7 @@ pub mod video_stitcher_service {
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::UpdateSlate;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1648,12 +1673,15 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_slate`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_slate`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Slate, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Slate, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Slate, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Slate,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1678,7 +1706,12 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [slate][crate::model::UpdateSlateRequest::slate].
@@ -1739,7 +1772,7 @@ pub mod video_stitcher_service {
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteSlate;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1785,9 +1818,10 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_slate`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_slate`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1812,7 +1846,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1991,7 +2025,7 @@ pub mod video_stitcher_service {
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateLiveConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2040,12 +2074,15 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_live_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_live_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::LiveConfig, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::LiveConfig, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::LiveConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2070,7 +2107,12 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateLiveConfigRequest::parent].
@@ -2307,7 +2349,7 @@ pub mod video_stitcher_service {
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteLiveConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2356,9 +2398,10 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_live_config`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_live_config`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2383,7 +2426,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2413,7 +2456,7 @@ pub mod video_stitcher_service {
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::UpdateLiveConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2462,12 +2505,15 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_live_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_live_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::LiveConfig, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::LiveConfig, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::LiveConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2492,7 +2538,12 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
@@ -2553,7 +2604,7 @@ pub mod video_stitcher_service {
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateVodConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2599,12 +2650,15 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_vod_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_vod_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::VodConfig, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::VodConfig, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::VodConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2629,7 +2683,12 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateVodConfigRequest::parent].
@@ -2866,7 +2925,7 @@ pub mod video_stitcher_service {
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteVodConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2912,9 +2971,10 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_vod_config`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_vod_config`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2939,7 +2999,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2969,7 +3029,7 @@ pub mod video_stitcher_service {
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::UpdateVodConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3015,12 +3075,15 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_vod_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_vod_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::VodConfig, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::VodConfig, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::VodConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3045,7 +3108,12 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].

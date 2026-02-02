@@ -253,7 +253,7 @@ pub mod cloud_filestore_manager {
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::CreateInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -299,12 +299,12 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
                 cloud_common::model::OperationMetadata,
             >;
@@ -332,7 +332,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -387,7 +392,7 @@ pub mod cloud_filestore_manager {
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::UpdateInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -433,12 +438,12 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
                 cloud_common::model::OperationMetadata,
             >;
@@ -466,7 +471,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
@@ -519,7 +529,7 @@ pub mod cloud_filestore_manager {
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::RestoreInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -565,12 +575,12 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `restore_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
                 cloud_common::model::OperationMetadata,
             >;
@@ -598,7 +608,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RestoreInstanceRequest::name].
@@ -656,7 +671,7 @@ pub mod cloud_filestore_manager {
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::RevertInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -702,12 +717,12 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `revert_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `revert_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
                 cloud_common::model::OperationMetadata,
             >;
@@ -735,7 +750,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RevertInstanceRequest::name].
@@ -768,7 +788,7 @@ pub mod cloud_filestore_manager {
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::DeleteInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -814,10 +834,14 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
-        pub fn poller(self) -> impl lro::Poller<(), cloud_common::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_instance`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), cloud_common::model::OperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -842,7 +866,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1060,7 +1084,7 @@ pub mod cloud_filestore_manager {
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::CreateSnapshot;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1106,12 +1130,12 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_snapshot`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_snapshot`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Snapshot, cloud_common::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Snapshot, cloud_common::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Snapshot,
                 cloud_common::model::OperationMetadata,
             >;
@@ -1139,7 +1163,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateSnapshotRequest::parent].
@@ -1194,7 +1223,7 @@ pub mod cloud_filestore_manager {
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::DeleteSnapshot;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1240,10 +1269,14 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_snapshot`.
-        pub fn poller(self) -> impl lro::Poller<(), cloud_common::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_snapshot`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), cloud_common::model::OperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1268,7 +1301,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1298,7 +1331,7 @@ pub mod cloud_filestore_manager {
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::UpdateSnapshot;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1344,12 +1377,12 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_snapshot`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_snapshot`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Snapshot, cloud_common::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Snapshot, cloud_common::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Snapshot,
                 cloud_common::model::OperationMetadata,
             >;
@@ -1377,7 +1410,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
@@ -1614,7 +1652,7 @@ pub mod cloud_filestore_manager {
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::CreateBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1660,12 +1698,12 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_backup`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backup`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Backup, cloud_common::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Backup, cloud_common::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Backup,
                 cloud_common::model::OperationMetadata,
             >;
@@ -1693,7 +1731,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -1748,7 +1791,7 @@ pub mod cloud_filestore_manager {
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::DeleteBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1794,10 +1837,14 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
-        pub fn poller(self) -> impl lro::Poller<(), cloud_common::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_backup`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), cloud_common::model::OperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1822,7 +1869,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1852,7 +1899,7 @@ pub mod cloud_filestore_manager {
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::UpdateBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1898,12 +1945,12 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_backup`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_backup`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Backup, cloud_common::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Backup, cloud_common::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Backup,
                 cloud_common::model::OperationMetadata,
             >;
@@ -1931,7 +1978,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
@@ -1992,7 +2044,7 @@ pub mod cloud_filestore_manager {
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::PromoteReplica;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2038,12 +2090,12 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `promote_replica`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `promote_replica`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
                 cloud_common::model::OperationMetadata,
             >;
@@ -2071,7 +2123,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::PromoteReplicaRequest::name].

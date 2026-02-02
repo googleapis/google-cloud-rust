@@ -1641,8 +1641,11 @@ pub mod managed_zones {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `patch`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `patch`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Operation, crate::model::Operation>
+        {
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1669,7 +1672,7 @@ pub mod managed_zones {
 
             let start = move || async { self.send().await };
 
-            lro::internal::new_discovery_poller(
+            google_cloud_lro::internal::new_discovery_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1946,8 +1949,11 @@ pub mod managed_zones {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Operation, crate::model::Operation>
+        {
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1974,7 +1980,7 @@ pub mod managed_zones {
 
             let start = move || async { self.send().await };
 
-            lro::internal::new_discovery_poller(
+            google_cloud_lro::internal::new_discovery_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

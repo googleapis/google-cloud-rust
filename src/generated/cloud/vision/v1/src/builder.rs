@@ -251,7 +251,7 @@ pub mod image_annotator {
     /// ```
     /// # use google_cloud_vision_v1::builder::image_annotator::AsyncBatchAnnotateImages;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -302,14 +302,14 @@ pub mod image_annotator {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `async_batch_annotate_images`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `async_batch_annotate_images`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::AsyncBatchAnnotateImagesResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AsyncBatchAnnotateImagesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -337,7 +337,12 @@ pub mod image_annotator {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
@@ -406,7 +411,7 @@ pub mod image_annotator {
     /// ```
     /// # use google_cloud_vision_v1::builder::image_annotator::AsyncBatchAnnotateFiles;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -457,14 +462,14 @@ pub mod image_annotator {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `async_batch_annotate_files`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `async_batch_annotate_files`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::AsyncBatchAnnotateFilesResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AsyncBatchAnnotateFilesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -492,7 +497,12 @@ pub mod image_annotator {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [requests][crate::model::AsyncBatchAnnotateFilesRequest::requests].
@@ -2078,7 +2088,7 @@ pub mod product_search {
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::ImportProductSets;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2127,14 +2137,14 @@ pub mod product_search {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_product_sets`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_product_sets`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ImportProductSetsResponse,
             crate::model::BatchOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ImportProductSetsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -2162,7 +2172,12 @@ pub mod product_search {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportProductSetsRequest::parent].
@@ -2209,7 +2224,7 @@ pub mod product_search {
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::PurgeProducts;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2255,10 +2270,14 @@ pub mod product_search {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `purge_products`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::BatchOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::BatchOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `purge_products`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::BatchOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::BatchOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2283,7 +2302,7 @@ pub mod product_search {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

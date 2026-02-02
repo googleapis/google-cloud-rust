@@ -256,7 +256,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::CreateMigrationJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -305,11 +305,12 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_migration_job`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_migration_job`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MigrationJob,
                 crate::model::OperationMetadata,
             >;
@@ -337,7 +338,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateMigrationJobRequest::parent].
@@ -398,7 +404,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::UpdateMigrationJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -447,11 +453,12 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_migration_job`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_migration_job`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MigrationJob,
                 crate::model::OperationMetadata,
             >;
@@ -479,7 +486,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMigrationJobRequest::update_mask].
@@ -546,7 +558,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::DeleteMigrationJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -595,9 +607,10 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_migration_job`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_migration_job`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -622,7 +635,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -664,7 +677,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::StartMigrationJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -713,11 +726,12 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `start_migration_job`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `start_migration_job`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MigrationJob,
                 crate::model::OperationMetadata,
             >;
@@ -745,7 +759,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StartMigrationJobRequest::name].
@@ -774,7 +793,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::StopMigrationJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -823,11 +842,12 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `stop_migration_job`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `stop_migration_job`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MigrationJob,
                 crate::model::OperationMetadata,
             >;
@@ -855,7 +875,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StopMigrationJobRequest::name].
@@ -878,7 +903,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ResumeMigrationJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -927,11 +952,12 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `resume_migration_job`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `resume_migration_job`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MigrationJob,
                 crate::model::OperationMetadata,
             >;
@@ -959,7 +985,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ResumeMigrationJobRequest::name].
@@ -982,7 +1013,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::PromoteMigrationJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1031,11 +1062,12 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `promote_migration_job`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `promote_migration_job`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MigrationJob,
                 crate::model::OperationMetadata,
             >;
@@ -1063,7 +1095,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::PromoteMigrationJobRequest::name].
@@ -1086,7 +1123,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::VerifyMigrationJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1135,11 +1172,12 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `verify_migration_job`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `verify_migration_job`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MigrationJob,
                 crate::model::OperationMetadata,
             >;
@@ -1167,7 +1205,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::VerifyMigrationJobRequest::name].
@@ -1226,7 +1269,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::RestartMigrationJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1275,11 +1318,12 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `restart_migration_job`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `restart_migration_job`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MigrationJob,
                 crate::model::OperationMetadata,
             >;
@@ -1307,7 +1351,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RestartMigrationJobRequest::name].
@@ -1736,7 +1785,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::CreateConnectionProfile;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1787,12 +1836,14 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_connection_profile`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_connection_profile`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ConnectionProfile, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ConnectionProfile,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ConnectionProfile,
                 crate::model::OperationMetadata,
             >;
@@ -1820,7 +1871,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionProfileRequest::parent].
@@ -1893,7 +1949,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::UpdateConnectionProfile;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1944,12 +2000,14 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_connection_profile`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_connection_profile`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ConnectionProfile, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ConnectionProfile,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ConnectionProfile,
                 crate::model::OperationMetadata,
             >;
@@ -1977,7 +2035,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
@@ -2056,7 +2119,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::DeleteConnectionProfile;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2107,9 +2170,10 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_connection_profile`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_connection_profile`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2134,7 +2198,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2176,7 +2240,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::CreatePrivateConnection;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2227,12 +2291,14 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_private_connection`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_private_connection`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::PrivateConnection,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PrivateConnection,
                 crate::model::OperationMetadata,
             >;
@@ -2260,7 +2326,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreatePrivateConnectionRequest::parent].
@@ -2513,7 +2584,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::DeletePrivateConnection;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2564,9 +2635,10 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_private_connection`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_private_connection`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2591,7 +2663,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2809,7 +2881,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::CreateConversionWorkspace;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2860,12 +2932,14 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_conversion_workspace`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_conversion_workspace`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ConversionWorkspace,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ConversionWorkspace,
                 crate::model::OperationMetadata,
             >;
@@ -2893,7 +2967,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateConversionWorkspaceRequest::parent].
@@ -2954,7 +3033,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::UpdateConversionWorkspace;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3005,12 +3084,14 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_conversion_workspace`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_conversion_workspace`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ConversionWorkspace,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ConversionWorkspace,
                 crate::model::OperationMetadata,
             >;
@@ -3038,7 +3119,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConversionWorkspaceRequest::update_mask].
@@ -3105,7 +3191,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::DeleteConversionWorkspace;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3156,9 +3242,10 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_conversion_workspace`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_conversion_workspace`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3183,7 +3270,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3564,7 +3651,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::SeedConversionWorkspace;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3615,12 +3702,14 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `seed_conversion_workspace`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `seed_conversion_workspace`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ConversionWorkspace,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ConversionWorkspace,
                 crate::model::OperationMetadata,
             >;
@@ -3648,7 +3737,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::SeedConversionWorkspaceRequest::name].
@@ -3717,7 +3811,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ImportMappingRules;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3766,12 +3860,14 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_mapping_rules`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_mapping_rules`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ConversionWorkspace,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ConversionWorkspace,
                 crate::model::OperationMetadata,
             >;
@@ -3799,7 +3895,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportMappingRulesRequest::parent].
@@ -3856,7 +3957,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ConvertConversionWorkspace;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3907,12 +4008,14 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `convert_conversion_workspace`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `convert_conversion_workspace`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ConversionWorkspace,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ConversionWorkspace,
                 crate::model::OperationMetadata,
             >;
@@ -3940,7 +4043,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ConvertConversionWorkspaceRequest::name].
@@ -3981,7 +4089,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::CommitConversionWorkspace;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4032,12 +4140,14 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `commit_conversion_workspace`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `commit_conversion_workspace`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ConversionWorkspace,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ConversionWorkspace,
                 crate::model::OperationMetadata,
             >;
@@ -4065,7 +4175,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::CommitConversionWorkspaceRequest::name].
@@ -4096,7 +4211,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::RollbackConversionWorkspace;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4147,12 +4262,14 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `rollback_conversion_workspace`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `rollback_conversion_workspace`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ConversionWorkspace,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ConversionWorkspace,
                 crate::model::OperationMetadata,
             >;
@@ -4180,7 +4297,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RollbackConversionWorkspaceRequest::name].
@@ -4205,7 +4327,7 @@ pub mod data_migration_service {
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ApplyConversionWorkspace;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4256,12 +4378,14 @@ pub mod data_migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `apply_conversion_workspace`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `apply_conversion_workspace`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ConversionWorkspace,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ConversionWorkspace,
                 crate::model::OperationMetadata,
             >;
@@ -4289,7 +4413,12 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ApplyConversionWorkspaceRequest::name].

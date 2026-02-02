@@ -75,7 +75,7 @@ pub mod api_keys {
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::CreateKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -119,9 +119,9 @@ pub mod api_keys {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_key`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Key, ()> {
-            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_key`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Key, ()> {
+            type Operation = google_cloud_lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -146,7 +146,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_metadata_poller(
+            google_cloud_lro::internal::new_unit_metadata_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -430,7 +430,7 @@ pub mod api_keys {
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::UpdateKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -474,9 +474,9 @@ pub mod api_keys {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_key`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Key, ()> {
-            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_key`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Key, ()> {
+            type Operation = google_cloud_lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -501,7 +501,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_metadata_poller(
+            google_cloud_lro::internal::new_unit_metadata_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -563,7 +563,7 @@ pub mod api_keys {
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::DeleteKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -607,9 +607,9 @@ pub mod api_keys {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_key`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Key, ()> {
-            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_key`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Key, ()> {
+            type Operation = google_cloud_lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -634,7 +634,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_metadata_poller(
+            google_cloud_lro::internal::new_unit_metadata_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -670,7 +670,7 @@ pub mod api_keys {
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::UndeleteKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -714,9 +714,9 @@ pub mod api_keys {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undelete_key`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Key, ()> {
-            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undelete_key`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Key, ()> {
+            type Operation = google_cloud_lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -741,7 +741,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_metadata_poller(
+            google_cloud_lro::internal::new_unit_metadata_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

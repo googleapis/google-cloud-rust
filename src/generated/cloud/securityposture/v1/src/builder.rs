@@ -354,7 +354,7 @@ pub mod security_posture {
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::CreatePosture;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -400,12 +400,15 @@ pub mod security_posture {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_posture`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_posture`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Posture, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Posture, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Posture, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Posture,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -430,7 +433,12 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreatePostureRequest::parent].
@@ -485,7 +493,7 @@ pub mod security_posture {
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::UpdatePosture;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -531,12 +539,15 @@ pub mod security_posture {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_posture`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_posture`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Posture, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Posture, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Posture, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Posture,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -561,7 +572,12 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePostureRequest::update_mask].
@@ -630,7 +646,7 @@ pub mod security_posture {
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::DeletePosture;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -676,9 +692,10 @@ pub mod security_posture {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_posture`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_posture`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -703,7 +720,7 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -739,7 +756,7 @@ pub mod security_posture {
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::ExtractPosture;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -785,12 +802,15 @@ pub mod security_posture {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `extract_posture`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `extract_posture`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Posture, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Posture, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Posture, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Posture,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -815,7 +835,12 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ExtractPostureRequest::parent].
@@ -1036,7 +1061,7 @@ pub mod security_posture {
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::CreatePostureDeployment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1087,12 +1112,14 @@ pub mod security_posture {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_posture_deployment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_posture_deployment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PostureDeployment, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::PostureDeployment,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PostureDeployment,
                 crate::model::OperationMetadata,
             >;
@@ -1120,7 +1147,12 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreatePostureDeploymentRequest::parent].
@@ -1175,7 +1207,7 @@ pub mod security_posture {
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::UpdatePostureDeployment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1226,12 +1258,14 @@ pub mod security_posture {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_posture_deployment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_posture_deployment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PostureDeployment, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::PostureDeployment,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PostureDeployment,
                 crate::model::OperationMetadata,
             >;
@@ -1259,7 +1293,12 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePostureDeploymentRequest::update_mask].
@@ -1320,7 +1359,7 @@ pub mod security_posture {
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::DeletePostureDeployment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1371,9 +1410,10 @@ pub mod security_posture {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_posture_deployment`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_posture_deployment`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1398,7 +1438,7 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

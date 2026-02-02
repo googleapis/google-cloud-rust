@@ -415,7 +415,7 @@ pub mod gke_hub {
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateMembership;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -462,12 +462,15 @@ pub mod gke_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_membership`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_membership`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Membership, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Membership, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Membership, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Membership,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -492,7 +495,12 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateMembershipRequest::parent].
@@ -553,7 +561,7 @@ pub mod gke_hub {
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateFeature;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -597,12 +605,15 @@ pub mod gke_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_feature`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_feature`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Feature, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Feature, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Feature, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Feature,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -627,7 +638,12 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateFeatureRequest::parent].
@@ -680,7 +696,7 @@ pub mod gke_hub {
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteMembership;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -727,9 +743,10 @@ pub mod gke_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_membership`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_membership`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -754,7 +771,7 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -796,7 +813,7 @@ pub mod gke_hub {
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteFeature;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -840,9 +857,10 @@ pub mod gke_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_feature`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_feature`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -867,7 +885,7 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -907,7 +925,7 @@ pub mod gke_hub {
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateMembership;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -954,12 +972,15 @@ pub mod gke_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_membership`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_membership`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Membership, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Membership, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Membership, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Membership,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -984,7 +1005,12 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UpdateMembershipRequest::name].
@@ -1059,7 +1085,7 @@ pub mod gke_hub {
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateFeature;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1103,12 +1129,15 @@ pub mod gke_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_feature`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_feature`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Feature, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Feature, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Feature, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Feature,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1133,7 +1162,12 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UpdateFeatureRequest::name].

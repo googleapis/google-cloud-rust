@@ -620,7 +620,7 @@ pub mod consumer_procurement_service {
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::consumer_procurement_service::PlaceOrder;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -666,12 +666,15 @@ pub mod consumer_procurement_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `place_order`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `place_order`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Order, crate::model::PlaceOrderMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Order, crate::model::PlaceOrderMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Order, crate::model::PlaceOrderMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Order,
+                crate::model::PlaceOrderMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -696,7 +699,12 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::PlaceOrderRequest::parent].
@@ -916,7 +924,7 @@ pub mod consumer_procurement_service {
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::consumer_procurement_service::ModifyOrder;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -962,12 +970,15 @@ pub mod consumer_procurement_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `modify_order`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `modify_order`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Order, crate::model::ModifyOrderMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Order, crate::model::ModifyOrderMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Order, crate::model::ModifyOrderMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Order,
+                crate::model::ModifyOrderMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -992,7 +1003,12 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ModifyOrderRequest::name].
@@ -1040,7 +1056,7 @@ pub mod consumer_procurement_service {
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::consumer_procurement_service::CancelOrder;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1086,12 +1102,15 @@ pub mod consumer_procurement_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `cancel_order`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `cancel_order`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Order, crate::model::CancelOrderMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Order, crate::model::CancelOrderMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Order, crate::model::CancelOrderMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Order,
+                crate::model::CancelOrderMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1116,7 +1135,12 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::CancelOrderRequest::name].

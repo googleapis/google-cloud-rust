@@ -253,7 +253,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -299,12 +299,15 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -329,7 +332,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -390,7 +398,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -436,9 +444,10 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_instance`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -463,7 +472,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -678,7 +687,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateRepository;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -727,12 +736,15 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_repository`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_repository`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Repository, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Repository,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -757,7 +769,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
@@ -812,7 +829,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateRepository;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -861,12 +878,15 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_repository`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_repository`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Repository, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Repository,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -891,7 +911,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
@@ -954,7 +979,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteRepository;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1003,9 +1028,10 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_repository`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_repository`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1030,7 +1056,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1230,7 +1256,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateHook;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1276,12 +1302,15 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_hook`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_hook`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Hook, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Hook, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Hook, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Hook,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1306,7 +1335,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateHookRequest::parent].
@@ -1361,7 +1395,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateHook;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1407,12 +1441,15 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_hook`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_hook`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Hook, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Hook, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Hook, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Hook,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1437,7 +1474,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateHookRequest::update_mask].
@@ -1498,7 +1540,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteHook;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1544,9 +1586,10 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_hook`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_hook`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1571,7 +1614,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1861,7 +1904,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateBranchRule;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1910,12 +1953,15 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_branch_rule`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_branch_rule`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BranchRule, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::BranchRule, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::BranchRule,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1940,7 +1986,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateBranchRuleRequest::parent].
@@ -2159,7 +2210,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateBranchRule;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2208,12 +2259,15 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_branch_rule`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_branch_rule`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BranchRule, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::BranchRule, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::BranchRule,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2238,7 +2292,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [branch_rule][crate::model::UpdateBranchRuleRequest::branch_rule].
@@ -2305,7 +2364,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteBranchRule;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2354,9 +2413,10 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_branch_rule`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_branch_rule`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2381,7 +2441,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2417,7 +2477,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreatePullRequest;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2466,11 +2526,12 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_pull_request`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_pull_request`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PullRequest,
                 crate::model::OperationMetadata,
             >;
@@ -2498,7 +2559,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreatePullRequestRequest::parent].
@@ -2712,7 +2778,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdatePullRequest;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2761,11 +2827,12 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_pull_request`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_pull_request`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PullRequest,
                 crate::model::OperationMetadata,
             >;
@@ -2793,7 +2860,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [pull_request][crate::model::UpdatePullRequestRequest::pull_request].
@@ -2850,7 +2922,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::MergePullRequest;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2899,11 +2971,12 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `merge_pull_request`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `merge_pull_request`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PullRequest,
                 crate::model::OperationMetadata,
             >;
@@ -2931,7 +3004,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::MergePullRequestRequest::name].
@@ -2956,7 +3034,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::OpenPullRequest;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3002,11 +3080,12 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `open_pull_request`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `open_pull_request`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PullRequest,
                 crate::model::OperationMetadata,
             >;
@@ -3034,7 +3113,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::OpenPullRequestRequest::name].
@@ -3059,7 +3143,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ClosePullRequest;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3108,11 +3192,12 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `close_pull_request`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `close_pull_request`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PullRequest,
                 crate::model::OperationMetadata,
             >;
@@ -3140,7 +3225,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ClosePullRequestRequest::name].
@@ -3460,7 +3550,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateIssue;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3506,12 +3596,15 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_issue`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_issue`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Issue, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Issue,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3536,7 +3629,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateIssueRequest::parent].
@@ -3753,7 +3851,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateIssue;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3799,12 +3897,15 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_issue`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_issue`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Issue, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Issue,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3829,7 +3930,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [issue][crate::model::UpdateIssueRequest::issue].
@@ -3886,7 +3992,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteIssue;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3932,9 +4038,10 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_issue`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_issue`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3959,7 +4066,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3995,7 +4102,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::OpenIssue;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4041,12 +4148,15 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `open_issue`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `open_issue`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Issue, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Issue,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4071,7 +4181,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::OpenIssueRequest::name].
@@ -4102,7 +4217,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CloseIssue;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4148,12 +4263,15 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `close_issue`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `close_issue`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Issue, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Issue,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4178,7 +4296,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::CloseIssueRequest::name].
@@ -4385,7 +4508,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreatePullRequestComment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4436,12 +4559,14 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_pull_request_comment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_pull_request_comment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PullRequestComment, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::PullRequestComment,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PullRequestComment,
                 crate::model::OperationMetadata,
             >;
@@ -4469,7 +4594,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreatePullRequestCommentRequest::parent].
@@ -4516,7 +4646,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdatePullRequestComment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4567,12 +4697,14 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_pull_request_comment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_pull_request_comment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PullRequestComment, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::PullRequestComment,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PullRequestComment,
                 crate::model::OperationMetadata,
             >;
@@ -4600,7 +4732,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [pull_request_comment][crate::model::UpdatePullRequestCommentRequest::pull_request_comment].
@@ -4657,7 +4794,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeletePullRequestComment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4708,9 +4845,10 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_pull_request_comment`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_pull_request_comment`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4735,7 +4873,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -4765,7 +4903,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::BatchCreatePullRequestComments;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4816,14 +4954,14 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_create_pull_request_comments`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_create_pull_request_comments`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BatchCreatePullRequestCommentsResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchCreatePullRequestCommentsResponse,
                 crate::model::OperationMetadata,
             >;
@@ -4851,7 +4989,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchCreatePullRequestCommentsRequest::parent].
@@ -4889,7 +5032,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ResolvePullRequestComments;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4940,14 +5083,14 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `resolve_pull_request_comments`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `resolve_pull_request_comments`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ResolvePullRequestCommentsResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ResolvePullRequestCommentsResponse,
                 crate::model::OperationMetadata,
             >;
@@ -4975,7 +5118,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ResolvePullRequestCommentsRequest::parent].
@@ -5019,7 +5167,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UnresolvePullRequestComments;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5070,14 +5218,14 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `unresolve_pull_request_comments`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `unresolve_pull_request_comments`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::UnresolvePullRequestCommentsResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::UnresolvePullRequestCommentsResponse,
                 crate::model::OperationMetadata,
             >;
@@ -5105,7 +5253,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::UnresolvePullRequestCommentsRequest::parent].
@@ -5149,7 +5302,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateIssueComment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5198,11 +5351,12 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_issue_comment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_issue_comment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::IssueComment, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::IssueComment, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::IssueComment,
                 crate::model::OperationMetadata,
             >;
@@ -5230,7 +5384,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateIssueCommentRequest::parent].
@@ -5444,7 +5603,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateIssueComment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5493,11 +5652,12 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_issue_comment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_issue_comment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::IssueComment, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::IssueComment, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::IssueComment,
                 crate::model::OperationMetadata,
             >;
@@ -5525,7 +5685,12 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [issue_comment][crate::model::UpdateIssueCommentRequest::issue_comment].
@@ -5582,7 +5747,7 @@ pub mod secure_source_manager {
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteIssueComment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5631,9 +5796,10 @@ pub mod secure_source_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_issue_comment`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_issue_comment`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5658,7 +5824,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

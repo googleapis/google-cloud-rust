@@ -253,7 +253,7 @@ pub mod developer_connect {
     /// ```
     /// # use google_cloud_developerconnect_v1::builder::developer_connect::CreateConnection;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -302,12 +302,15 @@ pub mod developer_connect {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_connection`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_connection`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Connection, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Connection, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Connection, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Connection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -332,7 +335,12 @@ pub mod developer_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
@@ -399,7 +407,7 @@ pub mod developer_connect {
     /// ```
     /// # use google_cloud_developerconnect_v1::builder::developer_connect::UpdateConnection;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -448,12 +456,15 @@ pub mod developer_connect {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_connection`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_connection`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Connection, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Connection, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Connection, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Connection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -478,7 +489,12 @@ pub mod developer_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
@@ -557,7 +573,7 @@ pub mod developer_connect {
     /// ```
     /// # use google_cloud_developerconnect_v1::builder::developer_connect::DeleteConnection;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -606,9 +622,10 @@ pub mod developer_connect {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_connection`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_connection`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -633,7 +650,7 @@ pub mod developer_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -681,7 +698,7 @@ pub mod developer_connect {
     /// ```
     /// # use google_cloud_developerconnect_v1::builder::developer_connect::CreateGitRepositoryLink;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -732,12 +749,14 @@ pub mod developer_connect {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_git_repository_link`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_git_repository_link`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::GitRepositoryLink, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::GitRepositoryLink,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::GitRepositoryLink,
                 crate::model::OperationMetadata,
             >;
@@ -765,7 +784,12 @@ pub mod developer_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateGitRepositoryLinkRequest::parent].
@@ -832,7 +856,7 @@ pub mod developer_connect {
     /// ```
     /// # use google_cloud_developerconnect_v1::builder::developer_connect::DeleteGitRepositoryLink;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -883,9 +907,10 @@ pub mod developer_connect {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_git_repository_link`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_git_repository_link`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -910,7 +935,7 @@ pub mod developer_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1718,7 +1743,7 @@ pub mod developer_connect {
     /// ```
     /// # use google_cloud_developerconnect_v1::builder::developer_connect::CreateAccountConnector;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1767,12 +1792,12 @@ pub mod developer_connect {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_account_connector`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_account_connector`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AccountConnector, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::AccountConnector, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AccountConnector,
                 crate::model::OperationMetadata,
             >;
@@ -1800,7 +1825,12 @@ pub mod developer_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAccountConnectorRequest::parent].
@@ -1867,7 +1897,7 @@ pub mod developer_connect {
     /// ```
     /// # use google_cloud_developerconnect_v1::builder::developer_connect::UpdateAccountConnector;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1916,12 +1946,12 @@ pub mod developer_connect {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_account_connector`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_account_connector`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AccountConnector, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::AccountConnector, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AccountConnector,
                 crate::model::OperationMetadata,
             >;
@@ -1949,7 +1979,12 @@ pub mod developer_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAccountConnectorRequest::update_mask].
@@ -2024,7 +2059,7 @@ pub mod developer_connect {
     /// ```
     /// # use google_cloud_developerconnect_v1::builder::developer_connect::DeleteAccountConnector;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2073,9 +2108,10 @@ pub mod developer_connect {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_account_connector`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_account_connector`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2100,7 +2136,7 @@ pub mod developer_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2333,7 +2369,7 @@ pub mod developer_connect {
     /// ```
     /// # use google_cloud_developerconnect_v1::builder::developer_connect::DeleteUser;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2379,9 +2415,10 @@ pub mod developer_connect {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_user`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_user`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2406,7 +2443,7 @@ pub mod developer_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2516,7 +2553,7 @@ pub mod developer_connect {
     /// ```
     /// # use google_cloud_developerconnect_v1::builder::developer_connect::DeleteSelf;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2562,9 +2599,10 @@ pub mod developer_connect {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_self`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_self`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2589,7 +2627,7 @@ pub mod developer_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3271,7 +3309,7 @@ pub mod insights_config_service {
     /// ```
     /// # use google_cloud_developerconnect_v1::builder::insights_config_service::CreateInsightsConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3320,12 +3358,12 @@ pub mod insights_config_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_insights_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_insights_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::InsightsConfig, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::InsightsConfig, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::InsightsConfig,
                 crate::model::OperationMetadata,
             >;
@@ -3353,7 +3391,12 @@ pub mod insights_config_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateInsightsConfigRequest::parent].
@@ -3479,7 +3522,7 @@ pub mod insights_config_service {
     /// ```
     /// # use google_cloud_developerconnect_v1::builder::insights_config_service::UpdateInsightsConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3528,12 +3571,12 @@ pub mod insights_config_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_insights_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_insights_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::InsightsConfig, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::InsightsConfig, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::InsightsConfig,
                 crate::model::OperationMetadata,
             >;
@@ -3561,7 +3604,12 @@ pub mod insights_config_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [insights_config][crate::model::UpdateInsightsConfigRequest::insights_config].
@@ -3618,7 +3666,7 @@ pub mod insights_config_service {
     /// ```
     /// # use google_cloud_developerconnect_v1::builder::insights_config_service::DeleteInsightsConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3667,9 +3715,10 @@ pub mod insights_config_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_insights_config`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_insights_config`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3694,7 +3743,7 @@ pub mod insights_config_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

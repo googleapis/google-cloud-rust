@@ -255,7 +255,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::BatchProcessDocuments;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -301,12 +301,14 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_process_documents`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_process_documents`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BatchProcessResponse, crate::model::BatchProcessMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::BatchProcessResponse,
+            crate::model::BatchProcessMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchProcessResponse,
                 crate::model::BatchProcessMetadata,
             >;
@@ -334,7 +336,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::BatchProcessRequest::name].
@@ -831,7 +838,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::TrainProcessorVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -880,14 +887,14 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `train_processor_version`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `train_processor_version`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::TrainProcessorVersionResponse,
             crate::model::TrainProcessorVersionMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::TrainProcessorVersionResponse,
                 crate::model::TrainProcessorVersionMetadata,
             >;
@@ -915,7 +922,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::TrainProcessorVersionRequest::parent].
@@ -1219,7 +1231,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::DeleteProcessorVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1268,10 +1280,15 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_processor_version`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteProcessorVersionMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorVersionMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_processor_version`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteProcessorVersionMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteProcessorVersionMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1296,7 +1313,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1326,7 +1343,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::DeployProcessorVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1375,14 +1392,14 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `deploy_processor_version`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `deploy_processor_version`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::DeployProcessorVersionResponse,
             crate::model::DeployProcessorVersionMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DeployProcessorVersionResponse,
                 crate::model::DeployProcessorVersionMetadata,
             >;
@@ -1410,7 +1427,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeployProcessorVersionRequest::name].
@@ -1435,7 +1457,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::UndeployProcessorVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1486,14 +1508,14 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undeploy_processor_version`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undeploy_processor_version`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::UndeployProcessorVersionResponse,
             crate::model::UndeployProcessorVersionMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::UndeployProcessorVersionResponse,
                 crate::model::UndeployProcessorVersionMetadata,
             >;
@@ -1521,7 +1543,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UndeployProcessorVersionRequest::name].
@@ -1630,7 +1657,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::DeleteProcessor;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1676,10 +1703,14 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_processor`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteProcessorMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_processor`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteProcessorMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteProcessorMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1704,7 +1735,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1734,7 +1765,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::EnableProcessor;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1780,12 +1811,14 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `enable_processor`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `enable_processor`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::EnableProcessorResponse, crate::model::EnableProcessorMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::EnableProcessorResponse,
+            crate::model::EnableProcessorMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::EnableProcessorResponse,
                 crate::model::EnableProcessorMetadata,
             >;
@@ -1813,7 +1846,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::EnableProcessorRequest::name].
@@ -1838,7 +1876,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::DisableProcessor;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1887,14 +1925,14 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `disable_processor`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `disable_processor`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::DisableProcessorResponse,
             crate::model::DisableProcessorMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DisableProcessorResponse,
                 crate::model::DisableProcessorMetadata,
             >;
@@ -1922,7 +1960,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DisableProcessorRequest::name].
@@ -1947,7 +1990,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::SetDefaultProcessorVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1998,14 +2041,14 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `set_default_processor_version`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `set_default_processor_version`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::SetDefaultProcessorVersionResponse,
             crate::model::SetDefaultProcessorVersionMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SetDefaultProcessorVersionResponse,
                 crate::model::SetDefaultProcessorVersionMetadata,
             >;
@@ -2033,7 +2076,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [processor][crate::model::SetDefaultProcessorVersionRequest::processor].
@@ -2066,7 +2114,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::ReviewDocument;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2112,14 +2160,14 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `review_document`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `review_document`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ReviewDocumentResponse,
             crate::model::ReviewDocumentOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ReviewDocumentResponse,
                 crate::model::ReviewDocumentOperationMetadata,
             >;
@@ -2147,7 +2195,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [human_review_config][crate::model::ReviewDocumentRequest::human_review_config].
@@ -2232,7 +2285,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::EvaluateProcessorVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2283,14 +2336,14 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `evaluate_processor_version`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `evaluate_processor_version`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::EvaluateProcessorVersionResponse,
             crate::model::EvaluateProcessorVersionMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::EvaluateProcessorVersionResponse,
                 crate::model::EvaluateProcessorVersionMetadata,
             >;
@@ -2318,7 +2371,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [processor_version][crate::model::EvaluateProcessorVersionRequest::processor_version].

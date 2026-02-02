@@ -216,7 +216,7 @@ pub mod domains {
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::RegisterDomain;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -260,11 +260,12 @@ pub mod domains {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `register_domain`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `register_domain`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Registration, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Registration,
                 crate::model::OperationMetadata,
             >;
@@ -292,7 +293,12 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::RegisterDomainRequest::parent].
@@ -462,7 +468,7 @@ pub mod domains {
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::TransferDomain;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -506,11 +512,12 @@ pub mod domains {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `transfer_domain`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `transfer_domain`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Registration, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Registration,
                 crate::model::OperationMetadata,
             >;
@@ -538,7 +545,12 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::TransferDomainRequest::parent].
@@ -811,7 +823,7 @@ pub mod domains {
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::UpdateRegistration;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -858,11 +870,12 @@ pub mod domains {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_registration`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_registration`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Registration, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Registration,
                 crate::model::OperationMetadata,
             >;
@@ -890,7 +903,12 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [registration][crate::model::UpdateRegistrationRequest::registration].
@@ -947,7 +965,7 @@ pub mod domains {
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::ConfigureManagementSettings;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -996,11 +1014,12 @@ pub mod domains {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `configure_management_settings`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `configure_management_settings`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Registration, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Registration,
                 crate::model::OperationMetadata,
             >;
@@ -1028,7 +1047,12 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [registration][crate::model::ConfigureManagementSettingsRequest::registration].
@@ -1093,7 +1117,7 @@ pub mod domains {
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::ConfigureDnsSettings;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1140,11 +1164,12 @@ pub mod domains {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `configure_dns_settings`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `configure_dns_settings`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Registration, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Registration,
                 crate::model::OperationMetadata,
             >;
@@ -1172,7 +1197,12 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [registration][crate::model::ConfigureDnsSettingsRequest::registration].
@@ -1243,7 +1273,7 @@ pub mod domains {
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::ConfigureContactSettings;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1292,11 +1322,12 @@ pub mod domains {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `configure_contact_settings`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `configure_contact_settings`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Registration, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Registration,
                 crate::model::OperationMetadata,
             >;
@@ -1324,7 +1355,12 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [registration][crate::model::ConfigureContactSettingsRequest::registration].
@@ -1406,7 +1442,7 @@ pub mod domains {
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::ExportRegistration;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1453,11 +1489,12 @@ pub mod domains {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_registration`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_registration`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Registration, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Registration,
                 crate::model::OperationMetadata,
             >;
@@ -1485,7 +1522,12 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ExportRegistrationRequest::name].
@@ -1510,7 +1552,7 @@ pub mod domains {
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::DeleteRegistration;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1557,9 +1599,10 @@ pub mod domains {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_registration`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_registration`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1584,7 +1627,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

@@ -77,7 +77,7 @@ pub mod service_usage {
     /// ```
     /// # use google_cloud_api_serviceusage_v1::builder::service_usage::EnableService;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -123,12 +123,14 @@ pub mod service_usage {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `enable_service`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `enable_service`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::EnableServiceResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::EnableServiceResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::EnableServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -156,7 +158,12 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::EnableServiceRequest::name].
@@ -179,7 +186,7 @@ pub mod service_usage {
     /// ```
     /// # use google_cloud_api_serviceusage_v1::builder::service_usage::DisableService;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -225,12 +232,14 @@ pub mod service_usage {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `disable_service`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `disable_service`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::DisableServiceResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::DisableServiceResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DisableServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -258,7 +267,12 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DisableServiceRequest::name].
@@ -464,7 +478,7 @@ pub mod service_usage {
     /// ```
     /// # use google_cloud_api_serviceusage_v1::builder::service_usage::BatchEnableServices;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -513,12 +527,14 @@ pub mod service_usage {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_enable_services`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_enable_services`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BatchEnableServicesResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::BatchEnableServicesResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchEnableServicesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -546,7 +562,12 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchEnableServicesRequest::parent].
