@@ -21,5 +21,3 @@ pub(crate) const MAX_MESSAGES: u32 = 1000;
 pub(crate) const MAX_BYTES: u32 = 1e7 as u32; // 10MB
 pub(crate) const BATCH_ACTOR_SEND_ERROR_MSG: &str =
     "batch actors should not close the receiver from the Dispatcher";
-pub(crate) const PUBLISH_HANDLE_SENDER_ERROR_MSG: &str =
-    "publisher should not close the sender for PublishHandle";
