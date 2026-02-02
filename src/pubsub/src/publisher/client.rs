@@ -13,9 +13,9 @@
 // limitations under the License.
 
 use super::options::BatchingOptions;
+use crate::publisher::actor::BundledMessage;
+use crate::publisher::actor::ToDispatcher;
 use crate::publisher::builder::PublisherBuilder;
-use crate::publisher::worker::BundledMessage;
-use crate::publisher::worker::ToWorker;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::oneshot;
 
@@ -35,7 +35,7 @@ use tokio::sync::oneshot;
 pub struct Publisher {
     #[allow(dead_code)]
     pub(crate) batching_options: BatchingOptions,
-    pub(crate) tx: UnboundedSender<ToWorker>,
+    pub(crate) tx: UnboundedSender<ToDispatcher>,
 }
 
 impl Publisher {
@@ -70,11 +70,11 @@ impl Publisher {
     pub fn publish(&self, msg: crate::model::PubsubMessage) -> crate::model_ext::PublishHandle {
         let (tx, rx) = tokio::sync::oneshot::channel();
 
-        // If this fails, the worker is gone, which indicates something bad has happened.
+        // If this fails, the Dispatcher is gone, which indicates something bad has happened.
         // The PublishHandle will automatically receive an error when `tx` is dropped.
         if self
             .tx
-            .send(ToWorker::Publish(BundledMessage { msg, tx }))
+            .send(ToDispatcher::Publish(BundledMessage { msg, tx }))
             .is_err()
         {
             // `tx` is dropped here if the send errors.
@@ -120,7 +120,7 @@ impl Publisher {
     /// ```
     pub async fn flush(&self) {
         let (tx, rx) = oneshot::channel();
-        if self.tx.send(ToWorker::Flush(tx)).is_err() {
+        if self.tx.send(ToDispatcher::Flush(tx)).is_err() {
             // `tx` is dropped here if the send errors.
         }
         rx.await
@@ -145,7 +145,9 @@ impl Publisher {
     /// # }
     /// ```
     pub fn resume_publish<T: std::convert::Into<std::string::String>>(&self, ordering_key: T) {
-        let _ = self.tx.send(ToWorker::ResumePublish(ordering_key.into()));
+        let _ = self
+            .tx
+            .send(ToDispatcher::ResumePublish(ordering_key.into()));
     }
 }
 
@@ -265,7 +267,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn worker_publishes_successfully() {
+    async fn publisher_publish_successfully() {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning(publish_ok).times(2);
 
@@ -331,7 +333,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn worker_handles_publish_errors() {
+    async fn publisher_handles_publish_errors() {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning(publish_err).times(2);
 
@@ -391,8 +393,8 @@ mod tests {
             assert_eq!(start.elapsed(), Duration::ZERO);
         }
 
-        // The last message is only sent after the next timeout
-        // (worker does not continue to flush).
+        // Validate that the post message is only sent after the next timeout.
+        // I.e., the Publisher does not continuously flush new messages.
         let got = post.await.expect("expected message id");
         assert_eq!(got, "after");
         assert_eq!(start.elapsed(), Duration::from_secs(60));
@@ -852,7 +854,7 @@ mod tests {
         let key = "ordering_key";
         let msg_0_handle =
             publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 0"));
-        // Publish an additional message so that there's an additional pending message in the worker.
+        // Publish an additional message so that there are pending messages.
         let msg_1_handle =
             publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 1"));
 
@@ -964,16 +966,16 @@ mod tests {
         publisher.resume_publish("");
         assert_publishing_is_ok!(publisher, "");
 
-        // Test resume and publish after the BatchWorker has been created for the empty ordering key.
+        // Test resume and publish after the BatchActor has been created for the empty ordering key.
         publisher.resume_publish("");
         assert_publishing_is_ok!(publisher, "");
 
-        // Test resume and publish before the BatchWorker has been created.
+        // Test resume and publish before the BatchActor has been created.
         let key = "without_error";
         publisher.resume_publish(key);
         assert_publishing_is_ok!(publisher, key);
 
-        // Test resume and publish after the BatchWorker has been created.
+        // Test resume and publish after the BatchActor has been created.
         publisher.resume_publish(key);
         assert_publishing_is_ok!(publisher, key);
     }

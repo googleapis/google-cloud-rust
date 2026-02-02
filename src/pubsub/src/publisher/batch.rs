@@ -16,7 +16,7 @@ use tokio::task::JoinSet;
 
 use crate::error::PublishError;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
-use crate::publisher::worker::BundledMessage;
+use crate::publisher::actor::BundledMessage;
 use std::sync::Arc;
 
 #[derive(Debug, Default)]
@@ -123,8 +123,8 @@ mod tests {
     use crate::{
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{PublishResponse, PubsubMessage},
+        publisher::actor::BundledMessage,
         publisher::batch::Batch,
-        publisher::worker::BundledMessage,
     };
     use tokio::task::JoinSet;
 
