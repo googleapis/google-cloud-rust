@@ -404,8 +404,8 @@ prost-types = { default-features = false, version = "0.14" }
 # WARNING: When this changes to 0.14 we need to bump the google-cloud-gax-internal major version.
 reqwest = { default-features = false, version = "0.13.0" }
 # WARNING: When any of these change to 0.15 we need to bump the google-cloud-gax-internal major version.
-tonic             = { default-features = false, version = "0.14.1", features = ["tls-native-roots"] }
-tonic-prost       = { default-features = false, version = "0.14.2" }
+tonic             = { default-features = false, version = "0.14.3", features = ["tls-native-roots"] }
+tonic-prost       = { default-features = false, version = "0.14.3" }
 tonic-prost-build = { default-features = false, version = "0.14.3" }
 # WARNING: When this changes to 0.6 we need to bump the google-cloud-gax-internal major version.
 tower = { default-features = false, version = "0.5.2", features = ["util"] }
