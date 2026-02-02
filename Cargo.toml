@@ -286,6 +286,7 @@ members = [
   "src/storage/tests/scenarios",
   "src/wkt",
   "tests/auto-populated",
+  "tests/bigquery",
   "tests/crypto-providers/auth-with-default",
   "tests/crypto-providers/auth-without-default",
   "tests/crypto-providers/gaxi-with-aws-lc-rs",
