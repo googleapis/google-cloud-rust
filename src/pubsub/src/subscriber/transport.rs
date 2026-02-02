@@ -17,6 +17,7 @@ use crate::Result;
 use crate::generated::gapic_dataplane::stub::dynamic::Subscriber as GapicStub;
 pub(super) use crate::generated::gapic_dataplane::transport::Subscriber as Transport;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
+use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult, Streaming};
 use tokio::sync::mpsc::Receiver;
 use tokio_stream::wrappers::ReceiverStream;
 
@@ -35,24 +36,25 @@ mod info {
     }
 }
 
-impl TonicStreaming for tonic::Streaming<StreamingPullResponse> {
-    async fn next_message(&mut self) -> tonic::Result<Option<StreamingPullResponse>> {
+impl TonicStreaming for Streaming<StreamingPullResponse> {
+    async fn next_message(&mut self) -> TonicResult<Option<StreamingPullResponse>> {
         self.message().await
     }
 }
 
 #[async_trait::async_trait]
 impl Stub for Transport {
-    type Stream = tonic::codec::Streaming<StreamingPullResponse>;
+    type Stream = Streaming<StreamingPullResponse>;
     async fn streaming_pull(
         &self,
         request_rx: Receiver<StreamingPullRequest>,
         options: gax::options::RequestOptions,
-    ) -> Result<tonic::Response<Self::Stream>> {
+    ) -> Result<TonicResponse<Self::Stream>> {
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let request = ReceiverStream::new(request_rx);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.pubsub.v1.Subscriber",
                 "StreamingPull",
             ));
@@ -130,7 +132,7 @@ pub(super) mod tests {
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = test_transport(endpoint).await?;
         let mut stream = Stub::streaming_pull(
@@ -153,7 +155,7 @@ pub(super) mod tests {
     async fn modify_ack_deadline() -> anyhow::Result<()> {
         let mut mock = MockSubscriber::new();
         mock.expect_modify_ack_deadline()
-            .return_once(|_| Ok(tonic::Response::from(())));
+            .return_once(|_| Ok(TonicResponse::from(())));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = test_transport(endpoint).await?;
         let _ = Stub::modify_ack_deadline(
@@ -169,7 +171,7 @@ pub(super) mod tests {
     async fn acknowledge() -> anyhow::Result<()> {
         let mut mock = MockSubscriber::new();
         mock.expect_acknowledge()
-            .return_once(|_| Ok(tonic::Response::from(())));
+            .return_once(|_| Ok(TonicResponse::from(())));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = test_transport(endpoint).await?;
         let _ = Stub::acknowledge(

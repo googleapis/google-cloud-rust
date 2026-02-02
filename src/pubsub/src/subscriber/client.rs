@@ -137,6 +137,7 @@ impl Subscriber {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use gaxi::grpc::tonic::Status as TonicStatus;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use pubsub_grpc_mock::{MockSubscriber, start};
 
@@ -150,7 +151,7 @@ mod tests {
     async fn streaming_pull() -> anyhow::Result<()> {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(|_| Err(tonic::Status::failed_precondition("fail")));
+            .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = Subscriber::builder()
             .with_endpoint(endpoint)

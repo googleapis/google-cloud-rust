@@ -266,6 +266,7 @@ mod tests {
     use super::super::lease_state::tests::{test_id, test_ids};
     use super::super::stream::{INITIAL_DELAY, MAXIMUM_DELAY};
     use super::*;
+    use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use pubsub_grpc_mock::google::pubsub::v1;
     use pubsub_grpc_mock::{MockSubscriber, start};
@@ -311,7 +312,7 @@ mod tests {
     async fn error_starting_stream() -> anyhow::Result<()> {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(|_| Err(tonic::Status::failed_precondition("fail")));
+            .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
@@ -349,7 +350,7 @@ mod tests {
                         .expect("forwarding writes always succeeds");
                 }
             });
-            Err(tonic::Status::failed_precondition("fail"))
+            Err(TonicStatus::failed_precondition("fail"))
         });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
@@ -388,12 +389,12 @@ mod tests {
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
         mock.expect_acknowledge().returning(move |r| {
             ack_tx
                 .send(r.into_inner())
                 .expect("sending on channel always succeeds");
-            Ok(tonic::Response::from(()))
+            Ok(TonicResponse::from(()))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
@@ -434,12 +435,12 @@ mod tests {
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
         mock.expect_acknowledge().returning(move |r| {
             ack_tx
                 .send(r.into_inner())
                 .expect("sending on channel always succeeds");
-            Ok(tonic::Response::from(()))
+            Ok(TonicResponse::from(()))
         });
         mock.expect_modify_ack_deadline().returning(move |r| {
             let r = r.into_inner();
@@ -450,7 +451,7 @@ mod tests {
                     .send(r)
                     .expect("sending on channel always succeeds");
             }
-            Ok(tonic::Response::from(()))
+            Ok(TonicResponse::from(()))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
@@ -531,7 +532,7 @@ mod tests {
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
@@ -558,7 +559,7 @@ mod tests {
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
@@ -584,7 +585,7 @@ mod tests {
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
@@ -623,14 +624,14 @@ mod tests {
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
         mock.expect_acknowledge()
-            .returning(|_| Ok(tonic::Response::from(())));
+            .returning(|_| Ok(TonicResponse::from(())));
         mock.expect_modify_ack_deadline().returning(move |r| {
             extend_tx
                 .send(r.into_inner())
                 .expect("sending on channel always succeeds");
-            Ok(tonic::Response::from(()))
+            Ok(TonicResponse::from(()))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
@@ -674,14 +675,14 @@ mod tests {
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
 
         response_tx.send(Ok(test_response(1..4))).await?;
         response_tx
-            .send(Err(tonic::Status::failed_precondition("fail")))
+            .send(Err(TonicStatus::failed_precondition("fail")))
             .await?;
         drop(response_tx);
 
@@ -724,7 +725,7 @@ mod tests {
                         .expect("forwarding writes always succeeds");
                 }
             });
-            Ok(tonic::Response::from(response_rx))
+            Ok(TonicResponse::from(response_rx))
         });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
@@ -783,7 +784,7 @@ mod tests {
                             .expect("forwarding writes always succeeds");
                     }
                 });
-                Err(tonic::Status::failed_precondition("fail"))
+                Err(TonicStatus::failed_precondition("fail"))
             });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
@@ -836,7 +837,7 @@ mod tests {
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(move |_| Ok(tonic::Response::from(response_rx)));
+            .return_once(move |_| Ok(TonicResponse::from(response_rx)));
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
@@ -864,12 +865,12 @@ mod tests {
         mock.expect_streaming_pull()
             .times(NUM_RETRIES as usize)
             .in_sequence(&mut seq)
-            .returning(|_| Err(tonic::Status::unavailable("try again")));
+            .returning(|_| Err(TonicStatus::unavailable("try again")));
         // Simulate a permanent error. Otherwise, we would retry forever.
         mock.expect_streaming_pull()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(|_| Err(tonic::Status::failed_precondition("fail")));
+            .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
@@ -908,20 +909,20 @@ mod tests {
         mock.expect_streaming_pull()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(|_| Ok(tonic::Response::from(response_rx_1)));
+            .return_once(|_| Ok(TonicResponse::from(response_rx_1)));
         mock.expect_streaming_pull()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(move |_| Ok(tonic::Response::from(response_rx_2)));
+            .return_once(move |_| Ok(TonicResponse::from(response_rx_2)));
         mock.expect_streaming_pull()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(|_| Ok(tonic::Response::from(response_rx_3)));
+            .return_once(|_| Ok(TonicResponse::from(response_rx_3)));
         mock.expect_acknowledge().times(1..).returning(move |r| {
             ack_tx
                 .send(r.into_inner())
                 .expect("sending on channel always succeeds");
-            Ok(tonic::Response::from(()))
+            Ok(TonicResponse::from(()))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
@@ -930,13 +931,13 @@ mod tests {
         response_tx_1.send(Ok(test_response(0..10))).await?;
         response_tx_1.send(Ok(test_response(10..20))).await?;
         response_tx_1
-            .send(Err(tonic::Status::unavailable("GFE disconnect. try again")))
+            .send(Err(TonicStatus::unavailable("GFE disconnect. try again")))
             .await?;
         drop(response_tx_1);
         response_tx_2.send(Ok(test_response(20..30))).await?;
         response_tx_2.send(Ok(test_response(30..40))).await?;
         response_tx_2
-            .send(Err(tonic::Status::unavailable("GFE disconnect. try again")))
+            .send(Err(TonicStatus::unavailable("GFE disconnect. try again")))
             .await?;
         drop(response_tx_2);
         response_tx_3.send(Ok(test_response(40..50))).await?;
@@ -978,22 +979,22 @@ mod tests {
         mock.expect_streaming_pull()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
         // Simulate transient errors attempting to resume the stream.
         mock.expect_streaming_pull()
             .times(3)
             .in_sequence(&mut seq)
-            .returning(|_| Err(tonic::Status::unavailable("try again")));
+            .returning(|_| Err(TonicStatus::unavailable("try again")));
         // Simulate a permanent error attempting to resume the stream.
         mock.expect_streaming_pull()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(|_| Err(tonic::Status::failed_precondition("fail")));
+            .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
         mock.expect_acknowledge().times(1..).returning(move |r| {
             ack_tx
                 .send(r.into_inner())
                 .expect("sending on channel always succeeds");
-            Ok(tonic::Response::from(()))
+            Ok(TonicResponse::from(()))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
@@ -1002,7 +1003,7 @@ mod tests {
         response_tx.send(Ok(test_response(0..10))).await?;
         response_tx.send(Ok(test_response(10..20))).await?;
         response_tx
-            .send(Err(tonic::Status::unavailable("GFE disconnect. try again")))
+            .send(Err(TonicStatus::unavailable("GFE disconnect. try again")))
             .await?;
         drop(response_tx);
 
