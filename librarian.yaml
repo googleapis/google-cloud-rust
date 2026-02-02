@@ -88,7 +88,7 @@ default:
       - name: longrunning
         package: google-cloud-longrunning
         source: google.longrunning
-      - name: lro
+      - name: google-cloud-lro
         package: google-cloud-lro
         used_if: lro
       - name: rpc
@@ -521,7 +521,7 @@ libraries:
     specification_format: discovery
     rust:
       package_dependencies:
-        - name: lro
+        - name: google-cloud-lro
           package: google-cloud-lro
           force_used: true
         - name: rpc
@@ -647,7 +647,7 @@ libraries:
     specification_format: discovery
     rust:
       package_dependencies:
-        - name: lro
+        - name: google-cloud-lro
           package: google-cloud-lro
           force_used: true
       roots:
