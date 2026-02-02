@@ -192,7 +192,7 @@ impl PolicyBindings {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::policy_bindings::GetOperation {
         super::builder::policy_bindings::GetOperation::new(self.inner.clone())
     }
@@ -394,7 +394,7 @@ impl PrincipalAccessBoundaryPolicies {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(
         &self,
     ) -> super::builder::principal_access_boundary_policies::GetOperation {

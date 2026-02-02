@@ -45,7 +45,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::RenameFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_storage_layout(
         &self,
@@ -81,13 +81,13 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateAnywhereCacheRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_anywhere_cache(
         &self,
         req: crate::model::UpdateAnywhereCacheRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn disable_anywhere_cache(
         &self,
@@ -175,9 +175,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -234,7 +234,7 @@ impl<T: super::StorageControl> StorageControl for T {
         &self,
         req: crate::model::RenameFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::rename_folder(self, req, options).await
     }
 
@@ -288,7 +288,7 @@ impl<T: super::StorageControl> StorageControl for T {
         &self,
         req: crate::model::CreateAnywhereCacheRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_anywhere_cache(self, req, options).await
     }
 
@@ -297,7 +297,7 @@ impl<T: super::StorageControl> StorageControl for T {
         &self,
         req: crate::model::UpdateAnywhereCacheRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_anywhere_cache(self, req, options).await
     }
 
@@ -430,9 +430,9 @@ impl<T: super::StorageControl> StorageControl for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

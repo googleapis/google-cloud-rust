@@ -181,7 +181,7 @@ pub mod cloud_shell_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [start_environment][crate::client::CloudShellService::start_environment].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .start_environment(self.0.request, self.0.options)
                 .await
@@ -310,7 +310,7 @@ pub mod cloud_shell_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [authorize_environment][crate::client::CloudShellService::authorize_environment].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .authorize_environment(self.0.request, self.0.options)
                 .await
@@ -449,7 +449,7 @@ pub mod cloud_shell_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [add_public_key][crate::client::CloudShellService::add_public_key].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .add_public_key(self.0.request, self.0.options)
                 .await
@@ -564,7 +564,7 @@ pub mod cloud_shell_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [remove_public_key][crate::client::CloudShellService::remove_public_key].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .remove_public_key(self.0.request, self.0.options)
                 .await
@@ -651,7 +651,7 @@ pub mod cloud_shell_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -661,7 +661,7 @@ pub mod cloud_shell_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -676,14 +676,14 @@ pub mod cloud_shell_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

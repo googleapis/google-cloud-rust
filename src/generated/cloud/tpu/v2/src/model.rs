@@ -21,11 +21,11 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate gtype;
 extern crate lazy_static;
 extern crate location;
-extern crate longrunning;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
@@ -5552,7 +5552,7 @@ impl gax::paginator::internal::PageableResponse for ListRuntimeVersionsResponse 
 
 /// Metadata describing an [Operation][google.longrunning.Operation]
 ///
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {

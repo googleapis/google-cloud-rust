@@ -144,14 +144,14 @@ impl AnalyticsService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::analytics_service::ListOperations {
         super::builder::analytics_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::analytics_service::GetOperation {
         super::builder::analytics_service::GetOperation::new(self.inner.clone())
     }
@@ -413,14 +413,14 @@ impl CatalogService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::catalog_service::ListOperations {
         super::builder::catalog_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::catalog_service::GetOperation {
         super::builder::catalog_service::GetOperation::new(self.inner.clone())
     }
@@ -569,14 +569,14 @@ impl CompletionService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::completion_service::ListOperations {
         super::builder::completion_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::completion_service::GetOperation {
         super::builder::completion_service::GetOperation::new(self.inner.clone())
     }
@@ -731,14 +731,14 @@ impl ControlService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::control_service::ListOperations {
         super::builder::control_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::control_service::GetOperation {
         super::builder::control_service::GetOperation::new(self.inner.clone())
     }
@@ -856,14 +856,14 @@ impl ConversationalSearchService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::conversational_search_service::ListOperations {
         super::builder::conversational_search_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::conversational_search_service::GetOperation {
         super::builder::conversational_search_service::GetOperation::new(self.inner.clone())
     }
@@ -1024,14 +1024,14 @@ impl GenerativeQuestionService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::generative_question_service::ListOperations {
         super::builder::generative_question_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::generative_question_service::GetOperation {
         super::builder::generative_question_service::GetOperation::new(self.inner.clone())
     }
@@ -1215,14 +1215,14 @@ impl ModelService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::model_service::ListOperations {
         super::builder::model_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::model_service::GetOperation {
         super::builder::model_service::GetOperation::new(self.inner.clone())
     }
@@ -1340,14 +1340,14 @@ impl PredictionService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::prediction_service::ListOperations {
         super::builder::prediction_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::prediction_service::GetOperation {
         super::builder::prediction_service::GetOperation::new(self.inner.clone())
     }
@@ -1612,8 +1612,8 @@ impl ProductService {
     /// [google.cloud.retail.v2.ProductService.SetInventory]: crate::client::ProductService::set_inventory
     /// [google.cloud.retail.v2.ProductService.UpdateProduct]: crate::client::ProductService::update_product
     /// [google.cloud.retail.v2.SetInventoryRequest.set_mask]: crate::model::SetInventoryRequest::set_mask
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.done]: longrunning::model::Operation::done
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.done]: google_cloud_longrunning::model::Operation::done
     ///
     /// # Long running operations
     ///
@@ -1665,8 +1665,8 @@ impl ProductService {
     /// [google.cloud.retail.v2.ProductService.AddLocalInventories]: crate::client::ProductService::add_local_inventories
     /// [google.cloud.retail.v2.ProductService.GetProduct]: crate::client::ProductService::get_product
     /// [google.cloud.retail.v2.ProductService.ListProducts]: crate::client::ProductService::list_products
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.done]: longrunning::model::Operation::done
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.done]: google_cloud_longrunning::model::Operation::done
     ///
     /// # Long running operations
     ///
@@ -1718,8 +1718,8 @@ impl ProductService {
     /// [google.cloud.retail.v2.ProductService.ListProducts]: crate::client::ProductService::list_products
     /// [google.cloud.retail.v2.ProductService.RemoveFulfillmentPlaces]: crate::client::ProductService::remove_fulfillment_places
     /// [google.cloud.retail.v2.ProductService.RemoveLocalInventories]: crate::client::ProductService::remove_local_inventories
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.done]: longrunning::model::Operation::done
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.done]: google_cloud_longrunning::model::Operation::done
     ///
     /// # Long running operations
     ///
@@ -1770,8 +1770,8 @@ impl ProductService {
     /// [google.cloud.retail.v2.ProductService.GetProduct]: crate::client::ProductService::get_product
     /// [google.cloud.retail.v2.ProductService.ListProducts]: crate::client::ProductService::list_products
     /// [google.cloud.retail.v2.ProductService.UpdateProduct]: crate::client::ProductService::update_product
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.done]: longrunning::model::Operation::done
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.done]: google_cloud_longrunning::model::Operation::done
     ///
     /// # Long running operations
     ///
@@ -1818,8 +1818,8 @@ impl ProductService {
     /// [google.cloud.retail.v2.ProductService.GetProduct]: crate::client::ProductService::get_product
     /// [google.cloud.retail.v2.ProductService.ListProducts]: crate::client::ProductService::list_products
     /// [google.cloud.retail.v2.ProductService.UpdateProduct]: crate::client::ProductService::update_product
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.done]: longrunning::model::Operation::done
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.done]: google_cloud_longrunning::model::Operation::done
     ///
     /// # Long running operations
     ///
@@ -1838,14 +1838,14 @@ impl ProductService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::product_service::ListOperations {
         super::builder::product_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::product_service::GetOperation {
         super::builder::product_service::GetOperation::new(self.inner.clone())
     }
@@ -1966,14 +1966,14 @@ impl SearchService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::search_service::ListOperations {
         super::builder::search_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::search_service::GetOperation {
         super::builder::search_service::GetOperation::new(self.inner.clone())
     }
@@ -2149,14 +2149,14 @@ impl ServingConfigService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::serving_config_service::ListOperations {
         super::builder::serving_config_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::serving_config_service::GetOperation {
         super::builder::serving_config_service::GetOperation::new(self.inner.clone())
     }
@@ -2346,14 +2346,14 @@ impl UserEventService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::user_event_service::ListOperations {
         super::builder::user_event_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::user_event_service::GetOperation {
         super::builder::user_event_service::GetOperation::new(self.inner.clone())
     }

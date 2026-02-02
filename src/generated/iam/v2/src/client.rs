@@ -191,7 +191,7 @@ impl Policies {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::policies::GetOperation {
         super::builder::policies::GetOperation::new(self.inner.clone())
     }

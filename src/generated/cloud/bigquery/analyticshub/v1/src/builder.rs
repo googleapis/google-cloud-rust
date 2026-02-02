@@ -1185,7 +1185,7 @@ pub mod analytics_hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [subscribe_data_exchange][crate::client::AnalyticsHubService::subscribe_data_exchange].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .subscribe_data_exchange(self.0.request, self.0.options)
                 .await
@@ -1339,7 +1339,7 @@ pub mod analytics_hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [refresh_subscription][crate::client::AnalyticsHubService::refresh_subscription].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .refresh_subscription(self.0.request, self.0.options)
                 .await
@@ -1814,7 +1814,7 @@ pub mod analytics_hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_subscription][crate::client::AnalyticsHubService::delete_subscription].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_subscription(self.0.request, self.0.options)
                 .await
@@ -2709,7 +2709,7 @@ pub mod analytics_hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2719,7 +2719,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2734,14 +2734,14 @@ pub mod analytics_hub_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

@@ -27,7 +27,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateStoragePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_storage_pool(
         &self,
@@ -39,25 +39,25 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateStoragePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_storage_pool(
         &self,
         req: crate::model::DeleteStoragePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn validate_directory_service(
         &self,
         req: crate::model::ValidateDirectoryServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn switch_active_replica_zone(
         &self,
         req: crate::model::SwitchActiveReplicaZoneRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_volumes(
         &self,
@@ -75,25 +75,25 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_volume(
         &self,
         req: crate::model::UpdateVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_volume(
         &self,
         req: crate::model::DeleteVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn revert_volume(
         &self,
         req: crate::model::RevertVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_snapshots(
         &self,
@@ -111,19 +111,19 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_snapshot(
         &self,
         req: crate::model::DeleteSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_snapshot(
         &self,
         req: crate::model::UpdateSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_active_directories(
         &self,
@@ -141,19 +141,19 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateActiveDirectoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_active_directory(
         &self,
         req: crate::model::UpdateActiveDirectoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_active_directory(
         &self,
         req: crate::model::DeleteActiveDirectoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_kms_configs(
         &self,
@@ -165,7 +165,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateKmsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_kms_config(
         &self,
@@ -177,13 +177,13 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateKmsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn encrypt_volumes(
         &self,
         req: crate::model::EncryptVolumesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn verify_kms_config(
         &self,
@@ -195,7 +195,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteKmsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_replications(
         &self,
@@ -213,55 +213,55 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_replication(
         &self,
         req: crate::model::DeleteReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_replication(
         &self,
         req: crate::model::UpdateReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn stop_replication(
         &self,
         req: crate::model::StopReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn resume_replication(
         &self,
         req: crate::model::ResumeReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn reverse_replication_direction(
         &self,
         req: crate::model::ReverseReplicationDirectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn establish_peering(
         &self,
         req: crate::model::EstablishPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn sync_replication(
         &self,
         req: crate::model::SyncReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_backup_vault(
         &self,
         req: crate::model::CreateBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_backup_vault(
         &self,
@@ -279,19 +279,19 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_backup_vault(
         &self,
         req: crate::model::DeleteBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_backup(
         &self,
         req: crate::model::CreateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_backup(
         &self,
@@ -309,19 +309,19 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_backup(
         &self,
         req: crate::model::UpdateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_backup_policy(
         &self,
         req: crate::model::CreateBackupPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_backup_policy(
         &self,
@@ -339,13 +339,13 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateBackupPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_backup_policy(
         &self,
         req: crate::model::DeleteBackupPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_quota_rules(
         &self,
@@ -363,25 +363,25 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateQuotaRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_quota_rule(
         &self,
         req: crate::model::UpdateQuotaRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_quota_rule(
         &self,
         req: crate::model::DeleteQuotaRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn restore_backup_files(
         &self,
         req: crate::model::RestoreBackupFilesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_host_groups(
         &self,
@@ -399,19 +399,19 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateHostGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_host_group(
         &self,
         req: crate::model::UpdateHostGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_host_group(
         &self,
         req: crate::model::DeleteHostGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
@@ -427,25 +427,27 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
@@ -477,7 +479,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::CreateStoragePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_storage_pool(self, req, options).await
     }
 
@@ -495,7 +497,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::UpdateStoragePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_storage_pool(self, req, options).await
     }
 
@@ -504,7 +506,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::DeleteStoragePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_storage_pool(self, req, options).await
     }
 
@@ -513,7 +515,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::ValidateDirectoryServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::validate_directory_service(self, req, options).await
     }
 
@@ -522,7 +524,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::SwitchActiveReplicaZoneRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::switch_active_replica_zone(self, req, options).await
     }
 
@@ -549,7 +551,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::CreateVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_volume(self, req, options).await
     }
 
@@ -558,7 +560,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::UpdateVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_volume(self, req, options).await
     }
 
@@ -567,7 +569,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::DeleteVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_volume(self, req, options).await
     }
 
@@ -576,7 +578,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::RevertVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::revert_volume(self, req, options).await
     }
 
@@ -603,7 +605,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::CreateSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_snapshot(self, req, options).await
     }
 
@@ -612,7 +614,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::DeleteSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_snapshot(self, req, options).await
     }
 
@@ -621,7 +623,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::UpdateSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_snapshot(self, req, options).await
     }
 
@@ -648,7 +650,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::CreateActiveDirectoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_active_directory(self, req, options).await
     }
 
@@ -657,7 +659,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::UpdateActiveDirectoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_active_directory(self, req, options).await
     }
 
@@ -666,7 +668,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::DeleteActiveDirectoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_active_directory(self, req, options).await
     }
 
@@ -684,7 +686,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::CreateKmsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_kms_config(self, req, options).await
     }
 
@@ -702,7 +704,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::UpdateKmsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_kms_config(self, req, options).await
     }
 
@@ -711,7 +713,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::EncryptVolumesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::encrypt_volumes(self, req, options).await
     }
 
@@ -729,7 +731,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::DeleteKmsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_kms_config(self, req, options).await
     }
 
@@ -756,7 +758,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::CreateReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_replication(self, req, options).await
     }
 
@@ -765,7 +767,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::DeleteReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_replication(self, req, options).await
     }
 
@@ -774,7 +776,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::UpdateReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_replication(self, req, options).await
     }
 
@@ -783,7 +785,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::StopReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::stop_replication(self, req, options).await
     }
 
@@ -792,7 +794,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::ResumeReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::resume_replication(self, req, options).await
     }
 
@@ -801,7 +803,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::ReverseReplicationDirectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::reverse_replication_direction(self, req, options).await
     }
 
@@ -810,7 +812,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::EstablishPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::establish_peering(self, req, options).await
     }
 
@@ -819,7 +821,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::SyncReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::sync_replication(self, req, options).await
     }
 
@@ -828,7 +830,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::CreateBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_backup_vault(self, req, options).await
     }
 
@@ -855,7 +857,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::UpdateBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_backup_vault(self, req, options).await
     }
 
@@ -864,7 +866,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::DeleteBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_backup_vault(self, req, options).await
     }
 
@@ -873,7 +875,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::CreateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_backup(self, req, options).await
     }
 
@@ -900,7 +902,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_backup(self, req, options).await
     }
 
@@ -909,7 +911,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::UpdateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_backup(self, req, options).await
     }
 
@@ -918,7 +920,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::CreateBackupPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_backup_policy(self, req, options).await
     }
 
@@ -945,7 +947,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::UpdateBackupPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_backup_policy(self, req, options).await
     }
 
@@ -954,7 +956,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::DeleteBackupPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_backup_policy(self, req, options).await
     }
 
@@ -981,7 +983,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::CreateQuotaRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_quota_rule(self, req, options).await
     }
 
@@ -990,7 +992,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::UpdateQuotaRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_quota_rule(self, req, options).await
     }
 
@@ -999,7 +1001,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::DeleteQuotaRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_quota_rule(self, req, options).await
     }
 
@@ -1008,7 +1010,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::RestoreBackupFilesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::restore_backup_files(self, req, options).await
     }
 
@@ -1035,7 +1037,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::CreateHostGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_host_group(self, req, options).await
     }
 
@@ -1044,7 +1046,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::UpdateHostGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_host_group(self, req, options).await
     }
 
@@ -1053,7 +1055,7 @@ impl<T: super::NetApp> NetApp for T {
         &self,
         req: crate::model::DeleteHostGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_host_group(self, req, options).await
     }
 
@@ -1078,25 +1080,27 @@ impl<T: super::NetApp> NetApp for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
@@ -1105,7 +1109,7 @@ impl<T: super::NetApp> NetApp for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await

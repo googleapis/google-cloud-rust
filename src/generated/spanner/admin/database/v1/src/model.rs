@@ -21,10 +21,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate iam_v1;
 extern crate lazy_static;
-extern crate longrunning;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
@@ -914,7 +914,7 @@ pub struct CreateBackupMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1,
     /// corresponding to `Code.CANCELLED`.
     ///
-    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub cancel_time: std::option::Option<wkt::Timestamp>,
 
@@ -1217,7 +1217,7 @@ pub struct CopyBackupMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1,
     /// corresponding to `Code.CANCELLED`.
     ///
-    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub cancel_time: std::option::Option<wkt::Timestamp>,
 
@@ -1800,7 +1800,7 @@ pub struct ListBackupOperationsRequest {
     ///       AND the source backup name contains the string "test_bkp"
     ///   * The operation resulted in an error.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     /// [google.spanner.admin.database.v1.CopyBackupMetadata]: crate::model::CopyBackupMetadata
     /// [google.spanner.admin.database.v1.CreateBackupMetadata]: crate::model::CreateBackupMetadata
     pub filter: std::string::String,
@@ -1899,9 +1899,9 @@ pub struct ListBackupOperationsResponse {
     /// `operation.metadata.value.progress.start_time` in descending order starting
     /// from the most recently started operation.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    pub operations: std::vec::Vec<longrunning::model::Operation>,
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    pub operations: std::vec::Vec<google_cloud_longrunning::model::Operation>,
 
     /// `next_page_token` can be sent in a subsequent
     /// [ListBackupOperations][google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations]
@@ -1923,7 +1923,7 @@ impl ListBackupOperationsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::ListBackupOperationsResponse;
-    /// use longrunning::model::Operation;
+    /// use google_cloud_longrunning::model::Operation;
     /// let x = ListBackupOperationsResponse::new()
     ///     .set_operations([
     ///         Operation::default()/* use setters */,
@@ -1933,7 +1933,7 @@ impl ListBackupOperationsResponse {
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<longrunning::model::Operation>,
+        V: std::convert::Into<google_cloud_longrunning::model::Operation>,
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
@@ -1961,7 +1961,7 @@ impl wkt::message::Message for ListBackupOperationsResponse {
 
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListBackupOperationsResponse {
-    type PageItem = longrunning::model::Operation;
+    type PageItem = google_cloud_longrunning::model::Operation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.operations
@@ -5330,7 +5330,7 @@ impl wkt::message::Message for UpdateDatabaseMetadata {
 /// [operation_id][google.spanner.admin.database.v1.UpdateDatabaseDdlRequest.operation_id]
 /// field for more details.
 ///
-/// [google.longrunning.Operations]: longrunning::client::Operations
+/// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
 /// [google.spanner.admin.database.v1.UpdateDatabaseDdlRequest.operation_id]: crate::model::UpdateDatabaseDdlRequest::operation_id
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5363,8 +5363,8 @@ pub struct UpdateDatabaseDdlRequest {
     /// [UpdateDatabaseDdl][google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]
     /// returns `ALREADY_EXISTS`.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.name]: longrunning::model::Operation::name
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.name]: google_cloud_longrunning::model::Operation::name
     /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::client::DatabaseAdmin::update_database_ddl
     /// [google.spanner.admin.database.v1.UpdateDatabaseDdlRequest.database]: crate::model::UpdateDatabaseDdlRequest::database
     pub operation_id: std::string::String,
@@ -5909,7 +5909,7 @@ pub struct ListDatabaseOperationsRequest {
     ///   * The operation started before 2018-03-28T14:50:00Z.
     ///   * The operation resulted in an error.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     /// [google.spanner.admin.database.v1.RestoreDatabaseMetadata]: crate::model::RestoreDatabaseMetadata
     pub filter: std::string::String,
 
@@ -6003,9 +6003,9 @@ pub struct ListDatabaseOperationsResponse {
     /// [metadata][google.longrunning.Operation.metadata] field type
     /// `metadata.type_url` describes the type of the metadata.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    pub operations: std::vec::Vec<longrunning::model::Operation>,
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    pub operations: std::vec::Vec<google_cloud_longrunning::model::Operation>,
 
     /// `next_page_token` can be sent in a subsequent
     /// [ListDatabaseOperations][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations]
@@ -6027,7 +6027,7 @@ impl ListDatabaseOperationsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::ListDatabaseOperationsResponse;
-    /// use longrunning::model::Operation;
+    /// use google_cloud_longrunning::model::Operation;
     /// let x = ListDatabaseOperationsResponse::new()
     ///     .set_operations([
     ///         Operation::default()/* use setters */,
@@ -6037,7 +6037,7 @@ impl ListDatabaseOperationsResponse {
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<longrunning::model::Operation>,
+        V: std::convert::Into<google_cloud_longrunning::model::Operation>,
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
@@ -6065,7 +6065,7 @@ impl wkt::message::Message for ListDatabaseOperationsResponse {
 
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListDatabaseOperationsResponse {
-    type PageItem = longrunning::model::Operation;
+    type PageItem = google_cloud_longrunning::model::Operation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.operations
@@ -6539,7 +6539,7 @@ pub struct RestoreDatabaseMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub cancel_time: std::option::Option<wkt::Timestamp>,
 

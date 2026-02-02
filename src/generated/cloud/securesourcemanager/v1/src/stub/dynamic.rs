@@ -33,13 +33,13 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_instance(
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_repositories(
         &self,
@@ -57,19 +57,19 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_repository(
         &self,
         req: crate::model::UpdateRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_repository(
         &self,
         req: crate::model::DeleteRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_hooks(
         &self,
@@ -87,19 +87,19 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateHookRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_hook(
         &self,
         req: crate::model::UpdateHookRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_hook(
         &self,
         req: crate::model::DeleteHookRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_iam_policy_repo(
         &self,
@@ -123,7 +123,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_branch_rules(
         &self,
@@ -141,19 +141,19 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_branch_rule(
         &self,
         req: crate::model::DeleteBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_pull_request(
         &self,
         req: crate::model::CreatePullRequestRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_pull_request(
         &self,
@@ -171,25 +171,25 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdatePullRequestRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn merge_pull_request(
         &self,
         req: crate::model::MergePullRequestRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn open_pull_request(
         &self,
         req: crate::model::OpenPullRequestRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn close_pull_request(
         &self,
         req: crate::model::ClosePullRequestRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_pull_request_file_diffs(
         &self,
@@ -213,7 +213,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_issue(
         &self,
@@ -231,25 +231,25 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_issue(
         &self,
         req: crate::model::DeleteIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn open_issue(
         &self,
         req: crate::model::OpenIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn close_issue(
         &self,
         req: crate::model::CloseIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_pull_request_comment(
         &self,
@@ -267,43 +267,43 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreatePullRequestCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_pull_request_comment(
         &self,
         req: crate::model::UpdatePullRequestCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_pull_request_comment(
         &self,
         req: crate::model::DeletePullRequestCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn batch_create_pull_request_comments(
         &self,
         req: crate::model::BatchCreatePullRequestCommentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn resolve_pull_request_comments(
         &self,
         req: crate::model::ResolvePullRequestCommentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn unresolve_pull_request_comments(
         &self,
         req: crate::model::UnresolvePullRequestCommentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_issue_comment(
         &self,
         req: crate::model::CreateIssueCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_issue_comment(
         &self,
@@ -321,13 +321,13 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateIssueCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_issue_comment(
         &self,
         req: crate::model::DeleteIssueCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
@@ -361,25 +361,27 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
@@ -420,7 +422,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::CreateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_instance(self, req, options).await
     }
 
@@ -429,7 +431,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_instance(self, req, options).await
     }
 
@@ -456,7 +458,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::CreateRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_repository(self, req, options).await
     }
 
@@ -465,7 +467,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::UpdateRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_repository(self, req, options).await
     }
 
@@ -474,7 +476,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::DeleteRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_repository(self, req, options).await
     }
 
@@ -501,7 +503,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::CreateHookRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_hook(self, req, options).await
     }
 
@@ -510,7 +512,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::UpdateHookRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_hook(self, req, options).await
     }
 
@@ -519,7 +521,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::DeleteHookRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_hook(self, req, options).await
     }
 
@@ -555,7 +557,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::CreateBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_branch_rule(self, req, options).await
     }
 
@@ -582,7 +584,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::UpdateBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_branch_rule(self, req, options).await
     }
 
@@ -591,7 +593,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::DeleteBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_branch_rule(self, req, options).await
     }
 
@@ -600,7 +602,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::CreatePullRequestRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_pull_request(self, req, options).await
     }
 
@@ -627,7 +629,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::UpdatePullRequestRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_pull_request(self, req, options).await
     }
 
@@ -636,7 +638,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::MergePullRequestRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::merge_pull_request(self, req, options).await
     }
 
@@ -645,7 +647,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::OpenPullRequestRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::open_pull_request(self, req, options).await
     }
 
@@ -654,7 +656,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::ClosePullRequestRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::close_pull_request(self, req, options).await
     }
 
@@ -691,7 +693,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::CreateIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_issue(self, req, options).await
     }
 
@@ -718,7 +720,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::UpdateIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_issue(self, req, options).await
     }
 
@@ -727,7 +729,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::DeleteIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_issue(self, req, options).await
     }
 
@@ -736,7 +738,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::OpenIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::open_issue(self, req, options).await
     }
 
@@ -745,7 +747,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::CloseIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::close_issue(self, req, options).await
     }
 
@@ -772,7 +774,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::CreatePullRequestCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_pull_request_comment(self, req, options).await
     }
 
@@ -781,7 +783,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::UpdatePullRequestCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_pull_request_comment(self, req, options).await
     }
 
@@ -790,7 +792,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::DeletePullRequestCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_pull_request_comment(self, req, options).await
     }
 
@@ -799,7 +801,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::BatchCreatePullRequestCommentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::batch_create_pull_request_comments(self, req, options).await
     }
 
@@ -808,7 +810,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::ResolvePullRequestCommentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::resolve_pull_request_comments(self, req, options).await
     }
 
@@ -817,7 +819,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::UnresolvePullRequestCommentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::unresolve_pull_request_comments(self, req, options).await
     }
 
@@ -826,7 +828,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::CreateIssueCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_issue_comment(self, req, options).await
     }
 
@@ -853,7 +855,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::UpdateIssueCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_issue_comment(self, req, options).await
     }
 
@@ -862,7 +864,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::DeleteIssueCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_issue_comment(self, req, options).await
     }
 
@@ -914,25 +916,27 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
@@ -941,7 +945,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await

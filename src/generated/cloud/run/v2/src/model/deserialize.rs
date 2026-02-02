@@ -557,9 +557,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SubmitBuildResponse {
                                     "multiple values for build_operation",
                                 ));
                             }
-                            result.build_operation = map
-                                .next_value::<std::option::Option<longrunning::model::Operation>>(
-                                )?;
+                            result.build_operation = map.next_value::<std::option::Option<google_cloud_longrunning::model::Operation>>()?
+                                ;
                         }
                         __FieldTag::__base_image_uri => {
                             if !fields.insert(__FieldTag::__base_image_uri) {

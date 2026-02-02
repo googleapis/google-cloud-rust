@@ -33,19 +33,19 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_trigger(
         &self,
         req: crate::model::UpdateTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_trigger(
         &self,
         req: crate::model::DeleteTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_channel(
         &self,
@@ -63,19 +63,19 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_channel(
         &self,
         req: crate::model::UpdateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_channel(
         &self,
         req: crate::model::DeleteChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_provider(
         &self,
@@ -105,13 +105,13 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateChannelConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_channel_connection(
         &self,
         req: crate::model::DeleteChannelConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_google_channel_config(
         &self,
@@ -147,19 +147,19 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_message_bus(
         &self,
         req: crate::model::UpdateMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_message_bus(
         &self,
         req: crate::model::DeleteMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_enrollment(
         &self,
@@ -177,19 +177,19 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_enrollment(
         &self,
         req: crate::model::UpdateEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_enrollment(
         &self,
         req: crate::model::DeleteEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_pipeline(
         &self,
@@ -207,19 +207,19 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreatePipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_pipeline(
         &self,
         req: crate::model::UpdatePipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_pipeline(
         &self,
         req: crate::model::DeletePipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_google_api_source(
         &self,
@@ -237,19 +237,19 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_google_api_source(
         &self,
         req: crate::model::UpdateGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_google_api_source(
         &self,
         req: crate::model::DeleteGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
@@ -283,25 +283,27 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
@@ -342,7 +344,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreateTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_trigger(self, req, options).await
     }
 
@@ -351,7 +353,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::UpdateTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_trigger(self, req, options).await
     }
 
@@ -360,7 +362,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeleteTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_trigger(self, req, options).await
     }
 
@@ -387,7 +389,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_channel(self, req, options).await
     }
 
@@ -396,7 +398,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::UpdateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_channel(self, req, options).await
     }
 
@@ -405,7 +407,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeleteChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_channel(self, req, options).await
     }
 
@@ -450,7 +452,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreateChannelConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_channel_connection(self, req, options).await
     }
 
@@ -459,7 +461,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeleteChannelConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_channel_connection(self, req, options).await
     }
 
@@ -514,7 +516,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreateMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_message_bus(self, req, options).await
     }
 
@@ -523,7 +525,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::UpdateMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_message_bus(self, req, options).await
     }
 
@@ -532,7 +534,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeleteMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_message_bus(self, req, options).await
     }
 
@@ -559,7 +561,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreateEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_enrollment(self, req, options).await
     }
 
@@ -568,7 +570,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::UpdateEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_enrollment(self, req, options).await
     }
 
@@ -577,7 +579,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeleteEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_enrollment(self, req, options).await
     }
 
@@ -604,7 +606,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreatePipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_pipeline(self, req, options).await
     }
 
@@ -613,7 +615,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::UpdatePipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_pipeline(self, req, options).await
     }
 
@@ -622,7 +624,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeletePipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_pipeline(self, req, options).await
     }
 
@@ -649,7 +651,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreateGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_google_api_source(self, req, options).await
     }
 
@@ -658,7 +660,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::UpdateGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_google_api_source(self, req, options).await
     }
 
@@ -667,7 +669,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeleteGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_google_api_source(self, req, options).await
     }
 
@@ -719,25 +721,27 @@ impl<T: super::Eventarc> Eventarc for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
@@ -746,7 +750,7 @@ impl<T: super::Eventarc> Eventarc for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await

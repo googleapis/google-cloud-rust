@@ -33,25 +33,25 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreatePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_private_cloud(
         &self,
         req: crate::model::UpdatePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_private_cloud(
         &self,
         req: crate::model::DeletePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn undelete_private_cloud(
         &self,
         req: crate::model::UndeletePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_clusters(
         &self,
@@ -69,19 +69,19 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_cluster(
         &self,
         req: crate::model::UpdateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_cluster(
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_nodes(
         &self,
@@ -119,19 +119,19 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_external_address(
         &self,
         req: crate::model::UpdateExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_external_address(
         &self,
         req: crate::model::DeleteExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_subnets(
         &self,
@@ -149,7 +149,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_external_access_rules(
         &self,
@@ -167,19 +167,19 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_external_access_rule(
         &self,
         req: crate::model::UpdateExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_external_access_rule(
         &self,
         req: crate::model::DeleteExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_logging_servers(
         &self,
@@ -197,19 +197,19 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_logging_server(
         &self,
         req: crate::model::UpdateLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_logging_server(
         &self,
         req: crate::model::DeleteLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_node_types(
         &self,
@@ -239,13 +239,13 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ResetNsxCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn reset_vcenter_credentials(
         &self,
         req: crate::model::ResetVcenterCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_dns_forwarding(
         &self,
@@ -257,7 +257,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateDnsForwardingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_network_peering(
         &self,
@@ -275,19 +275,19 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_network_peering(
         &self,
         req: crate::model::DeleteNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_network_peering(
         &self,
         req: crate::model::UpdateNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_peering_routes(
         &self,
@@ -299,7 +299,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateHcxActivationKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_hcx_activation_keys(
         &self,
@@ -329,19 +329,19 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_network_policy(
         &self,
         req: crate::model::UpdateNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_network_policy(
         &self,
         req: crate::model::DeleteNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_management_dns_zone_bindings(
         &self,
@@ -359,43 +359,43 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_management_dns_zone_binding(
         &self,
         req: crate::model::UpdateManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_management_dns_zone_binding(
         &self,
         req: crate::model::DeleteManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn repair_management_dns_zone_binding(
         &self,
         req: crate::model::RepairManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_vmware_engine_network(
         &self,
         req: crate::model::CreateVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_vmware_engine_network(
         &self,
         req: crate::model::UpdateVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_vmware_engine_network(
         &self,
         req: crate::model::DeleteVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_vmware_engine_network(
         &self,
@@ -413,7 +413,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_private_connection(
         &self,
@@ -431,13 +431,13 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_private_connection(
         &self,
         req: crate::model::DeletePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_private_connection_peering_routes(
         &self,
@@ -451,7 +451,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GrantDnsBindPermissionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_dns_bind_permission(
         &self,
@@ -463,7 +463,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::RevokeDnsBindPermissionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
@@ -497,19 +497,21 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
@@ -550,7 +552,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreatePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_private_cloud(self, req, options).await
     }
 
@@ -559,7 +561,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdatePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_private_cloud(self, req, options).await
     }
 
@@ -568,7 +570,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeletePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_private_cloud(self, req, options).await
     }
 
@@ -577,7 +579,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UndeletePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::undelete_private_cloud(self, req, options).await
     }
 
@@ -604,7 +606,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_cluster(self, req, options).await
     }
 
@@ -613,7 +615,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_cluster(self, req, options).await
     }
 
@@ -622,7 +624,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_cluster(self, req, options).await
     }
 
@@ -678,7 +680,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_external_address(self, req, options).await
     }
 
@@ -687,7 +689,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_external_address(self, req, options).await
     }
 
@@ -696,7 +698,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_external_address(self, req, options).await
     }
 
@@ -723,7 +725,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_subnet(self, req, options).await
     }
 
@@ -750,7 +752,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_external_access_rule(self, req, options).await
     }
 
@@ -759,7 +761,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_external_access_rule(self, req, options).await
     }
 
@@ -768,7 +770,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_external_access_rule(self, req, options).await
     }
 
@@ -795,7 +797,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_logging_server(self, req, options).await
     }
 
@@ -804,7 +806,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_logging_server(self, req, options).await
     }
 
@@ -813,7 +815,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_logging_server(self, req, options).await
     }
 
@@ -858,7 +860,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ResetNsxCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::reset_nsx_credentials(self, req, options).await
     }
 
@@ -867,7 +869,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ResetVcenterCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::reset_vcenter_credentials(self, req, options).await
     }
 
@@ -885,7 +887,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateDnsForwardingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_dns_forwarding(self, req, options).await
     }
 
@@ -912,7 +914,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_network_peering(self, req, options).await
     }
 
@@ -921,7 +923,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_network_peering(self, req, options).await
     }
 
@@ -930,7 +932,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_network_peering(self, req, options).await
     }
 
@@ -948,7 +950,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateHcxActivationKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_hcx_activation_key(self, req, options).await
     }
 
@@ -993,7 +995,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_network_policy(self, req, options).await
     }
 
@@ -1002,7 +1004,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_network_policy(self, req, options).await
     }
 
@@ -1011,7 +1013,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_network_policy(self, req, options).await
     }
 
@@ -1039,7 +1041,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_management_dns_zone_binding(self, req, options).await
     }
 
@@ -1048,7 +1050,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_management_dns_zone_binding(self, req, options).await
     }
 
@@ -1057,7 +1059,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_management_dns_zone_binding(self, req, options).await
     }
 
@@ -1066,7 +1068,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::RepairManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::repair_management_dns_zone_binding(self, req, options).await
     }
 
@@ -1075,7 +1077,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_vmware_engine_network(self, req, options).await
     }
 
@@ -1084,7 +1086,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_vmware_engine_network(self, req, options).await
     }
 
@@ -1093,7 +1095,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_vmware_engine_network(self, req, options).await
     }
 
@@ -1121,7 +1123,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_private_connection(self, req, options).await
     }
 
@@ -1148,7 +1150,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_private_connection(self, req, options).await
     }
 
@@ -1157,7 +1159,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeletePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_private_connection(self, req, options).await
     }
 
@@ -1177,7 +1179,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GrantDnsBindPermissionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::grant_dns_bind_permission(self, req, options).await
     }
 
@@ -1195,7 +1197,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::RevokeDnsBindPermissionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::revoke_dns_bind_permission(self, req, options).await
     }
 
@@ -1247,25 +1249,27 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await

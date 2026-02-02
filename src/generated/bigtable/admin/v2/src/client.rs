@@ -435,28 +435,28 @@ impl BigtableInstanceAdmin {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::bigtable_instance_admin::ListOperations {
         super::builder::bigtable_instance_admin::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::bigtable_instance_admin::GetOperation {
         super::builder::bigtable_instance_admin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::bigtable_instance_admin::DeleteOperation {
         super::builder::bigtable_instance_admin::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::bigtable_instance_admin::CancelOperation {
         super::builder::bigtable_instance_admin::CancelOperation::new(self.inner.clone())
     }
@@ -799,9 +799,9 @@ impl BigtableTableAdmin {
     ///
     /// [google.bigtable.admin.v2.Backup]: crate::model::Backup
     /// [google.bigtable.admin.v2.CreateBackupMetadata]: crate::model::CreateBackupMetadata
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
     ///
     /// # Long running operations
     ///
@@ -847,9 +847,9 @@ impl BigtableTableAdmin {
     ///
     /// [google.bigtable.admin.v2.RestoreTableMetadata]: crate::model::RestoreTableMetadata
     /// [google.bigtable.admin.v2.Table]: crate::model::Table
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
     ///
     /// # Long running operations
     ///
@@ -946,28 +946,28 @@ impl BigtableTableAdmin {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::bigtable_table_admin::ListOperations {
         super::builder::bigtable_table_admin::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::bigtable_table_admin::GetOperation {
         super::builder::bigtable_table_admin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::bigtable_table_admin::DeleteOperation {
         super::builder::bigtable_table_admin::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::bigtable_table_admin::CancelOperation {
         super::builder::bigtable_table_admin::CancelOperation::new(self.inner.clone())
     }

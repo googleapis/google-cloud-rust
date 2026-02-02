@@ -21,10 +21,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate gtype;
 extern crate lazy_static;
-extern crate longrunning;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -7018,7 +7018,7 @@ impl wkt::message::Message for LocationMetadata {
 /// [FirestoreAdmin.CreateIndex][google.firestore.admin.v1.FirestoreAdmin.CreateIndex].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.CreateIndex]: crate::client::FirestoreAdmin::create_index
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IndexOperationMetadata {
@@ -7221,7 +7221,7 @@ impl wkt::message::Message for IndexOperationMetadata {
 /// [FirestoreAdmin.UpdateField][google.firestore.admin.v1.FirestoreAdmin.UpdateField].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.UpdateField]: crate::client::FirestoreAdmin::update_field
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldOperationMetadata {
@@ -7901,7 +7901,7 @@ pub mod field_operation_metadata {
 /// [FirestoreAdmin.ExportDocuments][google.firestore.admin.v1.FirestoreAdmin.ExportDocuments].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ExportDocuments]: crate::client::FirestoreAdmin::export_documents
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDocumentsMetadata {
@@ -8187,7 +8187,7 @@ impl wkt::message::Message for ExportDocumentsMetadata {
 /// [FirestoreAdmin.ImportDocuments][google.firestore.admin.v1.FirestoreAdmin.ImportDocuments].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ImportDocuments]: crate::client::FirestoreAdmin::import_documents
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportDocumentsMetadata {
@@ -8435,7 +8435,7 @@ impl wkt::message::Message for ImportDocumentsMetadata {
 /// [FirestoreAdmin.BulkDeleteDocuments][google.firestore.admin.v1.FirestoreAdmin.BulkDeleteDocuments].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.BulkDeleteDocuments]: crate::client::FirestoreAdmin::bulk_delete_documents
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BulkDeleteDocumentsMetadata {
@@ -8702,7 +8702,7 @@ impl wkt::message::Message for BulkDeleteDocumentsMetadata {
 /// Returned in the [google.longrunning.Operation][google.longrunning.Operation]
 /// response field.
 ///
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDocumentsResponse {
@@ -8744,7 +8744,7 @@ impl wkt::message::Message for ExportDocumentsResponse {
 /// Metadata for the [long-running operation][google.longrunning.Operation] from
 /// the [RestoreDatabase][google.firestore.admin.v1.RestoreDatabase] request.
 ///
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreDatabaseMetadata {
@@ -8925,7 +8925,7 @@ impl wkt::message::Message for RestoreDatabaseMetadata {
 /// Metadata for the [long-running operation][google.longrunning.Operation] from
 /// the [CloneDatabase][google.firestore.admin.v1.CloneDatabase] request.
 ///
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloneDatabaseMetadata {

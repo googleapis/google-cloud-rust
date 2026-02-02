@@ -800,7 +800,7 @@ pub mod artifact_registry {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [import_apt_artifacts][crate::client::ArtifactRegistry::import_apt_artifacts].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .import_apt_artifacts(self.0.request, self.0.options)
                 .await
@@ -939,7 +939,7 @@ pub mod artifact_registry {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [import_yum_artifacts][crate::client::ArtifactRegistry::import_yum_artifacts].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .import_yum_artifacts(self.0.request, self.0.options)
                 .await
@@ -1257,7 +1257,7 @@ pub mod artifact_registry {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_repository][crate::client::ArtifactRegistry::create_repository].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_repository(self.0.request, self.0.options)
                 .await
@@ -1492,7 +1492,7 @@ pub mod artifact_registry {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_repository][crate::client::ArtifactRegistry::delete_repository].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_repository(self.0.request, self.0.options)
                 .await
@@ -1772,7 +1772,7 @@ pub mod artifact_registry {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_package][crate::client::ArtifactRegistry::delete_package].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_package(self.0.request, self.0.options)
                 .await
@@ -2060,7 +2060,7 @@ pub mod artifact_registry {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_version][crate::client::ArtifactRegistry::delete_version].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_version(self.0.request, self.0.options)
                 .await
@@ -2171,7 +2171,7 @@ pub mod artifact_registry {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [batch_delete_versions][crate::client::ArtifactRegistry::batch_delete_versions].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_delete_versions(self.0.request, self.0.options)
                 .await
@@ -2566,7 +2566,7 @@ pub mod artifact_registry {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_file][crate::client::ArtifactRegistry::delete_file].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_file(self.0.request, self.0.options)
                 .await
@@ -4406,7 +4406,7 @@ pub mod artifact_registry {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_attachment][crate::client::ArtifactRegistry::create_attachment].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_attachment(self.0.request, self.0.options)
                 .await
@@ -4548,7 +4548,7 @@ pub mod artifact_registry {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_attachment][crate::client::ArtifactRegistry::delete_attachment].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_attachment(self.0.request, self.0.options)
                 .await
@@ -4652,7 +4652,7 @@ pub mod artifact_registry {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [export_artifact][crate::client::ArtifactRegistry::export_artifact].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .export_artifact(self.0.request, self.0.options)
                 .await
@@ -4965,7 +4965,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4975,7 +4975,7 @@ pub mod artifact_registry {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -4990,14 +4990,14 @@ pub mod artifact_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

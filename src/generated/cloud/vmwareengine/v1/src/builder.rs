@@ -298,7 +298,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_private_cloud][crate::client::VmwareEngine::create_private_cloud].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_private_cloud(self.0.request, self.0.options)
                 .await
@@ -452,7 +452,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_private_cloud][crate::client::VmwareEngine::update_private_cloud].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_private_cloud(self.0.request, self.0.options)
                 .await
@@ -606,7 +606,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_private_cloud][crate::client::VmwareEngine::delete_private_cloud].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_private_cloud(self.0.request, self.0.options)
                 .await
@@ -748,7 +748,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [undelete_private_cloud][crate::client::VmwareEngine::undelete_private_cloud].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_private_cloud(self.0.request, self.0.options)
                 .await
@@ -1039,7 +1039,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cluster][crate::client::VmwareEngine::create_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
                 .await
@@ -1190,7 +1190,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_cluster][crate::client::VmwareEngine::update_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
                 .await
@@ -1347,7 +1347,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_cluster][crate::client::VmwareEngine::delete_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
                 .await
@@ -1921,7 +1921,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_external_address][crate::client::VmwareEngine::create_external_address].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_external_address(self.0.request, self.0.options)
                 .await
@@ -2069,7 +2069,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_external_address][crate::client::VmwareEngine::update_external_address].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_external_address(self.0.request, self.0.options)
                 .await
@@ -2223,7 +2223,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_external_address][crate::client::VmwareEngine::delete_external_address].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_external_address(self.0.request, self.0.options)
                 .await
@@ -2497,7 +2497,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_subnet][crate::client::VmwareEngine::update_subnet].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_subnet(self.0.request, self.0.options)
                 .await
@@ -2835,7 +2835,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_external_access_rule][crate::client::VmwareEngine::create_external_access_rule].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_external_access_rule(self.0.request, self.0.options)
                 .await
@@ -2987,7 +2987,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_external_access_rule][crate::client::VmwareEngine::update_external_access_rule].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_external_access_rule(self.0.request, self.0.options)
                 .await
@@ -3145,7 +3145,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_external_access_rule][crate::client::VmwareEngine::delete_external_access_rule].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_external_access_rule(self.0.request, self.0.options)
                 .await
@@ -3442,7 +3442,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_logging_server][crate::client::VmwareEngine::create_logging_server].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_logging_server(self.0.request, self.0.options)
                 .await
@@ -3590,7 +3590,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_logging_server][crate::client::VmwareEngine::update_logging_server].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_logging_server(self.0.request, self.0.options)
                 .await
@@ -3744,7 +3744,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_logging_server][crate::client::VmwareEngine::delete_logging_server].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_logging_server(self.0.request, self.0.options)
                 .await
@@ -4163,7 +4163,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [reset_nsx_credentials][crate::client::VmwareEngine::reset_nsx_credentials].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_nsx_credentials(self.0.request, self.0.options)
                 .await
@@ -4283,7 +4283,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [reset_vcenter_credentials][crate::client::VmwareEngine::reset_vcenter_credentials].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_vcenter_credentials(self.0.request, self.0.options)
                 .await
@@ -4472,7 +4472,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_dns_forwarding][crate::client::VmwareEngine::update_dns_forwarding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_dns_forwarding(self.0.request, self.0.options)
                 .await
@@ -4810,7 +4810,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_network_peering][crate::client::VmwareEngine::create_network_peering].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_network_peering(self.0.request, self.0.options)
                 .await
@@ -4958,7 +4958,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_network_peering][crate::client::VmwareEngine::delete_network_peering].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_network_peering(self.0.request, self.0.options)
                 .await
@@ -5071,7 +5071,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_network_peering][crate::client::VmwareEngine::update_network_peering].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_network_peering(self.0.request, self.0.options)
                 .await
@@ -5336,7 +5336,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_hcx_activation_key][crate::client::VmwareEngine::create_hcx_activation_key].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_hcx_activation_key(self.0.request, self.0.options)
                 .await
@@ -5840,7 +5840,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_network_policy][crate::client::VmwareEngine::create_network_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_network_policy(self.0.request, self.0.options)
                 .await
@@ -5988,7 +5988,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_network_policy][crate::client::VmwareEngine::update_network_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_network_policy(self.0.request, self.0.options)
                 .await
@@ -6142,7 +6142,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_network_policy][crate::client::VmwareEngine::delete_network_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_network_policy(self.0.request, self.0.options)
                 .await
@@ -6447,7 +6447,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_management_dns_zone_binding][crate::client::VmwareEngine::create_management_dns_zone_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_management_dns_zone_binding(self.0.request, self.0.options)
                 .await
@@ -6605,7 +6605,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_management_dns_zone_binding][crate::client::VmwareEngine::update_management_dns_zone_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_management_dns_zone_binding(self.0.request, self.0.options)
                 .await
@@ -6766,7 +6766,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_management_dns_zone_binding][crate::client::VmwareEngine::delete_management_dns_zone_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_management_dns_zone_binding(self.0.request, self.0.options)
                 .await
@@ -6881,7 +6881,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [repair_management_dns_zone_binding][crate::client::VmwareEngine::repair_management_dns_zone_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .repair_management_dns_zone_binding(self.0.request, self.0.options)
                 .await
@@ -7003,7 +7003,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_vmware_engine_network][crate::client::VmwareEngine::create_vmware_engine_network].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_vmware_engine_network(self.0.request, self.0.options)
                 .await
@@ -7155,7 +7155,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_vmware_engine_network][crate::client::VmwareEngine::update_vmware_engine_network].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_vmware_engine_network(self.0.request, self.0.options)
                 .await
@@ -7313,7 +7313,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_vmware_engine_network][crate::client::VmwareEngine::delete_vmware_engine_network].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_vmware_engine_network(self.0.request, self.0.options)
                 .await
@@ -7622,7 +7622,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_private_connection][crate::client::VmwareEngine::create_private_connection].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_private_connection(self.0.request, self.0.options)
                 .await
@@ -7960,7 +7960,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_private_connection][crate::client::VmwareEngine::update_private_connection].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_private_connection(self.0.request, self.0.options)
                 .await
@@ -8118,7 +8118,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_private_connection][crate::client::VmwareEngine::delete_private_connection].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_private_connection(self.0.request, self.0.options)
                 .await
@@ -8344,7 +8344,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [grant_dns_bind_permission][crate::client::VmwareEngine::grant_dns_bind_permission].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .grant_dns_bind_permission(self.0.request, self.0.options)
                 .await
@@ -8553,7 +8553,7 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [revoke_dns_bind_permission][crate::client::VmwareEngine::revoke_dns_bind_permission].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .revoke_dns_bind_permission(self.0.request, self.0.options)
                 .await
@@ -9097,7 +9097,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
 
     impl ListOperations {
         pub(crate) fn new(
@@ -9107,7 +9109,7 @@ pub mod vmware_engine {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -9122,7 +9124,7 @@ pub mod vmware_engine {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
@@ -9132,8 +9134,10 @@ pub mod vmware_engine {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -9148,38 +9152,38 @@ pub mod vmware_engine {
         pub fn by_item(
             self,
         ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
+            google_cloud_longrunning::model::ListOperationsResponse,
             gax::error::Error,
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
         pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.return_partial_success = v.into();
             self
@@ -9210,7 +9214,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -9220,7 +9224,7 @@ pub mod vmware_engine {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -9235,14 +9239,14 @@ pub mod vmware_engine {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -9273,7 +9277,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
 
     impl DeleteOperation {
         pub(crate) fn new(
@@ -9283,7 +9289,7 @@ pub mod vmware_engine {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -9305,7 +9311,7 @@ pub mod vmware_engine {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
