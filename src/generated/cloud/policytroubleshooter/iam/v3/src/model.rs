@@ -25,7 +25,6 @@ extern crate gtype;
 extern crate iam_v1;
 extern crate iam_v2;
 extern crate lazy_static;
-extern crate reqwest;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;

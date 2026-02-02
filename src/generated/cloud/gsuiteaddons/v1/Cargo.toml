@@ -50,7 +50,6 @@ bytes.workspace                = true
 gax.workspace                  = true
 gaxi                           = { workspace = true, features = ["_internal-http-client"] }
 lazy_static.workspace          = true
-reqwest.workspace              = true
 serde.workspace                = true
 serde_json.workspace           = true
 serde_with.workspace           = true

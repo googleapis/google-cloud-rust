@@ -23,7 +23,6 @@ extern crate gax;
 extern crate gaxi;
 extern crate grafeas;
 extern crate lazy_static;
-extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;

@@ -268,7 +268,6 @@ gax.workspace         = true
 gaxi                  = { workspace = true, features = ["_internal-http-client"] }
 lazy_static.workspace = true
 lro.workspace         = true
-reqwest.workspace     = true
 rpc.workspace         = true
 serde.workspace       = true
 serde_json.workspace  = true

@@ -24,7 +24,6 @@ extern crate gaxi;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate location;
-extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
