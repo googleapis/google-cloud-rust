@@ -35,12 +35,12 @@ test-case.workspace  = true
 base64.workspace     = true
 reqwest.workspace    = true
 # Local dependencies
-google-cloud-auth        = { workspace = true, features = ["default", "idtoken"] }
-gax.workspace            = true
-language.workspace       = true
-secretmanager.workspace  = true
-iamcredentials.workspace = true
-bigquery.workspace       = true
+gax.workspace                   = true
+google-cloud-auth               = { workspace = true, features = ["default", "idtoken"] }
+google-cloud-bigquery-v2        = { workspace = true, features = ["default"] }
+google-cloud-iam-credentials-v1 = { workspace = true, features = ["default"] }
+google-cloud-language-v2        = { workspace = true, features = ["default"] }
+google-cloud-secretmanager-v1   = { workspace = true, features = ["default"] }
 
 [dev-dependencies]
 serial_test = { workspace = true }
