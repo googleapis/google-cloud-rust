@@ -231,14 +231,14 @@ mod tests {
             async fn delete_folder( &self, _req: gcs::model::DeleteFolderRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<()>>;
             async fn get_folder( &self, _req: gcs::model::GetFolderRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::Folder>>;
             async fn list_folders( &self, _req: gcs::model::ListFoldersRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::ListFoldersResponse>>;
-            async fn rename_folder( &self, _req: gcs::model::RenameFolderRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<longrunning::model::Operation>>;
+            async fn rename_folder( &self, _req: gcs::model::RenameFolderRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
             async fn get_storage_layout( &self, _req: gcs::model::GetStorageLayoutRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::StorageLayout>>;
             async fn create_managed_folder( &self, _req: gcs::model::CreateManagedFolderRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::ManagedFolder>>;
             async fn delete_managed_folder( &self, _req: gcs::model::DeleteManagedFolderRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<()>>;
             async fn get_managed_folder( &self, _req: gcs::model::GetManagedFolderRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::ManagedFolder>>;
             async fn list_managed_folders( &self, _req: gcs::model::ListManagedFoldersRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::ListManagedFoldersResponse>>;
-            async fn create_anywhere_cache( &self, _req: gcs::model::CreateAnywhereCacheRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<longrunning::model::Operation>>;
-            async fn update_anywhere_cache( &self, _req: gcs::model::UpdateAnywhereCacheRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<longrunning::model::Operation>>;
+            async fn create_anywhere_cache( &self, _req: gcs::model::CreateAnywhereCacheRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+            async fn update_anywhere_cache( &self, _req: gcs::model::UpdateAnywhereCacheRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
             async fn disable_anywhere_cache( &self, _req: gcs::model::DisableAnywhereCacheRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::AnywhereCache>>;
             async fn pause_anywhere_cache( &self, _req: gcs::model::PauseAnywhereCacheRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::AnywhereCache>>;
             async fn resume_anywhere_cache( &self, _req: gcs::model::ResumeAnywhereCacheRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::AnywhereCache>>;
@@ -250,7 +250,7 @@ mod tests {
             async fn update_project_intelligence_config( &self, _req: gcs::model::UpdateProjectIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
             async fn get_organization_intelligence_config( &self, _req: gcs::model::GetOrganizationIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
             async fn update_organization_intelligence_config( &self, _req: gcs::model::UpdateOrganizationIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
-            async fn get_operation( &self, _req: longrunning::model::GetOperationRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<longrunning::model::Operation>>;
+            async fn get_operation( &self, _req: google_cloud_longrunning::model::GetOperationRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
         }
     }
 

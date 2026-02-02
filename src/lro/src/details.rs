@@ -18,21 +18,22 @@ use super::*;
 use gax::polling_error_policy::PollingErrorPolicy;
 use gax::polling_state::PollingState;
 use gax::retry_result::RetryResult;
+use google_cloud_longrunning::model::{Operation as OperationAny, operation::Result as ResultAny};
 use std::marker::PhantomData;
 use std::sync::Arc;
 
-/// A wrapper around [longrunning::model::Operation] with typed responses.
+/// A wrapper around [Operation][OperationAny] with typed responses.
 ///
 /// This is intended as an implementation detail of the generated clients.
 /// Applications should have no need to create or use this struct.
 pub struct Operation<R, M> {
-    inner: longrunning::model::Operation,
+    inner: OperationAny,
     response: std::marker::PhantomData<R>,
     metadata: std::marker::PhantomData<M>,
 }
 
 impl<R, M> Operation<R, M> {
-    pub fn new(inner: longrunning::model::Operation) -> Self {
+    pub fn new(inner: OperationAny) -> Self {
         Self {
             inner,
             response: PhantomData,
@@ -50,18 +51,16 @@ impl<R, M> Operation<R, M> {
         self.inner.metadata.as_ref()
     }
     fn response(&self) -> Option<&wkt::Any> {
-        use longrunning::model::operation::Result;
         self.inner.result.as_ref().and_then(|r| match r {
-            Result::Error(_) => None,
-            Result::Response(r) => Some(r.as_ref()),
+            ResultAny::Error(_) => None,
+            ResultAny::Response(r) => Some(r.as_ref()),
             _ => None,
         })
     }
     fn error(&self) -> Option<&rpc::model::Status> {
-        use longrunning::model::operation::Result;
         self.inner.result.as_ref().and_then(|r| match r {
-            Result::Error(rpc) => Some(rpc.as_ref()),
-            Result::Response(_) => None,
+            ResultAny::Error(rpc) => Some(rpc.as_ref()),
+            ResultAny::Response(_) => None,
             _ => None,
         })
     }
@@ -181,7 +180,7 @@ mod tests {
     fn typed_operation_with_metadata() -> Result<()> {
         let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
             .expect("Any::from_msg should succeed");
-        let op = longrunning::model::Operation::default()
+        let op = OperationAny::default()
             .set_name("test-only-name")
             .set_metadata(any);
         let op = TestOperation::new(op);
@@ -204,9 +203,9 @@ mod tests {
     fn typed_operation_with_response() -> Result<()> {
         let any = wkt::Any::from_msg(&wkt::Duration::clamp(23, 0))
             .expect("successful deserialization via Any::from_msg");
-        let op = longrunning::model::Operation::default()
+        let op = OperationAny::default()
             .set_name("test-only-name")
-            .set_result(longrunning::model::operation::Result::Response(any.into()));
+            .set_result(ResultAny::Response(any.into()));
         let op = TestOperation::new(op);
         assert_eq!(op.name(), "test-only-name");
         assert!(!op.done());
@@ -228,11 +227,9 @@ mod tests {
         let rpc = rpc::model::Status::default()
             .set_message("test only")
             .set_code(16);
-        let op = longrunning::model::Operation::default()
+        let op = OperationAny::default()
             .set_name("test-only-name")
-            .set_result(longrunning::model::operation::Result::Error(
-                rpc.clone().into(),
-            ));
+            .set_result(ResultAny::Error(rpc.clone().into()));
         let op = TestOperation::new(op);
         assert_eq!(op.name(), "test-only-name");
         assert!(!op.done());
@@ -247,11 +244,10 @@ mod tests {
 
     #[test]
     fn start_success() -> TestResult {
-        use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
-        let op = Operation::default()
+        let op = OperationAny::default()
             .set_name("test-only-name")
             .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
         let op = super::Operation::new(op);
@@ -294,11 +290,10 @@ mod tests {
 
     #[test]
     fn poll_success() -> TestResult {
-        use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
-        let op = Operation::default()
+        let op = OperationAny::default()
             .set_name("test-only-name")
             .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
         let op = super::Operation::new(op);
@@ -321,11 +316,10 @@ mod tests {
 
     #[test]
     fn poll_success_exhausted() -> TestResult {
-        use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
-        let op = Operation::default()
+        let op = OperationAny::default()
             .set_name("test-only-name")
             .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
         let op = super::Operation::new(op);
@@ -411,15 +405,14 @@ mod tests {
 
     #[test]
     fn common_done() -> TestResult {
-        use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
-        let op = Operation::default()
+        let op = OperationAny::default()
             .set_name("test-only-name")
             .set_done(true)
             .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?)
-            .set_result(operation::Result::Response(
+            .set_result(ResultAny::Response(
                 wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))?.into(),
             ));
         let op = O::new(op);
@@ -436,11 +429,10 @@ mod tests {
 
     #[test]
     fn common_not_done() -> TestResult {
-        use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
-        let op = Operation::default()
+        let op = OperationAny::default()
             .set_name("test-only-name")
             .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
         let op = O::new(op);
@@ -457,11 +449,10 @@ mod tests {
 
     #[test]
     fn extract_result() -> TestResult {
-        use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
-        let op = Operation::default().set_result(operation::Result::Response(
+        let op = OperationAny::default().set_result(ResultAny::Response(
             Any::from_msg(&wkt::Duration::clamp(123, 0))?.into(),
         ));
         let op = O::new(op);
@@ -473,11 +464,10 @@ mod tests {
 
     #[test]
     fn extract_result_with_error() -> TestResult {
-        use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
-        let op = Operation::default().set_result(operation::Result::Error(
+        let op = OperationAny::default().set_result(ResultAny::Error(
             rpc::model::Status::default()
                 .set_code(gax::error::rpc::Code::FailedPrecondition as i32)
                 .set_message("test only")
@@ -497,11 +487,10 @@ mod tests {
 
     #[test]
     fn extract_result_bad_type() -> TestResult {
-        use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
-        let op = Operation::default().set_result(operation::Result::Response(
+        let op = OperationAny::default().set_result(ResultAny::Response(
             Any::from_msg(&wkt::Timestamp::clamp(123, 0))?.into(),
         ));
         let op = O::new(op);
@@ -523,7 +512,7 @@ mod tests {
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = Operation<R, M>;
-        let op = longrunning::model::Operation::default();
+        let op = OperationAny::default();
         let op = O::new(op);
         let err = as_result(op).err().unwrap();
         assert!(err.is_deserialization(), "{err:?}");
@@ -536,8 +525,8 @@ mod tests {
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = Operation<R, M>;
-        let op = longrunning::model::Operation::default()
-            .set_metadata(Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
+        let op =
+            OperationAny::default().set_metadata(Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
 
         let op = O::new(op);
 
@@ -552,8 +541,8 @@ mod tests {
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = Operation<R, M>;
-        let op = longrunning::model::Operation::default()
-            .set_metadata(Any::from_msg(&wkt::Duration::clamp(123, 0))?);
+        let op =
+            OperationAny::default().set_metadata(Any::from_msg(&wkt::Duration::clamp(123, 0))?);
         let op = O::new(op);
         let metadata = as_metadata(op);
         assert_eq!(metadata, None);
@@ -566,7 +555,7 @@ mod tests {
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = Operation<R, M>;
-        let op = longrunning::model::Operation::default();
+        let op = OperationAny::default();
         let op = O::new(op);
         let metadata = as_metadata(op);
         assert_eq!(metadata, None);
