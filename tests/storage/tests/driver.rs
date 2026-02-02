@@ -90,24 +90,22 @@ mod storage {
         result
     }
 
-    #[test_case(Storage::builder(); "default")]
     #[tokio::test(flavor = "multi_thread")]
-    async fn run_storage_read_object(builder: StorageBuilder) -> anyhow::Result<()> {
+    async fn run_storage_read_object() -> anyhow::Result<()> {
         let _guard = enable_tracing();
         let (control, bucket) = integration_tests_storage::create_test_bucket().await?;
-        let result = integration_tests_storage::read_object::run(builder, &bucket.name).await;
+        let result = integration_tests_storage::read_object::run(&bucket.name).await;
         if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
             tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
         };
         result
     }
 
-    #[test_case(Storage::builder(); "default")]
     #[tokio::test(flavor = "multi_thread")]
-    async fn run_storage_write_object(builder: StorageBuilder) -> anyhow::Result<()> {
+    async fn run_storage_write_object() -> anyhow::Result<()> {
         let _guard = enable_tracing();
         let (control, bucket) = integration_tests_storage::create_test_bucket().await?;
-        let result = integration_tests_storage::write_object::run(builder, &bucket.name).await;
+        let result = integration_tests_storage::write_object::run(&bucket.name).await;
         if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
             tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
         };
