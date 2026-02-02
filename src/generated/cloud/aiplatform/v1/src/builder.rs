@@ -1081,7 +1081,7 @@ pub mod dataset_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::CreateDataset;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1127,12 +1127,14 @@ pub mod dataset_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_dataset`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_dataset`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Dataset, crate::model::CreateDatasetOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Dataset,
+            crate::model::CreateDatasetOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Dataset,
                 crate::model::CreateDatasetOperationMetadata,
             >;
@@ -1160,7 +1162,12 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateDatasetRequest::parent].
@@ -1517,7 +1524,7 @@ pub mod dataset_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::DeleteDataset;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1563,10 +1570,14 @@ pub mod dataset_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_dataset`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_dataset`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1591,7 +1602,7 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1621,7 +1632,7 @@ pub mod dataset_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::ImportData;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1667,12 +1678,14 @@ pub mod dataset_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_data`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_data`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ImportDataResponse, crate::model::ImportDataOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ImportDataResponse,
+            crate::model::ImportDataOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ImportDataResponse,
                 crate::model::ImportDataOperationMetadata,
             >;
@@ -1700,7 +1713,12 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ImportDataRequest::name].
@@ -1738,7 +1756,7 @@ pub mod dataset_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::ExportData;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1784,12 +1802,14 @@ pub mod dataset_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_data`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_data`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExportDataResponse, crate::model::ExportDataOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ExportDataResponse,
+            crate::model::ExportDataOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExportDataResponse,
                 crate::model::ExportDataOperationMetadata,
             >;
@@ -1817,7 +1837,12 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ExportDataRequest::name].
@@ -1864,7 +1889,7 @@ pub mod dataset_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::CreateDatasetVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1913,14 +1938,14 @@ pub mod dataset_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_dataset_version`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_dataset_version`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::DatasetVersion,
             crate::model::CreateDatasetVersionOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DatasetVersion,
                 crate::model::CreateDatasetVersionOperationMetadata,
             >;
@@ -1948,7 +1973,12 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateDatasetVersionRequest::parent].
@@ -2096,7 +2126,7 @@ pub mod dataset_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::DeleteDatasetVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2145,10 +2175,14 @@ pub mod dataset_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_dataset_version`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_dataset_version`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2173,7 +2207,7 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2423,7 +2457,7 @@ pub mod dataset_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::RestoreDatasetVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2472,14 +2506,14 @@ pub mod dataset_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `restore_dataset_version`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_dataset_version`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::DatasetVersion,
             crate::model::RestoreDatasetVersionOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DatasetVersion,
                 crate::model::RestoreDatasetVersionOperationMetadata,
             >;
@@ -2507,7 +2541,12 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RestoreDatasetVersionRequest::name].
@@ -3011,7 +3050,7 @@ pub mod dataset_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::DeleteSavedQuery;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3060,10 +3099,14 @@ pub mod dataset_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_saved_query`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_saved_query`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3088,7 +3131,7 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -4209,7 +4252,7 @@ pub mod deployment_resource_pool_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::CreateDeploymentResourcePool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4260,14 +4303,14 @@ pub mod deployment_resource_pool_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_deployment_resource_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_deployment_resource_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::DeploymentResourcePool,
             crate::model::CreateDeploymentResourcePoolOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DeploymentResourcePool,
                 crate::model::CreateDeploymentResourcePoolOperationMetadata,
             >;
@@ -4295,7 +4338,12 @@ pub mod deployment_resource_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateDeploymentResourcePoolRequest::parent].
@@ -4531,7 +4579,7 @@ pub mod deployment_resource_pool_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::UpdateDeploymentResourcePool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4582,14 +4630,14 @@ pub mod deployment_resource_pool_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_deployment_resource_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_deployment_resource_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::DeploymentResourcePool,
             crate::model::UpdateDeploymentResourcePoolOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DeploymentResourcePool,
                 crate::model::UpdateDeploymentResourcePoolOperationMetadata,
             >;
@@ -4617,7 +4665,12 @@ pub mod deployment_resource_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [deployment_resource_pool][crate::model::UpdateDeploymentResourcePoolRequest::deployment_resource_pool].
@@ -4678,7 +4731,7 @@ pub mod deployment_resource_pool_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::DeleteDeploymentResourcePool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4729,10 +4782,14 @@ pub mod deployment_resource_pool_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_deployment_resource_pool`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_deployment_resource_pool`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4757,7 +4814,7 @@ pub mod deployment_resource_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -5770,7 +5827,7 @@ pub mod endpoint_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::CreateEndpoint;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5816,12 +5873,14 @@ pub mod endpoint_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_endpoint`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_endpoint`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Endpoint, crate::model::CreateEndpointOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Endpoint,
+            crate::model::CreateEndpointOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Endpoint,
                 crate::model::CreateEndpointOperationMetadata,
             >;
@@ -5849,7 +5908,12 @@ pub mod endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateEndpointRequest::parent].
@@ -6194,7 +6258,7 @@ pub mod endpoint_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::UpdateEndpointLongRunning;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6245,12 +6309,14 @@ pub mod endpoint_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_endpoint_long_running`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_endpoint_long_running`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Endpoint, crate::model::UpdateEndpointOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Endpoint,
+            crate::model::UpdateEndpointOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Endpoint,
                 crate::model::UpdateEndpointOperationMetadata,
             >;
@@ -6278,7 +6344,12 @@ pub mod endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [endpoint][crate::model::UpdateEndpointLongRunningRequest::endpoint].
@@ -6317,7 +6388,7 @@ pub mod endpoint_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::DeleteEndpoint;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6363,10 +6434,14 @@ pub mod endpoint_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_endpoint`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_endpoint`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6391,7 +6466,7 @@ pub mod endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -6421,7 +6496,7 @@ pub mod endpoint_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::DeployModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6467,14 +6542,14 @@ pub mod endpoint_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `deploy_model`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `deploy_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::DeployModelResponse,
             crate::model::DeployModelOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DeployModelResponse,
                 crate::model::DeployModelOperationMetadata,
             >;
@@ -6502,7 +6577,12 @@ pub mod endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [endpoint][crate::model::DeployModelRequest::endpoint].
@@ -6561,7 +6641,7 @@ pub mod endpoint_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::UndeployModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6607,14 +6687,14 @@ pub mod endpoint_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undeploy_model`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undeploy_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::UndeployModelResponse,
             crate::model::UndeployModelOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::UndeployModelResponse,
                 crate::model::UndeployModelOperationMetadata,
             >;
@@ -6642,7 +6722,12 @@ pub mod endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [endpoint][crate::model::UndeployModelRequest::endpoint].
@@ -6687,7 +6772,7 @@ pub mod endpoint_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::MutateDeployedModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6736,14 +6821,14 @@ pub mod endpoint_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `mutate_deployed_model`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `mutate_deployed_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::MutateDeployedModelResponse,
             crate::model::MutateDeployedModelOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MutateDeployedModelResponse,
                 crate::model::MutateDeployedModelOperationMetadata,
             >;
@@ -6771,7 +6856,12 @@ pub mod endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [endpoint][crate::model::MutateDeployedModelRequest::endpoint].
@@ -9045,7 +9135,7 @@ pub mod feature_online_store_admin_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::CreateFeatureOnlineStore;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -9096,14 +9186,14 @@ pub mod feature_online_store_admin_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_feature_online_store`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_feature_online_store`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::FeatureOnlineStore,
             crate::model::CreateFeatureOnlineStoreOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::FeatureOnlineStore,
                 crate::model::CreateFeatureOnlineStoreOperationMetadata,
             >;
@@ -9131,7 +9221,12 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateFeatureOnlineStoreRequest::parent].
@@ -9374,7 +9469,7 @@ pub mod feature_online_store_admin_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::UpdateFeatureOnlineStore;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -9425,14 +9520,14 @@ pub mod feature_online_store_admin_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_feature_online_store`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_feature_online_store`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::FeatureOnlineStore,
             crate::model::UpdateFeatureOnlineStoreOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::FeatureOnlineStore,
                 crate::model::UpdateFeatureOnlineStoreOperationMetadata,
             >;
@@ -9460,7 +9555,12 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [feature_online_store][crate::model::UpdateFeatureOnlineStoreRequest::feature_online_store].
@@ -9517,7 +9617,7 @@ pub mod feature_online_store_admin_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::DeleteFeatureOnlineStore;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -9568,10 +9668,14 @@ pub mod feature_online_store_admin_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_feature_online_store`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_feature_online_store`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -9596,7 +9700,7 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -9632,7 +9736,7 @@ pub mod feature_online_store_admin_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::CreateFeatureView;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -9681,12 +9785,14 @@ pub mod feature_online_store_admin_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_feature_view`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_feature_view`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::FeatureView, crate::model::CreateFeatureViewOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::FeatureView,
+            crate::model::CreateFeatureViewOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::FeatureView,
                 crate::model::CreateFeatureViewOperationMetadata,
             >;
@@ -9714,7 +9820,12 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateFeatureViewRequest::parent].
@@ -9954,7 +10065,7 @@ pub mod feature_online_store_admin_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::UpdateFeatureView;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -10003,12 +10114,14 @@ pub mod feature_online_store_admin_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_feature_view`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_feature_view`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::FeatureView, crate::model::UpdateFeatureViewOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::FeatureView,
+            crate::model::UpdateFeatureViewOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::FeatureView,
                 crate::model::UpdateFeatureViewOperationMetadata,
             >;
@@ -10036,7 +10149,12 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [feature_view][crate::model::UpdateFeatureViewRequest::feature_view].
@@ -10093,7 +10211,7 @@ pub mod feature_online_store_admin_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::DeleteFeatureView;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -10142,10 +10260,14 @@ pub mod feature_online_store_admin_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_feature_view`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_feature_view`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -10170,7 +10292,7 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -12448,7 +12570,7 @@ pub mod feature_registry_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::CreateFeatureGroup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -12497,14 +12619,14 @@ pub mod feature_registry_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_feature_group`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_feature_group`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::FeatureGroup,
             crate::model::CreateFeatureGroupOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::FeatureGroup,
                 crate::model::CreateFeatureGroupOperationMetadata,
             >;
@@ -12532,7 +12654,12 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateFeatureGroupRequest::parent].
@@ -12766,7 +12893,7 @@ pub mod feature_registry_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::UpdateFeatureGroup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -12815,14 +12942,14 @@ pub mod feature_registry_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_feature_group`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_feature_group`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::FeatureGroup,
             crate::model::UpdateFeatureGroupOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::FeatureGroup,
                 crate::model::UpdateFeatureGroupOperationMetadata,
             >;
@@ -12850,7 +12977,12 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [feature_group][crate::model::UpdateFeatureGroupRequest::feature_group].
@@ -12907,7 +13039,7 @@ pub mod feature_registry_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::DeleteFeatureGroup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -12956,10 +13088,14 @@ pub mod feature_registry_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_feature_group`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_feature_group`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -12984,7 +13120,7 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -13020,7 +13156,7 @@ pub mod feature_registry_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::CreateFeature;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -13066,12 +13202,14 @@ pub mod feature_registry_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_feature`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_feature`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Feature, crate::model::CreateFeatureOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Feature,
+            crate::model::CreateFeatureOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Feature,
                 crate::model::CreateFeatureOperationMetadata,
             >;
@@ -13099,7 +13237,12 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateFeatureRequest::parent].
@@ -13154,7 +13297,7 @@ pub mod feature_registry_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::BatchCreateFeatures;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -13203,14 +13346,14 @@ pub mod feature_registry_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_create_features`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_create_features`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BatchCreateFeaturesResponse,
             crate::model::BatchCreateFeaturesOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchCreateFeaturesResponse,
                 crate::model::BatchCreateFeaturesOperationMetadata,
             >;
@@ -13238,7 +13381,12 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateFeaturesRequest::parent].
@@ -13476,7 +13624,7 @@ pub mod feature_registry_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::UpdateFeature;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -13522,12 +13670,14 @@ pub mod feature_registry_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_feature`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_feature`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Feature, crate::model::UpdateFeatureOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Feature,
+            crate::model::UpdateFeatureOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Feature,
                 crate::model::UpdateFeatureOperationMetadata,
             >;
@@ -13555,7 +13705,12 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [feature][crate::model::UpdateFeatureRequest::feature].
@@ -13612,7 +13767,7 @@ pub mod feature_registry_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::DeleteFeature;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -13658,10 +13813,14 @@ pub mod feature_registry_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_feature`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_feature`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -13686,7 +13845,7 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -15641,7 +15800,7 @@ pub mod featurestore_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::CreateFeaturestore;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -15690,14 +15849,14 @@ pub mod featurestore_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_featurestore`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_featurestore`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::Featurestore,
             crate::model::CreateFeaturestoreOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Featurestore,
                 crate::model::CreateFeaturestoreOperationMetadata,
             >;
@@ -15725,7 +15884,12 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateFeaturestoreRequest::parent].
@@ -15977,7 +16141,7 @@ pub mod featurestore_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::UpdateFeaturestore;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16026,14 +16190,14 @@ pub mod featurestore_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_featurestore`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_featurestore`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::Featurestore,
             crate::model::UpdateFeaturestoreOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Featurestore,
                 crate::model::UpdateFeaturestoreOperationMetadata,
             >;
@@ -16061,7 +16225,12 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [featurestore][crate::model::UpdateFeaturestoreRequest::featurestore].
@@ -16118,7 +16287,7 @@ pub mod featurestore_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteFeaturestore;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16167,10 +16336,14 @@ pub mod featurestore_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_featurestore`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_featurestore`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -16195,7 +16368,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -16231,7 +16404,7 @@ pub mod featurestore_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::CreateEntityType;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16280,12 +16453,14 @@ pub mod featurestore_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_entity_type`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_entity_type`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::EntityType, crate::model::CreateEntityTypeOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::EntityType,
+            crate::model::CreateEntityTypeOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::EntityType,
                 crate::model::CreateEntityTypeOperationMetadata,
             >;
@@ -16313,7 +16488,12 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateEntityTypeRequest::parent].
@@ -16655,7 +16835,7 @@ pub mod featurestore_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteEntityType;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16704,10 +16884,14 @@ pub mod featurestore_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_entity_type`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_entity_type`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -16732,7 +16916,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -16768,7 +16952,7 @@ pub mod featurestore_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::CreateFeature;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16814,12 +16998,14 @@ pub mod featurestore_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_feature`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_feature`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Feature, crate::model::CreateFeatureOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Feature,
+            crate::model::CreateFeatureOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Feature,
                 crate::model::CreateFeatureOperationMetadata,
             >;
@@ -16847,7 +17033,12 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateFeatureRequest::parent].
@@ -16902,7 +17093,7 @@ pub mod featurestore_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::BatchCreateFeatures;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16951,14 +17142,14 @@ pub mod featurestore_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_create_features`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_create_features`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BatchCreateFeaturesResponse,
             crate::model::BatchCreateFeaturesOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchCreateFeaturesResponse,
                 crate::model::BatchCreateFeaturesOperationMetadata,
             >;
@@ -16986,7 +17177,12 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateFeaturesRequest::parent].
@@ -17318,7 +17514,7 @@ pub mod featurestore_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteFeature;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -17364,10 +17560,14 @@ pub mod featurestore_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_feature`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_feature`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -17392,7 +17592,7 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -17422,7 +17622,7 @@ pub mod featurestore_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ImportFeatureValues;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -17471,14 +17671,14 @@ pub mod featurestore_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_feature_values`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_feature_values`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ImportFeatureValuesResponse,
             crate::model::ImportFeatureValuesOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ImportFeatureValuesResponse,
                 crate::model::ImportFeatureValuesOperationMetadata,
             >;
@@ -17506,7 +17706,12 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [entity_type][crate::model::ImportFeatureValuesRequest::entity_type].
@@ -17661,7 +17866,7 @@ pub mod featurestore_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::BatchReadFeatureValues;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -17710,14 +17915,14 @@ pub mod featurestore_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_read_feature_values`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_read_feature_values`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BatchReadFeatureValuesResponse,
             crate::model::BatchReadFeatureValuesOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchReadFeatureValuesResponse,
                 crate::model::BatchReadFeatureValuesOperationMetadata,
             >;
@@ -17745,7 +17950,12 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [featurestore][crate::model::BatchReadFeatureValuesRequest::featurestore].
@@ -17880,7 +18090,7 @@ pub mod featurestore_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ExportFeatureValues;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -17929,14 +18139,14 @@ pub mod featurestore_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_feature_values`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_feature_values`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ExportFeatureValuesResponse,
             crate::model::ExportFeatureValuesOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExportFeatureValuesResponse,
                 crate::model::ExportFeatureValuesOperationMetadata,
             >;
@@ -17964,7 +18174,12 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [entity_type][crate::model::ExportFeatureValuesRequest::entity_type].
@@ -18090,7 +18305,7 @@ pub mod featurestore_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteFeatureValues;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -18139,14 +18354,14 @@ pub mod featurestore_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_feature_values`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_feature_values`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::DeleteFeatureValuesResponse,
             crate::model::DeleteFeatureValuesOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DeleteFeatureValuesResponse,
                 crate::model::DeleteFeatureValuesOperationMetadata,
             >;
@@ -18174,7 +18389,12 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [entity_type][crate::model::DeleteFeatureValuesRequest::entity_type].
@@ -20850,7 +21070,7 @@ pub mod gen_ai_tuning_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::RebaseTunedModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -20899,12 +21119,14 @@ pub mod gen_ai_tuning_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `rebase_tuned_model`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `rebase_tuned_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::TuningJob, crate::model::RebaseTunedModelOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::TuningJob,
+            crate::model::RebaseTunedModelOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::TuningJob,
                 crate::model::RebaseTunedModelOperationMetadata,
             >;
@@ -20932,7 +21154,12 @@ pub mod gen_ai_tuning_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::RebaseTunedModelRequest::parent].
@@ -21897,7 +22124,7 @@ pub mod index_endpoint_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::CreateIndexEndpoint;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -21946,14 +22173,14 @@ pub mod index_endpoint_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_index_endpoint`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_index_endpoint`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::IndexEndpoint,
             crate::model::CreateIndexEndpointOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::IndexEndpoint,
                 crate::model::CreateIndexEndpointOperationMetadata,
             >;
@@ -21981,7 +22208,12 @@ pub mod index_endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateIndexEndpointRequest::parent].
@@ -22325,7 +22557,7 @@ pub mod index_endpoint_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::DeleteIndexEndpoint;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -22374,10 +22606,14 @@ pub mod index_endpoint_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_index_endpoint`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_index_endpoint`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -22402,7 +22638,7 @@ pub mod index_endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -22432,7 +22668,7 @@ pub mod index_endpoint_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::DeployIndex;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -22478,14 +22714,14 @@ pub mod index_endpoint_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `deploy_index`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `deploy_index`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::DeployIndexResponse,
             crate::model::DeployIndexOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DeployIndexResponse,
                 crate::model::DeployIndexOperationMetadata,
             >;
@@ -22513,7 +22749,12 @@ pub mod index_endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [index_endpoint][crate::model::DeployIndexRequest::index_endpoint].
@@ -22560,7 +22801,7 @@ pub mod index_endpoint_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::UndeployIndex;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -22606,14 +22847,14 @@ pub mod index_endpoint_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undeploy_index`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undeploy_index`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::UndeployIndexResponse,
             crate::model::UndeployIndexOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::UndeployIndexResponse,
                 crate::model::UndeployIndexOperationMetadata,
             >;
@@ -22641,7 +22882,12 @@ pub mod index_endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [index_endpoint][crate::model::UndeployIndexRequest::index_endpoint].
@@ -22674,7 +22920,7 @@ pub mod index_endpoint_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::MutateDeployedIndex;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -22723,14 +22969,14 @@ pub mod index_endpoint_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `mutate_deployed_index`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `mutate_deployed_index`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::MutateDeployedIndexResponse,
             crate::model::MutateDeployedIndexOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MutateDeployedIndexResponse,
                 crate::model::MutateDeployedIndexOperationMetadata,
             >;
@@ -22758,7 +23004,12 @@ pub mod index_endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [index_endpoint][crate::model::MutateDeployedIndexRequest::index_endpoint].
@@ -23681,7 +23932,7 @@ pub mod index_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::CreateIndex;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -23727,12 +23978,12 @@ pub mod index_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_index`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_index`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Index, crate::model::CreateIndexOperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Index, crate::model::CreateIndexOperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Index,
                 crate::model::CreateIndexOperationMetadata,
             >;
@@ -23760,7 +24011,12 @@ pub mod index_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateIndexRequest::parent].
@@ -23995,7 +24251,7 @@ pub mod index_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::UpdateIndex;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -24041,12 +24297,12 @@ pub mod index_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_index`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_index`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Index, crate::model::UpdateIndexOperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Index, crate::model::UpdateIndexOperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Index,
                 crate::model::UpdateIndexOperationMetadata,
             >;
@@ -24074,7 +24330,12 @@ pub mod index_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [index][crate::model::UpdateIndexRequest::index].
@@ -24131,7 +24392,7 @@ pub mod index_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::DeleteIndex;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -24177,10 +24438,14 @@ pub mod index_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_index`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_index`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -24205,7 +24470,7 @@ pub mod index_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -25553,7 +25818,7 @@ pub mod job_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteCustomJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -25599,10 +25864,14 @@ pub mod job_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_custom_job`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_custom_job`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -25627,7 +25896,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -26008,7 +26277,7 @@ pub mod job_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteDataLabelingJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -26057,10 +26326,14 @@ pub mod job_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_data_labeling_job`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_data_labeling_job`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -26085,7 +26358,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -26474,7 +26747,7 @@ pub mod job_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteHyperparameterTuningJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -26525,10 +26798,14 @@ pub mod job_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_hyperparameter_tuning_job`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_hyperparameter_tuning_job`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -26553,7 +26830,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -26922,7 +27199,7 @@ pub mod job_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteNasJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -26968,10 +27245,14 @@ pub mod job_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_nas_job`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_nas_job`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -26996,7 +27277,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -27549,7 +27830,7 @@ pub mod job_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteBatchPredictionJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -27600,10 +27881,14 @@ pub mod job_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_batch_prediction_job`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_batch_prediction_job`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -27628,7 +27913,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -28200,7 +28485,7 @@ pub mod job_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::UpdateModelDeploymentMonitoringJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -28251,14 +28536,14 @@ pub mod job_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_model_deployment_monitoring_job`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_model_deployment_monitoring_job`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ModelDeploymentMonitoringJob,
             crate::model::UpdateModelDeploymentMonitoringJobOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ModelDeploymentMonitoringJob,
                 crate::model::UpdateModelDeploymentMonitoringJobOperationMetadata,
             >;
@@ -28286,7 +28571,12 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [model_deployment_monitoring_job][crate::model::UpdateModelDeploymentMonitoringJobRequest::model_deployment_monitoring_job].
@@ -28350,7 +28640,7 @@ pub mod job_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteModelDeploymentMonitoringJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -28401,10 +28691,14 @@ pub mod job_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_model_deployment_monitoring_job`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_model_deployment_monitoring_job`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -28429,7 +28723,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -31615,7 +31909,7 @@ pub mod metadata_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::CreateMetadataStore;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -31664,14 +31958,14 @@ pub mod metadata_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_metadata_store`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_metadata_store`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::MetadataStore,
             crate::model::CreateMetadataStoreOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MetadataStore,
                 crate::model::CreateMetadataStoreOperationMetadata,
             >;
@@ -31699,7 +31993,12 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateMetadataStoreRequest::parent].
@@ -31924,7 +32223,7 @@ pub mod metadata_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteMetadataStore;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -31973,11 +32272,12 @@ pub mod metadata_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_metadata_store`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_metadata_store`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<(), crate::model::DeleteMetadataStoreOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteMetadataStoreOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 wkt::Empty,
                 crate::model::DeleteMetadataStoreOperationMetadata,
             >;
@@ -32005,7 +32305,7 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -32408,7 +32708,7 @@ pub mod metadata_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteArtifact;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -32454,10 +32754,14 @@ pub mod metadata_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_artifact`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_artifact`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -32482,7 +32786,7 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -32518,7 +32822,7 @@ pub mod metadata_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::PurgeArtifacts;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -32564,12 +32868,14 @@ pub mod metadata_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `purge_artifacts`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `purge_artifacts`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PurgeArtifactsResponse, crate::model::PurgeArtifactsMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::PurgeArtifactsResponse,
+            crate::model::PurgeArtifactsMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PurgeArtifactsResponse,
                 crate::model::PurgeArtifactsMetadata,
             >;
@@ -32597,7 +32903,12 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::PurgeArtifactsRequest::parent].
@@ -33002,7 +33313,7 @@ pub mod metadata_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteContext;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -33048,10 +33359,14 @@ pub mod metadata_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_context`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_context`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -33076,7 +33391,7 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -33118,7 +33433,7 @@ pub mod metadata_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::PurgeContexts;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -33164,12 +33479,14 @@ pub mod metadata_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `purge_contexts`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `purge_contexts`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PurgeContextsResponse, crate::model::PurgeContextsMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::PurgeContextsResponse,
+            crate::model::PurgeContextsMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PurgeContextsResponse,
                 crate::model::PurgeContextsMetadata,
             >;
@@ -33197,7 +33514,12 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::PurgeContextsRequest::parent].
@@ -33910,7 +34232,7 @@ pub mod metadata_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteExecution;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -33956,10 +34278,14 @@ pub mod metadata_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_execution`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_execution`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -33984,7 +34310,7 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -34020,7 +34346,7 @@ pub mod metadata_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::PurgeExecutions;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -34066,12 +34392,14 @@ pub mod metadata_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `purge_executions`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `purge_executions`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PurgeExecutionsResponse, crate::model::PurgeExecutionsMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::PurgeExecutionsResponse,
+            crate::model::PurgeExecutionsMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PurgeExecutionsResponse,
                 crate::model::PurgeExecutionsMetadata,
             >;
@@ -34099,7 +34427,12 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::PurgeExecutionsRequest::parent].
@@ -35624,7 +35957,7 @@ pub mod migration_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::migration_service::BatchMigrateResources;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -35673,14 +36006,14 @@ pub mod migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_migrate_resources`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_migrate_resources`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BatchMigrateResourcesResponse,
             crate::model::BatchMigrateResourcesOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchMigrateResourcesResponse,
                 crate::model::BatchMigrateResourcesOperationMetadata,
             >;
@@ -35708,7 +36041,12 @@ pub mod migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchMigrateResourcesRequest::parent].
@@ -36711,7 +37049,7 @@ pub mod model_garden_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_garden_service::Deploy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -36757,12 +37095,14 @@ pub mod model_garden_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `deploy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `deploy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::DeployResponse, crate::model::DeployOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::DeployResponse,
+            crate::model::DeployOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DeployResponse,
                 crate::model::DeployOperationMetadata,
             >;
@@ -36790,7 +37130,12 @@ pub mod model_garden_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [destination][crate::model::DeployRequest::destination].
@@ -37783,7 +38128,7 @@ pub mod model_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::UploadModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -37829,14 +38174,14 @@ pub mod model_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `upload_model`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `upload_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::UploadModelResponse,
             crate::model::UploadModelOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::UploadModelResponse,
                 crate::model::UploadModelOperationMetadata,
             >;
@@ -37864,7 +38209,12 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::UploadModelRequest::parent].
@@ -38467,7 +38817,7 @@ pub mod model_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::UpdateExplanationDataset;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -38518,14 +38868,14 @@ pub mod model_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_explanation_dataset`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_explanation_dataset`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::UpdateExplanationDatasetResponse,
             crate::model::UpdateExplanationDatasetOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::UpdateExplanationDatasetResponse,
                 crate::model::UpdateExplanationDatasetOperationMetadata,
             >;
@@ -38553,7 +38903,12 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [model][crate::model::UpdateExplanationDatasetRequest::model].
@@ -38596,7 +38951,7 @@ pub mod model_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::DeleteModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -38642,10 +38997,14 @@ pub mod model_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_model`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_model`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -38670,7 +39029,7 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -38700,7 +39059,7 @@ pub mod model_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::DeleteModelVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -38749,10 +39108,14 @@ pub mod model_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_model_version`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_model_version`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -38777,7 +39140,7 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -38885,7 +39248,7 @@ pub mod model_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::ExportModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -38931,14 +39294,14 @@ pub mod model_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_model`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ExportModelResponse,
             crate::model::ExportModelOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExportModelResponse,
                 crate::model::ExportModelOperationMetadata,
             >;
@@ -38966,7 +39329,12 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ExportModelRequest::name].
@@ -39013,7 +39381,7 @@ pub mod model_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::CopyModel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -39059,12 +39427,14 @@ pub mod model_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `copy_model`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `copy_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CopyModelResponse, crate::model::CopyModelOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::CopyModelResponse,
+            crate::model::CopyModelOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CopyModelResponse,
                 crate::model::CopyModelOperationMetadata,
             >;
@@ -39092,7 +39462,12 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CopyModelRequest::parent].
@@ -40701,7 +41076,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::CreateNotebookRuntimeTemplate;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -40752,14 +41127,14 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_notebook_runtime_template`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_notebook_runtime_template`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::NotebookRuntimeTemplate,
             crate::model::CreateNotebookRuntimeTemplateOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::NotebookRuntimeTemplate,
                 crate::model::CreateNotebookRuntimeTemplateOperationMetadata,
             >;
@@ -40787,7 +41162,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateNotebookRuntimeTemplateRequest::parent].
@@ -41054,7 +41434,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::DeleteNotebookRuntimeTemplate;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -41105,10 +41485,14 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_notebook_runtime_template`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_notebook_runtime_template`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -41133,7 +41517,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -41269,7 +41653,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::AssignNotebookRuntime;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -41318,14 +41702,14 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `assign_notebook_runtime`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `assign_notebook_runtime`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::NotebookRuntime,
             crate::model::AssignNotebookRuntimeOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::NotebookRuntime,
                 crate::model::AssignNotebookRuntimeOperationMetadata,
             >;
@@ -41353,7 +41737,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::AssignNotebookRuntimeRequest::parent].
@@ -41616,7 +42005,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::DeleteNotebookRuntime;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -41665,10 +42054,14 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_notebook_runtime`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_notebook_runtime`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -41693,7 +42086,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -41723,7 +42116,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::UpgradeNotebookRuntime;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -41772,14 +42165,14 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `upgrade_notebook_runtime`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `upgrade_notebook_runtime`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::UpgradeNotebookRuntimeResponse,
             crate::model::UpgradeNotebookRuntimeOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::UpgradeNotebookRuntimeResponse,
                 crate::model::UpgradeNotebookRuntimeOperationMetadata,
             >;
@@ -41807,7 +42200,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UpgradeNotebookRuntimeRequest::name].
@@ -41832,7 +42230,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::StartNotebookRuntime;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -41881,14 +42279,14 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `start_notebook_runtime`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `start_notebook_runtime`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::StartNotebookRuntimeResponse,
             crate::model::StartNotebookRuntimeOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::StartNotebookRuntimeResponse,
                 crate::model::StartNotebookRuntimeOperationMetadata,
             >;
@@ -41916,7 +42314,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StartNotebookRuntimeRequest::name].
@@ -41941,7 +42344,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::StopNotebookRuntime;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -41990,14 +42393,14 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `stop_notebook_runtime`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `stop_notebook_runtime`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::StopNotebookRuntimeResponse,
             crate::model::StopNotebookRuntimeOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::StopNotebookRuntimeResponse,
                 crate::model::StopNotebookRuntimeOperationMetadata,
             >;
@@ -42025,7 +42428,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StopNotebookRuntimeRequest::name].
@@ -42050,7 +42458,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::CreateNotebookExecutionJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -42101,14 +42509,14 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_notebook_execution_job`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_notebook_execution_job`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::NotebookExecutionJob,
             crate::model::CreateNotebookExecutionJobOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::NotebookExecutionJob,
                 crate::model::CreateNotebookExecutionJobOperationMetadata,
             >;
@@ -42136,7 +42544,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateNotebookExecutionJobRequest::parent].
@@ -42391,7 +42804,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::DeleteNotebookExecutionJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -42442,10 +42855,14 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_notebook_execution_job`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_notebook_execution_job`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -42470,7 +42887,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -43376,7 +43793,7 @@ pub mod persistent_resource_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::CreatePersistentResource;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -43427,14 +43844,14 @@ pub mod persistent_resource_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_persistent_resource`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_persistent_resource`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::PersistentResource,
             crate::model::CreatePersistentResourceOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PersistentResource,
                 crate::model::CreatePersistentResourceOperationMetadata,
             >;
@@ -43462,7 +43879,12 @@ pub mod persistent_resource_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreatePersistentResourceRequest::parent].
@@ -43693,7 +44115,7 @@ pub mod persistent_resource_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::DeletePersistentResource;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -43744,10 +44166,14 @@ pub mod persistent_resource_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_persistent_resource`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_persistent_resource`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -43772,7 +44198,7 @@ pub mod persistent_resource_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -43802,7 +44228,7 @@ pub mod persistent_resource_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::UpdatePersistentResource;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -43853,14 +44279,14 @@ pub mod persistent_resource_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_persistent_resource`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_persistent_resource`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::PersistentResource,
             crate::model::UpdatePersistentResourceOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PersistentResource,
                 crate::model::UpdatePersistentResourceOperationMetadata,
             >;
@@ -43888,7 +44314,12 @@ pub mod persistent_resource_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [persistent_resource][crate::model::UpdatePersistentResourceRequest::persistent_resource].
@@ -43949,7 +44380,7 @@ pub mod persistent_resource_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::RebootPersistentResource;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -44000,14 +44431,14 @@ pub mod persistent_resource_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `reboot_persistent_resource`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `reboot_persistent_resource`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::PersistentResource,
             crate::model::RebootPersistentResourceOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PersistentResource,
                 crate::model::RebootPersistentResourceOperationMetadata,
             >;
@@ -44035,7 +44466,12 @@ pub mod persistent_resource_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RebootPersistentResourceRequest::name].
@@ -45219,7 +45655,7 @@ pub mod pipeline_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::DeleteTrainingPipeline;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -45268,10 +45704,14 @@ pub mod pipeline_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_training_pipeline`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_training_pipeline`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -45296,7 +45736,7 @@ pub mod pipeline_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -45681,7 +46121,7 @@ pub mod pipeline_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::DeletePipelineJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -45730,10 +46170,14 @@ pub mod pipeline_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_pipeline_job`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_pipeline_job`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -45758,7 +46202,7 @@ pub mod pipeline_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -45788,7 +46232,7 @@ pub mod pipeline_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::BatchDeletePipelineJobs;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -45839,14 +46283,14 @@ pub mod pipeline_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_delete_pipeline_jobs`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_delete_pipeline_jobs`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BatchDeletePipelineJobsResponse,
             crate::model::DeleteOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchDeletePipelineJobsResponse,
                 crate::model::DeleteOperationMetadata,
             >;
@@ -45874,7 +46318,12 @@ pub mod pipeline_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchDeletePipelineJobsRequest::parent].
@@ -45977,7 +46426,7 @@ pub mod pipeline_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::BatchCancelPipelineJobs;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -46028,14 +46477,14 @@ pub mod pipeline_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_cancel_pipeline_jobs`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_cancel_pipeline_jobs`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BatchCancelPipelineJobsResponse,
             crate::model::BatchCancelPipelineJobsOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchCancelPipelineJobsResponse,
                 crate::model::BatchCancelPipelineJobsOperationMetadata,
             >;
@@ -46063,7 +46512,12 @@ pub mod pipeline_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchCancelPipelineJobsRequest::parent].
@@ -49638,7 +50092,7 @@ pub mod reasoning_engine_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::CreateReasoningEngine;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -49687,14 +50141,14 @@ pub mod reasoning_engine_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_reasoning_engine`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_reasoning_engine`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ReasoningEngine,
             crate::model::CreateReasoningEngineOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ReasoningEngine,
                 crate::model::CreateReasoningEngineOperationMetadata,
             >;
@@ -49722,7 +50176,12 @@ pub mod reasoning_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateReasoningEngineRequest::parent].
@@ -49947,7 +50406,7 @@ pub mod reasoning_engine_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::UpdateReasoningEngine;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -49996,14 +50455,14 @@ pub mod reasoning_engine_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_reasoning_engine`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_reasoning_engine`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ReasoningEngine,
             crate::model::UpdateReasoningEngineOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ReasoningEngine,
                 crate::model::UpdateReasoningEngineOperationMetadata,
             >;
@@ -50031,7 +50490,12 @@ pub mod reasoning_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [reasoning_engine][crate::model::UpdateReasoningEngineRequest::reasoning_engine].
@@ -50088,7 +50552,7 @@ pub mod reasoning_engine_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::DeleteReasoningEngine;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -50137,10 +50601,14 @@ pub mod reasoning_engine_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_reasoning_engine`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_reasoning_engine`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -50165,7 +50633,7 @@ pub mod reasoning_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -51161,7 +51629,7 @@ pub mod schedule_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::DeleteSchedule;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -51207,10 +51675,14 @@ pub mod schedule_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_schedule`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_schedule`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -51235,7 +51707,7 @@ pub mod schedule_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -52545,7 +53017,7 @@ pub mod specialist_pool_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::CreateSpecialistPool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -52594,14 +53066,14 @@ pub mod specialist_pool_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_specialist_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_specialist_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::SpecialistPool,
             crate::model::CreateSpecialistPoolOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SpecialistPool,
                 crate::model::CreateSpecialistPoolOperationMetadata,
             >;
@@ -52629,7 +53101,12 @@ pub mod specialist_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateSpecialistPoolRequest::parent].
@@ -52866,7 +53343,7 @@ pub mod specialist_pool_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::DeleteSpecialistPool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -52915,10 +53392,14 @@ pub mod specialist_pool_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_specialist_pool`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_specialist_pool`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -52943,7 +53424,7 @@ pub mod specialist_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -52979,7 +53460,7 @@ pub mod specialist_pool_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::UpdateSpecialistPool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -53028,14 +53509,14 @@ pub mod specialist_pool_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_specialist_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_specialist_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::SpecialistPool,
             crate::model::UpdateSpecialistPoolOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SpecialistPool,
                 crate::model::UpdateSpecialistPoolOperationMetadata,
             >;
@@ -53063,7 +53544,12 @@ pub mod specialist_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [specialist_pool][crate::model::UpdateSpecialistPoolRequest::specialist_pool].
@@ -54000,7 +54486,7 @@ pub mod tensorboard_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::CreateTensorboard;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -54049,12 +54535,14 @@ pub mod tensorboard_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_tensorboard`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_tensorboard`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Tensorboard, crate::model::CreateTensorboardOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Tensorboard,
+            crate::model::CreateTensorboardOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Tensorboard,
                 crate::model::CreateTensorboardOperationMetadata,
             >;
@@ -54082,7 +54570,12 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateTensorboardRequest::parent].
@@ -54191,7 +54684,7 @@ pub mod tensorboard_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::UpdateTensorboard;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -54240,12 +54733,14 @@ pub mod tensorboard_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_tensorboard`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_tensorboard`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Tensorboard, crate::model::UpdateTensorboardOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Tensorboard,
+            crate::model::UpdateTensorboardOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Tensorboard,
                 crate::model::UpdateTensorboardOperationMetadata,
             >;
@@ -54273,7 +54768,12 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTensorboardRequest::update_mask].
@@ -54469,7 +54969,7 @@ pub mod tensorboard_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteTensorboard;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -54518,10 +55018,14 @@ pub mod tensorboard_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_tensorboard`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_tensorboard`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -54546,7 +55050,7 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -55110,7 +55614,7 @@ pub mod tensorboard_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteTensorboardExperiment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -55161,10 +55665,14 @@ pub mod tensorboard_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_tensorboard_experiment`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_tensorboard_experiment`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -55189,7 +55697,7 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -55697,7 +56205,7 @@ pub mod tensorboard_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteTensorboardRun;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -55746,10 +56254,14 @@ pub mod tensorboard_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_tensorboard_run`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_tensorboard_run`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -55774,7 +56286,7 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -56293,7 +56805,7 @@ pub mod tensorboard_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteTensorboardTimeSeries;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -56344,10 +56856,14 @@ pub mod tensorboard_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_tensorboard_time_series`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_tensorboard_time_series`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -56372,7 +56888,7 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -57722,7 +58238,7 @@ pub mod vertex_rag_data_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::CreateRagCorpus;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -57768,12 +58284,14 @@ pub mod vertex_rag_data_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_rag_corpus`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_rag_corpus`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::RagCorpus, crate::model::CreateRagCorpusOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::RagCorpus,
+            crate::model::CreateRagCorpusOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RagCorpus,
                 crate::model::CreateRagCorpusOperationMetadata,
             >;
@@ -57801,7 +58319,12 @@ pub mod vertex_rag_data_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateRagCorpusRequest::parent].
@@ -57848,7 +58371,7 @@ pub mod vertex_rag_data_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::UpdateRagCorpus;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -57894,12 +58417,14 @@ pub mod vertex_rag_data_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_rag_corpus`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_rag_corpus`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::RagCorpus, crate::model::UpdateRagCorpusOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::RagCorpus,
+            crate::model::UpdateRagCorpusOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RagCorpus,
                 crate::model::UpdateRagCorpusOperationMetadata,
             >;
@@ -57927,7 +58452,12 @@ pub mod vertex_rag_data_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [rag_corpus][crate::model::UpdateRagCorpusRequest::rag_corpus].
@@ -58130,7 +58660,7 @@ pub mod vertex_rag_data_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::DeleteRagCorpus;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -58176,10 +58706,14 @@ pub mod vertex_rag_data_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_rag_corpus`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_rag_corpus`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -58204,7 +58738,7 @@ pub mod vertex_rag_data_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -58346,7 +58880,7 @@ pub mod vertex_rag_data_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::ImportRagFiles;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -58392,14 +58926,14 @@ pub mod vertex_rag_data_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_rag_files`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_rag_files`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ImportRagFilesResponse,
             crate::model::ImportRagFilesOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ImportRagFilesResponse,
                 crate::model::ImportRagFilesOperationMetadata,
             >;
@@ -58427,7 +58961,12 @@ pub mod vertex_rag_data_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportRagFilesRequest::parent].
@@ -58638,7 +59177,7 @@ pub mod vertex_rag_data_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::DeleteRagFile;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -58684,10 +59223,14 @@ pub mod vertex_rag_data_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_rag_file`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_rag_file`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -58712,7 +59255,7 @@ pub mod vertex_rag_data_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -58742,7 +59285,7 @@ pub mod vertex_rag_data_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::UpdateRagEngineConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -58791,14 +59334,14 @@ pub mod vertex_rag_data_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_rag_engine_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_rag_engine_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::RagEngineConfig,
             crate::model::UpdateRagEngineConfigOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RagEngineConfig,
                 crate::model::UpdateRagEngineConfigOperationMetadata,
             >;
@@ -58826,7 +59369,12 @@ pub mod vertex_rag_data_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [rag_engine_config][crate::model::UpdateRagEngineConfigRequest::rag_engine_config].
@@ -61412,7 +61960,7 @@ pub mod vizier_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::SuggestTrials;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -61458,12 +62006,14 @@ pub mod vizier_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `suggest_trials`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `suggest_trials`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::SuggestTrialsResponse, crate::model::SuggestTrialsMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::SuggestTrialsResponse,
+            crate::model::SuggestTrialsMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SuggestTrialsResponse,
                 crate::model::SuggestTrialsMetadata,
             >;
@@ -61491,7 +62041,12 @@ pub mod vizier_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::SuggestTrialsRequest::parent].
@@ -62032,7 +62587,7 @@ pub mod vizier_service {
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::CheckTrialEarlyStoppingState;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -62083,14 +62638,14 @@ pub mod vizier_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `check_trial_early_stopping_state`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `check_trial_early_stopping_state`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::CheckTrialEarlyStoppingStateResponse,
             crate::model::CheckTrialEarlyStoppingStateMetatdata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CheckTrialEarlyStoppingStateResponse,
                 crate::model::CheckTrialEarlyStoppingStateMetatdata,
             >;
@@ -62118,7 +62673,12 @@ pub mod vizier_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [trial_name][crate::model::CheckTrialEarlyStoppingStateRequest::trial_name].

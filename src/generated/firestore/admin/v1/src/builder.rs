@@ -77,7 +77,7 @@ pub mod firestore_admin {
     /// ```
     /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::CreateIndex;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -123,12 +123,15 @@ pub mod firestore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_index`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_index`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Index,
+                crate::model::IndexOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -153,7 +156,12 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateIndexRequest::parent].
@@ -494,7 +502,7 @@ pub mod firestore_admin {
     /// ```
     /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::UpdateField;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -540,12 +548,15 @@ pub mod firestore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_field`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_field`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Field, crate::model::FieldOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Field, crate::model::FieldOperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Field, crate::model::FieldOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Field,
+                crate::model::FieldOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -570,7 +581,12 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [field][crate::model::UpdateFieldRequest::field].
@@ -735,7 +751,7 @@ pub mod firestore_admin {
     /// ```
     /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::ExportDocuments;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -781,12 +797,14 @@ pub mod firestore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_documents`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_documents`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExportDocumentsResponse, crate::model::ExportDocumentsMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ExportDocumentsResponse,
+            crate::model::ExportDocumentsMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExportDocumentsResponse,
                 crate::model::ExportDocumentsMetadata,
             >;
@@ -814,7 +832,12 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ExportDocumentsRequest::name].
@@ -885,7 +908,7 @@ pub mod firestore_admin {
     /// ```
     /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::ImportDocuments;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -931,10 +954,14 @@ pub mod firestore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_documents`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::ImportDocumentsMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::ImportDocumentsMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_documents`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::ImportDocumentsMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::ImportDocumentsMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -959,7 +986,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1017,7 +1044,7 @@ pub mod firestore_admin {
     /// ```
     /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::BulkDeleteDocuments;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1066,14 +1093,14 @@ pub mod firestore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `bulk_delete_documents`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `bulk_delete_documents`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BulkDeleteDocumentsResponse,
             crate::model::BulkDeleteDocumentsMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BulkDeleteDocumentsResponse,
                 crate::model::BulkDeleteDocumentsMetadata,
             >;
@@ -1101,7 +1128,12 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::BulkDeleteDocumentsRequest::name].
@@ -1148,7 +1180,7 @@ pub mod firestore_admin {
     /// ```
     /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::CreateDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1194,12 +1226,12 @@ pub mod firestore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Database,
                 crate::model::CreateDatabaseMetadata,
             >;
@@ -1227,7 +1259,12 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
@@ -1412,7 +1449,7 @@ pub mod firestore_admin {
     /// ```
     /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::UpdateDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1458,12 +1495,12 @@ pub mod firestore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Database,
                 crate::model::UpdateDatabaseMetadata,
             >;
@@ -1491,7 +1528,12 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
@@ -1548,7 +1590,7 @@ pub mod firestore_admin {
     /// ```
     /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::DeleteDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1594,12 +1636,12 @@ pub mod firestore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Database, crate::model::DeleteDatabaseMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Database, crate::model::DeleteDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Database,
                 crate::model::DeleteDatabaseMetadata,
             >;
@@ -1627,7 +1669,12 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDatabaseRequest::name].
@@ -2320,7 +2367,7 @@ pub mod firestore_admin {
     /// ```
     /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::RestoreDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2366,12 +2413,12 @@ pub mod firestore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `restore_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Database,
                 crate::model::RestoreDatabaseMetadata,
             >;
@@ -2399,7 +2446,12 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].
@@ -2848,7 +2900,7 @@ pub mod firestore_admin {
     /// ```
     /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::CloneDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2894,11 +2946,12 @@ pub mod firestore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `clone_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `clone_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Database, crate::model::CloneDatabaseMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Database, crate::model::CloneDatabaseMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Database,
                 crate::model::CloneDatabaseMetadata,
             >;
@@ -2926,7 +2979,12 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CloneDatabaseRequest::parent].

@@ -1134,7 +1134,7 @@ pub mod job_service {
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::BatchCreateJobs;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1180,12 +1180,14 @@ pub mod job_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_create_jobs`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_create_jobs`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BatchCreateJobsResponse, crate::model::BatchOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::BatchCreateJobsResponse,
+            crate::model::BatchOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchCreateJobsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -1213,7 +1215,12 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateJobsRequest::parent].
@@ -1407,7 +1414,7 @@ pub mod job_service {
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::BatchUpdateJobs;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1453,12 +1460,14 @@ pub mod job_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_update_jobs`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_update_jobs`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BatchUpdateJobsResponse, crate::model::BatchOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::BatchUpdateJobsResponse,
+            crate::model::BatchOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchUpdateJobsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -1486,7 +1495,12 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchUpdateJobsRequest::parent].
@@ -1604,7 +1618,7 @@ pub mod job_service {
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::BatchDeleteJobs;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1650,12 +1664,14 @@ pub mod job_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_delete_jobs`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_delete_jobs`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BatchDeleteJobsResponse, crate::model::BatchOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::BatchDeleteJobsResponse,
+            crate::model::BatchOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchDeleteJobsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -1683,7 +1699,12 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteJobsRequest::parent].

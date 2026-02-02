@@ -77,7 +77,7 @@ pub mod datastore_admin {
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::ExportEntities;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -123,12 +123,14 @@ pub mod datastore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_entities`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_entities`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExportEntitiesResponse, crate::model::ExportEntitiesMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ExportEntitiesResponse,
+            crate::model::ExportEntitiesMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExportEntitiesResponse,
                 crate::model::ExportEntitiesMetadata,
             >;
@@ -156,7 +158,12 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [project_id][crate::model::ExportEntitiesRequest::project_id].
@@ -218,7 +225,7 @@ pub mod datastore_admin {
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::ImportEntities;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -264,10 +271,14 @@ pub mod datastore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_entities`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::ImportEntitiesMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::ImportEntitiesMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_entities`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::ImportEntitiesMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::ImportEntitiesMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -292,7 +303,7 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -359,7 +370,7 @@ pub mod datastore_admin {
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::CreateIndex;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -405,12 +416,15 @@ pub mod datastore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_index`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_index`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Index,
+                crate::model::IndexOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -435,7 +449,12 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [project_id][crate::model::CreateIndexRequest::project_id].
@@ -476,7 +495,7 @@ pub mod datastore_admin {
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::DeleteIndex;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -522,12 +541,15 @@ pub mod datastore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_index`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_index`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Index,
+                crate::model::IndexOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -552,7 +574,12 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [project_id][crate::model::DeleteIndexRequest::project_id].

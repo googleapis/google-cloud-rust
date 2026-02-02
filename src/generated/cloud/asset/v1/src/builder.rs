@@ -77,7 +77,7 @@ pub mod asset_service {
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::ExportAssets;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -123,12 +123,14 @@ pub mod asset_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_assets`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_assets`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExportAssetsResponse, crate::model::ExportAssetsRequest>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ExportAssetsResponse,
+            crate::model::ExportAssetsRequest,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExportAssetsResponse,
                 crate::model::ExportAssetsRequest,
             >;
@@ -156,7 +158,12 @@ pub mod asset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ExportAssetsRequest::parent].
@@ -1265,7 +1272,7 @@ pub mod asset_service {
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::AnalyzeIamPolicyLongrunning;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1316,14 +1323,14 @@ pub mod asset_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `analyze_iam_policy_longrunning`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `analyze_iam_policy_longrunning`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::AnalyzeIamPolicyLongrunningResponse,
             crate::model::AnalyzeIamPolicyLongrunningMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AnalyzeIamPolicyLongrunningResponse,
                 crate::model::AnalyzeIamPolicyLongrunningMetadata,
             >;
@@ -1351,7 +1358,12 @@ pub mod asset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [analysis_query][crate::model::AnalyzeIamPolicyLongrunningRequest::analysis_query].

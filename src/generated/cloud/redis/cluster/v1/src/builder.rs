@@ -241,7 +241,7 @@ pub mod cloud_redis_cluster {
     /// ```
     /// # use google_cloud_redis_cluster_v1::builder::cloud_redis_cluster::UpdateCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -287,9 +287,9 @@ pub mod cloud_redis_cluster {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Cluster, wkt::Any> {
-            type Operation = lro::internal::Operation<crate::model::Cluster, wkt::Any>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Cluster, wkt::Any> {
+            type Operation = google_cloud_lro::internal::Operation<crate::model::Cluster, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -314,7 +314,12 @@ pub mod cloud_redis_cluster {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
@@ -381,7 +386,7 @@ pub mod cloud_redis_cluster {
     /// ```
     /// # use google_cloud_redis_cluster_v1::builder::cloud_redis_cluster::DeleteCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -427,9 +432,9 @@ pub mod cloud_redis_cluster {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), wkt::Any> {
-            type Operation = lro::internal::Operation<wkt::Empty, wkt::Any>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), wkt::Any> {
+            type Operation = google_cloud_lro::internal::Operation<wkt::Empty, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -454,7 +459,7 @@ pub mod cloud_redis_cluster {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -490,7 +495,7 @@ pub mod cloud_redis_cluster {
     /// ```
     /// # use google_cloud_redis_cluster_v1::builder::cloud_redis_cluster::CreateCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -536,9 +541,9 @@ pub mod cloud_redis_cluster {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Cluster, wkt::Any> {
-            type Operation = lro::internal::Operation<crate::model::Cluster, wkt::Any>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Cluster, wkt::Any> {
+            type Operation = google_cloud_lro::internal::Operation<crate::model::Cluster, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -563,7 +568,12 @@ pub mod cloud_redis_cluster {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
@@ -691,7 +701,7 @@ pub mod cloud_redis_cluster {
     /// ```
     /// # use google_cloud_redis_cluster_v1::builder::cloud_redis_cluster::RescheduleClusterMaintenance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -742,9 +752,9 @@ pub mod cloud_redis_cluster {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `reschedule_cluster_maintenance`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Cluster, wkt::Any> {
-            type Operation = lro::internal::Operation<crate::model::Cluster, wkt::Any>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `reschedule_cluster_maintenance`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Cluster, wkt::Any> {
+            type Operation = google_cloud_lro::internal::Operation<crate::model::Cluster, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -769,7 +779,12 @@ pub mod cloud_redis_cluster {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RescheduleClusterMaintenanceRequest::name].
@@ -1161,7 +1176,7 @@ pub mod cloud_redis_cluster {
     /// ```
     /// # use google_cloud_redis_cluster_v1::builder::cloud_redis_cluster::DeleteBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1207,9 +1222,9 @@ pub mod cloud_redis_cluster {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
-        pub fn poller(self) -> impl lro::Poller<(), wkt::Any> {
-            type Operation = lro::internal::Operation<wkt::Empty, wkt::Any>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_backup`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), wkt::Any> {
+            type Operation = google_cloud_lro::internal::Operation<wkt::Empty, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1234,7 +1249,7 @@ pub mod cloud_redis_cluster {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1270,7 +1285,7 @@ pub mod cloud_redis_cluster {
     /// ```
     /// # use google_cloud_redis_cluster_v1::builder::cloud_redis_cluster::ExportBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1316,9 +1331,9 @@ pub mod cloud_redis_cluster {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_backup`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Backup, wkt::Any> {
-            type Operation = lro::internal::Operation<crate::model::Backup, wkt::Any>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_backup`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Backup, wkt::Any> {
+            type Operation = google_cloud_lro::internal::Operation<crate::model::Backup, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1343,7 +1358,12 @@ pub mod cloud_redis_cluster {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ExportBackupRequest::name].
@@ -1392,7 +1412,7 @@ pub mod cloud_redis_cluster {
     /// ```
     /// # use google_cloud_redis_cluster_v1::builder::cloud_redis_cluster::BackupCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1438,9 +1458,9 @@ pub mod cloud_redis_cluster {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `backup_cluster`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Cluster, wkt::Any> {
-            type Operation = lro::internal::Operation<crate::model::Cluster, wkt::Any>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `backup_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Cluster, wkt::Any> {
+            type Operation = google_cloud_lro::internal::Operation<crate::model::Cluster, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1465,7 +1485,12 @@ pub mod cloud_redis_cluster {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::BackupClusterRequest::name].

@@ -139,7 +139,7 @@ pub mod cloud_shell_service {
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::StartEnvironment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -188,14 +188,14 @@ pub mod cloud_shell_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `start_environment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `start_environment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::StartEnvironmentResponse,
             crate::model::StartEnvironmentMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::StartEnvironmentResponse,
                 crate::model::StartEnvironmentMetadata,
             >;
@@ -223,7 +223,12 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StartEnvironmentRequest::name].
@@ -263,7 +268,7 @@ pub mod cloud_shell_service {
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::AuthorizeEnvironment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -312,14 +317,14 @@ pub mod cloud_shell_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `authorize_environment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `authorize_environment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::AuthorizeEnvironmentResponse,
             crate::model::AuthorizeEnvironmentMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AuthorizeEnvironmentResponse,
                 crate::model::AuthorizeEnvironmentMetadata,
             >;
@@ -347,7 +352,12 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::AuthorizeEnvironmentRequest::name].
@@ -400,7 +410,7 @@ pub mod cloud_shell_service {
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::AddPublicKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -446,12 +456,14 @@ pub mod cloud_shell_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `add_public_key`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `add_public_key`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AddPublicKeyResponse, crate::model::AddPublicKeyMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AddPublicKeyResponse,
+            crate::model::AddPublicKeyMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AddPublicKeyResponse,
                 crate::model::AddPublicKeyMetadata,
             >;
@@ -479,7 +491,12 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [environment][crate::model::AddPublicKeyRequest::environment].
@@ -508,7 +525,7 @@ pub mod cloud_shell_service {
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::RemovePublicKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -554,12 +571,14 @@ pub mod cloud_shell_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `remove_public_key`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `remove_public_key`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::RemovePublicKeyResponse, crate::model::RemovePublicKeyMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::RemovePublicKeyResponse,
+            crate::model::RemovePublicKeyMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RemovePublicKeyResponse,
                 crate::model::RemovePublicKeyMetadata,
             >;
@@ -587,7 +606,12 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [environment][crate::model::RemovePublicKeyRequest::environment].

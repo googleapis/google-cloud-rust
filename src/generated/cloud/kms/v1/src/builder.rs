@@ -75,7 +75,7 @@ pub mod autokey {
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey::CreateKeyHandle;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -119,12 +119,12 @@ pub mod autokey {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_key_handle`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_key_handle`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::KeyHandle, crate::model::CreateKeyHandleMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::KeyHandle, crate::model::CreateKeyHandleMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::KeyHandle,
                 crate::model::CreateKeyHandleMetadata,
             >;
@@ -152,7 +152,12 @@ pub mod autokey {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyHandleRequest::parent].
@@ -3043,7 +3048,7 @@ pub mod hsm_management {
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::CreateSingleTenantHsmInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3094,14 +3099,14 @@ pub mod hsm_management {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_single_tenant_hsm_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_single_tenant_hsm_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::SingleTenantHsmInstance,
             crate::model::CreateSingleTenantHsmInstanceMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SingleTenantHsmInstance,
                 crate::model::CreateSingleTenantHsmInstanceMetadata,
             >;
@@ -3129,7 +3134,12 @@ pub mod hsm_management {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateSingleTenantHsmInstanceRequest::parent].
@@ -3188,7 +3198,7 @@ pub mod hsm_management {
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::CreateSingleTenantHsmInstanceProposal;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3239,14 +3249,14 @@ pub mod hsm_management {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_single_tenant_hsm_instance_proposal`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_single_tenant_hsm_instance_proposal`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::SingleTenantHsmInstanceProposal,
             crate::model::CreateSingleTenantHsmInstanceProposalMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SingleTenantHsmInstanceProposal,
                 crate::model::CreateSingleTenantHsmInstanceProposalMetadata,
             >;
@@ -3274,7 +3284,12 @@ pub mod hsm_management {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateSingleTenantHsmInstanceProposalRequest::parent].
@@ -3434,7 +3449,7 @@ pub mod hsm_management {
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::ExecuteSingleTenantHsmInstanceProposal;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3487,14 +3502,14 @@ pub mod hsm_management {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `execute_single_tenant_hsm_instance_proposal`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `execute_single_tenant_hsm_instance_proposal`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ExecuteSingleTenantHsmInstanceProposalResponse,
             crate::model::ExecuteSingleTenantHsmInstanceProposalMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExecuteSingleTenantHsmInstanceProposalResponse,
                 crate::model::ExecuteSingleTenantHsmInstanceProposalMetadata,
             >;
@@ -3522,7 +3537,12 @@ pub mod hsm_management {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ExecuteSingleTenantHsmInstanceProposalRequest::name].

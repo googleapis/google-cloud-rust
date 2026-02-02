@@ -256,7 +256,7 @@ pub mod app_connectors_service {
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::CreateAppConnector;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -305,12 +305,14 @@ pub mod app_connectors_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_app_connector`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_app_connector`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AppConnector, crate::model::AppConnectorOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AppConnector,
+            crate::model::AppConnectorOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AppConnector,
                 crate::model::AppConnectorOperationMetadata,
             >;
@@ -338,7 +340,12 @@ pub mod app_connectors_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAppConnectorRequest::parent].
@@ -403,7 +410,7 @@ pub mod app_connectors_service {
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::UpdateAppConnector;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -452,12 +459,14 @@ pub mod app_connectors_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_app_connector`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_app_connector`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AppConnector, crate::model::AppConnectorOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AppConnector,
+            crate::model::AppConnectorOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AppConnector,
                 crate::model::AppConnectorOperationMetadata,
             >;
@@ -485,7 +494,12 @@ pub mod app_connectors_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAppConnectorRequest::update_mask].
@@ -558,7 +572,7 @@ pub mod app_connectors_service {
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::DeleteAppConnector;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -607,10 +621,15 @@ pub mod app_connectors_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_app_connector`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::AppConnectorOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::AppConnectorOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_app_connector`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::AppConnectorOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::AppConnectorOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -635,7 +654,7 @@ pub mod app_connectors_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -677,7 +696,7 @@ pub mod app_connectors_service {
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::ReportStatus;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -723,12 +742,14 @@ pub mod app_connectors_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `report_status`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `report_status`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AppConnector, crate::model::AppConnectorOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AppConnector,
+            crate::model::AppConnectorOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AppConnector,
                 crate::model::AppConnectorOperationMetadata,
             >;
@@ -756,7 +777,12 @@ pub mod app_connectors_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [app_connector][crate::model::ReportStatusRequest::app_connector].

@@ -447,7 +447,7 @@ pub mod privileged_access_manager {
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::CreateEntitlement;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -496,11 +496,12 @@ pub mod privileged_access_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_entitlement`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_entitlement`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Entitlement,
                 crate::model::OperationMetadata,
             >;
@@ -528,7 +529,12 @@ pub mod privileged_access_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateEntitlementRequest::parent].
@@ -589,7 +595,7 @@ pub mod privileged_access_manager {
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::DeleteEntitlement;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -638,11 +644,12 @@ pub mod privileged_access_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_entitlement`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_entitlement`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Entitlement,
                 crate::model::OperationMetadata,
             >;
@@ -670,7 +677,12 @@ pub mod privileged_access_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteEntitlementRequest::name].
@@ -707,7 +719,7 @@ pub mod privileged_access_manager {
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::UpdateEntitlement;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -756,11 +768,12 @@ pub mod privileged_access_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_entitlement`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_entitlement`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Entitlement,
                 crate::model::OperationMetadata,
             >;
@@ -788,7 +801,12 @@ pub mod privileged_access_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
@@ -1372,7 +1390,7 @@ pub mod privileged_access_manager {
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::RevokeGrant;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1418,12 +1436,15 @@ pub mod privileged_access_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `revoke_grant`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `revoke_grant`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Grant, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Grant, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Grant, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Grant,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1448,7 +1469,12 @@ pub mod privileged_access_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RevokeGrantRequest::name].

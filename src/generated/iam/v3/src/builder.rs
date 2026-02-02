@@ -77,7 +77,7 @@ pub mod policy_bindings {
     /// ```
     /// # use google_cloud_iam_v3::builder::policy_bindings::CreatePolicyBinding;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -126,12 +126,12 @@ pub mod policy_bindings {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_policy_binding`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_policy_binding`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PolicyBinding,
                 crate::model::OperationMetadata,
             >;
@@ -159,7 +159,12 @@ pub mod policy_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyBindingRequest::parent].
@@ -285,7 +290,7 @@ pub mod policy_bindings {
     /// ```
     /// # use google_cloud_iam_v3::builder::policy_bindings::UpdatePolicyBinding;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -334,12 +339,12 @@ pub mod policy_bindings {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_policy_binding`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_policy_binding`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PolicyBinding,
                 crate::model::OperationMetadata,
             >;
@@ -367,7 +372,12 @@ pub mod policy_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [policy_binding][crate::model::UpdatePolicyBindingRequest::policy_binding].
@@ -430,7 +440,7 @@ pub mod policy_bindings {
     /// ```
     /// # use google_cloud_iam_v3::builder::policy_bindings::DeletePolicyBinding;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -479,9 +489,10 @@ pub mod policy_bindings {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_policy_binding`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_policy_binding`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -506,7 +517,7 @@ pub mod policy_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -901,7 +912,7 @@ pub mod principal_access_boundary_policies {
     /// ```
     /// # use google_cloud_iam_v3::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -952,12 +963,14 @@ pub mod principal_access_boundary_policies {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_principal_access_boundary_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_principal_access_boundary_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::PrincipalAccessBoundaryPolicy,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PrincipalAccessBoundaryPolicy,
                 crate::model::OperationMetadata,
             >;
@@ -985,7 +998,12 @@ pub mod principal_access_boundary_policies {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::parent].
@@ -1119,7 +1137,7 @@ pub mod principal_access_boundary_policies {
     /// ```
     /// # use google_cloud_iam_v3::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1170,12 +1188,14 @@ pub mod principal_access_boundary_policies {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_principal_access_boundary_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_principal_access_boundary_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::PrincipalAccessBoundaryPolicy,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PrincipalAccessBoundaryPolicy,
                 crate::model::OperationMetadata,
             >;
@@ -1203,7 +1223,12 @@ pub mod principal_access_boundary_policies {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [principal_access_boundary_policy][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
@@ -1269,7 +1294,7 @@ pub mod principal_access_boundary_policies {
     /// ```
     /// # use google_cloud_iam_v3::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1320,9 +1345,10 @@ pub mod principal_access_boundary_policies {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_principal_access_boundary_policy`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_principal_access_boundary_policy`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1347,7 +1373,7 @@ pub mod principal_access_boundary_policies {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

@@ -77,7 +77,7 @@ pub mod rapid_migration_assessment {
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::CreateCollector;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -123,12 +123,15 @@ pub mod rapid_migration_assessment {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_collector`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_collector`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Collector, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Collector,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -153,7 +156,12 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateCollectorRequest::parent].
@@ -214,7 +222,7 @@ pub mod rapid_migration_assessment {
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::CreateAnnotation;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -263,12 +271,15 @@ pub mod rapid_migration_assessment {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_annotation`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_annotation`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Annotation, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Annotation, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Annotation, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Annotation,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -293,7 +304,12 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAnnotationRequest::parent].
@@ -584,7 +600,7 @@ pub mod rapid_migration_assessment {
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::UpdateCollector;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -630,12 +646,15 @@ pub mod rapid_migration_assessment {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_collector`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_collector`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Collector, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Collector,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -660,7 +679,12 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
@@ -727,7 +751,7 @@ pub mod rapid_migration_assessment {
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::DeleteCollector;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -773,12 +797,15 @@ pub mod rapid_migration_assessment {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_collector`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_collector`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Collector, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Collector,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -803,7 +830,12 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteCollectorRequest::name].
@@ -834,7 +866,7 @@ pub mod rapid_migration_assessment {
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::ResumeCollector;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -880,12 +912,15 @@ pub mod rapid_migration_assessment {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `resume_collector`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `resume_collector`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Collector, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Collector,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -910,7 +945,12 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ResumeCollectorRequest::name].
@@ -941,7 +981,7 @@ pub mod rapid_migration_assessment {
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::RegisterCollector;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -990,12 +1030,15 @@ pub mod rapid_migration_assessment {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `register_collector`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `register_collector`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Collector, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Collector,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1020,7 +1063,12 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RegisterCollectorRequest::name].
@@ -1051,7 +1099,7 @@ pub mod rapid_migration_assessment {
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::PauseCollector;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1097,12 +1145,15 @@ pub mod rapid_migration_assessment {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `pause_collector`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `pause_collector`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Collector, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Collector,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1127,7 +1178,12 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::PauseCollectorRequest::name].

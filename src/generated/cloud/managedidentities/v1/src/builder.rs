@@ -77,7 +77,7 @@ pub mod managed_identities_service {
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::CreateMicrosoftAdDomain;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -128,10 +128,14 @@ pub mod managed_identities_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_microsoft_ad_domain`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_microsoft_ad_domain`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Domain,
+                crate::model::OpMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -156,7 +160,12 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateMicrosoftAdDomainRequest::parent].
@@ -452,7 +461,7 @@ pub mod managed_identities_service {
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::UpdateDomain;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -498,10 +507,14 @@ pub mod managed_identities_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_domain`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_domain`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Domain,
+                crate::model::OpMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -526,7 +539,12 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
@@ -587,7 +605,7 @@ pub mod managed_identities_service {
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::DeleteDomain;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -633,9 +651,10 @@ pub mod managed_identities_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_domain`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OpMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OpMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_domain`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OpMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -660,7 +679,7 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -690,7 +709,7 @@ pub mod managed_identities_service {
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::AttachTrust;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -736,10 +755,14 @@ pub mod managed_identities_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `attach_trust`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `attach_trust`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Domain,
+                crate::model::OpMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -764,7 +787,12 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::AttachTrustRequest::name].
@@ -811,7 +839,7 @@ pub mod managed_identities_service {
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::ReconfigureTrust;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -860,10 +888,14 @@ pub mod managed_identities_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `reconfigure_trust`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `reconfigure_trust`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Domain,
+                crate::model::OpMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -888,7 +920,12 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ReconfigureTrustRequest::name].
@@ -934,7 +971,7 @@ pub mod managed_identities_service {
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::DetachTrust;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -980,10 +1017,14 @@ pub mod managed_identities_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `detach_trust`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `detach_trust`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Domain,
+                crate::model::OpMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1008,7 +1049,12 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DetachTrustRequest::name].
@@ -1055,7 +1101,7 @@ pub mod managed_identities_service {
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::ValidateTrust;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1101,10 +1147,14 @@ pub mod managed_identities_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `validate_trust`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `validate_trust`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Domain,
+                crate::model::OpMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1129,7 +1179,12 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ValidateTrustRequest::name].

@@ -157,7 +157,7 @@ pub mod security_center {
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::BulkMuteFindings;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -206,10 +206,14 @@ pub mod security_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `bulk_mute_findings`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::BulkMuteFindingsResponse, ()> {
-            type Operation =
-                lro::internal::Operation<crate::model::BulkMuteFindingsResponse, wkt::Empty>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `bulk_mute_findings`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::BulkMuteFindingsResponse, ()> {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::BulkMuteFindingsResponse,
+                wkt::Empty,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -234,7 +238,7 @@ pub mod security_center {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_metadata_poller(
+            google_cloud_lro::internal::new_unit_metadata_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

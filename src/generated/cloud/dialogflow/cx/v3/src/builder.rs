@@ -471,7 +471,7 @@ pub mod agents {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::agents::ExportAgent;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -515,10 +515,14 @@ pub mod agents {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_agent`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::ExportAgentResponse, wkt::Struct> {
-            type Operation =
-                lro::internal::Operation<crate::model::ExportAgentResponse, wkt::Struct>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_agent`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::ExportAgentResponse, wkt::Struct> {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::ExportAgentResponse,
+                wkt::Struct,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -543,7 +547,12 @@ pub mod agents {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ExportAgentRequest::name].
@@ -613,7 +622,7 @@ pub mod agents {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::agents::RestoreAgent;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -657,9 +666,9 @@ pub mod agents {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `restore_agent`.
-        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
-            type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_agent`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), wkt::Struct> {
+            type Operation = google_cloud_lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -684,7 +693,7 @@ pub mod agents {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3258,7 +3267,7 @@ pub mod entity_types {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::entity_types::ExportEntityTypes;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3307,14 +3316,14 @@ pub mod entity_types {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_entity_types`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_entity_types`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ExportEntityTypesResponse,
             crate::model::ExportEntityTypesMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExportEntityTypesResponse,
                 crate::model::ExportEntityTypesMetadata,
             >;
@@ -3342,7 +3351,12 @@ pub mod entity_types {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ExportEntityTypesRequest::parent].
@@ -3435,7 +3449,7 @@ pub mod entity_types {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::entity_types::ImportEntityTypes;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3484,14 +3498,14 @@ pub mod entity_types {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_entity_types`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_entity_types`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ImportEntityTypesResponse,
             crate::model::ImportEntityTypesMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ImportEntityTypesResponse,
                 crate::model::ImportEntityTypesMetadata,
             >;
@@ -3519,7 +3533,12 @@ pub mod entity_types {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportEntityTypesRequest::parent].
@@ -4242,7 +4261,7 @@ pub mod environments {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::environments::CreateEnvironment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4291,9 +4310,12 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_environment`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Environment, wkt::Struct> {
-            type Operation = lro::internal::Operation<crate::model::Environment, wkt::Struct>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_environment`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Environment, wkt::Struct> {
+            type Operation =
+                google_cloud_lro::internal::Operation<crate::model::Environment, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4318,7 +4340,12 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateEnvironmentRequest::parent].
@@ -4365,7 +4392,7 @@ pub mod environments {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::environments::UpdateEnvironment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4414,9 +4441,12 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_environment`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Environment, wkt::Struct> {
-            type Operation = lro::internal::Operation<crate::model::Environment, wkt::Struct>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_environment`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Environment, wkt::Struct> {
+            type Operation =
+                google_cloud_lro::internal::Operation<crate::model::Environment, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4441,7 +4471,12 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
@@ -4678,7 +4713,7 @@ pub mod environments {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::environments::RunContinuousTest;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4727,14 +4762,14 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `run_continuous_test`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `run_continuous_test`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::RunContinuousTestResponse,
             crate::model::RunContinuousTestMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RunContinuousTestResponse,
                 crate::model::RunContinuousTestMetadata,
             >;
@@ -4762,7 +4797,12 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [environment][crate::model::RunContinuousTestRequest::environment].
@@ -4898,7 +4938,7 @@ pub mod environments {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::environments::DeployFlow;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4944,12 +4984,14 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `deploy_flow`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `deploy_flow`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::DeployFlowResponse, crate::model::DeployFlowMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::DeployFlowResponse,
+            crate::model::DeployFlowMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DeployFlowResponse,
                 crate::model::DeployFlowMetadata,
             >;
@@ -4977,7 +5019,12 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [environment][crate::model::DeployFlowRequest::environment].
@@ -7777,7 +7824,7 @@ pub mod flows {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::flows::TrainFlow;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7821,9 +7868,9 @@ pub mod flows {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `train_flow`.
-        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
-            type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `train_flow`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), wkt::Struct> {
+            type Operation = google_cloud_lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -7848,7 +7895,7 @@ pub mod flows {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -8015,7 +8062,7 @@ pub mod flows {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::flows::ImportFlow;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8059,10 +8106,14 @@ pub mod flows {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_flow`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::ImportFlowResponse, wkt::Struct> {
-            type Operation =
-                lro::internal::Operation<crate::model::ImportFlowResponse, wkt::Struct>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_flow`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::ImportFlowResponse, wkt::Struct> {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::ImportFlowResponse,
+                wkt::Struct,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -8087,7 +8138,12 @@ pub mod flows {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportFlowRequest::parent].
@@ -8171,7 +8227,7 @@ pub mod flows {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::flows::ExportFlow;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8215,10 +8271,14 @@ pub mod flows {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_flow`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::ExportFlowResponse, wkt::Struct> {
-            type Operation =
-                lro::internal::Operation<crate::model::ExportFlowResponse, wkt::Struct>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_flow`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::ExportFlowResponse, wkt::Struct> {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::ExportFlowResponse,
+                wkt::Struct,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -8243,7 +8303,12 @@ pub mod flows {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ExportFlowRequest::name].
@@ -10070,7 +10135,7 @@ pub mod intents {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::intents::ImportIntents;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -10114,12 +10179,14 @@ pub mod intents {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_intents`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_intents`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ImportIntentsResponse, crate::model::ImportIntentsMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ImportIntentsResponse,
+            crate::model::ImportIntentsMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ImportIntentsResponse,
                 crate::model::ImportIntentsMetadata,
             >;
@@ -10147,7 +10214,12 @@ pub mod intents {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportIntentsRequest::parent].
@@ -10218,7 +10290,7 @@ pub mod intents {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::intents::ExportIntents;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -10262,12 +10334,14 @@ pub mod intents {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_intents`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_intents`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExportIntentsResponse, crate::model::ExportIntentsMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ExportIntentsResponse,
+            crate::model::ExportIntentsMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExportIntentsResponse,
                 crate::model::ExportIntentsMetadata,
             >;
@@ -10295,7 +10369,12 @@ pub mod intents {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ExportIntentsRequest::parent].
@@ -12032,7 +12111,7 @@ pub mod playbooks {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::playbooks::ExportPlaybook;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -12078,10 +12157,15 @@ pub mod playbooks {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_playbook`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::ExportPlaybookResponse, wkt::Struct> {
-            type Operation =
-                lro::internal::Operation<crate::model::ExportPlaybookResponse, wkt::Struct>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_playbook`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::ExportPlaybookResponse, wkt::Struct>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::ExportPlaybookResponse,
+                wkt::Struct,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -12106,7 +12190,12 @@ pub mod playbooks {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ExportPlaybookRequest::name].
@@ -12146,7 +12235,7 @@ pub mod playbooks {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::playbooks::ImportPlaybook;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -12192,10 +12281,15 @@ pub mod playbooks {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_playbook`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::ImportPlaybookResponse, wkt::Struct> {
-            type Operation =
-                lro::internal::Operation<crate::model::ImportPlaybookResponse, wkt::Struct>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_playbook`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::ImportPlaybookResponse, wkt::Struct>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::ImportPlaybookResponse,
+                wkt::Struct,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -12220,7 +12314,12 @@ pub mod playbooks {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportPlaybookRequest::parent].
@@ -16394,7 +16493,7 @@ pub mod test_cases {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::test_cases::RunTestCase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16440,12 +16539,14 @@ pub mod test_cases {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `run_test_case`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `run_test_case`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::RunTestCaseResponse, crate::model::RunTestCaseMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::RunTestCaseResponse,
+            crate::model::RunTestCaseMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RunTestCaseResponse,
                 crate::model::RunTestCaseMetadata,
             >;
@@ -16473,7 +16574,12 @@ pub mod test_cases {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RunTestCaseRequest::name].
@@ -16504,7 +16610,7 @@ pub mod test_cases {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::test_cases::BatchRunTestCases;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16553,14 +16659,14 @@ pub mod test_cases {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_run_test_cases`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_run_test_cases`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::BatchRunTestCasesResponse,
             crate::model::BatchRunTestCasesMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchRunTestCasesResponse,
                 crate::model::BatchRunTestCasesMetadata,
             >;
@@ -16588,7 +16694,12 @@ pub mod test_cases {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchRunTestCasesRequest::parent].
@@ -16708,7 +16819,7 @@ pub mod test_cases {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::test_cases::ImportTestCases;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16754,12 +16865,14 @@ pub mod test_cases {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_test_cases`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_test_cases`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ImportTestCasesResponse, crate::model::ImportTestCasesMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ImportTestCasesResponse,
+            crate::model::ImportTestCasesMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ImportTestCasesResponse,
                 crate::model::ImportTestCasesMetadata,
             >;
@@ -16787,7 +16900,12 @@ pub mod test_cases {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportTestCasesRequest::parent].
@@ -16844,7 +16962,7 @@ pub mod test_cases {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::test_cases::ExportTestCases;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16890,12 +17008,14 @@ pub mod test_cases {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_test_cases`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_test_cases`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExportTestCasesResponse, crate::model::ExportTestCasesMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ExportTestCasesResponse,
+            crate::model::ExportTestCasesMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExportTestCasesResponse,
                 crate::model::ExportTestCasesMetadata,
             >;
@@ -16923,7 +17043,12 @@ pub mod test_cases {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ExportTestCasesRequest::parent].
@@ -19970,7 +20095,7 @@ pub mod versions {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::versions::CreateVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -20014,12 +20139,14 @@ pub mod versions {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_version`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_version`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Version, crate::model::CreateVersionOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Version,
+            crate::model::CreateVersionOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Version,
                 crate::model::CreateVersionOperationMetadata,
             >;
@@ -20047,7 +20174,12 @@ pub mod versions {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateVersionRequest::parent].
@@ -20250,7 +20382,7 @@ pub mod versions {
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::builder::versions::LoadVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -20294,9 +20426,9 @@ pub mod versions {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `load_version`.
-        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
-            type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `load_version`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), wkt::Struct> {
+            type Operation = google_cloud_lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -20321,7 +20453,7 @@ pub mod versions {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

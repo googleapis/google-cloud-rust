@@ -2466,7 +2466,7 @@ pub mod data_catalog {
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ReconcileTags;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2512,12 +2512,14 @@ pub mod data_catalog {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `reconcile_tags`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `reconcile_tags`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ReconcileTagsResponse, crate::model::ReconcileTagsMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ReconcileTagsResponse,
+            crate::model::ReconcileTagsMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ReconcileTagsResponse,
                 crate::model::ReconcileTagsMetadata,
             >;
@@ -2545,7 +2547,12 @@ pub mod data_catalog {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ReconcileTagsRequest::parent].
@@ -2979,7 +2986,7 @@ pub mod data_catalog {
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ImportEntries;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3025,12 +3032,14 @@ pub mod data_catalog {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_entries`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_entries`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ImportEntriesResponse, crate::model::ImportEntriesMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ImportEntriesResponse,
+            crate::model::ImportEntriesMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ImportEntriesResponse,
                 crate::model::ImportEntriesMetadata,
             >;
@@ -3058,7 +3067,12 @@ pub mod data_catalog {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportEntriesRequest::parent].

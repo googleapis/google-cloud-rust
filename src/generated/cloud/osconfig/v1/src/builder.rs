@@ -1325,7 +1325,7 @@ pub mod os_config_zonal_service {
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::CreateOSPolicyAssignment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1376,14 +1376,14 @@ pub mod os_config_zonal_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_os_policy_assignment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_os_policy_assignment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::OSPolicyAssignment,
             crate::model::OSPolicyAssignmentOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::OSPolicyAssignment,
                 crate::model::OSPolicyAssignmentOperationMetadata,
             >;
@@ -1411,7 +1411,12 @@ pub mod os_config_zonal_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateOSPolicyAssignmentRequest::parent].
@@ -1466,7 +1471,7 @@ pub mod os_config_zonal_service {
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::UpdateOSPolicyAssignment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1517,14 +1522,14 @@ pub mod os_config_zonal_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_os_policy_assignment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_os_policy_assignment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::OSPolicyAssignment,
             crate::model::OSPolicyAssignmentOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::OSPolicyAssignment,
                 crate::model::OSPolicyAssignmentOperationMetadata,
             >;
@@ -1552,7 +1557,12 @@ pub mod os_config_zonal_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [os_policy_assignment][crate::model::UpdateOSPolicyAssignmentRequest::os_policy_assignment].
@@ -1896,7 +1906,7 @@ pub mod os_config_zonal_service {
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::DeleteOSPolicyAssignment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1947,11 +1957,12 @@ pub mod os_config_zonal_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_os_policy_assignment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_os_policy_assignment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<(), crate::model::OSPolicyAssignmentOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<(), crate::model::OSPolicyAssignmentOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 wkt::Empty,
                 crate::model::OSPolicyAssignmentOperationMetadata,
             >;
@@ -1979,7 +1990,7 @@ pub mod os_config_zonal_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

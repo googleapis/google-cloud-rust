@@ -454,8 +454,7 @@ google-cloud-iam-v1           = { default-features = false, version = "1", path 
 location                      = { default-features = false, version = "1", path = "src/generated/cloud/location", package = "google-cloud-location" }
 longrunning                   = { default-features = false, version = "1.2", path = "src/generated/longrunning", package = "google-cloud-longrunning" }
 google-cloud-longrunning      = { default-features = false, version = "1.2", path = "src/generated/longrunning", package = "google-cloud-longrunning" }
-lro                           = { default-features = false, version = "1.1", path = "src/lro", package = "google-cloud-lro" }
-google-cloud-lro              = { default-features = false, version = "1.1", path = "src/lro", package = "google-cloud-lro" }
+google-cloud-lro              = { default-features = false, version = "1.1", path = "src/lro" }
 wkt                           = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt              = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 api                           = { default-features = false, version = "1", path = "src/generated/api/types", package = "google-cloud-api" }

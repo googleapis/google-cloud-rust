@@ -1143,7 +1143,7 @@ pub mod analytics_hub_service {
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::SubscribeDataExchange;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1192,12 +1192,14 @@ pub mod analytics_hub_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `subscribe_data_exchange`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `subscribe_data_exchange`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::SubscribeDataExchangeResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::SubscribeDataExchangeResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SubscribeDataExchangeResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1225,7 +1227,12 @@ pub mod analytics_hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::SubscribeDataExchangeRequest::name].
@@ -1290,7 +1297,7 @@ pub mod analytics_hub_service {
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::RefreshSubscription;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1339,12 +1346,14 @@ pub mod analytics_hub_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `refresh_subscription`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `refresh_subscription`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::RefreshSubscriptionResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::RefreshSubscriptionResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RefreshSubscriptionResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1372,7 +1381,12 @@ pub mod analytics_hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RefreshSubscriptionRequest::name].
@@ -1758,7 +1772,7 @@ pub mod analytics_hub_service {
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::DeleteSubscription;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1807,9 +1821,10 @@ pub mod analytics_hub_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_subscription`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_subscription`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1834,7 +1849,7 @@ pub mod analytics_hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

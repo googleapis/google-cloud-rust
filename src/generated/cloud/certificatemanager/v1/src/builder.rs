@@ -256,7 +256,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::CreateCertificate;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -305,11 +305,12 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_certificate`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_certificate`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Certificate, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Certificate, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Certificate,
                 crate::model::OperationMetadata,
             >;
@@ -337,7 +338,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateRequest::parent].
@@ -392,7 +398,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::UpdateCertificate;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -441,11 +447,12 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_certificate`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_certificate`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Certificate, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Certificate, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Certificate,
                 crate::model::OperationMetadata,
             >;
@@ -473,7 +480,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
@@ -534,7 +546,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::DeleteCertificate;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -583,9 +595,10 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_certificate`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_certificate`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -610,7 +623,7 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -824,7 +837,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::CreateCertificateMap;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -873,12 +886,12 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_certificate_map`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_certificate_map`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CertificateMap, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::CertificateMap, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CertificateMap,
                 crate::model::OperationMetadata,
             >;
@@ -906,7 +919,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateMapRequest::parent].
@@ -961,7 +979,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::UpdateCertificateMap;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1010,12 +1028,12 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_certificate_map`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_certificate_map`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CertificateMap, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::CertificateMap, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CertificateMap,
                 crate::model::OperationMetadata,
             >;
@@ -1043,7 +1061,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
@@ -1104,7 +1127,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::DeleteCertificateMap;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1153,9 +1176,10 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_certificate_map`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_certificate_map`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1180,7 +1204,7 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1398,7 +1422,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::CreateCertificateMapEntry;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1449,12 +1473,14 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_certificate_map_entry`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_certificate_map_entry`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CertificateMapEntry, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::CertificateMapEntry,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CertificateMapEntry,
                 crate::model::OperationMetadata,
             >;
@@ -1482,7 +1508,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateMapEntryRequest::parent].
@@ -1537,7 +1568,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::UpdateCertificateMapEntry;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1588,12 +1619,14 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_certificate_map_entry`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_certificate_map_entry`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CertificateMapEntry, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::CertificateMapEntry,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CertificateMapEntry,
                 crate::model::OperationMetadata,
             >;
@@ -1621,7 +1654,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
@@ -1682,7 +1720,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::DeleteCertificateMapEntry;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1733,9 +1771,10 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_certificate_map_entry`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_certificate_map_entry`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1760,7 +1799,7 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1974,7 +2013,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::CreateDnsAuthorization;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2023,12 +2062,12 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_dns_authorization`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_dns_authorization`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::DnsAuthorization, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::DnsAuthorization, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DnsAuthorization,
                 crate::model::OperationMetadata,
             >;
@@ -2056,7 +2095,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateDnsAuthorizationRequest::parent].
@@ -2111,7 +2155,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::UpdateDnsAuthorization;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2160,12 +2204,12 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_dns_authorization`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_dns_authorization`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::DnsAuthorization, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::DnsAuthorization, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DnsAuthorization,
                 crate::model::OperationMetadata,
             >;
@@ -2193,7 +2237,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
@@ -2254,7 +2303,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::DeleteDnsAuthorization;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2303,9 +2352,10 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_dns_authorization`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_dns_authorization`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2330,7 +2380,7 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2550,7 +2600,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::CreateCertificateIssuanceConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2601,12 +2651,14 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_certificate_issuance_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_certificate_issuance_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CertificateIssuanceConfig, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::CertificateIssuanceConfig,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CertificateIssuanceConfig,
                 crate::model::OperationMetadata,
             >;
@@ -2634,7 +2686,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateIssuanceConfigRequest::parent].
@@ -2695,7 +2752,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::DeleteCertificateIssuanceConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2746,9 +2803,10 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_certificate_issuance_config`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_certificate_issuance_config`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2773,7 +2831,7 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2982,7 +3040,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::CreateTrustConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3031,11 +3089,12 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_trust_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_trust_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::TrustConfig, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::TrustConfig, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::TrustConfig,
                 crate::model::OperationMetadata,
             >;
@@ -3063,7 +3122,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateTrustConfigRequest::parent].
@@ -3118,7 +3182,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::UpdateTrustConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3167,11 +3231,12 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_trust_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_trust_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::TrustConfig, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::TrustConfig, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::TrustConfig,
                 crate::model::OperationMetadata,
             >;
@@ -3199,7 +3264,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
@@ -3260,7 +3330,7 @@ pub mod certificate_manager {
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::DeleteTrustConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3309,9 +3379,10 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_trust_config`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_trust_config`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3336,7 +3407,7 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
