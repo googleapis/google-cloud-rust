@@ -15,20 +15,29 @@
 #[cfg(test)]
 mod tests {
     use anyhow::Result;
-    use gax::error::Error;
-    use gax::paginator::Paginator;
+    use google_cloud_gax::Result as GaxResult;
+    use google_cloud_gax::error::Error;
+    use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::paginator::Paginator;
+    use google_cloud_gax::response::Response;
+    use google_cloud_storage::client::StorageControl;
+    use google_cloud_storage::model::{
+        CreateFolderRequest, Folder, ListAnywhereCachesRequest, ListAnywhereCachesResponse,
+    };
+    use google_cloud_storage::stub::StorageControl as Stub;
     use std::collections::HashSet;
 
     mockall::mock! {
         #[derive(Debug)]
         StorageControl {}
-        impl storage::stub::StorageControl for StorageControl {
-            async fn create_folder(&self, req: storage::model::CreateFolderRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<storage::model::Folder>>;
-            async fn list_anywhere_caches(&self, req: storage::model::ListAnywhereCachesRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<storage::model::ListAnywhereCachesResponse>>;
+        impl Stub for StorageControl {
+            async fn create_folder(&self, req: CreateFolderRequest, _options: RequestOptions) -> GaxResult<Response<Folder>>;
+            async fn list_anywhere_caches(&self, req: ListAnywhereCachesRequest, _options: RequestOptions) -> GaxResult<Response<ListAnywhereCachesResponse>>;
         }
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[tokio::test]
     async fn one_request_id_per_retry_loop() -> Result<()> {
         let mut mock = MockStorageControl::new();
         mock.expect_create_folder()
@@ -38,7 +47,7 @@ mod tests {
             .withf(|r, _| !r.request_id.is_empty())
             .return_once(|_, _| Err(unavailable()));
 
-        let client = storage::client::StorageControl::from_stub(mock);
+        let client = StorageControl::from_stub(mock);
         let _ = client.create_folder().send().await;
 
         Ok(())
@@ -67,14 +76,13 @@ mod tests {
                         seen_clone.lock().unwrap().insert(r.request_id),
                         "Request ID repeated for a request with different contents."
                     );
-                    Ok(gax::response::Response::from(
-                        storage::model::ListAnywhereCachesResponse::default()
-                            .set_next_page_token(next),
+                    Ok(Response::from(
+                        ListAnywhereCachesResponse::default().set_next_page_token(next),
                     ))
                 });
         }
 
-        let client = storage::client::StorageControl::from_stub(mock);
+        let client = StorageControl::from_stub(mock);
         let mut paginator = client.list_anywhere_caches().by_page();
         while paginator.next().await.transpose()?.is_some() {}
 
@@ -86,7 +94,6 @@ mod tests {
     }
 
     fn unavailable() -> Error {
-        use gax::error::rpc::{Code, Status};
         Error::service(
             Status::default()
                 .set_code(Code::Unavailable)

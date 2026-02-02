@@ -5672,6 +5672,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "integration-tests-auto-populated"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-gax",
+ "google-cloud-storage",
+ "mockall",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "integration-tests-default-idempotency"
 version = "0.0.0"
 dependencies = [
