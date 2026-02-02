@@ -61,7 +61,7 @@ gax.workspace         = true
 gtype.workspace       = true
 iam_v1.workspace      = true
 longrunning.workspace = true
-lro.workspace         = true
+google-cloud-lro      = { workspace = true }
 rpc.workspace         = true
 wkt.workspace         = true
 # We use a lot of features from gaxi.
