@@ -17,6 +17,8 @@ use std::pin::Pin;
 use std::task::{Context, Poll, ready};
 use tokio::sync::oneshot;
 
+use crate::publisher::constants;
+
 /// A handle that represents an in-flight publish operation.
 ///
 /// This struct is a `Future`. You can `.await` it to get the final
@@ -58,7 +60,7 @@ impl Future for PublishHandle {
         // which would be a bug.
         Poll::Ready(
             result
-                .expect("the client library should not release the sender")
+                .expect(constants::PUBLISH_HANDLE_SENDER_ERROR_MSG)
                 .map_err(convert_error),
         )
     }

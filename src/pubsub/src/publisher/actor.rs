@@ -15,6 +15,7 @@
 use super::options::BatchingOptions;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::batch::Batch;
+use crate::publisher::constants;
 use std::collections::{HashMap, VecDeque};
 use tokio::sync::{mpsc, oneshot};
 use tokio::task::JoinSet;
@@ -95,7 +96,6 @@ impl Dispatcher {
         // TODO(#4012): Remove batch actors when there are no outstanding operations on the ordering key.
         let mut batch_actors: HashMap<String, mpsc::UnboundedSender<ToBatchActor>> = HashMap::new();
         let delay = self.batching_options.delay_threshold;
-        let batch_actor_error_msg = "Batch actor should not close the channel";
 
         let timer = tokio::time::sleep(delay);
         // Pin the timer to the stack.
@@ -110,7 +110,7 @@ impl Dispatcher {
                         let (tx, _) = oneshot::channel();
                         batch_actor
                             .send(ToBatchActor::Flush(tx))
-                            .expect(batch_actor_error_msg);
+                            .expect(constants::BATCH_ACTOR_SEND_ERROR_MSG);
                     }
                     timer.as_mut().reset(tokio::time::Instant::now() + delay);
                 }
@@ -135,7 +135,7 @@ impl Dispatcher {
                                 });
                             batch_actor
                                 .send(ToBatchActor::Publish(msg))
-                                .expect(batch_actor_error_msg);
+                                .expect(constants::BATCH_ACTOR_SEND_ERROR_MSG);
                         },
                         Some(ToDispatcher::Flush(tx)) => {
                             let mut flush_set = JoinSet::new();
@@ -143,7 +143,7 @@ impl Dispatcher {
                                 let (tx, rx) = oneshot::channel();
                                 batch_actor
                                     .send(ToBatchActor::Flush(tx))
-                                    .expect(batch_actor_error_msg);
+                                    .expect(constants::BATCH_ACTOR_SEND_ERROR_MSG);
                                 flush_set.spawn(rx);
                             }
                             // Wait on all the tasks that exist right now.
@@ -160,7 +160,7 @@ impl Dispatcher {
                                 // instead of spawning a new task.
                                 batch_actor
                                     .send(ToBatchActor::ResumePublish())
-                                    .expect(batch_actor_error_msg);
+                                    .expect(constants::BATCH_ACTOR_SEND_ERROR_MSG);
                             }
                         }
                         None => {
