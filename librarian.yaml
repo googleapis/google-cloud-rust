@@ -929,7 +929,7 @@ libraries:
           ignore: true
           package: ""
   - name: google-cloud-lro
-    version: 1.4.0
+    version: 1.3.1
     copyright_year: "2025"
     output: src/lro
     veneer: true
@@ -1533,7 +1533,7 @@ libraries:
     version: 1.5.0
     copyright_year: "2025"
   - name: google-cloud-wkt
-    version: 1.3.0
+    version: 1.2.1
     copyright_year: "2025"
     output: src/wkt
     veneer: true
