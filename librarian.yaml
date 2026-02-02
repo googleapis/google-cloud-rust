@@ -67,6 +67,9 @@ default:
         package: google-cloud-gax-internal
         feature: _internal-http-client
         used_if: services
+      - name: google-cloud-lro
+        package: google-cloud-lro
+        used_if: lro
       - name: grafeas
         package: google-cloud-grafeas-v1
         source: grafeas.v1
@@ -88,9 +91,6 @@ default:
       - name: longrunning
         package: google-cloud-longrunning
         source: google.longrunning
-      - name: google-cloud-lro
-        package: google-cloud-lro
-        used_if: lro
       - name: rpc
         package: google-cloud-rpc
         source: google.rpc
