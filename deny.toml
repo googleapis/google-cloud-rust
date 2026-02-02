@@ -98,8 +98,8 @@ wrappers = [
 [[bans.deny]]
 crate = "tonic@0.14"
 wrappers = [
-  # Uses `reqwest` in its "public" API. The types are re-exported. This is
-  # the main motivation for denying reqwest in general: we want to avoid
+  # Uses `tonic` in its "public" API. The types are re-exported. This is
+  # the main motivation for denying `tonic` in general: we want to avoid
   # accidental use of the crate in other crates.
   "google-cloud-gax-internal",
   # Use in tests is fine.
@@ -116,9 +116,7 @@ wrappers = [
 [[bans.deny]]
 crate = "tonic-prost@0.14"
 wrappers = [
-  # Uses `reqwest` in its "public" API. The types are re-exported. This is
-  # the main motivation for denying reqwest in general: we want to avoid
-  # accidental use of the crate in other crates.
+  # Uses `tonic-prost` in its implementation.
   "google-cloud-gax-internal",
   # Use in tests is fine.
   "grpc-server",
