@@ -18,7 +18,6 @@ pub(crate) use google_cloud_test_utils::resource_names::random_workflow_id;
 pub type Result<T> = anyhow::Result<T>;
 pub mod bigquery;
 pub mod error_details;
-pub mod firestore;
 
 pub fn report_error(e: anyhow::Error) -> anyhow::Error {
     eprintln!("\n\nERROR {e:?}\n");

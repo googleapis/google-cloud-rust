@@ -39,6 +39,7 @@ default-members = [
   "src/generated/cloud/speech/v2",
   "src/generated/cloud/workflows/v1",
   "src/generated/openapi-validation",
+  "tests/default-idempotency",
   "tests/discovery",
   "tests/dns",
   "tests/endurance",
@@ -303,6 +304,7 @@ members = [
   "tests/crypto-providers/test-metadata",
   "tests/crypto-providers/test-secret-manager",
   "tests/crypto-providers/test-storage",
+  "tests/default-idempotency",
   "tests/discovery",
   "tests/dns",
   "tests/endurance",
@@ -496,6 +498,7 @@ iamcredentials                  = { default-features = false, version = "1", pat
 google-cloud-language-v2        = { default-features = false, version = "1", path = "src/generated/cloud/language/v2" }
 language                        = { default-features = false, version = "1", path = "src/generated/cloud/language/v2", package = "google-cloud-language-v2" }
 google-cloud-dns-v1             = { default-features = false, path = "src/generated/cloud/dns/v1" }
+google-cloud-firestore          = { default-features = false, path = "src/firestore" }
 google-cloud-showcase-v1beta1   = { default-features = false, path = "src/generated/showcase" }
 google-cloud-trace-v1           = { default-features = false, path = "src/generated/devtools/cloudtrace/v1" }
 secretmanager-openapi-v1        = { default-features = false, path = "src/generated/openapi-validation" }
