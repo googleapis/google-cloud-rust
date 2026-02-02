@@ -48,7 +48,7 @@ pub(crate) struct BundledMessage {
     pub tx: oneshot::Sender<std::result::Result<String, crate::error::PublishError>>,
 }
 
-/// This actor is spawned as background task and handles all Publisher operations
+/// The Dispatcher runs in a background task and handles all Publisher operations
 /// by dispatching it to BatchActors.
 #[derive(Debug)]
 pub(crate) struct Dispatcher {
@@ -76,12 +76,12 @@ impl Dispatcher {
 
     /// The main loop of the Dispatcher.
     ///
-    /// This method concurrently handles main events:
+    /// This method continuously handles the following events:
     ///
-    /// 1. Publish command from the `Publisher` is dispatched to the BatchActor
+    /// 1. A Publish command from the `Publisher` is dispatched to the BatchActor
     ///    for its ordering key.
-    /// 2. A Flush command from the `Publisher` causes all BatchActors to flush
-    ///    all pending messages.
+    /// 2. A Flush command from the `Publisher` causes the Dispatcher to flush
+    ///    all BatchActors and awaits its completion.
     /// 3. A ResumePublish command from the `Publisher` is dispatched to the BatchActor
     ///    for its ordering key.
     /// 4. A timer fire causes the Dispatcher to flush all BatchActors.
@@ -102,9 +102,9 @@ impl Dispatcher {
         tokio::pin!(timer);
         loop {
             tokio::select! {
-                // Currently, the Dispatcher periodically flush on a shared timer. If needed,
-                // this can be moved into the batch actors such that each are running on a
-                // separate timer.
+                // Currently, the Dispatcher periodically flushes all batches on a shared timer.
+                // If needed, this can be moved into the batch actors such that each are running
+                // on a separate timer.
                 _ = &mut timer => {
                     for (_, batch_actor) in batch_actors.iter_mut() {
                         let (tx, _) = oneshot::channel();
@@ -147,9 +147,9 @@ impl Dispatcher {
                                 flush_set.spawn(rx);
                             }
                             // Wait on all the tasks that exist right now.
-                            // We could instead tokio::spawn this as well so the publisher
-                            // can keep working on additional messages. The Dispatcher would
-                            // also need to keep track of any pending flushes, and make sure
+                            // TODO(#4505): We could instead tokio::spawn this as well so the
+                            // publisher can keep working on additional messages. The Dispatcher
+                            // would also need to keep track of any pending flushes, and make sure
                             // all of those resolve as well.
                             flush_set.join_all().await;
                             let _ = tx.send(());
@@ -177,7 +177,7 @@ impl Dispatcher {
     }
 }
 
-/// A actor that continuously handles Publisher commands for a specific ordering key.
+/// An actor that continuously handles Publisher commands for a specific ordering key.
 #[derive(Debug)]
 pub(crate) struct BatchActor {
     topic: String,
@@ -262,7 +262,7 @@ impl BatchActor {
 
     /// The main loop of the batch actor.
     ///
-    /// This method concurrently handles the following events:
+    /// This method continuously handles the following events:
     ///
     /// 1. A Publish command from the Dispatcher causes the new message to be
     ///    added a pending message queue. If there is enough message to create
