@@ -12,22 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(test)]
-mod default_idempotency {
-    // Test Design:
-    //
-    // In these tests, we send a request which we know will fail. The error gets
-    // passed along to the retry policy, along with whether the RPC is
-    // idempotent or not. We use this to verify that the operation's default
-    // idempotency is correct.
+//! Test Design:
+//!
+//! In these tests, we send a request which we know will fail. The error gets
+//! passed along to the retry policy, along with whether the RPC is
+//! idempotent or not. We use this to verify that the operation's default
+//! idempotency is correct.
 
+#[cfg(test)]
+mod tests {
     type Result = anyhow::Result<()>;
-    use gax::error::Error;
-    use gax::options::RequestOptionsBuilder;
-    use gax::retry_policy::RetryPolicy;
-    use gax::retry_result::RetryResult;
-    use gax::retry_state::RetryState;
-    use gax::throttle_result::ThrottleResult;
+    use google_cloud_gax::error::Error;
+    use google_cloud_gax::options::RequestOptionsBuilder;
+    use google_cloud_gax::retry_policy::RetryPolicy;
+    use google_cloud_gax::retry_result::RetryResult;
+    use google_cloud_gax::retry_state::RetryState;
+    use google_cloud_gax::throttle_result::ThrottleResult;
 
     mockall::mock! {
         #[derive(Debug)]
@@ -69,7 +69,7 @@ mod default_idempotency {
 
     mod http {
         use super::*;
-        use sm::client::SecretManagerService;
+        use google_cloud_secretmanager_v1::client::SecretManagerService;
 
         #[tokio::test]
         async fn default_idempotent() -> Result {
@@ -106,8 +106,8 @@ mod default_idempotency {
 
     mod grpc {
         use super::*;
-        use firestore::client::Firestore;
-        use storage::client::StorageControl;
+        use google_cloud_firestore::client::Firestore;
+        use google_cloud_storage::client::StorageControl;
 
         #[tokio::test]
         async fn default_idempotent() -> Result {

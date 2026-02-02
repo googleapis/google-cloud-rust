@@ -54,14 +54,6 @@ features         = ["prediction-service"]
 package = "google-cloud-bigquery-v2"
 path    = "../../src/generated/cloud/bigquery/v2"
 
-[dependencies.firestore]
-package = "google-cloud-firestore"
-path    = "../../src/firestore"
-
-[dependencies.sm]
-package = "google-cloud-secretmanager-v1"
-path    = "../../src/generated/cloud/secretmanager/v1"
-
 [dependencies.storage]
 package  = "google-cloud-storage"
 path     = "../../src/storage"

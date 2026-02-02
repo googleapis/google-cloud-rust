@@ -5626,10 +5626,8 @@ dependencies = [
  "google-cloud-aiplatform-v1",
  "google-cloud-auth",
  "google-cloud-bigquery-v2",
- "google-cloud-firestore",
  "google-cloud-gax",
  "google-cloud-gax-internal",
- "google-cloud-secretmanager-v1",
  "google-cloud-storage",
  "google-cloud-telcoautomation-v1",
  "google-cloud-test-utils",
@@ -5670,6 +5668,19 @@ dependencies = [
  "serial_test",
  "tempfile",
  "test-case",
+ "tokio",
+]
+
+[[package]]
+name = "integration-tests-default-idempotency"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-firestore",
+ "google-cloud-gax",
+ "google-cloud-secretmanager-v1",
+ "google-cloud-storage",
+ "mockall",
  "tokio",
 ]
 
