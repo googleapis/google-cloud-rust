@@ -400,6 +400,7 @@ mod tests {
     use crate::model_ext::tests::create_key_helper;
     use anyhow::Result;
     use gax::retry_policy::NeverRetry;
+    use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use http::HeaderValue;
     use static_assertions::assert_impl_all;
@@ -438,7 +439,7 @@ mod tests {
     async fn open_object_normal() -> Result<()> {
         const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
 
-        let (tx, rx) = tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(1);
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
         let initial = BidiReadObjectResponse {
             metadata: Some(ProtoObject {
                 bucket: BUCKET_NAME.to_string(),
@@ -453,7 +454,7 @@ mod tests {
 
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object()
-            .return_once(|_| Ok(tonic::Response::from(rx)));
+            .return_once(|_| Ok(TonicResponse::from(rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
 
         let client = Storage::builder()
@@ -582,7 +583,7 @@ mod tests {
         };
         use storage_grpc_mock::{MockStorage, start};
 
-        let (tx, rx) = tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(1);
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
         let initial = BidiReadObjectResponse {
             metadata: Some(ProtoObject {
                 bucket: "projects/_/buckets/test-bucket".to_string(),
@@ -596,7 +597,7 @@ mod tests {
 
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object()
-            .return_once(|_| Ok(tonic::Response::from(rx)));
+            .return_once(|_| Ok(TonicResponse::from(rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
 
         let client = Storage::builder()
@@ -627,7 +628,7 @@ mod tests {
     async fn send_and_read() -> anyhow::Result<()> {
         use storage_grpc_mock::{MockStorage, start};
 
-        let (tx, rx) = tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(1);
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
         let payload = Vec::from_iter((0..32).map(|i| i as u8));
         let initial = BidiReadObjectResponse {
             metadata: Some(ProtoObject {
@@ -653,7 +654,7 @@ mod tests {
 
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object()
-            .return_once(|_| Ok(tonic::Response::from(rx)));
+            .return_once(|_| Ok(TonicResponse::from(rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
 
         let client = Storage::builder()
@@ -691,11 +692,11 @@ mod tests {
         use storage_grpc_mock::google::storage::v2::BidiReadObjectResponse;
         use storage_grpc_mock::{MockStorage, start};
 
-        let (_tx, rx) = tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(1);
+        let (_tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
 
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object()
-            .return_once(|_| Ok(tonic::Response::from(rx)));
+            .return_once(|_| Ok(TonicResponse::from(rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
 
         let client = Storage::builder()

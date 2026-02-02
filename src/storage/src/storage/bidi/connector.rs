@@ -24,13 +24,14 @@ use crate::storage::bidi::resume_redirect::ResumeRedirect;
 use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
 use crate::{Error, Result};
 use gaxi::grpc::Client as GrpcClient;
+use gaxi::grpc::tonic::{Extensions, GrpcMethod, Status, Streaming};
 use http::HeaderMap;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::sync::mpsc::Sender;
 
 #[derive(Debug)]
-pub struct Connection<S = tonic::Streaming<BidiReadObjectResponse>> {
+pub struct Connection<S = Streaming<BidiReadObjectResponse>> {
     pub tx: Sender<BidiReadObjectRequest>,
     pub rx: S,
 }
@@ -108,7 +109,7 @@ where
 
     pub async fn reconnect(
         &mut self,
-        status: tonic::Status,
+        status: Status,
         ranges: Vec<ProtoRange>,
     ) -> Result<(BidiReadObjectResponse, HeaderMap, Connection<T::Stream>)> {
         use crate::read_resume_policy::ReadResumePolicy;
@@ -182,8 +183,8 @@ where
         tx.send(request.clone()).await.map_err(Error::io)?;
 
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.v2.Storage",
                 "BidiReadObject",
             ));
@@ -238,6 +239,7 @@ mod tests {
     use anyhow::Result;
     use gax::error::binding::{BindingError, SubstitutionFail};
     use gax::retry_policy::NeverRetry;
+    use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult};
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use static_assertions::assert_impl_all;
     use std::error::Error as _;
@@ -346,7 +348,7 @@ mod tests {
                 // Verify all the parameters. We should have a couple of tests
                 // that do this, but should avoid doing so in every test.
                 assert!(
-                    matches!(extensions.get::<tonic::GrpcMethod>(), Some(m) if m.service() == "google.storage.v2.Storage" && m.method() == "BidiReadObject")
+                    matches!(extensions.get::<GrpcMethod>(), Some(m) if m.service() == "google.storage.v2.Storage" && m.method() == "BidiReadObject")
                 );
                 assert_eq!(path.path(), "/google.storage.v2.Storage/BidiReadObject");
                 assert_eq!(header, *X_GOOG_API_CLIENT_HEADER);
@@ -411,7 +413,7 @@ mod tests {
                 // that do this, but should avoid doing so in every test.
                 assert!(
                     matches!(
-                        extensions.get::<tonic::GrpcMethod>(),
+                        extensions.get::<GrpcMethod>(),
                         Some(m) if m.service() == "google.storage.v2.Storage" && m.method() == "BidiReadObject"
                     )
                 );
@@ -536,8 +538,8 @@ mod tests {
     // Verify redirects *after* the stream opens work as expected.
     #[tokio::test]
     async fn start_redirect_open_with_redirect_then_error() -> Result<()> {
-        let (tx, rx) = tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(5);
-        let stream = tonic::Response::from(rx);
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(5);
+        let stream = TonicResponse::from(rx);
 
         let mut seq = mockall::Sequence::new();
         let mut mock = MockTestClient::new();
@@ -576,11 +578,11 @@ mod tests {
 
     #[tokio::test]
     async fn start_immediately_closed() -> Result<()> {
-        let (tx1, rx1) = tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(5);
-        let stream1 = tonic::Response::from(rx1);
+        let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
         drop(tx1);
-        let (tx2, rx2) = tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(5);
-        let stream2 = tonic::Response::from(rx2);
+        let (tx2, rx2) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(5);
+        let stream2 = TonicResponse::from(rx2);
 
         let mut seq = mockall::Sequence::new();
         let mut mock = MockTestClient::new();
@@ -631,8 +633,8 @@ mod tests {
 
     #[tokio::test]
     async fn start_success() -> Result<()> {
-        let (tx, rx) = tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(5);
-        let stream = tonic::Response::from(rx);
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(5);
+        let stream = TonicResponse::from(rx);
 
         let mut mock = MockTestClient::new();
         mock.expect_start()
@@ -676,10 +678,10 @@ mod tests {
 
     #[tokio::test]
     async fn start_success_then_reconnect() -> Result<()> {
-        let (tx1, rx1) = tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(5);
-        let stream1 = tonic::Response::from(rx1);
-        let (tx2, rx2) = tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(5);
-        let stream2 = tonic::Response::from(rx2);
+        let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
+        let (tx2, rx2) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(5);
+        let stream2 = TonicResponse::from(rx2);
 
         let mut seq = mockall::Sequence::new();
         let mut mock = MockTestClient::new();
@@ -780,7 +782,7 @@ mod tests {
         };
 
         let mut connector = Connector::new(spec, test_options(), client);
-        let status = tonic::Status::permission_denied("uh-oh");
+        let status = Status::permission_denied("uh-oh");
         let err = connector.reconnect(status, Vec::new()).await.unwrap_err();
         assert!(err.status().is_some(), "{err:?}");
 
@@ -803,7 +805,7 @@ mod tests {
         let mut options = test_options();
         options.set_read_resume_policy(Arc::new(AlwaysResume.with_attempt_limit(1)));
         let mut connector = Connector::new(spec, options, client);
-        let status = tonic::Status::unavailable("try-again");
+        let status = Status::unavailable("try-again");
         let err = connector.reconnect(status, Vec::new()).await.unwrap_err();
         assert!(err.status().is_some(), "{err:?}");
 

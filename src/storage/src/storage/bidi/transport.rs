@@ -125,12 +125,13 @@ mod tests {
         ObjectRangeData, ReadRange as ProtoRange,
     };
     use crate::storage::bidi::tests::{permanent_error, proto_range};
+    use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult, Status};
 
     #[tokio::test]
     async fn success() -> anyhow::Result<()> {
         const LEN: i64 = 42;
         let (connect_tx, connect_rx) =
-            tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(8);
+            tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(8);
         let initial = BidiReadObjectResponse {
             metadata: Some(ProtoObject {
                 bucket: "projects/_/buckets/test-bucket".into(),
@@ -144,7 +145,7 @@ mod tests {
             ..BidiReadObjectResponse::default()
         };
         connect_tx.send(Ok(initial)).await?;
-        let connect_stream = tonic::Response::from(connect_rx);
+        let connect_stream = TonicResponse::from(connect_rx);
 
         // Save the receivers sent to the mock connector.
         let receivers = Arc::new(std::sync::Mutex::new(Vec::new()));
@@ -212,7 +213,7 @@ mod tests {
         use std::error::Error as _;
 
         let (connect_tx, connect_rx) =
-            tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(8);
+            tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(8);
         let initial = BidiReadObjectResponse {
             metadata: Some(ProtoObject {
                 bucket: "projects/_/buckets/test-bucket".into(),
@@ -226,7 +227,7 @@ mod tests {
             ..BidiReadObjectResponse::default()
         };
         connect_tx.send(Ok(initial)).await?;
-        let connect_stream = tonic::Response::from(connect_rx);
+        let connect_stream = TonicResponse::from(connect_rx);
 
         // Save the receivers sent to the mock connector.
         let mut mock = MockTestClient::new();
@@ -250,7 +251,7 @@ mod tests {
         // This should terminate the worker task, and the object descriptor
         // should stop accepting requests.
         connect_tx
-            .send(Err(tonic::Status::permission_denied("uh-oh")))
+            .send(Err(Status::permission_denied("uh-oh")))
             .await?;
 
         // Wait for the worker to stop the main loop and drop the transport.tx receiver.
@@ -305,7 +306,7 @@ mod tests {
     #[tokio::test]
     async fn deser_error() -> anyhow::Result<()> {
         let (connect_tx, connect_rx) =
-            tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(8);
+            tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(8);
         let initial = BidiReadObjectResponse {
             metadata: None,
             read_handle: Some(BidiReadHandle {
@@ -314,7 +315,7 @@ mod tests {
             ..BidiReadObjectResponse::default()
         };
         connect_tx.send(Ok(initial)).await?;
-        let connect_stream = tonic::Response::from(connect_rx);
+        let connect_stream = TonicResponse::from(connect_rx);
 
         let mut mock = MockTestClient::new();
         mock.expect_start()

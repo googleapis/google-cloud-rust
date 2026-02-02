@@ -27,22 +27,23 @@ mod worker;
 
 use crate::google::storage::v2::{BidiReadObjectRequest, BidiReadObjectResponse};
 use crate::request_options::RequestOptions;
+use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult, Streaming};
 use tokio::sync::mpsc::Receiver;
 
 pub use super::open_object::OpenObject;
 
-/// A trait to mock `tonic::Streaming<T>` in the unit tests.
+/// A trait to mock `Streaming<T>` in the unit tests.
 ///
 /// This is not a public trait, we only need this for our own testing.
 pub trait TonicStreaming: std::fmt::Debug + Send + 'static {
     fn next_message(
         &mut self,
-    ) -> impl Future<Output = tonic::Result<Option<BidiReadObjectResponse>>> + Send;
+    ) -> impl Future<Output = TonicResult<Option<BidiReadObjectResponse>>> + Send;
 }
 
-/// Implement [TonicStreaming] for the one `tonic::Streaming<T>` we use.
-impl TonicStreaming for tonic::Streaming<BidiReadObjectResponse> {
-    async fn next_message(&mut self) -> tonic::Result<Option<BidiReadObjectResponse>> {
+/// Implement [TonicStreaming] for the one `Streaming<T>` we use.
+impl TonicStreaming for Streaming<BidiReadObjectResponse> {
+    async fn next_message(&mut self) -> TonicResult<Option<BidiReadObjectResponse>> {
         self.message().await
     }
 }
@@ -54,26 +55,26 @@ pub trait Client: std::fmt::Debug + Send + 'static {
     type Stream: Sized;
     fn start(
         &self,
-        extensions: tonic::Extensions,
+        extensions: Extensions,
         path: http::uri::PathAndQuery,
         rx: Receiver<BidiReadObjectRequest>,
         options: &RequestOptions,
         api_client_header: &'static str,
         request_params: &str,
-    ) -> impl Future<Output = crate::Result<tonic::Result<tonic::Response<Self::Stream>>>> + Send;
+    ) -> impl Future<Output = crate::Result<TonicResult<TonicResponse<Self::Stream>>>> + Send;
 }
 
 impl Client for gaxi::grpc::Client {
-    type Stream = tonic::codec::Streaming<BidiReadObjectResponse>;
+    type Stream = Streaming<BidiReadObjectResponse>;
     async fn start(
         &self,
-        extensions: tonic::Extensions,
+        extensions: Extensions,
         path: http::uri::PathAndQuery,
         rx: Receiver<BidiReadObjectRequest>,
         options: &RequestOptions,
         api_client_header: &'static str,
         request_params: &str,
-    ) -> crate::Result<tonic::Result<tonic::Response<Self::Stream>>> {
+    ) -> crate::Result<TonicResult<TonicResponse<Self::Stream>>> {
         let request = tokio_stream::wrappers::ReceiverStream::new(rx);
         self.bidi_stream_with_status(
             extensions,
@@ -98,6 +99,7 @@ mod tests {
     };
     use crate::request_options::RequestOptions;
     use gax::error::rpc::{Code, Status};
+    use gaxi::grpc::tonic::{Code as TonicCode, Status as TonicStatus};
     use prost::Message as _;
     use std::sync::Arc;
 
@@ -107,7 +109,7 @@ mod tests {
         }
     }
 
-    pub(super) fn redirect_status(routing: &str) -> tonic::Status {
+    pub(super) fn redirect_status(routing: &str) -> TonicStatus {
         use crate::google::rpc::Status as RpcStatus;
         let redirect = BidiReadObjectRedirectedError {
             routing_token: Some(routing.to_string()),
@@ -120,7 +122,7 @@ mod tests {
             details: vec![redirect],
         };
         let details = bytes::Bytes::from_owner(status.encode_to_vec());
-        tonic::Status::with_details(tonic::Code::Aborted, "redirect", details)
+        TonicStatus::with_details(TonicCode::Aborted, "redirect", details)
     }
 
     pub(super) fn redirect_error(routing: &str) -> Error {
