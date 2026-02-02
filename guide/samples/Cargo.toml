@@ -36,7 +36,7 @@ reqwest.workspace             = true
 google-cloud-aiplatform-v1    = { workspace = true, features = ["default-rustls-provider", "prediction-service"] }
 google-cloud-auth             = { workspace = true, features = ["default", "idtoken"] }
 google-cloud-gax              = { workspace = true, features = ["unstable-stream"] }
-google-cloud-iam-v1           = { workspace = true, features = ["default"] }
+google-cloud-iam-v1           = { workspace = true }
 google-cloud-language-v2      = { workspace = true, features = ["default"] }
 google-cloud-longrunning      = { workspace = true }
 google-cloud-test-utils       = { workspace = true }
