@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::{Result, StorageBuilder, read_all};
+use super::{Result, read_all};
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::{KeyAes256, ReadRange};
 
-pub async fn run(builder: StorageBuilder, bucket_name: &str) -> anyhow::Result<()> {
-    let client = builder.build().await?;
+pub async fn run(bucket_name: &str) -> anyhow::Result<()> {
+    let client = Storage::builder().build().await?;
     let pending: Vec<std::pin::Pin<Box<dyn Future<Output = Result<()>>>>> = vec![
         Box::pin(customer_supplied_encryption(&client, bucket_name)),
         Box::pin(large_file(&client, bucket_name)),

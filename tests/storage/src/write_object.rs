@@ -13,17 +13,16 @@
 // limitations under the License.
 
 use crate::Result;
-use crate::StorageBuilder;
 use google_cloud_storage::builder::storage::WriteObject;
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model::Object;
 use google_cloud_storage::streaming_source::{Seek, SizeHint, StreamingSource};
 
-pub async fn run(builder: StorageBuilder, bucket_name: &str) -> Result<()> {
+pub async fn run(bucket_name: &str) -> Result<()> {
     // Run all the upload tests in parallel, using the same bucket.
     // Creating a new bucket is rate-limited, and slow. Creating objects
     // is relatively cheap.
-    let client = builder.build().await?;
+    let client = Storage::builder().build().await?;
     let pending: Vec<std::pin::Pin<Box<dyn Future<Output = Result<()>>>>> = vec![
         Box::pin(upload_buffered(&client, bucket_name)),
         Box::pin(upload_buffered_resumable_known_size(&client, bucket_name)),
