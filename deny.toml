@@ -103,14 +103,14 @@ wrappers = [
   # accidental use of the crate in other crates.
   "google-cloud-gax-internal",
   # Use in tests is fine.
-  "storage-grpc-mock",
-  "pubsub-grpc-mock",
   "grpc-server",
   "integration-tests-o11y",
+  "pubsub-grpc-mock",
+  "storage-grpc-mock",
   # Indirect dependencies are fine.
-  "tonic-prost",
   "opentelemetry-otlp",
   "opentelemetry-proto",
+  "tonic-prost",
 ]
 
 [[bans.deny]]
@@ -122,9 +122,9 @@ wrappers = [
   "google-cloud-gax-internal",
   # Use in tests is fine.
   "grpc-server",
-  "storage-grpc-mock",
-  "pubsub-grpc-mock",
   "opentelemetry-proto",
+  "pubsub-grpc-mock",
+  "storage-grpc-mock",
 ]
 
 [bans.workspace-dependencies]
