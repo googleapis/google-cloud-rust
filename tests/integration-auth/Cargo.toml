@@ -37,7 +37,7 @@ reqwest.workspace    = true
 # Local dependencies
 google-cloud-auth        = { workspace = true, features = ["default", "idtoken"] }
 gax.workspace            = true
-language.workspace       = true
+google-cloud-language-v2 = { workspace = true, featured = ["default"] }
 secretmanager.workspace  = true
 iamcredentials.workspace = true
 bigquery.workspace       = true
