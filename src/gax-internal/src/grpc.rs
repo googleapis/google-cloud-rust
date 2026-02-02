@@ -159,7 +159,7 @@ impl Client {
         options: gax::options::RequestOptions,
         api_client_header: &'static str,
         request_params: &str,
-    ) -> Result<tonic::Response<::tonic::Streaming<Response>>>
+    ) -> Result<tonic::Response<tonic::Streaming<Response>>>
     where
         Request: prost::Message + 'static,
         Response: prost::Message + Default + 'static,
