@@ -48,10 +48,11 @@
 /// message Response {}
 /// ```
 mod bindings {
-    use gax::error::{Error, binding::BindingError};
     use gaxi::path_parameter::{PathMismatchBuilder, try_match};
     use gaxi::routing_parameter::Segment;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::Result as GaxResult;
+    use google_cloud_gax::error::{Error, binding::BindingError};
 
     /// A stand in for a generated request message.
     #[derive(Default, serde::Serialize)]
@@ -84,7 +85,7 @@ mod bindings {
         /// The code was copied exactly from `transport.rs`.
         ///
         /// TODO(#2523) - have the generator own this code, so it stays in sync.
-        pub fn builder(&self, req: Request) -> gax::Result<reqwest::RequestBuilder> {
+        pub fn builder(&self, req: Request) -> GaxResult<reqwest::RequestBuilder> {
             let builder = None
                 .or_else(|| {
                     let path = format!(
@@ -272,7 +273,7 @@ mod bindings {
                         );
                         paths.push(builder.build());
                     }
-                    gax::error::Error::binding(BindingError { paths })
+                    Error::binding(BindingError { paths })
                 })??;
 
             Ok(builder)
@@ -284,7 +285,9 @@ mod bindings {
 mod tests {
     use super::bindings::*;
     use anyhow::Result;
-    use gax::error::binding::{BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch};
+    use google_cloud_gax::error::binding::{
+        BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch,
+    };
     use std::collections::HashSet;
     use std::error::Error as _;
 
