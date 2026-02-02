@@ -67,6 +67,12 @@ impl TrustBoundary {
         Self { rx_header }
     }
 
+    #[allow(dead_code)]
+    pub(crate) fn new_with_override(val: String) -> Self {
+        let (_tx, rx_header) = watch::channel(Some(val));
+        Self { rx_header }
+    }
+
     fn is_trust_boundaries_enabled() -> bool {
         std::env::var(TRUST_BOUNDARIES_ENV_VAR)
             .map(|v| v.to_lowercase() == "true")
