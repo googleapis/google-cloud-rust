@@ -95,6 +95,36 @@ wrappers = [
   "user-guide-samples",
 ]
 
+[[bans.deny]]
+crate = "tonic@0.14"
+wrappers = [
+  # Uses `tonic` in its "public" API. The types are re-exported. This is
+  # the main motivation for denying `tonic` in general: we want to avoid
+  # accidental use of the crate in other crates.
+  "google-cloud-gax-internal",
+  # Use in tests is fine.
+  "grpc-server",
+  "integration-tests-o11y",
+  "pubsub-grpc-mock",
+  "storage-grpc-mock",
+  # Indirect dependencies are fine.
+  "opentelemetry-otlp",
+  "opentelemetry-proto",
+  "tonic-prost",
+]
+
+[[bans.deny]]
+crate = "tonic-prost@0.14"
+wrappers = [
+  # Uses `tonic-prost` in its implementation.
+  "google-cloud-gax-internal",
+  # Use in tests is fine.
+  "grpc-server",
+  "opentelemetry-proto",
+  "pubsub-grpc-mock",
+  "storage-grpc-mock",
+]
+
 [bans.workspace-dependencies]
 # TODO(#4477) - use `duplicates = "deny"`.
 duplicates                = "allow"
