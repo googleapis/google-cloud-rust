@@ -201,6 +201,8 @@ Then finish your PR in `google-cloud-rust`.
 
    ```bash
    GOPROXY=direct go list -m -u -f '{{.Version}}' github.com/googleapis/librarian@main >.librarian-version.txt
+   V=$(cat .librarian-version.txt)
+   sed -i.bak  "s;^version: .*;version: ${V};" librarian.yaml
    ```
 
 1. Update the generated code:
