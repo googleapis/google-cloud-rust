@@ -246,7 +246,7 @@ pub mod service_manager {
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::CreateService;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -292,12 +292,12 @@ pub mod service_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_service`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_service`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ManagedService, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::ManagedService, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ManagedService,
                 crate::model::OperationMetadata,
             >;
@@ -325,7 +325,12 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
@@ -364,7 +369,7 @@ pub mod service_manager {
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::DeleteService;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -410,9 +415,10 @@ pub mod service_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_service`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_service`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -437,7 +443,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -467,7 +473,7 @@ pub mod service_manager {
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::UndeleteService;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -513,12 +519,14 @@ pub mod service_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undelete_service`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undelete_service`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::UndeleteServiceResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::UndeleteServiceResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::UndeleteServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -546,7 +554,12 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [service_name][crate::model::UndeleteServiceRequest::service_name].
@@ -847,7 +860,7 @@ pub mod service_manager {
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::SubmitConfigSource;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -896,12 +909,14 @@ pub mod service_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `submit_config_source`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `submit_config_source`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::SubmitConfigSourceResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::SubmitConfigSourceResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SubmitConfigSourceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -929,7 +944,12 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [service_name][crate::model::SubmitConfigSourceRequest::service_name].
@@ -1170,7 +1190,7 @@ pub mod service_manager {
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::CreateServiceRollout;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1219,12 +1239,15 @@ pub mod service_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_service_rollout`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_service_rollout`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Rollout, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Rollout, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Rollout, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Rollout,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1249,7 +1272,12 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [service_name][crate::model::CreateServiceRolloutRequest::service_name].

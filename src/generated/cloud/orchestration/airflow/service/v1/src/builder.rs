@@ -77,7 +77,7 @@ pub mod environments {
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CreateEnvironment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -126,11 +126,12 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_environment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_environment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Environment, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Environment, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Environment,
                 crate::model::OperationMetadata,
             >;
@@ -158,7 +159,12 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateEnvironmentRequest::parent].
@@ -362,7 +368,7 @@ pub mod environments {
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::UpdateEnvironment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -411,11 +417,12 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_environment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_environment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Environment, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Environment, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Environment,
                 crate::model::OperationMetadata,
             >;
@@ -443,7 +450,12 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UpdateEnvironmentRequest::name].
@@ -502,7 +514,7 @@ pub mod environments {
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DeleteEnvironment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -551,9 +563,10 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_environment`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_environment`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -578,7 +591,7 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -974,7 +987,7 @@ pub mod environments {
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CheckUpgrade;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1020,12 +1033,14 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `check_upgrade`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `check_upgrade`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CheckUpgradeResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::CheckUpgradeResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CheckUpgradeResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1053,7 +1068,12 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [environment][crate::model::CheckUpgradeRequest::environment].
@@ -1910,7 +1930,7 @@ pub mod environments {
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::SaveSnapshot;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1956,12 +1976,14 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `save_snapshot`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `save_snapshot`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::SaveSnapshotResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::SaveSnapshotResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SaveSnapshotResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1989,7 +2011,12 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [environment][crate::model::SaveSnapshotRequest::environment].
@@ -2018,7 +2045,7 @@ pub mod environments {
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::LoadSnapshot;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2064,12 +2091,14 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `load_snapshot`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `load_snapshot`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::LoadSnapshotResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::LoadSnapshotResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::LoadSnapshotResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2097,7 +2126,12 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [environment][crate::model::LoadSnapshotRequest::environment].
@@ -2150,7 +2184,7 @@ pub mod environments {
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DatabaseFailover;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2199,12 +2233,14 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `database_failover`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `database_failover`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::DatabaseFailoverResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::DatabaseFailoverResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DatabaseFailoverResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2232,7 +2268,12 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [environment][crate::model::DatabaseFailoverRequest::environment].

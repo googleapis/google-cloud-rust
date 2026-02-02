@@ -209,7 +209,7 @@ impl Folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::Folders;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &Folders
@@ -261,7 +261,7 @@ impl Folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::Folders;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &Folders
@@ -313,7 +313,7 @@ impl Folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::Folders;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &Folders
@@ -360,7 +360,7 @@ impl Folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::Folders;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &Folders,
@@ -408,7 +408,7 @@ impl Folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::Folders;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &Folders,
@@ -946,7 +946,7 @@ impl Projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::Projects;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &Projects
@@ -985,7 +985,7 @@ impl Projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::Projects;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &Projects
@@ -1032,7 +1032,7 @@ impl Projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::Projects;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &Projects
@@ -1102,7 +1102,7 @@ impl Projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::Projects;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &Projects,
@@ -1145,7 +1145,7 @@ impl Projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::Projects;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &Projects,
@@ -1427,7 +1427,7 @@ impl TagBindings {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::TagBindings;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &TagBindings
@@ -1461,7 +1461,7 @@ impl TagBindings {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::TagBindings;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &TagBindings,
@@ -1633,7 +1633,7 @@ impl TagHolds {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::TagHolds;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &TagHolds
@@ -1667,7 +1667,7 @@ impl TagHolds {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::TagHolds;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &TagHolds,
@@ -1890,7 +1890,7 @@ impl TagKeys {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::TagKeys;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &TagKeys
@@ -1924,7 +1924,7 @@ impl TagKeys {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::TagKeys;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &TagKeys
@@ -1959,7 +1959,7 @@ impl TagKeys {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::TagKeys;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &TagKeys,
@@ -2257,7 +2257,7 @@ impl TagValues {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::TagValues;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &TagValues
@@ -2291,7 +2291,7 @@ impl TagValues {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::TagValues;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &TagValues
@@ -2326,7 +2326,7 @@ impl TagValues {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::client::TagValues;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
     ///    client: &TagValues,

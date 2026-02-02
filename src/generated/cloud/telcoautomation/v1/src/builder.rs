@@ -267,7 +267,7 @@ pub mod telco_automation {
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::CreateOrchestrationCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -318,12 +318,14 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_orchestration_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_orchestration_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::OrchestrationCluster, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::OrchestrationCluster,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::OrchestrationCluster,
                 crate::model::OperationMetadata,
             >;
@@ -351,7 +353,12 @@ pub mod telco_automation {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateOrchestrationClusterRequest::parent].
@@ -412,7 +419,7 @@ pub mod telco_automation {
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::DeleteOrchestrationCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -463,9 +470,10 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_orchestration_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_orchestration_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -490,7 +498,7 @@ pub mod telco_automation {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -702,7 +710,7 @@ pub mod telco_automation {
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::CreateEdgeSlm;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -748,12 +756,15 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_edge_slm`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_edge_slm`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::EdgeSlm, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::EdgeSlm, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::EdgeSlm, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::EdgeSlm,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -778,7 +789,12 @@ pub mod telco_automation {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateEdgeSlmRequest::parent].
@@ -839,7 +855,7 @@ pub mod telco_automation {
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::DeleteEdgeSlm;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -885,9 +901,10 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_edge_slm`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_edge_slm`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -912,7 +929,7 @@ pub mod telco_automation {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

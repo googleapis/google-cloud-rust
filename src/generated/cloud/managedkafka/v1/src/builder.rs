@@ -253,7 +253,7 @@ pub mod managed_kafka {
     /// ```
     /// # use google_cloud_managedkafka_v1::builder::managed_kafka::CreateCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -299,12 +299,15 @@ pub mod managed_kafka {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -329,7 +332,12 @@ pub mod managed_kafka {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
@@ -390,7 +398,7 @@ pub mod managed_kafka {
     /// ```
     /// # use google_cloud_managedkafka_v1::builder::managed_kafka::UpdateCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -436,12 +444,15 @@ pub mod managed_kafka {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -466,7 +477,12 @@ pub mod managed_kafka {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
@@ -533,7 +549,7 @@ pub mod managed_kafka {
     /// ```
     /// # use google_cloud_managedkafka_v1::builder::managed_kafka::DeleteCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -579,9 +595,10 @@ pub mod managed_kafka {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -606,7 +623,7 @@ pub mod managed_kafka {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2693,7 +2710,7 @@ pub mod managed_kafka_connect {
     /// ```
     /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::CreateConnectCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2742,12 +2759,12 @@ pub mod managed_kafka_connect {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_connect_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_connect_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ConnectCluster, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::ConnectCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ConnectCluster,
                 crate::model::OperationMetadata,
             >;
@@ -2775,7 +2792,12 @@ pub mod managed_kafka_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectClusterRequest::parent].
@@ -2836,7 +2858,7 @@ pub mod managed_kafka_connect {
     /// ```
     /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::UpdateConnectCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2885,12 +2907,12 @@ pub mod managed_kafka_connect {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_connect_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_connect_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ConnectCluster, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::ConnectCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ConnectCluster,
                 crate::model::OperationMetadata,
             >;
@@ -2918,7 +2940,12 @@ pub mod managed_kafka_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectClusterRequest::update_mask].
@@ -2985,7 +3012,7 @@ pub mod managed_kafka_connect {
     /// ```
     /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::DeleteConnectCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3034,9 +3061,10 @@ pub mod managed_kafka_connect {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_connect_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_connect_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3061,7 +3089,7 @@ pub mod managed_kafka_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

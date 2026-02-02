@@ -135,7 +135,7 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
     ///    client: &Speech
@@ -204,7 +204,7 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
     ///    client: &Speech
@@ -240,7 +240,7 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
     ///    client: &Speech,
@@ -277,7 +277,7 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
     ///    client: &Speech,
@@ -337,7 +337,7 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
     ///    client: &Speech
@@ -422,7 +422,7 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
     ///    client: &Speech
@@ -489,7 +489,7 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
     ///    client: &Speech
@@ -525,7 +525,7 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
     ///    client: &Speech,
@@ -562,7 +562,7 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
     ///    client: &Speech,
@@ -599,7 +599,7 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
     ///    client: &Speech
@@ -666,7 +666,7 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
     ///    client: &Speech
@@ -702,7 +702,7 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
     ///    client: &Speech,
@@ -739,7 +739,7 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
-    /// # use lro::Poller;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
     ///    client: &Speech,

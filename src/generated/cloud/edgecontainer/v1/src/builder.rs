@@ -253,7 +253,7 @@ pub mod edge_container {
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::CreateCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -299,12 +299,15 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -329,7 +332,12 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
@@ -390,7 +398,7 @@ pub mod edge_container {
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::UpdateCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -436,12 +444,15 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -466,7 +477,12 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
@@ -525,7 +541,7 @@ pub mod edge_container {
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::UpgradeCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -571,12 +587,15 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `upgrade_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `upgrade_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -601,7 +620,12 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UpgradeClusterRequest::name].
@@ -649,7 +673,7 @@ pub mod edge_container {
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::DeleteCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -695,9 +719,10 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -722,7 +747,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1066,7 +1091,7 @@ pub mod edge_container {
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::CreateNodePool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1112,12 +1137,15 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_node_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_node_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::NodePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::NodePool, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::NodePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1142,7 +1170,12 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateNodePoolRequest::parent].
@@ -1203,7 +1236,7 @@ pub mod edge_container {
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::UpdateNodePool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1249,12 +1282,15 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_node_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_node_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::NodePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::NodePool, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::NodePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1279,7 +1315,12 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNodePoolRequest::update_mask].
@@ -1338,7 +1379,7 @@ pub mod edge_container {
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::DeleteNodePool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1384,9 +1425,10 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_node_pool`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_node_pool`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1411,7 +1453,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1807,7 +1849,7 @@ pub mod edge_container {
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::CreateVpnConnection;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1856,12 +1898,12 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_vpn_connection`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_vpn_connection`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::VpnConnection, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::VpnConnection, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::VpnConnection,
                 crate::model::OperationMetadata,
             >;
@@ -1889,7 +1931,12 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateVpnConnectionRequest::parent].
@@ -1950,7 +1997,7 @@ pub mod edge_container {
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::DeleteVpnConnection;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1999,9 +2046,10 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_vpn_connection`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_vpn_connection`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2026,7 +2074,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

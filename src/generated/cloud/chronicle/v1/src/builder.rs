@@ -3802,7 +3802,7 @@ pub mod rule_service {
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::CreateRetrohunt;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3848,12 +3848,15 @@ pub mod rule_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_retrohunt`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_retrohunt`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Retrohunt, crate::model::RetrohuntMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Retrohunt, crate::model::RetrohuntMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Retrohunt, crate::model::RetrohuntMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Retrohunt,
+                crate::model::RetrohuntMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3878,7 +3881,12 @@ pub mod rule_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateRetrohuntRequest::parent].

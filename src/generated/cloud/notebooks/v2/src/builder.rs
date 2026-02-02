@@ -253,7 +253,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::CreateInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -299,12 +299,15 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -329,7 +332,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -390,7 +398,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::UpdateInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -436,12 +444,15 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -466,7 +477,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
@@ -533,7 +549,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::DeleteInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -579,9 +595,10 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_instance`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -606,7 +623,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -642,7 +659,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::StartInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -688,12 +705,15 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `start_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `start_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -718,7 +738,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StartInstanceRequest::name].
@@ -743,7 +768,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::StopInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -789,12 +814,15 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `stop_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `stop_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -819,7 +847,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StopInstanceRequest::name].
@@ -844,7 +877,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::ResetInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -890,12 +923,15 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `reset_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `reset_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -920,7 +956,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ResetInstanceRequest::name].
@@ -1012,7 +1053,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::UpgradeInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1058,12 +1099,15 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `upgrade_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `upgrade_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1088,7 +1132,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UpgradeInstanceRequest::name].
@@ -1113,7 +1162,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::RollbackInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1162,12 +1211,15 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `rollback_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `rollback_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1192,7 +1244,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RollbackInstanceRequest::name].
@@ -1233,7 +1290,7 @@ pub mod notebook_service {
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::DiagnoseInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1282,12 +1339,15 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `diagnose_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `diagnose_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1312,7 +1372,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DiagnoseInstanceRequest::name].

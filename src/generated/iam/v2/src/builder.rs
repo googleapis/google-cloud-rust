@@ -235,7 +235,7 @@ pub mod policies {
     /// ```
     /// # use google_cloud_iam_v2::builder::policies::CreatePolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -279,11 +279,12 @@ pub mod policies {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Policy,
                 crate::model::PolicyOperationMetadata,
             >;
@@ -311,7 +312,12 @@ pub mod policies {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyRequest::parent].
@@ -364,7 +370,7 @@ pub mod policies {
     /// ```
     /// # use google_cloud_iam_v2::builder::policies::UpdatePolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -408,11 +414,12 @@ pub mod policies {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Policy,
                 crate::model::PolicyOperationMetadata,
             >;
@@ -440,7 +447,12 @@ pub mod policies {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
@@ -479,7 +491,7 @@ pub mod policies {
     /// ```
     /// # use google_cloud_iam_v2::builder::policies::DeletePolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -523,11 +535,12 @@ pub mod policies {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Policy,
                 crate::model::PolicyOperationMetadata,
             >;
@@ -555,7 +568,12 @@ pub mod policies {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyRequest::name].

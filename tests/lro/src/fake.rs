@@ -24,10 +24,9 @@ mod tests {
     use gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_longrunning::model::operation::Result as OperationResult;
-    use google_cloud_lro as lro;
+    use google_cloud_lro::{Poller, PollingResult};
     use google_cloud_workflows_v1::client::Workflows;
     use google_cloud_workflows_v1::model::{OperationMetadata, Workflow};
-    use lro::Poller;
     use std::time::Duration;
 
     async fn new_client(endpoint: String) -> Result<Workflows> {
@@ -100,11 +99,11 @@ mod tests {
                 .poller();
             while let Some(status) = poller.poll().await {
                 match status {
-                    lro::PollingResult::InProgress(_) => {
+                    PollingResult::InProgress(_) => {
                         panic!("unexpected InProgress {status:?}")
                     }
-                    lro::PollingResult::PollingError(_) => { /* ignored */ }
-                    lro::PollingResult::Completed(result) => {
+                    PollingResult::PollingError(_) => { /* ignored */ }
+                    PollingResult::Completed(result) => {
                         let response = result?;
                         assert_eq!(
                             response,
@@ -248,11 +247,11 @@ mod tests {
             .poller();
         while let Some(status) = poller.poll().await {
             match status {
-                lro::PollingResult::InProgress(_) => {
+                PollingResult::InProgress(_) => {
                     panic!("unexpected InProgress {status:?}")
                 }
-                lro::PollingResult::PollingError(_) => { /* ignored */ }
-                lro::PollingResult::Completed(result) => {
+                PollingResult::PollingError(_) => { /* ignored */ }
+                PollingResult::Completed(result) => {
                     let response = result?;
                     assert_eq!(
                         response,
@@ -282,14 +281,14 @@ mod tests {
             .poller();
         while let Some(status) = poller.poll().await {
             match status {
-                lro::PollingResult::InProgress(_) => {
+                PollingResult::InProgress(_) => {
                     panic!("unexpected InProgress {status:?}")
                 }
-                lro::PollingResult::PollingError(_) => { /* ignored */ }
-                lro::PollingResult::Completed(Ok(_)) => {
+                PollingResult::PollingError(_) => { /* ignored */ }
+                PollingResult::Completed(Ok(_)) => {
                     panic!("expected a completed polling status with an error {status:?}")
                 }
-                lro::PollingResult::Completed(Err(error)) => {
+                PollingResult::Completed(Err(error)) => {
                     assert_eq!(error.status().map(|s| s.code), Some(Code::AlreadyExists));
                 }
             }
@@ -320,7 +319,7 @@ mod tests {
         assert!(
             matches!(
                 &status,
-                lro::PollingResult::InProgress(Some(m)) if m.target == "percent=25"
+                PollingResult::InProgress(Some(m)) if m.target == "percent=25"
             ),
             "{status:?}"
         );
@@ -329,18 +328,15 @@ mod tests {
         assert!(
             matches!(
                 &status,
-                lro::PollingResult::InProgress(Some(m)) if m.target == "percent=75"
+                PollingResult::InProgress(Some(m)) if m.target == "percent=75"
             ),
             "{status:?}"
         );
 
         let status = poller.poll().await.unwrap();
-        assert!(
-            matches!(&status, lro::PollingResult::Completed(_)),
-            "{status:?}"
-        );
+        assert!(matches!(&status, PollingResult::Completed(_)), "{status:?}");
         let response = match status {
-            lro::PollingResult::Completed(r) => r.ok(),
+            PollingResult::Completed(r) => r.ok(),
             _ => None,
         };
         assert_eq!(
@@ -376,7 +372,7 @@ mod tests {
         assert!(
             matches!(
                 &status,
-                lro::PollingResult::InProgress(Some(m)) if m.target == "percent=25"
+                PollingResult::InProgress(Some(m)) if m.target == "percent=25"
             ),
             "{status:?}"
         );
@@ -385,14 +381,14 @@ mod tests {
         assert!(
             matches!(
                 &status,
-                lro::PollingResult::InProgress(Some(m)) if m.target == "percent=75"
+                PollingResult::InProgress(Some(m)) if m.target == "percent=75"
             ),
             "{status:?}"
         );
 
         let status = poller.poll().await.unwrap();
         let error = match status {
-            lro::PollingResult::Completed(Err(e)) => e,
+            PollingResult::Completed(Err(e)) => e,
             _ => panic!("expected a completed polling result with an error {status:?}"),
         };
         assert_eq!(error.status().map(|s| s.code), Some(Code::AlreadyExists));

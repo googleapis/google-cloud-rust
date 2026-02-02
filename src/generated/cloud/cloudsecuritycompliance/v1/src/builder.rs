@@ -161,7 +161,7 @@ pub mod audit {
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::audit::CreateFrameworkAudit;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -208,12 +208,12 @@ pub mod audit {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_framework_audit`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_framework_audit`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::FrameworkAudit, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::FrameworkAudit, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::FrameworkAudit,
                 crate::model::OperationMetadata,
             >;
@@ -241,7 +241,12 @@ pub mod audit {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateFrameworkAuditRequest::parent].
@@ -3039,7 +3044,7 @@ pub mod deployment {
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::CreateFrameworkDeployment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3090,12 +3095,14 @@ pub mod deployment {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_framework_deployment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_framework_deployment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::FrameworkDeployment, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::FrameworkDeployment,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::FrameworkDeployment,
                 crate::model::OperationMetadata,
             >;
@@ -3123,7 +3130,12 @@ pub mod deployment {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateFrameworkDeploymentRequest::parent].
@@ -3176,7 +3188,7 @@ pub mod deployment {
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::DeleteFrameworkDeployment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3227,9 +3239,10 @@ pub mod deployment {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_framework_deployment`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_framework_deployment`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3254,7 +3267,7 @@ pub mod deployment {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

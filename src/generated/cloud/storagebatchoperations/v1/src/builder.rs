@@ -253,7 +253,7 @@ pub mod storage_batch_operations {
     /// ```
     /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::CreateJob;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -299,12 +299,15 @@ pub mod storage_batch_operations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_job`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_job`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Job, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Job, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Job, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Job,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -329,7 +332,12 @@ pub mod storage_batch_operations {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateJobRequest::parent].

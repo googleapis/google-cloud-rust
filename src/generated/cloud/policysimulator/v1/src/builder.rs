@@ -261,7 +261,7 @@ pub mod org_policy_violations_preview_service {
     /// ```
     /// # use google_cloud_policysimulator_v1::builder::org_policy_violations_preview_service::CreateOrgPolicyViolationsPreview;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -314,14 +314,14 @@ pub mod org_policy_violations_preview_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_org_policy_violations_preview`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_org_policy_violations_preview`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::OrgPolicyViolationsPreview,
             crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::OrgPolicyViolationsPreview,
                 crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata,
             >;
@@ -349,7 +349,12 @@ pub mod org_policy_violations_preview_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateOrgPolicyViolationsPreviewRequest::parent].
@@ -825,7 +830,7 @@ pub mod simulator {
     /// ```
     /// # use google_cloud_policysimulator_v1::builder::simulator::CreateReplay;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -871,11 +876,12 @@ pub mod simulator {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_replay`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_replay`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Replay, crate::model::ReplayOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Replay, crate::model::ReplayOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Replay,
                 crate::model::ReplayOperationMetadata,
             >;
@@ -903,7 +909,12 @@ pub mod simulator {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateReplayRequest::parent].

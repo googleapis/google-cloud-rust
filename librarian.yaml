@@ -13,7 +13,7 @@
 # limitations under the License.
 
 language: rust
-version: v0.8.1-0.20260202125502-025de5a0d021
+version: v0.8.1-0.20260202190736-1908364569d1
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
@@ -67,6 +67,9 @@ default:
         package: google-cloud-gax-internal
         feature: _internal-http-client
         used_if: services
+      - name: google-cloud-lro
+        package: google-cloud-lro
+        used_if: lro
       - name: grafeas
         package: google-cloud-grafeas-v1
         source: grafeas.v1
@@ -88,9 +91,6 @@ default:
       - name: longrunning
         package: google-cloud-longrunning
         source: google.longrunning
-      - name: lro
-        package: google-cloud-lro
-        used_if: lro
       - name: rpc
         package: google-cloud-rpc
         source: google.rpc
@@ -521,7 +521,7 @@ libraries:
     specification_format: discovery
     rust:
       package_dependencies:
-        - name: lro
+        - name: google-cloud-lro
           package: google-cloud-lro
           force_used: true
         - name: rpc
@@ -647,7 +647,7 @@ libraries:
     specification_format: discovery
     rust:
       package_dependencies:
-        - name: lro
+        - name: google-cloud-lro
           package: google-cloud-lro
           force_used: true
       roots:

@@ -249,7 +249,7 @@ pub mod instance_admin {
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::CreateInstanceConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -298,12 +298,14 @@ pub mod instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_instance_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_instance_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::InstanceConfig, crate::model::CreateInstanceConfigMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::InstanceConfig,
+            crate::model::CreateInstanceConfigMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::InstanceConfig,
                 crate::model::CreateInstanceConfigMetadata,
             >;
@@ -331,7 +333,12 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceConfigRequest::parent].
@@ -392,7 +399,7 @@ pub mod instance_admin {
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::UpdateInstanceConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -441,12 +448,14 @@ pub mod instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_instance_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_instance_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::InstanceConfig, crate::model::UpdateInstanceConfigMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::InstanceConfig,
+            crate::model::UpdateInstanceConfigMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::InstanceConfig,
                 crate::model::UpdateInstanceConfigMetadata,
             >;
@@ -474,7 +483,12 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
@@ -1071,7 +1085,7 @@ pub mod instance_admin {
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::CreateInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1117,12 +1131,12 @@ pub mod instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::CreateInstanceMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::CreateInstanceMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
                 crate::model::CreateInstanceMetadata,
             >;
@@ -1150,7 +1164,12 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -1205,7 +1224,7 @@ pub mod instance_admin {
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::UpdateInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1251,12 +1270,12 @@ pub mod instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::UpdateInstanceMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::UpdateInstanceMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
                 crate::model::UpdateInstanceMetadata,
             >;
@@ -1284,7 +1303,12 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
@@ -1732,7 +1756,7 @@ pub mod instance_admin {
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::CreateInstancePartition;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1783,14 +1807,14 @@ pub mod instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_instance_partition`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_instance_partition`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::InstancePartition,
             crate::model::CreateInstancePartitionMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::InstancePartition,
                 crate::model::CreateInstancePartitionMetadata,
             >;
@@ -1818,7 +1842,12 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateInstancePartitionRequest::parent].
@@ -1946,7 +1975,7 @@ pub mod instance_admin {
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::UpdateInstancePartition;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1997,14 +2026,14 @@ pub mod instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_instance_partition`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_instance_partition`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::InstancePartition,
             crate::model::UpdateInstancePartitionMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::InstancePartition,
                 crate::model::UpdateInstancePartitionMetadata,
             >;
@@ -2032,7 +2061,12 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
@@ -2231,7 +2265,7 @@ pub mod instance_admin {
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::MoveInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2277,12 +2311,14 @@ pub mod instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `move_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `move_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::MoveInstanceResponse, crate::model::MoveInstanceMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MoveInstanceResponse,
+            crate::model::MoveInstanceMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MoveInstanceResponse,
                 crate::model::MoveInstanceMetadata,
             >;
@@ -2310,7 +2346,12 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::MoveInstanceRequest::name].

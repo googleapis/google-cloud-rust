@@ -179,7 +179,7 @@ pub mod database_admin {
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::CreateDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -225,12 +225,12 @@ pub mod database_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Database,
                 crate::model::CreateDatabaseMetadata,
             >;
@@ -258,7 +258,12 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
@@ -397,7 +402,7 @@ pub mod database_admin {
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::UpdateDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -443,12 +448,12 @@ pub mod database_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Database,
                 crate::model::UpdateDatabaseMetadata,
             >;
@@ -476,7 +481,12 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
@@ -537,7 +547,7 @@ pub mod database_admin {
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::UpdateDatabaseDdl;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -586,10 +596,14 @@ pub mod database_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_database_ddl`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::UpdateDatabaseDdlMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_database_ddl`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::UpdateDatabaseDdlMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::UpdateDatabaseDdlMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -614,7 +628,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1059,7 +1073,7 @@ pub mod database_admin {
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::CreateBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1105,12 +1119,15 @@ pub mod database_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_backup`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backup`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Backup,
+                crate::model::CreateBackupMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1135,7 +1152,12 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -1208,7 +1230,7 @@ pub mod database_admin {
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::CopyBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1254,12 +1276,15 @@ pub mod database_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `copy_backup`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `copy_backup`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Backup,
+                crate::model::CopyBackupMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1284,7 +1309,12 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
@@ -1695,7 +1725,7 @@ pub mod database_admin {
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::RestoreDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1741,12 +1771,12 @@ pub mod database_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `restore_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Database,
                 crate::model::RestoreDatabaseMetadata,
             >;
@@ -1774,7 +1804,12 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].

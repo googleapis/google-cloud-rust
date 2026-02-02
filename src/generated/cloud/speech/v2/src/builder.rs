@@ -75,7 +75,7 @@ pub mod speech {
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::CreateRecognizer;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -122,12 +122,15 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_recognizer`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_recognizer`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Recognizer,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -152,7 +155,12 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [recognizer][crate::model::CreateRecognizerRequest::recognizer].
@@ -377,7 +385,7 @@ pub mod speech {
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::UpdateRecognizer;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -424,12 +432,15 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_recognizer`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_recognizer`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Recognizer,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -454,7 +465,12 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [recognizer][crate::model::UpdateRecognizerRequest::recognizer].
@@ -517,7 +533,7 @@ pub mod speech {
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::DeleteRecognizer;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -564,12 +580,15 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_recognizer`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_recognizer`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Recognizer,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -594,7 +613,12 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteRecognizerRequest::name].
@@ -637,7 +661,7 @@ pub mod speech {
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::UndeleteRecognizer;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -684,12 +708,15 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undelete_recognizer`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undelete_recognizer`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Recognizer,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -714,7 +741,12 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UndeleteRecognizerRequest::name].
@@ -879,7 +911,7 @@ pub mod speech {
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::BatchRecognize;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -923,12 +955,14 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_recognize`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_recognize`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BatchRecognizeResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::BatchRecognizeResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchRecognizeResponse,
                 crate::model::OperationMetadata,
             >;
@@ -956,7 +990,12 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [recognizer][crate::model::BatchRecognizeRequest::recognizer].
@@ -1212,7 +1251,7 @@ pub mod speech {
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::CreateCustomClass;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1259,11 +1298,12 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_custom_class`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_custom_class`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CustomClass,
                 crate::model::OperationMetadata,
             >;
@@ -1291,7 +1331,12 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [custom_class][crate::model::CreateCustomClassRequest::custom_class].
@@ -1519,7 +1564,7 @@ pub mod speech {
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::UpdateCustomClass;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1566,11 +1611,12 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_custom_class`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_custom_class`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CustomClass,
                 crate::model::OperationMetadata,
             >;
@@ -1598,7 +1644,12 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [custom_class][crate::model::UpdateCustomClassRequest::custom_class].
@@ -1661,7 +1712,7 @@ pub mod speech {
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::DeleteCustomClass;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1708,11 +1759,12 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_custom_class`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_custom_class`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CustomClass,
                 crate::model::OperationMetadata,
             >;
@@ -1740,7 +1792,12 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomClassRequest::name].
@@ -1783,7 +1840,7 @@ pub mod speech {
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::UndeleteCustomClass;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1830,11 +1887,12 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undelete_custom_class`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undelete_custom_class`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CustomClass,
                 crate::model::OperationMetadata,
             >;
@@ -1862,7 +1920,12 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UndeleteCustomClassRequest::name].
@@ -1899,7 +1962,7 @@ pub mod speech {
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::CreatePhraseSet;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1943,12 +2006,15 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_phrase_set`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_phrase_set`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::PhraseSet,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1973,7 +2039,12 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [phrase_set][crate::model::CreatePhraseSetRequest::phrase_set].
@@ -2198,7 +2269,7 @@ pub mod speech {
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::UpdatePhraseSet;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2242,12 +2313,15 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_phrase_set`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_phrase_set`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::PhraseSet,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2272,7 +2346,12 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [phrase_set][crate::model::UpdatePhraseSetRequest::phrase_set].
@@ -2335,7 +2414,7 @@ pub mod speech {
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::DeletePhraseSet;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2379,12 +2458,15 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_phrase_set`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_phrase_set`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::PhraseSet,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2409,7 +2491,12 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePhraseSetRequest::name].
@@ -2452,7 +2539,7 @@ pub mod speech {
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::UndeletePhraseSet;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2499,12 +2586,15 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undelete_phrase_set`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undelete_phrase_set`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::PhraseSet,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2529,7 +2619,12 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UndeletePhraseSetRequest::name].

@@ -77,7 +77,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::CreateBackupPlan;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -126,12 +126,15 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_backup_plan`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backup_plan`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BackupPlan, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::BackupPlan, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::BackupPlan, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::BackupPlan,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -156,7 +159,12 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupPlanRequest::parent].
@@ -387,7 +395,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::UpdateBackupPlan;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -436,12 +444,15 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_backup_plan`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_backup_plan`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BackupPlan, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::BackupPlan, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::BackupPlan, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::BackupPlan,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -466,7 +477,12 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
@@ -523,7 +539,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::DeleteBackupPlan;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -572,9 +588,10 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_backup_plan`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_backup_plan`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -599,7 +616,7 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -635,7 +652,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::CreateBackupChannel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -684,12 +701,12 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_backup_channel`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backup_channel`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BackupChannel, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::BackupChannel, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BackupChannel,
                 crate::model::OperationMetadata,
             >;
@@ -717,7 +734,12 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupChannelRequest::parent].
@@ -954,7 +976,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::UpdateBackupChannel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1003,12 +1025,12 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_backup_channel`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_backup_channel`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BackupChannel, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::BackupChannel, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BackupChannel,
                 crate::model::OperationMetadata,
             >;
@@ -1036,7 +1058,12 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [backup_channel][crate::model::UpdateBackupChannelRequest::backup_channel].
@@ -1093,7 +1120,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::DeleteBackupChannel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1142,9 +1169,10 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_backup_channel`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_backup_channel`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1169,7 +1197,7 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1397,7 +1425,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::CreateBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1443,12 +1471,15 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_backup`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backup`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Backup, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Backup,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1473,7 +1504,12 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -1704,7 +1740,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::UpdateBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1750,12 +1786,15 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_backup`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_backup`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Backup, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Backup,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1780,7 +1819,12 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
@@ -1837,7 +1881,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::DeleteBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1883,9 +1927,10 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_backup`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1910,7 +1955,7 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2131,7 +2176,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::CreateRestorePlan;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2180,11 +2225,12 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_restore_plan`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_restore_plan`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::RestorePlan, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::RestorePlan, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RestorePlan,
                 crate::model::OperationMetadata,
             >;
@@ -2212,7 +2258,12 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateRestorePlanRequest::parent].
@@ -2446,7 +2497,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::UpdateRestorePlan;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2495,11 +2546,12 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_restore_plan`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_restore_plan`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::RestorePlan, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::RestorePlan, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RestorePlan,
                 crate::model::OperationMetadata,
             >;
@@ -2527,7 +2579,12 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [restore_plan][crate::model::UpdateRestorePlanRequest::restore_plan].
@@ -2584,7 +2641,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::DeleteRestorePlan;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2633,9 +2690,10 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_restore_plan`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_restore_plan`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2660,7 +2718,7 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2702,7 +2760,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::CreateRestoreChannel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2751,12 +2809,12 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_restore_channel`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_restore_channel`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::RestoreChannel, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::RestoreChannel, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RestoreChannel,
                 crate::model::OperationMetadata,
             >;
@@ -2784,7 +2842,12 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateRestoreChannelRequest::parent].
@@ -3021,7 +3084,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::UpdateRestoreChannel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3070,12 +3133,12 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_restore_channel`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_restore_channel`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::RestoreChannel, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::RestoreChannel, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RestoreChannel,
                 crate::model::OperationMetadata,
             >;
@@ -3103,7 +3166,12 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [restore_channel][crate::model::UpdateRestoreChannelRequest::restore_channel].
@@ -3160,7 +3228,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::DeleteRestoreChannel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3209,9 +3277,10 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_restore_channel`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_restore_channel`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3236,7 +3305,7 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3460,7 +3529,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::CreateRestore;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3506,12 +3575,15 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_restore`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_restore`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Restore, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Restore, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Restore, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Restore,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3536,7 +3608,12 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateRestoreRequest::parent].
@@ -3767,7 +3844,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::UpdateRestore;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3813,12 +3890,15 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_restore`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_restore`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Restore, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Restore, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Restore, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Restore,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3843,7 +3923,12 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [restore][crate::model::UpdateRestoreRequest::restore].
@@ -3900,7 +3985,7 @@ pub mod backup_for_gke {
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::DeleteRestore;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3946,9 +4031,10 @@ pub mod backup_for_gke {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_restore`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_restore`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3973,7 +4059,7 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

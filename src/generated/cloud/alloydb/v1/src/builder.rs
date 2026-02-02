@@ -77,7 +77,7 @@ pub mod alloy_dbcsql_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_dbcsql_admin::RestoreFromCloudSQL;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -126,12 +126,15 @@ pub mod alloy_dbcsql_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `restore_from_cloud_sql`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_from_cloud_sql`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -156,7 +159,12 @@ pub mod alloy_dbcsql_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::RestoreFromCloudSQLRequest::parent].
@@ -953,7 +961,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::CreateCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -999,12 +1007,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1029,7 +1040,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
@@ -1096,7 +1112,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::UpdateCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1142,12 +1158,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1172,7 +1191,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
@@ -1247,7 +1271,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::ExportCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1293,12 +1317,14 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `export_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExportClusterResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ExportClusterResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExportClusterResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1326,7 +1352,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ExportClusterRequest::name].
@@ -1436,7 +1467,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::ImportCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1482,12 +1513,14 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ImportClusterResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ImportClusterResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ImportClusterResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1515,7 +1548,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ImportClusterRequest::name].
@@ -1608,7 +1646,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::UpgradeCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1654,12 +1692,14 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `upgrade_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `upgrade_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::UpgradeClusterResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::UpgradeClusterResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::UpgradeClusterResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1687,7 +1727,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UpgradeClusterRequest::name].
@@ -1738,7 +1783,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::DeleteCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1784,9 +1829,10 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1811,7 +1857,7 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1865,7 +1911,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::PromoteCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1911,12 +1957,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `promote_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `promote_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1941,7 +1990,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::PromoteClusterRequest::name].
@@ -1984,7 +2038,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::SwitchoverCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2033,12 +2087,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `switchover_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `switchover_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2063,7 +2120,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::SwitchoverClusterRequest::name].
@@ -2100,7 +2162,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::RestoreCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2146,12 +2208,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `restore_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2176,7 +2241,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::RestoreClusterRequest::parent].
@@ -2285,7 +2355,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::CreateSecondaryCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2334,12 +2404,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_secondary_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_secondary_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2364,7 +2437,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateSecondaryClusterRequest::parent].
@@ -2613,7 +2691,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::CreateInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2659,12 +2737,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2689,7 +2770,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -2756,7 +2842,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::CreateSecondaryInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2807,12 +2893,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_secondary_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_secondary_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2837,7 +2926,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateSecondaryInstanceRequest::parent].
@@ -2904,7 +2998,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::BatchCreateInstances;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2953,12 +3047,14 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_create_instances`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_create_instances`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BatchCreateInstancesResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::BatchCreateInstancesResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchCreateInstancesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2986,7 +3082,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateInstancesRequest::parent].
@@ -3039,7 +3140,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::UpdateInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3085,12 +3186,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3115,7 +3219,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
@@ -3190,7 +3299,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::DeleteInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3236,9 +3345,10 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_instance`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3263,7 +3373,7 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3311,7 +3421,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::FailoverInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3360,12 +3470,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `failover_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `failover_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3390,7 +3503,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::FailoverInstanceRequest::name].
@@ -3427,7 +3545,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::InjectFault;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3473,12 +3591,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `inject_fault`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `inject_fault`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3503,7 +3624,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [fault_type][crate::model::InjectFaultRequest::fault_type].
@@ -3551,7 +3677,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::RestartInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3597,12 +3723,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `restart_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `restart_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3627,7 +3756,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RestartInstanceRequest::name].
@@ -3965,7 +4099,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::CreateBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4011,12 +4145,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_backup`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backup`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Backup, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Backup,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4041,7 +4178,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -4108,7 +4250,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::UpdateBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4154,12 +4296,15 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_backup`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_backup`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Backup, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Backup,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4184,7 +4329,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
@@ -4259,7 +4409,7 @@ pub mod alloy_db_admin {
     /// ```
     /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::DeleteBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4305,9 +4455,10 @@ pub mod alloy_db_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_backup`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4332,7 +4483,7 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,

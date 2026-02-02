@@ -2981,7 +2981,7 @@ pub mod echo {
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::Wait;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3025,12 +3025,15 @@ pub mod echo {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `wait`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `wait`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::WaitResponse, crate::model::WaitMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::WaitResponse, crate::model::WaitMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::WaitResponse, crate::model::WaitMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::WaitResponse,
+                crate::model::WaitMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3055,7 +3058,12 @@ pub mod echo {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [end][crate::model::WaitRequest::end].
@@ -5947,7 +5955,7 @@ pub mod messaging {
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::SearchBlurbs;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5993,12 +6001,14 @@ pub mod messaging {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `search_blurbs`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `search_blurbs`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::SearchBlurbsResponse, crate::model::SearchBlurbsMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::SearchBlurbsResponse,
+            crate::model::SearchBlurbsMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SearchBlurbsResponse,
                 crate::model::SearchBlurbsMetadata,
             >;
@@ -6026,7 +6036,12 @@ pub mod messaging {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [query][crate::model::SearchBlurbsRequest::query].

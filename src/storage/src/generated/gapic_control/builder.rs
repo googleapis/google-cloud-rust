@@ -529,7 +529,7 @@ pub mod storage_control {
     /// ```
     /// # use google_cloud_storage::builder::storage_control::RenameFolder;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -576,12 +576,15 @@ pub mod storage_control {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `rename_folder`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `rename_folder`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Folder, crate::model::RenameFolderMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Folder, crate::model::RenameFolderMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Folder, crate::model::RenameFolderMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Folder,
+                crate::model::RenameFolderMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -606,7 +609,12 @@ pub mod storage_control {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         fn auto_populate(
@@ -1274,7 +1282,7 @@ pub mod storage_control {
     /// ```
     /// # use google_cloud_storage::builder::storage_control::CreateAnywhereCache;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1324,12 +1332,14 @@ pub mod storage_control {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_anywhere_cache`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_anywhere_cache`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AnywhereCache, crate::model::CreateAnywhereCacheMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AnywhereCache,
+            crate::model::CreateAnywhereCacheMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AnywhereCache,
                 crate::model::CreateAnywhereCacheMetadata,
             >;
@@ -1357,7 +1367,12 @@ pub mod storage_control {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         fn auto_populate(
@@ -1420,7 +1435,7 @@ pub mod storage_control {
     /// ```
     /// # use google_cloud_storage::builder::storage_control::UpdateAnywhereCache;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1470,12 +1485,14 @@ pub mod storage_control {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_anywhere_cache`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_anywhere_cache`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AnywhereCache, crate::model::UpdateAnywhereCacheMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AnywhereCache,
+            crate::model::UpdateAnywhereCacheMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AnywhereCache,
                 crate::model::UpdateAnywhereCacheMetadata,
             >;
@@ -1503,7 +1520,12 @@ pub mod storage_control {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         fn auto_populate(
