@@ -22,6 +22,7 @@ use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptions;
 use gax::retry_loop_internal::retry_loop;
 use gax::retry_throttler::CircuitBreaker;
+use gaxi::grpc::tonic::Result as TonicResult;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::sync::mpsc;
@@ -50,7 +51,7 @@ where
     T: Stub + 'static,
     <T as Stub>::Stream: TonicStreaming,
 {
-    async fn next_message(&mut self) -> tonic::Result<Option<StreamingPullResponse>> {
+    async fn next_message(&mut self) -> TonicResult<Option<StreamingPullResponse>> {
         self.stream.next_message().await
     }
 }

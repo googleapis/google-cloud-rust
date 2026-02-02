@@ -50,10 +50,11 @@ impl Stub for Transport {
         request_rx: Receiver<StreamingPullRequest>,
         options: gax::options::RequestOptions,
     ) -> Result<TonicResponse<Self::Stream>> {
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let request = ReceiverStream::new(request_rx);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.pubsub.v1.Subscriber",
                 "StreamingPull",
             ));
