@@ -62,14 +62,14 @@ impl super::stub::Publisher for Publisher {
         req: crate::model::PublishRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PublishResponse>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.pubsub.v1.Publisher",
-                "Publish",
-            ));
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.pubsub.v1.Publisher", "Publish"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.pubsub.v1.Publisher/Publish");
@@ -123,11 +123,14 @@ impl super::stub::Subscriber for Subscriber {
         req: crate::model::ModifyAckDeadlineRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.pubsub.v1.Subscriber",
                 "ModifyAckDeadline",
             ));
@@ -162,11 +165,14 @@ impl super::stub::Subscriber for Subscriber {
         req: crate::model::AcknowledgeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.pubsub.v1.Subscriber",
                 "Acknowledge",
             ));

@@ -62,11 +62,14 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::GetDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.firestore.v1.Firestore",
                 "GetDocument",
             ));
@@ -101,11 +104,14 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::ListDocumentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.firestore.v1.Firestore",
                 "ListDocuments",
             ));
@@ -146,11 +152,14 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::UpdateDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.firestore.v1.Firestore",
                 "UpdateDocument",
             ));
@@ -186,11 +195,14 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.firestore.v1.Firestore",
                 "DeleteDocument",
             ));
@@ -225,11 +237,14 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::BeginTransactionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BeginTransactionResponse>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.firestore.v1.Firestore",
                 "BeginTransaction",
             ));
@@ -264,14 +279,14 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::CommitRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CommitResponse>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.firestore.v1.Firestore",
-                "Commit",
-            ));
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.firestore.v1.Firestore", "Commit"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Commit");
@@ -302,14 +317,14 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::RollbackRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.firestore.v1.Firestore",
-                "Rollback",
-            ));
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.firestore.v1.Firestore", "Rollback"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Rollback");
@@ -340,11 +355,14 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::PartitionQueryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PartitionQueryResponse>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.firestore.v1.Firestore",
                 "PartitionQuery",
             ));
@@ -379,11 +397,14 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::ListCollectionIdsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCollectionIdsResponse>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.firestore.v1.Firestore",
                 "ListCollectionIds",
             ));
@@ -419,11 +440,14 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::BatchWriteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchWriteResponse>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.firestore.v1.Firestore",
                 "BatchWrite",
             ));
@@ -458,11 +482,14 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::CreateDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.firestore.v1.Firestore",
                 "CreateDocument",
             ));
