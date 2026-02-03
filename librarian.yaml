@@ -318,7 +318,7 @@ libraries:
     output: src/generated/apps/script/calendar
     rust:
       package_dependencies:
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-docs
@@ -329,7 +329,7 @@ libraries:
     output: src/generated/apps/script/docs
     rust:
       package_dependencies:
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-drive
@@ -340,7 +340,7 @@ libraries:
     output: src/generated/apps/script/drive
     rust:
       package_dependencies:
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-gmail
@@ -351,7 +351,7 @@ libraries:
     output: src/generated/apps/script/gmail
     rust:
       package_dependencies:
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-sheets
@@ -362,7 +362,7 @@ libraries:
     output: src/generated/apps/script/sheets
     rust:
       package_dependencies:
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-slides
@@ -373,7 +373,7 @@ libraries:
     output: src/generated/apps/script/slides
     rust:
       package_dependencies:
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-artifactregistry-v1
@@ -791,27 +791,27 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: apps_script_calendar
-          package: google-cloud-apps-script-type-calendar
-          source: google.apps.script.type.calendar
-        - name: apps_script_docs
-          package: google-cloud-apps-script-type-docs
-          source: google.apps.script.type.docs
-        - name: apps_script_drive
-          package: google-cloud-apps-script-type-drive
-          source: google.apps.script.type.drive
-        - name: apps_script_gmail
-          package: google-cloud-apps-script-type-gmail
-          source: google.apps.script.type.gmail
-        - name: apps_script_sheets
-          package: google-cloud-apps-script-type-sheets
-          source: google.apps.script.type.sheets
-        - name: apps_script_slides
-          package: google-cloud-apps-script-type-slides
-          source: google.apps.script.type.slides
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
+        - name: google-cloud-apps-script-type-calendar
+          package: google-cloud-apps-script-type-calendar
+          source: google.apps.script.type.calendar
+        - name: google-cloud-apps-script-type-docs
+          package: google-cloud-apps-script-type-docs
+          source: google.apps.script.type.docs
+        - name: google-cloud-apps-script-type-drive
+          package: google-cloud-apps-script-type-drive
+          source: google.apps.script.type.drive
+        - name: google-cloud-apps-script-type-gmail
+          package: google-cloud-apps-script-type-gmail
+          source: google.apps.script.type.gmail
+        - name: google-cloud-apps-script-type-sheets
+          package: google-cloud-apps-script-type-sheets
+          source: google.apps.script.type.sheets
+        - name: google-cloud-apps-script-type-slides
+          package: google-cloud-apps-script-type-slides
+          source: google.apps.script.type.slides
   - name: google-cloud-iam-admin-v1
     version: 1.5.0
     apis:
