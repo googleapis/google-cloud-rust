@@ -53,7 +53,7 @@ pub fn operation_error<N>(name: N) -> Result<(StatusCode, String)>
 where
     N: std::fmt::Display,
 {
-    let error = rpc::model::Status::default()
+    let error = google_cloud_rpc::model::Status::default()
         .set_code(gax::error::rpc::Code::AlreadyExists as i32)
         .set_message("The resource  already exists");
     let result = longrunning::model::operation::Result::Error(Box::new(error));
