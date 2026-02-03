@@ -340,8 +340,8 @@ impl<'de> serde::de::Deserialize<'de> for super::MigrationTask {
                                     "multiple values for processing_error",
                                 ));
                             }
-                            result.processing_error =
-                                map.next_value::<std::option::Option<rpc::model::ErrorInfo>>()?;
+                            result.processing_error = map.next_value::<std::option::Option<google_cloud_rpc::model::ErrorInfo>>()?
+                                ;
                         }
                         __FieldTag::__create_time => {
                             if !fields.insert(__FieldTag::__create_time) {
@@ -588,8 +588,8 @@ impl<'de> serde::de::Deserialize<'de> for super::MigrationSubtask {
                                     "multiple values for processing_error",
                                 ));
                             }
-                            result.processing_error =
-                                map.next_value::<std::option::Option<rpc::model::ErrorInfo>>()?;
+                            result.processing_error = map.next_value::<std::option::Option<google_cloud_rpc::model::ErrorInfo>>()?
+                                ;
                         }
                         __FieldTag::__resource_error_details => {
                             if !fields.insert(__FieldTag::__resource_error_details) {
@@ -917,8 +917,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceErrorDetail {
                                     "multiple values for resource_info",
                                 ));
                             }
-                            result.resource_info =
-                                map.next_value::<std::option::Option<rpc::model::ResourceInfo>>()?;
+                            result.resource_info = map.next_value::<std::option::Option<google_cloud_rpc::model::ResourceInfo>>()?
+                                ;
                         }
                         __FieldTag::__error_details => {
                             if !fields.insert(__FieldTag::__error_details) {
@@ -1035,8 +1035,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ErrorDetail {
                                     "multiple values for error_info",
                                 ));
                             }
-                            result.error_info =
-                                map.next_value::<std::option::Option<rpc::model::ErrorInfo>>()?;
+                            result.error_info = map.next_value::<std::option::Option<google_cloud_rpc::model::ErrorInfo>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

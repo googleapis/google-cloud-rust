@@ -3261,8 +3261,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AnnotateImageResponse {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__context => {
                             if !fields.insert(__FieldTag::__context) {
@@ -3716,8 +3717,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AnnotateFileResponse {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5896,8 +5898,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ProductSet {
                                     "multiple values for index_error",
                                 ));
                             }
-                            result.index_error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.index_error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -8371,7 +8374,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportProductSetsResponse {
                                     "multiple values for statuses",
                                 ));
                             }
-                            result.statuses = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.statuses =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

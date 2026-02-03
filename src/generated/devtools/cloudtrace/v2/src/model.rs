@@ -21,8 +21,8 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -101,7 +101,7 @@ pub struct Span {
     pub links: std::option::Option<crate::model::span::Links>,
 
     /// Optional. The final status for this span.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Optional. Set this parameter to indicate whether this span is in
     /// the same process as its parent. If you do not set this parameter,
@@ -397,12 +397,12 @@ impl Span {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_trace_v2::model::Span;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Span::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -413,13 +413,13 @@ impl Span {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_trace_v2::model::Span;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Span::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = Span::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self

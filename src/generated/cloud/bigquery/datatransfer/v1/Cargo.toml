@@ -43,8 +43,8 @@ bytes.workspace                 = true
 gax.workspace                   = true
 gaxi                            = { workspace = true, features = ["_internal-http-client"] }
 google-cloud-location.workspace = true
+google-cloud-rpc.workspace      = true
 lazy_static.workspace           = true
-rpc.workspace                   = true
 serde.workspace                 = true
 serde_json.workspace            = true
 serde_with.workspace            = true

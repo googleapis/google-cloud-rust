@@ -7389,7 +7389,7 @@ impl<'de> serde::de::Deserialize<'de> for super::release_config::ScheduledReleas
                             }
                             result.result = std::option::Option::Some(
                                 crate::model::release_config::scheduled_release_record::Result::ErrorStatus(
-                                    map.next_value::<std::option::Option<std::boxed::Box<rpc::model::Status>>>()?.unwrap_or_default()
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_rpc::model::Status>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -11694,7 +11694,7 @@ impl<'de> serde::de::Deserialize<'de> for super::workflow_config::ScheduledExecu
                             }
                             result.result = std::option::Option::Some(
                                 crate::model::workflow_config::scheduled_execution_record::Result::ErrorStatus(
-                                    map.next_value::<std::option::Option<std::boxed::Box<rpc::model::Status>>>()?.unwrap_or_default()
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_rpc::model::Status>>>()?.unwrap_or_default()
                                 ),
                             );
                         }

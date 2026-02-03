@@ -24,9 +24,9 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -12206,7 +12206,7 @@ pub struct ImportConversationDataOperationMetadata {
 
     /// Partial failures are failures that don't fail the whole long running
     /// operation, e.g. single files that couldn't be read.
-    pub partial_failures: std::vec::Vec<rpc::model::Status>,
+    pub partial_failures: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// Timestamp when import conversation data request was created. The time is
     /// measured on server side.
@@ -12241,7 +12241,7 @@ impl ImportConversationDataOperationMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_v2::model::ImportConversationDataOperationMetadata;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportConversationDataOperationMetadata::new()
     ///     .set_partial_failures([
     ///         Status::default()/* use setters */,
@@ -12251,7 +12251,7 @@ impl ImportConversationDataOperationMetadata {
     pub fn set_partial_failures<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.partial_failures = v.into_iter().map(|i| i.into()).collect();
@@ -12463,7 +12463,7 @@ pub struct ConversationEvent {
 
     /// More detailed information about an error. Only set for type
     /// UNRECOVERABLE_ERROR_IN_PHONE_CALL.
-    pub error_status: std::option::Option<rpc::model::Status>,
+    pub error_status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Payload of conversation event.
     pub payload: std::option::Option<crate::model::conversation_event::Payload>,
@@ -12535,12 +12535,12 @@ impl ConversationEvent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_v2::model::ConversationEvent;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ConversationEvent::new().set_error_status(Status::default()/* use setters */);
     /// ```
     pub fn set_error_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error_status = std::option::Option::Some(v.into());
         self
@@ -12551,13 +12551,13 @@ impl ConversationEvent {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_v2::model::ConversationEvent;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ConversationEvent::new().set_or_clear_error_status(Some(Status::default()/* use setters */));
     /// let x = ConversationEvent::new().set_or_clear_error_status(None::<Status>);
     /// ```
     pub fn set_or_clear_error_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error_status = v.map(|x| x.into());
         self
@@ -20732,7 +20732,7 @@ pub mod document {
         pub time: std::option::Option<wkt::Timestamp>,
 
         /// The status of a reload attempt or the initial load.
-        pub status: std::option::Option<rpc::model::Status>,
+        pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -20781,12 +20781,12 @@ pub mod document {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dialogflow_v2::model::document::ReloadStatus;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ReloadStatus::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -20797,13 +20797,13 @@ pub mod document {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dialogflow_v2::model::document::ReloadStatus;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ReloadStatus::new().set_or_clear_status(Some(Status::default()/* use setters */));
         /// let x = ReloadStatus::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = v.map(|x| x.into());
             self
@@ -21762,7 +21762,7 @@ impl wkt::message::Message for ImportDocumentTemplate {
 #[non_exhaustive]
 pub struct ImportDocumentsResponse {
     /// Includes details about skipped documents or any other warnings.
-    pub warnings: std::vec::Vec<rpc::model::Status>,
+    pub warnings: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -21778,7 +21778,7 @@ impl ImportDocumentsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_v2::model::ImportDocumentsResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportDocumentsResponse::new()
     ///     .set_warnings([
     ///         Status::default()/* use setters */,
@@ -21788,7 +21788,7 @@ impl ImportDocumentsResponse {
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.warnings = v.into_iter().map(|i| i.into()).collect();
@@ -34069,7 +34069,7 @@ pub struct EvaluationStatus {
 
     /// Output only. The error result of the evaluation in case of failure in
     /// evaluation pipeline.
-    pub pipeline_status: std::option::Option<rpc::model::Status>,
+    pub pipeline_status: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -34116,12 +34116,12 @@ impl EvaluationStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_v2::model::EvaluationStatus;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = EvaluationStatus::new().set_pipeline_status(Status::default()/* use setters */);
     /// ```
     pub fn set_pipeline_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.pipeline_status = std::option::Option::Some(v.into());
         self
@@ -34132,13 +34132,13 @@ impl EvaluationStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_v2::model::EvaluationStatus;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = EvaluationStatus::new().set_or_clear_pipeline_status(Some(Status::default()/* use setters */));
     /// let x = EvaluationStatus::new().set_or_clear_pipeline_status(None::<Status>);
     /// ```
     pub fn set_or_clear_pipeline_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.pipeline_status = v.map(|x| x.into());
         self
@@ -46715,7 +46715,7 @@ impl SuggestionResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_v2::model::SuggestionResult;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = SuggestionResult::new().set_suggestion_response(Some(
     ///     google_cloud_dialogflow_v2::model::suggestion_result::SuggestionResponse::Error(Status::default().into())));
     /// ```
@@ -46734,7 +46734,7 @@ impl SuggestionResult {
     /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
         #[allow(unreachable_patterns)]
         self.suggestion_response.as_ref().and_then(|v| match v {
             crate::model::suggestion_result::SuggestionResponse::Error(v) => {
@@ -46753,7 +46753,7 @@ impl SuggestionResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_v2::model::SuggestionResult;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = SuggestionResult::new().set_error(Status::default()/* use setters */);
     /// assert!(x.error().is_some());
     /// assert!(x.suggest_articles_response().is_none());
@@ -46762,7 +46762,7 @@ impl SuggestionResult {
     /// assert!(x.suggest_smart_replies_response().is_none());
     /// assert!(x.generate_suggestions_response().is_none());
     /// ```
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>>(
         mut self,
         v: T,
     ) -> Self {
@@ -47025,7 +47025,7 @@ pub mod suggestion_result {
     #[non_exhaustive]
     pub enum SuggestionResponse {
         /// Error status if the request failed.
-        Error(std::boxed::Box<rpc::model::Status>),
+        Error(std::boxed::Box<google_cloud_rpc::model::Status>),
         /// SuggestArticlesResponse if request is for ARTICLE_SUGGESTION.
         SuggestArticlesResponse(std::boxed::Box<crate::model::SuggestArticlesResponse>),
         /// SuggestKnowledgeAssistResponse if request is for KNOWLEDGE_ASSIST.
@@ -48604,7 +48604,7 @@ pub struct DetectIntentResponse {
     pub query_result: std::option::Option<crate::model::QueryResult>,
 
     /// Specifies the status of the webhook request.
-    pub webhook_status: std::option::Option<rpc::model::Status>,
+    pub webhook_status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The audio data bytes encoded as specified in the request.
     /// Note: The output audio is generated based on the values of default platform
@@ -48680,12 +48680,12 @@ impl DetectIntentResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_v2::model::DetectIntentResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DetectIntentResponse::new().set_webhook_status(Status::default()/* use setters */);
     /// ```
     pub fn set_webhook_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.webhook_status = std::option::Option::Some(v.into());
         self
@@ -48696,13 +48696,13 @@ impl DetectIntentResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_v2::model::DetectIntentResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DetectIntentResponse::new().set_or_clear_webhook_status(Some(Status::default()/* use setters */));
     /// let x = DetectIntentResponse::new().set_or_clear_webhook_status(None::<Status>);
     /// ```
     pub fn set_or_clear_webhook_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.webhook_status = v.map(|x| x.into());
         self
@@ -50539,7 +50539,7 @@ pub struct StreamingDetectIntentResponse {
     pub query_result: std::option::Option<crate::model::QueryResult>,
 
     /// Specifies the status of the webhook request.
-    pub webhook_status: std::option::Option<rpc::model::Status>,
+    pub webhook_status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The audio data bytes encoded as specified in the request.
     /// Note: The output audio is generated based on the values of default platform
@@ -50655,12 +50655,12 @@ impl StreamingDetectIntentResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_v2::model::StreamingDetectIntentResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = StreamingDetectIntentResponse::new().set_webhook_status(Status::default()/* use setters */);
     /// ```
     pub fn set_webhook_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.webhook_status = std::option::Option::Some(v.into());
         self
@@ -50671,13 +50671,13 @@ impl StreamingDetectIntentResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_v2::model::StreamingDetectIntentResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = StreamingDetectIntentResponse::new().set_or_clear_webhook_status(Some(Status::default()/* use setters */));
     /// let x = StreamingDetectIntentResponse::new().set_or_clear_webhook_status(None::<Status>);
     /// ```
     pub fn set_or_clear_webhook_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.webhook_status = v.map(|x| x.into());
         self

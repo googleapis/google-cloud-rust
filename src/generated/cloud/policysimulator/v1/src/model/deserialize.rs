@@ -939,8 +939,9 @@ impl<'de> serde::de::Deserialize<'de> for super::OrgPolicyViolation {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2540,15 +2541,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ReplayResult {
                                     "multiple values for `result`, a oneof with full ID .google.cloud.policysimulator.v1.ReplayResult.error, latest field was error",
                                 ));
                             }
-                            result.result =
-                                std::option::Option::Some(
-                                    crate::model::replay_result::Result::Error(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<rpc::model::Status>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.result = std::option::Option::Some(
+                                crate::model::replay_result::Result::Error(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_rpc::model::Status>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
@@ -3435,7 +3435,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ExplainedAccess {
                                     "multiple values for errors",
                                 ));
                             }
-                            result.errors = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.errors =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

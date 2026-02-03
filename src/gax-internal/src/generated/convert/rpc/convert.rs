@@ -16,14 +16,14 @@
 
 use crate as gaxi;
 
-impl gaxi::prost::ToProto<Code> for rpc::model::Code {
+impl gaxi::prost::ToProto<Code> for google_cloud_rpc::model::Code {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("rpc::model::Code"))
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("google_cloud_rpc::model::Code"))
     }
 }
 
-impl gaxi::prost::ToProto<ErrorInfo> for rpc::model::ErrorInfo {
+impl gaxi::prost::ToProto<ErrorInfo> for google_cloud_rpc::model::ErrorInfo {
     type Output = ErrorInfo;
     fn to_proto(self) -> std::result::Result<ErrorInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -38,10 +38,10 @@ impl gaxi::prost::ToProto<ErrorInfo> for rpc::model::ErrorInfo {
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::ErrorInfo> for ErrorInfo {
-    fn cnv(self) -> std::result::Result<rpc::model::ErrorInfo, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::ErrorInfo> for ErrorInfo {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::ErrorInfo, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::ErrorInfo::new()
+            google_cloud_rpc::model::ErrorInfo::new()
                 .set_reason(self.reason)
                 .set_domain(self.domain)
                 .set_metadata(self.metadata.into_iter()
@@ -52,7 +52,7 @@ impl gaxi::prost::FromProto<rpc::model::ErrorInfo> for ErrorInfo {
     }
 }
 
-impl gaxi::prost::ToProto<RetryInfo> for rpc::model::RetryInfo {
+impl gaxi::prost::ToProto<RetryInfo> for google_cloud_rpc::model::RetryInfo {
     type Output = RetryInfo;
     fn to_proto(self) -> std::result::Result<RetryInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -61,16 +61,16 @@ impl gaxi::prost::ToProto<RetryInfo> for rpc::model::RetryInfo {
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::RetryInfo> for RetryInfo {
-    fn cnv(self) -> std::result::Result<rpc::model::RetryInfo, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::RetryInfo> for RetryInfo {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::RetryInfo, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::RetryInfo::new()
+            google_cloud_rpc::model::RetryInfo::new()
                 .set_or_clear_retry_delay(self.retry_delay.map(|v| v.cnv()).transpose()?)
         )
     }
 }
 
-impl gaxi::prost::ToProto<DebugInfo> for rpc::model::DebugInfo {
+impl gaxi::prost::ToProto<DebugInfo> for google_cloud_rpc::model::DebugInfo {
     type Output = DebugInfo;
     fn to_proto(self) -> std::result::Result<DebugInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -83,10 +83,10 @@ impl gaxi::prost::ToProto<DebugInfo> for rpc::model::DebugInfo {
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::DebugInfo> for DebugInfo {
-    fn cnv(self) -> std::result::Result<rpc::model::DebugInfo, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::DebugInfo> for DebugInfo {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::DebugInfo, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::DebugInfo::new()
+            google_cloud_rpc::model::DebugInfo::new()
                 .set_stack_entries(self.stack_entries.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_detail(self.detail)
@@ -94,7 +94,7 @@ impl gaxi::prost::FromProto<rpc::model::DebugInfo> for DebugInfo {
     }
 }
 
-impl gaxi::prost::ToProto<quota_failure::Violation> for rpc::model::quota_failure::Violation {
+impl gaxi::prost::ToProto<quota_failure::Violation> for google_cloud_rpc::model::quota_failure::Violation {
     type Output = quota_failure::Violation;
     fn to_proto(self) -> std::result::Result<quota_failure::Violation, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -114,10 +114,10 @@ impl gaxi::prost::ToProto<quota_failure::Violation> for rpc::model::quota_failur
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::quota_failure::Violation> for quota_failure::Violation {
-    fn cnv(self) -> std::result::Result<rpc::model::quota_failure::Violation, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::quota_failure::Violation> for quota_failure::Violation {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::quota_failure::Violation, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::quota_failure::Violation::new()
+            google_cloud_rpc::model::quota_failure::Violation::new()
                 .set_subject(self.subject)
                 .set_description(self.description)
                 .set_api_service(self.api_service)
@@ -133,7 +133,7 @@ impl gaxi::prost::FromProto<rpc::model::quota_failure::Violation> for quota_fail
     }
 }
 
-impl gaxi::prost::ToProto<QuotaFailure> for rpc::model::QuotaFailure {
+impl gaxi::prost::ToProto<QuotaFailure> for google_cloud_rpc::model::QuotaFailure {
     type Output = QuotaFailure;
     fn to_proto(self) -> std::result::Result<QuotaFailure, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -145,17 +145,17 @@ impl gaxi::prost::ToProto<QuotaFailure> for rpc::model::QuotaFailure {
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::QuotaFailure> for QuotaFailure {
-    fn cnv(self) -> std::result::Result<rpc::model::QuotaFailure, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::QuotaFailure> for QuotaFailure {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::QuotaFailure, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::QuotaFailure::new()
+            google_cloud_rpc::model::QuotaFailure::new()
                 .set_violations(self.violations.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
 
-impl gaxi::prost::ToProto<precondition_failure::Violation> for rpc::model::precondition_failure::Violation {
+impl gaxi::prost::ToProto<precondition_failure::Violation> for google_cloud_rpc::model::precondition_failure::Violation {
     type Output = precondition_failure::Violation;
     fn to_proto(self) -> std::result::Result<precondition_failure::Violation, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -166,10 +166,10 @@ impl gaxi::prost::ToProto<precondition_failure::Violation> for rpc::model::preco
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::precondition_failure::Violation> for precondition_failure::Violation {
-    fn cnv(self) -> std::result::Result<rpc::model::precondition_failure::Violation, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::precondition_failure::Violation> for precondition_failure::Violation {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::precondition_failure::Violation, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::precondition_failure::Violation::new()
+            google_cloud_rpc::model::precondition_failure::Violation::new()
                 .set_type(self.r#type)
                 .set_subject(self.subject)
                 .set_description(self.description)
@@ -177,7 +177,7 @@ impl gaxi::prost::FromProto<rpc::model::precondition_failure::Violation> for pre
     }
 }
 
-impl gaxi::prost::ToProto<PreconditionFailure> for rpc::model::PreconditionFailure {
+impl gaxi::prost::ToProto<PreconditionFailure> for google_cloud_rpc::model::PreconditionFailure {
     type Output = PreconditionFailure;
     fn to_proto(self) -> std::result::Result<PreconditionFailure, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -189,17 +189,17 @@ impl gaxi::prost::ToProto<PreconditionFailure> for rpc::model::PreconditionFailu
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::PreconditionFailure> for PreconditionFailure {
-    fn cnv(self) -> std::result::Result<rpc::model::PreconditionFailure, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::PreconditionFailure> for PreconditionFailure {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::PreconditionFailure, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::PreconditionFailure::new()
+            google_cloud_rpc::model::PreconditionFailure::new()
                 .set_violations(self.violations.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
 
-impl gaxi::prost::ToProto<bad_request::FieldViolation> for rpc::model::bad_request::FieldViolation {
+impl gaxi::prost::ToProto<bad_request::FieldViolation> for google_cloud_rpc::model::bad_request::FieldViolation {
     type Output = bad_request::FieldViolation;
     fn to_proto(self) -> std::result::Result<bad_request::FieldViolation, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -211,10 +211,10 @@ impl gaxi::prost::ToProto<bad_request::FieldViolation> for rpc::model::bad_reque
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::bad_request::FieldViolation> for bad_request::FieldViolation {
-    fn cnv(self) -> std::result::Result<rpc::model::bad_request::FieldViolation, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::bad_request::FieldViolation> for bad_request::FieldViolation {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::bad_request::FieldViolation, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::bad_request::FieldViolation::new()
+            google_cloud_rpc::model::bad_request::FieldViolation::new()
                 .set_field(self.field)
                 .set_description(self.description)
                 .set_reason(self.reason)
@@ -223,7 +223,7 @@ impl gaxi::prost::FromProto<rpc::model::bad_request::FieldViolation> for bad_req
     }
 }
 
-impl gaxi::prost::ToProto<BadRequest> for rpc::model::BadRequest {
+impl gaxi::prost::ToProto<BadRequest> for google_cloud_rpc::model::BadRequest {
     type Output = BadRequest;
     fn to_proto(self) -> std::result::Result<BadRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -235,17 +235,17 @@ impl gaxi::prost::ToProto<BadRequest> for rpc::model::BadRequest {
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::BadRequest> for BadRequest {
-    fn cnv(self) -> std::result::Result<rpc::model::BadRequest, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::BadRequest> for BadRequest {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::BadRequest, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::BadRequest::new()
+            google_cloud_rpc::model::BadRequest::new()
                 .set_field_violations(self.field_violations.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
 
-impl gaxi::prost::ToProto<RequestInfo> for rpc::model::RequestInfo {
+impl gaxi::prost::ToProto<RequestInfo> for google_cloud_rpc::model::RequestInfo {
     type Output = RequestInfo;
     fn to_proto(self) -> std::result::Result<RequestInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -255,17 +255,17 @@ impl gaxi::prost::ToProto<RequestInfo> for rpc::model::RequestInfo {
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::RequestInfo> for RequestInfo {
-    fn cnv(self) -> std::result::Result<rpc::model::RequestInfo, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::RequestInfo> for RequestInfo {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::RequestInfo, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::RequestInfo::new()
+            google_cloud_rpc::model::RequestInfo::new()
                 .set_request_id(self.request_id)
                 .set_serving_data(self.serving_data)
         )
     }
 }
 
-impl gaxi::prost::ToProto<ResourceInfo> for rpc::model::ResourceInfo {
+impl gaxi::prost::ToProto<ResourceInfo> for google_cloud_rpc::model::ResourceInfo {
     type Output = ResourceInfo;
     fn to_proto(self) -> std::result::Result<ResourceInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -277,10 +277,10 @@ impl gaxi::prost::ToProto<ResourceInfo> for rpc::model::ResourceInfo {
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::ResourceInfo> for ResourceInfo {
-    fn cnv(self) -> std::result::Result<rpc::model::ResourceInfo, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::ResourceInfo> for ResourceInfo {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::ResourceInfo, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::ResourceInfo::new()
+            google_cloud_rpc::model::ResourceInfo::new()
                 .set_resource_type(self.resource_type)
                 .set_resource_name(self.resource_name)
                 .set_owner(self.owner)
@@ -289,7 +289,7 @@ impl gaxi::prost::FromProto<rpc::model::ResourceInfo> for ResourceInfo {
     }
 }
 
-impl gaxi::prost::ToProto<help::Link> for rpc::model::help::Link {
+impl gaxi::prost::ToProto<help::Link> for google_cloud_rpc::model::help::Link {
     type Output = help::Link;
     fn to_proto(self) -> std::result::Result<help::Link, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -299,17 +299,17 @@ impl gaxi::prost::ToProto<help::Link> for rpc::model::help::Link {
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::help::Link> for help::Link {
-    fn cnv(self) -> std::result::Result<rpc::model::help::Link, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::help::Link> for help::Link {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::help::Link, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::help::Link::new()
+            google_cloud_rpc::model::help::Link::new()
                 .set_description(self.description)
                 .set_url(self.url)
         )
     }
 }
 
-impl gaxi::prost::ToProto<Help> for rpc::model::Help {
+impl gaxi::prost::ToProto<Help> for google_cloud_rpc::model::Help {
     type Output = Help;
     fn to_proto(self) -> std::result::Result<Help, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -321,17 +321,17 @@ impl gaxi::prost::ToProto<Help> for rpc::model::Help {
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::Help> for Help {
-    fn cnv(self) -> std::result::Result<rpc::model::Help, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::Help> for Help {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::Help, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::Help::new()
+            google_cloud_rpc::model::Help::new()
                 .set_links(self.links.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
 
-impl gaxi::prost::ToProto<LocalizedMessage> for rpc::model::LocalizedMessage {
+impl gaxi::prost::ToProto<LocalizedMessage> for google_cloud_rpc::model::LocalizedMessage {
     type Output = LocalizedMessage;
     fn to_proto(self) -> std::result::Result<LocalizedMessage, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -341,17 +341,17 @@ impl gaxi::prost::ToProto<LocalizedMessage> for rpc::model::LocalizedMessage {
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::LocalizedMessage> for LocalizedMessage {
-    fn cnv(self) -> std::result::Result<rpc::model::LocalizedMessage, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::LocalizedMessage> for LocalizedMessage {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::LocalizedMessage, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::LocalizedMessage::new()
+            google_cloud_rpc::model::LocalizedMessage::new()
                 .set_locale(self.locale)
                 .set_message(self.message)
         )
     }
 }
 
-impl gaxi::prost::ToProto<HttpRequest> for rpc::model::HttpRequest {
+impl gaxi::prost::ToProto<HttpRequest> for google_cloud_rpc::model::HttpRequest {
     type Output = HttpRequest;
     fn to_proto(self) -> std::result::Result<HttpRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -366,10 +366,10 @@ impl gaxi::prost::ToProto<HttpRequest> for rpc::model::HttpRequest {
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::HttpRequest> for HttpRequest {
-    fn cnv(self) -> std::result::Result<rpc::model::HttpRequest, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::HttpRequest> for HttpRequest {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::HttpRequest, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::HttpRequest::new()
+            google_cloud_rpc::model::HttpRequest::new()
                 .set_method(self.method)
                 .set_uri(self.uri)
                 .set_headers(self.headers.into_iter().map(|v| v.cnv())
@@ -379,7 +379,7 @@ impl gaxi::prost::FromProto<rpc::model::HttpRequest> for HttpRequest {
     }
 }
 
-impl gaxi::prost::ToProto<HttpResponse> for rpc::model::HttpResponse {
+impl gaxi::prost::ToProto<HttpResponse> for google_cloud_rpc::model::HttpResponse {
     type Output = HttpResponse;
     fn to_proto(self) -> std::result::Result<HttpResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -394,10 +394,10 @@ impl gaxi::prost::ToProto<HttpResponse> for rpc::model::HttpResponse {
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::HttpResponse> for HttpResponse {
-    fn cnv(self) -> std::result::Result<rpc::model::HttpResponse, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::HttpResponse> for HttpResponse {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::HttpResponse, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::HttpResponse::new()
+            google_cloud_rpc::model::HttpResponse::new()
                 .set_status(self.status)
                 .set_reason(self.reason)
                 .set_headers(self.headers.into_iter().map(|v| v.cnv())
@@ -407,7 +407,7 @@ impl gaxi::prost::FromProto<rpc::model::HttpResponse> for HttpResponse {
     }
 }
 
-impl gaxi::prost::ToProto<HttpHeader> for rpc::model::HttpHeader {
+impl gaxi::prost::ToProto<HttpHeader> for google_cloud_rpc::model::HttpHeader {
     type Output = HttpHeader;
     fn to_proto(self) -> std::result::Result<HttpHeader, gaxi::prost::ConvertError> {
         Ok(Self::Output {
@@ -417,10 +417,10 @@ impl gaxi::prost::ToProto<HttpHeader> for rpc::model::HttpHeader {
     }
 }
 
-impl gaxi::prost::FromProto<rpc::model::HttpHeader> for HttpHeader {
-    fn cnv(self) -> std::result::Result<rpc::model::HttpHeader, gaxi::prost::ConvertError> {
+impl gaxi::prost::FromProto<google_cloud_rpc::model::HttpHeader> for HttpHeader {
+    fn cnv(self) -> std::result::Result<google_cloud_rpc::model::HttpHeader, gaxi::prost::ConvertError> {
         Ok(
-            rpc::model::HttpHeader::new()
+            google_cloud_rpc::model::HttpHeader::new()
                 .set_key(self.key)
                 .set_value(self.value)
         )

@@ -5406,8 +5406,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TargetChange {
                                     "multiple values for cause",
                                 ));
                             }
-                            result.cause =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.cause = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__resume_token => {
                             if !fields.insert(__FieldTag::__resume_token) {
@@ -5858,7 +5859,11 @@ impl<'de> serde::de::Deserialize<'de> for super::BatchWriteResponse {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.status =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

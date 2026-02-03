@@ -375,8 +375,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Document {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__revisions => {
                             if !fields.insert(__FieldTag::__revisions) {
@@ -9630,8 +9631,9 @@ impl<'de> serde::de::Deserialize<'de> for super::batch_process_metadata::Individ
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__output_gcs_destination => {
                             if !fields.insert(__FieldTag::__output_gcs_destination) {
@@ -13020,7 +13022,11 @@ impl<'de> serde::de::Deserialize<'de>
                                     "multiple values for document_errors",
                                 ));
                             }
-                            result.document_errors = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.document_errors =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__dataset_errors => {
                             if !fields.insert(__FieldTag::__dataset_errors) {
@@ -13028,7 +13034,11 @@ impl<'de> serde::de::Deserialize<'de>
                                     "multiple values for dataset_errors",
                                 ));
                             }
-                            result.dataset_errors = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.dataset_errors =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

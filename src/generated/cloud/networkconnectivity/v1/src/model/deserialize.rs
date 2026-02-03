@@ -872,8 +872,9 @@ impl<'de> serde::de::Deserialize<'de> for super::service_connection_map::Consume
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__gce_operation => {
                             if !fields.insert(__FieldTag::__gce_operation) {
@@ -901,8 +902,8 @@ impl<'de> serde::de::Deserialize<'de> for super::service_connection_map::Consume
                                     "multiple values for error_info",
                                 ));
                             }
-                            result.error_info =
-                                map.next_value::<std::option::Option<rpc::model::ErrorInfo>>()?;
+                            result.error_info = map.next_value::<std::option::Option<google_cloud_rpc::model::ErrorInfo>>()?
+                                ;
                         }
                         __FieldTag::__selected_subnetwork => {
                             if !fields.insert(__FieldTag::__selected_subnetwork) {
@@ -2105,8 +2106,9 @@ impl<'de> serde::de::Deserialize<'de> for super::service_connection_policy::PscC
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__gce_operation => {
                             if !fields.insert(__FieldTag::__gce_operation) {
@@ -2144,8 +2146,8 @@ impl<'de> serde::de::Deserialize<'de> for super::service_connection_policy::PscC
                                     "multiple values for error_info",
                                 ));
                             }
-                            result.error_info =
-                                map.next_value::<std::option::Option<rpc::model::ErrorInfo>>()?;
+                            result.error_info = map.next_value::<std::option::Option<google_cloud_rpc::model::ErrorInfo>>()?
+                                ;
                         }
                         __FieldTag::__selected_subnetwork => {
                             if !fields.insert(__FieldTag::__selected_subnetwork) {

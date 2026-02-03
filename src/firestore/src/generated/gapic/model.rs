@@ -6689,7 +6689,7 @@ pub struct TargetChange {
     pub target_ids: std::vec::Vec<i32>,
 
     /// The error that resulted in this change, if applicable.
-    pub cause: std::option::Option<rpc::model::Status>,
+    pub cause: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// A token that can be used to resume the stream for the given `target_ids`,
     /// or all targets if `target_ids` is empty.
@@ -6759,12 +6759,12 @@ impl TargetChange {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore::model::TargetChange;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TargetChange::new().set_cause(Status::default()/* use setters */);
     /// ```
     pub fn set_cause<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.cause = std::option::Option::Some(v.into());
         self
@@ -6775,13 +6775,13 @@ impl TargetChange {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore::model::TargetChange;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TargetChange::new().set_or_clear_cause(Some(Status::default()/* use setters */));
     /// let x = TargetChange::new().set_or_clear_cause(None::<Status>);
     /// ```
     pub fn set_or_clear_cause<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.cause = v.map(|x| x.into());
         self
@@ -7333,7 +7333,7 @@ pub struct BatchWriteResponse {
     ///
     /// This i-th write status corresponds to the i-th write in the
     /// request.
-    pub status: std::vec::Vec<rpc::model::Status>,
+    pub status: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7370,7 +7370,7 @@ impl BatchWriteResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore::model::BatchWriteResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BatchWriteResponse::new()
     ///     .set_status([
     ///         Status::default()/* use setters */,
@@ -7380,7 +7380,7 @@ impl BatchWriteResponse {
     pub fn set_status<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.status = v.into_iter().map(|i| i.into()).collect();

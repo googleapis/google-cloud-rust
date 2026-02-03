@@ -25,9 +25,9 @@ extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -465,7 +465,7 @@ pub mod import_apt_artifacts_request {
 #[non_exhaustive]
 pub struct ImportAptArtifactsErrorInfo {
     /// The detailed error status.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The source that was not imported.
     pub source: std::option::Option<crate::model::import_apt_artifacts_error_info::Source>,
@@ -483,12 +483,12 @@ impl ImportAptArtifactsErrorInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsErrorInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportAptArtifactsErrorInfo::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -499,13 +499,13 @@ impl ImportAptArtifactsErrorInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsErrorInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportAptArtifactsErrorInfo::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = ImportAptArtifactsErrorInfo::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -13765,7 +13765,7 @@ pub mod import_yum_artifacts_request {
 #[non_exhaustive]
 pub struct ImportYumArtifactsErrorInfo {
     /// The detailed error status.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The source that was not imported.
     pub source: std::option::Option<crate::model::import_yum_artifacts_error_info::Source>,
@@ -13783,12 +13783,12 @@ impl ImportYumArtifactsErrorInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsErrorInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportYumArtifactsErrorInfo::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -13799,13 +13799,13 @@ impl ImportYumArtifactsErrorInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsErrorInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportYumArtifactsErrorInfo::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = ImportYumArtifactsErrorInfo::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self

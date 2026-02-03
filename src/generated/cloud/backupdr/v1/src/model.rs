@@ -25,9 +25,9 @@ extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -1838,7 +1838,7 @@ pub struct OperationMetadata {
     /// corresponding to 'Code.CANCELLED'.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -4956,7 +4956,7 @@ pub struct RuleConfigInfo {
     pub last_backup_state: crate::model::rule_config_info::LastBackupState,
 
     /// Output only. google.rpc.Status object to store the last backup error.
-    pub last_backup_error: std::option::Option<rpc::model::Status>,
+    pub last_backup_error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. The point in time when the last successful backup was captured
     /// from the source.
@@ -5007,12 +5007,12 @@ impl RuleConfigInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::RuleConfigInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = RuleConfigInfo::new().set_last_backup_error(Status::default()/* use setters */);
     /// ```
     pub fn set_last_backup_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.last_backup_error = std::option::Option::Some(v.into());
         self
@@ -5023,13 +5023,13 @@ impl RuleConfigInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::RuleConfigInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = RuleConfigInfo::new().set_or_clear_last_backup_error(Some(Status::default()/* use setters */));
     /// let x = RuleConfigInfo::new().set_or_clear_last_backup_error(None::<Status>);
     /// ```
     pub fn set_or_clear_last_backup_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.last_backup_error = v.map(|x| x.into());
         self
@@ -7712,7 +7712,7 @@ pub struct BackupConfigInfo {
     pub last_successful_backup_consistency_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. If the last backup failed, this field has the error message.
-    pub last_backup_error: std::option::Option<rpc::model::Status>,
+    pub last_backup_error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Configuration Info has the resource format-specific configuration.
     pub backup_config: std::option::Option<crate::model::backup_config_info::BackupConfig>,
@@ -7786,12 +7786,12 @@ impl BackupConfigInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::BackupConfigInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BackupConfigInfo::new().set_last_backup_error(Status::default()/* use setters */);
     /// ```
     pub fn set_last_backup_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.last_backup_error = std::option::Option::Some(v.into());
         self
@@ -7802,13 +7802,13 @@ impl BackupConfigInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::BackupConfigInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BackupConfigInfo::new().set_or_clear_last_backup_error(Some(Status::default()/* use setters */));
     /// let x = BackupConfigInfo::new().set_or_clear_last_backup_error(None::<Status>);
     /// ```
     pub fn set_or_clear_last_backup_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.last_backup_error = v.map(|x| x.into());
         self

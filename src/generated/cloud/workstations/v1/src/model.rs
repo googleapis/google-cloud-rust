@@ -24,8 +24,8 @@ extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -110,7 +110,7 @@ pub struct WorkstationCluster {
 
     /// Output only. Status conditions describing the workstation cluster's current
     /// state.
-    pub conditions: std::vec::Vec<rpc::model::Status>,
+    pub conditions: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -410,7 +410,7 @@ impl WorkstationCluster {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = WorkstationCluster::new()
     ///     .set_conditions([
     ///         Status::default()/* use setters */,
@@ -420,7 +420,7 @@ impl WorkstationCluster {
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
@@ -684,7 +684,7 @@ pub struct WorkstationConfig {
     pub degraded: bool,
 
     /// Output only. Status conditions describing the current resource state.
-    pub conditions: std::vec::Vec<rpc::model::Status>,
+    pub conditions: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1138,7 +1138,7 @@ impl WorkstationConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = WorkstationConfig::new()
     ///     .set_conditions([
     ///         Status::default()/* use setters */,
@@ -1148,7 +1148,7 @@ impl WorkstationConfig {
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();

@@ -5404,15 +5404,14 @@ impl<'de> serde::de::Deserialize<'de> for super::MoveAnalysis {
                                     "multiple values for `result`, a oneof with full ID .google.cloud.asset.v1.MoveAnalysis.error, latest field was error",
                                 ));
                             }
-                            result.result =
-                                std::option::Option::Some(
-                                    crate::model::move_analysis::Result::Error(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<rpc::model::Status>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.result = std::option::Option::Some(
+                                crate::model::move_analysis::Result::Error(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_rpc::model::Status>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6102,15 +6101,14 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryAssetsResponse {
                                     "multiple values for `response`, a oneof with full ID .google.cloud.asset.v1.QueryAssetsResponse.error, latest field was error",
                                 ));
                             }
-                            result.response =
-                                std::option::Option::Some(
-                                    crate::model::query_assets_response::Response::Error(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<rpc::model::Status>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.response = std::option::Option::Some(
+                                crate::model::query_assets_response::Response::Error(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_rpc::model::Status>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::__query_result => {
                             if !fields.insert(__FieldTag::__query_result) {
@@ -11724,7 +11722,7 @@ impl<'de> serde::de::Deserialize<'de> for super::IamPolicyAnalysisState {
                                 ));
                             }
                             result.code = map
-                                .next_value::<std::option::Option<rpc::model::Code>>()?
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Code>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__cause => {

@@ -3253,7 +3253,7 @@ impl GenAiTuningService {
     /// [google.cloud.aiplatform.v1.GenAiTuningService.GetTuningJob]: crate::client::GenAiTuningService::get_tuning_job
     /// [google.cloud.aiplatform.v1.TuningJob.error]: crate::model::TuningJob::error
     /// [google.cloud.aiplatform.v1.TuningJob.state]: crate::model::TuningJob::state
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub fn cancel_tuning_job(&self) -> super::builder::gen_ai_tuning_service::CancelTuningJob {
         super::builder::gen_ai_tuning_service::CancelTuningJob::new(self.inner.clone())
     }
@@ -4032,7 +4032,7 @@ impl JobService {
     /// [google.cloud.aiplatform.v1.CustomJob.error]: crate::model::CustomJob::error
     /// [google.cloud.aiplatform.v1.CustomJob.state]: crate::model::CustomJob::state
     /// [google.cloud.aiplatform.v1.JobService.GetCustomJob]: crate::client::JobService::get_custom_job
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub fn cancel_custom_job(&self) -> super::builder::job_service::CancelCustomJob {
         super::builder::job_service::CancelCustomJob::new(self.inner.clone())
     }
@@ -4128,7 +4128,7 @@ impl JobService {
     /// [google.cloud.aiplatform.v1.HyperparameterTuningJob.error]: crate::model::HyperparameterTuningJob::error
     /// [google.cloud.aiplatform.v1.HyperparameterTuningJob.state]: crate::model::HyperparameterTuningJob::state
     /// [google.cloud.aiplatform.v1.JobService.GetHyperparameterTuningJob]: crate::client::JobService::get_hyperparameter_tuning_job
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub fn cancel_hyperparameter_tuning_job(
         &self,
     ) -> super::builder::job_service::CancelHyperparameterTuningJob {
@@ -4182,7 +4182,7 @@ impl JobService {
     /// [google.cloud.aiplatform.v1.JobService.GetNasJob]: crate::client::JobService::get_nas_job
     /// [google.cloud.aiplatform.v1.NasJob.error]: crate::model::NasJob::error
     /// [google.cloud.aiplatform.v1.NasJob.state]: crate::model::NasJob::state
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub fn cancel_nas_job(&self) -> super::builder::job_service::CancelNasJob {
         super::builder::job_service::CancelNasJob::new(self.inner.clone())
     }
@@ -6838,7 +6838,7 @@ impl PipelineService {
     /// [google.cloud.aiplatform.v1.PipelineService.GetTrainingPipeline]: crate::client::PipelineService::get_training_pipeline
     /// [google.cloud.aiplatform.v1.TrainingPipeline.error]: crate::model::TrainingPipeline::error
     /// [google.cloud.aiplatform.v1.TrainingPipeline.state]: crate::model::TrainingPipeline::state
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub fn cancel_training_pipeline(
         &self,
     ) -> super::builder::pipeline_service::CancelTrainingPipeline {
@@ -6911,7 +6911,7 @@ impl PipelineService {
     /// [google.cloud.aiplatform.v1.PipelineJob.error]: crate::model::PipelineJob::error
     /// [google.cloud.aiplatform.v1.PipelineJob.state]: crate::model::PipelineJob::state
     /// [google.cloud.aiplatform.v1.PipelineService.GetPipelineJob]: crate::client::PipelineService::get_pipeline_job
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub fn cancel_pipeline_job(&self) -> super::builder::pipeline_service::CancelPipelineJob {
         super::builder::pipeline_service::CancelPipelineJob::new(self.inner.clone())
     }

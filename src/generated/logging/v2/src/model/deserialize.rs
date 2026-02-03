@@ -1027,7 +1027,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WriteLogEntriesPartialErrors {
                             }
                             struct __With(
                                 std::option::Option<
-                                    std::collections::HashMap<i32, rpc::model::Status>,
+                                    std::collections::HashMap<i32, google_cloud_rpc::model::Status>,
                                 >,
                             );
                             impl<'de> serde::de::Deserialize<'de> for __With {

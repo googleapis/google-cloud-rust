@@ -24,9 +24,9 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -806,7 +806,7 @@ pub struct Distribution {
 
     /// Output only. Only present when the `state` is `ERROR`. The reason for the
     /// error state of the distribution.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Configurations for the output endpoint by streaming protocols.
     pub endpoint: std::option::Option<crate::model::distribution::Endpoint>,
@@ -869,12 +869,12 @@ impl Distribution {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Distribution;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Distribution::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -885,13 +885,13 @@ impl Distribution {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Distribution;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Distribution::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = Distribution::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -4269,7 +4269,7 @@ pub struct Channel {
     ///
     /// [google.cloud.video.livestream.v1.Channel.StreamingState.STREAMING_ERROR]: crate::model::channel::StreamingState::StreamingError
     /// [google.cloud.video.livestream.v1.Channel.streaming_state]: crate::model::Channel::streaming_state
-    pub streaming_error: std::option::Option<rpc::model::Status>,
+    pub streaming_error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Configuration of platform logs for this channel.
     pub log_config: std::option::Option<crate::model::LogConfig>,
@@ -4627,12 +4627,12 @@ impl Channel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Channel;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Channel::new().set_streaming_error(Status::default()/* use setters */);
     /// ```
     pub fn set_streaming_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.streaming_error = std::option::Option::Some(v.into());
         self
@@ -4643,13 +4643,13 @@ impl Channel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Channel;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Channel::new().set_or_clear_streaming_error(Some(Status::default()/* use setters */));
     /// let x = Channel::new().set_or_clear_streaming_error(None::<Status>);
     /// ```
     pub fn set_or_clear_streaming_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.streaming_error = v.map(|x| x.into());
         self
@@ -6711,7 +6711,7 @@ pub struct Event {
 
     /// Output only. An error object that describes the reason for the failure.
     /// This property is always present when `state` is `FAILED`.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Required. Operation to be executed by this event.
     pub task: std::option::Option<crate::model::event::Task>,
@@ -6888,12 +6888,12 @@ impl Event {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Event;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Event::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -6904,13 +6904,13 @@ impl Event {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Event;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Event::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = Event::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -7764,7 +7764,7 @@ pub struct Clip {
 
     /// Output only. An error object that describes the reason for the failure.
     /// This property only presents when `state` is `FAILED`.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The specified ranges of segments to generate a clip.
     pub slices: std::vec::Vec<crate::model::clip::Slice>,
@@ -7949,12 +7949,12 @@ impl Clip {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Clip;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Clip::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -7965,13 +7965,13 @@ impl Clip {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Clip;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Clip::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = Clip::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -8697,7 +8697,7 @@ pub struct DvrSession {
 
     /// Output only. An error object that describes the reason for the failure.
     /// This property only presents when `state` is `FAILED`.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Required. A list of DVR manifests. Currently only one DVR manifest is
     /// allowed.
@@ -8836,12 +8836,12 @@ impl DvrSession {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::DvrSession;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DvrSession::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -8852,13 +8852,13 @@ impl DvrSession {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::DvrSession;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DvrSession::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = DvrSession::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -9315,7 +9315,7 @@ pub struct Asset {
 
     /// Output only. Only present when `state` is `ERROR`. The reason for the error
     /// state of the asset.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The reference to the asset.
     /// The maximum size of the resource is 250 MB.
@@ -9460,12 +9460,12 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Asset;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Asset::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -9476,13 +9476,13 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::Asset;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Asset::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = Asset::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -13996,7 +13996,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

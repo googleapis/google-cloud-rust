@@ -21,9 +21,9 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -18158,7 +18158,7 @@ pub struct TransformationResultStatus {
     pub result_status_type: crate::model::TransformationResultStatusType,
 
     /// Detailed error codes and messages
-    pub details: std::option::Option<rpc::model::Status>,
+    pub details: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -18193,12 +18193,12 @@ impl TransformationResultStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::TransformationResultStatus;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TransformationResultStatus::new().set_details(Status::default()/* use setters */);
     /// ```
     pub fn set_details<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.details = std::option::Option::Some(v.into());
         self
@@ -18209,13 +18209,13 @@ impl TransformationResultStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::TransformationResultStatus;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TransformationResultStatus::new().set_or_clear_details(Some(Status::default()/* use setters */));
     /// let x = TransformationResultStatus::new().set_or_clear_details(None::<Status>);
     /// ```
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.details = v.map(|x| x.into());
         self
@@ -18817,7 +18817,7 @@ impl wkt::message::Message for DeidentifyTemplate {
 #[non_exhaustive]
 pub struct Error {
     /// Detailed error codes and messages.
-    pub details: std::option::Option<rpc::model::Status>,
+    pub details: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The times the error occurred. List includes the oldest timestamp and the
     /// last 9 timestamps.
@@ -18839,12 +18839,12 @@ impl Error {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::Error;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Error::new().set_details(Status::default()/* use setters */);
     /// ```
     pub fn set_details<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.details = std::option::Option::Some(v.into());
         self
@@ -18855,13 +18855,13 @@ impl Error {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::Error;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Error::new().set_or_clear_details(Some(Status::default()/* use setters */));
     /// let x = Error::new().set_or_clear_details(None::<Status>);
     /// ```
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.details = v.map(|x| x.into());
         self
@@ -38295,7 +38295,7 @@ pub mod table_data_profile {
 pub struct ProfileStatus {
     /// Profiling status code and optional message. The `status.code` value is 0
     /// (default value) for OK.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Time when the profile generation status was updated
     pub timestamp: std::option::Option<wkt::Timestamp>,
@@ -38313,12 +38313,12 @@ impl ProfileStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ProfileStatus;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ProfileStatus::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -38329,13 +38329,13 @@ impl ProfileStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::ProfileStatus;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ProfileStatus::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = ProfileStatus::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self

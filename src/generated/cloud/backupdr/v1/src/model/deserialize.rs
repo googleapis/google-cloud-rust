@@ -3831,8 +3831,9 @@ impl<'de> serde::de::Deserialize<'de> for super::RuleConfigInfo {
                                     "multiple values for last_backup_error",
                                 ));
                             }
-                            result.last_backup_error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.last_backup_error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__last_successful_backup_consistency_time => {
                             if !fields.insert(__FieldTag::__last_successful_backup_consistency_time)
@@ -5651,8 +5652,9 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupConfigInfo {
                                     "multiple values for last_backup_error",
                                 ));
                             }
-                            result.last_backup_error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.last_backup_error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__gcp_backup_config => {
                             if !fields.insert(__FieldTag::__gcp_backup_config) {

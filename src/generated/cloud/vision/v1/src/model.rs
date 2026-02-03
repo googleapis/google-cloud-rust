@@ -23,9 +23,9 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -3104,7 +3104,7 @@ pub struct AnnotateImageResponse {
     /// If set, represents the error message for the operation.
     /// Note that filled-in image annotations are guaranteed to be
     /// correct, even when `error` is set.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// If present, contextual information is needed to understand where this image
     /// comes from.
@@ -3453,12 +3453,12 @@ impl AnnotateImageResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = AnnotateImageResponse::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -3469,13 +3469,13 @@ impl AnnotateImageResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::AnnotateImageResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = AnnotateImageResponse::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = AnnotateImageResponse::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -3830,7 +3830,7 @@ pub struct AnnotateFileResponse {
 
     /// If set, represents the error message for the failed request. The
     /// `responses` field will not be set in this case.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3912,12 +3912,12 @@ impl AnnotateFileResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::AnnotateFileResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = AnnotateFileResponse::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -3928,13 +3928,13 @@ impl AnnotateFileResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::AnnotateFileResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = AnnotateFileResponse::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = AnnotateFileResponse::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -5896,7 +5896,7 @@ pub struct ProductSet {
     /// is populated.
     ///
     /// This field is ignored when creating a ProductSet.
-    pub index_error: std::option::Option<rpc::model::Status>,
+    pub index_error: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5968,12 +5968,12 @@ impl ProductSet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::ProductSet;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ProductSet::new().set_index_error(Status::default()/* use setters */);
     /// ```
     pub fn set_index_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.index_error = std::option::Option::Some(v.into());
         self
@@ -5984,13 +5984,13 @@ impl ProductSet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::ProductSet;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ProductSet::new().set_or_clear_index_error(Some(Status::default()/* use setters */));
     /// let x = ProductSet::new().set_or_clear_index_error(None::<Status>);
     /// ```
     pub fn set_or_clear_index_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.index_error = v.map(|x| x.into());
         self
@@ -7773,7 +7773,7 @@ pub struct ImportProductSetsResponse {
     /// The number of statuses here matches the number of lines in the csv file,
     /// and statuses[i] stores the success or failure status of processing the i-th
     /// line of the csv, starting from line 0.
-    pub statuses: std::vec::Vec<rpc::model::Status>,
+    pub statuses: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7810,7 +7810,7 @@ impl ImportProductSetsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::ImportProductSetsResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportProductSetsResponse::new()
     ///     .set_statuses([
     ///         Status::default()/* use setters */,
@@ -7820,7 +7820,7 @@ impl ImportProductSetsResponse {
     pub fn set_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.statuses = v.into_iter().map(|i| i.into()).collect();
