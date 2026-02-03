@@ -493,7 +493,6 @@ google-cloud-compute-v1         = { default-features = false, version = "2", pat
 google-cloud-storage            = { default-features = false, version = "1.7", path = "src/storage" }
 google-cloud-pubsub             = { default-features = false, path = "src/pubsub" }
 google-cloud-bigquery-v2        = { default-features = false, version = "1", path = "src/generated/cloud/bigquery/v2" }
-bigquery                        = { default-features = false, version = "1", path = "src/generated/cloud/bigquery/v2", package = "google-cloud-bigquery-v2" }
 google-cloud-iam-credentials-v1 = { default-features = false, path = "src/generated/iam/credentials/v1" }
 google-cloud-language-v2        = { default-features = false, path = "src/generated/cloud/language/v2" }
 google-cloud-dns-v1             = { default-features = false, path = "src/generated/cloud/dns/v1" }
