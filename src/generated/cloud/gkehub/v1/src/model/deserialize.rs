@@ -475,12 +475,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CommonFeatureSpec {
                             }
                             result.feature_spec = std::option::Option::Some(
                                 crate::model::common_feature_spec::FeatureSpec::Multiclusteringress(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            gkehub_multiclusteringress_v1::model::FeatureSpec,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_gkehub_multiclusteringress_v1::model::FeatureSpec>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -646,7 +641,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MembershipFeatureSpec {
                             }
                             result.feature_spec = std::option::Option::Some(
                                 crate::model::membership_feature_spec::FeatureSpec::Configmanagement(
-                                    map.next_value::<std::option::Option<std::boxed::Box<gkehub_configmanagement_v1::model::MembershipSpec>>>()?.unwrap_or_default()
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_gkehub_configmanagement_v1::model::MembershipSpec>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -735,7 +730,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MembershipFeatureState {
                             }
                             result.feature_state = std::option::Option::Some(
                                 crate::model::membership_feature_state::FeatureState::Configmanagement(
-                                    map.next_value::<std::option::Option<std::boxed::Box<gkehub_configmanagement_v1::model::MembershipState>>>()?.unwrap_or_default()
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_gkehub_configmanagement_v1::model::MembershipState>>>()?.unwrap_or_default()
                                 ),
                             );
                         }

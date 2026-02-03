@@ -101,7 +101,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CalendarAddOnManifest {
                                 ));
                             }
                             result.homepage_trigger = map.next_value::<std::option::Option<
-                                apps_script_type::model::HomepageExtensionPoint,
+                                google_cloud_apps_script_type::model::HomepageExtensionPoint,
                             >>()?;
                         }
                         __FieldTag::__conference_solution => {

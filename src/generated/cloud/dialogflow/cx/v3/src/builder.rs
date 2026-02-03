@@ -1099,7 +1099,7 @@ pub mod agents {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Agents>) -> Self {
@@ -1107,7 +1107,7 @@ pub mod agents {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -1122,7 +1122,7 @@ pub mod agents {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -1132,8 +1132,10 @@ pub mod agents {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1147,31 +1149,33 @@ pub mod agents {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1202,7 +1206,7 @@ pub mod agents {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Agents>) -> Self {
@@ -1210,7 +1214,10 @@ pub mod agents {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1222,14 +1229,14 @@ pub mod agents {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1737,7 +1744,7 @@ pub mod changelogs {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1747,7 +1754,7 @@ pub mod changelogs {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -1762,7 +1769,7 @@ pub mod changelogs {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -1772,8 +1779,10 @@ pub mod changelogs {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1787,31 +1796,33 @@ pub mod changelogs {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1842,7 +1853,7 @@ pub mod changelogs {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
@@ -1852,7 +1863,10 @@ pub mod changelogs {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1864,14 +1878,14 @@ pub mod changelogs {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2379,7 +2393,7 @@ pub mod deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2389,7 +2403,7 @@ pub mod deployments {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2404,7 +2418,7 @@ pub mod deployments {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -2414,8 +2428,10 @@ pub mod deployments {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2429,31 +2445,33 @@ pub mod deployments {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -2484,7 +2502,7 @@ pub mod deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
@@ -2494,7 +2512,10 @@ pub mod deployments {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2506,14 +2527,14 @@ pub mod deployments {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3655,7 +3676,7 @@ pub mod entity_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -3665,7 +3686,7 @@ pub mod entity_types {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -3680,7 +3701,7 @@ pub mod entity_types {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -3690,8 +3711,10 @@ pub mod entity_types {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3705,31 +3728,33 @@ pub mod entity_types {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -3760,7 +3785,7 @@ pub mod entity_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
@@ -3770,7 +3795,10 @@ pub mod entity_types {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3782,14 +3810,14 @@ pub mod entity_types {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -5096,7 +5124,7 @@ pub mod environments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -5106,7 +5134,7 @@ pub mod environments {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -5121,7 +5149,7 @@ pub mod environments {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -5131,8 +5159,10 @@ pub mod environments {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5146,31 +5176,33 @@ pub mod environments {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -5201,7 +5233,7 @@ pub mod environments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
@@ -5211,7 +5243,10 @@ pub mod environments {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5223,14 +5258,14 @@ pub mod environments {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -5972,7 +6007,7 @@ pub mod examples {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Examples>) -> Self {
@@ -5980,7 +6015,7 @@ pub mod examples {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -5995,7 +6030,7 @@ pub mod examples {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -6005,8 +6040,10 @@ pub mod examples {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6020,31 +6057,33 @@ pub mod examples {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -6075,7 +6114,7 @@ pub mod examples {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Examples>) -> Self {
@@ -6083,7 +6122,10 @@ pub mod examples {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6095,14 +6137,14 @@ pub mod examples {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -6981,7 +7023,7 @@ pub mod experiments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -6991,7 +7033,7 @@ pub mod experiments {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -7006,7 +7048,7 @@ pub mod experiments {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -7016,8 +7058,10 @@ pub mod experiments {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -7031,31 +7075,33 @@ pub mod experiments {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -7086,7 +7132,7 @@ pub mod experiments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
@@ -7096,7 +7142,10 @@ pub mod experiments {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7108,14 +7157,14 @@ pub mod experiments {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -8402,7 +8451,7 @@ pub mod flows {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Flows>) -> Self {
@@ -8410,7 +8459,7 @@ pub mod flows {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -8425,7 +8474,7 @@ pub mod flows {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -8435,8 +8484,10 @@ pub mod flows {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -8450,31 +8501,33 @@ pub mod flows {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -8505,7 +8558,7 @@ pub mod flows {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Flows>) -> Self {
@@ -8513,7 +8566,10 @@ pub mod flows {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -8525,14 +8581,14 @@ pub mod flows {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -9304,7 +9360,7 @@ pub mod generators {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -9314,7 +9370,7 @@ pub mod generators {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -9329,7 +9385,7 @@ pub mod generators {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -9339,8 +9395,10 @@ pub mod generators {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -9354,31 +9412,33 @@ pub mod generators {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -9409,7 +9469,7 @@ pub mod generators {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
@@ -9419,7 +9479,10 @@ pub mod generators {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -9431,14 +9494,14 @@ pub mod generators {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -10524,7 +10587,7 @@ pub mod intents {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Intents>) -> Self {
@@ -10532,7 +10595,7 @@ pub mod intents {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -10547,7 +10610,7 @@ pub mod intents {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -10557,8 +10620,10 @@ pub mod intents {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -10572,31 +10637,33 @@ pub mod intents {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -10627,7 +10694,7 @@ pub mod intents {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Intents>) -> Self {
@@ -10635,7 +10702,10 @@ pub mod intents {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -10647,14 +10717,14 @@ pub mod intents {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -11414,7 +11484,7 @@ pub mod pages {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Pages>) -> Self {
@@ -11422,7 +11492,7 @@ pub mod pages {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -11437,7 +11507,7 @@ pub mod pages {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -11447,8 +11517,10 @@ pub mod pages {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -11462,31 +11534,33 @@ pub mod pages {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -11517,7 +11591,7 @@ pub mod pages {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Pages>) -> Self {
@@ -11525,7 +11599,10 @@ pub mod pages {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -11537,14 +11614,14 @@ pub mod pages {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -12961,7 +13038,7 @@ pub mod playbooks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -12971,7 +13048,7 @@ pub mod playbooks {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -12986,7 +13063,7 @@ pub mod playbooks {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -12996,8 +13073,10 @@ pub mod playbooks {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -13011,31 +13090,33 @@ pub mod playbooks {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -13066,7 +13147,7 @@ pub mod playbooks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
@@ -13076,7 +13157,10 @@ pub mod playbooks {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -13088,14 +13172,14 @@ pub mod playbooks {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -13864,7 +13948,7 @@ pub mod security_settings_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -13874,7 +13958,7 @@ pub mod security_settings_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -13889,7 +13973,7 @@ pub mod security_settings_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -13899,8 +13983,10 @@ pub mod security_settings_service {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -13914,31 +14000,33 @@ pub mod security_settings_service {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -13969,7 +14057,7 @@ pub mod security_settings_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
@@ -13979,7 +14067,10 @@ pub mod security_settings_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -13991,14 +14082,14 @@ pub mod security_settings_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -14790,7 +14881,7 @@ pub mod sessions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Sessions>) -> Self {
@@ -14798,7 +14889,7 @@ pub mod sessions {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -14813,7 +14904,7 @@ pub mod sessions {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -14823,8 +14914,10 @@ pub mod sessions {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -14838,31 +14931,33 @@ pub mod sessions {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -14893,7 +14988,7 @@ pub mod sessions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Sessions>) -> Self {
@@ -14901,7 +14996,10 @@ pub mod sessions {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -14913,14 +15011,14 @@ pub mod sessions {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -15687,7 +15785,7 @@ pub mod session_entity_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -15697,7 +15795,7 @@ pub mod session_entity_types {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -15712,7 +15810,7 @@ pub mod session_entity_types {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -15722,8 +15820,10 @@ pub mod session_entity_types {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -15737,31 +15837,33 @@ pub mod session_entity_types {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -15792,7 +15894,7 @@ pub mod session_entity_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
@@ -15802,7 +15904,10 @@ pub mod session_entity_types {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -15814,14 +15919,14 @@ pub mod session_entity_types {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -17395,7 +17500,7 @@ pub mod test_cases {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -17405,7 +17510,7 @@ pub mod test_cases {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -17420,7 +17525,7 @@ pub mod test_cases {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -17430,8 +17535,10 @@ pub mod test_cases {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -17445,31 +17552,33 @@ pub mod test_cases {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -17500,7 +17609,7 @@ pub mod test_cases {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
@@ -17510,7 +17619,10 @@ pub mod test_cases {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -17522,14 +17634,14 @@ pub mod test_cases {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -18651,7 +18763,7 @@ pub mod tools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tools>) -> Self {
@@ -18659,7 +18771,7 @@ pub mod tools {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -18674,7 +18786,7 @@ pub mod tools {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -18684,8 +18796,10 @@ pub mod tools {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -18699,31 +18813,33 @@ pub mod tools {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -18754,7 +18870,7 @@ pub mod tools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tools>) -> Self {
@@ -18762,7 +18878,10 @@ pub mod tools {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -18774,14 +18893,14 @@ pub mod tools {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -19582,7 +19701,7 @@ pub mod transition_route_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -19592,7 +19711,7 @@ pub mod transition_route_groups {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -19607,7 +19726,7 @@ pub mod transition_route_groups {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -19617,8 +19736,10 @@ pub mod transition_route_groups {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -19632,31 +19753,33 @@ pub mod transition_route_groups {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -19687,7 +19810,7 @@ pub mod transition_route_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
@@ -19697,7 +19820,10 @@ pub mod transition_route_groups {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -19709,14 +19835,14 @@ pub mod transition_route_groups {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -20686,7 +20812,7 @@ pub mod versions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Versions>) -> Self {
@@ -20694,7 +20820,7 @@ pub mod versions {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -20709,7 +20835,7 @@ pub mod versions {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -20719,8 +20845,10 @@ pub mod versions {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -20734,31 +20862,33 @@ pub mod versions {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -20789,7 +20919,7 @@ pub mod versions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Versions>) -> Self {
@@ -20797,7 +20927,10 @@ pub mod versions {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -20809,14 +20942,14 @@ pub mod versions {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -21552,7 +21685,7 @@ pub mod webhooks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Webhooks>) -> Self {
@@ -21560,7 +21693,7 @@ pub mod webhooks {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -21575,7 +21708,7 @@ pub mod webhooks {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -21585,8 +21718,10 @@ pub mod webhooks {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -21600,31 +21735,33 @@ pub mod webhooks {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -21655,7 +21792,7 @@ pub mod webhooks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Webhooks>) -> Self {
@@ -21663,7 +21800,10 @@ pub mod webhooks {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -21675,14 +21815,14 @@ pub mod webhooks {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

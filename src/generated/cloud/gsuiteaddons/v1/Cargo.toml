@@ -38,23 +38,23 @@ default-rustls-provider = ["gaxi/_default-rustls-provider"]
 all-features = true
 
 [dependencies]
-apps_script_calendar.workspace = true
-apps_script_docs.workspace     = true
-apps_script_drive.workspace    = true
-apps_script_gmail.workspace    = true
-apps_script_sheets.workspace   = true
-apps_script_slides.workspace   = true
-apps_script_type.workspace     = true
-async-trait.workspace          = true
-bytes.workspace                = true
-gax.workspace                  = true
-gaxi                           = { workspace = true, features = ["_internal-http-client"] }
-lazy_static.workspace          = true
-serde.workspace                = true
-serde_json.workspace           = true
-serde_with.workspace           = true
-tracing.workspace              = true
-wkt.workspace                  = true
+async-trait.workspace                            = true
+bytes.workspace                                  = true
+gax.workspace                                    = true
+gaxi                                             = { workspace = true, features = ["_internal-http-client"] }
+google-cloud-apps-script-type-calendar.workspace = true
+google-cloud-apps-script-type-docs.workspace     = true
+google-cloud-apps-script-type-drive.workspace    = true
+google-cloud-apps-script-type-gmail.workspace    = true
+google-cloud-apps-script-type-sheets.workspace   = true
+google-cloud-apps-script-type-slides.workspace   = true
+google-cloud-apps-script-type.workspace          = true
+lazy_static.workspace                            = true
+serde.workspace                                  = true
+serde_json.workspace                             = true
+serde_with.workspace                             = true
+tracing.workspace                                = true
+wkt.workspace                                    = true
 
 [dev-dependencies]
 tokio-test.workspace = true

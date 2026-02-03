@@ -701,9 +701,9 @@ impl super::stub::Compliance for Compliance {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -757,9 +757,9 @@ impl super::stub::Compliance for Compliance {
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::Location>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -1879,9 +1879,9 @@ impl super::stub::Echo for Echo {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -1935,9 +1935,9 @@ impl super::stub::Echo for Echo {
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::Location>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -3042,9 +3042,9 @@ impl super::stub::Identity for Identity {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -3098,9 +3098,9 @@ impl super::stub::Identity for Identity {
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::Location>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -4847,9 +4847,9 @@ impl super::stub::Messaging for Messaging {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -4903,9 +4903,9 @@ impl super::stub::Messaging for Messaging {
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::Location>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -6016,9 +6016,9 @@ impl super::stub::SequenceService for SequenceService {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -6072,9 +6072,9 @@ impl super::stub::SequenceService for SequenceService {
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::Location>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -7378,9 +7378,9 @@ impl super::stub::Testing for Testing {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -7434,9 +7434,9 @@ impl super::stub::Testing for Testing {
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::Location>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;

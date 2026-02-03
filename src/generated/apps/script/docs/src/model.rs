@@ -17,8 +17,8 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate apps_script_type;
 extern crate bytes;
+extern crate google_cloud_apps_script_type;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -35,7 +35,8 @@ mod serialize;
 pub struct DocsAddOnManifest {
     /// If present, this overrides the configuration from
     /// `addOns.common.homepageTrigger`.
-    pub homepage_trigger: std::option::Option<apps_script_type::model::HomepageExtensionPoint>,
+    pub homepage_trigger:
+        std::option::Option<google_cloud_apps_script_type::model::HomepageExtensionPoint>,
 
     /// Endpoint to execute when file scope authorization is granted
     /// for this document/user pair.
@@ -54,12 +55,12 @@ impl DocsAddOnManifest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apps_script_type_docs::model::DocsAddOnManifest;
-    /// use apps_script_type::model::HomepageExtensionPoint;
+    /// use google_cloud_apps_script_type::model::HomepageExtensionPoint;
     /// let x = DocsAddOnManifest::new().set_homepage_trigger(HomepageExtensionPoint::default()/* use setters */);
     /// ```
     pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
+        T: std::convert::Into<google_cloud_apps_script_type::model::HomepageExtensionPoint>,
     {
         self.homepage_trigger = std::option::Option::Some(v.into());
         self
@@ -70,13 +71,13 @@ impl DocsAddOnManifest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apps_script_type_docs::model::DocsAddOnManifest;
-    /// use apps_script_type::model::HomepageExtensionPoint;
+    /// use google_cloud_apps_script_type::model::HomepageExtensionPoint;
     /// let x = DocsAddOnManifest::new().set_or_clear_homepage_trigger(Some(HomepageExtensionPoint::default()/* use setters */));
     /// let x = DocsAddOnManifest::new().set_or_clear_homepage_trigger(None::<HomepageExtensionPoint>);
     /// ```
     pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
+        T: std::convert::Into<google_cloud_apps_script_type::model::HomepageExtensionPoint>,
     {
         self.homepage_trigger = v.map(|x| x.into());
         self

@@ -55034,7 +55034,7 @@ pub struct WriteUserEventRequest {
     ///
     /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
-    /// [google.cloud.location.Location]: location::model::Location
+    /// [google.cloud.location.Location]: google_cloud_location::model::Location
     pub parent: std::string::String,
 
     /// Required. User event to write.
@@ -55136,7 +55136,7 @@ pub struct CollectUserEventRequest {
     ///
     /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
-    /// [google.cloud.location.Location]: location::model::Location
+    /// [google.cloud.location.Location]: google_cloud_location::model::Location
     pub parent: std::string::String,
 
     /// Required. URL encoded UserEvent proto with a length limit of 2,000,000

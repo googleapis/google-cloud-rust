@@ -190,14 +190,14 @@ impl Compliance {
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
-    /// [google.cloud.location.Locations]: location::client::Locations
+    /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
     pub fn list_locations(&self) -> super::builder::compliance::ListLocations {
         super::builder::compliance::ListLocations::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
-    /// [google.cloud.location.Locations]: location::client::Locations
+    /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
     pub fn get_location(&self) -> super::builder::compliance::GetLocation {
         super::builder::compliance::GetLocation::new(self.inner.clone())
     }
@@ -433,14 +433,14 @@ impl Echo {
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
-    /// [google.cloud.location.Locations]: location::client::Locations
+    /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
     pub fn list_locations(&self) -> super::builder::echo::ListLocations {
         super::builder::echo::ListLocations::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
-    /// [google.cloud.location.Locations]: location::client::Locations
+    /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
     pub fn get_location(&self) -> super::builder::echo::GetLocation {
         super::builder::echo::GetLocation::new(self.inner.clone())
     }
@@ -624,14 +624,14 @@ impl Identity {
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
-    /// [google.cloud.location.Locations]: location::client::Locations
+    /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
     pub fn list_locations(&self) -> super::builder::identity::ListLocations {
         super::builder::identity::ListLocations::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
-    /// [google.cloud.location.Locations]: location::client::Locations
+    /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
     pub fn get_location(&self) -> super::builder::identity::GetLocation {
         super::builder::identity::GetLocation::new(self.inner.clone())
     }
@@ -863,14 +863,14 @@ impl Messaging {
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
-    /// [google.cloud.location.Locations]: location::client::Locations
+    /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
     pub fn list_locations(&self) -> super::builder::messaging::ListLocations {
         super::builder::messaging::ListLocations::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
-    /// [google.cloud.location.Locations]: location::client::Locations
+    /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
     pub fn get_location(&self) -> super::builder::messaging::GetLocation {
         super::builder::messaging::GetLocation::new(self.inner.clone())
     }
@@ -1060,14 +1060,14 @@ impl SequenceService {
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
-    /// [google.cloud.location.Locations]: location::client::Locations
+    /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
     pub fn list_locations(&self) -> super::builder::sequence_service::ListLocations {
         super::builder::sequence_service::ListLocations::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
-    /// [google.cloud.location.Locations]: location::client::Locations
+    /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
     pub fn get_location(&self) -> super::builder::sequence_service::GetLocation {
         super::builder::sequence_service::GetLocation::new(self.inner.clone())
     }
@@ -1287,14 +1287,14 @@ impl Testing {
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
-    /// [google.cloud.location.Locations]: location::client::Locations
+    /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
     pub fn list_locations(&self) -> super::builder::testing::ListLocations {
         super::builder::testing::ListLocations::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
-    /// [google.cloud.location.Locations]: location::client::Locations
+    /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
     pub fn get_location(&self) -> super::builder::testing::GetLocation {
         super::builder::testing::GetLocation::new(self.inner.clone())
     }
