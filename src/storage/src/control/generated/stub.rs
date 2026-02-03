@@ -428,10 +428,10 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     /// Implements [crate::client::StorageControl::get_iam_policy].
     fn get_iam_policy(
         &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -439,10 +439,10 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     /// Implements [crate::client::StorageControl::set_iam_policy].
     fn set_iam_policy(
         &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -450,10 +450,12 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     /// Implements [crate::client::StorageControl::test_iam_permissions].
     fn test_iam_permissions(
         &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -843,30 +845,32 @@ where
 
     fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         T::get_iam_policy(self, req, options)
     }
 
     fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         T::set_iam_policy(self, req, options)
     }
 
     fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         T::test_iam_permissions(self, req, options)
     }

@@ -204,21 +204,21 @@ impl Compliance {
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn set_iam_policy(&self) -> super::builder::compliance::SetIamPolicy {
         super::builder::compliance::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn get_iam_policy(&self) -> super::builder::compliance::GetIamPolicy {
         super::builder::compliance::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn test_iam_permissions(&self) -> super::builder::compliance::TestIamPermissions {
         super::builder::compliance::TestIamPermissions::new(self.inner.clone())
     }
@@ -447,21 +447,21 @@ impl Echo {
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn set_iam_policy(&self) -> super::builder::echo::SetIamPolicy {
         super::builder::echo::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn get_iam_policy(&self) -> super::builder::echo::GetIamPolicy {
         super::builder::echo::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn test_iam_permissions(&self) -> super::builder::echo::TestIamPermissions {
         super::builder::echo::TestIamPermissions::new(self.inner.clone())
     }
@@ -638,21 +638,21 @@ impl Identity {
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn set_iam_policy(&self) -> super::builder::identity::SetIamPolicy {
         super::builder::identity::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn get_iam_policy(&self) -> super::builder::identity::GetIamPolicy {
         super::builder::identity::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn test_iam_permissions(&self) -> super::builder::identity::TestIamPermissions {
         super::builder::identity::TestIamPermissions::new(self.inner.clone())
     }
@@ -877,21 +877,21 @@ impl Messaging {
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn set_iam_policy(&self) -> super::builder::messaging::SetIamPolicy {
         super::builder::messaging::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn get_iam_policy(&self) -> super::builder::messaging::GetIamPolicy {
         super::builder::messaging::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn test_iam_permissions(&self) -> super::builder::messaging::TestIamPermissions {
         super::builder::messaging::TestIamPermissions::new(self.inner.clone())
     }
@@ -1074,21 +1074,21 @@ impl SequenceService {
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn set_iam_policy(&self) -> super::builder::sequence_service::SetIamPolicy {
         super::builder::sequence_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn get_iam_policy(&self) -> super::builder::sequence_service::GetIamPolicy {
         super::builder::sequence_service::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn test_iam_permissions(&self) -> super::builder::sequence_service::TestIamPermissions {
         super::builder::sequence_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -1301,21 +1301,21 @@ impl Testing {
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn set_iam_policy(&self) -> super::builder::testing::SetIamPolicy {
         super::builder::testing::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn get_iam_policy(&self) -> super::builder::testing::GetIamPolicy {
         super::builder::testing::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn test_iam_permissions(&self) -> super::builder::testing::TestIamPermissions {
         super::builder::testing::TestIamPermissions::new(self.inner.clone())
     }

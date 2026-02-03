@@ -261,10 +261,10 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DataprocMetastore::set_iam_policy].
     fn set_iam_policy(
         &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -272,10 +272,10 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DataprocMetastore::get_iam_policy].
     fn get_iam_policy(
         &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -283,10 +283,12 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DataprocMetastore::test_iam_permissions].
     fn test_iam_permissions(
         &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -448,10 +450,10 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DataprocMetastoreFederation::set_iam_policy].
     fn set_iam_policy(
         &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -459,10 +461,10 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DataprocMetastoreFederation::get_iam_policy].
     fn get_iam_policy(
         &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -470,10 +472,12 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DataprocMetastoreFederation::test_iam_permissions].
     fn test_iam_permissions(
         &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

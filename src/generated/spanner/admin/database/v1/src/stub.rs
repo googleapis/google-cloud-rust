@@ -116,10 +116,10 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DatabaseAdmin::set_iam_policy].
     fn set_iam_policy(
         &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -127,10 +127,10 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DatabaseAdmin::get_iam_policy].
     fn get_iam_policy(
         &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -138,10 +138,12 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DatabaseAdmin::test_iam_permissions].
     fn test_iam_permissions(
         &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

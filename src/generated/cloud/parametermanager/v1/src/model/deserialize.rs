@@ -149,8 +149,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Parameter {
                                     "multiple values for policy_member",
                                 ));
                             }
-                            result.policy_member = map.next_value::<std::option::Option<iam_v1::model::ResourcePolicyMember>>()?
-                                ;
+                            result.policy_member = map.next_value::<std::option::Option<
+                                google_cloud_iam_v1::model::ResourcePolicyMember,
+                            >>()?;
                         }
                         __FieldTag::__kms_key => {
                             if !fields.insert(__FieldTag::__kms_key) {

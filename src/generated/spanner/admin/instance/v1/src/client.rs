@@ -453,7 +453,7 @@ impl InstanceAdmin {
     /// Authorization requires `spanner.instances.setIamPolicy` on
     /// [resource][google.iam.v1.SetIamPolicyRequest.resource].
     ///
-    /// [google.iam.v1.SetIamPolicyRequest.resource]: iam_v1::model::SetIamPolicyRequest::resource
+    /// [google.iam.v1.SetIamPolicyRequest.resource]: google_cloud_iam_v1::model::SetIamPolicyRequest::resource
     pub fn set_iam_policy(&self) -> super::builder::instance_admin::SetIamPolicy {
         super::builder::instance_admin::SetIamPolicy::new(self.inner.clone())
     }
@@ -464,7 +464,7 @@ impl InstanceAdmin {
     /// Authorization requires `spanner.instances.getIamPolicy` on
     /// [resource][google.iam.v1.GetIamPolicyRequest.resource].
     ///
-    /// [google.iam.v1.GetIamPolicyRequest.resource]: iam_v1::model::GetIamPolicyRequest::resource
+    /// [google.iam.v1.GetIamPolicyRequest.resource]: google_cloud_iam_v1::model::GetIamPolicyRequest::resource
     pub fn get_iam_policy(&self) -> super::builder::instance_admin::GetIamPolicy {
         super::builder::instance_admin::GetIamPolicy::new(self.inner.clone())
     }

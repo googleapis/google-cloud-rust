@@ -267,10 +267,10 @@ pub trait CrossNetworkAutomationService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::CrossNetworkAutomationService::set_iam_policy].
     fn set_iam_policy(
         &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -278,10 +278,10 @@ pub trait CrossNetworkAutomationService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::CrossNetworkAutomationService::get_iam_policy].
     fn get_iam_policy(
         &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -289,10 +289,12 @@ pub trait CrossNetworkAutomationService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::CrossNetworkAutomationService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -539,10 +541,10 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DataTransferService::set_iam_policy].
     fn set_iam_policy(
         &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -550,10 +552,10 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DataTransferService::get_iam_policy].
     fn get_iam_policy(
         &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -561,10 +563,12 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DataTransferService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -923,10 +927,10 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::HubService::set_iam_policy].
     fn set_iam_policy(
         &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -934,10 +938,10 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::HubService::get_iam_policy].
     fn get_iam_policy(
         &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -945,10 +949,12 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::HubService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1110,10 +1116,10 @@ pub trait InternalRangeService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::InternalRangeService::set_iam_policy].
     fn set_iam_policy(
         &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1121,10 +1127,10 @@ pub trait InternalRangeService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::InternalRangeService::get_iam_policy].
     fn get_iam_policy(
         &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1132,10 +1138,12 @@ pub trait InternalRangeService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::InternalRangeService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1288,10 +1296,10 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::PolicyBasedRoutingService::set_iam_policy].
     fn set_iam_policy(
         &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1299,10 +1307,10 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::PolicyBasedRoutingService::get_iam_policy].
     fn get_iam_policy(
         &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1310,10 +1318,12 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::PolicyBasedRoutingService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

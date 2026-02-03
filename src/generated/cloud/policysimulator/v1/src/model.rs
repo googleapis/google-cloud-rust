@@ -21,10 +21,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate gtype;
-extern crate iam_v1;
 extern crate lazy_static;
 extern crate orgpolicy_v2;
 extern crate rpc;
@@ -126,7 +126,7 @@ impl wkt::message::Message for AccessTuple {
 /// Details about how a specific IAM [Policy][google.iam.v1.Policy] contributed
 /// to the access check.
 ///
-/// [google.iam.v1.Policy]: iam_v1::model::Policy
+/// [google.iam.v1.Policy]: google_cloud_iam_v1::model::Policy
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainedPolicy {
@@ -160,7 +160,7 @@ pub struct ExplainedPolicy {
     /// access to the policy, this field is empty.
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-    pub policy: std::option::Option<iam_v1::model::Policy>,
+    pub policy: std::option::Option<google_cloud_iam_v1::model::Policy>,
 
     /// Details about how each binding in the policy affects the principal's
     /// ability, or inability, to use the permission for the resource.
@@ -225,12 +225,12 @@ impl ExplainedPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::ExplainedPolicy;
-    /// use iam_v1::model::Policy;
+    /// use google_cloud_iam_v1::model::Policy;
     /// let x = ExplainedPolicy::new().set_policy(Policy::default()/* use setters */);
     /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<iam_v1::model::Policy>,
+        T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -241,13 +241,13 @@ impl ExplainedPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::ExplainedPolicy;
-    /// use iam_v1::model::Policy;
+    /// use google_cloud_iam_v1::model::Policy;
     /// let x = ExplainedPolicy::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
     /// let x = ExplainedPolicy::new().set_or_clear_policy(None::<Policy>);
     /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<iam_v1::model::Policy>,
+        T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
     {
         self.policy = v.map(|x| x.into());
         self
@@ -3373,8 +3373,9 @@ pub struct ReplayConfig {
     /// the resource hierarchy, and any policies set on descendant resources. You
     /// do not need to include these policies in the policy overlay.
     ///
-    /// [google.iam.v1.Policy]: iam_v1::model::Policy
-    pub policy_overlay: std::collections::HashMap<std::string::String, iam_v1::model::Policy>,
+    /// [google.iam.v1.Policy]: google_cloud_iam_v1::model::Policy
+    pub policy_overlay:
+        std::collections::HashMap<std::string::String, google_cloud_iam_v1::model::Policy>,
 
     /// The logs to use as input for the
     /// [Replay][google.cloud.policysimulator.v1.Replay].
@@ -3395,7 +3396,7 @@ impl ReplayConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::ReplayConfig;
-    /// use iam_v1::model::Policy;
+    /// use google_cloud_iam_v1::model::Policy;
     /// let x = ReplayConfig::new().set_policy_overlay([
     ///     ("key0", Policy::default()/* use setters */),
     ///     ("key1", Policy::default()/* use (different) setters */),
@@ -3405,7 +3406,7 @@ impl ReplayConfig {
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
         K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<iam_v1::model::Policy>,
+        V: std::convert::Into<google_cloud_iam_v1::model::Policy>,
     {
         use std::iter::Iterator;
         self.policy_overlay = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();

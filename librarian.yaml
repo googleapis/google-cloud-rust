@@ -67,6 +67,9 @@ default:
         package: google-cloud-gax-internal
         feature: _internal-http-client
         used_if: services
+      - name: google-cloud-iam-v1
+        package: google-cloud-iam-v1
+        source: google.iam.v1
       - name: google-cloud-longrunning
         package: google-cloud-longrunning
         source: google.longrunning
@@ -79,9 +82,6 @@ default:
       - name: gtype
         package: google-cloud-type
         source: google.type
-      - name: iam_v1
-        package: google-cloud-iam-v1
-        source: google.iam.v1
       - name: lazy_static
         package: lazy_static
         used_if: services
@@ -1326,7 +1326,7 @@ libraries:
           output: src/storage/src/generated/convert/control
           source: google/storage/control/v2
           template: convert-prost
-        - module_path: iam_v1::model
+        - module_path: google_cloud_iam_v1::model
           output: src/storage/src/generated/convert/iam
           skipped_ids:
             - .google.iam.v1.ResourcePolicyMember

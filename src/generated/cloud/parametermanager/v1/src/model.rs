@@ -21,7 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate iam_v1;
+extern crate google_cloud_iam_v1;
 extern crate lazy_static;
 extern crate location;
 extern crate serde;
@@ -57,7 +57,7 @@ pub struct Parameter {
 
     /// Output only. [Output-only] policy member strings of a Google Cloud
     /// resource.
-    pub policy_member: std::option::Option<iam_v1::model::ResourcePolicyMember>,
+    pub policy_member: std::option::Option<google_cloud_iam_v1::model::ResourcePolicyMember>,
 
     /// Optional. Customer managed encryption key (CMEK) to use for encrypting the
     /// Parameter Versions. If not set, the default Google-managed encryption key
@@ -196,12 +196,12 @@ impl Parameter {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::Parameter;
-    /// use iam_v1::model::ResourcePolicyMember;
+    /// use google_cloud_iam_v1::model::ResourcePolicyMember;
     /// let x = Parameter::new().set_policy_member(ResourcePolicyMember::default()/* use setters */);
     /// ```
     pub fn set_policy_member<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<iam_v1::model::ResourcePolicyMember>,
+        T: std::convert::Into<google_cloud_iam_v1::model::ResourcePolicyMember>,
     {
         self.policy_member = std::option::Option::Some(v.into());
         self
@@ -212,13 +212,13 @@ impl Parameter {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_parametermanager_v1::model::Parameter;
-    /// use iam_v1::model::ResourcePolicyMember;
+    /// use google_cloud_iam_v1::model::ResourcePolicyMember;
     /// let x = Parameter::new().set_or_clear_policy_member(Some(ResourcePolicyMember::default()/* use setters */));
     /// let x = Parameter::new().set_or_clear_policy_member(None::<ResourcePolicyMember>);
     /// ```
     pub fn set_or_clear_policy_member<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<iam_v1::model::ResourcePolicyMember>,
+        T: std::convert::Into<google_cloud_iam_v1::model::ResourcePolicyMember>,
     {
         self.policy_member = v.map(|x| x.into());
         self
