@@ -64,6 +64,14 @@ locals {
       config = "complex.yaml"
       script = "features"
     }
+    features-gax-internal = {
+      config = "complex.yaml"
+      script = "features-gax-internal"
+    }
+    per-client-features = {
+      config = "complex.yaml"
+      script = "per-client-features"
+    }
     format = {
       config = "format.yaml"
     }

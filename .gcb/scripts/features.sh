@@ -19,8 +19,6 @@ rustup component add clippy
 cargo version
 rustup show active-toolchain -v
 
-set -e
-
 cargo clean
 echo "==== google-cloud-wkt ===="
 for sub in test doc; do
@@ -45,20 +43,6 @@ cargo clippy --no-deps --package google-cloud-gax --all-targets -- --deny warnin
 cargo clippy --no-deps --package google-cloud-gax --all-features --all-targets --profile=test -- --deny warnings
 
 cargo clean
-echo "==== google-cloud-gax-internal ===="
-for sub in test doc; do
-  cargo "${sub}" --package google-cloud-gax-internal --no-default-features
-  cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-common
-  cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-http-client
-  cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-grpc-client
-  cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-http-multipart
-  cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-http-stream
-  cargo "${sub}" --package google-cloud-gax-internal --all-features
-done
-cargo clippy --no-deps --package google-cloud-gax-internal --all-targets -- --deny warnings
-cargo clippy --no-deps --package google-cloud-gax-internal --all-features --all-targets --profile=test -- --deny warnings
-
-cargo clean
 echo "==== google-cloud-lro ===="
 for sub in test doc; do
   cargo "${sub}" --profile=ci --package google-cloud-lro --no-default-features
@@ -68,18 +52,6 @@ for sub in test doc; do
 done
 cargo clippy --no-deps --package google-cloud-lro --all-targets -- --deny warnings
 cargo clippy --no-deps --package google-cloud-lro --all-features --all-targets --profile=test -- --deny warnings
-
-# We use google-cloud-aiplatform-v1 to test the generator w.r.t.
-# per-client features. As usual, we assume the generator works for
-# other generated libraries if it works for one.
-cargo clean
-echo "==== google-cloud-aiplatform-v1 ===="
-cargo build -p google-cloud-aiplatform-v1 --no-default-features
-mapfile -t features < <(sed -n -e '/^default = \[/,/^\]/ p' src/generated/cloud/aiplatform/v1/Cargo.toml | sed -n -e '/",/ s/ *"\(.*\)",/\1/p')
-for feature in "${features[@]}"; do
-  echo "==== google-cloud-aiplatform-v1 + ${feature} ===="
-  cargo build --profile=ci -p google-cloud-aiplatform-v1 --no-default-features --features "${feature}"
-done
 
 cargo clean
 echo "==== google-cloud-storage ===="
