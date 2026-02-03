@@ -121,7 +121,7 @@ use crate::credentials::external_account_sources::programmatic_sourced::Programm
 use crate::credentials::subject_token::dynamic;
 use crate::credentials::{AccessToken, AccessTokenCredentials};
 use crate::errors::non_retryable;
-use crate::headers_util::build_cacheable_headers;
+use crate::headers_util::AuthHeadersBuilder;
 use crate::retry::Builder as RetryTokenProviderBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -1279,7 +1279,10 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        build_cacheable_headers(&token, &self.quota_project_id)
+
+        AuthHeadersBuilder::new(&token)
+            .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .build()
     }
 }
 

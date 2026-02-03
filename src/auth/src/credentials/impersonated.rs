@@ -100,7 +100,7 @@ use crate::credentials::{
 };
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::{
-    self, ACCESS_TOKEN_REQUEST_TYPE, build_cacheable_headers, metrics_header_value,
+    self, ACCESS_TOKEN_REQUEST_TYPE, AuthHeadersBuilder, metrics_header_value,
 };
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
@@ -706,7 +706,10 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        build_cacheable_headers(&token, &self.quota_project_id)
+
+        AuthHeadersBuilder::new(&token)
+            .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .build()
     }
 }
 
