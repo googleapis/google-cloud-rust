@@ -1279,7 +1279,7 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        build_cacheable_headers(&token, &self.quota_project_id)
+        build_cacheable_headers(&token, &self.quota_project_id, &None)
     }
 }
 

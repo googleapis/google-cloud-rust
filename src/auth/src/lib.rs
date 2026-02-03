@@ -62,6 +62,7 @@ pub(crate) mod retry;
 pub mod signer;
 pub(crate) mod token;
 pub(crate) mod token_cache;
+pub(crate) mod trust_boundary;
 
 /// A `Result` alias where the `Err` case is [BuildCredentialsError].
 pub(crate) type BuildResult<T> = std::result::Result<T, build_errors::Error>;
