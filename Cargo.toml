@@ -445,66 +445,63 @@ test-case         = { default-features = false, version = "3.3" }
 tokio-stream      = { default-features = false, version = "0.1.16" }
 tokio-test        = { default-features = false, version = "0.4" }
 
-# Local packages used as dependencies
-google-cloud-auth         = { default-features = false, version = "1.5", path = "src/auth" }
-gax                       = { default-features = false, version = "1.6", path = "src/gax", package = "google-cloud-gax" }
-google-cloud-gax          = { default-features = false, version = "1.6", path = "src/gax" }
-gaxi                      = { default-features = false, version = "0.7.9", path = "src/gax-internal", package = "google-cloud-gax-internal" }
-google-cloud-api          = { default-features = false, version = "1", path = "src/generated/api/types" }
-google-cloud-iam-v1       = { default-features = false, version = "1", path = "src/generated/iam/v1" }
-google-cloud-location     = { default-features = false, version = "1", path = "src/generated/cloud/location" }
-google-cloud-longrunning  = { default-features = false, version = "1.2", path = "src/generated/longrunning" }
-google-cloud-lro          = { default-features = false, version = "1.1", path = "src/lro" }
-wkt                       = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
-google-cloud-wkt          = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
-cloud_common              = { default-features = false, version = "1", path = "src/generated/cloud/common", package = "google-cloud-common" }
-google-cloud-type         = { default-features = false, version = "1", path = "src/generated/type" }
-grafeas                   = { default-features = false, version = "1", path = "src/generated/grafeas/v1", package = "google-cloud-grafeas-v1" }
-logging_type              = { default-features = false, version = "1", path = "src/generated/logging/type", package = "google-cloud-logging-type" }
-google-cloud-rpc          = { default-features = false, version = "1", path = "src/generated/rpc/types", package = "google-cloud-rpc" }
-rpc_context               = { default-features = false, version = "1", path = "src/generated/rpc/context", package = "google-cloud-rpc-context" }
-accesscontextmanager_v1   = { default-features = false, version = "1", path = "src/generated/identity/accesscontextmanager/v1", package = "google-cloud-identity-accesscontextmanager-v1" }
-orgpolicy_v1              = { default-features = false, version = "1", path = "src/generated/cloud/orgpolicy/v1", package = "google-cloud-orgpolicy-v1" }
-orgpolicy_v2              = { default-features = false, version = "1", path = "src/generated/cloud/orgpolicy/v2", package = "google-cloud-orgpolicy-v2" }
-osconfig_v1               = { default-features = false, version = "1", path = "src/generated/cloud/osconfig/v1", package = "google-cloud-osconfig-v1" }
-kms                       = { default-features = false, version = "1", path = "src/generated/cloud/kms/v1", package = "google-cloud-kms-v1" }
-oslogin_common            = { default-features = false, version = "1", path = "src/generated/oslogin/common", package = "google-cloud-oslogin-common" }
-iam_v2                    = { default-features = false, version = "1", path = "src/generated/iam/v2", package = "google-cloud-iam-v2" }
-accesscontextmanager_type = { default-features = false, version = "1", path = "src/generated/identity/accesscontextmanager/type", package = "google-cloud-identity-accesscontextmanager-type" }
-# Used by google-cloud-recommender-logging-v1
-google-cloud-recommender-v1 = { default-features = false, version = "1", path = "src/generated/cloud/recommender/v1" }
-# Used by google-cloud-gkehub-v1
-google-cloud-gkehub-configmanagement-v1    = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/configmanagement/v1" }
-google-cloud-gkehub-multiclusteringress-v1 = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/multiclusteringress/v1" }
-# Used by google-cloud-gsuiteaddons-v1
-google-cloud-apps-script-type          = { default-features = false, version = "1", path = "src/generated/apps/script/gtype" }
-google-cloud-apps-script-type-calendar = { default-features = false, version = "1", path = "src/generated/apps/script/calendar" }
-google-cloud-apps-script-type-docs     = { default-features = false, version = "1", path = "src/generated/apps/script/docs" }
-google-cloud-apps-script-type-drive    = { default-features = false, version = "1", path = "src/generated/apps/script/drive" }
-google-cloud-apps-script-type-gmail    = { default-features = false, version = "1", path = "src/generated/apps/script/gmail" }
-google-cloud-apps-script-type-sheets   = { default-features = false, version = "1", path = "src/generated/apps/script/sheets" }
-google-cloud-apps-script-type-slides   = { default-features = false, version = "1", path = "src/generated/apps/script/slides" }
-# Used in integration tests
-google-cloud-speech-v2          = { default-features = false, path = "src/generated/cloud/speech/v2" }
-google-cloud-secretmanager-v1   = { default-features = false, path = "src/generated/cloud/secretmanager/v1" }
-google-cloud-aiplatform-v1      = { default-features = false, path = "src/generated/cloud/aiplatform/v1" }
-google-cloud-compute-v1         = { default-features = false, path = "src/generated/cloud/compute/v1" }
-google-cloud-storage            = { default-features = false, version = "1.7", path = "src/storage" }
-google-cloud-pubsub             = { default-features = false, path = "src/pubsub" }
-google-cloud-bigquery-v2        = { default-features = false, version = "1", path = "src/generated/cloud/bigquery/v2" }
-google-cloud-iam-credentials-v1 = { default-features = false, path = "src/generated/iam/credentials/v1" }
-google-cloud-language-v2        = { default-features = false, path = "src/generated/cloud/language/v2" }
-google-cloud-dns-v1             = { default-features = false, path = "src/generated/cloud/dns/v1" }
-google-cloud-firestore          = { default-features = false, path = "src/firestore" }
-google-cloud-showcase-v1beta1   = { default-features = false, path = "src/generated/showcase" }
-google-cloud-telcoautomation-v1 = { default-features = false, path = "src/generated/cloud/telcoautomation/v1" }
-google-cloud-trace-v1           = { default-features = false, path = "src/generated/devtools/cloudtrace/v1" }
-secretmanager-openapi-v1        = { default-features = false, path = "src/generated/openapi-validation" }
-# The names on these are too long, I do not want to reformat the whole file for them.
+# Local packages used as dependencies.
+google-cloud-auth        = { default-features = false, version = "1.5", path = "src/auth" }
+gax                      = { default-features = false, version = "1.6", path = "src/gax", package = "google-cloud-gax" }
+google-cloud-gax         = { default-features = false, version = "1.6", path = "src/gax" }
+gaxi                     = { default-features = false, version = "0.7.9", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+google-cloud-api         = { default-features = false, version = "1", path = "src/generated/api/types" }
+google-cloud-iam-v1      = { default-features = false, version = "1", path = "src/generated/iam/v1" }
+google-cloud-location    = { default-features = false, version = "1", path = "src/generated/cloud/location" }
+google-cloud-longrunning = { default-features = false, version = "1.2", path = "src/generated/longrunning" }
+google-cloud-lro         = { default-features = false, version = "1.1", path = "src/lro" }
+wkt                      = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
+google-cloud-wkt         = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
+cloud_common             = { default-features = false, version = "1", path = "src/generated/cloud/common", package = "google-cloud-common" }
+google-cloud-type        = { default-features = false, version = "1", path = "src/generated/type" }
+grafeas                  = { default-features = false, version = "1", path = "src/generated/grafeas/v1", package = "google-cloud-grafeas-v1" }
+logging_type             = { default-features = false, version = "1", path = "src/generated/logging/type", package = "google-cloud-logging-type" }
+google-cloud-rpc         = { default-features = false, version = "1", path = "src/generated/rpc/types", package = "google-cloud-rpc" }
+rpc_context              = { default-features = false, version = "1", path = "src/generated/rpc/context", package = "google-cloud-rpc-context" }
+orgpolicy_v1             = { default-features = false, version = "1", path = "src/generated/cloud/orgpolicy/v1", package = "google-cloud-orgpolicy-v1" }
+orgpolicy_v2             = { default-features = false, version = "1", path = "src/generated/cloud/orgpolicy/v2", package = "google-cloud-orgpolicy-v2" }
+osconfig_v1              = { default-features = false, version = "1", path = "src/generated/cloud/osconfig/v1", package = "google-cloud-osconfig-v1" }
+kms                      = { default-features = false, version = "1", path = "src/generated/cloud/kms/v1", package = "google-cloud-kms-v1" }
+oslogin_common           = { default-features = false, version = "1", path = "src/generated/oslogin/common", package = "google-cloud-oslogin-common" }
+iam_v2                   = { default-features = false, version = "1", path = "src/generated/iam/v2", package = "google-cloud-iam-v2" }
+# These are used by specific generated libraries.
+google-cloud-identity-accesscontextmanager-v1   = { default-features = false, version = "1", path = "src/generated/identity/accesscontextmanager/v1" }
+google-cloud-identity-accesscontextmanager-type = { default-features = false, version = "1", path = "src/generated/identity/accesscontextmanager/type" }
+google-cloud-orgpolicy-v1                       = { default-features = false, version = "1", path = "src/generated/cloud/orgpolicy/v1" }
+google-cloud-osconfig-v1                        = { default-features = false, version = "1", path = "src/generated/cloud/osconfig/v1" }
+google-cloud-recommender-v1                     = { default-features = false, version = "1", path = "src/generated/cloud/recommender/v1" }
+google-cloud-gkehub-configmanagement-v1         = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/configmanagement/v1" }
+google-cloud-gkehub-multiclusteringress-v1      = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/multiclusteringress/v1" }
+google-cloud-apps-script-type                   = { default-features = false, version = "1", path = "src/generated/apps/script/gtype" }
+google-cloud-apps-script-type-calendar          = { default-features = false, version = "1", path = "src/generated/apps/script/calendar" }
+google-cloud-apps-script-type-docs              = { default-features = false, version = "1", path = "src/generated/apps/script/docs" }
+google-cloud-apps-script-type-drive             = { default-features = false, version = "1", path = "src/generated/apps/script/drive" }
+google-cloud-apps-script-type-gmail             = { default-features = false, version = "1", path = "src/generated/apps/script/gmail" }
+google-cloud-apps-script-type-sheets            = { default-features = false, version = "1", path = "src/generated/apps/script/sheets" }
+google-cloud-apps-script-type-slides            = { default-features = false, version = "1", path = "src/generated/apps/script/slides" }
+# Used in integration tests, these are leaf nodes in the dependency graph. Should not get a `version`.
+google-cloud-speech-v2               = { default-features = false, path = "src/generated/cloud/speech/v2" }
+google-cloud-secretmanager-v1        = { default-features = false, path = "src/generated/cloud/secretmanager/v1" }
+google-cloud-aiplatform-v1           = { default-features = false, path = "src/generated/cloud/aiplatform/v1" }
+google-cloud-compute-v1              = { default-features = false, path = "src/generated/cloud/compute/v1" }
+google-cloud-storage                 = { default-features = false, path = "src/storage" }
+google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
+google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2" }
+google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
+google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }
+google-cloud-dns-v1                  = { default-features = false, path = "src/generated/cloud/dns/v1" }
+google-cloud-firestore               = { default-features = false, path = "src/firestore" }
+google-cloud-showcase-v1beta1        = { default-features = false, path = "src/generated/showcase" }
+google-cloud-telcoautomation-v1      = { default-features = false, path = "src/generated/cloud/telcoautomation/v1" }
+google-cloud-trace-v1                = { default-features = false, path = "src/generated/devtools/cloudtrace/v1" }
+secretmanager-openapi-v1             = { default-features = false, path = "src/generated/openapi-validation" }
 google-cloud-workflows-v1            = { default-features = false, path = "src/generated/cloud/workflows/v1" }
 google-cloud-workflows-executions-v1 = { default-features = false, path = "src/generated/cloud/workflows/executions/v1" }
-
-
 # Local test packages (never add a version)
 google-cloud-test-utils = { default-features = false, path = "src/test-utils" }
 integration-tests       = { path = "tests/integration" }
