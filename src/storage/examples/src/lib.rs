@@ -544,6 +544,10 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::remove_file_owner::sample(&control, &id, &service_account).await?;
     tracing::info!("running set_object_retention_policy example");
     objects::set_object_retention_policy::sample(&control, &id).await?;
+    tracing::info!("running generate_signed_url_v4 example");
+    objects::generate_signed_url_v4::sample(&id, "object-to-read").await?;
+    tracing::info!("running generate_upload_signed_url_v4 example");
+    objects::generate_upload_signed_url_v4::sample(&id, "object-to-upload").await?;
 
     Ok(())
 }
