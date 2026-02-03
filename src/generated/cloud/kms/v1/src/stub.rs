@@ -74,10 +74,12 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Autokey::list_locations].
     fn list_locations(
         &self,
-        _req: location::model::ListLocationsRequest,
+        _req: google_cloud_location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -85,10 +87,10 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Autokey::get_location].
     fn get_location(
         &self,
-        _req: location::model::GetLocationRequest,
+        _req: google_cloud_location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
+        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -212,10 +214,12 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::AutokeyAdmin::list_locations].
     fn list_locations(
         &self,
-        _req: location::model::ListLocationsRequest,
+        _req: google_cloud_location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -223,10 +227,10 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::AutokeyAdmin::get_location].
     fn get_location(
         &self,
-        _req: location::model::GetLocationRequest,
+        _req: google_cloud_location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
+        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -370,10 +374,12 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::EkmService::list_locations].
     fn list_locations(
         &self,
-        _req: location::model::ListLocationsRequest,
+        _req: google_cloud_location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -381,10 +387,10 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::EkmService::get_location].
     fn get_location(
         &self,
-        _req: location::model::GetLocationRequest,
+        _req: google_cloud_location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
+        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -556,10 +562,12 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::HsmManagement::list_locations].
     fn list_locations(
         &self,
-        _req: location::model::ListLocationsRequest,
+        _req: google_cloud_location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -567,10 +575,10 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::HsmManagement::get_location].
     fn get_location(
         &self,
-        _req: location::model::GetLocationRequest,
+        _req: google_cloud_location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
+        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -980,10 +988,12 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::KeyManagementService::list_locations].
     fn list_locations(
         &self,
-        _req: location::model::ListLocationsRequest,
+        _req: google_cloud_location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -991,10 +1001,10 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::KeyManagementService::get_location].
     fn get_location(
         &self,
-        _req: location::model::GetLocationRequest,
+        _req: google_cloud_location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
+        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
