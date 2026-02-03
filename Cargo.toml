@@ -470,8 +470,9 @@ osconfig_v1               = { default-features = false, version = "1", path = "s
 kms                       = { default-features = false, version = "1", path = "src/generated/cloud/kms/v1", package = "google-cloud-kms-v1" }
 oslogin_common            = { default-features = false, version = "1", path = "src/generated/oslogin/common", package = "google-cloud-oslogin-common" }
 iam_v2                    = { default-features = false, version = "1", path = "src/generated/iam/v2", package = "google-cloud-iam-v2" }
-recommender               = { default-features = false, version = "1", path = "src/generated/cloud/recommender/v1", package = "google-cloud-recommender-v1" }
 accesscontextmanager_type = { default-features = false, version = "1", path = "src/generated/identity/accesscontextmanager/type", package = "google-cloud-identity-accesscontextmanager-type" }
+# Used by google-cloud-recommender-logging-v1
+google-cloud-recommender-v1 = { default-features = false, version = "1", path = "src/generated/cloud/recommender/v1" }
 # Used by google-cloud-gkehub-v1
 google-cloud-gkehub-configmanagement-v1    = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/configmanagement/v1" }
 google-cloud-gkehub-multiclusteringress-v1 = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/multiclusteringress/v1" }
