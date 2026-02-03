@@ -212,7 +212,7 @@ mod tests {
         assert_eq!(
             status.details,
             vec![StatusDetails::ErrorInfo(
-                rpc::model::ErrorInfo::default()
+                google_cloud_rpc::model::ErrorInfo::default()
                     .set_reason("reason")
                     .set_domain("domain")
             )]

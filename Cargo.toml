@@ -461,7 +461,6 @@ cloud_common              = { default-features = false, version = "1", path = "s
 google-cloud-type         = { default-features = false, version = "1", path = "src/generated/type" }
 grafeas                   = { default-features = false, version = "1", path = "src/generated/grafeas/v1", package = "google-cloud-grafeas-v1" }
 logging_type              = { default-features = false, version = "1", path = "src/generated/logging/type", package = "google-cloud-logging-type" }
-rpc                       = { default-features = false, version = "1", path = "src/generated/rpc/types", package = "google-cloud-rpc" }
 google-cloud-rpc          = { default-features = false, version = "1", path = "src/generated/rpc/types", package = "google-cloud-rpc" }
 rpc_context               = { default-features = false, version = "1", path = "src/generated/rpc/context", package = "google-cloud-rpc-context" }
 accesscontextmanager_v1   = { default-features = false, version = "1", path = "src/generated/identity/accesscontextmanager/v1", package = "google-cloud-identity-accesscontextmanager-v1" }

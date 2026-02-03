@@ -14,9 +14,14 @@
 
 use crate::google;
 use crate::prost::{FromProto, ToProto};
+use google_cloud_rpc::model::Status;
+use google_cloud_rpc::model::{
+    BadRequest, DebugInfo, ErrorInfo, Help, LocalizedMessage, PreconditionFailure, QuotaFailure,
+    RequestInfo, ResourceInfo, RetryInfo,
+};
 
-pub(crate) fn status_from_proto(s: google::rpc::Status) -> rpc::model::Status {
-    rpc::model::Status::new()
+pub(crate) fn status_from_proto(s: google::rpc::Status) -> Status {
+    Status::new()
         .set_code(s.code)
         .set_message(s.message)
         .set_details(s.details.into_iter().filter_map(any_from_prost))
@@ -25,52 +30,52 @@ pub(crate) fn status_from_proto(s: google::rpc::Status) -> rpc::model::Status {
 pub fn any_to_prost(value: wkt::Any) -> Option<prost_types::Any> {
     let mapped = value.type_url().map(|url| match url {
         "type.googleapis.com/google.rpc.BadRequest" => value
-            .to_msg::<rpc::model::BadRequest>()
+            .to_msg::<BadRequest>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.DebugInfo" => value
-            .to_msg::<rpc::model::DebugInfo>()
+            .to_msg::<DebugInfo>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.ErrorInfo" => value
-            .to_msg::<rpc::model::ErrorInfo>()
+            .to_msg::<ErrorInfo>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.Help" => value
-            .to_msg::<rpc::model::Help>()
+            .to_msg::<Help>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.LocalizedMessage" => value
-            .to_msg::<rpc::model::LocalizedMessage>()
+            .to_msg::<LocalizedMessage>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.PreconditionFailure" => value
-            .to_msg::<rpc::model::PreconditionFailure>()
+            .to_msg::<PreconditionFailure>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.QuotaFailure" => value
-            .to_msg::<rpc::model::QuotaFailure>()
+            .to_msg::<QuotaFailure>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.RequestInfo" => value
-            .to_msg::<rpc::model::RequestInfo>()
+            .to_msg::<RequestInfo>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.ResourceInfo" => value
-            .to_msg::<rpc::model::ResourceInfo>()
+            .to_msg::<ResourceInfo>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.RetryInfo" => value
-            .to_msg::<rpc::model::RetryInfo>()
+            .to_msg::<RetryInfo>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
@@ -233,11 +238,11 @@ mod tests {
     }
 
     fn wkt_details() -> Vec<wkt::Any> {
-        use rpc::model::*;
+        use google_cloud_rpc::model::*;
         use wkt::Any;
         let try_from = vec![
             Any::from_msg(&BadRequest::default().set_field_violations(vec![
-                rpc::model::bad_request::FieldViolation::default()
+                bad_request::FieldViolation::default()
                     .set_field("field")
                     .set_description("desc"),
             ])),
@@ -252,23 +257,21 @@ mod tests {
                     .set_domain("domain"),
             ),
             Any::from_msg(&Help::default().set_links(vec![
-                    rpc::model::help::Link::default()
-                        .set_description("desc")
-                        .set_url("url"),
-                ])),
+                help::Link::default().set_description("desc").set_url("url"),
+            ])),
             Any::from_msg(
                 &LocalizedMessage::default()
                     .set_locale("locale")
                     .set_message("message"),
             ),
             Any::from_msg(&PreconditionFailure::default().set_violations(vec![
-                rpc::model::precondition_failure::Violation::default()
+                precondition_failure::Violation::default()
                     .set_type("type")
                     .set_subject("subject")
                     .set_description("desc"),
             ])),
             Any::from_msg(&QuotaFailure::default().set_violations(vec![
-                rpc::model::quota_failure::Violation::default()
+                quota_failure::Violation::default()
                     .set_subject("subject")
                     .set_description("desc"),
             ])),

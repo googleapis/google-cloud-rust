@@ -139,6 +139,7 @@ pub fn effective_timeout(
 mod tests {
     use super::*;
     use crate::error::{Error, rpc::Code, rpc::Status, rpc::StatusDetails};
+    use google_cloud_rpc::model::DebugInfo;
     use std::error::Error as _;
     use test_case::test_case;
 
@@ -881,7 +882,7 @@ mod tests {
 
     fn numbered_transient(i: usize) -> Result<String> {
         Err(Error::service(transient_status().set_details([
-            StatusDetails::DebugInfo(rpc::model::DebugInfo::new().set_detail(format!("count={i}"))),
+            StatusDetails::DebugInfo(DebugInfo::new().set_detail(format!("count={i}"))),
         ])))
     }
 
