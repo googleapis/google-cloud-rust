@@ -16182,7 +16182,7 @@ pub mod user_event_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .collect_user_event(self.0.request, self.0.options)
                 .await

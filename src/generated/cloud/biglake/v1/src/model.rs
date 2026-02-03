@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_api;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -1350,7 +1350,7 @@ pub struct UpdateIcebergTableRequest {
     /// Required. The request body that should be in the format of Apache Iceberg's
     /// `#/components/schemas/CommitTableRequest`. Content type is expected to be
     /// `application/json`. Added this field for easier json parsing.
-    pub http_body: std::option::Option<api::model::HttpBody>,
+    pub http_body: std::option::Option<google_cloud_api::model::HttpBody>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1377,12 +1377,12 @@ impl UpdateIcebergTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_biglake_v1::model::UpdateIcebergTableRequest;
-    /// use api::model::HttpBody;
+    /// use google_cloud_api::model::HttpBody;
     /// let x = UpdateIcebergTableRequest::new().set_http_body(HttpBody::default()/* use setters */);
     /// ```
     pub fn set_http_body<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::HttpBody>,
+        T: std::convert::Into<google_cloud_api::model::HttpBody>,
     {
         self.http_body = std::option::Option::Some(v.into());
         self
@@ -1393,13 +1393,13 @@ impl UpdateIcebergTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_biglake_v1::model::UpdateIcebergTableRequest;
-    /// use api::model::HttpBody;
+    /// use google_cloud_api::model::HttpBody;
     /// let x = UpdateIcebergTableRequest::new().set_or_clear_http_body(Some(HttpBody::default()/* use setters */));
     /// let x = UpdateIcebergTableRequest::new().set_or_clear_http_body(None::<HttpBody>);
     /// ```
     pub fn set_or_clear_http_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::HttpBody>,
+        T: std::convert::Into<google_cloud_api::model::HttpBody>,
     {
         self.http_body = v.map(|x| x.into());
         self
@@ -1523,7 +1523,7 @@ pub struct CreateIcebergTableRequest {
     /// Required. The request body that should be in the format of Apache Iceberg's
     /// `#/components/schemas/CreateTableRequest`. Content type is expected to be
     /// `application/json`.
-    pub http_body: std::option::Option<api::model::HttpBody>,
+    pub http_body: std::option::Option<google_cloud_api::model::HttpBody>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1550,12 +1550,12 @@ impl CreateIcebergTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_biglake_v1::model::CreateIcebergTableRequest;
-    /// use api::model::HttpBody;
+    /// use google_cloud_api::model::HttpBody;
     /// let x = CreateIcebergTableRequest::new().set_http_body(HttpBody::default()/* use setters */);
     /// ```
     pub fn set_http_body<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::HttpBody>,
+        T: std::convert::Into<google_cloud_api::model::HttpBody>,
     {
         self.http_body = std::option::Option::Some(v.into());
         self
@@ -1566,13 +1566,13 @@ impl CreateIcebergTableRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_biglake_v1::model::CreateIcebergTableRequest;
-    /// use api::model::HttpBody;
+    /// use google_cloud_api::model::HttpBody;
     /// let x = CreateIcebergTableRequest::new().set_or_clear_http_body(Some(HttpBody::default()/* use setters */));
     /// let x = CreateIcebergTableRequest::new().set_or_clear_http_body(None::<HttpBody>);
     /// ```
     pub fn set_or_clear_http_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::HttpBody>,
+        T: std::convert::Into<google_cloud_api::model::HttpBody>,
     {
         self.http_body = v.map(|x| x.into());
         self

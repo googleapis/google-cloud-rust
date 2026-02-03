@@ -1387,7 +1387,7 @@ pub trait UserEventService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CollectUserEventRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::HttpBody>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
 
     async fn purge_user_events(
         &self,
@@ -1449,7 +1449,7 @@ impl<T: super::UserEventService> UserEventService for T {
         &self,
         req: crate::model::CollectUserEventRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         T::collect_user_event(self, req, options).await
     }
 

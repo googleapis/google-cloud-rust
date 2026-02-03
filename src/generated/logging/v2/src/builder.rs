@@ -188,7 +188,7 @@ pub mod logging_service_v_2 {
         /// Sets the value of [resource][crate::model::WriteLogEntriesRequest::resource].
         pub fn set_resource<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<api::model::MonitoredResource>,
+            T: std::convert::Into<google_cloud_api::model::MonitoredResource>,
         {
             self.0.request.resource = std::option::Option::Some(v.into());
             self
@@ -197,7 +197,7 @@ pub mod logging_service_v_2 {
         /// Sets or clears the value of [resource][crate::model::WriteLogEntriesRequest::resource].
         pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<api::model::MonitoredResource>,
+            T: std::convert::Into<google_cloud_api::model::MonitoredResource>,
         {
             self.0.request.resource = v.map(|x| x.into());
             self

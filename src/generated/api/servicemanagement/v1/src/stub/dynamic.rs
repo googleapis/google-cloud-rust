@@ -57,13 +57,13 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::Service>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::Service>>;
 
     async fn create_service_config(
         &self,
         req: crate::model::CreateServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::Service>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::Service>>;
 
     async fn submit_config_source(
         &self,
@@ -202,7 +202,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::GetServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::Service>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::Service>> {
         T::get_service_config(self, req, options).await
     }
 
@@ -211,7 +211,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::CreateServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::Service>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::Service>> {
         T::create_service_config(self, req, options).await
     }
 

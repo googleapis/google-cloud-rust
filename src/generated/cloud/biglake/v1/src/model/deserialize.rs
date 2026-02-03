@@ -1173,8 +1173,8 @@ impl<'de> serde::de::Deserialize<'de> for super::UpdateIcebergTableRequest {
                                     "multiple values for http_body",
                                 ));
                             }
-                            result.http_body =
-                                map.next_value::<std::option::Option<api::model::HttpBody>>()?;
+                            result.http_body = map.next_value::<std::option::Option<google_cloud_api::model::HttpBody>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1450,8 +1450,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateIcebergTableRequest {
                                     "multiple values for http_body",
                                 ));
                             }
-                            result.http_body =
-                                map.next_value::<std::option::Option<api::model::HttpBody>>()?;
+                            result.http_body = map.next_value::<std::option::Option<google_cloud_api::model::HttpBody>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

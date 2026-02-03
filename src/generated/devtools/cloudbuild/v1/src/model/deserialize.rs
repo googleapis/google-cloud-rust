@@ -8801,8 +8801,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ReceiveTriggerWebhookRequest {
                                     "multiple values for body",
                                 ));
                             }
-                            result.body =
-                                map.next_value::<std::option::Option<api::model::HttpBody>>()?;
+                            result.body = map.next_value::<std::option::Option<google_cloud_api::model::HttpBody>>()?
+                                ;
                         }
                         __FieldTag::__project_id => {
                             if !fields.insert(__FieldTag::__project_id) {

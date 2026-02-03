@@ -783,7 +783,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ChangeReport {
                                     "multiple values for config_changes",
                                 ));
                             }
-                            result.config_changes = map.next_value::<std::option::Option<std::vec::Vec<api::model::ConfigChange>>>()?.unwrap_or_default();
+                            result.config_changes = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_api::model::ConfigChange>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2063,7 +2067,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ListServiceConfigsResponse {
                                     "multiple values for service_configs",
                                 ));
                             }
-                            result.service_configs = map.next_value::<std::option::Option<std::vec::Vec<api::model::Service>>>()?.unwrap_or_default();
+                            result.service_configs = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_api::model::Service>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__next_page_token => {
                             if !fields.insert(__FieldTag::__next_page_token) {
@@ -2165,8 +2173,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateServiceConfigRequest {
                                     "multiple values for service_config",
                                 ));
                             }
-                            result.service_config =
-                                map.next_value::<std::option::Option<api::model::Service>>()?;
+                            result.service_config = map.next_value::<std::option::Option<google_cloud_api::model::Service>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2351,8 +2359,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SubmitConfigSourceResponse {
                                     "multiple values for service_config",
                                 ));
                             }
-                            result.service_config =
-                                map.next_value::<std::option::Option<api::model::Service>>()?;
+                            result.service_config = map.next_value::<std::option::Option<google_cloud_api::model::Service>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

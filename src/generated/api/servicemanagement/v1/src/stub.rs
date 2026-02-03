@@ -110,7 +110,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         _req: crate::model::GetServiceConfigRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::Service>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::Service>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -121,7 +121,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreateServiceConfigRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::Service>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::Service>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

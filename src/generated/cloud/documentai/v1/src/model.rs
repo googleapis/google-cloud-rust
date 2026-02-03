@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_api;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -18353,7 +18353,7 @@ pub struct ProcessorType {
     pub allow_creation: bool,
 
     /// Launch stage of the processor type
-    pub launch_stage: api::model::LaunchStage,
+    pub launch_stage: google_cloud_api::model::LaunchStage,
 
     /// A set of Cloud Storage URIs of sample documents for this processor.
     pub sample_document_uris: std::vec::Vec<std::string::String>,
@@ -18441,12 +18441,12 @@ impl ProcessorType {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::ProcessorType;
-    /// use api::model::LaunchStage;
+    /// use google_cloud_api::model::LaunchStage;
     /// let x0 = ProcessorType::new().set_launch_stage(LaunchStage::Unimplemented);
     /// let x1 = ProcessorType::new().set_launch_stage(LaunchStage::Prelaunch);
     /// let x2 = ProcessorType::new().set_launch_stage(LaunchStage::EarlyAccess);
     /// ```
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
+    pub fn set_launch_stage<T: std::convert::Into<google_cloud_api::model::LaunchStage>>(
         mut self,
         v: T,
     ) -> Self {
