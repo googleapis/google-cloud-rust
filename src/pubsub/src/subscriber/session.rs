@@ -232,10 +232,7 @@ impl Session {
             };
             self.pool.push_back((
                 message,
-                Handler::AtLeastOnce(AtLeastOnce {
-                    ack_id: rm.ack_id,
-                    ack_tx: self.ack_tx.clone(),
-                }),
+                Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id, self.ack_tx.clone())),
             ));
         }
         Some(Ok(()))
