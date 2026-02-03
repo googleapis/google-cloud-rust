@@ -498,6 +498,7 @@ google-cloud-language-v2        = { default-features = false, path = "src/genera
 google-cloud-dns-v1             = { default-features = false, path = "src/generated/cloud/dns/v1" }
 google-cloud-firestore          = { default-features = false, path = "src/firestore" }
 google-cloud-showcase-v1beta1   = { default-features = false, path = "src/generated/showcase" }
+google-cloud-telcoautomation-v1 = { default-features = false, path = "src/generated/cloud/telcoautomation/v1" }
 google-cloud-trace-v1           = { default-features = false, path = "src/generated/devtools/cloudtrace/v1" }
 secretmanager-openapi-v1        = { default-features = false, path = "src/generated/openapi-validation" }
 # The names on these are too long, I do not want to reformat the whole file for them.
