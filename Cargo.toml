@@ -486,7 +486,7 @@ iam_v2                        = { default-features = false, version = "1", path 
 recommender                   = { default-features = false, version = "1", path = "src/generated/cloud/recommender/v1", package = "google-cloud-recommender-v1" }
 accesscontextmanager_type     = { default-features = false, version = "1", path = "src/generated/identity/accesscontextmanager/type", package = "google-cloud-identity-accesscontextmanager-type" }
 # Used in integration tests
-google-cloud-speech-v2          = { default-features = false, version = "1", path = "src/generated/cloud/speech/v2" }
+google-cloud-speech-v2          = { default-features = false, path = "src/generated/cloud/speech/v2" }
 google-cloud-secretmanager-v1   = { default-features = false, path = "src/generated/cloud/secretmanager/v1" }
 google-cloud-aiplatform-v1      = { default-features = false, path = "src/generated/cloud/aiplatform/v1" }
 google-cloud-compute-v1         = { default-features = false, path = "src/generated/cloud/compute/v1" }
