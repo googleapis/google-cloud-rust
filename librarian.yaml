@@ -48,9 +48,6 @@ default:
   release_level: stable
   rust:
     package_dependencies:
-      - name: api
-        package: google-cloud-api
-        source: google.api
       - name: async-trait
         package: async-trait
         used_if: services
@@ -67,6 +64,9 @@ default:
         package: google-cloud-gax-internal
         feature: _internal-http-client
         used_if: services
+      - name: google-cloud-api
+        package: google-cloud-api
+        source: google.api
       - name: google-cloud-iam-v1
         package: google-cloud-iam-v1
         source: google.iam.v1
