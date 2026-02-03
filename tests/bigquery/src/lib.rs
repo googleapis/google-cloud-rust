@@ -12,9 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
+use anyhow::Result;
 use futures::stream::StreamExt;
-use gax::{error::rpc::Code, paginator::ItemPaginator};
+use google_cloud_bigquery_v2::client::{DatasetService, JobService};
+use google_cloud_bigquery_v2::model::{
+    Dataset, DatasetReference, Job, JobConfiguration, JobConfigurationQuery, JobReference,
+};
+use google_cloud_gax::{error::rpc::Code, paginator::ItemPaginator};
 use google_cloud_test_utils::runtime_config::project_id;
 use rand::{Rng, distr::Alphanumeric};
 
@@ -22,10 +26,7 @@ const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
 
 pub async fn dataset_admin() -> Result<()> {
     let project_id = project_id()?;
-    let client = bigquery::client::DatasetService::builder()
-        .with_tracing()
-        .build()
-        .await?;
+    let client = DatasetService::builder().with_tracing().build().await?;
     cleanup_stale_datasets(&client, &project_id).await?;
 
     let dataset_id = random_dataset_id();
@@ -36,10 +37,8 @@ pub async fn dataset_admin() -> Result<()> {
         .insert_dataset()
         .set_project_id(&project_id)
         .set_dataset(
-            bigquery::model::Dataset::new()
-                .set_dataset_reference(
-                    bigquery::model::DatasetReference::new().set_dataset_id(&dataset_id),
-                )
+            Dataset::new()
+                .set_dataset_reference(DatasetReference::new().set_dataset_id(&dataset_id))
                 .set_labels([(INSTANCE_LABEL, "true")]),
         )
         .send()
@@ -54,7 +53,7 @@ pub async fn dataset_admin() -> Result<()> {
         .set_filter(format!("labels.{INSTANCE_LABEL}"))
         .by_item()
         .into_stream();
-    let items = list.collect::<Vec<gax::Result<_>>>().await;
+    let items = list.collect::<Vec<_>>().await;
     println!("LIST DATASET = {} entries", items.len());
 
     assert!(
@@ -75,10 +74,7 @@ pub async fn dataset_admin() -> Result<()> {
     Ok(())
 }
 
-async fn cleanup_stale_datasets(
-    client: &bigquery::client::DatasetService,
-    project_id: &str,
-) -> Result<()> {
+async fn cleanup_stale_datasets(client: &DatasetService, project_id: &str) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
@@ -90,7 +86,7 @@ async fn cleanup_stale_datasets(
         .set_filter(format!("labels.{INSTANCE_LABEL}"))
         .by_item()
         .into_stream();
-    let datasets = list.collect::<Vec<gax::Result<_>>>().await;
+    let datasets = list.collect::<Vec<_>>().await;
 
     let pending_all_datasets = datasets
         .iter()
@@ -181,10 +177,7 @@ fn extract_dataset_id(project_id: &str, id: &str) -> Option<String> {
 
 pub async fn job_service() -> Result<()> {
     let project_id = project_id()?;
-    let client = bigquery::client::JobService::builder()
-        .with_tracing()
-        .build()
-        .await?;
+    let client = JobService::builder().with_tracing().build().await?;
     cleanup_stale_jobs(&client, &project_id).await?;
 
     let job_id = random_job_id();
@@ -195,12 +188,12 @@ pub async fn job_service() -> Result<()> {
         .insert_job()
         .set_project_id(&project_id)
         .set_job(
-            bigquery::model::Job::new()
-                .set_job_reference(bigquery::model::JobReference::new().set_job_id(&job_id))
+            Job::new()
+                .set_job_reference(JobReference::new().set_job_id(&job_id))
                 .set_configuration(
-                    bigquery::model::JobConfiguration::new()
+                    JobConfiguration::new()
                         .set_labels([(INSTANCE_LABEL, "true")])
-                        .set_query(bigquery::model::JobConfigurationQuery::new().set_query(query)),
+                        .set_query(JobConfigurationQuery::new().set_query(query)),
                 ),
         )
         .send()
@@ -214,7 +207,7 @@ pub async fn job_service() -> Result<()> {
         .set_project_id(&project_id)
         .by_item()
         .into_stream();
-    let items = list.collect::<Vec<gax::Result<_>>>().await;
+    let items = list.collect::<Vec<_>>().await;
     println!("LIST JOBS = {} entries", items.len());
 
     assert!(
@@ -226,7 +219,7 @@ pub async fn job_service() -> Result<()> {
     Ok(())
 }
 
-async fn cleanup_stale_jobs(client: &bigquery::client::JobService, project_id: &str) -> Result<()> {
+async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
@@ -238,7 +231,7 @@ async fn cleanup_stale_jobs(client: &bigquery::client::JobService, project_id: &
         .set_max_creation_time(stale_deadline)
         .by_item()
         .into_stream();
-    let items = list.collect::<Vec<gax::Result<_>>>().await;
+    let items = list.collect::<Vec<_>>().await;
     println!("LIST JOBS = {} entries", items.len());
 
     let pending_all_stale_jobs = items

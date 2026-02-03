@@ -5625,7 +5625,6 @@ dependencies = [
  "futures",
  "google-cloud-aiplatform-v1",
  "google-cloud-auth",
- "google-cloud-bigquery-v2",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-storage",
@@ -5679,6 +5678,21 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-storage",
  "mockall",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "integration-tests-bigquery"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "futures",
+ "google-cloud-bigquery-v2",
+ "google-cloud-gax",
+ "google-cloud-test-utils",
+ "rand 0.9.2",
  "tokio",
  "tracing",
 ]

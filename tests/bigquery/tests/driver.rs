@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,14 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_test_utils::resource_names::random_bucket_id;
-pub(crate) use google_cloud_test_utils::resource_names::random_workflow_id;
+#[cfg(all(test, feature = "run-integration-tests"))]
+mod bigquery {
+    use google_cloud_test_utils::tracing::enable_tracing;
 
-pub type Result<T> = anyhow::Result<T>;
-pub mod error_details;
+    #[tokio::test]
+    async fn run_dataset_service() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_bigquery::dataset_admin().await
+    }
 
-pub fn report_error(e: anyhow::Error) -> anyhow::Error {
-    eprintln!("\n\nERROR {e:?}\n");
-    tracing::error!("ERROR {e:?}");
-    e
+    #[tokio::test]
+    async fn run_job_service() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_bigquery::job_service().await
+    }
 }

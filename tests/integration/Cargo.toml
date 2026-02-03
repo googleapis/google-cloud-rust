@@ -50,15 +50,10 @@ path             = "../../src/generated/cloud/aiplatform/v1"
 default-features = false
 features         = ["prediction-service"]
 
-[dependencies.bigquery]
-package = "google-cloud-bigquery-v2"
-path    = "../../src/generated/cloud/bigquery/v2"
-
 [dependencies.storage]
 package  = "google-cloud-storage"
 path     = "../../src/storage"
 features = ["unstable-stream"]
-
 
 [dependencies.ta]
 package = "google-cloud-telcoautomation-v1"

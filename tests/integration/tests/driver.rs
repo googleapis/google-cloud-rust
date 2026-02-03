@@ -17,22 +17,6 @@ mod driver {
     use google_cloud_test_utils::tracing::enable_tracing;
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_bigquery_dataset_service() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::bigquery::dataset_admin()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_bigquery_job_service() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::bigquery::job_service()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_error_details_http() -> integration_tests::Result<()> {
         let _guard = enable_tracing();
         integration_tests::error_details::error_details_http()
