@@ -28,29 +28,30 @@ categories.workspace = true
 name = "getting_started"
 
 [dependencies]
-anyhow.workspace                        = true
-crc32c.workspace                        = true
-httptest.workspace                      = true
-futures.workspace                       = true
-reqwest.workspace                       = true
-google-cloud-aiplatform-v1              = { workspace = true, default-features = false, features = ["prediction-service"] }
-google-cloud-auth                       = { workspace = true, features = ["default", "idtoken"] }
-google-cloud-gax                        = { workspace = true, features = ["unstable-stream"] }
-google-cloud-iam-v1                     = { workspace = true }
-google-cloud-language-v2.workspace      = true
-google-cloud-longrunning.workspace      = true
-google-cloud-test-utils.workspace       = true
-google-cloud-lro                        = { workspace = true, features = ["unstable-stream"] }
-google-cloud-rpc.workspace              = true
-google-cloud-secretmanager-v1.workspace = true
-google-cloud-speech-v2.workspace        = true
-google-cloud-storage.workspace          = true
-google-cloud-wkt.workspace              = true
-serde_json.workspace                    = true
-tokio                                   = { workspace = true, features = ["full", "macros"] }
-tracing-subscriber                      = { workspace = true, default-features = true }
+anyhow.workspace              = true
+crc32c.workspace              = true
+httptest.workspace            = true
+futures.workspace             = true
+reqwest.workspace             = true
+google-cloud-aiplatform-v1    = { workspace = true, features = ["default-rustls-provider", "prediction-service"] }
+google-cloud-auth             = { workspace = true, features = ["default", "idtoken"] }
+google-cloud-gax              = { workspace = true, features = ["unstable-stream"] }
+google-cloud-iam-v1           = { workspace = true }
+google-cloud-language-v2      = { workspace = true, features = ["default"] }
+google-cloud-longrunning      = { workspace = true }
+google-cloud-test-utils       = { workspace = true }
+google-cloud-lro              = { workspace = true, features = ["unstable-stream"] }
+google-cloud-rpc.workspace    = true
+google-cloud-secretmanager-v1 = { workspace = true, features = ["default"] }
+google-cloud-speech-v2        = { workspace = true, features = ["default"] }
+google-cloud-storage          = { workspace = true, features = ["default"] }
+google-cloud-wkt.workspace    = true
+serde_json.workspace          = true
+tokio                         = { workspace = true, features = ["full", "macros"] }
+tracing-subscriber            = { workspace = true, default-features = true }
 # Formatting trick: this comment preserves formatting in the preceding block.
 google-cloud-compute-v1 = { workspace = true, default-features = false, features = [
+  "default-rustls-provider",
   "images",
   "instances",
   "projects",
@@ -58,14 +59,13 @@ google-cloud-compute-v1 = { workspace = true, default-features = false, features
 ] }
 
 [dev-dependencies]
-anyhow.workspace            = true
-bytes.workspace             = true
-storage-samples.workspace   = true
-integration-tests.workspace = true
-mockall.workspace           = true
-rand.workspace              = true
-tempfile.workspace          = true
-test-case.workspace         = true
+anyhow.workspace          = true
+bytes.workspace           = true
+storage-samples.workspace = true
+mockall.workspace         = true
+rand.workspace            = true
+tempfile.workspace        = true
+test-case.workspace       = true
 
 [features]
 run-integration-tests = []
