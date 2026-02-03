@@ -77,7 +77,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateChannel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -116,19 +116,22 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_channel][crate::client::LivestreamService::create_channel].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_channel(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_channel`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_channel`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Channel, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Channel, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Channel,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -153,7 +156,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateChannelRequest::parent].
@@ -390,7 +398,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteChannel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -429,16 +437,17 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_channel][crate::client::LivestreamService::delete_channel].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_channel(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_channel`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_channel`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -463,7 +472,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -505,7 +514,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::UpdateChannel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -544,19 +553,22 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_channel][crate::client::LivestreamService::update_channel].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_channel(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_channel`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_channel`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Channel, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Channel, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Channel,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -581,7 +593,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
@@ -644,7 +661,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::StartChannel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -683,19 +700,21 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [start_channel][crate::client::LivestreamService::start_channel].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .start_channel(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `start_channel`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `start_channel`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ChannelOperationResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ChannelOperationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -723,7 +742,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StartChannelRequest::name].
@@ -754,7 +778,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::StopChannel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -793,19 +817,21 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [stop_channel][crate::client::LivestreamService::stop_channel].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_channel(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `stop_channel`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `stop_channel`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ChannelOperationResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ChannelOperationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -833,7 +859,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StopChannelRequest::name].
@@ -864,7 +895,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::StartDistribution;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -906,19 +937,21 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [start_distribution][crate::client::LivestreamService::start_distribution].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .start_distribution(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `start_distribution`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `start_distribution`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ChannelOperationResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ChannelOperationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -946,7 +979,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StartDistributionRequest::name].
@@ -988,7 +1026,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::StopDistribution;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1030,19 +1068,21 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [stop_distribution][crate::client::LivestreamService::stop_distribution].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_distribution(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `stop_distribution`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `stop_distribution`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ChannelOperationResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ChannelOperationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1070,7 +1110,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StopDistributionRequest::name].
@@ -1112,7 +1157,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateInput;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1151,19 +1196,22 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_input][crate::client::LivestreamService::create_input].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_input(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_input`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_input`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Input, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Input, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Input, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Input,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1188,7 +1236,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateInputRequest::parent].
@@ -1425,7 +1478,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteInput;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1464,16 +1517,17 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_input][crate::client::LivestreamService::delete_input].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_input(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_input`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_input`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1498,7 +1552,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1534,7 +1588,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::UpdateInput;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1573,19 +1627,22 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_input][crate::client::LivestreamService::update_input].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_input(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_input`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_input`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Input, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Input, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Input, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Input,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1610,7 +1667,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInputRequest::update_mask].
@@ -2253,7 +2315,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateClip;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2292,19 +2354,22 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_clip][crate::client::LivestreamService::create_clip].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_clip(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_clip`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_clip`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Clip, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Clip, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Clip, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Clip,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2329,7 +2394,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateClipRequest::parent].
@@ -2390,7 +2460,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteClip;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2429,16 +2499,17 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_clip][crate::client::LivestreamService::delete_clip].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_clip(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_clip`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_clip`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2463,7 +2534,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2499,7 +2570,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateDvrSession;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2541,19 +2612,22 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_dvr_session][crate::client::LivestreamService::create_dvr_session].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_dvr_session(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_dvr_session`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_dvr_session`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::DvrSession, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::DvrSession, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::DvrSession, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::DvrSession,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2578,7 +2652,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateDvrSessionRequest::parent].
@@ -2815,7 +2894,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteDvrSession;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2857,16 +2936,17 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_dvr_session][crate::client::LivestreamService::delete_dvr_session].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_dvr_session(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_dvr_session`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_dvr_session`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2891,7 +2971,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2927,7 +3007,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::UpdateDvrSession;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2969,19 +3049,22 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_dvr_session][crate::client::LivestreamService::update_dvr_session].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_dvr_session(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_dvr_session`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_dvr_session`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::DvrSession, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::DvrSession, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::DvrSession, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::DvrSession,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3006,7 +3089,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDvrSessionRequest::update_mask].
@@ -3073,7 +3161,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateAsset;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3112,19 +3200,22 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_asset][crate::client::LivestreamService::create_asset].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_asset(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_asset`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_asset`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Asset, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Asset, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Asset, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Asset,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3149,7 +3240,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAssetRequest::parent].
@@ -3210,7 +3306,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteAsset;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3249,16 +3345,17 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_asset][crate::client::LivestreamService::delete_asset].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_asset(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_asset`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_asset`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3283,7 +3380,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3557,7 +3654,7 @@ pub mod livestream_service {
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::UpdatePool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3596,19 +3693,22 @@ pub mod livestream_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_pool][crate::client::LivestreamService::update_pool].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_pool(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Pool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Pool, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Pool, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Pool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3633,7 +3733,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePoolRequest::update_mask].
@@ -3880,7 +3985,9 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
 
     impl ListOperations {
         pub(crate) fn new(
@@ -3890,7 +3997,7 @@ pub mod livestream_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -3905,7 +4012,7 @@ pub mod livestream_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
@@ -3915,8 +4022,10 @@ pub mod livestream_service {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3931,38 +4040,38 @@ pub mod livestream_service {
         pub fn by_item(
             self,
         ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
+            google_cloud_longrunning::model::ListOperationsResponse,
             gax::error::Error,
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
         pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.return_partial_success = v.into();
             self
@@ -3993,7 +4102,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4003,7 +4112,7 @@ pub mod livestream_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -4018,14 +4127,14 @@ pub mod livestream_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4056,7 +4165,9 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
 
     impl DeleteOperation {
         pub(crate) fn new(
@@ -4066,7 +4177,7 @@ pub mod livestream_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -4088,7 +4199,7 @@ pub mod livestream_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4119,7 +4230,9 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -4129,7 +4242,7 @@ pub mod livestream_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -4151,7 +4264,7 @@ pub mod livestream_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

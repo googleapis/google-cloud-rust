@@ -21,7 +21,10 @@ use crate::error::WriteError;
 use crate::storage::checksum::details::{
     Checksum, update as checksum_update, validate as checksum_validate,
 };
-use gaxi::http::map_send_error;
+use gaxi::http::{
+    map_send_error,
+    reqwest::{HeaderValue, Method, RequestBuilder},
+};
 use progress::InProgressUpload;
 use std::sync::Arc;
 use tokio::sync::Mutex;
@@ -117,17 +120,17 @@ where
         &self,
         upload_url: &str,
         progress: &mut InProgressUpload,
-    ) -> Result<reqwest::RequestBuilder> {
+    ) -> Result<RequestBuilder> {
         let range = progress.range_header();
         let builder = self
             .inner
             .client
-            .builder_with_url(reqwest::Method::PUT, upload_url)
+            .builder_with_url(Method::PUT, upload_url)
             .header("content-type", "application/octet-stream")
             .header("Content-Range", range)
             .header(
                 "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
+                HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);

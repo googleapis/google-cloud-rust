@@ -267,7 +267,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateCloudExadataInfrastructure;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -311,19 +311,21 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cloud_exadata_infrastructure][crate::client::OracleDatabase::create_cloud_exadata_infrastructure].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cloud_exadata_infrastructure(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_cloud_exadata_infrastructure`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_cloud_exadata_infrastructure`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CloudExadataInfrastructure, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::CloudExadataInfrastructure,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CloudExadataInfrastructure,
                 crate::model::OperationMetadata,
             >;
@@ -351,7 +353,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateCloudExadataInfrastructureRequest::parent].
@@ -418,7 +425,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteCloudExadataInfrastructure;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -462,16 +469,17 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_cloud_exadata_infrastructure][crate::client::OracleDatabase::delete_cloud_exadata_infrastructure].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cloud_exadata_infrastructure(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_cloud_exadata_infrastructure`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_cloud_exadata_infrastructure`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -496,7 +504,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -716,7 +724,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateCloudVmCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -758,19 +766,19 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cloud_vm_cluster][crate::client::OracleDatabase::create_cloud_vm_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cloud_vm_cluster(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_cloud_vm_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_cloud_vm_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::CloudVmCluster, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::CloudVmCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CloudVmCluster,
                 crate::model::OperationMetadata,
             >;
@@ -798,7 +806,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateCloudVmClusterRequest::parent].
@@ -859,7 +872,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteCloudVmCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -901,16 +914,17 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_cloud_vm_cluster][crate::client::OracleDatabase::delete_cloud_vm_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cloud_vm_cluster(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_cloud_vm_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_cloud_vm_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -935,7 +949,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1806,7 +1820,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateAutonomousDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1850,19 +1864,21 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_autonomous_database][crate::client::OracleDatabase::create_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_autonomous_database(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_autonomous_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_autonomous_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AutonomousDatabase,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AutonomousDatabase,
                 crate::model::OperationMetadata,
             >;
@@ -1890,7 +1906,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAutonomousDatabaseRequest::parent].
@@ -1951,7 +1972,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::UpdateAutonomousDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1995,19 +2016,21 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_autonomous_database][crate::client::OracleDatabase::update_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_autonomous_database(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_autonomous_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_autonomous_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AutonomousDatabase,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AutonomousDatabase,
                 crate::model::OperationMetadata,
             >;
@@ -2035,7 +2058,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAutonomousDatabaseRequest::update_mask].
@@ -2098,7 +2126,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteAutonomousDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2142,16 +2170,17 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_autonomous_database][crate::client::OracleDatabase::delete_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_autonomous_database(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_autonomous_database`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_autonomous_database`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2176,7 +2205,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2212,7 +2241,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::RestoreAutonomousDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2256,19 +2285,21 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restore_autonomous_database][crate::client::OracleDatabase::restore_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_autonomous_database(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `restore_autonomous_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_autonomous_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AutonomousDatabase,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AutonomousDatabase,
                 crate::model::OperationMetadata,
             >;
@@ -2296,7 +2327,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RestoreAutonomousDatabaseRequest::name].
@@ -2777,7 +2813,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::StopAutonomousDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2819,19 +2855,21 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [stop_autonomous_database][crate::client::OracleDatabase::stop_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_autonomous_database(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `stop_autonomous_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `stop_autonomous_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AutonomousDatabase,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AutonomousDatabase,
                 crate::model::OperationMetadata,
             >;
@@ -2859,7 +2897,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StopAutonomousDatabaseRequest::name].
@@ -2884,7 +2927,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::StartAutonomousDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2928,19 +2971,21 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [start_autonomous_database][crate::client::OracleDatabase::start_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .start_autonomous_database(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `start_autonomous_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `start_autonomous_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AutonomousDatabase,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AutonomousDatabase,
                 crate::model::OperationMetadata,
             >;
@@ -2968,7 +3013,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StartAutonomousDatabaseRequest::name].
@@ -2993,7 +3043,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::RestartAutonomousDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3037,19 +3087,21 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restart_autonomous_database][crate::client::OracleDatabase::restart_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .restart_autonomous_database(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `restart_autonomous_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `restart_autonomous_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AutonomousDatabase,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AutonomousDatabase,
                 crate::model::OperationMetadata,
             >;
@@ -3077,7 +3129,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RestartAutonomousDatabaseRequest::name].
@@ -3102,7 +3159,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::SwitchoverAutonomousDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3146,19 +3203,21 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [switchover_autonomous_database][crate::client::OracleDatabase::switchover_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .switchover_autonomous_database(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `switchover_autonomous_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `switchover_autonomous_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AutonomousDatabase,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AutonomousDatabase,
                 crate::model::OperationMetadata,
             >;
@@ -3186,7 +3245,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::SwitchoverAutonomousDatabaseRequest::name].
@@ -3219,7 +3283,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::FailoverAutonomousDatabase;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3263,19 +3327,21 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [failover_autonomous_database][crate::client::OracleDatabase::failover_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .failover_autonomous_database(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `failover_autonomous_database`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `failover_autonomous_database`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AutonomousDatabase,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AutonomousDatabase,
                 crate::model::OperationMetadata,
             >;
@@ -3303,7 +3369,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::FailoverAutonomousDatabaseRequest::name].
@@ -3512,7 +3583,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateOdbNetwork;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3554,19 +3625,22 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_odb_network][crate::client::OracleDatabase::create_odb_network].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_odb_network(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_odb_network`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_odb_network`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::OdbNetwork, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::OdbNetwork, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::OdbNetwork, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::OdbNetwork,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3591,7 +3665,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateOdbNetworkRequest::parent].
@@ -3652,7 +3731,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteOdbNetwork;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3694,16 +3773,17 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_odb_network][crate::client::OracleDatabase::delete_odb_network].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_odb_network(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_odb_network`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_odb_network`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3728,7 +3808,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3940,7 +4020,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateOdbSubnet;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3979,19 +4059,22 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_odb_subnet][crate::client::OracleDatabase::create_odb_subnet].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_odb_subnet(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_odb_subnet`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_odb_subnet`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::OdbSubnet, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::OdbSubnet, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::OdbSubnet, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::OdbSubnet,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4016,7 +4099,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateOdbSubnetRequest::parent].
@@ -4077,7 +4165,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteOdbSubnet;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4116,16 +4204,17 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_odb_subnet][crate::client::OracleDatabase::delete_odb_subnet].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_odb_subnet(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_odb_subnet`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_odb_subnet`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4150,7 +4239,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -4370,7 +4459,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateExadbVmCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4412,19 +4501,19 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_exadb_vm_cluster][crate::client::OracleDatabase::create_exadb_vm_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_exadb_vm_cluster(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_exadb_vm_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_exadb_vm_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExadbVmCluster, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::ExadbVmCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExadbVmCluster,
                 crate::model::OperationMetadata,
             >;
@@ -4452,7 +4541,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateExadbVmClusterRequest::parent].
@@ -4513,7 +4607,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteExadbVmCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4555,16 +4649,17 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_exadb_vm_cluster][crate::client::OracleDatabase::delete_exadb_vm_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_exadb_vm_cluster(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_exadb_vm_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_exadb_vm_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4589,7 +4684,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -4625,7 +4720,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::UpdateExadbVmCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4667,19 +4762,19 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_exadb_vm_cluster][crate::client::OracleDatabase::update_exadb_vm_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_exadb_vm_cluster(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_exadb_vm_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_exadb_vm_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExadbVmCluster, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::ExadbVmCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExadbVmCluster,
                 crate::model::OperationMetadata,
             >;
@@ -4707,7 +4802,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExadbVmClusterRequest::update_mask].
@@ -4770,7 +4870,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::RemoveVirtualMachineExadbVmCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4814,19 +4914,19 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [remove_virtual_machine_exadb_vm_cluster][crate::client::OracleDatabase::remove_virtual_machine_exadb_vm_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .remove_virtual_machine_exadb_vm_cluster(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `remove_virtual_machine_exadb_vm_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `remove_virtual_machine_exadb_vm_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExadbVmCluster, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::ExadbVmCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExadbVmCluster,
                 crate::model::OperationMetadata,
             >;
@@ -4854,7 +4954,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RemoveVirtualMachineExadbVmClusterRequest::name].
@@ -5088,7 +5193,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateExascaleDbStorageVault;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5132,19 +5237,21 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_exascale_db_storage_vault][crate::client::OracleDatabase::create_exascale_db_storage_vault].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_exascale_db_storage_vault(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_exascale_db_storage_vault`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_exascale_db_storage_vault`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExascaleDbStorageVault, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ExascaleDbStorageVault,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExascaleDbStorageVault,
                 crate::model::OperationMetadata,
             >;
@@ -5172,7 +5279,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateExascaleDbStorageVaultRequest::parent].
@@ -5239,7 +5351,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteExascaleDbStorageVault;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5283,16 +5395,17 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_exascale_db_storage_vault][crate::client::OracleDatabase::delete_exascale_db_storage_vault].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_exascale_db_storage_vault(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_exascale_db_storage_vault`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_exascale_db_storage_vault`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5317,7 +5430,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -5990,7 +6103,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateDbSystem;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6029,19 +6142,22 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_db_system][crate::client::OracleDatabase::create_db_system].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_db_system(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_db_system`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_db_system`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::DbSystem, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::DbSystem, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::DbSystem, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::DbSystem,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6066,7 +6182,12 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateDbSystemRequest::parent].
@@ -6127,7 +6248,7 @@ pub mod oracle_database {
     /// ```
     /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteDbSystem;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6166,16 +6287,17 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_db_system][crate::client::OracleDatabase::delete_db_system].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_db_system(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_db_system`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_db_system`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6200,7 +6322,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -6645,7 +6767,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
 
     impl ListOperations {
         pub(crate) fn new(
@@ -6655,7 +6779,7 @@ pub mod oracle_database {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -6670,7 +6794,7 @@ pub mod oracle_database {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
@@ -6680,8 +6804,10 @@ pub mod oracle_database {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6696,38 +6822,38 @@ pub mod oracle_database {
         pub fn by_item(
             self,
         ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
+            google_cloud_longrunning::model::ListOperationsResponse,
             gax::error::Error,
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
         pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.return_partial_success = v.into();
             self
@@ -6758,7 +6884,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -6768,7 +6894,7 @@ pub mod oracle_database {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -6783,14 +6909,14 @@ pub mod oracle_database {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -6821,7 +6947,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
 
     impl DeleteOperation {
         pub(crate) fn new(
@@ -6831,7 +6959,7 @@ pub mod oracle_database {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -6853,7 +6981,7 @@ pub mod oracle_database {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -6884,7 +7012,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -6894,7 +7024,7 @@ pub mod oracle_database {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -6916,7 +7046,7 @@ pub mod oracle_database {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

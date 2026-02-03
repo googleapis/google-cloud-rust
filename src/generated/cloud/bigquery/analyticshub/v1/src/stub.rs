@@ -172,7 +172,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         _req: crate::model::SubscribeDataExchangeRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -183,7 +183,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         _req: crate::model::RefreshSubscriptionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -240,7 +240,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteSubscriptionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -248,10 +248,10 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::AnalyticsHubService::get_iam_policy].
     fn get_iam_policy(
         &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -259,10 +259,10 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::AnalyticsHubService::set_iam_policy].
     fn set_iam_policy(
         &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -270,10 +270,12 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::AnalyticsHubService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -356,10 +358,10 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::AnalyticsHubService::get_operation].
     fn get_operation(
         &self,
-        _req: longrunning::model::GetOperationRequest,
+        _req: google_cloud_longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

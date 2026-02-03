@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "run-integration-tests"))]
+#[cfg(all(test, feature = "run-auth-integration-tests"))]
 mod driver {
     #[cfg(all(test, feature = "run-byoid-integration-tests"))]
     use test_case::test_case;
@@ -20,25 +20,25 @@ mod driver {
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
     async fn run_service_account() -> anyhow::Result<()> {
-        auth_integration_tests::service_account().await
+        integration_tests_auth::service_account().await
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
     async fn run_service_account_with_audience() -> anyhow::Result<()> {
-        auth_integration_tests::service_account_with_audience().await
+        integration_tests_auth::service_account_with_audience().await
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
     async fn run_impersonated() -> anyhow::Result<()> {
-        auth_integration_tests::impersonated().await
+        integration_tests_auth::impersonated().await
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
     async fn run_api_key() -> anyhow::Result<()> {
-        auth_integration_tests::api_key().await
+        integration_tests_auth::api_key().await
     }
 
     #[cfg(all(test, feature = "run-byoid-integration-tests"))]
@@ -48,7 +48,7 @@ mod driver {
     async fn run_workload_identity_provider_url_sourced(
         with_impersonation: bool,
     ) -> anyhow::Result<()> {
-        auth_integration_tests::workload_identity_provider_url_sourced(with_impersonation).await
+        integration_tests_auth::workload_identity_provider_url_sourced(with_impersonation).await
     }
 
     #[cfg(all(test, feature = "run-byoid-integration-tests"))]
@@ -56,7 +56,7 @@ mod driver {
     #[serial_test::serial]
     async fn run_workload_identity_provider_executable_sourced_with_impersonation()
     -> anyhow::Result<()> {
-        auth_integration_tests::workload_identity_provider_executable_sourced(true).await
+        integration_tests_auth::workload_identity_provider_executable_sourced(true).await
     }
 
     #[cfg(all(test, feature = "run-byoid-integration-tests"))]
@@ -64,14 +64,14 @@ mod driver {
     #[serial_test::serial]
     async fn run_workload_identity_provider_executable_sourced_without_impersonation()
     -> anyhow::Result<()> {
-        auth_integration_tests::workload_identity_provider_executable_sourced(false).await
+        integration_tests_auth::workload_identity_provider_executable_sourced(false).await
     }
 
     #[cfg(all(test, feature = "run-byoid-integration-tests"))]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
     async fn run_workload_identity_provider_programmatic_sourced() -> anyhow::Result<()> {
-        auth_integration_tests::workload_identity_provider_programmatic_sourced().await
+        integration_tests_auth::workload_identity_provider_programmatic_sourced().await
     }
 
     #[cfg(all(test, feature = "run-byoid-integration-tests"))]
@@ -81,20 +81,20 @@ mod driver {
     async fn run_workload_identity_provider_file_sourced(
         with_impersonation: bool,
     ) -> anyhow::Result<()> {
-        auth_integration_tests::workload_identity_provider_file_sourced(with_impersonation).await
+        integration_tests_auth::workload_identity_provider_file_sourced(with_impersonation).await
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
     async fn run_mds_id_token() -> anyhow::Result<()> {
-        auth_integration_tests::mds_id_token().await
+        integration_tests_auth::mds_id_token().await
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
     async fn run_id_token_adc() -> anyhow::Result<()> {
         let with_impersonation = false;
-        auth_integration_tests::id_token_adc(with_impersonation).await
+        integration_tests_auth::id_token_adc(with_impersonation).await
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
@@ -103,18 +103,18 @@ mod driver {
     // builder and email claim is included in the token.
     async fn run_id_token_adc_impersonated() -> anyhow::Result<()> {
         let with_impersonation = true;
-        auth_integration_tests::id_token_adc(with_impersonation).await
+        integration_tests_auth::id_token_adc(with_impersonation).await
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
     async fn run_id_token_service_account() -> anyhow::Result<()> {
-        auth_integration_tests::id_token_service_account().await
+        integration_tests_auth::id_token_service_account().await
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
     async fn run_id_token_impersonated() -> anyhow::Result<()> {
-        auth_integration_tests::id_token_impersonated().await
+        integration_tests_auth::id_token_impersonated().await
     }
 }

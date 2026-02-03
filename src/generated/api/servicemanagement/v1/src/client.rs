@@ -348,7 +348,7 @@ impl ServiceManager {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::service_manager::GetOperation {
         super::builder::service_manager::GetOperation::new(self.inner.clone())
     }

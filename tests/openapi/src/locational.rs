@@ -1,0 +1,457 @@
+// Copyright 2024 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+use anyhow::Result;
+use anyhow::anyhow;
+use google_cloud_gax::options::RequestOptionsBuilder;
+use google_cloud_test_utils::resource_names::random_secret_id;
+use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
+use google_cloud_wkt::{FieldMask, Timestamp};
+use secretmanager_openapi_v1::client::SecretManagerService;
+use secretmanager_openapi_v1::model::{
+    AddSecretVersionRequest, Binding, Secret, SecretPayload, SetIamPolicyRequest,
+    TestIamPermissionsRequest,
+};
+
+pub async fn run() -> Result<()> {
+    let project_id = project_id()?;
+    let secret_id = random_secret_id();
+
+    // We must override the configuration to use a regional endpoint.
+    let location_id = "us-central1".to_string();
+    let endpoint = format!("https://secretmanager.{location_id}.rep.googleapis.com");
+    let client = SecretManagerService::builder()
+        .with_tracing()
+        .with_endpoint(endpoint)
+        .build()
+        .await?;
+
+    cleanup_stale_secrets(&client, &project_id, &location_id).await?;
+
+    println!("\nTesting create_secret_by_project_and_location({project_id}, {location_id})");
+    let create = client
+        .create_secret_by_project_and_location()
+        .set_project(&project_id)
+        .set_location(&location_id)
+        .set_secret_id(&secret_id)
+        .set_body(Secret::new().set_labels([("integration-test", "true")]))
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("CREATE = {create:?}");
+
+    println!("\nTesting get_secret_by_project_and_location_and_secret()");
+    let get = client
+        .get_secret_by_project_and_location_and_secret()
+        .set_project(&project_id)
+        .set_location(&location_id)
+        .set_secret(&secret_id)
+        .send()
+        .await?;
+    println!("GET = {get:?}");
+    assert_eq!(get, create);
+    assert!(get.name.is_some());
+
+    println!("\nTesting update_secret_by_project_and_location_and_secret()");
+    let mut new_labels = get.labels.clone();
+    new_labels.insert("updated".to_string(), "true".to_string());
+    let mut body = Secret::new().set_labels(new_labels);
+    if let Some(etag) = &get.etag {
+        body = body.set_etag(etag);
+    }
+    let update = client
+        .update_secret_by_project_and_location_and_secret()
+        .set_project(&project_id)
+        .set_location(&location_id)
+        .set_secret(&secret_id)
+        .set_update_mask(FieldMask::default().set_paths(["labels"]))
+        .set_body(body)
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("UPDATE = {update:?}");
+
+    println!("\nTesting list_secrets()");
+    assert!(get.name.is_some(), "secret name not set in GET {get:?}");
+    let secret_name = get.name.as_ref().unwrap().clone();
+    let list = get_all_secret_names(&client, &project_id, &location_id).await?;
+    assert!(
+        list.iter().any(|name| name == &secret_name),
+        "missing secret {} in {list:?}",
+        &secret_name
+    );
+
+    run_secret_versions(&client, &project_id, &location_id, &secret_id).await?;
+    run_iam(&client, &project_id, &location_id, &secret_id).await?;
+
+    println!("\nTesting delete_secret_by_project_and_location_and_secret()");
+    let response = client
+        .delete_secret_by_project_and_location_and_secret()
+        .set_project(&project_id)
+        .set_location(&location_id)
+        .set_secret(&secret_id)
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("DELETE = {response:?}");
+
+    Ok(())
+}
+
+async fn run_iam(
+    client: &SecretManagerService,
+    project_id: &str,
+    location_id: &str,
+    secret_id: &str,
+) -> Result<()> {
+    let service_account = test_service_account()?;
+
+    println!("\nTesting get_iam_policy_by_project_and_location_and_secret()");
+    let policy = client
+        .get_iam_policy_by_project_and_location_and_secret()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .send()
+        .await?;
+    println!("POLICY = {policy:?}");
+
+    println!("\nTesting test_iam_permissions_by_project_and_location_and_secret()");
+    let response = client
+        .test_iam_permissions_by_project_and_location_and_secret()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .set_body(
+            TestIamPermissionsRequest::new().set_permissions(["secretmanager.versions.access"]),
+        )
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("RESPONSE = {response:?}");
+
+    // This really could use an OCC loop.
+    println!("\nTesting set_iam_policy_by_project_and_location_and_secret()");
+    let mut new_policy = policy.clone();
+    const ROLE: &str = "roles/secretmanager.secretVersionAdder";
+    let mut found = false;
+    for binding in &mut new_policy.bindings {
+        if let Some(ROLE) = binding.role.as_deref() {
+            continue;
+        }
+        found = true;
+        binding
+            .members
+            .push(format!("serviceAccount:{service_account}"));
+    }
+    if !found {
+        new_policy.bindings.push(
+            Binding::new()
+                .set_role(ROLE.to_string())
+                .set_members([format!("serviceAccount:{service_account}")]),
+        );
+    }
+    let response = client
+        .set_iam_policy_by_project_and_location_and_secret()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .set_body(
+            SetIamPolicyRequest::new()
+                .set_update_mask(FieldMask::default().set_paths(["bindings"]))
+                .set_policy(new_policy),
+        )
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("RESPONSE = {response:?}");
+
+    Ok(())
+}
+
+async fn run_secret_versions(
+    client: &SecretManagerService,
+    project_id: &str,
+    location_id: &str,
+    secret_id: &str,
+) -> Result<()> {
+    println!("\nTesting add_secret_version_by_project_and_location_and_secret()");
+    let data = "The quick brown fox jumps over the lazy dog".as_bytes();
+    let checksum = crc32c::crc32c(data);
+    let create = client
+        .add_secret_version_by_project_and_location_and_secret()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .set_body(
+            AddSecretVersionRequest::new().set_payload(
+                SecretPayload::default()
+                    .set_data(bytes::Bytes::from(data))
+                    .set_data_crc_32_c(checksum as i64),
+            ),
+        )
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("CREATE_SECRET_VERSION = {create:?}");
+
+    assert!(
+        create.name.is_some(),
+        "missing name in create response {create:?}"
+    );
+    let name = create.name.clone().unwrap();
+    let pattern = format!("secrets/{secret_id}/versions/");
+    let version_id = name.find(pattern.as_str());
+    assert!(
+        version_id.is_some(),
+        "cannot field secret in secret version name={name}"
+    );
+    let version_id = &name[version_id.unwrap()..];
+    let version_id = &version_id[pattern.len()..];
+
+    println!("\nTesting get_secret_version_by_project_and_location_and_secret_and_version()");
+    let get = client
+        .get_secret_version_by_project_and_location_and_secret_and_version()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
+        .send()
+        .await?;
+    println!("GET_SECRET_VERSION = {get:?}");
+    assert_eq!(get, create);
+
+    println!("\nTesting list_secret_versions()");
+    let secret_versions_list =
+        get_all_secret_version_names(client, project_id, location_id, secret_id).await?;
+    assert!(
+        secret_versions_list
+            .iter()
+            .any(|name| Some(name) == get.name.as_ref()),
+        "missing secret version {:?} in {secret_versions_list:?}",
+        &get.name
+    );
+
+    println!("\nTesting access_secret_version_by_project_and_location_and_secret_and_version()");
+    let access_secret_version = client
+        .access_secret_version_by_project_and_location_and_secret_and_version()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
+        .send()
+        .await?;
+    println!("ACCESS_SECRET_VERSION = {access_secret_version:?}");
+    assert_eq!(
+        access_secret_version.payload.and_then(|p| p.data),
+        Some(bytes::Bytes::from(data))
+    );
+
+    println!("\nTesting disable_secret_version_by_project_and_location_and_secret_and_version()");
+    let disable = client
+        .disable_secret_version_by_project_and_location_and_secret_and_version()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("DISABLE_SECRET_VERSION = {disable:?}");
+
+    println!("\nTesting enable_secret_version_by_project_and_location_and_secret_and_version()");
+    let enable = client
+        .enable_secret_version_by_project_and_location_and_secret_and_version()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("ENABLE_SECRET_VERSION = {enable:?}");
+
+    println!("\nTesting destroy_secret_version_by_project_and_location_and_secret_and_version()");
+    let delete = client
+        .destroy_secret_version_by_project_and_location_and_secret_and_version()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("RESPONSE = {delete:?}");
+
+    Ok(())
+}
+
+async fn get_all_secret_version_names(
+    client: &SecretManagerService,
+    project_id: &str,
+    location_id: &str,
+    secret_id: &str,
+) -> Result<Vec<String>> {
+    let mut names = Vec::new();
+    let mut page_token = None::<String>;
+    loop {
+        let response = client
+            .list_secret_versions_by_project_and_location_and_secret()
+            .set_project(project_id)
+            .set_location(location_id)
+            .set_secret(secret_id)
+            .set_or_clear_page_token(page_token)
+            .send()
+            .await?;
+        response
+            .versions
+            .into_iter()
+            .filter_map(|s| s.name)
+            .for_each(|name| names.push(name));
+        page_token = response.next_page_token;
+        if page_token.as_ref().map(String::is_empty).unwrap_or(true) {
+            break;
+        }
+    }
+    Ok(names)
+}
+
+async fn get_all_secret_names(
+    client: &SecretManagerService,
+    project_id: &str,
+    location_id: &str,
+) -> Result<Vec<String>> {
+    let mut names = Vec::new();
+    let mut page_token = None::<String>;
+    loop {
+        let response = client
+            .list_secrets_by_project_and_location()
+            .set_project(project_id)
+            .set_location(location_id)
+            .set_or_clear_page_token(page_token)
+            .send()
+            .await?;
+        response
+            .secrets
+            .into_iter()
+            .filter_map(|s| s.name)
+            .for_each(|name| names.push(name));
+        page_token = response.next_page_token;
+        if page_token.as_ref().map(String::is_empty).unwrap_or(true) {
+            break;
+        }
+    }
+    Ok(names)
+}
+
+async fn cleanup_stale_secrets(
+    client: &SecretManagerService,
+    project_id: &str,
+    location_id: &str,
+) -> Result<()> {
+    use std::time::{Duration, SystemTime, UNIX_EPOCH};
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
+    let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
+    let stale_deadline = Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
+
+    let mut stale_secrets = Vec::new();
+    let mut page_token = None::<String>;
+    loop {
+        let response = client
+            .list_secrets_by_project_and_location()
+            .set_project(project_id)
+            .set_location(location_id)
+            .set_or_clear_page_token(page_token.clone())
+            .send()
+            .await?;
+        for secret in response.secrets {
+            if secret
+                .labels
+                .get("integration-test")
+                .is_some_and(|v| v == "true")
+                && secret.create_time.is_some_and(|v| v < stale_deadline)
+            {
+                secret
+                    .name
+                    .into_iter()
+                    .for_each(|name| stale_secrets.push(name));
+            }
+        }
+        if response
+            .next_page_token
+            .as_ref()
+            .map(String::is_empty)
+            .unwrap_or(true)
+        {
+            break;
+        }
+        page_token = response.next_page_token;
+    }
+
+    let pending = stale_secrets.iter().map(|name| async move {
+        let (project, location, secret) = parse_secret_name(name)?;
+        client
+            .delete_secret_by_project_and_location_and_secret()
+            .set_project(project)
+            .set_location(location)
+            .set_secret(secret)
+            .with_idempotency(true)
+            .send()
+            .await?;
+        Ok::<(), anyhow::Error>(())
+    });
+
+    // Print the errors, but otherwise ignore them.
+    futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .zip(stale_secrets)
+        .for_each(|(r, name)| println!("{name:?} = {r:?}"));
+
+    Ok(())
+}
+
+fn parse_secret_name(name: &str) -> Result<(&str, &str, &str)> {
+    // format: projects/{project}/locations/{location}/secrets/{secret}
+    let parts: Vec<&str> = name.split('/').collect();
+    match parts[..] {
+        ["projects", p, "locations", l, "secrets", s] => Ok((p, l, s)),
+        _ => Err(anyhow!("invalid secret name: {}", name)),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use test_case::test_case;
+
+    #[test]
+    fn test_extract_valid_name() {
+        let name = "projects/my-project/locations/us-central1/secrets/my-secret";
+        let (project, location, secret) = parse_secret_name(name).unwrap();
+        assert_eq!(project, "my-project");
+        assert_eq!(location, "us-central1");
+        assert_eq!(secret, "my-secret");
+    }
+
+    #[test_case("invalid/format")]
+    #[test_case("projects/only-one")]
+    #[test_case("projects/p/locations/l/bad/s")]
+    #[test_case("projects/p/bad/l/secrets/s")]
+    #[test_case("bad/p/locations/l/secrets/s")]
+    fn test_extract_invalid_name(input: &str) {
+        let result = parse_secret_name(input);
+        assert!(result.is_err(), "{result:?}");
+    }
+}

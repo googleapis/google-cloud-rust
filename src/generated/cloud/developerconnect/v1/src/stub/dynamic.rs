@@ -33,31 +33,31 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_connection(
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_connection(
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_git_repository_link(
         &self,
         req: crate::model::CreateGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_git_repository_link(
         &self,
         req: crate::model::DeleteGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_git_repository_links(
         &self,
@@ -117,19 +117,19 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateAccountConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_account_connector(
         &self,
         req: crate::model::UpdateAccountConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_account_connector(
         &self,
         req: crate::model::DeleteAccountConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn fetch_access_token(
         &self,
@@ -147,7 +147,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteUserRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn fetch_self(
         &self,
@@ -159,7 +159,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteSelfRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
@@ -175,25 +175,27 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
@@ -234,7 +236,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_connection(self, req, options).await
     }
 
@@ -243,7 +245,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_connection(self, req, options).await
     }
 
@@ -252,7 +254,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_connection(self, req, options).await
     }
 
@@ -261,7 +263,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::CreateGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_git_repository_link(self, req, options).await
     }
 
@@ -270,7 +272,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::DeleteGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_git_repository_link(self, req, options).await
     }
 
@@ -362,7 +364,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::CreateAccountConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_account_connector(self, req, options).await
     }
 
@@ -371,7 +373,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::UpdateAccountConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_account_connector(self, req, options).await
     }
 
@@ -380,7 +382,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::DeleteAccountConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_account_connector(self, req, options).await
     }
 
@@ -407,7 +409,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::DeleteUserRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_user(self, req, options).await
     }
 
@@ -425,7 +427,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::DeleteSelfRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_self(self, req, options).await
     }
 
@@ -450,25 +452,27 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
@@ -477,7 +481,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
@@ -511,7 +515,7 @@ pub trait InsightsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateInsightsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_insights_config(
         &self,
@@ -523,13 +527,13 @@ pub trait InsightsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateInsightsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_insights_config(
         &self,
         req: crate::model::DeleteInsightsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
@@ -545,25 +549,27 @@ pub trait InsightsConfigService: std::fmt::Debug + Send + Sync {
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
@@ -595,7 +601,7 @@ impl<T: super::InsightsConfigService> InsightsConfigService for T {
         &self,
         req: crate::model::CreateInsightsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_insights_config(self, req, options).await
     }
 
@@ -613,7 +619,7 @@ impl<T: super::InsightsConfigService> InsightsConfigService for T {
         &self,
         req: crate::model::UpdateInsightsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_insights_config(self, req, options).await
     }
 
@@ -622,7 +628,7 @@ impl<T: super::InsightsConfigService> InsightsConfigService for T {
         &self,
         req: crate::model::DeleteInsightsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_insights_config(self, req, options).await
     }
 
@@ -647,25 +653,27 @@ impl<T: super::InsightsConfigService> InsightsConfigService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
@@ -674,7 +682,7 @@ impl<T: super::InsightsConfigService> InsightsConfigService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await

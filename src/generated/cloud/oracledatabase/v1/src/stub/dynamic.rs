@@ -33,13 +33,13 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_cloud_exadata_infrastructure(
         &self,
         req: crate::model::DeleteCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_cloud_vm_clusters(
         &self,
@@ -57,13 +57,13 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateCloudVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_cloud_vm_cluster(
         &self,
         req: crate::model::DeleteCloudVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_entitlements(
         &self,
@@ -117,25 +117,25 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_autonomous_database(
         &self,
         req: crate::model::UpdateAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_autonomous_database(
         &self,
         req: crate::model::DeleteAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn restore_autonomous_database(
         &self,
         req: crate::model::RestoreAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn generate_autonomous_database_wallet(
         &self,
@@ -169,31 +169,31 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::StopAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn start_autonomous_database(
         &self,
         req: crate::model::StartAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn restart_autonomous_database(
         &self,
         req: crate::model::RestartAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn switchover_autonomous_database(
         &self,
         req: crate::model::SwitchoverAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn failover_autonomous_database(
         &self,
         req: crate::model::FailoverAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_odb_networks(
         &self,
@@ -211,13 +211,13 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateOdbNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_odb_network(
         &self,
         req: crate::model::DeleteOdbNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_odb_subnets(
         &self,
@@ -235,13 +235,13 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateOdbSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_odb_subnet(
         &self,
         req: crate::model::DeleteOdbSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_exadb_vm_clusters(
         &self,
@@ -259,25 +259,25 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateExadbVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_exadb_vm_cluster(
         &self,
         req: crate::model::DeleteExadbVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_exadb_vm_cluster(
         &self,
         req: crate::model::UpdateExadbVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn remove_virtual_machine_exadb_vm_cluster(
         &self,
         req: crate::model::RemoveVirtualMachineExadbVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_exascale_db_storage_vaults(
         &self,
@@ -295,13 +295,13 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateExascaleDbStorageVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_exascale_db_storage_vault(
         &self,
         req: crate::model::DeleteExascaleDbStorageVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_db_system_initial_storage_sizes(
         &self,
@@ -349,13 +349,13 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateDbSystemRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_db_system(
         &self,
         req: crate::model::DeleteDbSystemRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_db_versions(
         &self,
@@ -383,25 +383,27 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
@@ -443,7 +445,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::CreateCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_cloud_exadata_infrastructure(self, req, options).await
     }
 
@@ -452,7 +454,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::DeleteCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_cloud_exadata_infrastructure(self, req, options).await
     }
 
@@ -479,7 +481,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::CreateCloudVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_cloud_vm_cluster(self, req, options).await
     }
 
@@ -488,7 +490,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::DeleteCloudVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_cloud_vm_cluster(self, req, options).await
     }
 
@@ -569,7 +571,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::CreateAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_autonomous_database(self, req, options).await
     }
 
@@ -578,7 +580,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::UpdateAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_autonomous_database(self, req, options).await
     }
 
@@ -587,7 +589,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::DeleteAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_autonomous_database(self, req, options).await
     }
 
@@ -596,7 +598,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::RestoreAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::restore_autonomous_database(self, req, options).await
     }
 
@@ -647,7 +649,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::StopAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::stop_autonomous_database(self, req, options).await
     }
 
@@ -656,7 +658,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::StartAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::start_autonomous_database(self, req, options).await
     }
 
@@ -665,7 +667,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::RestartAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::restart_autonomous_database(self, req, options).await
     }
 
@@ -674,7 +676,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::SwitchoverAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::switchover_autonomous_database(self, req, options).await
     }
 
@@ -683,7 +685,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::FailoverAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::failover_autonomous_database(self, req, options).await
     }
 
@@ -710,7 +712,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::CreateOdbNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_odb_network(self, req, options).await
     }
 
@@ -719,7 +721,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::DeleteOdbNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_odb_network(self, req, options).await
     }
 
@@ -746,7 +748,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::CreateOdbSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_odb_subnet(self, req, options).await
     }
 
@@ -755,7 +757,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::DeleteOdbSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_odb_subnet(self, req, options).await
     }
 
@@ -782,7 +784,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::CreateExadbVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_exadb_vm_cluster(self, req, options).await
     }
 
@@ -791,7 +793,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::DeleteExadbVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_exadb_vm_cluster(self, req, options).await
     }
 
@@ -800,7 +802,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::UpdateExadbVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_exadb_vm_cluster(self, req, options).await
     }
 
@@ -809,7 +811,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::RemoveVirtualMachineExadbVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::remove_virtual_machine_exadb_vm_cluster(self, req, options).await
     }
 
@@ -837,7 +839,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::CreateExascaleDbStorageVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_exascale_db_storage_vault(self, req, options).await
     }
 
@@ -846,7 +848,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::DeleteExascaleDbStorageVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_exascale_db_storage_vault(self, req, options).await
     }
 
@@ -919,7 +921,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::CreateDbSystemRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_db_system(self, req, options).await
     }
 
@@ -928,7 +930,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         &self,
         req: crate::model::DeleteDbSystemRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_db_system(self, req, options).await
     }
 
@@ -972,25 +974,27 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
@@ -999,7 +1003,7 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await

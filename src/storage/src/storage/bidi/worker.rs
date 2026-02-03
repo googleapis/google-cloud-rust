@@ -17,6 +17,7 @@ use super::connector::{Connection, Connector};
 use super::{Client, TonicStreaming};
 use crate::error::ReadError;
 use crate::google::storage::v2::{BidiReadObjectRequest, BidiReadObjectResponse, ObjectRangeData};
+use gaxi::grpc::tonic::{Result as TonicResult, Status};
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::Mutex;
@@ -108,7 +109,7 @@ where
 
     pub async fn handle_response(
         &mut self,
-        message: tonic::Result<Option<BidiReadObjectResponse>>,
+        message: TonicResult<Option<BidiReadObjectResponse>>,
     ) -> Option<LoopResult<Option<Connection<C::Stream>>>> {
         let response = match message.transpose()? {
             Ok(r) => r,
@@ -151,7 +152,7 @@ where
 
     async fn reconnect(
         &mut self,
-        status: tonic::Status,
+        status: Status,
     ) -> Option<LoopResult<Option<Connection<C::Stream>>>> {
         let ranges: Vec<_> = self
             .ranges
@@ -252,6 +253,7 @@ mod tests {
     };
     use crate::model_ext::ReadRange;
     use crate::storage::bidi::tests::permanent_error;
+    use gaxi::grpc::tonic::Response as TonicResponse;
     use std::error::Error as _;
     use test_case::test_case;
 
@@ -530,7 +532,7 @@ mod tests {
         // The mock reader to receive data.
         reader: Receiver<ReadResult<bytes::Bytes>>,
         // The sender to simulate the bidi streaming read RPC responses.
-        response_tx: Sender<tonic::Result<BidiReadObjectResponse>>,
+        response_tx: Sender<TonicResult<BidiReadObjectResponse>>,
         // The request sent by the background task.
         request: ProtoRange,
     }
@@ -569,7 +571,7 @@ mod tests {
         // The sender to create more active reads. Needed to keep the background task running.
         tx: Sender<ActiveRead>,
         // The sender to simulate the bidi streaming read RPC responses.
-        response_tx: Sender<tonic::Result<BidiReadObjectResponse>>,
+        response_tx: Sender<TonicResult<BidiReadObjectResponse>>,
         // The receiver to catch sent requests.
         request_rx: Receiver<BidiReadObjectRequest>,
     }
@@ -698,7 +700,7 @@ mod tests {
 
         // Prepare for a redirect response
         let (reconnect_tx, reconnect_rx) =
-            tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(5);
+            tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(5);
         let initial = BidiReadObjectResponse {
             metadata: Some(Object {
                 generation: 123456,
@@ -719,7 +721,7 @@ mod tests {
             ..BidiReadObjectResponse::default()
         };
         reconnect_tx.send(Ok(initial)).await?;
-        let reconnect_stream = tonic::Response::from(reconnect_rx);
+        let reconnect_stream = TonicResponse::from(reconnect_rx);
 
         let mut mock = MockTestClient::new();
         mock.expect_start().return_once(move |_, _, rx, _, _, _| {
@@ -811,7 +813,7 @@ mod tests {
 
         // Prepare for a redirect response
         let (reconnect_tx, reconnect_rx) =
-            tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(5);
+            tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(5);
         let initial = BidiReadObjectResponse {
             metadata: Some(Object {
                 generation: 123456,
@@ -832,7 +834,7 @@ mod tests {
             ..BidiReadObjectResponse::default()
         };
         reconnect_tx.send(Ok(initial)).await?;
-        let reconnect_stream = tonic::Response::from(reconnect_rx);
+        let reconnect_stream = TonicResponse::from(reconnect_rx);
 
         let mut mock = MockTestClient::new();
         mock.expect_start().return_once(move |_, _, rx, _, _, _| {

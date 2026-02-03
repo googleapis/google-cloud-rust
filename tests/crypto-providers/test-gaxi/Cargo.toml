@@ -52,7 +52,4 @@ path             = "../../../src/gax-internal"
 features = ["_internal-http-client"]
 
 [features]
-with-default = [
-  # TODO(#4170) - enable when gax-internal is ready
-  # "google-cloud-gax-internal/_default-rustls-provider"
-]
+with-default = ["google-cloud-gax-internal/_default-rustls-provider"]

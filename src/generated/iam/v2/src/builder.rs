@@ -235,7 +235,7 @@ pub mod policies {
     /// ```
     /// # use google_cloud_iam_v2::builder::policies::CreatePolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -272,18 +272,19 @@ pub mod policies {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_policy][crate::client::Policies::create_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Policy,
                 crate::model::PolicyOperationMetadata,
             >;
@@ -311,7 +312,12 @@ pub mod policies {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyRequest::parent].
@@ -364,7 +370,7 @@ pub mod policies {
     /// ```
     /// # use google_cloud_iam_v2::builder::policies::UpdatePolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -401,18 +407,19 @@ pub mod policies {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_policy][crate::client::Policies::update_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Policy,
                 crate::model::PolicyOperationMetadata,
             >;
@@ -440,7 +447,12 @@ pub mod policies {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
@@ -479,7 +491,7 @@ pub mod policies {
     /// ```
     /// # use google_cloud_iam_v2::builder::policies::DeletePolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -516,18 +528,19 @@ pub mod policies {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_policy][crate::client::Policies::delete_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Policy,
                 crate::model::PolicyOperationMetadata,
             >;
@@ -555,7 +568,12 @@ pub mod policies {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyRequest::name].
@@ -597,7 +615,7 @@ pub mod policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
@@ -605,7 +623,7 @@ pub mod policies {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -620,14 +638,14 @@ pub mod policies {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

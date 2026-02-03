@@ -21,7 +21,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_channels(
         &self,
@@ -39,43 +39,43 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_channel(
         &self,
         req: crate::model::UpdateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn start_channel(
         &self,
         req: crate::model::StartChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn stop_channel(
         &self,
         req: crate::model::StopChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn start_distribution(
         &self,
         req: crate::model::StartDistributionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn stop_distribution(
         &self,
         req: crate::model::StopDistributionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_input(
         &self,
         req: crate::model::CreateInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_inputs(
         &self,
@@ -93,13 +93,13 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_input(
         &self,
         req: crate::model::UpdateInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn preview_input(
         &self,
@@ -147,19 +147,19 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateClipRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_clip(
         &self,
         req: crate::model::DeleteClipRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_dvr_session(
         &self,
         req: crate::model::CreateDvrSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_dvr_sessions(
         &self,
@@ -177,25 +177,25 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteDvrSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_dvr_session(
         &self,
         req: crate::model::UpdateDvrSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_asset(
         &self,
         req: crate::model::CreateAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_asset(
         &self,
         req: crate::model::DeleteAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_asset(
         &self,
@@ -219,7 +219,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdatePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
@@ -235,25 +235,27 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
@@ -276,7 +278,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::CreateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_channel(self, req, options).await
     }
 
@@ -303,7 +305,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::DeleteChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_channel(self, req, options).await
     }
 
@@ -312,7 +314,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::UpdateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_channel(self, req, options).await
     }
 
@@ -321,7 +323,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::StartChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::start_channel(self, req, options).await
     }
 
@@ -330,7 +332,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::StopChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::stop_channel(self, req, options).await
     }
 
@@ -339,7 +341,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::StartDistributionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::start_distribution(self, req, options).await
     }
 
@@ -348,7 +350,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::StopDistributionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::stop_distribution(self, req, options).await
     }
 
@@ -357,7 +359,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::CreateInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_input(self, req, options).await
     }
 
@@ -384,7 +386,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::DeleteInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_input(self, req, options).await
     }
 
@@ -393,7 +395,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::UpdateInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_input(self, req, options).await
     }
 
@@ -465,7 +467,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::CreateClipRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_clip(self, req, options).await
     }
 
@@ -474,7 +476,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::DeleteClipRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_clip(self, req, options).await
     }
 
@@ -483,7 +485,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::CreateDvrSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_dvr_session(self, req, options).await
     }
 
@@ -510,7 +512,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::DeleteDvrSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_dvr_session(self, req, options).await
     }
 
@@ -519,7 +521,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::UpdateDvrSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_dvr_session(self, req, options).await
     }
 
@@ -528,7 +530,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::CreateAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_asset(self, req, options).await
     }
 
@@ -537,7 +539,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::DeleteAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_asset(self, req, options).await
     }
 
@@ -573,7 +575,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::UpdatePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_pool(self, req, options).await
     }
 
@@ -598,25 +600,27 @@ impl<T: super::LivestreamService> LivestreamService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
@@ -625,7 +629,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await

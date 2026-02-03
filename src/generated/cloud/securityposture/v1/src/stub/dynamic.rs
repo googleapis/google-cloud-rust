@@ -39,25 +39,25 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreatePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_posture(
         &self,
         req: crate::model::UpdatePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_posture(
         &self,
         req: crate::model::DeletePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn extract_posture(
         &self,
         req: crate::model::ExtractPostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_posture_deployments(
         &self,
@@ -75,19 +75,19 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreatePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_posture_deployment(
         &self,
         req: crate::model::UpdatePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_posture_deployment(
         &self,
         req: crate::model::DeletePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_posture_templates(
         &self,
@@ -115,25 +115,27 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
@@ -183,7 +185,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::CreatePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_posture(self, req, options).await
     }
 
@@ -192,7 +194,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::UpdatePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_posture(self, req, options).await
     }
 
@@ -201,7 +203,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::DeletePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_posture(self, req, options).await
     }
 
@@ -210,7 +212,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::ExtractPostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::extract_posture(self, req, options).await
     }
 
@@ -237,7 +239,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::CreatePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_posture_deployment(self, req, options).await
     }
 
@@ -246,7 +248,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::UpdatePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_posture_deployment(self, req, options).await
     }
 
@@ -255,7 +257,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::DeletePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_posture_deployment(self, req, options).await
     }
 
@@ -298,25 +300,27 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
@@ -325,7 +329,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await

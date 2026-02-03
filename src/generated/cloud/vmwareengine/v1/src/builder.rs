@@ -256,7 +256,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreatePrivateCloud;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -298,18 +298,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_private_cloud][crate::client::VmwareEngine::create_private_cloud].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_private_cloud(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_private_cloud`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_private_cloud`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PrivateCloud,
                 crate::model::OperationMetadata,
             >;
@@ -337,7 +338,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreatePrivateCloudRequest::parent].
@@ -404,7 +410,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdatePrivateCloud;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -446,18 +452,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_private_cloud][crate::client::VmwareEngine::update_private_cloud].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_private_cloud(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_private_cloud`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_private_cloud`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PrivateCloud,
                 crate::model::OperationMetadata,
             >;
@@ -485,7 +492,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [private_cloud][crate::model::UpdatePrivateCloudRequest::private_cloud].
@@ -552,7 +564,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeletePrivateCloud;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -594,18 +606,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_private_cloud][crate::client::VmwareEngine::delete_private_cloud].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_private_cloud(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_private_cloud`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_private_cloud`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PrivateCloud,
                 crate::model::OperationMetadata,
             >;
@@ -633,7 +646,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePrivateCloudRequest::name].
@@ -688,7 +706,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UndeletePrivateCloud;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -730,18 +748,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [undelete_private_cloud][crate::client::VmwareEngine::undelete_private_cloud].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_private_cloud(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undelete_private_cloud`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undelete_private_cloud`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PrivateCloud,
                 crate::model::OperationMetadata,
             >;
@@ -769,7 +788,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UndeletePrivateCloudRequest::name].
@@ -976,7 +1000,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1015,19 +1039,22 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cluster][crate::client::VmwareEngine::create_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1052,7 +1079,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
@@ -1119,7 +1151,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1158,19 +1190,22 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_cluster][crate::client::VmwareEngine::update_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1195,7 +1230,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
@@ -1268,7 +1308,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1307,16 +1347,17 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_cluster][crate::client::VmwareEngine::delete_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_cluster`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1341,7 +1382,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1838,7 +1879,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateExternalAddress;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1880,19 +1921,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_external_address][crate::client::VmwareEngine::create_external_address].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_external_address(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_external_address`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_external_address`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExternalAddress, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::ExternalAddress, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExternalAddress,
                 crate::model::OperationMetadata,
             >;
@@ -1920,7 +1961,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateExternalAddressRequest::parent].
@@ -1981,7 +2027,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateExternalAddress;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2023,19 +2069,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_external_address][crate::client::VmwareEngine::update_external_address].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_external_address(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_external_address`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_external_address`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExternalAddress, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::ExternalAddress, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExternalAddress,
                 crate::model::OperationMetadata,
             >;
@@ -2063,7 +2109,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExternalAddressRequest::update_mask].
@@ -2130,7 +2181,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteExternalAddress;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2172,16 +2223,17 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_external_address][crate::client::VmwareEngine::delete_external_address].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_external_address(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_external_address`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_external_address`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2206,7 +2258,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2406,7 +2458,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateSubnet;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2445,19 +2497,22 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_subnet][crate::client::VmwareEngine::update_subnet].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_subnet(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_subnet`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_subnet`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Subnet, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Subnet, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Subnet,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2482,7 +2537,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
@@ -2731,7 +2791,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateExternalAccessRule;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2775,19 +2835,21 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_external_access_rule][crate::client::VmwareEngine::create_external_access_rule].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_external_access_rule(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_external_access_rule`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_external_access_rule`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExternalAccessRule, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ExternalAccessRule,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExternalAccessRule,
                 crate::model::OperationMetadata,
             >;
@@ -2815,7 +2877,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateExternalAccessRuleRequest::parent].
@@ -2876,7 +2943,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateExternalAccessRule;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2920,19 +2987,21 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_external_access_rule][crate::client::VmwareEngine::update_external_access_rule].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_external_access_rule(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_external_access_rule`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_external_access_rule`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ExternalAccessRule, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ExternalAccessRule,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ExternalAccessRule,
                 crate::model::OperationMetadata,
             >;
@@ -2960,7 +3029,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExternalAccessRuleRequest::update_mask].
@@ -3027,7 +3101,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteExternalAccessRule;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3071,16 +3145,17 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_external_access_rule][crate::client::VmwareEngine::delete_external_access_rule].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_external_access_rule(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_external_access_rule`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_external_access_rule`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3105,7 +3180,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3325,7 +3400,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateLoggingServer;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3367,19 +3442,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_logging_server][crate::client::VmwareEngine::create_logging_server].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_logging_server(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_logging_server`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_logging_server`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::LoggingServer, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::LoggingServer, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::LoggingServer,
                 crate::model::OperationMetadata,
             >;
@@ -3407,7 +3482,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateLoggingServerRequest::parent].
@@ -3468,7 +3548,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateLoggingServer;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3510,19 +3590,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_logging_server][crate::client::VmwareEngine::update_logging_server].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_logging_server(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_logging_server`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_logging_server`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::LoggingServer, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::LoggingServer, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::LoggingServer,
                 crate::model::OperationMetadata,
             >;
@@ -3550,7 +3630,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLoggingServerRequest::update_mask].
@@ -3617,7 +3702,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteLoggingServer;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3659,16 +3744,17 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_logging_server][crate::client::VmwareEngine::delete_logging_server].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_logging_server(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_logging_server`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_logging_server`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3693,7 +3779,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -4035,7 +4121,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ResetNsxCredentials;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4077,18 +4163,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [reset_nsx_credentials][crate::client::VmwareEngine::reset_nsx_credentials].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_nsx_credentials(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `reset_nsx_credentials`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `reset_nsx_credentials`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PrivateCloud,
                 crate::model::OperationMetadata,
             >;
@@ -4116,7 +4203,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [private_cloud][crate::model::ResetNsxCredentialsRequest::private_cloud].
@@ -4147,7 +4239,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ResetVcenterCredentials;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4191,18 +4283,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [reset_vcenter_credentials][crate::client::VmwareEngine::reset_vcenter_credentials].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_vcenter_credentials(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `reset_vcenter_credentials`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `reset_vcenter_credentials`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PrivateCloud,
                 crate::model::OperationMetadata,
             >;
@@ -4230,7 +4323,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [private_cloud][crate::model::ResetVcenterCredentialsRequest::private_cloud].
@@ -4332,7 +4430,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateDnsForwarding;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4374,19 +4472,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_dns_forwarding][crate::client::VmwareEngine::update_dns_forwarding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_dns_forwarding(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_dns_forwarding`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_dns_forwarding`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::DnsForwarding, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::DnsForwarding, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DnsForwarding,
                 crate::model::OperationMetadata,
             >;
@@ -4414,7 +4512,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [dns_forwarding][crate::model::UpdateDnsForwardingRequest::dns_forwarding].
@@ -4665,7 +4768,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateNetworkPeering;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4707,19 +4810,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_network_peering][crate::client::VmwareEngine::create_network_peering].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_network_peering(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_network_peering`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_network_peering`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::NetworkPeering, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::NetworkPeering, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::NetworkPeering,
                 crate::model::OperationMetadata,
             >;
@@ -4747,7 +4850,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateNetworkPeeringRequest::parent].
@@ -4808,7 +4916,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteNetworkPeering;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4850,16 +4958,17 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_network_peering][crate::client::VmwareEngine::delete_network_peering].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_network_peering(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_network_peering`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_network_peering`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4884,7 +4993,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -4920,7 +5029,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateNetworkPeering;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4962,19 +5071,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_network_peering][crate::client::VmwareEngine::update_network_peering].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_network_peering(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_network_peering`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_network_peering`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::NetworkPeering, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::NetworkPeering, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::NetworkPeering,
                 crate::model::OperationMetadata,
             >;
@@ -5002,7 +5111,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [network_peering][crate::model::UpdateNetworkPeeringRequest::network_peering].
@@ -5180,7 +5294,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateHcxActivationKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5222,19 +5336,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_hcx_activation_key][crate::client::VmwareEngine::create_hcx_activation_key].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_hcx_activation_key(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_hcx_activation_key`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_hcx_activation_key`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::HcxActivationKey, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::HcxActivationKey, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::HcxActivationKey,
                 crate::model::OperationMetadata,
             >;
@@ -5262,7 +5376,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateHcxActivationKeyRequest::parent].
@@ -5679,7 +5798,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateNetworkPolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5721,19 +5840,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_network_policy][crate::client::VmwareEngine::create_network_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_network_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_network_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_network_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::NetworkPolicy, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::NetworkPolicy, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::NetworkPolicy,
                 crate::model::OperationMetadata,
             >;
@@ -5761,7 +5880,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateNetworkPolicyRequest::parent].
@@ -5822,7 +5946,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateNetworkPolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5864,19 +5988,19 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_network_policy][crate::client::VmwareEngine::update_network_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_network_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_network_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_network_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::NetworkPolicy, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::NetworkPolicy, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::NetworkPolicy,
                 crate::model::OperationMetadata,
             >;
@@ -5904,7 +6028,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [network_policy][crate::model::UpdateNetworkPolicyRequest::network_policy].
@@ -5971,7 +6100,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteNetworkPolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6013,16 +6142,17 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_network_policy][crate::client::VmwareEngine::delete_network_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_network_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_network_policy`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_network_policy`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6047,7 +6177,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -6273,7 +6403,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateManagementDnsZoneBinding;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6317,19 +6447,21 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_management_dns_zone_binding][crate::client::VmwareEngine::create_management_dns_zone_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_management_dns_zone_binding(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_management_dns_zone_binding`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_management_dns_zone_binding`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ManagementDnsZoneBinding,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ManagementDnsZoneBinding,
                 crate::model::OperationMetadata,
             >;
@@ -6357,7 +6489,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateManagementDnsZoneBindingRequest::parent].
@@ -6424,7 +6561,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateManagementDnsZoneBinding;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6468,19 +6605,21 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_management_dns_zone_binding][crate::client::VmwareEngine::update_management_dns_zone_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_management_dns_zone_binding(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_management_dns_zone_binding`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_management_dns_zone_binding`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ManagementDnsZoneBinding,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ManagementDnsZoneBinding,
                 crate::model::OperationMetadata,
             >;
@@ -6508,7 +6647,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateManagementDnsZoneBindingRequest::update_mask].
@@ -6578,7 +6722,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteManagementDnsZoneBinding;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6622,16 +6766,17 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_management_dns_zone_binding][crate::client::VmwareEngine::delete_management_dns_zone_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_management_dns_zone_binding(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_management_dns_zone_binding`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_management_dns_zone_binding`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6656,7 +6801,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -6692,7 +6837,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::RepairManagementDnsZoneBinding;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6736,19 +6881,21 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [repair_management_dns_zone_binding][crate::client::VmwareEngine::repair_management_dns_zone_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .repair_management_dns_zone_binding(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `repair_management_dns_zone_binding`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `repair_management_dns_zone_binding`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ManagementDnsZoneBinding,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ManagementDnsZoneBinding,
                 crate::model::OperationMetadata,
             >;
@@ -6776,7 +6923,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RepairManagementDnsZoneBindingRequest::name].
@@ -6807,7 +6959,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateVmwareEngineNetwork;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6851,19 +7003,21 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_vmware_engine_network][crate::client::VmwareEngine::create_vmware_engine_network].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_vmware_engine_network(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_vmware_engine_network`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_vmware_engine_network`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::VmwareEngineNetwork,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::VmwareEngineNetwork,
                 crate::model::OperationMetadata,
             >;
@@ -6891,7 +7045,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateVmwareEngineNetworkRequest::parent].
@@ -6952,7 +7111,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateVmwareEngineNetwork;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6996,19 +7155,21 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_vmware_engine_network][crate::client::VmwareEngine::update_vmware_engine_network].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_vmware_engine_network(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_vmware_engine_network`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_vmware_engine_network`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::VmwareEngineNetwork,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::VmwareEngineNetwork,
                 crate::model::OperationMetadata,
             >;
@@ -7036,7 +7197,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [vmware_engine_network][crate::model::UpdateVmwareEngineNetworkRequest::vmware_engine_network].
@@ -7103,7 +7269,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteVmwareEngineNetwork;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7147,16 +7313,17 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_vmware_engine_network][crate::client::VmwareEngine::delete_vmware_engine_network].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_vmware_engine_network(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_vmware_engine_network`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_vmware_engine_network`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -7181,7 +7348,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -7411,7 +7578,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreatePrivateConnection;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7455,19 +7622,21 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_private_connection][crate::client::VmwareEngine::create_private_connection].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_private_connection(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_private_connection`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_private_connection`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::PrivateConnection,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PrivateConnection,
                 crate::model::OperationMetadata,
             >;
@@ -7495,7 +7664,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreatePrivateConnectionRequest::parent].
@@ -7742,7 +7916,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdatePrivateConnection;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7786,19 +7960,21 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_private_connection][crate::client::VmwareEngine::update_private_connection].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_private_connection(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_private_connection`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_private_connection`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::PrivateConnection,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PrivateConnection,
                 crate::model::OperationMetadata,
             >;
@@ -7826,7 +8002,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [private_connection][crate::model::UpdatePrivateConnectionRequest::private_connection].
@@ -7893,7 +8074,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeletePrivateConnection;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7937,16 +8118,17 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_private_connection][crate::client::VmwareEngine::delete_private_connection].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_private_connection(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_private_connection`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_private_connection`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -7971,7 +8153,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -8120,7 +8302,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GrantDnsBindPermission;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8162,19 +8344,21 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [grant_dns_bind_permission][crate::client::VmwareEngine::grant_dns_bind_permission].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .grant_dns_bind_permission(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `grant_dns_bind_permission`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `grant_dns_bind_permission`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::DnsBindPermission, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::DnsBindPermission,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DnsBindPermission,
                 crate::model::OperationMetadata,
             >;
@@ -8202,7 +8386,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::GrantDnsBindPermissionRequest::name].
@@ -8320,7 +8509,7 @@ pub mod vmware_engine {
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::RevokeDnsBindPermission;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8364,19 +8553,21 @@ pub mod vmware_engine {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [revoke_dns_bind_permission][crate::client::VmwareEngine::revoke_dns_bind_permission].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .revoke_dns_bind_permission(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `revoke_dns_bind_permission`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `revoke_dns_bind_permission`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::DnsBindPermission, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::DnsBindPermission,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DnsBindPermission,
                 crate::model::OperationMetadata,
             >;
@@ -8404,7 +8595,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RevokeDnsBindPermissionRequest::name].
@@ -8637,7 +8833,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -8647,7 +8843,10 @@ pub mod vmware_engine {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -8659,14 +8858,14 @@ pub mod vmware_engine {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8674,29 +8873,29 @@ pub mod vmware_engine {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -8705,7 +8904,7 @@ pub mod vmware_engine {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -8739,7 +8938,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -8749,7 +8948,10 @@ pub mod vmware_engine {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -8761,14 +8963,14 @@ pub mod vmware_engine {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8776,19 +8978,19 @@ pub mod vmware_engine {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -8819,7 +9021,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -8829,7 +9033,7 @@ pub mod vmware_engine {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -8844,14 +9048,14 @@ pub mod vmware_engine {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8859,7 +9063,7 @@ pub mod vmware_engine {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -8901,7 +9105,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
 
     impl ListOperations {
         pub(crate) fn new(
@@ -8911,7 +9117,7 @@ pub mod vmware_engine {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -8926,7 +9132,7 @@ pub mod vmware_engine {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
@@ -8936,8 +9142,10 @@ pub mod vmware_engine {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -8952,38 +9160,38 @@ pub mod vmware_engine {
         pub fn by_item(
             self,
         ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
+            google_cloud_longrunning::model::ListOperationsResponse,
             gax::error::Error,
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
         pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.return_partial_success = v.into();
             self
@@ -9014,7 +9222,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -9024,7 +9232,7 @@ pub mod vmware_engine {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -9039,14 +9247,14 @@ pub mod vmware_engine {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -9077,7 +9285,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
 
     impl DeleteOperation {
         pub(crate) fn new(
@@ -9087,7 +9297,7 @@ pub mod vmware_engine {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -9109,7 +9319,7 @@ pub mod vmware_engine {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

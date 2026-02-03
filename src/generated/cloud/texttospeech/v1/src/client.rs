@@ -131,14 +131,14 @@ impl TextToSpeech {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::text_to_speech::ListOperations {
         super::builder::text_to_speech::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::text_to_speech::GetOperation {
         super::builder::text_to_speech::GetOperation::new(self.inner.clone())
     }
@@ -271,7 +271,7 @@ impl TextToSpeechLongAudioSynthesize {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(
         &self,
     ) -> super::builder::text_to_speech_long_audio_synthesize::ListOperations {
@@ -282,7 +282,7 @@ impl TextToSpeechLongAudioSynthesize {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(
         &self,
     ) -> super::builder::text_to_speech_long_audio_synthesize::GetOperation {

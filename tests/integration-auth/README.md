@@ -8,7 +8,8 @@ The resources needed should already exist. We can just run the tests.
 
 ```sh
 env GOOGLE_CLOUD_PROJECT=rust-auth-testing \
-  cargo test --features run-integration-tests -p auth-integration-tests
+  cargo test --features run-auth-integration-tests \
+    --package integration-tests-auth
 ```
 
 ### Workload Identity integration tests
@@ -32,7 +33,10 @@ GOOGLE_PROJECT_NUMBER=$(gcloud projects describe ${GOOGLE_CLOUD_PROJECT} --forma
 env GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT} \
 EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
 GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/${GOOGLE_PROJECT_NUMBER}/locations/global/workloadIdentityPools/google-idp/providers/google-idp \
-cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
+cargo test run_workload_ \
+    --features run-auth-integration-tests \
+    --features run-byoid-integration-tests \
+    --package integration-tests-auth
 ```
 
 #### Rotating the service account key
@@ -166,7 +170,10 @@ GOOGLE_PROJECT_NUMBER=$(gcloud projects describe ${GOOGLE_CLOUD_PROJECT} --forma
 env GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT} \
     EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
     GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/${GOOGLE_PROJECT_NUMBER}/locations/global/workloadIdentityPools/google-idp/providers/google-idp \
-    cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
+    cargo test run_workload_ \
+        --features run-auth-integration-tests \
+        --features run-byoid-integration-tests \
+        --package integration-tests-auth
 ```
 
 If you are done with the resources, you can destroy them with:

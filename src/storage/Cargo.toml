@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-storage"
-version     = "1.7.0"
+version     = "1.8.0"
 description = "Google Cloud Client Libraries for Rust - Storage"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
@@ -44,7 +44,6 @@ percent-encoding.workspace = true
 pin-project.workspace      = true
 prost.workspace            = true
 prost-types.workspace      = true
-reqwest                    = { workspace = true, features = ["multipart", "stream"] }
 serde.workspace            = true
 serde_json.workspace       = true
 serde_with.workspace       = true
@@ -52,26 +51,37 @@ sha2.workspace             = true
 thiserror.workspace        = true
 tokio-stream.workspace     = true
 tokio                      = { workspace = true, features = ["io-util"] }
-tonic.workspace            = true
 tracing.workspace          = true
 uuid.workspace             = true
 url.workspace              = true
 hex                        = { workspace = true, features = ["std"] }
-# Transitive dependencies. Used for minimal version selection.
-mime.workspace = true
 # Local crates
-google-cloud-auth     = { workspace = true, features = ["default-rustls-provider"] }
-gax.workspace         = true
-gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
-gtype.workspace       = true
-iam_v1.workspace      = true
-longrunning.workspace = true
-lro.workspace         = true
-rpc.workspace         = true
-wkt.workspace         = true
+google-cloud-auth        = { workspace = true }
+gax.workspace            = true
+gtype.workspace          = true
+google-cloud-iam-v1      = { workspace = true }
+google-cloud-longrunning = { workspace = true }
+google-cloud-lro         = { workspace = true }
+rpc.workspace            = true
+wkt.workspace            = true
+# We use a lot of features from gaxi.
+gaxi = { workspace = true, features = [
+  "_internal-common",
+  "_internal-grpc-client",
+  # Storage always uses the multipart feature for uploads.
+  "_internal-http-multipart",
+  # Storage always uses the multipart feature for uploads.
+  "_internal-http-stream",
+] }
 
 [features]
-unstable-stream = ["reqwest/stream"]
+default         = ["default-rustls-provider"]
+unstable-stream = []
+# Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
+# TLS and authentication. Applications with specific requirements for
+# cryptography (such as exclusively using the [ring] crate) should disable this
+# default and call `rustls::CryptoProvider::install_default()`.
+default-rustls-provider = ["google-cloud-auth/default-rustls-provider"]
 
 [dev-dependencies]
 anyhow.workspace            = true

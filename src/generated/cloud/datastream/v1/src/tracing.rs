@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_connection_profile(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_connection_profile(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_connection_profile(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::CreateStreamRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_stream(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::UpdateStreamRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_stream(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::DeleteStreamRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_stream(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::RunStreamRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.run_stream(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::CreatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_private_connection(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::DeletePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_private_connection(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::CreateRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_route(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: crate::model::DeleteRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_route(req, options).await
     }
 
@@ -292,25 +292,26 @@ where
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         self.inner.list_operations(req, options).await
     }
 
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     #[tracing::instrument(ret)]
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
@@ -319,7 +320,7 @@ where
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await

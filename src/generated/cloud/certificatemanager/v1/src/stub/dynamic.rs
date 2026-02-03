@@ -33,19 +33,19 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_certificate(
         &self,
         req: crate::model::UpdateCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_certificate(
         &self,
         req: crate::model::DeleteCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_certificate_maps(
         &self,
@@ -63,19 +63,19 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_certificate_map(
         &self,
         req: crate::model::UpdateCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_certificate_map(
         &self,
         req: crate::model::DeleteCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_certificate_map_entries(
         &self,
@@ -93,19 +93,19 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_certificate_map_entry(
         &self,
         req: crate::model::UpdateCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_certificate_map_entry(
         &self,
         req: crate::model::DeleteCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_dns_authorizations(
         &self,
@@ -123,19 +123,19 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_dns_authorization(
         &self,
         req: crate::model::UpdateDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_dns_authorization(
         &self,
         req: crate::model::DeleteDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_certificate_issuance_configs(
         &self,
@@ -153,13 +153,13 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateCertificateIssuanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_certificate_issuance_config(
         &self,
         req: crate::model::DeleteCertificateIssuanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_trust_configs(
         &self,
@@ -177,19 +177,19 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_trust_config(
         &self,
         req: crate::model::UpdateTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_trust_config(
         &self,
         req: crate::model::DeleteTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
@@ -205,25 +205,27 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
@@ -264,7 +266,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::CreateCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_certificate(self, req, options).await
     }
 
@@ -273,7 +275,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::UpdateCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_certificate(self, req, options).await
     }
 
@@ -282,7 +284,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::DeleteCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_certificate(self, req, options).await
     }
 
@@ -309,7 +311,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::CreateCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_certificate_map(self, req, options).await
     }
 
@@ -318,7 +320,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::UpdateCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_certificate_map(self, req, options).await
     }
 
@@ -327,7 +329,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::DeleteCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_certificate_map(self, req, options).await
     }
 
@@ -355,7 +357,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::CreateCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_certificate_map_entry(self, req, options).await
     }
 
@@ -364,7 +366,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::UpdateCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_certificate_map_entry(self, req, options).await
     }
 
@@ -373,7 +375,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::DeleteCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_certificate_map_entry(self, req, options).await
     }
 
@@ -400,7 +402,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::CreateDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_dns_authorization(self, req, options).await
     }
 
@@ -409,7 +411,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::UpdateDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_dns_authorization(self, req, options).await
     }
 
@@ -418,7 +420,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::DeleteDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_dns_authorization(self, req, options).await
     }
 
@@ -446,7 +448,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::CreateCertificateIssuanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_certificate_issuance_config(self, req, options).await
     }
 
@@ -455,7 +457,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::DeleteCertificateIssuanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_certificate_issuance_config(self, req, options).await
     }
 
@@ -482,7 +484,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::CreateTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_trust_config(self, req, options).await
     }
 
@@ -491,7 +493,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::UpdateTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_trust_config(self, req, options).await
     }
 
@@ -500,7 +502,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::DeleteTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_trust_config(self, req, options).await
     }
 
@@ -525,25 +527,27 @@ impl<T: super::CertificateManager> CertificateManager for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
@@ -552,7 +556,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await

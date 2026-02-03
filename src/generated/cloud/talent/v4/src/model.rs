@@ -21,11 +21,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
+extern crate google_cloud_lro;
 extern crate gtype;
 extern crate lazy_static;
-extern crate longrunning;
-extern crate lro;
-extern crate reqwest;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
@@ -2040,7 +2039,7 @@ pub mod compensation_info {
 /// It's used to replace
 /// [google.longrunning.Operation.metadata][google.longrunning.Operation.metadata].
 ///
-/// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
+/// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchOperationMetadata {
@@ -2073,7 +2072,7 @@ pub struct BatchOperationMetadata {
     /// [google.longrunning.Operation.done][google.longrunning.Operation.done] is
     /// set to `true`.
     ///
-    /// [google.longrunning.Operation.done]: longrunning::model::Operation::done
+    /// [google.longrunning.Operation.done]: google_cloud_longrunning::model::Operation::done
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10319,7 +10318,7 @@ impl wkt::message::Message for JobResult {
 /// in case of success.
 ///
 /// [google.cloud.talent.v4.JobService.BatchCreateJobs]: crate::client::JobService::batch_create_jobs
-/// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+/// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchCreateJobsResponse {
@@ -10371,7 +10370,7 @@ impl wkt::message::Message for BatchCreateJobsResponse {
 /// in case of success.
 ///
 /// [google.cloud.talent.v4.JobService.BatchUpdateJobs]: crate::client::JobService::batch_update_jobs
-/// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+/// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchUpdateJobsResponse {
@@ -10423,7 +10422,7 @@ impl wkt::message::Message for BatchUpdateJobsResponse {
 /// in case of success.
 ///
 /// [google.cloud.talent.v4.JobService.BatchDeleteJobs]: crate::client::JobService::batch_delete_jobs
-/// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+/// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDeleteJobsResponse {

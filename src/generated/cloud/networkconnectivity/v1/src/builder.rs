@@ -267,7 +267,7 @@ pub mod cross_network_automation_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::cross_network_automation_service::CreateServiceConnectionMap;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -311,19 +311,21 @@ pub mod cross_network_automation_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_service_connection_map][crate::client::CrossNetworkAutomationService::create_service_connection_map].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_connection_map(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_service_connection_map`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_service_connection_map`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ServiceConnectionMap, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ServiceConnectionMap,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ServiceConnectionMap,
                 crate::model::OperationMetadata,
             >;
@@ -351,7 +353,12 @@ pub mod cross_network_automation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceConnectionMapRequest::parent].
@@ -410,7 +417,7 @@ pub mod cross_network_automation_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::cross_network_automation_service::UpdateServiceConnectionMap;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -454,19 +461,21 @@ pub mod cross_network_automation_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_service_connection_map][crate::client::CrossNetworkAutomationService::update_service_connection_map].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service_connection_map(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_service_connection_map`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_service_connection_map`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ServiceConnectionMap, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ServiceConnectionMap,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ServiceConnectionMap,
                 crate::model::OperationMetadata,
             >;
@@ -494,7 +503,12 @@ pub mod cross_network_automation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceConnectionMapRequest::update_mask].
@@ -557,7 +571,7 @@ pub mod cross_network_automation_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::cross_network_automation_service::DeleteServiceConnectionMap;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -601,16 +615,17 @@ pub mod cross_network_automation_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_service_connection_map][crate::client::CrossNetworkAutomationService::delete_service_connection_map].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_connection_map(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_service_connection_map`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_service_connection_map`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -635,7 +650,7 @@ pub mod cross_network_automation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -879,7 +894,7 @@ pub mod cross_network_automation_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::cross_network_automation_service::CreateServiceConnectionPolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -923,19 +938,21 @@ pub mod cross_network_automation_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_service_connection_policy][crate::client::CrossNetworkAutomationService::create_service_connection_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_connection_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_service_connection_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_service_connection_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ServiceConnectionPolicy, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ServiceConnectionPolicy,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ServiceConnectionPolicy,
                 crate::model::OperationMetadata,
             >;
@@ -963,7 +980,12 @@ pub mod cross_network_automation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceConnectionPolicyRequest::parent].
@@ -1028,7 +1050,7 @@ pub mod cross_network_automation_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::cross_network_automation_service::UpdateServiceConnectionPolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1072,19 +1094,21 @@ pub mod cross_network_automation_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_service_connection_policy][crate::client::CrossNetworkAutomationService::update_service_connection_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service_connection_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_service_connection_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_service_connection_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ServiceConnectionPolicy, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ServiceConnectionPolicy,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ServiceConnectionPolicy,
                 crate::model::OperationMetadata,
             >;
@@ -1112,7 +1136,12 @@ pub mod cross_network_automation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceConnectionPolicyRequest::update_mask].
@@ -1178,7 +1207,7 @@ pub mod cross_network_automation_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::cross_network_automation_service::DeleteServiceConnectionPolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1222,16 +1251,17 @@ pub mod cross_network_automation_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_service_connection_policy][crate::client::CrossNetworkAutomationService::delete_service_connection_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_connection_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_service_connection_policy`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_service_connection_policy`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1256,7 +1286,7 @@ pub mod cross_network_automation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1491,7 +1521,7 @@ pub mod cross_network_automation_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::cross_network_automation_service::UpdateServiceClass;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1533,18 +1563,19 @@ pub mod cross_network_automation_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_service_class][crate::client::CrossNetworkAutomationService::update_service_class].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service_class(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_service_class`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_service_class`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ServiceClass, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::ServiceClass, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ServiceClass,
                 crate::model::OperationMetadata,
             >;
@@ -1572,7 +1603,12 @@ pub mod cross_network_automation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceClassRequest::update_mask].
@@ -1635,7 +1671,7 @@ pub mod cross_network_automation_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::cross_network_automation_service::DeleteServiceClass;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1677,16 +1713,17 @@ pub mod cross_network_automation_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_service_class][crate::client::CrossNetworkAutomationService::delete_service_class].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_class(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_service_class`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_service_class`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1711,7 +1748,7 @@ pub mod cross_network_automation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1955,7 +1992,7 @@ pub mod cross_network_automation_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::cross_network_automation_service::CreateServiceConnectionToken;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1999,19 +2036,21 @@ pub mod cross_network_automation_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_service_connection_token][crate::client::CrossNetworkAutomationService::create_service_connection_token].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_connection_token(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_service_connection_token`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_service_connection_token`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::ServiceConnectionToken, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::ServiceConnectionToken,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ServiceConnectionToken,
                 crate::model::OperationMetadata,
             >;
@@ -2039,7 +2078,12 @@ pub mod cross_network_automation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceConnectionTokenRequest::parent].
@@ -2101,7 +2145,7 @@ pub mod cross_network_automation_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::cross_network_automation_service::DeleteServiceConnectionToken;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2145,16 +2189,17 @@ pub mod cross_network_automation_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_service_connection_token][crate::client::CrossNetworkAutomationService::delete_service_connection_token].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_connection_token(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_service_connection_token`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_service_connection_token`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2179,7 +2224,7 @@ pub mod cross_network_automation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2413,7 +2458,7 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -2423,7 +2468,10 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2435,14 +2483,14 @@ pub mod cross_network_automation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2450,29 +2498,29 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2481,7 +2529,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2515,7 +2563,7 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -2525,7 +2573,10 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2537,14 +2588,14 @@ pub mod cross_network_automation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2552,19 +2603,19 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -2595,7 +2646,9 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -2605,7 +2658,7 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2620,14 +2673,14 @@ pub mod cross_network_automation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2635,7 +2688,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -2677,7 +2730,9 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
 
     impl ListOperations {
         pub(crate) fn new(
@@ -2687,7 +2742,7 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2702,7 +2757,7 @@ pub mod cross_network_automation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
@@ -2712,8 +2767,10 @@ pub mod cross_network_automation_service {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2728,38 +2785,38 @@ pub mod cross_network_automation_service {
         pub fn by_item(
             self,
         ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
+            google_cloud_longrunning::model::ListOperationsResponse,
             gax::error::Error,
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
         pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.return_partial_success = v.into();
             self
@@ -2790,7 +2847,7 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2800,7 +2857,7 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2815,14 +2872,14 @@ pub mod cross_network_automation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2853,7 +2910,9 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
 
     impl DeleteOperation {
         pub(crate) fn new(
@@ -2863,7 +2922,7 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2885,7 +2944,7 @@ pub mod cross_network_automation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2916,7 +2975,9 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -2926,7 +2987,7 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2948,7 +3009,7 @@ pub mod cross_network_automation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3222,7 +3283,7 @@ pub mod data_transfer_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::data_transfer_service::CreateMulticloudDataTransferConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3266,19 +3327,21 @@ pub mod data_transfer_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_multicloud_data_transfer_config][crate::client::DataTransferService::create_multicloud_data_transfer_config].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_multicloud_data_transfer_config(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_multicloud_data_transfer_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_multicloud_data_transfer_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::MulticloudDataTransferConfig, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MulticloudDataTransferConfig,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MulticloudDataTransferConfig,
                 crate::model::OperationMetadata,
             >;
@@ -3306,7 +3369,12 @@ pub mod data_transfer_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateMulticloudDataTransferConfigRequest::parent].
@@ -3373,7 +3441,7 @@ pub mod data_transfer_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::data_transfer_service::UpdateMulticloudDataTransferConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3417,19 +3485,21 @@ pub mod data_transfer_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_multicloud_data_transfer_config][crate::client::DataTransferService::update_multicloud_data_transfer_config].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_multicloud_data_transfer_config(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_multicloud_data_transfer_config`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_multicloud_data_transfer_config`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::MulticloudDataTransferConfig, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MulticloudDataTransferConfig,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MulticloudDataTransferConfig,
                 crate::model::OperationMetadata,
             >;
@@ -3457,7 +3527,12 @@ pub mod data_transfer_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMulticloudDataTransferConfigRequest::update_mask].
@@ -3523,7 +3598,7 @@ pub mod data_transfer_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::data_transfer_service::DeleteMulticloudDataTransferConfig;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3567,16 +3642,17 @@ pub mod data_transfer_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_multicloud_data_transfer_config][crate::client::DataTransferService::delete_multicloud_data_transfer_config].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_multicloud_data_transfer_config(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_multicloud_data_transfer_config`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_multicloud_data_transfer_config`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3601,7 +3677,7 @@ pub mod data_transfer_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -3828,7 +3904,7 @@ pub mod data_transfer_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::data_transfer_service::CreateDestination;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3870,18 +3946,19 @@ pub mod data_transfer_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_destination][crate::client::DataTransferService::create_destination].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_destination(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_destination`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_destination`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Destination, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Destination, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Destination,
                 crate::model::OperationMetadata,
             >;
@@ -3909,7 +3986,12 @@ pub mod data_transfer_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateDestinationRequest::parent].
@@ -3970,7 +4052,7 @@ pub mod data_transfer_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::data_transfer_service::UpdateDestination;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4012,18 +4094,19 @@ pub mod data_transfer_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_destination][crate::client::DataTransferService::update_destination].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_destination(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_destination`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_destination`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Destination, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Destination, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Destination,
                 crate::model::OperationMetadata,
             >;
@@ -4051,7 +4134,12 @@ pub mod data_transfer_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDestinationRequest::update_mask].
@@ -4114,7 +4202,7 @@ pub mod data_transfer_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::data_transfer_service::DeleteDestination;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4156,16 +4244,17 @@ pub mod data_transfer_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_destination][crate::client::DataTransferService::delete_destination].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_destination(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_destination`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_destination`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4190,7 +4279,7 @@ pub mod data_transfer_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -4596,7 +4685,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -4606,7 +4695,10 @@ pub mod data_transfer_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4618,14 +4710,14 @@ pub mod data_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4633,29 +4725,29 @@ pub mod data_transfer_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -4664,7 +4756,7 @@ pub mod data_transfer_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -4698,7 +4790,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -4708,7 +4800,10 @@ pub mod data_transfer_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4720,14 +4815,14 @@ pub mod data_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4735,19 +4830,19 @@ pub mod data_transfer_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -4778,7 +4873,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -4788,7 +4885,7 @@ pub mod data_transfer_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -4803,14 +4900,14 @@ pub mod data_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4818,7 +4915,7 @@ pub mod data_transfer_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -4860,7 +4957,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
 
     impl ListOperations {
         pub(crate) fn new(
@@ -4870,7 +4969,7 @@ pub mod data_transfer_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -4885,7 +4984,7 @@ pub mod data_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
@@ -4895,8 +4994,10 @@ pub mod data_transfer_service {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4911,38 +5012,38 @@ pub mod data_transfer_service {
         pub fn by_item(
             self,
         ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
+            google_cloud_longrunning::model::ListOperationsResponse,
             gax::error::Error,
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
         pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.return_partial_success = v.into();
             self
@@ -4973,7 +5074,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4983,7 +5084,7 @@ pub mod data_transfer_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -4998,14 +5099,14 @@ pub mod data_transfer_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -5036,7 +5137,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
 
     impl DeleteOperation {
         pub(crate) fn new(
@@ -5046,7 +5149,7 @@ pub mod data_transfer_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -5068,7 +5171,7 @@ pub mod data_transfer_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -5099,7 +5202,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -5109,7 +5214,7 @@ pub mod data_transfer_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -5131,7 +5236,7 @@ pub mod data_transfer_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -5385,7 +5490,7 @@ pub mod hub_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::hub_service::CreateHub;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5424,19 +5529,22 @@ pub mod hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_hub][crate::client::HubService::create_hub].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_hub(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_hub`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_hub`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Hub, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Hub, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Hub, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Hub,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5461,7 +5569,12 @@ pub mod hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateHubRequest::parent].
@@ -5522,7 +5635,7 @@ pub mod hub_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::hub_service::UpdateHub;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5561,19 +5674,22 @@ pub mod hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_hub][crate::client::HubService::update_hub].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_hub(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_hub`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_hub`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Hub, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Hub, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Hub, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Hub,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5598,7 +5714,12 @@ pub mod hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateHubRequest::update_mask].
@@ -5661,7 +5782,7 @@ pub mod hub_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::hub_service::DeleteHub;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5700,16 +5821,17 @@ pub mod hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_hub][crate::client::HubService::delete_hub].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_hub(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_hub`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_hub`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5734,7 +5856,7 @@ pub mod hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -6200,7 +6322,7 @@ pub mod hub_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::hub_service::CreateSpoke;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6239,19 +6361,22 @@ pub mod hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_spoke][crate::client::HubService::create_spoke].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_spoke(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_spoke`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_spoke`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Spoke, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Spoke, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Spoke, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Spoke,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6276,7 +6401,12 @@ pub mod hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateSpokeRequest::parent].
@@ -6337,7 +6467,7 @@ pub mod hub_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::hub_service::UpdateSpoke;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6376,19 +6506,22 @@ pub mod hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_spoke][crate::client::HubService::update_spoke].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_spoke(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_spoke`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_spoke`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Spoke, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Spoke, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Spoke, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Spoke,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6413,7 +6546,12 @@ pub mod hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSpokeRequest::update_mask].
@@ -6476,7 +6614,7 @@ pub mod hub_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::hub_service::RejectHubSpoke;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6515,19 +6653,21 @@ pub mod hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [reject_hub_spoke][crate::client::HubService::reject_hub_spoke].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .reject_hub_spoke(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `reject_hub_spoke`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `reject_hub_spoke`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::RejectHubSpokeResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::RejectHubSpokeResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RejectHubSpokeResponse,
                 crate::model::OperationMetadata,
             >;
@@ -6555,7 +6695,12 @@ pub mod hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RejectHubSpokeRequest::name].
@@ -6600,7 +6745,7 @@ pub mod hub_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::hub_service::AcceptHubSpoke;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6639,19 +6784,21 @@ pub mod hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [accept_hub_spoke][crate::client::HubService::accept_hub_spoke].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .accept_hub_spoke(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `accept_hub_spoke`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `accept_hub_spoke`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AcceptHubSpokeResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AcceptHubSpokeResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AcceptHubSpokeResponse,
                 crate::model::OperationMetadata,
             >;
@@ -6679,7 +6826,12 @@ pub mod hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::AcceptHubSpokeRequest::name].
@@ -6718,7 +6870,7 @@ pub mod hub_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::hub_service::AcceptSpokeUpdate;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6760,19 +6912,21 @@ pub mod hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [accept_spoke_update][crate::client::HubService::accept_spoke_update].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .accept_spoke_update(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `accept_spoke_update`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `accept_spoke_update`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AcceptSpokeUpdateResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AcceptSpokeUpdateResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AcceptSpokeUpdateResponse,
                 crate::model::OperationMetadata,
             >;
@@ -6800,7 +6954,12 @@ pub mod hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::AcceptSpokeUpdateRequest::name].
@@ -6847,7 +7006,7 @@ pub mod hub_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::hub_service::RejectSpokeUpdate;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6889,19 +7048,21 @@ pub mod hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [reject_spoke_update][crate::client::HubService::reject_spoke_update].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .reject_spoke_update(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `reject_spoke_update`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `reject_spoke_update`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::RejectSpokeUpdateResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::RejectSpokeUpdateResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RejectSpokeUpdateResponse,
                 crate::model::OperationMetadata,
             >;
@@ -6929,7 +7090,12 @@ pub mod hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RejectSpokeUpdateRequest::name].
@@ -6982,7 +7148,7 @@ pub mod hub_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::hub_service::DeleteSpoke;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7021,16 +7187,17 @@ pub mod hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_spoke][crate::client::HubService::delete_spoke].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_spoke(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_spoke`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_spoke`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -7055,7 +7222,7 @@ pub mod hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -7619,7 +7786,7 @@ pub mod hub_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::hub_service::UpdateGroup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7658,19 +7825,22 @@ pub mod hub_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_group][crate::client::HubService::update_group].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_group(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_group`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_group`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Group, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Group, crate::model::OperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Group, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Group,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -7695,7 +7865,12 @@ pub mod hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
@@ -7938,7 +8113,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -7948,7 +8123,10 @@ pub mod hub_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7960,14 +8138,14 @@ pub mod hub_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7975,29 +8153,29 @@ pub mod hub_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -8006,7 +8184,7 @@ pub mod hub_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -8040,7 +8218,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -8050,7 +8228,10 @@ pub mod hub_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -8062,14 +8243,14 @@ pub mod hub_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8077,19 +8258,19 @@ pub mod hub_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -8120,7 +8301,9 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -8130,7 +8313,7 @@ pub mod hub_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -8145,14 +8328,14 @@ pub mod hub_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8160,7 +8343,7 @@ pub mod hub_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -8202,7 +8385,9 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
 
     impl ListOperations {
         pub(crate) fn new(
@@ -8212,7 +8397,7 @@ pub mod hub_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -8227,7 +8412,7 @@ pub mod hub_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
@@ -8237,8 +8422,10 @@ pub mod hub_service {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -8253,38 +8440,38 @@ pub mod hub_service {
         pub fn by_item(
             self,
         ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
+            google_cloud_longrunning::model::ListOperationsResponse,
             gax::error::Error,
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
         pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.return_partial_success = v.into();
             self
@@ -8315,7 +8502,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -8325,7 +8512,7 @@ pub mod hub_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -8340,14 +8527,14 @@ pub mod hub_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -8378,7 +8565,9 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
 
     impl DeleteOperation {
         pub(crate) fn new(
@@ -8388,7 +8577,7 @@ pub mod hub_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -8410,7 +8599,7 @@ pub mod hub_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -8441,7 +8630,9 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -8451,7 +8642,7 @@ pub mod hub_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -8473,7 +8664,7 @@ pub mod hub_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -8735,7 +8926,7 @@ pub mod internal_range_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::internal_range_service::CreateInternalRange;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8777,19 +8968,19 @@ pub mod internal_range_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_internal_range][crate::client::InternalRangeService::create_internal_range].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_internal_range(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_internal_range`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_internal_range`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::InternalRange, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::InternalRange, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::InternalRange,
                 crate::model::OperationMetadata,
             >;
@@ -8817,7 +9008,12 @@ pub mod internal_range_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateInternalRangeRequest::parent].
@@ -8876,7 +9072,7 @@ pub mod internal_range_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::internal_range_service::UpdateInternalRange;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8918,19 +9114,19 @@ pub mod internal_range_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_internal_range][crate::client::InternalRangeService::update_internal_range].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_internal_range(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_internal_range`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_internal_range`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::InternalRange, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::InternalRange, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::InternalRange,
                 crate::model::OperationMetadata,
             >;
@@ -8958,7 +9154,12 @@ pub mod internal_range_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInternalRangeRequest::update_mask].
@@ -9021,7 +9222,7 @@ pub mod internal_range_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::internal_range_service::DeleteInternalRange;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -9063,16 +9264,17 @@ pub mod internal_range_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_internal_range][crate::client::InternalRangeService::delete_internal_range].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_internal_range(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_internal_range`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_internal_range`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -9097,7 +9299,7 @@ pub mod internal_range_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -9313,7 +9515,7 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -9323,7 +9525,10 @@ pub mod internal_range_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -9335,14 +9540,14 @@ pub mod internal_range_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -9350,29 +9555,29 @@ pub mod internal_range_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -9381,7 +9586,7 @@ pub mod internal_range_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -9415,7 +9620,7 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -9425,7 +9630,10 @@ pub mod internal_range_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -9437,14 +9645,14 @@ pub mod internal_range_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -9452,19 +9660,19 @@ pub mod internal_range_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -9495,7 +9703,9 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -9505,7 +9715,7 @@ pub mod internal_range_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -9520,14 +9730,14 @@ pub mod internal_range_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -9535,7 +9745,7 @@ pub mod internal_range_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -9577,7 +9787,9 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
 
     impl ListOperations {
         pub(crate) fn new(
@@ -9587,7 +9799,7 @@ pub mod internal_range_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -9602,7 +9814,7 @@ pub mod internal_range_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
@@ -9612,8 +9824,10 @@ pub mod internal_range_service {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -9628,38 +9842,38 @@ pub mod internal_range_service {
         pub fn by_item(
             self,
         ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
+            google_cloud_longrunning::model::ListOperationsResponse,
             gax::error::Error,
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
         pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.return_partial_success = v.into();
             self
@@ -9690,7 +9904,7 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -9700,7 +9914,7 @@ pub mod internal_range_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -9715,14 +9929,14 @@ pub mod internal_range_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -9753,7 +9967,9 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
 
     impl DeleteOperation {
         pub(crate) fn new(
@@ -9763,7 +9979,7 @@ pub mod internal_range_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -9785,7 +10001,7 @@ pub mod internal_range_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -9816,7 +10032,9 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -9826,7 +10044,7 @@ pub mod internal_range_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -9848,7 +10066,7 @@ pub mod internal_range_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -10110,7 +10328,7 @@ pub mod policy_based_routing_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::policy_based_routing_service::CreatePolicyBasedRoute;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -10152,19 +10370,19 @@ pub mod policy_based_routing_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_policy_based_route][crate::client::PolicyBasedRoutingService::create_policy_based_route].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_policy_based_route(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_policy_based_route`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_policy_based_route`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::PolicyBasedRoute, crate::model::OperationMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::PolicyBasedRoute, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::PolicyBasedRoute,
                 crate::model::OperationMetadata,
             >;
@@ -10192,7 +10410,12 @@ pub mod policy_based_routing_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyBasedRouteRequest::parent].
@@ -10253,7 +10476,7 @@ pub mod policy_based_routing_service {
     /// ```
     /// # use google_cloud_networkconnectivity_v1::builder::policy_based_routing_service::DeletePolicyBasedRoute;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -10295,16 +10518,17 @@ pub mod policy_based_routing_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_policy_based_route][crate::client::PolicyBasedRoutingService::delete_policy_based_route].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_policy_based_route(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_policy_based_route`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_policy_based_route`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -10329,7 +10553,7 @@ pub mod policy_based_routing_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -10545,7 +10769,7 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -10555,7 +10779,10 @@ pub mod policy_based_routing_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -10567,14 +10794,14 @@ pub mod policy_based_routing_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10582,29 +10809,29 @@ pub mod policy_based_routing_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -10613,7 +10840,7 @@ pub mod policy_based_routing_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -10647,7 +10874,7 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -10657,7 +10884,10 @@ pub mod policy_based_routing_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -10669,14 +10899,14 @@ pub mod policy_based_routing_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10684,19 +10914,19 @@ pub mod policy_based_routing_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -10727,7 +10957,9 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -10737,7 +10969,7 @@ pub mod policy_based_routing_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -10752,14 +10984,14 @@ pub mod policy_based_routing_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10767,7 +10999,7 @@ pub mod policy_based_routing_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -10809,7 +11041,9 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
 
     impl ListOperations {
         pub(crate) fn new(
@@ -10819,7 +11053,7 @@ pub mod policy_based_routing_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -10834,7 +11068,7 @@ pub mod policy_based_routing_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
@@ -10844,8 +11078,10 @@ pub mod policy_based_routing_service {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -10860,38 +11096,38 @@ pub mod policy_based_routing_service {
         pub fn by_item(
             self,
         ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
+            google_cloud_longrunning::model::ListOperationsResponse,
             gax::error::Error,
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
         pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.return_partial_success = v.into();
             self
@@ -10922,7 +11158,7 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -10932,7 +11168,7 @@ pub mod policy_based_routing_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -10947,14 +11183,14 @@ pub mod policy_based_routing_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -10985,7 +11221,9 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
 
     impl DeleteOperation {
         pub(crate) fn new(
@@ -10995,7 +11233,7 @@ pub mod policy_based_routing_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -11017,7 +11255,7 @@ pub mod policy_based_routing_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -11048,7 +11286,9 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -11058,7 +11298,7 @@ pub mod policy_based_routing_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -11080,7 +11320,7 @@ pub mod policy_based_routing_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

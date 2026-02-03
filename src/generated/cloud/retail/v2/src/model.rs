@@ -22,11 +22,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
+extern crate google_cloud_lro;
 extern crate gtype;
 extern crate lazy_static;
-extern crate longrunning;
-extern crate lro;
-extern crate reqwest;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
@@ -11575,7 +11574,7 @@ pub struct ImportProductsRequest {
     ///
     /// [google.cloud.retail.v2.ImportProductsRequest.parent]: crate::model::ImportProductsRequest::parent
     /// [google.cloud.retail.v2.ImportProductsRequest.reconciliation_mode]: crate::model::ImportProductsRequest::reconciliation_mode
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub notification_pubsub_topic: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -12016,7 +12015,7 @@ pub struct ImportCompletionDataRequest {
     /// [Operation][google.longrunning.Operation].
     /// Format of the Pub/Sub topic is `projects/{project}/topics/{topic}`.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub notification_pubsub_topic: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -12612,7 +12611,7 @@ pub struct ImportMetadata {
     /// [Operation][google.longrunning.Operation].
     /// Format of the Pub/Sub topic is `projects/{project}/topics/{topic}`.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub notification_pubsub_topic: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

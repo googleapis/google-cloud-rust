@@ -14,23 +14,24 @@
 
 use crate::Result;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
+use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult};
 use tokio::sync::mpsc::Receiver;
 
 pub(super) trait TonicStreaming: std::fmt::Debug + Send + 'static {
     fn next_message(
         &mut self,
-    ) -> impl Future<Output = tonic::Result<Option<StreamingPullResponse>>> + Send;
+    ) -> impl Future<Output = TonicResult<Option<StreamingPullResponse>>> + Send;
 }
 
 /// An internal trait for mocking the transport layer.
 #[async_trait::async_trait]
 pub(super) trait Stub: std::fmt::Debug + Send + Sync {
-    type Stream: Sized;
+    type Stream: Sized + std::fmt::Debug;
     async fn streaming_pull(
         &self,
         request_rx: Receiver<StreamingPullRequest>,
         _options: gax::options::RequestOptions,
-    ) -> Result<tonic::Response<Self::Stream>>;
+    ) -> Result<TonicResponse<Self::Stream>>;
 
     async fn modify_ack_deadline(
         &self,
@@ -50,11 +51,11 @@ pub(super) mod tests {
     use super::*;
     use tokio::sync::mpsc::Receiver;
 
-    type MockStream = Receiver<tonic::Result<StreamingPullResponse>>;
+    type MockStream = Receiver<TonicResult<StreamingPullResponse>>;
 
     // Allow us to mock a tonic stream in our unit tests, using an mpsc receiver
     impl TonicStreaming for MockStream {
-        async fn next_message(&mut self) -> tonic::Result<Option<StreamingPullResponse>> {
+        async fn next_message(&mut self) -> TonicResult<Option<StreamingPullResponse>> {
             self.recv().await.transpose()
         }
     }
@@ -69,7 +70,7 @@ pub(super) mod tests {
                 &self,
                 request_rx: Receiver<StreamingPullRequest>,
                 _options: gax::options::RequestOptions,
-            ) -> Result<tonic::Response<MockStream>>;
+            ) -> Result<TonicResponse<MockStream>>;
             async fn modify_ack_deadline(&self,
                 _req: crate::model::ModifyAckDeadlineRequest,
                 _options: gax::options::RequestOptions,

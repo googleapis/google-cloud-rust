@@ -13,24 +13,21 @@
 # limitations under the License.
 
 [package]
-name         = "idtoken-with-aws-lc-rs"
-version      = "0.0.0"
-publish      = false
-edition      = "2024"
-authors      = ["Google LLC"]
-description  = "Google Cloud Client Libraries for Rust"
-license      = "Apache-2.0"
-repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
-keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
-categories   = ["network-programming"]
-rust-version = "1.92.0"
-
-# This test needs to be its own workspace so it is isolated from any features
-# enabled in the top-level Cargo.toml file (and its dependencies).
-[workspace]
+name        = "idtoken-with-aws-lc-rs"
+version     = "0.0.0"
+publish     = false
+description = "Use the `google-cloud-storage` library with `aws_lc_rs` as the jsonwebtoken backend"
+# Inherit other attributes from the workspace.
+edition.workspace      = true
+authors.workspace      = true
+license.workspace      = true
+repository.workspace   = true
+keywords.workspace     = true
+categories.workspace   = true
+rust-version.workspace = true
 
 [dependencies]
-anyhow            = { default-features = false, version = "1", features = ["std"] }
+anyhow            = { workspace = true, features = ["std"] }
+jsonwebtoken      = { workspace = true, features = ["aws_lc_rs"] }
+google-cloud-auth = { workspace = true, features = ["idtoken"] }
 test-metadata     = { path = "../test-metadata" }
-google-cloud-auth = { default-features = false, path = "../../../src/auth", features = ["idtoken"] }
-jsonwebtoken      = { default-features = false, version = "10", features = ["aws_lc_rs"] }

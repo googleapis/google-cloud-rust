@@ -246,7 +246,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::CreateAccessPolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -285,21 +285,21 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_access_policy][crate::client::AccessContextManager::create_access_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_access_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_access_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_access_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::AccessPolicy,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AccessPolicy,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -327,7 +327,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::AccessPolicy::name].
@@ -415,7 +420,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::UpdateAccessPolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -457,21 +462,21 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_access_policy][crate::client::AccessContextManager::update_access_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_access_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_access_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_access_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::AccessPolicy,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AccessPolicy,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -499,7 +504,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
@@ -560,7 +570,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::DeleteAccessPolicy;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -602,18 +612,19 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_access_policy][crate::client::AccessContextManager::delete_access_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_access_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_access_policy`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_access_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<(), crate::model::AccessContextManagerOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<(), crate::model::AccessContextManagerOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 wkt::Empty,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -641,7 +652,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -850,7 +861,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::CreateAccessLevel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -892,21 +903,21 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_access_level][crate::client::AccessContextManager::create_access_level].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_access_level(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_access_level`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_access_level`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::AccessLevel,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AccessLevel,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -934,7 +945,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAccessLevelRequest::parent].
@@ -981,7 +997,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::UpdateAccessLevel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1023,21 +1039,21 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_access_level][crate::client::AccessContextManager::update_access_level].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_access_level(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_access_level`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_access_level`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::AccessLevel,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AccessLevel,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1065,7 +1081,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
@@ -1126,7 +1147,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::DeleteAccessLevel;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1168,18 +1189,19 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_access_level][crate::client::AccessContextManager::delete_access_level].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_access_level(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_access_level`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_access_level`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<(), crate::model::AccessContextManagerOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<(), crate::model::AccessContextManagerOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 wkt::Empty,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1207,7 +1229,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1237,7 +1259,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::ReplaceAccessLevels;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1279,21 +1301,21 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [replace_access_levels][crate::client::AccessContextManager::replace_access_levels].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .replace_access_levels(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `replace_access_levels`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `replace_access_levels`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ReplaceAccessLevelsResponse,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ReplaceAccessLevelsResponse,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1321,7 +1343,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ReplaceAccessLevelsRequest::parent].
@@ -1537,7 +1564,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::CreateServicePerimeter;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1579,21 +1606,21 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_service_perimeter][crate::client::AccessContextManager::create_service_perimeter].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_perimeter(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_service_perimeter`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_service_perimeter`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ServicePerimeter,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ServicePerimeter,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1621,7 +1648,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateServicePerimeterRequest::parent].
@@ -1668,7 +1700,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::UpdateServicePerimeter;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1710,21 +1742,21 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_service_perimeter][crate::client::AccessContextManager::update_service_perimeter].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service_perimeter(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_service_perimeter`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_service_perimeter`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ServicePerimeter,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ServicePerimeter,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1752,7 +1784,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
@@ -1813,7 +1850,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::DeleteServicePerimeter;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1855,18 +1892,19 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_service_perimeter][crate::client::AccessContextManager::delete_service_perimeter].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_perimeter(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_service_perimeter`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_service_perimeter`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<(), crate::model::AccessContextManagerOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<(), crate::model::AccessContextManagerOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 wkt::Empty,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1894,7 +1932,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1924,7 +1962,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::ReplaceServicePerimeters;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1968,21 +2006,21 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [replace_service_perimeters][crate::client::AccessContextManager::replace_service_perimeters].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .replace_service_perimeters(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `replace_service_perimeters`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `replace_service_perimeters`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ReplaceServicePerimetersResponse,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ReplaceServicePerimetersResponse,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -2010,7 +2048,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ReplaceServicePerimetersRequest::parent].
@@ -2054,7 +2097,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::CommitServicePerimeters;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2098,21 +2141,21 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [commit_service_perimeters][crate::client::AccessContextManager::commit_service_perimeters].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .commit_service_perimeters(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `commit_service_perimeters`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `commit_service_perimeters`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::CommitServicePerimetersResponse,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::CommitServicePerimetersResponse,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -2140,7 +2183,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CommitServicePerimetersRequest::parent].
@@ -2349,7 +2397,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::CreateGcpUserAccessBinding;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2393,21 +2441,21 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_gcp_user_access_binding][crate::client::AccessContextManager::create_gcp_user_access_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_gcp_user_access_binding(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_gcp_user_access_binding`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_gcp_user_access_binding`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::GcpUserAccessBinding,
             crate::model::GcpUserAccessBindingOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::GcpUserAccessBinding,
                 crate::model::GcpUserAccessBindingOperationMetadata,
             >;
@@ -2435,7 +2483,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateGcpUserAccessBindingRequest::parent].
@@ -2482,7 +2535,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::UpdateGcpUserAccessBinding;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2526,21 +2579,21 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_gcp_user_access_binding][crate::client::AccessContextManager::update_gcp_user_access_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_gcp_user_access_binding(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_gcp_user_access_binding`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_gcp_user_access_binding`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::GcpUserAccessBinding,
             crate::model::GcpUserAccessBindingOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::GcpUserAccessBinding,
                 crate::model::GcpUserAccessBindingOperationMetadata,
             >;
@@ -2568,7 +2621,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
@@ -2629,7 +2687,7 @@ pub mod access_context_manager {
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::DeleteGcpUserAccessBinding;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2673,18 +2731,19 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_gcp_user_access_binding][crate::client::AccessContextManager::delete_gcp_user_access_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_gcp_user_access_binding(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_gcp_user_access_binding`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_gcp_user_access_binding`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<(), crate::model::GcpUserAccessBindingOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<(), crate::model::GcpUserAccessBindingOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 wkt::Empty,
                 crate::model::GcpUserAccessBindingOperationMetadata,
             >;
@@ -2712,7 +2771,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2753,7 +2812,7 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -2763,7 +2822,10 @@ pub mod access_context_manager {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2775,14 +2837,14 @@ pub mod access_context_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2790,29 +2852,29 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2821,7 +2883,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2855,7 +2917,7 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -2865,7 +2927,10 @@ pub mod access_context_manager {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2877,14 +2942,14 @@ pub mod access_context_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2892,19 +2957,19 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -2935,7 +3000,9 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -2945,7 +3012,7 @@ pub mod access_context_manager {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2960,14 +3027,14 @@ pub mod access_context_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2975,7 +3042,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -3013,7 +3080,7 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3023,7 +3090,7 @@ pub mod access_context_manager {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -3038,14 +3105,14 @@ pub mod access_context_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

@@ -928,6 +928,12 @@ impl serde::ser::Serialize for super::DiscoveryOccurrence {
         if !self.files.is_empty() {
             state.serialize_entry("files", &self.files)?;
         }
+        if self.last_vulnerability_update_time.is_some() {
+            state.serialize_entry(
+                "lastVulnerabilityUpdateTime",
+                &self.last_vulnerability_update_time,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

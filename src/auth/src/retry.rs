@@ -23,6 +23,7 @@ use gax::retry_loop_internal::retry_loop;
 use gax::retry_policy::{AlwaysRetry, RetryPolicy, RetryPolicyArg, RetryPolicyExt};
 use gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler};
 use std::error::Error;
+use std::panic::{RefUnwindSafe, UnwindSafe};
 use std::sync::{Arc, Mutex};
 
 #[derive(Debug)]
@@ -39,6 +40,17 @@ pub(crate) struct Builder {
     backoff_policy: Option<BackoffPolicyArg>,
     retry_throttler: Option<RetryThrottlerArg>,
 }
+
+// This is necessary because adding [Builder] to existing, released auth features
+// caused a breaking change. The containing structs would lose their automatically derived
+// `RefUnwindSafe` implementation because the dynamic trait objects (like `dyn RetryPolicy`)
+// are not `RefUnwindSafe` nor `UnwindSafe` by default.
+//
+// This is safe because in the builder, we never call or use the retry policies. We just hold them
+// until we create the client. There is no opportunity for a panic to leave them in an inconsistent
+// state.
+impl RefUnwindSafe for Builder {}
+impl UnwindSafe for Builder {}
 
 impl Builder {
     pub(crate) fn with_retry_policy(mut self, retry_policy: RetryPolicyArg) -> Self {
@@ -142,6 +154,7 @@ mod tests {
     use gax::retry_state::RetryState;
     use gax::retry_throttler::RetryThrottler;
     use mockall::{Sequence, mock};
+    use static_assertions::assert_impl_all;
     use std::error::Error;
     use std::sync::Arc;
     use std::sync::atomic::{AtomicBool, Ordering};
@@ -478,5 +491,10 @@ mod tests {
             credentials_error.source().unwrap().to_string(),
             original_error_string
         );
+    }
+
+    #[test]
+    fn test_unwind_safe() {
+        assert_impl_all!(Builder: std::panic::UnwindSafe, std::panic::RefUnwindSafe);
     }
 }

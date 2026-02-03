@@ -132,7 +132,7 @@ impl AttachedClusters {
     /// described to track the status of the operation.
     ///
     /// [google.cloud.gkemulticloud.v1.AttachedCluster]: crate::model::AttachedCluster
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -181,7 +181,7 @@ impl AttachedClusters {
     /// described to track the status of the operation.
     ///
     /// [google.cloud.gkemulticloud.v1.AttachedCluster]: crate::model::AttachedCluster
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -224,7 +224,7 @@ impl AttachedClusters {
     /// described to track the status of the operation.
     ///
     /// [google.cloud.gkemulticloud.v1.AttachedCluster]: crate::model::AttachedCluster
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -269,28 +269,28 @@ impl AttachedClusters {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::attached_clusters::ListOperations {
         super::builder::attached_clusters::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::attached_clusters::GetOperation {
         super::builder::attached_clusters::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::attached_clusters::DeleteOperation {
         super::builder::attached_clusters::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::attached_clusters::CancelOperation {
         super::builder::attached_clusters::CancelOperation::new(self.inner.clone())
     }
@@ -408,7 +408,7 @@ impl AwsClusters {
     /// described to track the status of the operation.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -472,7 +472,7 @@ impl AwsClusters {
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -516,7 +516,7 @@ impl AwsClusters {
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -603,7 +603,7 @@ impl AwsClusters {
     /// described to track the status of the operation.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -645,28 +645,28 @@ impl AwsClusters {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::aws_clusters::ListOperations {
         super::builder::aws_clusters::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::aws_clusters::GetOperation {
         super::builder::aws_clusters::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::aws_clusters::DeleteOperation {
         super::builder::aws_clusters::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::aws_clusters::CancelOperation {
         super::builder::aws_clusters::CancelOperation::new(self.inner.clone())
     }
@@ -788,7 +788,7 @@ impl AzureClusters {
     /// described to track the status of the operation.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureClient]: crate::model::AzureClient
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -833,7 +833,7 @@ impl AzureClusters {
     /// described to track the status of the operation.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureClient]: crate::model::AzureClient
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -857,7 +857,7 @@ impl AzureClusters {
     /// described to track the status of the operation.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -921,7 +921,7 @@ impl AzureClusters {
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -966,7 +966,7 @@ impl AzureClusters {
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -1028,7 +1028,7 @@ impl AzureClusters {
     /// described to track the status of the operation.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -1070,28 +1070,28 @@ impl AzureClusters {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::azure_clusters::ListOperations {
         super::builder::azure_clusters::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::azure_clusters::GetOperation {
         super::builder::azure_clusters::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::azure_clusters::DeleteOperation {
         super::builder::azure_clusters::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::azure_clusters::CancelOperation {
         super::builder::azure_clusters::CancelOperation::new(self.inner.clone())
     }

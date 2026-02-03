@@ -69,13 +69,13 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ImportAptArtifactsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn import_yum_artifacts(
         &self,
         req: crate::model::ImportYumArtifactsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_repositories(
         &self,
@@ -93,7 +93,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_repository(
         &self,
@@ -105,7 +105,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_packages(
         &self,
@@ -123,7 +123,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeletePackageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_versions(
         &self,
@@ -141,13 +141,13 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn batch_delete_versions(
         &self,
         req: crate::model::BatchDeleteVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_version(
         &self,
@@ -171,7 +171,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_file(
         &self,
@@ -241,21 +241,23 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn get_project_settings(
         &self,
@@ -303,19 +305,19 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_attachment(
         &self,
         req: crate::model::DeleteAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn export_artifact(
         &self,
         req: crate::model::ExportArtifactRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
@@ -331,9 +333,9 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -426,7 +428,7 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
         &self,
         req: crate::model::ImportAptArtifactsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::import_apt_artifacts(self, req, options).await
     }
 
@@ -435,7 +437,7 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
         &self,
         req: crate::model::ImportYumArtifactsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::import_yum_artifacts(self, req, options).await
     }
 
@@ -462,7 +464,7 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
         &self,
         req: crate::model::CreateRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_repository(self, req, options).await
     }
 
@@ -480,7 +482,7 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
         &self,
         req: crate::model::DeleteRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_repository(self, req, options).await
     }
 
@@ -507,7 +509,7 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
         &self,
         req: crate::model::DeletePackageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_package(self, req, options).await
     }
 
@@ -534,7 +536,7 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_version(self, req, options).await
     }
 
@@ -543,7 +545,7 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
         &self,
         req: crate::model::BatchDeleteVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::batch_delete_versions(self, req, options).await
     }
 
@@ -579,7 +581,7 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
         &self,
         req: crate::model::DeleteFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_file(self, req, options).await
     }
 
@@ -685,27 +687,29 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -777,7 +781,7 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
         &self,
         req: crate::model::CreateAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_attachment(self, req, options).await
     }
 
@@ -786,7 +790,7 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
         &self,
         req: crate::model::DeleteAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_attachment(self, req, options).await
     }
 
@@ -795,7 +799,7 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
         &self,
         req: crate::model::ExportArtifactRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::export_artifact(self, req, options).await
     }
 
@@ -820,9 +824,9 @@ impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

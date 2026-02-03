@@ -21,11 +21,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
+extern crate google_cloud_lro;
 extern crate lazy_static;
 extern crate location;
-extern crate longrunning;
-extern crate lro;
-extern crate reqwest;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
@@ -6006,7 +6005,7 @@ pub mod recognition_output_config {
 /// packaged into a longrunning [Operation][google.longrunning.Operation].
 ///
 /// [google.cloud.speech.v2.Speech.BatchRecognize]: crate::client::Speech::batch_recognize
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeResponse {

@@ -17,15 +17,16 @@
 use super::parse_http_response;
 use super::{Error, Result};
 use crate::model_ext::ObjectHighlights;
+use gaxi::http::reqwest::Response;
 
 #[derive(Debug)]
 pub struct NonResumableResponse {
-    response: Option<reqwest::Response>,
+    response: Option<Response>,
     highlights: ObjectHighlights,
 }
 
 impl NonResumableResponse {
-    pub(crate) fn new(response: reqwest::Response) -> Result<Self> {
+    pub(crate) fn new(response: Response) -> Result<Self> {
         let generation =
             parse_http_response::response_generation(&response).map_err(Error::deser)?;
 
@@ -69,6 +70,7 @@ mod tests {
         client::Storage, model_ext::ObjectHighlights, read_object::dynamic::ReadObjectResponse,
     };
     use bytes::Bytes;
+    use gaxi::http::reqwest::Body;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
 
@@ -137,12 +139,12 @@ mod tests {
             Ok(Bytes::from_static(b"hello")),
             Err(anyhow::Error::msg("bad stuff")),
         ]);
-        let body = reqwest::Body::wrap_stream(stream);
+        let body = Body::wrap_stream(stream);
         let response = http::Response::builder()
             .status(200)
             .header("x-goog-generation", 123456)
             .body(body)?;
-        let mut response = NonResumableResponse::new(reqwest::Response::from(response))?;
+        let mut response = NonResumableResponse::new(Response::from(response))?;
 
         let chunk = response.next().await;
         assert!(matches!(&chunk, Some(Ok(b)) if b == "hello"), "{chunk:?}");

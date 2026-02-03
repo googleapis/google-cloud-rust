@@ -81,7 +81,9 @@ pub const GCP_CLIENT_REPO_GOOGLEAPIS: &str = "googleapis/google-cloud-rust";
 pub const GCP_CLIENT_LANGUAGE_RUST: &str = "rust";
 
 /// Values for the OpenTelemetry `error.type` attribute.
-/// See [https://opentelemetry.io/docs/specs/semconv/attributes-registry/error/]
+/// See the semantic conventions around [Error attributes]
+///
+/// [Error Attributes]: https://opentelemetry.io/docs/specs/semconv/attributes-registry/error/
 pub mod error_type_values {
     /// A client-configured timeout was reached.
     pub const CLIENT_TIMEOUT: &str = "CLIENT_TIMEOUT";

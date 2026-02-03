@@ -24,23 +24,24 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-anyhow.workspace               = true
-base64.workspace               = true
-bytes.workspace                = true
-clap                           = { workspace = true, features = ["derive", "std"] }
-futures.workspace              = true
-google-cloud-auth.workspace    = true
-google-cloud-gax.workspace     = true
-google-cloud-iam-v1.workspace  = true
-google-cloud-lro.workspace     = true
-google-cloud-storage.workspace = true
-google-cloud-type.workspace    = true
-google-cloud-wkt.workspace     = true
-rand.workspace                 = true
-tempfile.workspace             = true
-tokio                          = { workspace = true, features = ["macros"] }
-tracing-subscriber             = { workspace = true, features = ["fmt", "std"] }
-tracing.workspace              = true
+anyhow.workspace              = true
+base64.workspace              = true
+bytes.workspace               = true
+clap                          = { workspace = true, features = ["derive", "std"] }
+futures.workspace             = true
+google-cloud-auth.workspace   = true
+google-cloud-gax.workspace    = true
+google-cloud-iam-v1.workspace = true
+google-cloud-lro.workspace    = true
+google-cloud-storage          = { workspace = true, features = ["default"] }
+google-cloud-type.workspace   = true
+google-cloud-wkt.workspace    = true
+google-cloud-test-utils       = { workspace = true }
+rand.workspace                = true
+tempfile.workspace            = true
+tokio                         = { workspace = true, features = ["macros"] }
+tracing-subscriber            = { workspace = true, features = ["fmt", "std"] }
+tracing.workspace             = true
 
 [features]
 run-integration-tests     = []

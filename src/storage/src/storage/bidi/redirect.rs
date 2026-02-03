@@ -16,14 +16,13 @@ use crate::Error;
 use crate::google::rpc::Status as RpcStatus;
 use crate::google::storage::v2::{BidiReadObjectRedirectedError, BidiReadObjectSpec};
 use gax::error::rpc::Code;
+use gaxi::as_inner::as_inner;
 use gaxi::grpc::from_status::to_gax_error;
+use gaxi::grpc::tonic::Status;
 use prost::Message;
 use std::sync::{Arc, Mutex};
 
-pub fn handle_redirect(
-    spec: Arc<Mutex<BidiReadObjectSpec>>,
-    status: tonic::Status,
-) -> crate::Error {
+pub fn handle_redirect(spec: Arc<Mutex<BidiReadObjectSpec>>, status: Status) -> crate::Error {
     if let Ok(status) = RpcStatus::decode(status.details()) {
         for d in status.details {
             if let Ok(redirect) = d.to_msg::<BidiReadObjectRedirectedError>() {
@@ -42,7 +41,7 @@ pub fn is_redirect(error: &Error) -> bool {
     if error.status().is_none_or(|s| s.code != Code::Aborted) {
         return false;
     }
-    let Some(status) = as_inner::<tonic::Status, Error>(error) else {
+    let Some(status) = as_inner::<Status, _>(error) else {
         return false;
     };
 
@@ -55,31 +54,13 @@ pub fn is_redirect(error: &Error) -> bool {
         .any(|d| d.to_msg::<BidiReadObjectRedirectedError>().is_ok())
 }
 
-fn as_inner<T, E>(error: &E) -> Option<&T>
-where
-    T: std::error::Error + 'static,
-    E: std::error::Error,
-{
-    let mut e = error.source()?;
-    // Prevent infinite loops due to cycles in the `source()` errors. This seems
-    // unlikely, and it would require effort to create, but it is easy to
-    // prevent.
-    for _ in 0..32 {
-        if let Some(value) = e.downcast_ref::<T>() {
-            return Some(value);
-        }
-        e = e.source()?;
-    }
-    None
-}
-
 #[cfg(test)]
 mod tests {
     use super::super::tests::{permanent_error, redirect_error, transient_error};
     use super::*;
     use crate::google::storage::v2::BidiReadHandle;
+    use gaxi::grpc::tonic::Code;
     use test_case::test_case;
-    use tonic::Code;
 
     #[test_case(Some("routing"), Some("handle"))]
     #[test_case(None, Some("handle"))]
@@ -100,7 +81,7 @@ mod tests {
             details: vec![redirect],
         };
         let details = bytes::Bytes::from_owner(status.encode_to_vec());
-        let status = tonic::Status::with_details(Code::Aborted, "test-only", details);
+        let status = Status::with_details(Code::Aborted, "test-only", details);
         let spec = BidiReadObjectSpec {
             routing_token: Some("initial-token".into()),
             read_handle: Some(BidiReadHandle {
@@ -125,7 +106,7 @@ mod tests {
             ..Default::default()
         };
         let details = bytes::Bytes::from_owner(status.encode_to_vec());
-        let status = tonic::Status::with_details(Code::Aborted, "test-only", details);
+        let status = Status::with_details(Code::Aborted, "test-only", details);
         let initial_handle = BidiReadHandle {
             handle: bytes::Bytes::from_static(b"initial-handle"),
         };
@@ -147,9 +128,9 @@ mod tests {
     #[test_case(transient_error(), false)]
     #[test_case(non_grpc_abort_error(), false)]
     #[test_case(redirect_error("r1"), true)]
-    #[test_case(to_gax_error(tonic::Status::aborted("without-details")), false)]
+    #[test_case(to_gax_error(Status::aborted("without-details")), false)]
     #[test_case(
-        to_gax_error(tonic::Status::with_details(
+        to_gax_error(Status::with_details(
             Code::Aborted,
             "with bad details",
             bytes::Bytes::from_static(b"\x01")

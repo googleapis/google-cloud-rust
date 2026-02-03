@@ -142,6 +142,7 @@ mod tests {
     use super::*;
     use gax::error::rpc::Code;
     use gax::throttle_result::ThrottleResult;
+    use gaxi::grpc::tonic::Status;
     use http::HeaderMap;
     use test_case::test_case;
 
@@ -285,12 +286,11 @@ mod tests {
         let status = gax::error::rpc::Status::default().set_code(code);
         Error::service(status)
     }
-
     fn timeout_error() -> Error {
-        Error::timeout(tonic::Status::deadline_exceeded("try again"))
+        Error::timeout(Status::deadline_exceeded("try again"))
     }
 
     fn io_error() -> Error {
-        Error::io(tonic::Status::unavailable("try again"))
+        Error::io(Status::unavailable("try again"))
     }
 }

@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::CreateStoragePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_storage_pool(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateStoragePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_storage_pool(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteStoragePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_storage_pool(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ValidateDirectoryServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.validate_directory_service(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::SwitchActiveReplicaZoneRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.switch_active_replica_zone(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::CreateVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_volume(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::UpdateVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_volume(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::DeleteVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_volume(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::RevertVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.revert_volume(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::CreateSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_snapshot(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::DeleteSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_snapshot(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::UpdateSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_snapshot(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::CreateActiveDirectoryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_active_directory(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::UpdateActiveDirectoryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_active_directory(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::DeleteActiveDirectoryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_active_directory(req, options).await
     }
 
@@ -258,7 +258,7 @@ where
         &self,
         req: crate::model::CreateKmsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_kms_config(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: crate::model::UpdateKmsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_kms_config(req, options).await
     }
 
@@ -285,7 +285,7 @@ where
         &self,
         req: crate::model::EncryptVolumesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.encrypt_volumes(req, options).await
     }
 
@@ -303,7 +303,7 @@ where
         &self,
         req: crate::model::DeleteKmsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_kms_config(req, options).await
     }
 
@@ -330,7 +330,7 @@ where
         &self,
         req: crate::model::CreateReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_replication(req, options).await
     }
 
@@ -339,7 +339,7 @@ where
         &self,
         req: crate::model::DeleteReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_replication(req, options).await
     }
 
@@ -348,7 +348,7 @@ where
         &self,
         req: crate::model::UpdateReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_replication(req, options).await
     }
 
@@ -357,7 +357,7 @@ where
         &self,
         req: crate::model::StopReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.stop_replication(req, options).await
     }
 
@@ -366,7 +366,7 @@ where
         &self,
         req: crate::model::ResumeReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.resume_replication(req, options).await
     }
 
@@ -375,7 +375,7 @@ where
         &self,
         req: crate::model::ReverseReplicationDirectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.reverse_replication_direction(req, options).await
     }
 
@@ -384,7 +384,7 @@ where
         &self,
         req: crate::model::EstablishPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.establish_peering(req, options).await
     }
 
@@ -393,7 +393,7 @@ where
         &self,
         req: crate::model::SyncReplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.sync_replication(req, options).await
     }
 
@@ -402,7 +402,7 @@ where
         &self,
         req: crate::model::CreateBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_backup_vault(req, options).await
     }
 
@@ -429,7 +429,7 @@ where
         &self,
         req: crate::model::UpdateBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_backup_vault(req, options).await
     }
 
@@ -438,7 +438,7 @@ where
         &self,
         req: crate::model::DeleteBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_backup_vault(req, options).await
     }
 
@@ -447,7 +447,7 @@ where
         &self,
         req: crate::model::CreateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_backup(req, options).await
     }
 
@@ -474,7 +474,7 @@ where
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_backup(req, options).await
     }
 
@@ -483,7 +483,7 @@ where
         &self,
         req: crate::model::UpdateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_backup(req, options).await
     }
 
@@ -492,7 +492,7 @@ where
         &self,
         req: crate::model::CreateBackupPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_backup_policy(req, options).await
     }
 
@@ -519,7 +519,7 @@ where
         &self,
         req: crate::model::UpdateBackupPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_backup_policy(req, options).await
     }
 
@@ -528,7 +528,7 @@ where
         &self,
         req: crate::model::DeleteBackupPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_backup_policy(req, options).await
     }
 
@@ -555,7 +555,7 @@ where
         &self,
         req: crate::model::CreateQuotaRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_quota_rule(req, options).await
     }
 
@@ -564,7 +564,7 @@ where
         &self,
         req: crate::model::UpdateQuotaRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_quota_rule(req, options).await
     }
 
@@ -573,7 +573,7 @@ where
         &self,
         req: crate::model::DeleteQuotaRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_quota_rule(req, options).await
     }
 
@@ -582,7 +582,7 @@ where
         &self,
         req: crate::model::RestoreBackupFilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.restore_backup_files(req, options).await
     }
 
@@ -609,7 +609,7 @@ where
         &self,
         req: crate::model::CreateHostGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_host_group(req, options).await
     }
 
@@ -618,7 +618,7 @@ where
         &self,
         req: crate::model::UpdateHostGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_host_group(req, options).await
     }
 
@@ -627,7 +627,7 @@ where
         &self,
         req: crate::model::DeleteHostGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_host_group(req, options).await
     }
 
@@ -652,25 +652,26 @@ where
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         self.inner.list_operations(req, options).await
     }
 
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     #[tracing::instrument(ret)]
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
@@ -679,7 +680,7 @@ where
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await

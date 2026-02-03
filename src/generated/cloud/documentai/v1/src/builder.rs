@@ -255,7 +255,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::BatchProcessDocuments;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -294,19 +294,21 @@ pub mod document_processor_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [batch_process_documents][crate::client::DocumentProcessorService::batch_process_documents].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_process_documents(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `batch_process_documents`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_process_documents`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::BatchProcessResponse, crate::model::BatchProcessMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::BatchProcessResponse,
+            crate::model::BatchProcessMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::BatchProcessResponse,
                 crate::model::BatchProcessMetadata,
             >;
@@ -334,7 +336,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::BatchProcessRequest::name].
@@ -831,7 +838,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::TrainProcessorVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -873,21 +880,21 @@ pub mod document_processor_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [train_processor_version][crate::client::DocumentProcessorService::train_processor_version].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .train_processor_version(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `train_processor_version`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `train_processor_version`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::TrainProcessorVersionResponse,
             crate::model::TrainProcessorVersionMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::TrainProcessorVersionResponse,
                 crate::model::TrainProcessorVersionMetadata,
             >;
@@ -915,7 +922,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::TrainProcessorVersionRequest::parent].
@@ -1219,7 +1231,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::DeleteProcessorVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1261,17 +1273,22 @@ pub mod document_processor_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_processor_version][crate::client::DocumentProcessorService::delete_processor_version].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_processor_version(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_processor_version`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteProcessorVersionMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorVersionMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_processor_version`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteProcessorVersionMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteProcessorVersionMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1296,7 +1313,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1326,7 +1343,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::DeployProcessorVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1368,21 +1385,21 @@ pub mod document_processor_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [deploy_processor_version][crate::client::DocumentProcessorService::deploy_processor_version].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .deploy_processor_version(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `deploy_processor_version`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `deploy_processor_version`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::DeployProcessorVersionResponse,
             crate::model::DeployProcessorVersionMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DeployProcessorVersionResponse,
                 crate::model::DeployProcessorVersionMetadata,
             >;
@@ -1410,7 +1427,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeployProcessorVersionRequest::name].
@@ -1435,7 +1457,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::UndeployProcessorVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1479,21 +1501,21 @@ pub mod document_processor_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [undeploy_processor_version][crate::client::DocumentProcessorService::undeploy_processor_version].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .undeploy_processor_version(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undeploy_processor_version`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undeploy_processor_version`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::UndeployProcessorVersionResponse,
             crate::model::UndeployProcessorVersionMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::UndeployProcessorVersionResponse,
                 crate::model::UndeployProcessorVersionMetadata,
             >;
@@ -1521,7 +1543,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UndeployProcessorVersionRequest::name].
@@ -1630,7 +1657,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::DeleteProcessor;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1669,17 +1696,21 @@ pub mod document_processor_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_processor][crate::client::DocumentProcessorService::delete_processor].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_processor(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_processor`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteProcessorMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_processor`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteProcessorMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteProcessorMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1704,7 +1735,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1734,7 +1765,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::EnableProcessor;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1773,19 +1804,21 @@ pub mod document_processor_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [enable_processor][crate::client::DocumentProcessorService::enable_processor].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_processor(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `enable_processor`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `enable_processor`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::EnableProcessorResponse, crate::model::EnableProcessorMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::EnableProcessorResponse,
+            crate::model::EnableProcessorMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::EnableProcessorResponse,
                 crate::model::EnableProcessorMetadata,
             >;
@@ -1813,7 +1846,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::EnableProcessorRequest::name].
@@ -1838,7 +1876,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::DisableProcessor;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1880,21 +1918,21 @@ pub mod document_processor_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [disable_processor][crate::client::DocumentProcessorService::disable_processor].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_processor(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `disable_processor`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `disable_processor`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::DisableProcessorResponse,
             crate::model::DisableProcessorMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::DisableProcessorResponse,
                 crate::model::DisableProcessorMetadata,
             >;
@@ -1922,7 +1960,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DisableProcessorRequest::name].
@@ -1947,7 +1990,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::SetDefaultProcessorVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1991,21 +2034,21 @@ pub mod document_processor_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [set_default_processor_version][crate::client::DocumentProcessorService::set_default_processor_version].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .set_default_processor_version(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `set_default_processor_version`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `set_default_processor_version`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::SetDefaultProcessorVersionResponse,
             crate::model::SetDefaultProcessorVersionMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SetDefaultProcessorVersionResponse,
                 crate::model::SetDefaultProcessorVersionMetadata,
             >;
@@ -2033,7 +2076,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [processor][crate::model::SetDefaultProcessorVersionRequest::processor].
@@ -2066,7 +2114,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::ReviewDocument;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2105,21 +2153,21 @@ pub mod document_processor_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [review_document][crate::client::DocumentProcessorService::review_document].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .review_document(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `review_document`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `review_document`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ReviewDocumentResponse,
             crate::model::ReviewDocumentOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ReviewDocumentResponse,
                 crate::model::ReviewDocumentOperationMetadata,
             >;
@@ -2147,7 +2195,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [human_review_config][crate::model::ReviewDocumentRequest::human_review_config].
@@ -2232,7 +2285,7 @@ pub mod document_processor_service {
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::EvaluateProcessorVersion;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2276,21 +2329,21 @@ pub mod document_processor_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [evaluate_processor_version][crate::client::DocumentProcessorService::evaluate_processor_version].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .evaluate_processor_version(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `evaluate_processor_version`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `evaluate_processor_version`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::EvaluateProcessorVersionResponse,
             crate::model::EvaluateProcessorVersionMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::EvaluateProcessorVersionResponse,
                 crate::model::EvaluateProcessorVersionMetadata,
             >;
@@ -2318,7 +2371,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [processor_version][crate::model::EvaluateProcessorVersionRequest::processor_version].
@@ -2709,7 +2767,9 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
 
     impl ListOperations {
         pub(crate) fn new(
@@ -2719,7 +2779,7 @@ pub mod document_processor_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2734,7 +2794,7 @@ pub mod document_processor_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
@@ -2744,8 +2804,10 @@ pub mod document_processor_service {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2760,38 +2822,38 @@ pub mod document_processor_service {
         pub fn by_item(
             self,
         ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
+            google_cloud_longrunning::model::ListOperationsResponse,
             gax::error::Error,
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
         pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.return_partial_success = v.into();
             self
@@ -2822,7 +2884,7 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2832,7 +2894,7 @@ pub mod document_processor_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2847,14 +2909,14 @@ pub mod document_processor_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2885,7 +2947,9 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -2895,7 +2959,7 @@ pub mod document_processor_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2917,7 +2981,7 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

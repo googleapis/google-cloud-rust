@@ -16,6 +16,8 @@
 
 #[cfg(test)]
 mod requests {
+    use google_cloud_aiplatform_v1::client::PredictionService;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
 
@@ -24,9 +26,9 @@ mod requests {
         let server = start();
         let endpoint = server.url_str("/ui");
 
-        let client = aiplatform::client::PredictionService::builder()
+        let client = PredictionService::builder()
             .with_endpoint(&endpoint)
-            .with_credentials(auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 

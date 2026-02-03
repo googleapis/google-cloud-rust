@@ -772,28 +772,28 @@ impl SecureSourceManager {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::secure_source_manager::ListOperations {
         super::builder::secure_source_manager::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::secure_source_manager::GetOperation {
         super::builder::secure_source_manager::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::secure_source_manager::DeleteOperation {
         super::builder::secure_source_manager::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::secure_source_manager::CancelOperation {
         super::builder::secure_source_manager::CancelOperation::new(self.inner.clone())
     }

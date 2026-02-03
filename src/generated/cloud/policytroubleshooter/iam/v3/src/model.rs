@@ -21,11 +21,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_iam_v1;
 extern crate gtype;
-extern crate iam_v1;
 extern crate iam_v2;
 extern crate lazy_static;
-extern crate reqwest;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
@@ -1181,7 +1180,7 @@ pub struct ExplainedAllowPolicy {
     ///
     /// If the sender of the request does not have access to the policy, this field
     /// is empty.
-    pub policy: std::option::Option<iam_v1::model::Policy>,
+    pub policy: std::option::Option<google_cloud_iam_v1::model::Policy>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1268,12 +1267,12 @@ impl ExplainedAllowPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedAllowPolicy;
-    /// use iam_v1::model::Policy;
+    /// use google_cloud_iam_v1::model::Policy;
     /// let x = ExplainedAllowPolicy::new().set_policy(Policy::default()/* use setters */);
     /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<iam_v1::model::Policy>,
+        T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -1284,13 +1283,13 @@ impl ExplainedAllowPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedAllowPolicy;
-    /// use iam_v1::model::Policy;
+    /// use google_cloud_iam_v1::model::Policy;
     /// let x = ExplainedAllowPolicy::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
     /// let x = ExplainedAllowPolicy::new().set_or_clear_policy(None::<Policy>);
     /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<iam_v1::model::Policy>,
+        T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
     {
         self.policy = v.map(|x| x.into());
         self

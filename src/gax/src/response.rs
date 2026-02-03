@@ -305,10 +305,11 @@ pub mod internal {
         ///
         /// Examples: 200, 404, 500
         pub http_status_code: Option<u16>,
-        /// The gRPC status code.
+        /// The gRPC [status code].
         ///
-        /// See <https://github.com/grpc/grpc/blob/master/doc/statuscodes.md>
         /// Examples: 0, 4, 14
+        ///
+        /// [status code]: https://github.com/grpc/grpc/blob/master/doc/statuscodes.md
         pub rpc_grpc_status_code: Option<i32>,
         /// A low-cardinality classification of the error.
         ///
@@ -325,7 +326,7 @@ pub mod internal {
         pub server_port: Option<i32>,
         /// The full URL of the *final* request.
         ///
-        /// Example: https://myservice.googleapis.com/v1/projects/my-project/data
+        /// Example: `https://myservice.googleapis.com/v1/projects/my-project/data`
         pub url_full: Option<String>, // The URL of the *final* request
 
         /// The total number of underlying requests sent.

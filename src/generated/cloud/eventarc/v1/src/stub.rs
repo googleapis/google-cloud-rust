@@ -66,7 +66,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreateTriggerRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -77,7 +77,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::UpdateTriggerRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -88,7 +88,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteTriggerRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -121,7 +121,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreateChannelRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -132,7 +132,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::UpdateChannelRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -143,7 +143,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteChannelRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -200,7 +200,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreateChannelConnectionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -211,7 +211,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteChannelConnectionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -279,7 +279,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreateMessageBusRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -290,7 +290,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::UpdateMessageBusRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -301,7 +301,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteMessageBusRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -334,7 +334,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreateEnrollmentRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -345,7 +345,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::UpdateEnrollmentRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -356,7 +356,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteEnrollmentRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -389,7 +389,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreatePipelineRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -400,7 +400,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::UpdatePipelineRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -411,7 +411,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeletePipelineRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -444,7 +444,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreateGoogleApiSourceRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -455,7 +455,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::UpdateGoogleApiSourceRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -466,7 +466,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteGoogleApiSourceRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -496,10 +496,10 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Eventarc::set_iam_policy].
     fn set_iam_policy(
         &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -507,10 +507,10 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Eventarc::get_iam_policy].
     fn get_iam_policy(
         &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -518,10 +518,12 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Eventarc::test_iam_permissions].
     fn test_iam_permissions(
         &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -529,10 +531,12 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Eventarc::list_operations].
     fn list_operations(
         &self,
-        _req: longrunning::model::ListOperationsRequest,
+        _req: google_cloud_longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -540,10 +544,10 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Eventarc::get_operation].
     fn get_operation(
         &self,
-        _req: longrunning::model::GetOperationRequest,
+        _req: google_cloud_longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -551,7 +555,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Eventarc::delete_operation].
     fn delete_operation(
         &self,
-        _req: longrunning::model::DeleteOperationRequest,
+        _req: google_cloud_longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -560,7 +564,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Eventarc::cancel_operation].
     fn cancel_operation(
         &self,
-        _req: longrunning::model::CancelOperationRequest,
+        _req: google_cloud_longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()

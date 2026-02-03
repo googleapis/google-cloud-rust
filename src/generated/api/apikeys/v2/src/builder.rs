@@ -75,7 +75,7 @@ pub mod api_keys {
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::CreateKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -112,16 +112,16 @@ pub mod api_keys {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_key][crate::client::ApiKeys::create_key].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_key(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_key`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Key, ()> {
-            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_key`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Key, ()> {
+            type Operation = google_cloud_lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -146,7 +146,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_metadata_poller(
+            google_cloud_lro::internal::new_unit_metadata_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -430,7 +430,7 @@ pub mod api_keys {
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::UpdateKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -467,16 +467,16 @@ pub mod api_keys {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_key][crate::client::ApiKeys::update_key].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_key(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_key`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Key, ()> {
-            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_key`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Key, ()> {
+            type Operation = google_cloud_lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -501,7 +501,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_metadata_poller(
+            google_cloud_lro::internal::new_unit_metadata_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -563,7 +563,7 @@ pub mod api_keys {
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::DeleteKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -600,16 +600,16 @@ pub mod api_keys {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_key][crate::client::ApiKeys::delete_key].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_key(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_key`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Key, ()> {
-            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_key`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Key, ()> {
+            type Operation = google_cloud_lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -634,7 +634,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_metadata_poller(
+            google_cloud_lro::internal::new_unit_metadata_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -670,7 +670,7 @@ pub mod api_keys {
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::UndeleteKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -707,16 +707,16 @@ pub mod api_keys {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [undelete_key][crate::client::ApiKeys::undelete_key].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_key(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undelete_key`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Key, ()> {
-            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undelete_key`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Key, ()> {
+            type Operation = google_cloud_lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -741,7 +741,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_metadata_poller(
+            google_cloud_lro::internal::new_unit_metadata_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -842,7 +842,7 @@ pub mod api_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
@@ -850,7 +850,7 @@ pub mod api_keys {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -865,14 +865,14 @@ pub mod api_keys {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

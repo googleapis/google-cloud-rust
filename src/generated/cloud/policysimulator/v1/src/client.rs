@@ -207,7 +207,7 @@ impl OrgPolicyViolationsPreviewService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(
         &self,
     ) -> super::builder::org_policy_violations_preview_service::ListOperations {
@@ -218,7 +218,7 @@ impl OrgPolicyViolationsPreviewService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(
         &self,
     ) -> super::builder::org_policy_violations_preview_service::GetOperation {
@@ -378,14 +378,14 @@ impl Simulator {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::simulator::ListOperations {
         super::builder::simulator::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::simulator::GetOperation {
         super::builder::simulator::GetOperation::new(self.inner.clone())
     }

@@ -99,7 +99,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::BatchTranslateTextRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -110,7 +110,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::BatchTranslateDocumentRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -121,7 +121,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreateGlossaryRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -132,7 +132,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::UpdateGlossaryRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -165,7 +165,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteGlossaryRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -229,7 +229,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreateDatasetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -262,7 +262,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteDatasetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -383,7 +383,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ImportDataRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -394,7 +394,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ExportDataRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -416,7 +416,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreateModelRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -449,7 +449,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteModelRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -479,10 +479,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::TranslationService::list_operations].
     fn list_operations(
         &self,
-        _req: longrunning::model::ListOperationsRequest,
+        _req: google_cloud_longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -490,10 +492,10 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::TranslationService::get_operation].
     fn get_operation(
         &self,
-        _req: longrunning::model::GetOperationRequest,
+        _req: google_cloud_longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -501,7 +503,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::TranslationService::delete_operation].
     fn delete_operation(
         &self,
-        _req: longrunning::model::DeleteOperationRequest,
+        _req: google_cloud_longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -510,7 +512,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::TranslationService::cancel_operation].
     fn cancel_operation(
         &self,
-        _req: longrunning::model::CancelOperationRequest,
+        _req: google_cloud_longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -519,10 +521,10 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::TranslationService::wait_operation].
     fn wait_operation(
         &self,
-        _req: longrunning::model::WaitOperationRequest,
+        _req: google_cloud_longrunning::model::WaitOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

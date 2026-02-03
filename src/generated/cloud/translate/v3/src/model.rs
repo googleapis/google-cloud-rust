@@ -21,11 +21,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
+extern crate google_cloud_lro;
 extern crate lazy_static;
 extern crate location;
-extern crate longrunning;
-extern crate lro;
-extern crate reqwest;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
@@ -8088,7 +8087,7 @@ pub mod batch_translate_metadata {
 /// field returned by BatchTranslateText if at least one sentence is translated
 /// successfully.
 ///
-/// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+/// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateResponse {
@@ -8108,7 +8107,7 @@ pub struct BatchTranslateResponse {
     /// [google.longrunning.Operation.done][google.longrunning.Operation.done] is
     /// set to true.
     ///
-    /// [google.longrunning.Operation.done]: longrunning::model::Operation::done
+    /// [google.longrunning.Operation.done]: google_cloud_longrunning::model::Operation::done
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9476,7 +9475,7 @@ impl wkt::message::Message for UpdateGlossaryEntryRequest {
 /// [google.longrunning.Operation.metadata][google.longrunning.Operation.metadata]
 /// field returned by CreateGlossary.
 ///
-/// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
+/// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGlossaryMetadata {
@@ -9731,7 +9730,7 @@ pub mod create_glossary_metadata {
 /// [google.longrunning.Operation.metadata][google.longrunning.Operation.metadata]
 /// field returned by UpdateGlossary.
 ///
-/// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
+/// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGlossaryMetadata {
@@ -10008,7 +10007,7 @@ pub mod update_glossary_metadata {
 /// [google.longrunning.Operation.metadata][google.longrunning.Operation.metadata]
 /// field returned by DeleteGlossary.
 ///
-/// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
+/// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGlossaryMetadata {
@@ -10263,7 +10262,7 @@ pub mod delete_glossary_metadata {
 /// [google.longrunning.Operation.response][google.longrunning.Operation.response]
 /// field returned by DeleteGlossary.
 ///
-/// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+/// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGlossaryResponse {
@@ -10277,7 +10276,7 @@ pub struct DeleteGlossaryResponse {
     /// [google.longrunning.Operation.done][google.longrunning.Operation.done] is
     /// set to true.
     ///
-    /// [google.longrunning.Operation.done]: longrunning::model::Operation::done
+    /// [google.longrunning.Operation.done]: google_cloud_longrunning::model::Operation::done
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10943,7 +10942,7 @@ pub mod batch_document_output_config {
 /// field returned by BatchTranslateDocument if at least one document is
 /// translated successfully.
 ///
-/// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+/// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateDocumentResponse {
@@ -10985,7 +10984,7 @@ pub struct BatchTranslateDocumentResponse {
     /// [google.longrunning.Operation.done][google.longrunning.Operation.done] is
     /// set to true.
     ///
-    /// [google.longrunning.Operation.done]: longrunning::model::Operation::done
+    /// [google.longrunning.Operation.done]: google_cloud_longrunning::model::Operation::done
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

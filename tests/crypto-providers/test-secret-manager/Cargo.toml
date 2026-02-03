@@ -39,7 +39,4 @@ default-features = false
 path             = "../../../src/generated/cloud/secretmanager/v1"
 
 [features]
-with-default = [
-  # TODO(#4170) - enable when secretmanager is ready
-  # "google-cloud-secretmanager-v1/default"
-]
+with-default = ["google-cloud-secretmanager-v1/default"]

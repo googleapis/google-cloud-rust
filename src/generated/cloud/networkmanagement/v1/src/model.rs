@@ -21,12 +21,11 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate iam_v1;
+extern crate google_cloud_iam_v1;
+extern crate google_cloud_longrunning;
+extern crate google_cloud_lro;
 extern crate lazy_static;
 extern crate location;
-extern crate longrunning;
-extern crate lro;
-extern crate reqwest;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
@@ -3103,7 +3102,7 @@ impl wkt::message::Message for RerunConnectivityTestRequest {
 
 /// Metadata describing an [Operation][google.longrunning.Operation]
 ///
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {

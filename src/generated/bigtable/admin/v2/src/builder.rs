@@ -77,7 +77,7 @@ pub mod bigtable_instance_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -116,19 +116,19 @@ pub mod bigtable_instance_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_instance][crate::client::BigtableInstanceAdmin::create_instance].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::CreateInstanceMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::CreateInstanceMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
                 crate::model::CreateInstanceMetadata,
             >;
@@ -156,7 +156,12 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -510,7 +515,7 @@ pub mod bigtable_instance_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::PartialUpdateInstance;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -552,19 +557,19 @@ pub mod bigtable_instance_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [partial_update_instance][crate::client::BigtableInstanceAdmin::partial_update_instance].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .partial_update_instance(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `partial_update_instance`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `partial_update_instance`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::UpdateInstanceMetadata>
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::UpdateInstanceMetadata>
         {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
                 crate::model::UpdateInstanceMetadata,
             >;
@@ -592,7 +597,12 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
@@ -715,7 +725,7 @@ pub mod bigtable_instance_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -754,18 +764,19 @@ pub mod bigtable_instance_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cluster][crate::client::BigtableInstanceAdmin::create_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::CreateClusterMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::CreateClusterMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Cluster,
                 crate::model::CreateClusterMetadata,
             >;
@@ -793,7 +804,12 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
@@ -978,7 +994,7 @@ pub mod bigtable_instance_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1017,18 +1033,19 @@ pub mod bigtable_instance_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_cluster][crate::client::BigtableInstanceAdmin::update_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::UpdateClusterMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Cluster, crate::model::UpdateClusterMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Cluster,
                 crate::model::UpdateClusterMetadata,
             >;
@@ -1056,7 +1073,12 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::Cluster::name].
@@ -1157,7 +1179,7 @@ pub mod bigtable_instance_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::PartialUpdateCluster;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1199,19 +1221,21 @@ pub mod bigtable_instance_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [partial_update_cluster][crate::client::BigtableInstanceAdmin::partial_update_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .partial_update_cluster(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `partial_update_cluster`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `partial_update_cluster`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::PartialUpdateClusterMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Cluster,
+            crate::model::PartialUpdateClusterMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Cluster,
                 crate::model::PartialUpdateClusterMetadata,
             >;
@@ -1239,7 +1263,12 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
@@ -1627,7 +1656,7 @@ pub mod bigtable_instance_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateAppProfile;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1669,19 +1698,21 @@ pub mod bigtable_instance_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_app_profile][crate::client::BigtableInstanceAdmin::update_app_profile].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_app_profile(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_app_profile`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_app_profile`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AppProfile, crate::model::UpdateAppProfileMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AppProfile,
+            crate::model::UpdateAppProfileMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AppProfile,
                 crate::model::UpdateAppProfileMetadata,
             >;
@@ -1709,7 +1740,12 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
@@ -1860,7 +1896,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1870,7 +1906,10 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1882,14 +1921,14 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1897,19 +1936,19 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -1940,7 +1979,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -1950,7 +1989,10 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1962,14 +2004,14 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1977,29 +2019,29 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2008,7 +2050,7 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2042,7 +2084,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -2052,7 +2096,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2067,14 +2111,14 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2082,7 +2126,7 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -2247,7 +2291,7 @@ pub mod bigtable_instance_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateLogicalView;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2289,19 +2333,21 @@ pub mod bigtable_instance_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_logical_view][crate::client::BigtableInstanceAdmin::create_logical_view].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_logical_view(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_logical_view`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_logical_view`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::LogicalView, crate::model::CreateLogicalViewMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::LogicalView,
+            crate::model::CreateLogicalViewMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::LogicalView,
                 crate::model::CreateLogicalViewMetadata,
             >;
@@ -2329,7 +2375,12 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateLogicalViewRequest::parent].
@@ -2551,7 +2602,7 @@ pub mod bigtable_instance_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateLogicalView;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2593,19 +2644,21 @@ pub mod bigtable_instance_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_logical_view][crate::client::BigtableInstanceAdmin::update_logical_view].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_logical_view(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_logical_view`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_logical_view`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::LogicalView, crate::model::UpdateLogicalViewMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::LogicalView,
+            crate::model::UpdateLogicalViewMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::LogicalView,
                 crate::model::UpdateLogicalViewMetadata,
             >;
@@ -2633,7 +2686,12 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
@@ -2761,7 +2819,7 @@ pub mod bigtable_instance_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateMaterializedView;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2803,19 +2861,21 @@ pub mod bigtable_instance_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_materialized_view][crate::client::BigtableInstanceAdmin::create_materialized_view].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_materialized_view(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_materialized_view`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_materialized_view`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::MaterializedView, crate::model::CreateMaterializedViewMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MaterializedView,
+            crate::model::CreateMaterializedViewMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MaterializedView,
                 crate::model::CreateMaterializedViewMetadata,
             >;
@@ -2843,7 +2903,12 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateMaterializedViewRequest::parent].
@@ -3070,7 +3135,7 @@ pub mod bigtable_instance_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateMaterializedView;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3112,19 +3177,21 @@ pub mod bigtable_instance_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_materialized_view][crate::client::BigtableInstanceAdmin::update_materialized_view].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_materialized_view(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_materialized_view`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_materialized_view`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::MaterializedView, crate::model::UpdateMaterializedViewMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MaterializedView,
+            crate::model::UpdateMaterializedViewMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::MaterializedView,
                 crate::model::UpdateMaterializedViewMetadata,
             >;
@@ -3152,7 +3219,12 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
@@ -3295,7 +3367,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
 
     impl ListOperations {
         pub(crate) fn new(
@@ -3305,7 +3379,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -3320,7 +3394,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
@@ -3330,8 +3404,10 @@ pub mod bigtable_instance_admin {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3346,38 +3422,38 @@ pub mod bigtable_instance_admin {
         pub fn by_item(
             self,
         ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
+            google_cloud_longrunning::model::ListOperationsResponse,
             gax::error::Error,
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
         pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.return_partial_success = v.into();
             self
@@ -3408,7 +3484,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3418,7 +3494,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -3433,14 +3509,14 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3471,7 +3547,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
 
     impl DeleteOperation {
         pub(crate) fn new(
@@ -3481,7 +3559,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -3503,7 +3581,7 @@ pub mod bigtable_instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3534,7 +3612,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -3544,7 +3624,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -3566,7 +3646,7 @@ pub mod bigtable_instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3747,7 +3827,7 @@ pub mod bigtable_table_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateTableFromSnapshot;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3791,19 +3871,21 @@ pub mod bigtable_table_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_table_from_snapshot][crate::client::BigtableTableAdmin::create_table_from_snapshot].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_table_from_snapshot(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_table_from_snapshot`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_table_from_snapshot`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Table, crate::model::CreateTableFromSnapshotMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Table,
+            crate::model::CreateTableFromSnapshotMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Table,
                 crate::model::CreateTableFromSnapshotMetadata,
             >;
@@ -3831,7 +3913,12 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateTableFromSnapshotRequest::parent].
@@ -4048,7 +4135,7 @@ pub mod bigtable_table_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateTable;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4087,19 +4174,22 @@ pub mod bigtable_table_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_table][crate::client::BigtableTableAdmin::update_table].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_table(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_table`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_table`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Table, crate::model::UpdateTableMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Table, crate::model::UpdateTableMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Table, crate::model::UpdateTableMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Table,
+                crate::model::UpdateTableMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4124,7 +4214,12 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [table][crate::model::UpdateTableRequest::table].
@@ -4253,7 +4348,7 @@ pub mod bigtable_table_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UndeleteTable;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4292,19 +4387,22 @@ pub mod bigtable_table_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [undelete_table][crate::client::BigtableTableAdmin::undelete_table].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_table(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `undelete_table`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `undelete_table`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Table, crate::model::UndeleteTableMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Table, crate::model::UndeleteTableMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Table, crate::model::UndeleteTableMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Table,
+                crate::model::UndeleteTableMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4329,7 +4427,12 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UndeleteTableRequest::name].
@@ -4354,7 +4457,7 @@ pub mod bigtable_table_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateAuthorizedView;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4396,19 +4499,21 @@ pub mod bigtable_table_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_authorized_view][crate::client::BigtableTableAdmin::create_authorized_view].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_authorized_view(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_authorized_view`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_authorized_view`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AuthorizedView, crate::model::CreateAuthorizedViewMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AuthorizedView,
+            crate::model::CreateAuthorizedViewMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AuthorizedView,
                 crate::model::CreateAuthorizedViewMetadata,
             >;
@@ -4436,7 +4541,12 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateAuthorizedViewRequest::parent].
@@ -4681,7 +4791,7 @@ pub mod bigtable_table_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateAuthorizedView;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4723,19 +4833,21 @@ pub mod bigtable_table_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_authorized_view][crate::client::BigtableTableAdmin::update_authorized_view].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_authorized_view(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_authorized_view`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_authorized_view`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AuthorizedView, crate::model::UpdateAuthorizedViewMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AuthorizedView,
+            crate::model::UpdateAuthorizedViewMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AuthorizedView,
                 crate::model::UpdateAuthorizedViewMetadata,
             >;
@@ -4763,7 +4875,12 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
@@ -5257,7 +5374,7 @@ pub mod bigtable_table_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::SnapshotTable;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5296,18 +5413,19 @@ pub mod bigtable_table_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [snapshot_table][crate::client::BigtableTableAdmin::snapshot_table].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .snapshot_table(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `snapshot_table`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `snapshot_table`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Snapshot, crate::model::SnapshotTableMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<crate::model::Snapshot, crate::model::SnapshotTableMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Snapshot,
                 crate::model::SnapshotTableMetadata,
             >;
@@ -5335,7 +5453,12 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::SnapshotTableRequest::name].
@@ -5626,7 +5749,7 @@ pub mod bigtable_table_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5665,19 +5788,22 @@ pub mod bigtable_table_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_backup][crate::client::BigtableTableAdmin::create_backup].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_backup`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backup`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Backup,
+                crate::model::CreateBackupMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5702,7 +5828,12 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -6093,7 +6224,7 @@ pub mod bigtable_table_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::RestoreTable;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6132,19 +6263,22 @@ pub mod bigtable_table_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restore_table][crate::client::BigtableTableAdmin::restore_table].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_table(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `restore_table`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_table`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Table, crate::model::RestoreTableMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Table, crate::model::RestoreTableMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Table, crate::model::RestoreTableMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Table,
+                crate::model::RestoreTableMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6169,7 +6303,12 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::RestoreTableRequest::parent].
@@ -6224,7 +6363,7 @@ pub mod bigtable_table_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CopyBackup;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6263,19 +6402,22 @@ pub mod bigtable_table_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [copy_backup][crate::client::BigtableTableAdmin::copy_backup].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .copy_backup(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `copy_backup`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `copy_backup`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Backup,
+                crate::model::CopyBackupMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6300,7 +6442,12 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
@@ -6374,7 +6521,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -6384,7 +6531,10 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6396,14 +6546,14 @@ pub mod bigtable_table_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6411,19 +6561,19 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -6454,7 +6604,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -6464,7 +6614,10 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6476,14 +6629,14 @@ pub mod bigtable_table_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6491,29 +6644,29 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -6522,7 +6675,7 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -6556,7 +6709,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -6566,7 +6721,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -6581,14 +6736,14 @@ pub mod bigtable_table_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6596,7 +6751,7 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -6623,7 +6778,7 @@ pub mod bigtable_table_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateSchemaBundle;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6665,19 +6820,21 @@ pub mod bigtable_table_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_schema_bundle][crate::client::BigtableTableAdmin::create_schema_bundle].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_schema_bundle(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_schema_bundle`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_schema_bundle`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::SchemaBundle, crate::model::CreateSchemaBundleMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::SchemaBundle,
+            crate::model::CreateSchemaBundleMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SchemaBundle,
                 crate::model::CreateSchemaBundleMetadata,
             >;
@@ -6705,7 +6862,12 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateSchemaBundleRequest::parent].
@@ -6760,7 +6922,7 @@ pub mod bigtable_table_admin {
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateSchemaBundle;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6802,19 +6964,21 @@ pub mod bigtable_table_admin {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_schema_bundle][crate::client::BigtableTableAdmin::update_schema_bundle].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_schema_bundle(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_schema_bundle`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_schema_bundle`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::SchemaBundle, crate::model::UpdateSchemaBundleMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::SchemaBundle,
+            crate::model::UpdateSchemaBundleMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::SchemaBundle,
                 crate::model::UpdateSchemaBundleMetadata,
             >;
@@ -6842,7 +7006,12 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [schema_bundle][crate::model::UpdateSchemaBundleRequest::schema_bundle].
@@ -7158,7 +7327,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
 
     impl ListOperations {
         pub(crate) fn new(
@@ -7168,7 +7339,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -7183,7 +7354,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
@@ -7193,8 +7364,10 @@ pub mod bigtable_table_admin {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -7209,38 +7382,38 @@ pub mod bigtable_table_admin {
         pub fn by_item(
             self,
         ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
+            google_cloud_longrunning::model::ListOperationsResponse,
             gax::error::Error,
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
         pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.return_partial_success = v.into();
             self
@@ -7271,7 +7444,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -7281,7 +7454,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -7296,14 +7469,14 @@ pub mod bigtable_table_admin {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -7334,7 +7507,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
 
     impl DeleteOperation {
         pub(crate) fn new(
@@ -7344,7 +7519,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -7366,7 +7541,7 @@ pub mod bigtable_table_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -7397,7 +7572,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -7407,7 +7584,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -7429,7 +7606,7 @@ pub mod bigtable_table_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

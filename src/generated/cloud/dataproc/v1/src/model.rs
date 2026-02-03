@@ -21,12 +21,11 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_iam_v1;
+extern crate google_cloud_longrunning;
+extern crate google_cloud_lro;
 extern crate gtype;
-extern crate iam_v1;
 extern crate lazy_static;
-extern crate longrunning;
-extern crate lro;
-extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -8491,7 +8490,7 @@ pub struct CreateClusterRequest {
     /// The ID must contain only letters (a-z, A-Z), numbers (0-9),
     /// underscores (_), and hyphens (-). The maximum length is 40 characters.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub request_id: std::string::String,
 
     /// Optional. Failure action when primary worker creation fails.
@@ -8675,7 +8674,7 @@ pub struct UpdateClusterRequest {
     /// The ID must contain only letters (a-z, A-Z), numbers (0-9),
     /// underscores (_), and hyphens (-). The maximum length is 40 characters.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub request_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8874,7 +8873,7 @@ pub struct StopClusterRequest {
     /// The ID must contain only letters (a-z, A-Z), numbers (0-9),
     /// underscores (_), and hyphens (-). The maximum length is 40 characters.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub request_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8983,7 +8982,7 @@ pub struct StartClusterRequest {
     /// The ID must contain only letters (a-z, A-Z), numbers (0-9),
     /// underscores (_), and hyphens (-). The maximum length is 40 characters.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub request_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9092,7 +9091,7 @@ pub struct DeleteClusterRequest {
     /// The ID must contain only letters (a-z, A-Z), numbers (0-9),
     /// underscores (_), and hyphens (-). The maximum length is 40 characters.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub request_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15501,7 +15500,7 @@ pub struct CreateNodeGroupRequest {
     /// The ID must contain only letters (a-z, A-Z), numbers (0-9),
     /// underscores (_), and hyphens (-). The maximum length is 40 characters.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub request_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15615,7 +15614,7 @@ pub struct ResizeNodeGroupRequest {
     /// The ID must contain only letters (a-z, A-Z), numbers (0-9),
     /// underscores (_), and hyphens (-). The maximum length is 40 characters.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub request_id: std::string::String,
 
     /// Optional. Timeout for graceful YARN decommissioning. [Graceful

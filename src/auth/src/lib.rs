@@ -26,16 +26,16 @@
 //!
 //! # Features
 //!
-//! - `default-rustls-provider`: enabled by default. This feature selects a default
-//!   crypto provider and trusted root certificate selection for TLS. Applications
-//!   that have specific requirements for TLS (such as exclusively using the
-//!   [aws-lc-rs], or [ring] crates) should disable this default and configure the
-//!   `reqwest` crate features to fit their needs.
+//! - `default-rustls-provider`: enabled by default. Use the default rustls
+//!   crypto provider ([aws-lc-rs]) for TLS and authentication. Applications
+//!   with specific requirements for cryptography (such as exclusively using the
+//!   [ring] crate) should disable this default and call
+//!   `rustls::CryptoProvider::install_default()`.
 //! - `idtoken`: disabled by default, this feature enables support to create and
 //!   verify [OIDC ID Tokens].
 //! - `default-idtoken-backend`: enabled by default, this feature enables a default
 //!   backend for the `idtoken` feature. Currently the feature is implemented using
-//!   the [jsonwebtoken] crate and uses `rust_crypto` as its default backend. We may
+//!   the [jsonwebtoken] crate and uses `aws-lc-rs` as its default backend. We may
 //!   change the default backend at any time, applications that have specific needs
 //!   for this backend should not rely on the current default. To control the
 //!   backend selection:

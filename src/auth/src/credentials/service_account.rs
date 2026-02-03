@@ -70,7 +70,7 @@
 //! [Service Account]: https://cloud.google.com/iam/docs/service-account-overview
 //! [service account key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
 
-mod jws;
+pub(crate) mod jws;
 
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
@@ -413,8 +413,8 @@ impl ServiceAccountKey {
         let private_key = self.private_key.clone();
         let key_provider = CryptoProvider::get_default().map(|p| p.key_provider);
         #[cfg(feature = "default-rustls-provider")]
-        let key_provider =
-            key_provider.unwrap_or_else(|| rustls::crypto::ring::default_provider().key_provider);
+        let key_provider = key_provider
+            .unwrap_or_else(|| rustls::crypto::aws_lc_rs::default_provider().key_provider);
         #[cfg(not(feature = "default-rustls-provider"))]
         let key_provider = key_provider.expect(
             r###"
@@ -562,7 +562,7 @@ impl ServiceAccountTokenGenerator {
         let header = JwsHeader {
             alg: "RS256",
             typ: "JWT",
-            kid: &self.service_account_key.private_key_id,
+            kid: Some(self.service_account_key.private_key_id.clone()),
         };
         let encoded_header_claims = format!("{}.{}", header.encode()?, claims.encode()?);
         let sig = signer

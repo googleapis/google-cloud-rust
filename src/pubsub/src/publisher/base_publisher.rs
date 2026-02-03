@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::publisher::publisher::PublisherPartialBuilder;
+use crate::publisher::builder::PublisherPartialBuilder;
 
-/// Creates [`Publisher`](super::publisher::Publisher) instances.
+/// Creates [`Publisher`](super::client::Publisher) instances.
 ///
-/// This is the main entry point for the publisher API. A single `BasePublisher`
-/// can be used to create multiple `Publisher` clients for different topics.
-/// It manages the underlying gRPC connection and authentication.
+/// A single `BasePublisher` can be used to create multiple `Publisher` clients
+/// for different topics. It manages the underlying gRPC connection and
+/// authentication.
 ///
 /// # Example
 ///
@@ -58,26 +58,7 @@ pub struct BasePublisher {
 ///     .build().await?;
 /// # Ok(()) }
 /// ```
-pub type BasePublisherBuilder =
-    gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
-
-pub(crate) mod client_builder {
-    use super::BasePublisher;
-
-    pub struct Factory;
-    impl gax::client_builder::internal::ClientFactory for Factory {
-        type Client = BasePublisher;
-        type Credentials = gaxi::options::Credentials;
-        #[allow(unused_mut)]
-        async fn build(
-            self,
-            mut config: gaxi::options::ClientConfig,
-        ) -> gax::client_builder::Result<Self::Client> {
-            // TODO(#3019): Pubsub default retry policy goes here.
-            Self::Client::new(config).await
-        }
-    }
-}
+pub use super::client_builder::ClientBuilder as BasePublisherBuilder;
 
 impl BasePublisher {
     /// Returns a builder for [BasePublisher].
@@ -89,14 +70,15 @@ impl BasePublisher {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> BasePublisherBuilder {
-        gax::client_builder::internal::new_builder(client_builder::Factory)
+        BasePublisherBuilder::new()
     }
 
     /// Creates a new Pub/Sub publisher client with the given configuration.
     pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
+        builder: BasePublisherBuilder,
     ) -> Result<Self, gax::client_builder::Error> {
-        let inner = crate::generated::gapic_dataplane::client::Publisher::new(config).await?;
+        let inner =
+            crate::generated::gapic_dataplane::client::Publisher::new(builder.config).await?;
         std::result::Result::Ok(Self { inner })
     }
 
@@ -124,11 +106,12 @@ impl BasePublisher {
 #[cfg(test)]
 mod tests {
     use super::BasePublisher;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
         let client = BasePublisher::builder()
-            .with_credentials(auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
         let _ = client.publisher("projects/my-project/topics/my-topic".to_string());

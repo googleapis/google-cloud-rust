@@ -132,7 +132,7 @@ impl StreamingPull {
     /// The default value is 100 MiB.
     ///
     /// # Example
-    /// ```no_rust
+    /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
@@ -151,8 +151,8 @@ impl StreamingPull {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use auth::credentials::anonymous::Builder as Anonymous;
     use gaxi::options::ClientConfig;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
     const KIB: i64 = 1024;
 

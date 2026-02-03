@@ -77,7 +77,7 @@ pub mod cloud_build {
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::CreateBuild;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -116,19 +116,22 @@ pub mod cloud_build {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_build][crate::client::CloudBuild::create_build].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_build(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_build`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_build`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Build,
+                crate::model::BuildOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -153,7 +156,12 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateBuildRequest::parent].
@@ -472,7 +480,7 @@ pub mod cloud_build {
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::RetryBuild;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -511,19 +519,22 @@ pub mod cloud_build {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [retry_build][crate::client::CloudBuild::retry_build].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .retry_build(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `retry_build`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `retry_build`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Build,
+                crate::model::BuildOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -548,7 +559,12 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RetryBuildRequest::name].
@@ -587,7 +603,7 @@ pub mod cloud_build {
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::ApproveBuild;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -626,19 +642,22 @@ pub mod cloud_build {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [approve_build][crate::client::CloudBuild::approve_build].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .approve_build(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `approve_build`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `approve_build`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Build,
+                crate::model::BuildOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -663,7 +682,12 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ApproveBuildRequest::name].
@@ -1178,7 +1202,7 @@ pub mod cloud_build {
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::RunBuildTrigger;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1217,19 +1241,22 @@ pub mod cloud_build {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [run_build_trigger][crate::client::CloudBuild::run_build_trigger].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .run_build_trigger(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `run_build_trigger`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `run_build_trigger`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Build,
+                crate::model::BuildOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1254,7 +1281,12 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RunBuildTriggerRequest::name].
@@ -1410,7 +1442,7 @@ pub mod cloud_build {
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::CreateWorkerPool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1452,19 +1484,21 @@ pub mod cloud_build {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_worker_pool][crate::client::CloudBuild::create_worker_pool].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_worker_pool(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_worker_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_worker_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::WorkerPool, crate::model::CreateWorkerPoolOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::WorkerPool,
+            crate::model::CreateWorkerPoolOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::WorkerPool,
                 crate::model::CreateWorkerPoolOperationMetadata,
             >;
@@ -1492,7 +1526,12 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkerPoolRequest::parent].
@@ -1615,7 +1654,7 @@ pub mod cloud_build {
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::DeleteWorkerPool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1657,18 +1696,19 @@ pub mod cloud_build {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_worker_pool][crate::client::CloudBuild::delete_worker_pool].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_worker_pool(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `delete_worker_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_worker_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<(), crate::model::DeleteWorkerPoolOperationMetadata> {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteWorkerPoolOperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
                 wkt::Empty,
                 crate::model::DeleteWorkerPoolOperationMetadata,
             >;
@@ -1696,7 +1736,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -1744,7 +1784,7 @@ pub mod cloud_build {
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::UpdateWorkerPool;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1786,19 +1826,21 @@ pub mod cloud_build {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_worker_pool][crate::client::CloudBuild::update_worker_pool].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_worker_pool(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `update_worker_pool`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_worker_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::WorkerPool, crate::model::UpdateWorkerPoolOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::WorkerPool,
+            crate::model::UpdateWorkerPoolOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::WorkerPool,
                 crate::model::UpdateWorkerPoolOperationMetadata,
             >;
@@ -1826,7 +1868,12 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
@@ -2069,7 +2116,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2079,7 +2126,7 @@ pub mod cloud_build {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2094,14 +2141,14 @@ pub mod cloud_build {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2132,7 +2179,9 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -2142,7 +2191,7 @@ pub mod cloud_build {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2164,7 +2213,7 @@ pub mod cloud_build {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

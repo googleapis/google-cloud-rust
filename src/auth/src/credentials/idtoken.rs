@@ -334,9 +334,12 @@ fn instant_from_epoch_seconds(secs: u64, now: SystemTime) -> Option<Instant> {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use jsonwebtoken::{Algorithm, EncodingKey, Header};
+    use crate::credentials::service_account::jws::JwsHeader;
     use mds::Format;
-    use rsa::pkcs1::EncodeRsaPrivateKey;
+    use p256::ecdsa::signature::Signer;
+    use p256::ecdsa::{Signature, SigningKey};
+    use rsa::Pkcs1v15Sign;
+    use rsa::sha2::{Digest, Sha256};
     use serde_json::json;
     use serial_test::parallel;
     use std::collections::HashMap;
@@ -367,8 +370,11 @@ pub(crate) mod tests {
         let now = now.duration_since(UNIX_EPOCH).unwrap();
         let then = now + DEFAULT_TEST_TOKEN_EXPIRATION;
 
-        let mut header = Header::new(Algorithm::RS256);
-        header.kid = Some(TEST_KEY_ID.to_string());
+        let header = JwsHeader {
+            alg: "RS256",
+            typ: "JWT",
+            kid: Some(TEST_KEY_ID.to_string()),
+        };
 
         let mut claims: HashMap<&str, Value> = HashMap::new();
         claims.insert("aud", Value::String(audience));
@@ -380,13 +386,46 @@ pub(crate) mod tests {
             claims.insert(k, v);
         }
 
-        let private_cert = crate::credentials::tests::RSA_PRIVATE_KEY
-            .to_pkcs1_der()
-            .expect("Failed to encode private key to PKCS#1 DER");
+        let key = crate::credentials::tests::RSA_PRIVATE_KEY.clone();
 
-        let private_key = EncodingKey::from_rsa_der(private_cert.as_bytes());
+        let encoded_header = header.encode().unwrap();
+        let encoded_claims = URL_SAFE_NO_PAD.encode(serde_json::to_string(&claims).unwrap());
 
-        jsonwebtoken::encode(&header, &claims, &private_key).expect("failed to encode jwt")
+        let to_sign = format!("{}.{}", encoded_header, encoded_claims);
+        let digest = Sha256::digest(to_sign.as_bytes());
+        let sig = key
+            .sign(Pkcs1v15Sign::new::<Sha256>(), &digest)
+            .expect("Failed to sign");
+        let encoded_sig = URL_SAFE_NO_PAD.encode(sig);
+
+        format!("{}.{}", to_sign, encoded_sig)
+    }
+
+    pub(crate) fn generate_test_id_token_es256(audience: &str) -> String {
+        let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
+        let then = now + DEFAULT_TEST_TOKEN_EXPIRATION;
+        let header = JwsHeader {
+            alg: "ES256",
+            typ: "JWT",
+            kid: Some(TEST_KEY_ID.to_string()),
+        };
+        let mut claims: HashMap<&str, Value> = HashMap::new();
+        claims.insert("aud", Value::String(audience.to_string()));
+        claims.insert("iss", "accounts.google.com".into());
+        claims.insert("exp", then.as_secs().into());
+        claims.insert("iat", now.as_secs().into());
+
+        let private_key = crate::credentials::tests::ES256_PRIVATE_KEY.clone();
+        let key = SigningKey::from(private_key);
+
+        let encoded_header = header.encode().unwrap();
+        let encoded_claims = URL_SAFE_NO_PAD.encode(serde_json::to_string(&claims).unwrap());
+
+        let to_sign = format!("{}.{}", encoded_header, encoded_claims);
+        let sig: Signature = key.sign(to_sign.as_bytes());
+        let encoded_sig = URL_SAFE_NO_PAD.encode(sig.to_bytes());
+
+        format!("{}.{}", to_sign, encoded_sig)
     }
 
     #[tokio::test(start_paused = true)]

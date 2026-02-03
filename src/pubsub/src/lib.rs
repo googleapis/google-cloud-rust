@@ -41,8 +41,20 @@
 //! donated the crate name to Google. Their crate continues to live as
 //! [gcloud-pubsub].
 //!
+//! # Features
+//!
+//! - `default-rustls-provider`: enabled by default. Use the default rustls crypto
+//!   provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+//!   requirements for cryptography (such as exclusively using the [ring] crate)
+//!   should disable this default and call
+//!   `rustls::crypto::CryptoProvider::install_default()`.
+//! - `unstable-stream`: enable the (unstable) features to convert several types to
+//!   a `future::Stream`.
+//!
+//! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 //! [pub/sub]: https://cloud.google.com/pubsub
 //! [gcloud-pubsub]: https://crates.io/crates/gcloud-pubsub
+//! [ring]: https://crates.io/crates/ring
 
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
@@ -63,7 +75,8 @@ pub mod builder {
         #[doc(hidden)]
         pub use crate::generated::gapic_dataplane::builder::publisher::*;
         pub use crate::publisher::base_publisher::BasePublisherBuilder;
-        pub use crate::publisher::publisher::PublisherPartialBuilder;
+        pub use crate::publisher::builder::PublisherBuilder;
+        pub use crate::publisher::builder::PublisherPartialBuilder;
     }
     /// Request and client builders for the [SchemaService][crate::client::SchemaService] client.
     pub use crate::generated::gapic::builder::schema_service;
@@ -102,14 +115,11 @@ pub mod model_ext {
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
-/// use google_cloud_pubsub::client::BasePublisher;
+/// use google_cloud_pubsub::client::Publisher;
 /// use google_cloud_pubsub::model::PubsubMessage;
 ///
-/// // Create a client for creating publishers.
-/// let client = BasePublisher::builder().build().await?;
-///
 /// // Create a publisher that handles batching for a specific topic.
-/// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
+/// let publisher = Publisher::builder("projects/my-project/topics/my-topic").build().await?;
 ///
 /// // Publish several messages.
 /// // The client will automatically batch them in the background.
@@ -132,7 +142,7 @@ pub mod model_ext {
 pub mod client {
     pub use crate::generated::gapic::client::*;
     pub use crate::publisher::base_publisher::BasePublisher;
-    pub use crate::publisher::publisher::Publisher;
+    pub use crate::publisher::client::Publisher;
     pub use crate::subscriber::client::Subscriber;
 }
 

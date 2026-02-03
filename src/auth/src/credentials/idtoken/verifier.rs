@@ -295,40 +295,25 @@ enum ErrorKind {
 pub(crate) mod tests {
     use super::*;
     use crate::credentials::idtoken::tests::{
-        TEST_KEY_ID, generate_test_id_token, generate_test_id_token_with_claims,
+        generate_test_id_token, generate_test_id_token_es256, generate_test_id_token_with_claims,
     };
-    use base64::Engine;
+    use crate::credentials::internal::jwk_client::tests::{
+        create_es256_jwk_set_response, create_rsa256_jwk_set_response,
+    };
     use httptest::matchers::{all_of, request};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
     use jsonwebtoken::{Algorithm, EncodingKey, Header};
     use rsa::pkcs1::EncodeRsaPrivateKey;
-    use rsa::traits::PublicKeyParts;
     use std::collections::HashMap;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
     type TestResult = anyhow::Result<()>;
 
-    fn create_jwk_set_response() -> serde_json::Value {
-        let pub_cert = crate::credentials::tests::RSA_PRIVATE_KEY.to_public_key();
-        serde_json::json!({
-            "keys": [
-                {
-                    "e": base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(pub_cert.e().to_bytes_be()),
-                    "kid": TEST_KEY_ID,
-                    "use": "sig",
-                    "kty": "RSA",
-                    "n": base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(pub_cert.n().to_bytes_be()),
-                    "alg": "RS256"
-                }
-            ]
-        })
-    }
-
     #[tokio::test]
     async fn test_verify_success() -> TestResult {
         let server = Server::run();
-        let response = create_jwk_set_response();
+        let response = create_rsa256_jwk_set_response();
         server.expect(
             Expectation::matching(all_of![request::path("/certs"),])
                 .times(1)
@@ -358,7 +343,7 @@ pub(crate) mod tests {
         server.expect(
             Expectation::matching(all_of![request::path("/certs"),])
                 .times(1)
-                .respond_with(json_encoded(create_jwk_set_response())),
+                .respond_with(json_encoded(create_rsa256_jwk_set_response())),
         );
 
         let audience = "https://example.com";
@@ -382,7 +367,7 @@ pub(crate) mod tests {
         server.expect(
             Expectation::matching(all_of![request::path("/certs"),])
                 .times(1)
-                .respond_with(json_encoded(create_jwk_set_response())),
+                .respond_with(json_encoded(create_rsa256_jwk_set_response())),
         );
 
         let audiences = ["https://example.com", "https://another_example.com"];
@@ -406,7 +391,7 @@ pub(crate) mod tests {
         server.expect(
             Expectation::matching(all_of![request::path("/certs"),])
                 .times(1)
-                .respond_with(json_encoded(create_jwk_set_response())),
+                .respond_with(json_encoded(create_rsa256_jwk_set_response())),
         );
 
         let audience = "https://example.com";
@@ -432,7 +417,7 @@ pub(crate) mod tests {
         server.expect(
             Expectation::matching(all_of![request::path("/certs"),])
                 .times(1)
-                .respond_with(json_encoded(create_jwk_set_response())),
+                .respond_with(json_encoded(create_rsa256_jwk_set_response())),
         );
 
         let audience = "https://example.com";
@@ -462,7 +447,7 @@ pub(crate) mod tests {
         server.expect(
             Expectation::matching(all_of![request::path("/certs"),])
                 .times(1)
-                .respond_with(json_encoded(create_jwk_set_response())),
+                .respond_with(json_encoded(create_rsa256_jwk_set_response())),
         );
 
         let audience = "https://example.com";
@@ -490,7 +475,7 @@ pub(crate) mod tests {
         server.expect(
             Expectation::matching(all_of![request::path("/certs"),])
                 .times(1)
-                .respond_with(json_encoded(create_jwk_set_response())),
+                .respond_with(json_encoded(create_rsa256_jwk_set_response())),
         );
 
         let audience = "https://example.com";
@@ -517,7 +502,7 @@ pub(crate) mod tests {
         server.expect(
             Expectation::matching(all_of![request::path("/certs"),])
                 .times(1)
-                .respond_with(json_encoded(create_jwk_set_response())),
+                .respond_with(json_encoded(create_rsa256_jwk_set_response())),
         );
 
         let audience = "https://example.com";
@@ -545,7 +530,7 @@ pub(crate) mod tests {
         server.expect(
             Expectation::matching(all_of![request::path("/certs"),])
                 .times(1)
-                .respond_with(json_encoded(create_jwk_set_response())),
+                .respond_with(json_encoded(create_rsa256_jwk_set_response())),
         );
 
         let audience = "https://example.com";
@@ -622,6 +607,29 @@ pub(crate) mod tests {
         let result = verifier.verify(token).await;
         assert!(result.is_err());
         assert!(result.unwrap_err().is_load_cert());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_es256_success() -> TestResult {
+        let server = Server::run();
+        let response = create_es256_jwk_set_response();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(response.clone())),
+        );
+
+        let audience = "https://example.com";
+        let token = generate_test_id_token_es256(audience);
+
+        let verifier = Builder::new([audience])
+            .with_jwks_url(format!("http://{}/certs", server.addr()))
+            .build();
+
+        let claims = verifier.verify(&token).await?;
+        assert!(!claims.is_empty());
 
         Ok(())
     }

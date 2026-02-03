@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::UploadConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.upload_conversation(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::CreateAnalysisRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_analysis(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::BulkAnalyzeConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.bulk_analyze_conversations(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::BulkDeleteConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.bulk_delete_conversations(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::IngestConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.ingest_conversations(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::ExportInsightsDataRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.export_insights_data(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::CreateIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_issue_model(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::DeleteIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_issue_model(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::DeployIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.deploy_issue_model(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::UndeployIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.undeploy_issue_model(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::ExportIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.export_issue_model(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::ImportIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.import_issue_model(req, options).await
     }
 
@@ -420,7 +420,7 @@ where
         &self,
         req: crate::model::InitializeEncryptionSpecRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.initialize_encryption_spec(req, options).await
     }
 
@@ -474,7 +474,7 @@ where
         &self,
         req: crate::model::QueryMetricsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.query_metrics(req, options).await
     }
 
@@ -591,7 +591,7 @@ where
         &self,
         req: crate::model::TuneQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.tune_qa_scorecard_revision(req, options).await
     }
 
@@ -692,7 +692,7 @@ where
         &self,
         req: crate::model::BulkUploadFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.bulk_upload_feedback_labels(req, options).await
     }
 
@@ -701,32 +701,33 @@ where
         &self,
         req: crate::model::BulkDownloadFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.bulk_download_feedback_labels(req, options).await
     }
 
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         self.inner.list_operations(req, options).await
     }
 
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await

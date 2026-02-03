@@ -34,6 +34,17 @@
 //! * [RoutineService](client/struct.RoutineService.html)
 //! * [RowAccessPolicyService](client/struct.RowAccessPolicyService.html)
 //! * [TableService](client/struct.TableService.html)
+//!
+//! # Features
+//!
+//! - `default-rustls-provider`: enabled by default. Use the default rustls
+//!   crypto provider ([aws-lc-rs]) for TLS and authentication. Applications
+//!   with specific requirements for cryptography (such as exclusively using the
+//!   [ring] crate) should disable this default and call
+//!   `rustls::crypto::CryptoProvider::install_default()`.
+//!
+//! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+//! [ring]: https://crates.io/crates/ring
 
 #![allow(deprecated)]
 

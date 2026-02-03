@@ -42,36 +42,20 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -e
-      cargo test --features run-integration-tests \
-        --package integration-tests \
-        --package user-guide-samples \
-        --package storage-samples \
-        --package pubsub-samples
-      cargo build --package storage-samples --profile=test --all-features
-      cargo build --package pubsub-samples --profile=test --all-features
+      cargo test --features run-integration-tests --tests
   - id: Validate default crypto provider behavior
     name: 'rust:${_RUST_VERSION}-bookworm'
+    # For these tests, we need to run them one package at a time. Otherwise all
+    # the features are unified, and these tests are trying to test one feature
+    # at a time.
     script: |
       #!/usr/bin/env bash
       set -e
       rustup component add clippy
       echo "Verify crypto providers behavior"
-      directories=(
-        tests/crypto-providers/auth-with-default
-        tests/crypto-providers/auth-without-default
-        tests/crypto-providers/idtoken-with-default
-        tests/crypto-providers/idtoken-with-aws-lc-rs
-        tests/crypto-providers/idtoken-with-rust-crypto
-        tests/crypto-providers/gaxi-with-default
-        tests/crypto-providers/gaxi-with-aws-lc-rs
-        tests/crypto-providers/gaxi-with-ring
-        tests/crypto-providers/secret-manager-with-default
-        tests/crypto-providers/secret-manager-with-aws-lc-rs
-        tests/crypto-providers/secret-manager-with-ring
-        tests/crypto-providers/storage-with-default
-        tests/crypto-providers/storage-with-aws-lc-rs
-        tests/crypto-providers/storage-with-ring
-      )
+      mapfile -t directories < <(git ls-files -- 'tests/crypto-providers/**Cargo.toml' |
+          xargs -I{} dirname {} |
+          grep -v test-)
       for dir in "${directories[@]}"; do
         echo "Running test in ${dir}"
         # Handle problems updating the `Cargo.lock` files. The first
@@ -85,7 +69,7 @@ steps:
       done
 
 substitutions:
-  _RUST_VERSION: '1.92'
+  _RUST_VERSION: '1.93'
   _SCCACHE_VERSION: 'v0.12.0'
   _SCCACHE_SHA256: 'b0e89ead6899224a4ba2b90e9073bf1ce036d95bab30f3dc33c1e1468bc4ad44'
   _POOL_REGION: us-central1

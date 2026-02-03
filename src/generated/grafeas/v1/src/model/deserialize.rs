@@ -2963,6 +2963,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DiscoveryOccurrence {
             __sbom_status,
             __vulnerability_attestation,
             __files,
+            __last_vulnerability_update_time,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3007,6 +3008,12 @@ impl<'de> serde::de::Deserialize<'de> for super::DiscoveryOccurrence {
                                 Ok(__FieldTag::__vulnerability_attestation)
                             }
                             "files" => Ok(__FieldTag::__files),
+                            "lastVulnerabilityUpdateTime" => {
+                                Ok(__FieldTag::__last_vulnerability_update_time)
+                            }
+                            "last_vulnerability_update_time" => {
+                                Ok(__FieldTag::__last_vulnerability_update_time)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3143,6 +3150,15 @@ impl<'de> serde::de::Deserialize<'de> for super::DiscoveryOccurrence {
                                     std::vec::Vec<crate::model::discovery_occurrence::File>,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__last_vulnerability_update_time => {
+                            if !fields.insert(__FieldTag::__last_vulnerability_update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for last_vulnerability_update_time",
+                                ));
+                            }
+                            result.last_vulnerability_update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

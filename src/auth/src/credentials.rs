@@ -1007,6 +1007,15 @@ pub(crate) mod tests {
             .expect("Failed to create RsaPrivateKey from primes")
     });
 
+    pub static ES256_PRIVATE_KEY: LazyLock<p256::SecretKey> = LazyLock::new(|| {
+        let secret_key_bytes = [
+            0x4c, 0x0c, 0x11, 0x6e, 0x6e, 0xb0, 0x07, 0xbd, 0x48, 0x0c, 0xc0, 0x48, 0xc0, 0x1f,
+            0xac, 0x3d, 0x82, 0x82, 0x0e, 0x6c, 0x3d, 0x76, 0x61, 0x4d, 0x06, 0x4e, 0xdb, 0x05,
+            0x26, 0x6c, 0x75, 0xdf,
+        ];
+        p256::SecretKey::from_bytes((&secret_key_bytes).into()).unwrap()
+    });
+
     pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {
         RSA_PRIVATE_KEY
             .to_pkcs8_pem(LineEnding::LF)

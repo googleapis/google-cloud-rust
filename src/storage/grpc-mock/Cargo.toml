@@ -17,8 +17,9 @@ name              = "storage-grpc-mock"
 description       = "A fake Cloud Storage server for end-to-end tests."
 version           = "0.0.0"
 build             = "build.rs"
-edition.workspace = true
 publish           = false
+edition.workspace = true
+license.workspace = true
 
 [features]
 _generate-protos = ["dep:prost-build", "dep:tonic-prost-build"]

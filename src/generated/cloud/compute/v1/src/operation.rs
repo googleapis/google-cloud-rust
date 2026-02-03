@@ -14,7 +14,7 @@
 
 use crate::model::Operation;
 
-impl lro::internal::DiscoveryOperation for Operation {
+impl google_cloud_lro::internal::DiscoveryOperation for Operation {
     fn name(&self) -> Option<&String> {
         self.name.as_ref()
     }

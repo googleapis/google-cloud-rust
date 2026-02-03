@@ -46,6 +46,7 @@ impl super::stub::GatewayControl for GatewayControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateCredentialsResponse>> {
         use gax::error::binding::BindingError;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -66,13 +67,13 @@ impl super::stub::GatewayControl for GatewayControl {
                     )?,
                 );
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("forceUseAgent", &req.force_use_agent)]);
                 let builder = builder.query(&[("version", &req.version)]);
                 let builder = builder.query(&[("kubernetesNamespace", &req.kubernetes_namespace)]);
                 let builder = builder.query(&[("operatingSystem", &req.operating_system)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -101,7 +102,7 @@ impl super::stub::GatewayControl for GatewayControl {
         );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await

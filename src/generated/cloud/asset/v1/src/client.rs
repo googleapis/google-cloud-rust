@@ -131,7 +131,7 @@ impl AssetService {
     /// 5 minutes.
     ///
     /// [google.cloud.asset.v1.Asset]: crate::model::Asset
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -223,7 +223,7 @@ impl AssetService {
     /// metadata contains the metadata for the long-running operation.
     ///
     /// [google.cloud.asset.v1.AnalyzeIamPolicyResponse]: crate::model::AnalyzeIamPolicyResponse
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -367,7 +367,7 @@ impl AssetService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::asset_service::GetOperation {
         super::builder::asset_service::GetOperation::new(self.inner.clone())
     }

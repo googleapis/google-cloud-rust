@@ -251,7 +251,7 @@ pub mod image_annotator {
     /// ```
     /// # use google_cloud_vision_v1::builder::image_annotator::AsyncBatchAnnotateImages;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -295,21 +295,21 @@ pub mod image_annotator {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [async_batch_annotate_images][crate::client::ImageAnnotator::async_batch_annotate_images].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .async_batch_annotate_images(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `async_batch_annotate_images`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `async_batch_annotate_images`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::AsyncBatchAnnotateImagesResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AsyncBatchAnnotateImagesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -337,7 +337,12 @@ pub mod image_annotator {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
@@ -406,7 +411,7 @@ pub mod image_annotator {
     /// ```
     /// # use google_cloud_vision_v1::builder::image_annotator::AsyncBatchAnnotateFiles;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -450,21 +455,21 @@ pub mod image_annotator {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [async_batch_annotate_files][crate::client::ImageAnnotator::async_batch_annotate_files].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .async_batch_annotate_files(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `async_batch_annotate_files`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `async_batch_annotate_files`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::AsyncBatchAnnotateFilesResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AsyncBatchAnnotateFilesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -492,7 +497,12 @@ pub mod image_annotator {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [requests][crate::model::AsyncBatchAnnotateFilesRequest::requests].
@@ -550,7 +560,7 @@ pub mod image_annotator {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -560,7 +570,7 @@ pub mod image_annotator {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -575,14 +585,14 @@ pub mod image_annotator {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2078,7 +2088,7 @@ pub mod product_search {
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::ImportProductSets;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2120,21 +2130,21 @@ pub mod product_search {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [import_product_sets][crate::client::ProductSearch::import_product_sets].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .import_product_sets(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `import_product_sets`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_product_sets`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::ImportProductSetsResponse,
             crate::model::BatchOperationMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::ImportProductSetsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -2162,7 +2172,12 @@ pub mod product_search {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportProductSetsRequest::parent].
@@ -2209,7 +2224,7 @@ pub mod product_search {
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::PurgeProducts;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2248,17 +2263,21 @@ pub mod product_search {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [purge_products][crate::client::ProductSearch::purge_products].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .purge_products(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `purge_products`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::BatchOperationMetadata> {
-            type Operation =
-                lro::internal::Operation<wkt::Empty, crate::model::BatchOperationMetadata>;
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `purge_products`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::BatchOperationMetadata> {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::BatchOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2283,7 +2302,7 @@ pub mod product_search {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
+            google_cloud_lro::internal::new_unit_response_poller(
                 polling_error_policy,
                 polling_backoff_policy,
                 start,
@@ -2367,7 +2386,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2377,7 +2396,7 @@ pub mod product_search {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2392,14 +2411,14 @@ pub mod product_search {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

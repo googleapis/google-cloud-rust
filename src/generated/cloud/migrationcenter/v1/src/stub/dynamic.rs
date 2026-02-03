@@ -69,7 +69,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateImportJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_import_jobs(
         &self,
@@ -87,25 +87,25 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteImportJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_import_job(
         &self,
         req: crate::model::UpdateImportJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn validate_import_job(
         &self,
         req: crate::model::ValidateImportJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn run_import_job(
         &self,
         req: crate::model::RunImportJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_import_data_file(
         &self,
@@ -123,13 +123,13 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateImportDataFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_import_data_file(
         &self,
         req: crate::model::DeleteImportDataFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_groups(
         &self,
@@ -147,31 +147,31 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_group(
         &self,
         req: crate::model::UpdateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_group(
         &self,
         req: crate::model::DeleteGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn add_assets_to_group(
         &self,
         req: crate::model::AddAssetsToGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn remove_assets_from_group(
         &self,
         req: crate::model::RemoveAssetsFromGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_error_frames(
         &self,
@@ -201,19 +201,19 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_source(
         &self,
         req: crate::model::UpdateSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_source(
         &self,
         req: crate::model::DeleteSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_preference_sets(
         &self,
@@ -231,19 +231,19 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreatePreferenceSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_preference_set(
         &self,
         req: crate::model::UpdatePreferenceSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_preference_set(
         &self,
         req: crate::model::DeletePreferenceSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_settings(
         &self,
@@ -255,13 +255,13 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_report_config(
         &self,
         req: crate::model::CreateReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_report_config(
         &self,
@@ -279,13 +279,13 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_report(
         &self,
         req: crate::model::CreateReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_report(
         &self,
@@ -303,7 +303,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
@@ -319,25 +319,27 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
@@ -432,7 +434,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::CreateImportJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_import_job(self, req, options).await
     }
 
@@ -459,7 +461,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::DeleteImportJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_import_job(self, req, options).await
     }
 
@@ -468,7 +470,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::UpdateImportJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_import_job(self, req, options).await
     }
 
@@ -477,7 +479,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::ValidateImportJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::validate_import_job(self, req, options).await
     }
 
@@ -486,7 +488,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::RunImportJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::run_import_job(self, req, options).await
     }
 
@@ -513,7 +515,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::CreateImportDataFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_import_data_file(self, req, options).await
     }
 
@@ -522,7 +524,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::DeleteImportDataFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_import_data_file(self, req, options).await
     }
 
@@ -549,7 +551,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::CreateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_group(self, req, options).await
     }
 
@@ -558,7 +560,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::UpdateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_group(self, req, options).await
     }
 
@@ -567,7 +569,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::DeleteGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_group(self, req, options).await
     }
 
@@ -576,7 +578,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::AddAssetsToGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::add_assets_to_group(self, req, options).await
     }
 
@@ -585,7 +587,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::RemoveAssetsFromGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::remove_assets_from_group(self, req, options).await
     }
 
@@ -630,7 +632,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::CreateSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_source(self, req, options).await
     }
 
@@ -639,7 +641,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::UpdateSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_source(self, req, options).await
     }
 
@@ -648,7 +650,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::DeleteSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_source(self, req, options).await
     }
 
@@ -675,7 +677,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::CreatePreferenceSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_preference_set(self, req, options).await
     }
 
@@ -684,7 +686,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::UpdatePreferenceSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_preference_set(self, req, options).await
     }
 
@@ -693,7 +695,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::DeletePreferenceSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_preference_set(self, req, options).await
     }
 
@@ -711,7 +713,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::UpdateSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_settings(self, req, options).await
     }
 
@@ -720,7 +722,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::CreateReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_report_config(self, req, options).await
     }
 
@@ -747,7 +749,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::DeleteReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_report_config(self, req, options).await
     }
 
@@ -756,7 +758,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::CreateReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_report(self, req, options).await
     }
 
@@ -783,7 +785,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
         &self,
         req: crate::model::DeleteReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_report(self, req, options).await
     }
 
@@ -808,25 +810,27 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
@@ -835,7 +839,7 @@ impl<T: super::MigrationCenter> MigrationCenter for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await

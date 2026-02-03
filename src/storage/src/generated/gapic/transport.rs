@@ -62,14 +62,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::DeleteBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.storage.v2.Storage",
-                "DeleteBucket",
-            ));
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.storage.v2.Storage", "DeleteBucket"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/DeleteBucket");
@@ -123,14 +123,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.storage.v2.Storage",
-                "GetBucket",
-            ));
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.storage.v2.Storage", "GetBucket"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/GetBucket");
@@ -184,14 +184,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::CreateBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.storage.v2.Storage",
-                "CreateBucket",
-            ));
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.storage.v2.Storage", "CreateBucket"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/CreateBucket");
@@ -269,14 +269,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ListBucketsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBucketsResponse>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.storage.v2.Storage",
-                "ListBuckets",
-            ));
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.storage.v2.Storage", "ListBuckets"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/ListBuckets");
@@ -330,11 +330,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::LockBucketRetentionPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.v2.Storage",
                 "LockBucketRetentionPolicy",
             ));
@@ -393,14 +396,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::UpdateBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.storage.v2.Storage",
-                "UpdateBucket",
-            ));
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.storage.v2.Storage", "UpdateBucket"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/UpdateBucket");
@@ -460,11 +463,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ComposeObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.v2.Storage",
                 "ComposeObject",
             ));
@@ -527,14 +533,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::DeleteObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.storage.v2.Storage",
-                "DeleteObject",
-            ));
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.storage.v2.Storage", "DeleteObject"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/DeleteObject");
@@ -588,11 +594,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::RestoreObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.v2.Storage",
                 "RestoreObject",
             ));
@@ -649,14 +658,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.storage.v2.Storage",
-                "GetObject",
-            ));
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.storage.v2.Storage", "GetObject"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/GetObject");
@@ -710,14 +719,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::UpdateObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.storage.v2.Storage",
-                "UpdateObject",
-            ));
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.storage.v2.Storage", "UpdateObject"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/UpdateObject");
@@ -777,14 +786,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ListObjectsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListObjectsResponse>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.storage.v2.Storage",
-                "ListObjects",
-            ));
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.storage.v2.Storage", "ListObjects"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/ListObjects");
@@ -838,11 +847,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::RewriteObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RewriteResponse>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.v2.Storage",
                 "RewriteObject",
             ));
@@ -919,14 +931,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::MoveObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.storage.v2.Storage",
-                "MoveObject",
-            ));
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.storage.v2.Storage", "MoveObject"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/MoveObject");

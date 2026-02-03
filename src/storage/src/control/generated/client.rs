@@ -480,7 +480,7 @@ impl StorageControl {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> crate::builder::storage_control::GetOperation {
         self.control.get_operation()
     }

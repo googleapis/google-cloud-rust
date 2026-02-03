@@ -21,11 +21,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate iam_v1;
+extern crate google_cloud_iam_v1;
+extern crate google_cloud_longrunning;
+extern crate google_cloud_lro;
 extern crate lazy_static;
-extern crate longrunning;
-extern crate lro;
-extern crate reqwest;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
@@ -7993,7 +7992,7 @@ impl wkt::message::Message for ReconcileTagsRequest {
 /// [ReconcileTags][google.cloud.datacatalog.v1.DataCatalog.ReconcileTags].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ReconcileTags]: crate::client::DataCatalog::reconcile_tags
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReconcileTagsResponse {
@@ -8062,7 +8061,7 @@ impl wkt::message::Message for ReconcileTagsResponse {
 /// [ReconcileTags][google.cloud.datacatalog.v1.DataCatalog.ReconcileTags].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ReconcileTags]: crate::client::DataCatalog::reconcile_tags
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReconcileTagsMetadata {
@@ -8716,7 +8715,7 @@ pub mod import_entries_request {
 /// [ImportEntries][google.cloud.datacatalog.v1.DataCatalog.ImportEntries].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ImportEntries]: crate::client::DataCatalog::import_entries
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportEntriesResponse {
@@ -8809,7 +8808,7 @@ impl wkt::message::Message for ImportEntriesResponse {
 /// [ImportEntries][google.cloud.datacatalog.v1.DataCatalog.ImportEntries].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ImportEntries]: crate::client::DataCatalog::import_entries
-/// [google.longrunning.Operation]: longrunning::model::Operation
+/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportEntriesMetadata {

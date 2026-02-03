@@ -18,10 +18,15 @@ set -ev
 rustup component add clippy rustfmt
 cargo version
 rustup show active-toolchain -v
+time cargo install --locked cargo-deny@0.19.0
 
-set -e
+set +v
 
+echo "==== cargo deny ===="
+cargo deny check
+echo "==== cargo clippy ===="
 cargo clippy --workspace --all-targets --profile=test -- --deny warnings
+echo "==== cargo fmt ===="
 cargo fmt
 git diff --exit-code
 

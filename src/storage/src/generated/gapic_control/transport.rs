@@ -62,11 +62,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::CreateFolderRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Folder>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "CreateFolder",
             ));
@@ -125,11 +128,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::DeleteFolderRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "DeleteFolder",
             ));
@@ -199,11 +205,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetFolderRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Folder>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "GetFolder",
             ));
@@ -273,11 +282,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ListFoldersRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListFoldersResponse>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "ListFolders",
             ));
@@ -335,12 +347,15 @@ impl super::stub::StorageControl for StorageControl {
         &self,
         req: crate::model::RenameFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        use gaxi::prost::ToProto;
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "RenameFolder",
             ));
@@ -402,7 +417,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_longrunning::model::Operation>)
     }
 
     async fn get_storage_layout(
@@ -410,11 +425,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetStorageLayoutRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::StorageLayout>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "GetStorageLayout",
             ));
@@ -484,11 +502,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::CreateManagedFolderRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ManagedFolder>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "CreateManagedFolder",
             ));
@@ -547,11 +568,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::DeleteManagedFolderRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "DeleteManagedFolder",
             ));
@@ -621,11 +645,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetManagedFolderRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ManagedFolder>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "GetManagedFolder",
             ));
@@ -695,11 +722,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ListManagedFoldersRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListManagedFoldersResponse>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "ListManagedFolders",
             ));
@@ -757,12 +787,15 @@ impl super::stub::StorageControl for StorageControl {
         &self,
         req: crate::model::CreateAnywhereCacheRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        use gaxi::prost::ToProto;
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "CreateAnywhereCache",
             ));
@@ -813,19 +846,22 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_longrunning::model::Operation>)
     }
 
     async fn update_anywhere_cache(
         &self,
         req: crate::model::UpdateAnywhereCacheRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        use gaxi::prost::ToProto;
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "UpdateAnywhereCache",
             ));
@@ -893,7 +929,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_longrunning::model::Operation>)
     }
 
     async fn disable_anywhere_cache(
@@ -901,11 +937,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::DisableAnywhereCacheRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "DisableAnywhereCache",
             ));
@@ -975,11 +1014,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::PauseAnywhereCacheRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "PauseAnywhereCache",
             ));
@@ -1049,11 +1091,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ResumeAnywhereCacheRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "ResumeAnywhereCache",
             ));
@@ -1123,11 +1168,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetAnywhereCacheRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "GetAnywhereCache",
             ));
@@ -1197,11 +1245,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::ListAnywhereCachesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "ListAnywhereCaches",
             ));
@@ -1260,11 +1311,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetProjectIntelligenceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "GetProjectIntelligenceConfig",
             ));
@@ -1300,11 +1354,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::UpdateProjectIntelligenceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "UpdateProjectIntelligenceConfig",
             ));
@@ -1341,11 +1398,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetFolderIntelligenceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "GetFolderIntelligenceConfig",
             ));
@@ -1381,11 +1441,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::UpdateFolderIntelligenceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "UpdateFolderIntelligenceConfig",
             ));
@@ -1422,11 +1485,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::GetOrganizationIntelligenceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "GetOrganizationIntelligenceConfig",
             ));
@@ -1462,11 +1528,14 @@ impl super::stub::StorageControl for StorageControl {
         req: crate::model::UpdateOrganizationIntelligenceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
-        use gaxi::prost::ToProto;
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "UpdateOrganizationIntelligenceConfig",
             ));
@@ -1500,14 +1569,17 @@ impl super::stub::StorageControl for StorageControl {
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        use gaxi::prost::ToProto;
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "GetIamPolicy",
             ));
@@ -1587,19 +1659,22 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, iam_v1::model::Policy>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_iam_v1::model::Policy>)
     }
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        use gaxi::prost::ToProto;
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "SetIamPolicy",
             ));
@@ -1679,19 +1754,23 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, iam_v1::model::Policy>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_iam_v1::model::Policy>)
     }
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        use gaxi::prost::ToProto;
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.storage.control.v2.StorageControl",
                 "TestIamPermissions",
             ));
@@ -1805,19 +1884,27 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, iam_v1::model::TestIamPermissionsResponse>)
+            .and_then(
+                gaxi::grpc::to_gax_response::<
+                    TR,
+                    google_cloud_iam_v1::model::TestIamPermissionsResponse,
+                >,
+            )
     }
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        use gaxi::prost::ToProto;
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
         let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
                 "google.longrunning.Operations",
                 "GetOperation",
             ));
@@ -1844,7 +1931,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_longrunning::model::Operation>)
     }
 
     fn get_polling_error_policy(

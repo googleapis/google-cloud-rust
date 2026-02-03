@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-discoveryengine-v1"
-version                = "2.4.0"
+version                = "2.6.0"
 description            = "Google Cloud Client Libraries for Rust - Discovery Engine API"
 edition.workspace      = true
 authors.workspace      = true
@@ -34,6 +34,7 @@ default = [
   "control-service",
   "conversational-search-service",
   "data-store-service",
+  "default-rustls-provider",
   "document-service",
   "engine-service",
   "grounded-generation-service",
@@ -50,6 +51,11 @@ default = [
   "user-event-service",
   "user-license-service",
 ]
+# Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
+# TLS and authentication. Applications with specific requirements for
+# cryptography (such as exclusively using the [ring] crate) should disable this
+# default and call `rustls::crypto::CryptoProvider::install_default()`.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
 # Enables `client::AssistantService` and all the types it depends on.
 assistant-service = []
 # Enables `client::CmekConfigService` and all the types it depends on.
@@ -97,22 +103,21 @@ user-license-service = []
 all-features = true
 
 [dependencies]
-api.workspace         = true
-async-trait.workspace = true
-bytes.workspace       = true
-gax.workspace         = true
-gaxi                  = { workspace = true, features = ["_internal-http-client"] }
-gtype.workspace       = true
-lazy_static.workspace = true
-longrunning.workspace = true
-lro.workspace         = true
-reqwest.workspace     = true
-rpc.workspace         = true
-serde.workspace       = true
-serde_json.workspace  = true
-serde_with.workspace  = true
-tracing.workspace     = true
-wkt.workspace         = true
+api.workspace                      = true
+async-trait.workspace              = true
+bytes.workspace                    = true
+gax.workspace                      = true
+gaxi                               = { workspace = true, features = ["_internal-http-client"] }
+google-cloud-longrunning.workspace = true
+google-cloud-lro.workspace         = true
+gtype.workspace                    = true
+lazy_static.workspace              = true
+rpc.workspace                      = true
+serde.workspace                    = true
+serde_json.workspace               = true
+serde_with.workspace               = true
+tracing.workspace                  = true
+wkt.workspace                      = true
 
 [dev-dependencies]
 tokio-test.workspace = true

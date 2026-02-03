@@ -146,7 +146,7 @@ impl CompanyService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::company_service::GetOperation {
         super::builder::company_service::GetOperation::new(self.inner.clone())
     }
@@ -262,7 +262,7 @@ impl Completion {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::completion::GetOperation {
         super::builder::completion::GetOperation::new(self.inner.clone())
     }
@@ -383,7 +383,7 @@ impl EventService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::event_service::GetOperation {
         super::builder::event_service::GetOperation::new(self.inner.clone())
     }
@@ -606,7 +606,7 @@ impl JobService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::job_service::GetOperation {
         super::builder::job_service::GetOperation::new(self.inner.clone())
     }
@@ -741,7 +741,7 @@ impl TenantService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::tenant_service::GetOperation {
         super::builder::tenant_service::GetOperation::new(self.inner.clone())
     }
