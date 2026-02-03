@@ -57,12 +57,25 @@ pub(crate) struct AuthHeadersBuilder {
     token: CacheableResource<Token>,
     quota_project_id: Option<String>,
     access_boundary: Option<String>,
+    header_type: HeaderType,
 }
 
 impl AuthHeadersBuilder {
+    // Build bearer token headers
     pub(crate) fn new(token: CacheableResource<Token>) -> AuthHeadersBuilder {
         AuthHeadersBuilder {
             token,
+            header_type: HeaderType::Bearer,
+            quota_project_id: None,
+            access_boundary: None,
+        }
+    }
+
+    // Build API Key headers
+    pub(crate) fn for_api_key(token: CacheableResource<Token>) -> AuthHeadersBuilder {
+        AuthHeadersBuilder {
+            token,
+            header_type: HeaderType::ApiKey,
             quota_project_id: None,
             access_boundary: None,
         }
@@ -87,7 +100,7 @@ impl AuthHeadersBuilder {
                     token: data.to_owned(),
                     quota_project_id: self.quota_project_id.clone(),
                     access_boundary: self.access_boundary.clone(),
-                    header_type: HeaderType::Bearer,
+                    header_type: self.header_type.clone(),
                 };
                 Ok(CacheableResource::New {
                     entity_tag: entity_tag.clone(),
@@ -105,6 +118,7 @@ struct AuthHeaderData {
     header_type: HeaderType,
 }
 
+#[derive(Debug, Clone)]
 enum HeaderType {
     Bearer,
     ApiKey,
@@ -153,26 +167,6 @@ impl AuthHeaderData {
         }
 
         Ok(header_map)
-    }
-}
-
-pub(crate) fn build_cacheable_api_key_headers(
-    cached_token: &CacheableResource<Token>,
-) -> Result<CacheableResource<HeaderMap>> {
-    match cached_token {
-        CacheableResource::NotModified => Ok(CacheableResource::NotModified),
-        CacheableResource::New { entity_tag, data } => {
-            let data = &AuthHeaderData {
-                token: data.to_owned(),
-                header_type: HeaderType::ApiKey,
-                quota_project_id: None,
-                access_boundary: None,
-            };
-            Ok(CacheableResource::New {
-                entity_tag: entity_tag.clone(),
-                data: data.as_headers()?,
-            })
-        }
     }
 }
 
@@ -309,7 +303,7 @@ mod tests {
             token,
             header_type: HeaderType::Bearer,
             quota_project_id: None,
-            trust_boundary_header: None,
+            access_boundary: None,
         };
         let result = data.as_headers();
 
@@ -334,7 +328,7 @@ mod tests {
             token,
             header_type: HeaderType::Bearer,
             quota_project_id: None,
-            trust_boundary_header: None,
+            access_boundary: None,
         };
         let result = data.as_headers();
 
@@ -358,7 +352,7 @@ mod tests {
             data: token,
         };
 
-        let result = build_cacheable_api_key_headers(&cacheable_token);
+        let result = AuthHeadersBuilder::for_api_key(cacheable_token).build();
 
         assert!(result.is_ok());
         let cached_headers = result.unwrap();
@@ -380,7 +374,7 @@ mod tests {
     fn build_cacheable_api_key_headers_basic_not_modified() {
         let cacheable_token = CacheableResource::NotModified;
 
-        let result = build_cacheable_api_key_headers(&cacheable_token);
+        let result = AuthHeadersBuilder::for_api_key(cacheable_token).build();
 
         assert!(result.is_ok());
         let cached_headers = result.unwrap();
@@ -397,7 +391,7 @@ mod tests {
             token,
             header_type: HeaderType::ApiKey,
             quota_project_id: None,
-            trust_boundary_header: None,
+            access_boundary: None,
         };
         let result = data.as_headers();
 

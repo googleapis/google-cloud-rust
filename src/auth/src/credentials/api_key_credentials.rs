@@ -22,7 +22,7 @@
 
 use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{CacheableResource, Credentials, Result};
-use crate::headers_util::build_cacheable_api_key_headers;
+use crate::headers_util::AuthHeadersBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use http::{Extensions, HeaderMap};
@@ -116,7 +116,7 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let cached_token = self.token_provider.token(extensions).await?;
-        build_cacheable_api_key_headers(&cached_token)
+        AuthHeadersBuilder::for_api_key(cached_token).build()
     }
 }
 
