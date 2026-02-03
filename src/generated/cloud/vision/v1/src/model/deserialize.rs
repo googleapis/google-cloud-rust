@@ -1237,8 +1237,8 @@ impl<'de> serde::de::Deserialize<'de> for super::LocationInfo {
                                     "multiple values for lat_lng",
                                 ));
                             }
-                            result.lat_lng =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.lat_lng = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1899,8 +1899,8 @@ impl<'de> serde::de::Deserialize<'de> for super::LatLongRect {
                                     "multiple values for min_lat_lng",
                                 ));
                             }
-                            result.min_lat_lng =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.min_lat_lng = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::__max_lat_lng => {
                             if !fields.insert(__FieldTag::__max_lat_lng) {
@@ -1908,8 +1908,8 @@ impl<'de> serde::de::Deserialize<'de> for super::LatLongRect {
                                     "multiple values for max_lat_lng",
                                 ));
                             }
-                            result.max_lat_lng =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.max_lat_lng = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1992,8 +1992,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ColorInfo {
                                     "multiple values for color",
                                 ));
                             }
-                            result.color =
-                                map.next_value::<std::option::Option<gtype::model::Color>>()?;
+                            result.color = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Color>>(
+                                )?;
                         }
                         __FieldTag::__score => {
                             if !fields.insert(__FieldTag::__score) {

@@ -406,7 +406,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Distribution {
                             }
                             result.exemplars = map
                                 .next_value::<std::option::Option<
-                                    std::vec::Vec<api::model::distribution::Exemplar>,
+                                    std::vec::Vec<google_cloud_api::model::distribution::Exemplar>,
                                 >>()?
                                 .unwrap_or_default();
                         }

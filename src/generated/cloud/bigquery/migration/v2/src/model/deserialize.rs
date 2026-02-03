@@ -1242,7 +1242,11 @@ impl<'de> serde::de::Deserialize<'de> for super::TimeSeries {
                                     "multiple values for value_type",
                                 ));
                             }
-                            result.value_type = map.next_value::<std::option::Option<api::model::metric_descriptor::ValueType>>()?.unwrap_or_default();
+                            result.value_type = map
+                                .next_value::<std::option::Option<
+                                    google_cloud_api::model::metric_descriptor::ValueType,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__metric_kind => {
                             if !fields.insert(__FieldTag::__metric_kind) {
@@ -1250,7 +1254,11 @@ impl<'de> serde::de::Deserialize<'de> for super::TimeSeries {
                                     "multiple values for metric_kind",
                                 ));
                             }
-                            result.metric_kind = map.next_value::<std::option::Option<api::model::metric_descriptor::MetricKind>>()?.unwrap_or_default();
+                            result.metric_kind = map
+                                .next_value::<std::option::Option<
+                                    google_cloud_api::model::metric_descriptor::MetricKind,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__points => {
                             if !fields.insert(__FieldTag::__points) {
@@ -1631,7 +1639,7 @@ impl<'de> serde::de::Deserialize<'de> for super::TypedValue {
                             result.value = std::option::Option::Some(
                                 crate::model::typed_value::Value::DistributionValue(
                                     map.next_value::<std::option::Option<
-                                        std::boxed::Box<api::model::Distribution>,
+                                        std::boxed::Box<google_cloud_api::model::Distribution>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),

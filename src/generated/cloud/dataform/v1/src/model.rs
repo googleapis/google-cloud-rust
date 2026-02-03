@@ -23,7 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -10932,7 +10932,7 @@ pub struct WorkflowInvocation {
     pub state: crate::model::workflow_invocation::State,
 
     /// Output only. This workflow invocation's timing details.
-    pub invocation_timing: std::option::Option<gtype::model::Interval>,
+    pub invocation_timing: std::option::Option<google_cloud_type::model::Interval>,
 
     /// Output only. The resolved compilation result that was used to create this
     /// invocation. Will be in the format
@@ -11027,12 +11027,12 @@ impl WorkflowInvocation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = WorkflowInvocation::new().set_invocation_timing(Interval::default()/* use setters */);
     /// ```
     pub fn set_invocation_timing<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.invocation_timing = std::option::Option::Some(v.into());
         self
@@ -11043,13 +11043,13 @@ impl WorkflowInvocation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = WorkflowInvocation::new().set_or_clear_invocation_timing(Some(Interval::default()/* use setters */));
     /// let x = WorkflowInvocation::new().set_or_clear_invocation_timing(None::<Interval>);
     /// ```
     pub fn set_or_clear_invocation_timing<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.invocation_timing = v.map(|x| x.into());
         self
@@ -11820,7 +11820,7 @@ pub struct WorkflowInvocationAction {
     /// CANCELLED, FAILED] state.
     /// `end_time` will be set if the action is in [SUCCEEDED, CANCELLED, FAILED]
     /// state.
-    pub invocation_timing: std::option::Option<gtype::model::Interval>,
+    pub invocation_timing: std::option::Option<google_cloud_type::model::Interval>,
 
     /// Output only. All the metadata information that is used internally to serve
     /// the resource. For example: timestamps, flags, status fields, etc. The
@@ -11939,12 +11939,12 @@ impl WorkflowInvocationAction {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = WorkflowInvocationAction::new().set_invocation_timing(Interval::default()/* use setters */);
     /// ```
     pub fn set_invocation_timing<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.invocation_timing = std::option::Option::Some(v.into());
         self
@@ -11955,13 +11955,13 @@ impl WorkflowInvocationAction {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = WorkflowInvocationAction::new().set_or_clear_invocation_timing(Some(Interval::default()/* use setters */));
     /// let x = WorkflowInvocationAction::new().set_or_clear_invocation_timing(None::<Interval>);
     /// ```
     pub fn set_or_clear_invocation_timing<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.invocation_timing = v.map(|x| x.into());
         self

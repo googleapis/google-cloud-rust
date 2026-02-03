@@ -17,12 +17,12 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate gtype;
+extern crate google_cloud_api;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -932,7 +932,7 @@ pub struct PickTimeSeriesFilter {
     pub direction: crate::model::pick_time_series_filter::Direction,
 
     /// Select the top N streams/time series within this time interval
-    pub interval: std::option::Option<gtype::model::Interval>,
+    pub interval: std::option::Option<google_cloud_type::model::Interval>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -998,12 +998,12 @@ impl PickTimeSeriesFilter {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_dashboard_v1::model::PickTimeSeriesFilter;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = PickTimeSeriesFilter::new().set_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.interval = std::option::Option::Some(v.into());
         self
@@ -1014,13 +1014,13 @@ impl PickTimeSeriesFilter {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_dashboard_v1::model::PickTimeSeriesFilter;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = PickTimeSeriesFilter::new().set_or_clear_interval(Some(Interval::default()/* use setters */));
     /// let x = PickTimeSeriesFilter::new().set_or_clear_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.interval = v.map(|x| x.into());
         self
@@ -2620,7 +2620,7 @@ pub struct IncidentList {
     /// The resource doesn't need to be fully specified. That is, you can specify
     /// the resource type but not the values of the resource labels.
     /// The resource type and labels are used for filtering.
-    pub monitored_resources: std::vec::Vec<api::model::MonitoredResource>,
+    pub monitored_resources: std::vec::Vec<google_cloud_api::model::MonitoredResource>,
 
     /// Optional. A list of alert policy names to filter the incident list by.
     /// Don't include the project ID prefix in the policy name. For
@@ -2640,7 +2640,7 @@ impl IncidentList {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_dashboard_v1::model::IncidentList;
-    /// use api::model::MonitoredResource;
+    /// use google_cloud_api::model::MonitoredResource;
     /// let x = IncidentList::new()
     ///     .set_monitored_resources([
     ///         MonitoredResource::default()/* use setters */,
@@ -2650,7 +2650,7 @@ impl IncidentList {
     pub fn set_monitored_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::MonitoredResource>,
+        V: std::convert::Into<google_cloud_api::model::MonitoredResource>,
     {
         use std::iter::Iterator;
         self.monitored_resources = v.into_iter().map(|i| i.into()).collect();

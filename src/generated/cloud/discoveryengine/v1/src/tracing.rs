@@ -2032,7 +2032,7 @@ where
         &self,
         req: crate::model::CollectUserEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.collect_user_event(req, options).await
     }
 

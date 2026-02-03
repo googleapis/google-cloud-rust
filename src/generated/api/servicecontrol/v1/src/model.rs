@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_api;
 extern crate lazy_static;
 extern crate logging_type;
 extern crate rpc;
@@ -477,7 +477,7 @@ pub struct Distribution {
     pub bucket_counts: std::vec::Vec<i64>,
 
     /// Example points. Must be in increasing order of `value` field.
-    pub exemplars: std::vec::Vec<api::model::distribution::Exemplar>,
+    pub exemplars: std::vec::Vec<google_cloud_api::model::distribution::Exemplar>,
 
     /// Defines the buckets in the histogram. `bucket_option` and `bucket_counts`
     /// must be both set, or both unset.
@@ -594,7 +594,7 @@ impl Distribution {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicecontrol_v1::model::Distribution;
-    /// use api::model::distribution::Exemplar;
+    /// use google_cloud_api::model::distribution::Exemplar;
     /// let x = Distribution::new()
     ///     .set_exemplars([
     ///         Exemplar::default()/* use setters */,
@@ -604,7 +604,7 @@ impl Distribution {
     pub fn set_exemplars<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::distribution::Exemplar>,
+        V: std::convert::Into<google_cloud_api::model::distribution::Exemplar>,
     {
         use std::iter::Iterator;
         self.exemplars = v.into_iter().map(|i| i.into()).collect();

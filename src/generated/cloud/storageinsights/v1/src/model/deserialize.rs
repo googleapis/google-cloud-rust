@@ -808,8 +808,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ReportDetail {
                                     "multiple values for target_datetime",
                                 ));
                             }
-                            result.target_datetime =
-                                map.next_value::<std::option::Option<gtype::model::DateTime>>()?;
+                            result.target_datetime = map.next_value::<std::option::Option<google_cloud_type::model::DateTime>>()?
+                                ;
                         }
                         __FieldTag::__report_metrics => {
                             if !fields.insert(__FieldTag::__report_metrics) {
@@ -1478,8 +1478,9 @@ impl<'de> serde::de::Deserialize<'de> for super::FrequencyOptions {
                                     "multiple values for start_date",
                                 ));
                             }
-                            result.start_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.start_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__end_date => {
                             if !fields.insert(__FieldTag::__end_date) {
@@ -1487,8 +1488,9 @@ impl<'de> serde::de::Deserialize<'de> for super::FrequencyOptions {
                                     "multiple values for end_date",
                                 ));
                             }
-                            result.end_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.end_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

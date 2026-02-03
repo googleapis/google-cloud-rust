@@ -23,7 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -6277,7 +6277,7 @@ pub struct Schedule {
     ///
     /// [google.storagetransfer.v1.Schedule.start_time_of_day]: crate::model::Schedule::start_time_of_day
     /// [google.storagetransfer.v1.TransferOperation]: crate::model::TransferOperation
-    pub schedule_start_date: std::option::Option<gtype::model::Date>,
+    pub schedule_start_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// The last day a transfer runs. Date boundaries are determined relative to
     /// UTC time. A job runs once per 24 hours within the following guidelines:
@@ -6294,7 +6294,7 @@ pub struct Schedule {
     ///
     /// [google.storagetransfer.v1.Schedule.schedule_start_date]: crate::model::Schedule::schedule_start_date
     /// [google.storagetransfer.v1.Schedule.start_time_of_day]: crate::model::Schedule::start_time_of_day
-    pub schedule_end_date: std::option::Option<gtype::model::Date>,
+    pub schedule_end_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// The time in UTC that a transfer job is scheduled to run. Transfers may
     /// start later than this time.
@@ -6313,7 +6313,7 @@ pub struct Schedule {
     ///   `schedule_end_date`.
     ///
     /// [google.storagetransfer.v1.Schedule.schedule_end_date]: crate::model::Schedule::schedule_end_date
-    pub start_time_of_day: std::option::Option<gtype::model::TimeOfDay>,
+    pub start_time_of_day: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     /// The time in UTC that no further transfer operations are scheduled. Combined
     /// with
@@ -6337,7 +6337,7 @@ pub struct Schedule {
     /// [google.storagetransfer.v1.Schedule.schedule_end_date]: crate::model::Schedule::schedule_end_date
     /// [google.storagetransfer.v1.Schedule.schedule_start_date]: crate::model::Schedule::schedule_start_date
     /// [google.storagetransfer.v1.Schedule.start_time_of_day]: crate::model::Schedule::start_time_of_day
-    pub end_time_of_day: std::option::Option<gtype::model::TimeOfDay>,
+    pub end_time_of_day: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     /// Interval between the start of each scheduled TransferOperation. If
     /// unspecified, the default value is 24 hours. This value may not be less than
@@ -6357,12 +6357,12 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = Schedule::new().set_schedule_start_date(Date::default()/* use setters */);
     /// ```
     pub fn set_schedule_start_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.schedule_start_date = std::option::Option::Some(v.into());
         self
@@ -6373,13 +6373,13 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = Schedule::new().set_or_clear_schedule_start_date(Some(Date::default()/* use setters */));
     /// let x = Schedule::new().set_or_clear_schedule_start_date(None::<Date>);
     /// ```
     pub fn set_or_clear_schedule_start_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.schedule_start_date = v.map(|x| x.into());
         self
@@ -6390,12 +6390,12 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = Schedule::new().set_schedule_end_date(Date::default()/* use setters */);
     /// ```
     pub fn set_schedule_end_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.schedule_end_date = std::option::Option::Some(v.into());
         self
@@ -6406,13 +6406,13 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = Schedule::new().set_or_clear_schedule_end_date(Some(Date::default()/* use setters */));
     /// let x = Schedule::new().set_or_clear_schedule_end_date(None::<Date>);
     /// ```
     pub fn set_or_clear_schedule_end_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.schedule_end_date = v.map(|x| x.into());
         self
@@ -6423,12 +6423,12 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = Schedule::new().set_start_time_of_day(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_start_time_of_day<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time_of_day = std::option::Option::Some(v.into());
         self
@@ -6439,13 +6439,13 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = Schedule::new().set_or_clear_start_time_of_day(Some(TimeOfDay::default()/* use setters */));
     /// let x = Schedule::new().set_or_clear_start_time_of_day(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_start_time_of_day<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time_of_day = v.map(|x| x.into());
         self
@@ -6456,12 +6456,12 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = Schedule::new().set_end_time_of_day(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_end_time_of_day<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.end_time_of_day = std::option::Option::Some(v.into());
         self
@@ -6472,13 +6472,13 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = Schedule::new().set_or_clear_end_time_of_day(Some(TimeOfDay::default()/* use setters */));
     /// let x = Schedule::new().set_or_clear_end_time_of_day(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_end_time_of_day<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.end_time_of_day = v.map(|x| x.into());
         self

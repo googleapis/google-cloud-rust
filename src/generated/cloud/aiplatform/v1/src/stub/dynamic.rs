@@ -8106,7 +8106,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::RawPredictRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::HttpBody>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
 
     async fn direct_predict(
         &self,
@@ -8221,7 +8221,7 @@ impl<T: super::PredictionService> PredictionService for T {
         &self,
         req: crate::model::RawPredictRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         T::raw_predict(self, req, options).await
     }
 

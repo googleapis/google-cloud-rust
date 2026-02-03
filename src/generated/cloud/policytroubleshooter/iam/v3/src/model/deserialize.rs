@@ -1280,8 +1280,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AllowBindingExplanation {
                                     "multiple values for condition",
                                 ));
                             }
-                            result.condition =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::__condition_explanation => {
                             if !fields.insert(__FieldTag::__condition_explanation) {
@@ -1959,8 +1960,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DenyRuleExplanation {
                                     "multiple values for condition",
                                 ));
                             }
-                            result.condition =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::__condition_explanation => {
                             if !fields.insert(__FieldTag::__condition_explanation) {

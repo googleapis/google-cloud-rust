@@ -4386,15 +4386,14 @@ impl<'de> serde::de::Deserialize<'de> for super::LintPolicyRequest {
                                     "multiple values for `lint_object`, a oneof with full ID .google.iam.admin.v1.LintPolicyRequest.condition, latest field was condition",
                                 ));
                             }
-                            result.lint_object =
-                                std::option::Option::Some(
-                                    crate::model::lint_policy_request::LintObject::Condition(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<gtype::model::Expr>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.lint_object = std::option::Option::Some(
+                                crate::model::lint_policy_request::LintObject::Condition(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_type::model::Expr>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

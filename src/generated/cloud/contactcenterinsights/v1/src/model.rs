@@ -23,7 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -8689,7 +8689,7 @@ pub mod query_metrics_response {
             ///   [starting create time, ending create time) from the request.
             /// * If this a data point from the time series, the interval is
             ///   [time, time + time granularity from the request).
-            pub interval: std::option::Option<gtype::model::Interval>,
+            pub interval: std::option::Option<google_cloud_type::model::Interval>,
 
             /// The measure included in this data point.
             pub measure: std::option::Option<
@@ -8709,12 +8709,12 @@ pub mod query_metrics_response {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::DataPoint;
-            /// use gtype::model::Interval;
+            /// use google_cloud_type::model::Interval;
             /// let x = DataPoint::new().set_interval(Interval::default()/* use setters */);
             /// ```
             pub fn set_interval<T>(mut self, v: T) -> Self
             where
-                T: std::convert::Into<gtype::model::Interval>,
+                T: std::convert::Into<google_cloud_type::model::Interval>,
             {
                 self.interval = std::option::Option::Some(v.into());
                 self
@@ -8725,13 +8725,13 @@ pub mod query_metrics_response {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::DataPoint;
-            /// use gtype::model::Interval;
+            /// use google_cloud_type::model::Interval;
             /// let x = DataPoint::new().set_or_clear_interval(Some(Interval::default()/* use setters */));
             /// let x = DataPoint::new().set_or_clear_interval(None::<Interval>);
             /// ```
             pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
             where
-                T: std::convert::Into<gtype::model::Interval>,
+                T: std::convert::Into<google_cloud_type::model::Interval>,
             {
                 self.interval = v.map(|x| x.into());
                 self

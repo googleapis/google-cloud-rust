@@ -504,7 +504,7 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         &self,
         req: crate::model::CreateIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -642,7 +642,7 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         &self,
         req: crate::model::GetIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -780,7 +780,7 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         &self,
         req: crate::model::UpdateIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -848,7 +848,7 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         &self,
         req: crate::model::RegisterIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;

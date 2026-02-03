@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_api;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -72,7 +72,7 @@ pub struct SubmitBuildRequest {
     pub machine_type: std::string::String,
 
     /// Optional. The release track of the client that initiated the build request.
-    pub release_track: api::model::LaunchStage,
+    pub release_track: google_cloud_api::model::LaunchStage,
 
     /// Optional. The client that initiated the build request.
     pub client: std::string::String,
@@ -173,12 +173,12 @@ impl SubmitBuildRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::SubmitBuildRequest;
-    /// use api::model::LaunchStage;
+    /// use google_cloud_api::model::LaunchStage;
     /// let x0 = SubmitBuildRequest::new().set_release_track(LaunchStage::Unimplemented);
     /// let x1 = SubmitBuildRequest::new().set_release_track(LaunchStage::Prelaunch);
     /// let x2 = SubmitBuildRequest::new().set_release_track(LaunchStage::EarlyAccess);
     /// ```
-    pub fn set_release_track<T: std::convert::Into<api::model::LaunchStage>>(
+    pub fn set_release_track<T: std::convert::Into<google_cloud_api::model::LaunchStage>>(
         mut self,
         v: T,
     ) -> Self {
@@ -2402,7 +2402,7 @@ pub struct Execution {
     /// as input. For example, if ALPHA was provided as input in the parent
     /// resource, but only BETA and GA-level features are were, this field will be
     /// BETA.
-    pub launch_stage: api::model::LaunchStage,
+    pub launch_stage: google_cloud_api::model::LaunchStage,
 
     /// Output only. The name of the parent Job.
     pub job: std::string::String,
@@ -2764,12 +2764,12 @@ impl Execution {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Execution;
-    /// use api::model::LaunchStage;
+    /// use google_cloud_api::model::LaunchStage;
     /// let x0 = Execution::new().set_launch_stage(LaunchStage::Unimplemented);
     /// let x1 = Execution::new().set_launch_stage(LaunchStage::Prelaunch);
     /// let x2 = Execution::new().set_launch_stage(LaunchStage::EarlyAccess);
     /// ```
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
+    pub fn set_launch_stage<T: std::convert::Into<google_cloud_api::model::LaunchStage>>(
         mut self,
         v: T,
     ) -> Self {
@@ -3700,7 +3700,7 @@ pub struct Instance {
     /// Set the launch stage to a preview stage on input to allow use of preview
     /// features in that stage. On read (or output), describes whether the
     /// resource uses preview features.
-    pub launch_stage: api::model::LaunchStage,
+    pub launch_stage: google_cloud_api::model::LaunchStage,
 
     /// Settings for the Binary Authorization feature.
     pub binary_authorization: std::option::Option<crate::model::BinaryAuthorization>,
@@ -4083,12 +4083,12 @@ impl Instance {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Instance;
-    /// use api::model::LaunchStage;
+    /// use google_cloud_api::model::LaunchStage;
     /// let x0 = Instance::new().set_launch_stage(LaunchStage::Unimplemented);
     /// let x1 = Instance::new().set_launch_stage(LaunchStage::Prelaunch);
     /// let x2 = Instance::new().set_launch_stage(LaunchStage::EarlyAccess);
     /// ```
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
+    pub fn set_launch_stage<T: std::convert::Into<google_cloud_api::model::LaunchStage>>(
         mut self,
         v: T,
     ) -> Self {
@@ -5531,7 +5531,7 @@ pub struct Job {
     ///
     /// For example, if ALPHA is provided as input, but only BETA and GA-level
     /// features are used, this field will be BETA on output.
-    pub launch_stage: api::model::LaunchStage,
+    pub launch_stage: google_cloud_api::model::LaunchStage,
 
     /// Settings for the Binary Authorization feature.
     pub binary_authorization: std::option::Option<crate::model::BinaryAuthorization>,
@@ -5862,12 +5862,12 @@ impl Job {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Job;
-    /// use api::model::LaunchStage;
+    /// use google_cloud_api::model::LaunchStage;
     /// let x0 = Job::new().set_launch_stage(LaunchStage::Unimplemented);
     /// let x1 = Job::new().set_launch_stage(LaunchStage::Prelaunch);
     /// let x2 = Job::new().set_launch_stage(LaunchStage::EarlyAccess);
     /// ```
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
+    pub fn set_launch_stage<T: std::convert::Into<google_cloud_api::model::LaunchStage>>(
         mut self,
         v: T,
     ) -> Self {
@@ -9246,7 +9246,7 @@ pub struct Revision {
     /// as input. For example, if ALPHA was provided as input in the parent
     /// resource, but only BETA and GA-level features are were, this field will be
     /// BETA.
-    pub launch_stage: api::model::LaunchStage,
+    pub launch_stage: google_cloud_api::model::LaunchStage,
 
     /// Output only. The name of the parent service.
     pub service: std::string::String,
@@ -9558,12 +9558,12 @@ impl Revision {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Revision;
-    /// use api::model::LaunchStage;
+    /// use google_cloud_api::model::LaunchStage;
     /// let x0 = Revision::new().set_launch_stage(LaunchStage::Unimplemented);
     /// let x1 = Revision::new().set_launch_stage(LaunchStage::Prelaunch);
     /// let x2 = Revision::new().set_launch_stage(LaunchStage::EarlyAccess);
     /// ```
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
+    pub fn set_launch_stage<T: std::convert::Into<google_cloud_api::model::LaunchStage>>(
         mut self,
         v: T,
     ) -> Self {
@@ -11207,7 +11207,7 @@ pub struct Service {
     ///
     /// For example, if ALPHA is provided as input, but only BETA and GA-level
     /// features are used, this field will be BETA on output.
-    pub launch_stage: api::model::LaunchStage,
+    pub launch_stage: google_cloud_api::model::LaunchStage,
 
     /// Optional. Settings for the Binary Authorization feature.
     pub binary_authorization: std::option::Option<crate::model::BinaryAuthorization>,
@@ -11623,12 +11623,12 @@ impl Service {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::Service;
-    /// use api::model::LaunchStage;
+    /// use google_cloud_api::model::LaunchStage;
     /// let x0 = Service::new().set_launch_stage(LaunchStage::Unimplemented);
     /// let x1 = Service::new().set_launch_stage(LaunchStage::Prelaunch);
     /// let x2 = Service::new().set_launch_stage(LaunchStage::EarlyAccess);
     /// ```
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
+    pub fn set_launch_stage<T: std::convert::Into<google_cloud_api::model::LaunchStage>>(
         mut self,
         v: T,
     ) -> Self {
@@ -15506,7 +15506,7 @@ pub struct WorkerPool {
     ///
     /// For example, if ALPHA is provided as input, but only BETA and GA-level
     /// features are used, this field will be BETA on output.
-    pub launch_stage: api::model::LaunchStage,
+    pub launch_stage: google_cloud_api::model::LaunchStage,
 
     /// Optional. Settings for the Binary Authorization feature.
     pub binary_authorization: std::option::Option<crate::model::BinaryAuthorization>,
@@ -15878,12 +15878,12 @@ impl WorkerPool {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::WorkerPool;
-    /// use api::model::LaunchStage;
+    /// use google_cloud_api::model::LaunchStage;
     /// let x0 = WorkerPool::new().set_launch_stage(LaunchStage::Unimplemented);
     /// let x1 = WorkerPool::new().set_launch_stage(LaunchStage::Prelaunch);
     /// let x2 = WorkerPool::new().set_launch_stage(LaunchStage::EarlyAccess);
     /// ```
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
+    pub fn set_launch_stage<T: std::convert::Into<google_cloud_api::model::LaunchStage>>(
         mut self,
         v: T,
     ) -> Self {

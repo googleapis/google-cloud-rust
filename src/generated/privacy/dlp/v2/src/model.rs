@@ -21,7 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -11740,7 +11740,9 @@ impl Value {
     /// The value of [r#type][crate::model::Value::r#type]
     /// if it holds a `TimeValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn time_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::TimeOfDay>> {
+    pub fn time_value(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::TimeOfDay>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::value::Type::TimeValue(v) => std::option::Option::Some(v),
@@ -11757,7 +11759,7 @@ impl Value {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::Value;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = Value::new().set_time_value(TimeOfDay::default()/* use setters */);
     /// assert!(x.time_value().is_some());
     /// assert!(x.integer_value().is_none());
@@ -11768,7 +11770,9 @@ impl Value {
     /// assert!(x.date_value().is_none());
     /// assert!(x.day_of_week_value().is_none());
     /// ```
-    pub fn set_time_value<T: std::convert::Into<std::boxed::Box<gtype::model::TimeOfDay>>>(
+    pub fn set_time_value<
+        T: std::convert::Into<std::boxed::Box<google_cloud_type::model::TimeOfDay>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -11779,7 +11783,9 @@ impl Value {
     /// The value of [r#type][crate::model::Value::r#type]
     /// if it holds a `DateValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn date_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
+    pub fn date_value(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::Date>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::value::Type::DateValue(v) => std::option::Option::Some(v),
@@ -11796,7 +11802,7 @@ impl Value {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::Value;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = Value::new().set_date_value(Date::default()/* use setters */);
     /// assert!(x.date_value().is_some());
     /// assert!(x.integer_value().is_none());
@@ -11807,7 +11813,9 @@ impl Value {
     /// assert!(x.time_value().is_none());
     /// assert!(x.day_of_week_value().is_none());
     /// ```
-    pub fn set_date_value<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(
+    pub fn set_date_value<
+        T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Date>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -11818,7 +11826,7 @@ impl Value {
     /// The value of [r#type][crate::model::Value::r#type]
     /// if it holds a `DayOfWeekValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn day_of_week_value(&self) -> std::option::Option<&gtype::model::DayOfWeek> {
+    pub fn day_of_week_value(&self) -> std::option::Option<&google_cloud_type::model::DayOfWeek> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::value::Type::DayOfWeekValue(v) => std::option::Option::Some(v),
@@ -11835,7 +11843,7 @@ impl Value {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::Value;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x0 = Value::new().set_day_of_week_value(DayOfWeek::Monday);
     /// let x1 = Value::new().set_day_of_week_value(DayOfWeek::Tuesday);
     /// let x2 = Value::new().set_day_of_week_value(DayOfWeek::Wednesday);
@@ -11864,7 +11872,7 @@ impl Value {
     /// assert!(x2.time_value().is_none());
     /// assert!(x2.date_value().is_none());
     /// ```
-    pub fn set_day_of_week_value<T: std::convert::Into<gtype::model::DayOfWeek>>(
+    pub fn set_day_of_week_value<T: std::convert::Into<google_cloud_type::model::DayOfWeek>>(
         mut self,
         v: T,
     ) -> Self {
@@ -11900,11 +11908,11 @@ pub mod value {
         /// timestamp
         TimestampValue(std::boxed::Box<wkt::Timestamp>),
         /// time of day
-        TimeValue(std::boxed::Box<gtype::model::TimeOfDay>),
+        TimeValue(std::boxed::Box<google_cloud_type::model::TimeOfDay>),
         /// date
-        DateValue(std::boxed::Box<gtype::model::Date>),
+        DateValue(std::boxed::Box<google_cloud_type::model::Date>),
         /// day of week
-        DayOfWeekValue(gtype::model::DayOfWeek),
+        DayOfWeekValue(google_cloud_type::model::DayOfWeek),
     }
 }
 
@@ -12006,13 +12014,13 @@ pub mod quote_info {
 pub struct DateTime {
     /// One or more of the following must be set.
     /// Must be a valid date or time value.
-    pub date: std::option::Option<gtype::model::Date>,
+    pub date: std::option::Option<google_cloud_type::model::Date>,
 
     /// Day of week
-    pub day_of_week: gtype::model::DayOfWeek,
+    pub day_of_week: google_cloud_type::model::DayOfWeek,
 
     /// Time of day
-    pub time: std::option::Option<gtype::model::TimeOfDay>,
+    pub time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     /// Time zone
     pub time_zone: std::option::Option<crate::model::date_time::TimeZone>,
@@ -12030,12 +12038,12 @@ impl DateTime {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DateTime;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = DateTime::new().set_date(Date::default()/* use setters */);
     /// ```
     pub fn set_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.date = std::option::Option::Some(v.into());
         self
@@ -12046,13 +12054,13 @@ impl DateTime {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DateTime;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = DateTime::new().set_or_clear_date(Some(Date::default()/* use setters */));
     /// let x = DateTime::new().set_or_clear_date(None::<Date>);
     /// ```
     pub fn set_or_clear_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.date = v.map(|x| x.into());
         self
@@ -12063,12 +12071,15 @@ impl DateTime {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DateTime;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x0 = DateTime::new().set_day_of_week(DayOfWeek::Monday);
     /// let x1 = DateTime::new().set_day_of_week(DayOfWeek::Tuesday);
     /// let x2 = DateTime::new().set_day_of_week(DayOfWeek::Wednesday);
     /// ```
-    pub fn set_day_of_week<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
+    pub fn set_day_of_week<T: std::convert::Into<google_cloud_type::model::DayOfWeek>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.day_of_week = v.into();
         self
     }
@@ -12078,12 +12089,12 @@ impl DateTime {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DateTime;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = DateTime::new().set_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_time<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.time = std::option::Option::Some(v.into());
         self
@@ -12094,13 +12105,13 @@ impl DateTime {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_privacy_dlp_v2::model::DateTime;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = DateTime::new().set_or_clear_time(Some(TimeOfDay::default()/* use setters */));
     /// let x = DateTime::new().set_or_clear_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.time = v.map(|x| x.into());
         self

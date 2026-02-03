@@ -46,7 +46,7 @@ gaxi                               = { workspace = true, features = ["_internal-
 google-cloud-iam-v1.workspace      = true
 google-cloud-longrunning.workspace = true
 google-cloud-lro.workspace         = true
-gtype.workspace                    = true
+google-cloud-type.workspace        = true
 lazy_static.workspace              = true
 orgpolicy_v1.workspace             = true
 osconfig_v1.workspace              = true

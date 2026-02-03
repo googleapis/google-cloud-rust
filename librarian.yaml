@@ -48,9 +48,6 @@ default:
   release_level: stable
   rust:
     package_dependencies:
-      - name: api
-        package: google-cloud-api
-        source: google.api
       - name: async-trait
         package: async-trait
         used_if: services
@@ -67,6 +64,9 @@ default:
         package: google-cloud-gax-internal
         feature: _internal-http-client
         used_if: services
+      - name: google-cloud-api
+        package: google-cloud-api
+        source: google.api
       - name: google-cloud-iam-v1
         package: google-cloud-iam-v1
         source: google.iam.v1
@@ -79,12 +79,12 @@ default:
       - name: google-cloud-lro
         package: google-cloud-lro
         used_if: lro
+      - name: google-cloud-type
+        package: google-cloud-type
+        source: google.type
       - name: grafeas
         package: google-cloud-grafeas-v1
         source: grafeas.v1
-      - name: gtype
-        package: google-cloud-type
-        source: google.type
       - name: lazy_static
         package: lazy_static
         used_if: services
@@ -702,7 +702,7 @@ libraries:
           source: google/firestore/v1
           template: convert-prost
         - include_list: latlng.proto
-          module_path: gtype::model
+          module_path: google_cloud_type::model
           output: src/firestore/src/generated/convert/type
           source: google/type
           template: convert-prost
@@ -769,10 +769,10 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: gkehub_configmanagement_v1
+        - name: google-cloud-gkehub-configmanagement-v1
           package: google-cloud-gkehub-configmanagement-v1
           source: google.cloud.gkehub.configmanagement.v1
-        - name: gkehub_multiclusteringress_v1
+        - name: google-cloud-gkehub-multiclusteringress-v1
           package: google-cloud-gkehub-multiclusteringress-v1
           source: google.cloud.gkehub.multiclusteringress.v1
   - name: google-cloud-gkemulticloud-v1
@@ -1361,7 +1361,7 @@ libraries:
           source: google/storage/v2
           template: convert-prost
         - include_list: date.proto,expr.proto
-          module_path: gtype::model
+          module_path: google_cloud_type::model
           output: src/storage/src/generated/convert/type
           source: google/type
           template: convert-prost

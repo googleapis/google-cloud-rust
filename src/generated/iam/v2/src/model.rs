@@ -23,7 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -119,7 +119,7 @@ pub struct DenyRule {
     /// [resource
     /// tags](https://cloud.google.com/iam/help/conditions/resource-tags). Other
     /// functions and operators are not supported.
-    pub denial_condition: std::option::Option<gtype::model::Expr>,
+    pub denial_condition: std::option::Option<google_cloud_type::model::Expr>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -202,12 +202,12 @@ impl DenyRule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v2::model::DenyRule;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = DenyRule::new().set_denial_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_denial_condition<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.denial_condition = std::option::Option::Some(v.into());
         self
@@ -218,13 +218,13 @@ impl DenyRule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v2::model::DenyRule;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = DenyRule::new().set_or_clear_denial_condition(Some(Expr::default()/* use setters */));
     /// let x = DenyRule::new().set_or_clear_denial_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_denial_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.denial_condition = v.map(|x| x.into());
         self

@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_api;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -3484,7 +3484,7 @@ pub struct ProcessWebhookRequest {
     pub parent: std::string::String,
 
     /// HTTP request body.
-    pub body: std::option::Option<api::model::HttpBody>,
+    pub body: std::option::Option<google_cloud_api::model::HttpBody>,
 
     /// Arbitrary additional key to find the maching repository for a webhook event
     /// if needed.
@@ -3515,12 +3515,12 @@ impl ProcessWebhookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v2::model::ProcessWebhookRequest;
-    /// use api::model::HttpBody;
+    /// use google_cloud_api::model::HttpBody;
     /// let x = ProcessWebhookRequest::new().set_body(HttpBody::default()/* use setters */);
     /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::HttpBody>,
+        T: std::convert::Into<google_cloud_api::model::HttpBody>,
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -3531,13 +3531,13 @@ impl ProcessWebhookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v2::model::ProcessWebhookRequest;
-    /// use api::model::HttpBody;
+    /// use google_cloud_api::model::HttpBody;
     /// let x = ProcessWebhookRequest::new().set_or_clear_body(Some(HttpBody::default()/* use setters */));
     /// let x = ProcessWebhookRequest::new().set_or_clear_body(None::<HttpBody>);
     /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::HttpBody>,
+        T: std::convert::Into<google_cloud_api::model::HttpBody>,
     {
         self.body = v.map(|x| x.into());
         self

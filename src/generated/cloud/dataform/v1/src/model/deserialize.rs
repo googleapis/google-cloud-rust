@@ -12608,8 +12608,8 @@ impl<'de> serde::de::Deserialize<'de> for super::WorkflowInvocation {
                                     "multiple values for invocation_timing",
                                 ));
                             }
-                            result.invocation_timing =
-                                map.next_value::<std::option::Option<gtype::model::Interval>>()?;
+                            result.invocation_timing = map.next_value::<std::option::Option<google_cloud_type::model::Interval>>()?
+                                ;
                         }
                         __FieldTag::__resolved_compilation_result => {
                             if !fields.insert(__FieldTag::__resolved_compilation_result) {
@@ -13472,8 +13472,8 @@ impl<'de> serde::de::Deserialize<'de> for super::WorkflowInvocationAction {
                                     "multiple values for invocation_timing",
                                 ));
                             }
-                            result.invocation_timing =
-                                map.next_value::<std::option::Option<gtype::model::Interval>>()?;
+                            result.invocation_timing = map.next_value::<std::option::Option<google_cloud_type::model::Interval>>()?
+                                ;
                         }
                         __FieldTag::__internal_metadata => {
                             if !fields.insert(__FieldTag::__internal_metadata) {

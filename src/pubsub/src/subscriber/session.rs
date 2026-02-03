@@ -643,11 +643,13 @@ mod tests {
         response_tx.send(Ok(test_response(4..7))).await?;
         drop(response_tx);
 
+        let mut handlers = Vec::new();
         for i in 1..7 {
             let (m, Handler::AtLeastOnce(h)) =
                 session.next().await.transpose()?.expect("message {i}/6");
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id, test_id(i));
+            handlers.push(h);
         }
         let end = session.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");

@@ -2060,8 +2060,8 @@ impl<'de> serde::de::Deserialize<'de> for super::alert_policy::condition::sql_co
                                     "multiple values for execution_time",
                                 ));
                             }
-                            result.execution_time =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.execution_time = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3332,7 +3332,7 @@ impl<'de> serde::de::Deserialize<'de> for super::TypedValue {
                             result.value = std::option::Option::Some(
                                 crate::model::typed_value::Value::DistributionValue(
                                     map.next_value::<std::option::Option<
-                                        std::boxed::Box<api::model::Distribution>,
+                                        std::boxed::Box<google_cloud_api::model::Distribution>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),
@@ -4616,9 +4616,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListGroupMembersResponse {
                                     "multiple values for members",
                                 ));
                             }
-                            result.members =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<api::model::MonitoredResource>,
+                            result.members = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_api::model::MonitoredResource>,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -4833,8 +4833,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TimeSeries {
                                     "multiple values for metric",
                                 ));
                             }
-                            result.metric =
-                                map.next_value::<std::option::Option<api::model::Metric>>()?;
+                            result.metric = map
+                                .next_value::<std::option::Option<google_cloud_api::model::Metric>>(
+                                )?;
                         }
                         __FieldTag::__resource => {
                             if !fields.insert(__FieldTag::__resource) {
@@ -4842,9 +4843,8 @@ impl<'de> serde::de::Deserialize<'de> for super::TimeSeries {
                                     "multiple values for resource",
                                 ));
                             }
-                            result.resource = map
-                                .next_value::<std::option::Option<api::model::MonitoredResource>>(
-                                )?;
+                            result.resource = map.next_value::<std::option::Option<google_cloud_api::model::MonitoredResource>>()?
+                                ;
                         }
                         __FieldTag::__metadata => {
                             if !fields.insert(__FieldTag::__metadata) {
@@ -4852,8 +4852,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TimeSeries {
                                     "multiple values for metadata",
                                 ));
                             }
-                            result.metadata = map.next_value::<std::option::Option<api::model::MonitoredResourceMetadata>>()?
-                                ;
+                            result.metadata = map.next_value::<std::option::Option<
+                                google_cloud_api::model::MonitoredResourceMetadata,
+                            >>()?;
                         }
                         __FieldTag::__metric_kind => {
                             if !fields.insert(__FieldTag::__metric_kind) {
@@ -4861,7 +4862,11 @@ impl<'de> serde::de::Deserialize<'de> for super::TimeSeries {
                                     "multiple values for metric_kind",
                                 ));
                             }
-                            result.metric_kind = map.next_value::<std::option::Option<api::model::metric_descriptor::MetricKind>>()?.unwrap_or_default();
+                            result.metric_kind = map
+                                .next_value::<std::option::Option<
+                                    google_cloud_api::model::metric_descriptor::MetricKind,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__value_type => {
                             if !fields.insert(__FieldTag::__value_type) {
@@ -4869,7 +4874,11 @@ impl<'de> serde::de::Deserialize<'de> for super::TimeSeries {
                                     "multiple values for value_type",
                                 ));
                             }
-                            result.value_type = map.next_value::<std::option::Option<api::model::metric_descriptor::ValueType>>()?.unwrap_or_default();
+                            result.value_type = map
+                                .next_value::<std::option::Option<
+                                    google_cloud_api::model::metric_descriptor::ValueType,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__points => {
                             if !fields.insert(__FieldTag::__points) {
@@ -4979,7 +4988,11 @@ impl<'de> serde::de::Deserialize<'de> for super::TimeSeriesDescriptor {
                                     "multiple values for label_descriptors",
                                 ));
                             }
-                            result.label_descriptors = map.next_value::<std::option::Option<std::vec::Vec<api::model::LabelDescriptor>>>()?.unwrap_or_default();
+                            result.label_descriptors = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_api::model::LabelDescriptor>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__point_descriptors => {
                             if !fields.insert(__FieldTag::__point_descriptors) {
@@ -5089,7 +5102,11 @@ impl<'de> serde::de::Deserialize<'de> for super::time_series_descriptor::ValueDe
                                     "multiple values for value_type",
                                 ));
                             }
-                            result.value_type = map.next_value::<std::option::Option<api::model::metric_descriptor::ValueType>>()?.unwrap_or_default();
+                            result.value_type = map
+                                .next_value::<std::option::Option<
+                                    google_cloud_api::model::metric_descriptor::ValueType,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__metric_kind => {
                             if !fields.insert(__FieldTag::__metric_kind) {
@@ -5097,7 +5114,11 @@ impl<'de> serde::de::Deserialize<'de> for super::time_series_descriptor::ValueDe
                                     "multiple values for metric_kind",
                                 ));
                             }
-                            result.metric_kind = map.next_value::<std::option::Option<api::model::metric_descriptor::MetricKind>>()?.unwrap_or_default();
+                            result.metric_kind = map
+                                .next_value::<std::option::Option<
+                                    google_cloud_api::model::metric_descriptor::MetricKind,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__unit => {
                             if !fields.insert(__FieldTag::__unit) {
@@ -5975,7 +5996,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListMonitoredResourceDescriptor
                             }
                             result.resource_descriptors = map
                                 .next_value::<std::option::Option<
-                                    std::vec::Vec<api::model::MonitoredResourceDescriptor>,
+                                    std::vec::Vec<
+                                        google_cloud_api::model::MonitoredResourceDescriptor,
+                                    >,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -6290,9 +6313,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListMetricDescriptorsResponse {
                                     "multiple values for metric_descriptors",
                                 ));
                             }
-                            result.metric_descriptors =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<api::model::MetricDescriptor>,
+                            result.metric_descriptors = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_api::model::MetricDescriptor>,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -6475,9 +6498,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateMetricDescriptorRequest {
                                     "multiple values for metric_descriptor",
                                 ));
                             }
-                            result.metric_descriptor = map
-                                .next_value::<std::option::Option<api::model::MetricDescriptor>>(
-                                )?;
+                            result.metric_descriptor = map.next_value::<std::option::Option<google_cloud_api::model::MetricDescriptor>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7834,7 +7856,11 @@ impl<'de> serde::de::Deserialize<'de> for super::NotificationChannelDescriptor {
                                     "multiple values for labels",
                                 ));
                             }
-                            result.labels = map.next_value::<std::option::Option<std::vec::Vec<api::model::LabelDescriptor>>>()?.unwrap_or_default();
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_api::model::LabelDescriptor>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__supported_tiers => {
                             if !fields.insert(__FieldTag::__supported_tiers) {
@@ -7850,9 +7876,7 @@ impl<'de> serde::de::Deserialize<'de> for super::NotificationChannelDescriptor {
                                     "multiple values for launch_stage",
                                 ));
                             }
-                            result.launch_stage = map
-                                .next_value::<std::option::Option<api::model::LaunchStage>>()?
-                                .unwrap_or_default();
+                            result.launch_stage = map.next_value::<std::option::Option<google_cloud_api::model::LaunchStage>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -11097,7 +11121,10 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceLevelObjective {
                             }
                             result.period = std::option::Option::Some(
                                 crate::model::service_level_objective::Period::CalendarPeriod(
-                                    map.next_value::<std::option::Option<gtype::model::CalendarPeriod>>()?.unwrap_or_default()
+                                    map.next_value::<std::option::Option<
+                                        google_cloud_type::model::CalendarPeriod,
+                                    >>()?
+                                    .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -14630,9 +14657,8 @@ impl<'de> serde::de::Deserialize<'de> for super::synthetic_monitor_target::Cloud
                                     "multiple values for cloud_run_revision",
                                 ));
                             }
-                            result.cloud_run_revision = map
-                                .next_value::<std::option::Option<api::model::MonitoredResource>>(
-                                )?;
+                            result.cloud_run_revision = map.next_value::<std::option::Option<google_cloud_api::model::MonitoredResource>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -14778,7 +14804,7 @@ impl<'de> serde::de::Deserialize<'de> for super::UptimeCheckConfig {
                             result.resource = std::option::Option::Some(
                                 crate::model::uptime_check_config::Resource::MonitoredResource(
                                     map.next_value::<std::option::Option<
-                                        std::boxed::Box<api::model::MonitoredResource>,
+                                        std::boxed::Box<google_cloud_api::model::MonitoredResource>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),

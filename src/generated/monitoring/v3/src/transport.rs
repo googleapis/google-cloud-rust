@@ -834,7 +834,7 @@ impl super::stub::MetricService for MetricService {
         &self,
         req: crate::model::GetMonitoredResourceDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::MonitoredResourceDescriptor>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::MonitoredResourceDescriptor>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -948,7 +948,7 @@ impl super::stub::MetricService for MetricService {
         &self,
         req: crate::model::GetMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::MetricDescriptor>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::MetricDescriptor>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -1008,7 +1008,7 @@ impl super::stub::MetricService for MetricService {
         &self,
         req: crate::model::CreateMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::MetricDescriptor>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::MetricDescriptor>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;

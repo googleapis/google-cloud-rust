@@ -395,8 +395,9 @@ impl<'de> serde::de::Deserialize<'de> for super::BindingExplanation {
                                     "multiple values for condition",
                                 ));
                             }
-                            result.condition =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2412,8 +2413,9 @@ impl<'de> serde::de::Deserialize<'de> for super::replay::ResultsSummary {
                                     "multiple values for oldest_date",
                                 ));
                             }
-                            result.oldest_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.oldest_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__newest_date => {
                             if !fields.insert(__FieldTag::__newest_date) {
@@ -2421,8 +2423,9 @@ impl<'de> serde::de::Deserialize<'de> for super::replay::ResultsSummary {
                                     "multiple values for newest_date",
                                 ));
                             }
-                            result.newest_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.newest_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2582,8 +2585,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ReplayResult {
                                     "multiple values for last_seen_date",
                                 ));
                             }
-                            result.last_seen_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.last_seen_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

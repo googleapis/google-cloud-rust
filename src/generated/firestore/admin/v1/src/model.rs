@@ -23,7 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -9489,7 +9489,7 @@ pub struct WeeklyRecurrence {
     /// The day of week to run.
     ///
     /// DAY_OF_WEEK_UNSPECIFIED is not allowed.
-    pub day: gtype::model::DayOfWeek,
+    pub day: google_cloud_type::model::DayOfWeek,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9504,12 +9504,15 @@ impl WeeklyRecurrence {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::WeeklyRecurrence;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x0 = WeeklyRecurrence::new().set_day(DayOfWeek::Monday);
     /// let x1 = WeeklyRecurrence::new().set_day(DayOfWeek::Tuesday);
     /// let x2 = WeeklyRecurrence::new().set_day(DayOfWeek::Wednesday);
     /// ```
-    pub fn set_day<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
+    pub fn set_day<T: std::convert::Into<google_cloud_type::model::DayOfWeek>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.day = v.into();
         self
     }

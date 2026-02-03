@@ -125,8 +125,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DenyRule {
                                     "multiple values for denial_condition",
                                 ));
                             }
-                            result.denial_condition =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.denial_condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

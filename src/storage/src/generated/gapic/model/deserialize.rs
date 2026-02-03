@@ -5855,8 +5855,9 @@ impl<'de> serde::de::Deserialize<'de> for super::bucket::lifecycle::rule::Condit
                                     "multiple values for created_before",
                                 ));
                             }
-                            result.created_before =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.created_before = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__is_live => {
                             if !fields.insert(__FieldTag::__is_live) {
@@ -5918,8 +5919,9 @@ impl<'de> serde::de::Deserialize<'de> for super::bucket::lifecycle::rule::Condit
                                     "multiple values for custom_time_before",
                                 ));
                             }
-                            result.custom_time_before =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.custom_time_before = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__days_since_noncurrent_time => {
                             if !fields.insert(__FieldTag::__days_since_noncurrent_time) {
@@ -5946,8 +5948,9 @@ impl<'de> serde::de::Deserialize<'de> for super::bucket::lifecycle::rule::Condit
                                     "multiple values for noncurrent_time_before",
                                 ));
                             }
-                            result.noncurrent_time_before =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.noncurrent_time_before = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__matches_prefix => {
                             if !fields.insert(__FieldTag::__matches_prefix) {

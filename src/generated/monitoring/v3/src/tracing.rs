@@ -199,7 +199,7 @@ where
         &self,
         req: crate::model::GetMonitoredResourceDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::MonitoredResourceDescriptor>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::MonitoredResourceDescriptor>> {
         self.inner
             .get_monitored_resource_descriptor(req, options)
             .await
@@ -219,7 +219,7 @@ where
         &self,
         req: crate::model::GetMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::MetricDescriptor>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::MetricDescriptor>> {
         self.inner.get_metric_descriptor(req, options).await
     }
 
@@ -228,7 +228,7 @@ where
         &self,
         req: crate::model::CreateMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::MetricDescriptor>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::MetricDescriptor>> {
         self.inner.create_metric_descriptor(req, options).await
     }
 

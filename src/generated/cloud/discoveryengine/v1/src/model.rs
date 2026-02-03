@@ -17,14 +17,14 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_api;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -30729,7 +30729,7 @@ impl BigQuerySource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::BigQuerySource;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = BigQuerySource::new().set_partition(Some(
     ///     google_cloud_discoveryengine_v1::model::big_query_source::Partition::PartitionDate(Date::default().into())));
     /// ```
@@ -30746,7 +30746,9 @@ impl BigQuerySource {
     /// The value of [partition][crate::model::BigQuerySource::partition]
     /// if it holds a `PartitionDate`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn partition_date(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
+    pub fn partition_date(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::Date>> {
         #[allow(unreachable_patterns)]
         self.partition.as_ref().and_then(|v| match v {
             crate::model::big_query_source::Partition::PartitionDate(v) => {
@@ -30765,11 +30767,13 @@ impl BigQuerySource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::BigQuerySource;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = BigQuerySource::new().set_partition_date(Date::default()/* use setters */);
     /// assert!(x.partition_date().is_some());
     /// ```
-    pub fn set_partition_date<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(
+    pub fn set_partition_date<
+        T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Date>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -30812,7 +30816,7 @@ pub mod big_query_source {
     #[non_exhaustive]
     pub enum Partition {
         /// BigQuery time partitioned table's _PARTITIONDATE in YYYY-MM-DD format.
-        PartitionDate(std::boxed::Box<gtype::model::Date>),
+        PartitionDate(std::boxed::Box<google_cloud_type::model::Date>),
     }
 }
 

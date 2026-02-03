@@ -21,7 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -935,7 +935,7 @@ pub struct Access {
 
     /// Optional. condition for the binding. If CEL expression in this field is
     /// true, this access binding will be considered
-    pub condition: std::option::Option<gtype::model::Expr>,
+    pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1121,12 +1121,12 @@ impl Access {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_v2::model::Access;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = Access::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -1137,13 +1137,13 @@ impl Access {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_v2::model::Access;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = Access::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
     /// let x = Access::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self

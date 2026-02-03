@@ -200,7 +200,9 @@ pub trait MetricService: std::fmt::Debug + Send + Sync {
         _req: crate::model::GetMonitoredResourceDescriptorRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::MonitoredResourceDescriptor>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_api::model::MonitoredResourceDescriptor>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -224,7 +226,7 @@ pub trait MetricService: std::fmt::Debug + Send + Sync {
         _req: crate::model::GetMetricDescriptorRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::MetricDescriptor>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::MetricDescriptor>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -235,7 +237,7 @@ pub trait MetricService: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreateMetricDescriptorRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::MetricDescriptor>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::MetricDescriptor>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

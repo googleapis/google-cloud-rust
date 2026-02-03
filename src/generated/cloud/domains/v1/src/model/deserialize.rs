@@ -1091,8 +1091,8 @@ impl<'de> serde::de::Deserialize<'de> for super::contact_settings::Contact {
                                     "multiple values for postal_address",
                                 ));
                             }
-                            result.postal_address = map
-                                .next_value::<std::option::Option<gtype::model::PostalAddress>>()?;
+                            result.postal_address = map.next_value::<std::option::Option<google_cloud_type::model::PostalAddress>>()?
+                                ;
                         }
                         __FieldTag::__email => {
                             if !fields.insert(__FieldTag::__email) {
@@ -1597,8 +1597,9 @@ impl<'de> serde::de::Deserialize<'de> for super::RegisterDomainRequest {
                                     "multiple values for yearly_price",
                                 ));
                             }
-                            result.yearly_price =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.yearly_price = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::__validate_only => {
                             if !fields.insert(__FieldTag::__validate_only) {
@@ -1900,8 +1901,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TransferDomainRequest {
                                     "multiple values for yearly_price",
                                 ));
                             }
-                            result.yearly_price =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.yearly_price = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::__authorization_code => {
                             if !fields.insert(__FieldTag::__authorization_code) {
@@ -3112,8 +3114,9 @@ impl<'de> serde::de::Deserialize<'de> for super::RegisterParameters {
                                     "multiple values for yearly_price",
                                 ));
                             }
-                            result.yearly_price =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.yearly_price = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3258,8 +3261,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TransferParameters {
                                     "multiple values for yearly_price",
                                 ));
                             }
-                            result.yearly_price =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.yearly_price = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

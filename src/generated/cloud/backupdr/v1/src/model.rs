@@ -25,7 +25,7 @@ extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -2688,7 +2688,7 @@ pub struct StandardSchedule {
     /// This is required for `recurrence_type`, `WEEKLY` and is not applicable
     /// otherwise. A validation error will occur if a value is supplied and
     /// `recurrence_type` is not `WEEKLY`.
-    pub days_of_week: std::vec::Vec<gtype::model::DayOfWeek>,
+    pub days_of_week: std::vec::Vec<google_cloud_type::model::DayOfWeek>,
 
     /// Optional. Specifies days of months like 1, 5, or 14 on which jobs will run.
     ///
@@ -2711,7 +2711,7 @@ pub struct StandardSchedule {
     ///
     /// This field is only applicable when `recurrence_type` is `YEARLY`. A
     /// validation error will occur if other values are supplied.
-    pub months: std::vec::Vec<gtype::model::Month>,
+    pub months: std::vec::Vec<google_cloud_type::model::Month>,
 
     /// Required. A BackupWindow defines the window of day during which backup jobs
     /// will run. Jobs are queued at the beginning of the window and will be marked
@@ -2771,7 +2771,7 @@ impl StandardSchedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::StandardSchedule;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x = StandardSchedule::new().set_days_of_week([
     ///     DayOfWeek::Monday,
     ///     DayOfWeek::Tuesday,
@@ -2781,7 +2781,7 @@ impl StandardSchedule {
     pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<gtype::model::DayOfWeek>,
+        V: std::convert::Into<google_cloud_type::model::DayOfWeek>,
     {
         use std::iter::Iterator;
         self.days_of_week = v.into_iter().map(|i| i.into()).collect();
@@ -2843,7 +2843,7 @@ impl StandardSchedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::StandardSchedule;
-    /// use gtype::model::Month;
+    /// use google_cloud_type::model::Month;
     /// let x = StandardSchedule::new().set_months([
     ///     Month::January,
     ///     Month::February,
@@ -2853,7 +2853,7 @@ impl StandardSchedule {
     pub fn set_months<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<gtype::model::Month>,
+        V: std::convert::Into<google_cloud_type::model::Month>,
     {
         use std::iter::Iterator;
         self.months = v.into_iter().map(|i| i.into()).collect();
@@ -3138,7 +3138,7 @@ pub struct WeekDayOfMonth {
     pub week_of_month: crate::model::week_day_of_month::WeekOfMonth,
 
     /// Required. Specifies the day of the week.
-    pub day_of_week: gtype::model::DayOfWeek,
+    pub day_of_week: google_cloud_type::model::DayOfWeek,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3173,12 +3173,15 @@ impl WeekDayOfMonth {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_backupdr_v1::model::WeekDayOfMonth;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x0 = WeekDayOfMonth::new().set_day_of_week(DayOfWeek::Monday);
     /// let x1 = WeekDayOfMonth::new().set_day_of_week(DayOfWeek::Tuesday);
     /// let x2 = WeekDayOfMonth::new().set_day_of_week(DayOfWeek::Wednesday);
     /// ```
-    pub fn set_day_of_week<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
+    pub fn set_day_of_week<T: std::convert::Into<google_cloud_type::model::DayOfWeek>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.day_of_week = v.into();
         self
     }

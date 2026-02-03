@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::GetServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::Service>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::Service>> {
         self.inner.get_service_config(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::CreateServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::Service>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::Service>> {
         self.inner.create_service_config(req, options).await
     }
 

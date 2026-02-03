@@ -3238,7 +3238,7 @@ pub mod cluster_controller {
         /// Sets the value of [diagnosis_interval][crate::model::DiagnoseClusterRequest::diagnosis_interval].
         pub fn set_diagnosis_interval<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Interval>,
+            T: std::convert::Into<google_cloud_type::model::Interval>,
         {
             self.0.request.diagnosis_interval = std::option::Option::Some(v.into());
             self
@@ -3247,7 +3247,7 @@ pub mod cluster_controller {
         /// Sets or clears the value of [diagnosis_interval][crate::model::DiagnoseClusterRequest::diagnosis_interval].
         pub fn set_or_clear_diagnosis_interval<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Interval>,
+            T: std::convert::Into<google_cloud_type::model::Interval>,
         {
             self.0.request.diagnosis_interval = v.map(|x| x.into());
             self

@@ -1273,7 +1273,9 @@ impl Value {
     /// The value of [value_type][crate::model::Value::value_type]
     /// if it holds a `GeoPointValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn geo_point_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::LatLng>> {
+    pub fn geo_point_value(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::LatLng>> {
         #[allow(unreachable_patterns)]
         self.value_type.as_ref().and_then(|v| match v {
             crate::model::value::ValueType::GeoPointValue(v) => std::option::Option::Some(v),
@@ -1290,7 +1292,7 @@ impl Value {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore::model::Value;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = Value::new().set_geo_point_value(LatLng::default()/* use setters */);
     /// assert!(x.geo_point_value().is_some());
     /// assert!(x.null_value().is_none());
@@ -1307,7 +1309,9 @@ impl Value {
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
-    pub fn set_geo_point_value<T: std::convert::Into<std::boxed::Box<gtype::model::LatLng>>>(
+    pub fn set_geo_point_value<
+        T: std::convert::Into<std::boxed::Box<google_cloud_type::model::LatLng>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -1590,7 +1594,7 @@ pub mod value {
         /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
         ReferenceValue(std::string::String),
         /// A geo point value representing a point on the surface of Earth.
-        GeoPointValue(std::boxed::Box<gtype::model::LatLng>),
+        GeoPointValue(std::boxed::Box<google_cloud_type::model::LatLng>),
         /// An array value.
         ///
         /// Cannot directly contain another array value, though can contain a
@@ -1661,7 +1665,7 @@ pub mod value {
         }
         /// Initializes the enum to the [GeoPointValue](Self::GeoPointValue) branch.
         pub fn from_geo_point_value(
-            value: impl std::convert::Into<std::boxed::Box<gtype::model::LatLng>>,
+            value: impl std::convert::Into<std::boxed::Box<google_cloud_type::model::LatLng>>,
         ) -> Self {
             Self::GeoPointValue(value.into())
         }
