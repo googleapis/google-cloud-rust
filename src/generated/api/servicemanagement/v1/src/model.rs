@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_api;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -969,7 +969,7 @@ pub struct ChangeReport {
     /// of each change.
     /// A ConfigChange identifier is a dot separated path to the configuration.
     /// Example: visibility.rules[selector='LibraryService.CreateBook'].restriction
-    pub config_changes: std::vec::Vec<api::model::ConfigChange>,
+    pub config_changes: std::vec::Vec<google_cloud_api::model::ConfigChange>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -984,7 +984,7 @@ impl ChangeReport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicemanagement_v1::model::ChangeReport;
-    /// use api::model::ConfigChange;
+    /// use google_cloud_api::model::ConfigChange;
     /// let x = ChangeReport::new()
     ///     .set_config_changes([
     ///         ConfigChange::default()/* use setters */,
@@ -994,7 +994,7 @@ impl ChangeReport {
     pub fn set_config_changes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::ConfigChange>,
+        V: std::convert::Into<google_cloud_api::model::ConfigChange>,
     {
         use std::iter::Iterator;
         self.config_changes = v.into_iter().map(|i| i.into()).collect();
@@ -2190,7 +2190,7 @@ impl wkt::message::Message for ListServiceConfigsRequest {
 #[non_exhaustive]
 pub struct ListServiceConfigsResponse {
     /// The list of service configuration resources.
-    pub service_configs: std::vec::Vec<api::model::Service>,
+    pub service_configs: std::vec::Vec<google_cloud_api::model::Service>,
 
     /// The token of the next page of results.
     pub next_page_token: std::string::String,
@@ -2208,7 +2208,7 @@ impl ListServiceConfigsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicemanagement_v1::model::ListServiceConfigsResponse;
-    /// use api::model::Service;
+    /// use google_cloud_api::model::Service;
     /// let x = ListServiceConfigsResponse::new()
     ///     .set_service_configs([
     ///         Service::default()/* use setters */,
@@ -2218,7 +2218,7 @@ impl ListServiceConfigsResponse {
     pub fn set_service_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::Service>,
+        V: std::convert::Into<google_cloud_api::model::Service>,
     {
         use std::iter::Iterator;
         self.service_configs = v.into_iter().map(|i| i.into()).collect();
@@ -2246,7 +2246,7 @@ impl wkt::message::Message for ListServiceConfigsResponse {
 
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListServiceConfigsResponse {
-    type PageItem = api::model::Service;
+    type PageItem = google_cloud_api::model::Service;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.service_configs
@@ -2268,7 +2268,7 @@ pub struct CreateServiceConfigRequest {
     pub service_name: std::string::String,
 
     /// Required. The service configuration resource.
-    pub service_config: std::option::Option<api::model::Service>,
+    pub service_config: std::option::Option<google_cloud_api::model::Service>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2295,12 +2295,12 @@ impl CreateServiceConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicemanagement_v1::model::CreateServiceConfigRequest;
-    /// use api::model::Service;
+    /// use google_cloud_api::model::Service;
     /// let x = CreateServiceConfigRequest::new().set_service_config(Service::default()/* use setters */);
     /// ```
     pub fn set_service_config<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::Service>,
+        T: std::convert::Into<google_cloud_api::model::Service>,
     {
         self.service_config = std::option::Option::Some(v.into());
         self
@@ -2311,13 +2311,13 @@ impl CreateServiceConfigRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicemanagement_v1::model::CreateServiceConfigRequest;
-    /// use api::model::Service;
+    /// use google_cloud_api::model::Service;
     /// let x = CreateServiceConfigRequest::new().set_or_clear_service_config(Some(Service::default()/* use setters */));
     /// let x = CreateServiceConfigRequest::new().set_or_clear_service_config(None::<Service>);
     /// ```
     pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::Service>,
+        T: std::convert::Into<google_cloud_api::model::Service>,
     {
         self.service_config = v.map(|x| x.into());
         self
@@ -2424,7 +2424,7 @@ impl wkt::message::Message for SubmitConfigSourceRequest {
 #[non_exhaustive]
 pub struct SubmitConfigSourceResponse {
     /// The generated service configuration.
-    pub service_config: std::option::Option<api::model::Service>,
+    pub service_config: std::option::Option<google_cloud_api::model::Service>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2439,12 +2439,12 @@ impl SubmitConfigSourceResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicemanagement_v1::model::SubmitConfigSourceResponse;
-    /// use api::model::Service;
+    /// use google_cloud_api::model::Service;
     /// let x = SubmitConfigSourceResponse::new().set_service_config(Service::default()/* use setters */);
     /// ```
     pub fn set_service_config<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::Service>,
+        T: std::convert::Into<google_cloud_api::model::Service>,
     {
         self.service_config = std::option::Option::Some(v.into());
         self
@@ -2455,13 +2455,13 @@ impl SubmitConfigSourceResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicemanagement_v1::model::SubmitConfigSourceResponse;
-    /// use api::model::Service;
+    /// use google_cloud_api::model::Service;
     /// let x = SubmitConfigSourceResponse::new().set_or_clear_service_config(Some(Service::default()/* use setters */));
     /// let x = SubmitConfigSourceResponse::new().set_or_clear_service_config(None::<Service>);
     /// ```
     pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::Service>,
+        T: std::convert::Into<google_cloud_api::model::Service>,
     {
         self.service_config = v.map(|x| x.into());
         self
@@ -2790,7 +2790,7 @@ pub struct GenerateConfigReportRequest {
     /// [google.api.servicemanagement.v1.ConfigSource][google.api.servicemanagement.v1.ConfigSource],
     /// and [google.api.Service][google.api.Service]
     ///
-    /// [google.api.Service]: api::model::Service
+    /// [google.api.Service]: google_cloud_api::model::Service
     /// [google.api.servicemanagement.v1.ConfigRef]: crate::model::ConfigRef
     /// [google.api.servicemanagement.v1.ConfigSource]: crate::model::ConfigSource
     pub new_config: std::option::Option<wkt::Any>,
@@ -2801,7 +2801,7 @@ pub struct GenerateConfigReportRequest {
     /// [google.api.servicemanagement.v1.ConfigSource][google.api.servicemanagement.v1.ConfigSource],
     /// and [google.api.Service][google.api.Service]
     ///
-    /// [google.api.Service]: api::model::Service
+    /// [google.api.Service]: google_cloud_api::model::Service
     /// [google.api.servicemanagement.v1.ConfigRef]: crate::model::ConfigRef
     /// [google.api.servicemanagement.v1.ConfigSource]: crate::model::ConfigSource
     pub old_config: std::option::Option<wkt::Any>,

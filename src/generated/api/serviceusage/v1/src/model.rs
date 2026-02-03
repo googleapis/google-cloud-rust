@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_api;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate lazy_static;
@@ -168,29 +168,29 @@ pub struct ServiceConfig {
 
     /// Additional API documentation. Contains only the summary and the
     /// documentation URL.
-    pub documentation: std::option::Option<api::model::Documentation>,
+    pub documentation: std::option::Option<google_cloud_api::model::Documentation>,
 
     /// Quota configuration.
-    pub quota: std::option::Option<api::model::Quota>,
+    pub quota: std::option::Option<google_cloud_api::model::Quota>,
 
     /// Auth configuration. Contains only the OAuth rules.
-    pub authentication: std::option::Option<api::model::Authentication>,
+    pub authentication: std::option::Option<google_cloud_api::model::Authentication>,
 
     /// Configuration controlling usage of this service.
-    pub usage: std::option::Option<api::model::Usage>,
+    pub usage: std::option::Option<google_cloud_api::model::Usage>,
 
     /// Configuration for network endpoints. Contains only the names and aliases
     /// of the endpoints.
-    pub endpoints: std::vec::Vec<api::model::Endpoint>,
+    pub endpoints: std::vec::Vec<google_cloud_api::model::Endpoint>,
 
     /// Defines the monitored resources used by this service. This is required
     /// by the [Service.monitoring][google.api.Service.monitoring] and
     /// [Service.logging][google.api.Service.logging] configurations.
-    pub monitored_resources: std::vec::Vec<api::model::MonitoredResourceDescriptor>,
+    pub monitored_resources: std::vec::Vec<google_cloud_api::model::MonitoredResourceDescriptor>,
 
     /// Monitoring configuration.
     /// This should not include the 'producer_destinations' field.
-    pub monitoring: std::option::Option<api::model::Monitoring>,
+    pub monitoring: std::option::Option<google_cloud_api::model::Monitoring>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -251,12 +251,12 @@ impl ServiceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
-    /// use api::model::Documentation;
+    /// use google_cloud_api::model::Documentation;
     /// let x = ServiceConfig::new().set_documentation(Documentation::default()/* use setters */);
     /// ```
     pub fn set_documentation<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::Documentation>,
+        T: std::convert::Into<google_cloud_api::model::Documentation>,
     {
         self.documentation = std::option::Option::Some(v.into());
         self
@@ -267,13 +267,13 @@ impl ServiceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
-    /// use api::model::Documentation;
+    /// use google_cloud_api::model::Documentation;
     /// let x = ServiceConfig::new().set_or_clear_documentation(Some(Documentation::default()/* use setters */));
     /// let x = ServiceConfig::new().set_or_clear_documentation(None::<Documentation>);
     /// ```
     pub fn set_or_clear_documentation<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::Documentation>,
+        T: std::convert::Into<google_cloud_api::model::Documentation>,
     {
         self.documentation = v.map(|x| x.into());
         self
@@ -284,12 +284,12 @@ impl ServiceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
-    /// use api::model::Quota;
+    /// use google_cloud_api::model::Quota;
     /// let x = ServiceConfig::new().set_quota(Quota::default()/* use setters */);
     /// ```
     pub fn set_quota<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::Quota>,
+        T: std::convert::Into<google_cloud_api::model::Quota>,
     {
         self.quota = std::option::Option::Some(v.into());
         self
@@ -300,13 +300,13 @@ impl ServiceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
-    /// use api::model::Quota;
+    /// use google_cloud_api::model::Quota;
     /// let x = ServiceConfig::new().set_or_clear_quota(Some(Quota::default()/* use setters */));
     /// let x = ServiceConfig::new().set_or_clear_quota(None::<Quota>);
     /// ```
     pub fn set_or_clear_quota<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::Quota>,
+        T: std::convert::Into<google_cloud_api::model::Quota>,
     {
         self.quota = v.map(|x| x.into());
         self
@@ -317,12 +317,12 @@ impl ServiceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
-    /// use api::model::Authentication;
+    /// use google_cloud_api::model::Authentication;
     /// let x = ServiceConfig::new().set_authentication(Authentication::default()/* use setters */);
     /// ```
     pub fn set_authentication<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::Authentication>,
+        T: std::convert::Into<google_cloud_api::model::Authentication>,
     {
         self.authentication = std::option::Option::Some(v.into());
         self
@@ -333,13 +333,13 @@ impl ServiceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
-    /// use api::model::Authentication;
+    /// use google_cloud_api::model::Authentication;
     /// let x = ServiceConfig::new().set_or_clear_authentication(Some(Authentication::default()/* use setters */));
     /// let x = ServiceConfig::new().set_or_clear_authentication(None::<Authentication>);
     /// ```
     pub fn set_or_clear_authentication<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::Authentication>,
+        T: std::convert::Into<google_cloud_api::model::Authentication>,
     {
         self.authentication = v.map(|x| x.into());
         self
@@ -350,12 +350,12 @@ impl ServiceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
-    /// use api::model::Usage;
+    /// use google_cloud_api::model::Usage;
     /// let x = ServiceConfig::new().set_usage(Usage::default()/* use setters */);
     /// ```
     pub fn set_usage<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::Usage>,
+        T: std::convert::Into<google_cloud_api::model::Usage>,
     {
         self.usage = std::option::Option::Some(v.into());
         self
@@ -366,13 +366,13 @@ impl ServiceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
-    /// use api::model::Usage;
+    /// use google_cloud_api::model::Usage;
     /// let x = ServiceConfig::new().set_or_clear_usage(Some(Usage::default()/* use setters */));
     /// let x = ServiceConfig::new().set_or_clear_usage(None::<Usage>);
     /// ```
     pub fn set_or_clear_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::Usage>,
+        T: std::convert::Into<google_cloud_api::model::Usage>,
     {
         self.usage = v.map(|x| x.into());
         self
@@ -383,7 +383,7 @@ impl ServiceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
-    /// use api::model::Endpoint;
+    /// use google_cloud_api::model::Endpoint;
     /// let x = ServiceConfig::new()
     ///     .set_endpoints([
     ///         Endpoint::default()/* use setters */,
@@ -393,7 +393,7 @@ impl ServiceConfig {
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::Endpoint>,
+        V: std::convert::Into<google_cloud_api::model::Endpoint>,
     {
         use std::iter::Iterator;
         self.endpoints = v.into_iter().map(|i| i.into()).collect();
@@ -405,7 +405,7 @@ impl ServiceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
-    /// use api::model::MonitoredResourceDescriptor;
+    /// use google_cloud_api::model::MonitoredResourceDescriptor;
     /// let x = ServiceConfig::new()
     ///     .set_monitored_resources([
     ///         MonitoredResourceDescriptor::default()/* use setters */,
@@ -415,7 +415,7 @@ impl ServiceConfig {
     pub fn set_monitored_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::MonitoredResourceDescriptor>,
+        V: std::convert::Into<google_cloud_api::model::MonitoredResourceDescriptor>,
     {
         use std::iter::Iterator;
         self.monitored_resources = v.into_iter().map(|i| i.into()).collect();
@@ -427,12 +427,12 @@ impl ServiceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
-    /// use api::model::Monitoring;
+    /// use google_cloud_api::model::Monitoring;
     /// let x = ServiceConfig::new().set_monitoring(Monitoring::default()/* use setters */);
     /// ```
     pub fn set_monitoring<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::Monitoring>,
+        T: std::convert::Into<google_cloud_api::model::Monitoring>,
     {
         self.monitoring = std::option::Option::Some(v.into());
         self
@@ -443,13 +443,13 @@ impl ServiceConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
-    /// use api::model::Monitoring;
+    /// use google_cloud_api::model::Monitoring;
     /// let x = ServiceConfig::new().set_or_clear_monitoring(Some(Monitoring::default()/* use setters */));
     /// let x = ServiceConfig::new().set_or_clear_monitoring(None::<Monitoring>);
     /// ```
     pub fn set_or_clear_monitoring<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::Monitoring>,
+        T: std::convert::Into<google_cloud_api::model::Monitoring>,
     {
         self.monitoring = v.map(|x| x.into());
         self

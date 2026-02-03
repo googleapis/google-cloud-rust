@@ -462,7 +462,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .list_contexts(self.0.request, self.0.options)
                 .await
@@ -604,7 +604,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .get_raw_schema(self.0.request, self.0.options)
                 .await
@@ -687,7 +687,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .list_schema_versions(self.0.request, self.0.options)
                 .await
@@ -785,7 +785,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .list_schema_types(self.0.request, self.0.options)
                 .await
@@ -847,7 +847,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .list_subjects(self.0.request, self.0.options)
                 .await
@@ -948,7 +948,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .list_subjects_by_schema_id(self.0.request, self.0.options)
                 .await
@@ -1046,7 +1046,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .delete_subject(self.0.request, self.0.options)
                 .await
@@ -1341,7 +1341,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .get_raw_schema_version(self.0.request, self.0.options)
                 .await
@@ -1421,7 +1421,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .list_versions(self.0.request, self.0.options)
                 .await
@@ -1654,7 +1654,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .delete_version(self.0.request, self.0.options)
                 .await
@@ -1737,7 +1737,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .list_referenced_schemas(self.0.request, self.0.options)
                 .await

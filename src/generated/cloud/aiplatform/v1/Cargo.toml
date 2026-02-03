@@ -139,11 +139,11 @@ vizier-service = []
 all-features = true
 
 [dependencies]
-api.workspace                      = true
 async-trait.workspace              = true
 bytes.workspace                    = true
 gax.workspace                      = true
 gaxi                               = { workspace = true, features = ["_internal-http-client"] }
+google-cloud-api.workspace         = true
 google-cloud-iam-v1.workspace      = true
 google-cloud-location.workspace    = true
 google-cloud-longrunning.workspace = true

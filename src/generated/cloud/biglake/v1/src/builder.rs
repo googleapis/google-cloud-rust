@@ -646,7 +646,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .create_iceberg_table(self.0.request, self.0.options)
                 .await
@@ -666,7 +666,7 @@ pub mod iceberg_catalog_service {
         /// This is a **required** field for requests.
         pub fn set_http_body<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<api::model::HttpBody>,
+            T: std::convert::Into<google_cloud_api::model::HttpBody>,
         {
             self.0.request.http_body = std::option::Option::Some(v.into());
             self
@@ -677,7 +677,7 @@ pub mod iceberg_catalog_service {
         /// This is a **required** field for requests.
         pub fn set_or_clear_http_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<api::model::HttpBody>,
+            T: std::convert::Into<google_cloud_api::model::HttpBody>,
         {
             self.0.request.http_body = v.map(|x| x.into());
             self
@@ -801,7 +801,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .get_iceberg_table(self.0.request, self.0.options)
                 .await
@@ -940,7 +940,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .update_iceberg_table(self.0.request, self.0.options)
                 .await
@@ -960,7 +960,7 @@ pub mod iceberg_catalog_service {
         /// This is a **required** field for requests.
         pub fn set_http_body<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<api::model::HttpBody>,
+            T: std::convert::Into<google_cloud_api::model::HttpBody>,
         {
             self.0.request.http_body = std::option::Option::Some(v.into());
             self
@@ -971,7 +971,7 @@ pub mod iceberg_catalog_service {
         /// This is a **required** field for requests.
         pub fn set_or_clear_http_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<api::model::HttpBody>,
+            T: std::convert::Into<google_cloud_api::model::HttpBody>,
         {
             self.0.request.http_body = v.map(|x| x.into());
             self
@@ -1027,7 +1027,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::HttpBody> {
+        pub async fn send(self) -> Result<google_cloud_api::model::HttpBody> {
             (*self.0.stub)
                 .register_iceberg_table(self.0.request, self.0.options)
                 .await

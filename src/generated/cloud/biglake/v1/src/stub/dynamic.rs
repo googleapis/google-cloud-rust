@@ -63,7 +63,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::HttpBody>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
 
     async fn delete_iceberg_table(
         &self,
@@ -75,7 +75,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::HttpBody>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
 
     async fn load_iceberg_table_credentials(
         &self,
@@ -87,13 +87,13 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::HttpBody>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
 
     async fn register_iceberg_table(
         &self,
         req: crate::model::RegisterIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::HttpBody>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
 
     async fn get_iceberg_catalog(
         &self,
@@ -204,7 +204,7 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
         &self,
         req: crate::model::CreateIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         T::create_iceberg_table(self, req, options).await
     }
 
@@ -222,7 +222,7 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
         &self,
         req: crate::model::GetIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         T::get_iceberg_table(self, req, options).await
     }
 
@@ -241,7 +241,7 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
         &self,
         req: crate::model::UpdateIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         T::update_iceberg_table(self, req, options).await
     }
 
@@ -250,7 +250,7 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
         &self,
         req: crate::model::RegisterIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         T::register_iceberg_table(self, req, options).await
     }
 

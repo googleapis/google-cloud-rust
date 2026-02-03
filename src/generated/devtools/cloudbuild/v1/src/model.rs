@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_api;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate lazy_static;
@@ -11856,7 +11856,7 @@ pub struct ReceiveTriggerWebhookRequest {
     pub name: std::string::String,
 
     /// HTTP request body.
-    pub body: std::option::Option<api::model::HttpBody>,
+    pub body: std::option::Option<google_cloud_api::model::HttpBody>,
 
     /// Project in which the specified trigger lives
     pub project_id: std::string::String,
@@ -11892,12 +11892,12 @@ impl ReceiveTriggerWebhookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::ReceiveTriggerWebhookRequest;
-    /// use api::model::HttpBody;
+    /// use google_cloud_api::model::HttpBody;
     /// let x = ReceiveTriggerWebhookRequest::new().set_body(HttpBody::default()/* use setters */);
     /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::HttpBody>,
+        T: std::convert::Into<google_cloud_api::model::HttpBody>,
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -11908,13 +11908,13 @@ impl ReceiveTriggerWebhookRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::ReceiveTriggerWebhookRequest;
-    /// use api::model::HttpBody;
+    /// use google_cloud_api::model::HttpBody;
     /// let x = ReceiveTriggerWebhookRequest::new().set_or_clear_body(Some(HttpBody::default()/* use setters */));
     /// let x = ReceiveTriggerWebhookRequest::new().set_or_clear_body(None::<HttpBody>);
     /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::HttpBody>,
+        T: std::convert::Into<google_cloud_api::model::HttpBody>,
     {
         self.body = v.map(|x| x.into());
         self

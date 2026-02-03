@@ -17160,9 +17160,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ProcessorType {
                                     "multiple values for launch_stage",
                                 ));
                             }
-                            result.launch_stage = map
-                                .next_value::<std::option::Option<api::model::LaunchStage>>()?
-                                .unwrap_or_default();
+                            result.launch_stage = map.next_value::<std::option::Option<google_cloud_api::model::LaunchStage>>()?.unwrap_or_default();
                         }
                         __FieldTag::__sample_document_uris => {
                             if !fields.insert(__FieldTag::__sample_document_uris) {

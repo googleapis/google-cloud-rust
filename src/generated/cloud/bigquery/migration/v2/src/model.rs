@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_api;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -1829,7 +1829,7 @@ pub struct TimeSeries {
     pub metric: std::string::String,
 
     /// Required. The value type of the time series.
-    pub value_type: api::model::metric_descriptor::ValueType,
+    pub value_type: google_cloud_api::model::metric_descriptor::ValueType,
 
     /// Optional. The metric kind of the time series.
     ///
@@ -1837,7 +1837,7 @@ pub struct TimeSeries {
     /// metric. If the associated metric's descriptor must be auto-created, then
     /// this field specifies the metric kind of the new descriptor and must be
     /// either `GAUGE` (the default) or `CUMULATIVE`.
-    pub metric_kind: api::model::metric_descriptor::MetricKind,
+    pub metric_kind: google_cloud_api::model::metric_descriptor::MetricKind,
 
     /// Required. The data points of this time series. When listing time series,
     /// points are returned in reverse time order.
@@ -1874,12 +1874,14 @@ impl TimeSeries {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::TimeSeries;
-    /// use api::model::metric_descriptor::ValueType;
+    /// use google_cloud_api::model::metric_descriptor::ValueType;
     /// let x0 = TimeSeries::new().set_value_type(ValueType::Bool);
     /// let x1 = TimeSeries::new().set_value_type(ValueType::Int64);
     /// let x2 = TimeSeries::new().set_value_type(ValueType::Double);
     /// ```
-    pub fn set_value_type<T: std::convert::Into<api::model::metric_descriptor::ValueType>>(
+    pub fn set_value_type<
+        T: std::convert::Into<google_cloud_api::model::metric_descriptor::ValueType>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -1892,12 +1894,14 @@ impl TimeSeries {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::TimeSeries;
-    /// use api::model::metric_descriptor::MetricKind;
+    /// use google_cloud_api::model::metric_descriptor::MetricKind;
     /// let x0 = TimeSeries::new().set_metric_kind(MetricKind::Gauge);
     /// let x1 = TimeSeries::new().set_metric_kind(MetricKind::Delta);
     /// let x2 = TimeSeries::new().set_metric_kind(MetricKind::Cumulative);
     /// ```
-    pub fn set_metric_kind<T: std::convert::Into<api::model::metric_descriptor::MetricKind>>(
+    pub fn set_metric_kind<
+        T: std::convert::Into<google_cloud_api::model::metric_descriptor::MetricKind>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -2301,7 +2305,7 @@ impl TypedValue {
     /// holds a different branch.
     pub fn distribution_value(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<api::model::Distribution>> {
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_api::model::Distribution>> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::typed_value::Value::DistributionValue(v) => std::option::Option::Some(v),
@@ -2318,7 +2322,7 @@ impl TypedValue {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::TypedValue;
-    /// use api::model::Distribution;
+    /// use google_cloud_api::model::Distribution;
     /// let x = TypedValue::new().set_distribution_value(Distribution::default()/* use setters */);
     /// assert!(x.distribution_value().is_some());
     /// assert!(x.bool_value().is_none());
@@ -2327,7 +2331,7 @@ impl TypedValue {
     /// assert!(x.string_value().is_none());
     /// ```
     pub fn set_distribution_value<
-        T: std::convert::Into<std::boxed::Box<api::model::Distribution>>,
+        T: std::convert::Into<std::boxed::Box<google_cloud_api::model::Distribution>>,
     >(
         mut self,
         v: T,
@@ -2365,7 +2369,7 @@ pub mod typed_value {
         /// A variable-length string value.
         StringValue(std::string::String),
         /// A distribution value.
-        DistributionValue(std::boxed::Box<api::model::Distribution>),
+        DistributionValue(std::boxed::Box<google_cloud_api::model::Distribution>),
     }
 }
 

@@ -1395,7 +1395,7 @@ pub mod cloud_build {
         /// Sets the value of [body][crate::model::ReceiveTriggerWebhookRequest::body].
         pub fn set_body<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<api::model::HttpBody>,
+            T: std::convert::Into<google_cloud_api::model::HttpBody>,
         {
             self.0.request.body = std::option::Option::Some(v.into());
             self
@@ -1404,7 +1404,7 @@ pub mod cloud_build {
         /// Sets or clears the value of [body][crate::model::ReceiveTriggerWebhookRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<api::model::HttpBody>,
+            T: std::convert::Into<google_cloud_api::model::HttpBody>,
         {
             self.0.request.body = v.map(|x| x.into());
             self

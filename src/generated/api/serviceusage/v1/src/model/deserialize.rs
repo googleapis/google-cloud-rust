@@ -244,8 +244,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceConfig {
                                     "multiple values for documentation",
                                 ));
                             }
-                            result.documentation =
-                                map.next_value::<std::option::Option<api::model::Documentation>>()?;
+                            result.documentation = map.next_value::<std::option::Option<google_cloud_api::model::Documentation>>()?
+                                ;
                         }
                         __FieldTag::__quota => {
                             if !fields.insert(__FieldTag::__quota) {
@@ -253,8 +253,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceConfig {
                                     "multiple values for quota",
                                 ));
                             }
-                            result.quota =
-                                map.next_value::<std::option::Option<api::model::Quota>>()?;
+                            result.quota = map
+                                .next_value::<std::option::Option<google_cloud_api::model::Quota>>(
+                                )?;
                         }
                         __FieldTag::__authentication => {
                             if !fields.insert(__FieldTag::__authentication) {
@@ -262,8 +263,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceConfig {
                                     "multiple values for authentication",
                                 ));
                             }
-                            result.authentication = map
-                                .next_value::<std::option::Option<api::model::Authentication>>()?;
+                            result.authentication = map.next_value::<std::option::Option<google_cloud_api::model::Authentication>>()?
+                                ;
                         }
                         __FieldTag::__usage => {
                             if !fields.insert(__FieldTag::__usage) {
@@ -271,8 +272,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceConfig {
                                     "multiple values for usage",
                                 ));
                             }
-                            result.usage =
-                                map.next_value::<std::option::Option<api::model::Usage>>()?;
+                            result.usage = map
+                                .next_value::<std::option::Option<google_cloud_api::model::Usage>>(
+                                )?;
                         }
                         __FieldTag::__endpoints => {
                             if !fields.insert(__FieldTag::__endpoints) {
@@ -280,7 +282,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceConfig {
                                     "multiple values for endpoints",
                                 ));
                             }
-                            result.endpoints = map.next_value::<std::option::Option<std::vec::Vec<api::model::Endpoint>>>()?.unwrap_or_default();
+                            result.endpoints = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_api::model::Endpoint>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__monitored_resources => {
                             if !fields.insert(__FieldTag::__monitored_resources) {
@@ -290,7 +296,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceConfig {
                             }
                             result.monitored_resources = map
                                 .next_value::<std::option::Option<
-                                    std::vec::Vec<api::model::MonitoredResourceDescriptor>,
+                                    std::vec::Vec<
+                                        google_cloud_api::model::MonitoredResourceDescriptor,
+                                    >,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -300,8 +308,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceConfig {
                                     "multiple values for monitoring",
                                 ));
                             }
-                            result.monitoring =
-                                map.next_value::<std::option::Option<api::model::Monitoring>>()?;
+                            result.monitoring = map.next_value::<std::option::Option<google_cloud_api::model::Monitoring>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListContextsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_contexts(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::GetSchemaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.get_raw_schema(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::ListSchemaVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_schema_versions(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::ListSchemaTypesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_schema_types(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::ListSubjectsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_subjects(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::ListSubjectsBySchemaIdRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_subjects_by_schema_id(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::DeleteSubjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.delete_subject(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::GetVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.get_raw_schema_version(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::ListVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_versions(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.delete_version(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::ListReferencedSchemasRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_referenced_schemas(req, options).await
     }
 
