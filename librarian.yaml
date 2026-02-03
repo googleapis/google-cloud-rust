@@ -769,10 +769,10 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: gkehub_configmanagement_v1
+        - name: google-cloud-gkehub-configmanagement-v1
           package: google-cloud-gkehub-configmanagement-v1
           source: google.cloud.gkehub.configmanagement.v1
-        - name: gkehub_multiclusteringress_v1
+        - name: google-cloud-gkehub-multiclusteringress-v1
           package: google-cloud-gkehub-multiclusteringress-v1
           source: google.cloud.gkehub.multiclusteringress.v1
   - name: google-cloud-gkemulticloud-v1
