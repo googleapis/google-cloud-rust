@@ -28,7 +28,7 @@ cargo build -p google-cloud-aiplatform-v1 --no-default-features
 mapfile -t features < <(sed -n -e '/^default = \[/,/^\]/ p' src/generated/cloud/aiplatform/v1/Cargo.toml | sed -n -e '/",/ s/ *"\(.*\)",/\1/p')
 for feature in "${features[@]}"; do
   echo "==== google-cloud-aiplatform-v1 + ${feature} ===="
-  cargo build --profile=ci -p google-cloud-aiplatform-v1 --no-default-features --features "${feature}"
+  cargo check --profile=ci -p google-cloud-aiplatform-v1 --no-default-features --features "${feature}"
 done
 
 echo "==== DONE ===="
