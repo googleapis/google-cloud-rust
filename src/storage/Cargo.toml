@@ -58,10 +58,10 @@ hex                        = { workspace = true, features = ["std"] }
 # Local crates
 google-cloud-auth        = { workspace = true }
 gax.workspace            = true
-gtype.workspace          = true
 google-cloud-iam-v1      = { workspace = true }
 google-cloud-longrunning = { workspace = true }
 google-cloud-lro         = { workspace = true }
+google-cloud-type        = { workspace = true }
 rpc.workspace            = true
 wkt.workspace            = true
 # We use a lot of features from gaxi.

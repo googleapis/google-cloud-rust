@@ -79,12 +79,12 @@ default:
       - name: google-cloud-lro
         package: google-cloud-lro
         used_if: lro
+      - name: google-cloud-type
+        package: google-cloud-type
+        source: google.type
       - name: grafeas
         package: google-cloud-grafeas-v1
         source: grafeas.v1
-      - name: gtype
-        package: google-cloud-type
-        source: google.type
       - name: lazy_static
         package: lazy_static
         used_if: services
@@ -702,7 +702,7 @@ libraries:
           source: google/firestore/v1
           template: convert-prost
         - include_list: latlng.proto
-          module_path: gtype::model
+          module_path: google_cloud_type::model
           output: src/firestore/src/generated/convert/type
           source: google/type
           template: convert-prost
@@ -1361,7 +1361,7 @@ libraries:
           source: google/storage/v2
           template: convert-prost
         - include_list: date.proto,expr.proto
-          module_path: gtype::model
+          module_path: google_cloud_type::model
           output: src/storage/src/generated/convert/type
           source: google/type
           template: convert-prost
