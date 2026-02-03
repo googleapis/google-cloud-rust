@@ -6994,7 +6994,7 @@ pub mod index {
 /// The metadata message for
 /// [google.cloud.location.Location.metadata][google.cloud.location.Location.metadata].
 ///
-/// [google.cloud.location.Location.metadata]: location::model::Location::metadata
+/// [google.cloud.location.Location.metadata]: google_cloud_location::model::Location::metadata
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {

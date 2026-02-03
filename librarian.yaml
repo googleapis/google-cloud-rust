@@ -70,6 +70,9 @@ default:
       - name: google-cloud-iam-v1
         package: google-cloud-iam-v1
         source: google.iam.v1
+      - name: google-cloud-location
+        package: google-cloud-location
+        source: google.cloud.location
       - name: google-cloud-longrunning
         package: google-cloud-longrunning
         source: google.longrunning
@@ -85,9 +88,6 @@ default:
       - name: lazy_static
         package: lazy_static
         used_if: services
-      - name: location
-        package: google-cloud-location
-        source: google.cloud.location
       - name: logging_type
         package: google-cloud-logging-type
         source: google.logging.type
@@ -884,7 +884,7 @@ libraries:
     copyright_year: "2024"
     rust:
       package_dependencies:
-        - name: location
+        - name: google-cloud-location
           ignore: true
           package: ""
   - name: google-cloud-locationfinder-v1

@@ -21,10 +21,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate lazy_static;
-extern crate location;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
@@ -4469,7 +4469,7 @@ pub mod vpn_connection {
 /// Metadata for a given
 /// [google.cloud.location.Location][google.cloud.location.Location].
 ///
-/// [google.cloud.location.Location]: location::model::Location
+/// [google.cloud.location.Location]: google_cloud_location::model::Location
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
