@@ -135,14 +135,14 @@ impl<'a> AuthHeadersBuilder<'a> {
         let mut header_map = HeaderMap::new();
         header_map.insert(header_name, value);
 
-        if let Some(project) = self.quota_project_id.clone() {
+        if let Some(project) = self.quota_project_id {
             header_map.insert(
                 HeaderName::from_static(QUOTA_PROJECT_KEY),
                 HeaderValue::from_str(&project).map_err(errors::non_retryable)?,
             );
         }
 
-        if let Some(access_boundary) = self.access_boundary.clone() {
+        if let Some(access_boundary) = self.access_boundary {
             header_map.insert(
                 HeaderName::from_static(TRUST_BOUNDARY_HEADER),
                 HeaderValue::from_str(&access_boundary).map_err(errors::non_retryable)?,
