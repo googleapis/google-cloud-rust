@@ -59,7 +59,7 @@ hex                        = { workspace = true, features = ["std"] }
 google-cloud-auth        = { workspace = true }
 gax.workspace            = true
 gtype.workspace          = true
-iam_v1.workspace         = true
+google-cloud-iam-v1      = { workspace = true }
 google-cloud-longrunning = { workspace = true }
 google-cloud-lro         = { workspace = true }
 rpc.workspace            = true

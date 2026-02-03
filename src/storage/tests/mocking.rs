@@ -214,9 +214,9 @@ mod tests {
             async fn create_bucket( &self, _req: gcs::model::CreateBucketRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::Bucket>>;
             async fn list_buckets( &self, _req: gcs::model::ListBucketsRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::ListBucketsResponse>>;
             async fn lock_bucket_retention_policy( &self, _req: gcs::model::LockBucketRetentionPolicyRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::Bucket>>;
-            async fn get_iam_policy( &self, _req: iam_v1::model::GetIamPolicyRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<iam_v1::model::Policy>>;
-            async fn set_iam_policy( &self, _req: iam_v1::model::SetIamPolicyRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<iam_v1::model::Policy>>;
-            async fn test_iam_permissions( &self, _req: iam_v1::model::TestIamPermissionsRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+            async fn get_iam_policy( &self, _req: google_cloud_iam_v1::model::GetIamPolicyRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+            async fn set_iam_policy( &self, _req: google_cloud_iam_v1::model::SetIamPolicyRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+            async fn test_iam_permissions( &self, _req: google_cloud_iam_v1::model::TestIamPermissionsRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
             async fn update_bucket( &self, _req: gcs::model::UpdateBucketRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::Bucket>>;
             async fn compose_object( &self, _req: gcs::model::ComposeObjectRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::Object>>;
             async fn delete_object( &self, _req: gcs::model::DeleteObjectRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<()>>;
