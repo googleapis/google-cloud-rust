@@ -136,7 +136,6 @@ libraries:
           output: src/wkt/tests/common/src/generated
           source: src/wkt/tests/protos
           template: mod
-
   - name: google-cloud-accessapproval-v1
     version: 1.5.0
     copyright_year: "2025"
@@ -537,7 +536,6 @@ libraries:
         - redundant_explicit_links
       per_service_features: true
       package_name_override: google-cloud-compute-v1
-
       default_features:
         - instances
         - projects
@@ -655,7 +653,6 @@ libraries:
         - name: google-cloud-lro
           package: google-cloud-lro
           force_used: true
-
       discovery:
         operation_id: ..Operation
         pollers:
@@ -1257,7 +1254,6 @@ libraries:
       - googleapis
     skip_publish: true
     rust:
-
       detailed_tracing_attributes: true
   - name: google-cloud-spanner
     copyright_year: "2025"
@@ -1602,7 +1598,6 @@ libraries:
           output: tests/protojson-conformance/src/generated/test_protos
           source: src/google/protobuf
           template: mod
-
   - name: pubsub-grpc-mock
     copyright_year: "2025"
     output: src/pubsub/grpc-mock
