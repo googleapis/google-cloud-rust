@@ -101,7 +101,7 @@ impl Builder {
     /// # use google_cloud_auth::credentials::idtoken::verifier::Builder;
     /// let verifier = Builder::new(["https://my-service.a.run.app"])
     ///     .with_jwks_url("https://www.googleapis.com/oauth2/v3/certs")
-    ///     .build();    
+    ///     .build();
     /// ```
     pub fn with_jwks_url<S: Into<String>>(mut self, jwks_url: S) -> Self {
         self.jwks_url = Some(jwks_url.into());
@@ -329,10 +329,10 @@ pub(crate) mod tests {
             .build();
 
         let claims = verifier.verify(token).await?;
-        assert!(!claims.is_empty());
+        assert!(!claims.is_empty(), "{claims:?}");
 
         let claims = verifier.verify(token).await?;
-        assert!(!claims.is_empty());
+        assert!(!claims.is_empty(), "{claims:?}");
 
         Ok(())
     }
@@ -355,7 +355,7 @@ pub(crate) mod tests {
             .build();
 
         let result = verifier.verify(token).await;
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         assert!(result.unwrap_err().is_invalid());
 
         Ok(())
@@ -379,7 +379,7 @@ pub(crate) mod tests {
             let token = generate_test_id_token(audience);
             let token = token.as_str();
             let claims = verifier.verify(token).await?;
-            assert!(!claims.is_empty());
+            assert!(!claims.is_empty(), "{claims:?}");
         }
 
         Ok(())
@@ -405,7 +405,7 @@ pub(crate) mod tests {
             .build();
 
         let result = verifier.verify(token).await;
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         assert!(result.unwrap_err().is_invalid());
 
         Ok(())
@@ -434,7 +434,7 @@ pub(crate) mod tests {
             .build();
 
         let result = verifier.verify(token).await;
-        assert!(result.is_ok());
+        assert!(result.is_ok(), "{result:?}");
         let claims = result.unwrap();
         assert_eq!(claims["email"].as_str().unwrap(), email);
 
@@ -464,7 +464,7 @@ pub(crate) mod tests {
             .build();
 
         let result = verifier.verify(token).await;
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         assert!(result.unwrap_err().is_invalid());
         Ok(())
     }
@@ -490,7 +490,7 @@ pub(crate) mod tests {
             .build();
 
         let result = verifier.verify(token).await;
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         assert!(result.unwrap_err().is_invalid());
 
         Ok(())
@@ -519,7 +519,7 @@ pub(crate) mod tests {
             .build();
 
         let result = verifier.verify(token).await;
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         assert!(result.unwrap_err().is_invalid());
         Ok(())
     }
@@ -546,7 +546,7 @@ pub(crate) mod tests {
             .build();
 
         let result = verifier.verify(token).await;
-        assert!(result.is_ok());
+        assert!(result.is_ok(), "{result:?}");
 
         Ok(())
     }
@@ -558,7 +558,7 @@ pub(crate) mod tests {
         let invalid_token = "invalid.token.format";
 
         let result = verifier.verify(invalid_token).await;
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         assert!(result.unwrap_err().is_decode());
 
         Ok(())
@@ -581,7 +581,7 @@ pub(crate) mod tests {
         let verifier = Builder::new(["https://example.com"]).build();
 
         let result = verifier.verify(&token).await;
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         assert!(result.unwrap_err().is_invalid());
 
         Ok(())
@@ -605,7 +605,7 @@ pub(crate) mod tests {
             .build();
 
         let result = verifier.verify(token).await;
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         assert!(result.unwrap_err().is_load_cert());
 
         Ok(())
@@ -629,7 +629,7 @@ pub(crate) mod tests {
             .build();
 
         let claims = verifier.verify(&token).await?;
-        assert!(!claims.is_empty());
+        assert!(!claims.is_empty(), "{claims:?}");
 
         Ok(())
     }

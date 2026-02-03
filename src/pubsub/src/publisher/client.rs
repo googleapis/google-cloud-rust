@@ -355,7 +355,7 @@ mod tests {
 
         for rx in handles.into_iter() {
             let got = rx.await;
-            assert!(got.is_err());
+            assert!(got.is_err(), "{got:?}");
         }
     }
 
@@ -515,7 +515,7 @@ mod tests {
 
         for rx in handles.into_iter() {
             let got = rx.await;
-            assert!(got.is_err());
+            assert!(got.is_err(), "{got:?}");
         }
     }
 

@@ -230,17 +230,20 @@ mod tests {
     #[test]
     fn defaults() {
         let builder = ClientBuilder::new();
-        assert!(builder.config.endpoint.is_none());
-        assert!(builder.config.cred.is_none());
+        assert!(builder.config.endpoint.is_none(), "{builder:?}");
+        assert!(builder.config.cred.is_none(), "{builder:?}");
         assert!(!builder.config.tracing);
         assert!(
             format!("{:?}", &builder.config).contains("AdaptiveThrottler"),
             "{:?}",
             builder.config
         );
-        assert!(builder.config.retry_policy.is_none());
-        assert!(builder.config.backoff_policy.is_none());
-        assert!(builder.config.grpc_subchannel_count.is_none());
+        assert!(builder.config.retry_policy.is_none(), "{builder:?}");
+        assert!(builder.config.backoff_policy.is_none(), "{builder:?}");
+        assert!(
+            builder.config.grpc_subchannel_count.is_none(),
+            "{builder:?}"
+        );
     }
 
     #[tokio::test]
@@ -258,15 +261,15 @@ mod tests {
             builder.config.endpoint,
             Some("test-endpoint.com".to_string())
         );
-        assert!(builder.config.cred.is_some());
+        assert!(builder.config.cred.is_some(), "{builder:?}");
         assert!(builder.config.tracing);
         assert!(
             format!("{:?}", &builder.config).contains("CircuitBreaker"),
             "{:?}",
             builder.config
         );
-        assert!(builder.config.retry_policy.is_some());
-        assert!(builder.config.backoff_policy.is_some());
+        assert!(builder.config.retry_policy.is_some(), "{builder:?}");
+        assert!(builder.config.backoff_policy.is_some(), "{builder:?}");
         assert_eq!(builder.config.grpc_subchannel_count, Some(16));
     }
 }

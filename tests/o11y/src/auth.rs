@@ -299,13 +299,13 @@ mod tests {
         tokio::spawn(refresh_task(credentials, tx));
 
         // Should be no value initially
-        assert!(rx.borrow().is_none());
+        assert!(rx.borrow().is_none(), "{rx:?}");
 
         // Advance time past error retry
         tokio::time::advance(ERROR_RETRY_DELAY).await;
 
         // Still no value
-        assert!(rx.borrow().is_none());
+        assert!(rx.borrow().is_none(), "{rx:?}");
 
         // Switch to success
         let mut headers = HeaderMap::new();
@@ -345,6 +345,7 @@ mod tests {
         tokio::time::advance(REFRESH_INTERVAL).await;
 
         // Task should finish
-        assert!(handle.await.is_ok());
+        let result = handle.await;
+        assert!(result.is_ok(), "{result:?}");
     }
 }

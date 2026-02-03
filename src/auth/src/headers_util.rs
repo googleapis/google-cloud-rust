@@ -179,7 +179,7 @@ mod tests {
 
         let result = AuthHeadersBuilder::new(&cacheable_token).build();
 
-        assert!(result.is_ok());
+        assert!(result.is_ok(), "{result:?}");
         let cached_headers = result.unwrap();
         let headers = match cached_headers {
             CacheableResource::New { data, .. } => data,
@@ -201,7 +201,7 @@ mod tests {
 
         let result = AuthHeadersBuilder::new(&cacheable_token).build();
 
-        assert!(result.is_ok());
+        assert!(result.is_ok(), "{result:?}");
         let cached_headers = result.unwrap();
         match cached_headers {
             CacheableResource::New { .. } => unreachable!("expecting new headers"),
@@ -222,7 +222,7 @@ mod tests {
             .maybe_quota_project_id(quota_project_id)
             .build();
 
-        assert!(result.is_ok());
+        assert!(result.is_ok(), "{result:?}");
         let cached_headers = result.unwrap();
         let headers = match cached_headers {
             CacheableResource::New { data, .. } => data,
@@ -255,7 +255,7 @@ mod tests {
             .maybe_access_boundary(trust_boundary)
             .build();
 
-        assert!(result.is_ok());
+        assert!(result.is_ok(), "{result:?}");
         let cached_headers = result.unwrap();
         let headers = match cached_headers {
             CacheableResource::New { data, .. } => data,
@@ -284,7 +284,7 @@ mod tests {
 
         let result = AuthHeadersBuilder::new(&CacheableResource::NotModified).as_headers(&token);
 
-        assert!(result.is_ok());
+        assert!(result.is_ok(), "{result:?}");
         let headers = result.unwrap();
 
         assert_eq!(headers.len(), 1, "{headers:?}");
@@ -302,7 +302,7 @@ mod tests {
         let token = create_test_token("token with \n invalid chars", "Bearer");
         let result = AuthHeadersBuilder::new(&CacheableResource::NotModified).as_headers(&token);
 
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let error = result.unwrap_err();
         assert!(!error.is_transient(), "{error:?}");
         let source = error
@@ -324,7 +324,7 @@ mod tests {
 
         let result = AuthHeadersBuilder::for_api_key(&cacheable_token).build();
 
-        assert!(result.is_ok());
+        assert!(result.is_ok(), "{result:?}");
         let cached_headers = result.unwrap();
         let headers = match cached_headers {
             CacheableResource::New { data, .. } => data,
@@ -345,7 +345,7 @@ mod tests {
         let cacheable_token = CacheableResource::NotModified;
         let result = AuthHeadersBuilder::for_api_key(&cacheable_token).build();
 
-        assert!(result.is_ok());
+        assert!(result.is_ok(), "{result:?}");
         let cached_headers = result.unwrap();
         match cached_headers {
             CacheableResource::New { .. } => unreachable!("expecting new headers"),

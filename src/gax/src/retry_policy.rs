@@ -643,7 +643,10 @@ mod tests {
                 .is_permanent()
         );
 
-        assert!(p.remaining_time(&idempotent_state(now)).is_none());
+        assert!(
+            p.remaining_time(&idempotent_state(now)).is_none(),
+            "p={p:?}, now={now:?}"
+        );
     }
 
     #[test]
@@ -651,7 +654,10 @@ mod tests {
         let p = AlwaysRetry;
 
         let now = Instant::now();
-        assert!(p.remaining_time(&idempotent_state(now)).is_none());
+        assert!(
+            p.remaining_time(&idempotent_state(now)).is_none(),
+            "p={p:?}, now={now:?}"
+        );
         assert!(
             p.on_error(&idempotent_state(now), http_unavailable())
                 .is_continue()
@@ -697,7 +703,10 @@ mod tests {
         let p = NeverRetry;
 
         let now = Instant::now();
-        assert!(p.remaining_time(&idempotent_state(now)).is_none());
+        assert!(
+            p.remaining_time(&idempotent_state(now)).is_none(),
+            "p={p:?}, now={now:?}"
+        );
         assert!(
             p.on_error(&idempotent_state(now), http_unavailable())
                 .is_exhausted()
@@ -821,7 +830,7 @@ mod tests {
         assert!(rf.is_continue());
 
         let rt = policy.remaining_time(&idempotent_state(now));
-        assert!(rt.is_some());
+        assert!(rt.is_some(), "policy={policy:?}, now={now:?}");
 
         let e = policy.on_throttle(&idempotent_state(now), transient_error());
         assert!(matches!(e, ThrottleResult::Continue(_)));
@@ -1051,7 +1060,10 @@ mod tests {
         let policy = LimitedAttemptCount::custom(mock, 3);
 
         let now = Instant::now();
-        assert!(policy.remaining_time(&idempotent_state(now)).is_none());
+        assert!(
+            policy.remaining_time(&idempotent_state(now)).is_none(),
+            "policy={policy:?} now={now:?}"
+        );
     }
 
     #[test]

@@ -201,7 +201,7 @@ mod tests {
         let got = headers_to_md5_hash(&headers);
         match want {
             Some(w) => assert_eq!(got, base64::prelude::BASE64_STANDARD.decode(w)?),
-            None => assert!(got.is_empty()),
+            None => assert!(got.is_empty(), "{got:?}"),
         }
         Ok(())
     }

@@ -635,7 +635,7 @@ mod tests {
     fn deserialize_out_of_range(input: &str) -> Result {
         let value = serde_json::to_value(input)?;
         let got = serde_json::from_value::<Duration>(value);
-        assert!(got.is_err());
+        assert!(got.is_err(), "{got:?}");
         Ok(())
     }
 
@@ -680,7 +680,7 @@ mod tests {
     #[test_case("1.0as" ; "nanos are not a number [0a]")]
     fn parse_detect_bad_input(input: &str) -> Result {
         let got = Duration::try_from(input);
-        assert!(got.is_err());
+        assert!(got.is_err(), "{got:?}");
         let err = got.err().unwrap();
         assert!(
             matches!(err, DurationError::Deserialize(_)),
@@ -692,7 +692,7 @@ mod tests {
     #[test]
     fn deserialize_unexpected_input_type() -> Result {
         let got = serde_json::from_value::<Duration>(serde_json::json!({}));
-        assert!(got.is_err());
+        assert!(got.is_err(), "{got:?}");
         let msg = format!("{got:?}");
         assert!(msg.contains("duration in Google format"), "message={msg}");
         Ok(())

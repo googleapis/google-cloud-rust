@@ -124,7 +124,7 @@ async fn http_tracing_to_otlp() -> anyhow::Result<()> {
         get_string("gcp.client.repo").as_deref(),
         Some("googleapis/google-cloud-rust")
     );
-    assert!(get_string("gcp.client.version").is_some());
+    assert!(get_string("gcp.client.version").is_some(), "{attributes:?}");
 
     Ok(())
 }

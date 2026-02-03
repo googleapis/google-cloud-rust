@@ -354,7 +354,7 @@ mod tests {
     #[test]
     fn response_from() {
         let response = Response::from("abc123".to_string());
-        assert!(response.headers().is_empty());
+        assert!(response.headers().is_empty(), "{:?}", response.headers());
         assert_eq!(response.body().as_str(), "abc123");
 
         let body = response.into_body();
@@ -382,7 +382,11 @@ mod tests {
     #[test]
     fn parts() {
         let parts = Parts::new();
-        assert!(parts.headers.is_empty());
+        assert!(
+            parts.headers.is_empty(),
+            "Parts::new().headers should be empty, got={:?}",
+            parts.headers
+        );
 
         let mut headers = http::HeaderMap::new();
         headers.insert(
@@ -403,7 +407,10 @@ mod tests {
     fn transport_span_info_accessors() {
         let mut response = Response::from("test".to_string());
 
-        assert!(internal::transport_span_info(&response).is_none());
+        assert!(
+            internal::transport_span_info(&response).is_none(),
+            "{response:?}"
+        );
 
         // Set a value
         let info = internal::TransportSpanInfo {
@@ -414,11 +421,14 @@ mod tests {
 
         // Get the value
         let retrieved = internal::transport_span_info(&response);
-        assert!(retrieved.is_some());
+        assert!(retrieved.is_some(), "{response:?}");
         assert_eq!(retrieved.unwrap().http_status_code, Some(200));
 
         // Set to None
         internal::set_transport_span_info(&mut response, None);
-        assert!(internal::transport_span_info(&response).is_none());
+        assert!(
+            internal::transport_span_info(&response).is_none(),
+            "{response:?}"
+        );
     }
 }

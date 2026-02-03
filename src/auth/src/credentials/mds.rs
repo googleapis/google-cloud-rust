@@ -551,10 +551,13 @@ mod tests {
     #[parallel]
     fn validate_default_endpoint_urls() {
         let default_endpoint_address = Url::parse(&format!("{METADATA_ROOT}{MDS_DEFAULT_URI}"));
-        assert!(default_endpoint_address.is_ok());
+        assert!(
+            default_endpoint_address.is_ok(),
+            "{default_endpoint_address:?}"
+        );
 
         let token_endpoint_address = Url::parse(&format!("{METADATA_ROOT}{MDS_DEFAULT_URI}/token"));
-        assert!(token_endpoint_address.is_ok());
+        assert!(token_endpoint_address.is_ok(), "{token_endpoint_address:?}");
     }
 
     #[tokio::test]
@@ -634,7 +637,8 @@ mod tests {
             quota_project_id: None,
             token_provider: TokenCache::new(mock),
         };
-        assert!(mdsc.headers(Extensions::new()).await.is_err());
+        let result = mdsc.headers(Extensions::new()).await;
+        assert!(result.is_err(), "{result:?}");
     }
 
     #[test]

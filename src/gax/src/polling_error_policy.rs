@@ -524,7 +524,8 @@ mod tests {
     fn aip194_strict() {
         let p = Aip194Strict;
 
-        assert!(p.on_in_progress(&PollingState::default(), "unused").is_ok());
+        let result = p.on_in_progress(&PollingState::default(), "unused");
+        assert!(result.is_ok(), "{result:?}");
         assert!(
             p.on_error(&PollingState::default(), unavailable())
                 .is_continue()
@@ -565,7 +566,8 @@ mod tests {
     fn always_continue() {
         let p = AlwaysContinue;
 
-        assert!(p.on_in_progress(&PollingState::default(), "unused").is_ok());
+        let result = p.on_in_progress(&PollingState::default(), "unused");
+        assert!(result.is_ok(), "{result:?}");
         assert!(
             p.on_error(&PollingState::default(), http_unavailable())
                 .is_continue()
@@ -713,7 +715,7 @@ mod tests {
             )
             .unwrap_err();
         let exhausted = err.source().and_then(|e| e.downcast_ref::<Exhausted>());
-        assert!(exhausted.is_some());
+        assert!(exhausted.is_some(), "{err:?}");
     }
 
     #[test]
@@ -896,7 +898,7 @@ mod tests {
             )
             .unwrap_err();
         let exhausted = err.source().and_then(|e| e.downcast_ref::<Exhausted>());
-        assert!(exhausted.is_some());
+        assert!(exhausted.is_some(), "{err:?}");
     }
 
     #[test]

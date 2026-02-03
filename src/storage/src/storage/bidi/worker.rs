@@ -394,7 +394,7 @@ mod tests {
         // The stream is not closed, so it does not have a `None` waiting.
         // We are willing to tolerate false positives here, it is fine if this
         // succeeds when it shouldn't due to race conditions.
-        assert!(reader.is_empty());
+        assert!(reader.is_empty(), "{reader:?}");
 
         drop(tx);
         join.await??;

@@ -234,11 +234,13 @@ mod tests {
             .returning(|| Err(errors::non_retryable_from_str("fail")));
 
         let cache = TokenCache::new(mock);
-        assert!(cache.token(Extensions::new()).await.is_err());
+        let result = cache.token(Extensions::new()).await;
+        assert!(result.is_err(), "{result:?}");
 
         // Verify that a new request is made to the mock token provider when we
         // don't have a valid token.
-        assert!(cache.token(Extensions::new()).await.is_err());
+        let result = cache.token(Extensions::new()).await;
+        assert!(result.is_err(), "{result:?}");
     }
 
     #[tokio::test(start_paused = true)]
@@ -317,7 +319,8 @@ mod tests {
         tokio::time::advance(sleep).await;
 
         // make sure we return the error, not the expired token
-        assert!(cache.token(Extensions::new()).await.is_err());
+        let result = cache.token(Extensions::new()).await;
+        assert!(result.is_err(), "{result:?}");
         Ok(())
     }
 
@@ -450,7 +453,7 @@ mod tests {
 
         // check that channel has None before refresh task starts
         let actual = rx.borrow().clone();
-        assert!(actual.is_none());
+        assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
             refresh_task(Arc::new(mock), tx).await;
@@ -524,7 +527,7 @@ mod tests {
 
         // check that channel has None before refresh task starts
         let actual = rx.borrow().clone();
-        assert!(actual.is_none());
+        assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
             refresh_task(Arc::new(mock), tx).await;
@@ -589,7 +592,7 @@ mod tests {
 
         // check that channel has None before refresh task starts
         let actual = rx.borrow().clone();
-        assert!(actual.is_none());
+        assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
             refresh_task(Arc::new(mock), tx).await;

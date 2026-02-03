@@ -1914,7 +1914,7 @@ mod tests {
             .with_token_url("http://test.com/token")
             .build();
 
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let error_string = result.unwrap_err().to_string();
         assert!(
             error_string.contains("missing required field: audience"),

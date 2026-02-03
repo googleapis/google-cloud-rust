@@ -728,7 +728,8 @@ mod tests {
             token_provider: TokenCache::new(mock),
             quota_project_id: None,
         };
-        assert!(sac.headers(Extensions::new()).await.is_err());
+        let result = sac.headers(Extensions::new()).await;
+        assert!(result.is_err(), "{result:?}");
     }
 
     fn get_mock_service_key() -> Value {
@@ -885,7 +886,7 @@ mod tests {
         };
         key.private_key = invalid_pem.to_string();
         let result = key.signer();
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let error_msg = result.unwrap_err().to_string();
         assert!(error_msg.contains("Failed to parse service account private key PEM"));
         Ok(())
@@ -1002,7 +1003,7 @@ mod tests {
 
         let result = signer.sign(b"test").await;
 
-        assert!(result.is_ok());
+        assert!(result.is_ok(), "{result:?}");
 
         Ok(())
     }

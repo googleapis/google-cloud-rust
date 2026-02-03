@@ -495,7 +495,7 @@ done";
             .expect_err("should fail with timeout");
 
         assert!(err.is_transient());
-        assert!(err.source().is_some());
+        assert!(err.source().is_some(), "{:?}", err.source());
 
         let source_err = err.source().unwrap();
         assert!(source_err.to_string().contains("deadline"));

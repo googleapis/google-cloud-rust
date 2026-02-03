@@ -142,7 +142,7 @@ mod tests {
             .await
             .expect_err("parsing should fail");
         assert!(!err.is_transient(), "{err:?}");
-        assert!(err.source().is_none());
+        assert!(err.source().is_none(), "{:?}", err.source());
         assert!(err.to_string().contains("`access_token`"), "{err:?}");
         assert!(
             err.to_string()
@@ -164,7 +164,7 @@ mod tests {
             .await
             .expect_err("file should not exist");
         assert!(!err.is_transient(), "{err:?}");
-        assert!(err.source().is_some());
+        assert!(err.source().is_some(), "{:?}", err.source());
         Ok(())
     }
 
@@ -194,7 +194,7 @@ mod tests {
             .await
             .expect_err("parsing should fail");
         assert!(!err.is_transient(), "{err:?}");
-        assert!(err.source().is_some());
+        assert!(err.source().is_some(), "{:?}", err.source());
         Ok(())
     }
 }
