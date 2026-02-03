@@ -25,7 +25,7 @@ extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -7319,7 +7319,7 @@ pub struct CertificateIdentityConstraints {
     /// Subject and/or Subject Alternative Name before a certificate is signed. To
     /// see the full allowed syntax and some examples, see
     /// <https://cloud.google.com/certificate-authority-service/docs/using-cel>
-    pub cel_expression: std::option::Option<gtype::model::Expr>,
+    pub cel_expression: std::option::Option<google_cloud_type::model::Expr>,
 
     /// Required. If this is true, the
     /// [Subject][google.cloud.security.privateca.v1.Subject] field may be copied
@@ -7353,12 +7353,12 @@ impl CertificateIdentityConstraints {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::CertificateIdentityConstraints;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = CertificateIdentityConstraints::new().set_cel_expression(Expr::default()/* use setters */);
     /// ```
     pub fn set_cel_expression<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.cel_expression = std::option::Option::Some(v.into());
         self
@@ -7369,13 +7369,13 @@ impl CertificateIdentityConstraints {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_security_privateca_v1::model::CertificateIdentityConstraints;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = CertificateIdentityConstraints::new().set_or_clear_cel_expression(Some(Expr::default()/* use setters */));
     /// let x = CertificateIdentityConstraints::new().set_or_clear_cel_expression(None::<Expr>);
     /// ```
     pub fn set_or_clear_cel_expression<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.cel_expression = v.map(|x| x.into());
         self

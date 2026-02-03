@@ -23,7 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -8265,7 +8265,7 @@ pub struct ImageVersion {
     pub supported_python_versions: std::vec::Vec<std::string::String>,
 
     /// The date of the version release.
-    pub release_date: std::option::Option<gtype::model::Date>,
+    pub release_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// Whether it is impossible to create an environment with the image version.
     pub creation_disabled: bool,
@@ -8331,12 +8331,12 @@ impl ImageVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::ImageVersion;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = ImageVersion::new().set_release_date(Date::default()/* use setters */);
     /// ```
     pub fn set_release_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.release_date = std::option::Option::Some(v.into());
         self
@@ -8347,13 +8347,13 @@ impl ImageVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_orchestration_airflow_service_v1::model::ImageVersion;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = ImageVersion::new().set_or_clear_release_date(Some(Date::default()/* use setters */));
     /// let x = ImageVersion::new().set_or_clear_release_date(None::<Date>);
     /// ```
     pub fn set_or_clear_release_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.release_date = v.map(|x| x.into());
         self

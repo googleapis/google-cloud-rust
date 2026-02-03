@@ -1656,8 +1656,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Backup {
                                     "multiple values for backup_interval",
                                 ));
                             }
-                            result.backup_interval =
-                                map.next_value::<std::option::Option<gtype::model::Interval>>()?;
+                            result.backup_interval = map.next_value::<std::option::Option<google_cloud_type::model::Interval>>()?
+                                ;
                         }
                         __FieldTag::__state => {
                             if !fields.insert(__FieldTag::__state) {

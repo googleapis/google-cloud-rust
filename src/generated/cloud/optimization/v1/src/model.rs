@@ -23,7 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -3860,7 +3860,7 @@ pub mod shipment {
         /// The geo-location where the vehicle arrives when performing this
         /// `VisitRequest`. If the shipment model has duration distance matrices,
         /// `arrival_location` must not be specified.
-        pub arrival_location: std::option::Option<gtype::model::LatLng>,
+        pub arrival_location: std::option::Option<google_cloud_type::model::LatLng>,
 
         /// The waypoint where the vehicle arrives when performing this
         /// `VisitRequest`. If the shipment model has duration distance matrices,
@@ -3871,7 +3871,7 @@ pub mod shipment {
         /// `VisitRequest`. Can be omitted if it is the same as `arrival_location`.
         /// If the shipment model has duration distance matrices,
         /// `departure_location` must not be specified.
-        pub departure_location: std::option::Option<gtype::model::LatLng>,
+        pub departure_location: std::option::Option<google_cloud_type::model::LatLng>,
 
         /// The waypoint where the vehicle departs after completing this
         /// `VisitRequest`. Can be omitted if it is the same as `arrival_waypoint`.
@@ -3963,12 +3963,12 @@ pub mod shipment {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
-        /// use gtype::model::LatLng;
+        /// use google_cloud_type::model::LatLng;
         /// let x = VisitRequest::new().set_arrival_location(LatLng::default()/* use setters */);
         /// ```
         pub fn set_arrival_location<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::LatLng>,
+            T: std::convert::Into<google_cloud_type::model::LatLng>,
         {
             self.arrival_location = std::option::Option::Some(v.into());
             self
@@ -3979,13 +3979,13 @@ pub mod shipment {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
-        /// use gtype::model::LatLng;
+        /// use google_cloud_type::model::LatLng;
         /// let x = VisitRequest::new().set_or_clear_arrival_location(Some(LatLng::default()/* use setters */));
         /// let x = VisitRequest::new().set_or_clear_arrival_location(None::<LatLng>);
         /// ```
         pub fn set_or_clear_arrival_location<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::LatLng>,
+            T: std::convert::Into<google_cloud_type::model::LatLng>,
         {
             self.arrival_location = v.map(|x| x.into());
             self
@@ -4029,12 +4029,12 @@ pub mod shipment {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
-        /// use gtype::model::LatLng;
+        /// use google_cloud_type::model::LatLng;
         /// let x = VisitRequest::new().set_departure_location(LatLng::default()/* use setters */);
         /// ```
         pub fn set_departure_location<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::LatLng>,
+            T: std::convert::Into<google_cloud_type::model::LatLng>,
         {
             self.departure_location = std::option::Option::Some(v.into());
             self
@@ -4045,13 +4045,13 @@ pub mod shipment {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
-        /// use gtype::model::LatLng;
+        /// use google_cloud_type::model::LatLng;
         /// let x = VisitRequest::new().set_or_clear_departure_location(Some(LatLng::default()/* use setters */));
         /// let x = VisitRequest::new().set_or_clear_departure_location(None::<LatLng>);
         /// ```
         pub fn set_or_clear_departure_location<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::LatLng>,
+            T: std::convert::Into<google_cloud_type::model::LatLng>,
         {
             self.departure_location = v.map(|x| x.into());
             self
@@ -4871,7 +4871,7 @@ pub struct Vehicle {
     /// shipments. If not specified, the vehicle starts at its first pickup.
     /// If the shipment model has duration and distance matrices, `start_location`
     /// must not be specified.
-    pub start_location: std::option::Option<gtype::model::LatLng>,
+    pub start_location: std::option::Option<google_cloud_type::model::LatLng>,
 
     /// Waypoint representing a geographic location where the vehicle starts before
     /// picking up any shipments. If neither `start_waypoint` nor `start_location`
@@ -4885,7 +4885,7 @@ pub struct Vehicle {
     /// immediately when it completes its last `VisitRequest`.
     /// If the shipment model has duration and distance matrices, `end_location`
     /// must not be specified.
-    pub end_location: std::option::Option<gtype::model::LatLng>,
+    pub end_location: std::option::Option<google_cloud_type::model::LatLng>,
 
     /// Waypoint representing a geographic location where the vehicle ends after
     /// it has completed its last `VisitRequest`. If neither `end_waypoint` nor
@@ -5168,12 +5168,12 @@ impl Vehicle {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_optimization_v1::model::Vehicle;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = Vehicle::new().set_start_location(LatLng::default()/* use setters */);
     /// ```
     pub fn set_start_location<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.start_location = std::option::Option::Some(v.into());
         self
@@ -5184,13 +5184,13 @@ impl Vehicle {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_optimization_v1::model::Vehicle;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = Vehicle::new().set_or_clear_start_location(Some(LatLng::default()/* use setters */));
     /// let x = Vehicle::new().set_or_clear_start_location(None::<LatLng>);
     /// ```
     pub fn set_or_clear_start_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.start_location = v.map(|x| x.into());
         self
@@ -5234,12 +5234,12 @@ impl Vehicle {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_optimization_v1::model::Vehicle;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = Vehicle::new().set_end_location(LatLng::default()/* use setters */);
     /// ```
     pub fn set_end_location<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.end_location = std::option::Option::Some(v.into());
         self
@@ -5250,13 +5250,13 @@ impl Vehicle {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_optimization_v1::model::Vehicle;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = Vehicle::new().set_or_clear_end_location(Some(LatLng::default()/* use setters */));
     /// let x = Vehicle::new().set_or_clear_end_location(None::<LatLng>);
     /// ```
     pub fn set_or_clear_end_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.end_location = v.map(|x| x.into());
         self
@@ -7561,7 +7561,7 @@ pub mod waypoint {
 #[non_exhaustive]
 pub struct Location {
     /// The waypoint's geographic coordinates.
-    pub lat_lng: std::option::Option<gtype::model::LatLng>,
+    pub lat_lng: std::option::Option<google_cloud_type::model::LatLng>,
 
     /// The compass heading associated with the direction of the flow of traffic.
     /// This value is used to specify the side of the road to use for pickup and
@@ -7582,12 +7582,12 @@ impl Location {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_optimization_v1::model::Location;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = Location::new().set_lat_lng(LatLng::default()/* use setters */);
     /// ```
     pub fn set_lat_lng<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.lat_lng = std::option::Option::Some(v.into());
         self
@@ -7598,13 +7598,13 @@ impl Location {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_optimization_v1::model::Location;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = Location::new().set_or_clear_lat_lng(Some(LatLng::default()/* use setters */));
     /// let x = Location::new().set_or_clear_lat_lng(None::<LatLng>);
     /// ```
     pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.lat_lng = v.map(|x| x.into());
         self

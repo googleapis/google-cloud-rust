@@ -2483,7 +2483,9 @@ pub mod iam {
         ///
         /// Note that all the setters affecting `lint_object` are
         /// mutually exclusive.
-        pub fn set_condition<T: std::convert::Into<std::boxed::Box<gtype::model::Expr>>>(
+        pub fn set_condition<
+            T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Expr>>,
+        >(
             mut self,
             v: T,
         ) -> Self {

@@ -456,9 +456,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MaintenanceWindow {
                                     "multiple values for day_of_week",
                                 ));
                             }
-                            result.day_of_week = map
-                                .next_value::<std::option::Option<gtype::model::DayOfWeek>>()?
-                                .unwrap_or_default();
+                            result.day_of_week = map.next_value::<std::option::Option<google_cloud_type::model::DayOfWeek>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

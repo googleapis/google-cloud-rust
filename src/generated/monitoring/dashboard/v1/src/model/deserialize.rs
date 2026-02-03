@@ -405,8 +405,8 @@ impl<'de> serde::de::Deserialize<'de> for super::PickTimeSeriesFilter {
                                     "multiple values for interval",
                                 ));
                             }
-                            result.interval =
-                                map.next_value::<std::option::Option<gtype::model::Interval>>()?;
+                            result.interval = map.next_value::<std::option::Option<google_cloud_type::model::Interval>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -23,7 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -4487,12 +4487,12 @@ pub struct Retrohunt {
 
     /// Required. The start and end time of the event time range this retrohunt
     /// processes.
-    pub process_interval: std::option::Option<gtype::model::Interval>,
+    pub process_interval: std::option::Option<google_cloud_type::model::Interval>,
 
     /// Output only. The start and end time of the retrohunt execution. If the
     /// retrohunt is not yet finished, the end time of the interval will not be
     /// populated.
-    pub execution_interval: std::option::Option<gtype::model::Interval>,
+    pub execution_interval: std::option::Option<google_cloud_type::model::Interval>,
 
     /// Output only. The state of the retrohunt.
     pub state: crate::model::retrohunt::State,
@@ -4526,12 +4526,12 @@ impl Retrohunt {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::Retrohunt;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = Retrohunt::new().set_process_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_process_interval<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.process_interval = std::option::Option::Some(v.into());
         self
@@ -4542,13 +4542,13 @@ impl Retrohunt {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::Retrohunt;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = Retrohunt::new().set_or_clear_process_interval(Some(Interval::default()/* use setters */));
     /// let x = Retrohunt::new().set_or_clear_process_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_process_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.process_interval = v.map(|x| x.into());
         self
@@ -4559,12 +4559,12 @@ impl Retrohunt {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::Retrohunt;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = Retrohunt::new().set_execution_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_execution_interval<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.execution_interval = std::option::Option::Some(v.into());
         self
@@ -4575,13 +4575,13 @@ impl Retrohunt {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::Retrohunt;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = Retrohunt::new().set_or_clear_execution_interval(Some(Interval::default()/* use setters */));
     /// let x = Retrohunt::new().set_or_clear_execution_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_execution_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.execution_interval = v.map(|x| x.into());
         self
@@ -6346,7 +6346,7 @@ pub struct RetrohuntMetadata {
 
     /// The start and end time of the retrohunt execution. If the retrohunt is not
     /// yet finished, the end time of the interval will not be filled.
-    pub execution_interval: std::option::Option<gtype::model::Interval>,
+    pub execution_interval: std::option::Option<google_cloud_type::model::Interval>,
 
     /// Percent progress of the retrohunt towards completion, from 0.00 to 100.00.
     pub progress_percentage: f32,
@@ -6376,12 +6376,12 @@ impl RetrohuntMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::RetrohuntMetadata;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = RetrohuntMetadata::new().set_execution_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_execution_interval<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.execution_interval = std::option::Option::Some(v.into());
         self
@@ -6392,13 +6392,13 @@ impl RetrohuntMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_chronicle_v1::model::RetrohuntMetadata;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = RetrohuntMetadata::new().set_or_clear_execution_interval(Some(Interval::default()/* use setters */));
     /// let x = RetrohuntMetadata::new().set_or_clear_execution_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_execution_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.execution_interval = v.map(|x| x.into());
         self

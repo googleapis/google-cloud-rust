@@ -3232,7 +3232,7 @@ impl<'de> serde::de::Deserialize<'de> for super::TimecodeConfig {
                             result.time_offset = std::option::Option::Some(
                                 crate::model::timecode_config::TimeOffset::TimeZone(
                                     map.next_value::<std::option::Option<
-                                        std::boxed::Box<gtype::model::TimeZone>,
+                                        std::boxed::Box<google_cloud_type::model::TimeZone>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),

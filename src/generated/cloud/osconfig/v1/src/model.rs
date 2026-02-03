@@ -25,7 +25,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -1942,7 +1942,7 @@ pub mod inventory {
         /// The last time this product received service. The value of this property
         /// is replaced each time a patch is applied or removed from the product or
         /// the command-line option is used to repair the product.
-        pub install_date: std::option::Option<gtype::model::Date>,
+        pub install_date: std::option::Option<google_cloud_type::model::Date>,
 
         /// The internet address for technical support.
         pub help_link: std::string::String,
@@ -2002,12 +2002,12 @@ pub mod inventory {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_osconfig_v1::model::inventory::WindowsApplication;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = WindowsApplication::new().set_install_date(Date::default()/* use setters */);
         /// ```
         pub fn set_install_date<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.install_date = std::option::Option::Some(v.into());
             self
@@ -2018,13 +2018,13 @@ pub mod inventory {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_osconfig_v1::model::inventory::WindowsApplication;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = WindowsApplication::new().set_or_clear_install_date(Some(Date::default()/* use setters */));
         /// let x = WindowsApplication::new().set_or_clear_install_date(None::<Date>);
         /// ```
         pub fn set_or_clear_install_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.install_date = v.map(|x| x.into());
             self
@@ -9743,7 +9743,7 @@ impl wkt::message::Message for OneTimeSchedule {
 pub struct RecurringSchedule {
     /// Required. Defines the time zone that `time_of_day` is relative to.
     /// The rules for daylight saving time are determined by the chosen time zone.
-    pub time_zone: std::option::Option<gtype::model::TimeZone>,
+    pub time_zone: std::option::Option<google_cloud_type::model::TimeZone>,
 
     /// Optional. The time that the recurring schedule becomes effective.
     /// Defaults to `create_time` of the patch deployment.
@@ -9754,7 +9754,7 @@ pub struct RecurringSchedule {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// Required. Time of the day to run a recurring deployment.
-    pub time_of_day: std::option::Option<gtype::model::TimeOfDay>,
+    pub time_of_day: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     /// Required. The frequency unit of this recurring schedule.
     pub frequency: crate::model::recurring_schedule::Frequency,
@@ -9782,12 +9782,12 @@ impl RecurringSchedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use gtype::model::TimeZone;
+    /// use google_cloud_type::model::TimeZone;
     /// let x = RecurringSchedule::new().set_time_zone(TimeZone::default()/* use setters */);
     /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeZone>,
+        T: std::convert::Into<google_cloud_type::model::TimeZone>,
     {
         self.time_zone = std::option::Option::Some(v.into());
         self
@@ -9798,13 +9798,13 @@ impl RecurringSchedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use gtype::model::TimeZone;
+    /// use google_cloud_type::model::TimeZone;
     /// let x = RecurringSchedule::new().set_or_clear_time_zone(Some(TimeZone::default()/* use setters */));
     /// let x = RecurringSchedule::new().set_or_clear_time_zone(None::<TimeZone>);
     /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeZone>,
+        T: std::convert::Into<google_cloud_type::model::TimeZone>,
     {
         self.time_zone = v.map(|x| x.into());
         self
@@ -9881,12 +9881,12 @@ impl RecurringSchedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = RecurringSchedule::new().set_time_of_day(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_time_of_day<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.time_of_day = std::option::Option::Some(v.into());
         self
@@ -9897,13 +9897,13 @@ impl RecurringSchedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = RecurringSchedule::new().set_or_clear_time_of_day(Some(TimeOfDay::default()/* use setters */));
     /// let x = RecurringSchedule::new().set_or_clear_time_of_day(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_time_of_day<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.time_of_day = v.map(|x| x.into());
         self
@@ -10260,7 +10260,7 @@ pub mod recurring_schedule {
 #[non_exhaustive]
 pub struct WeeklySchedule {
     /// Required. Day of the week.
-    pub day_of_week: gtype::model::DayOfWeek,
+    pub day_of_week: google_cloud_type::model::DayOfWeek,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10275,12 +10275,15 @@ impl WeeklySchedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::WeeklySchedule;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x0 = WeeklySchedule::new().set_day_of_week(DayOfWeek::Monday);
     /// let x1 = WeeklySchedule::new().set_day_of_week(DayOfWeek::Tuesday);
     /// let x2 = WeeklySchedule::new().set_day_of_week(DayOfWeek::Wednesday);
     /// ```
-    pub fn set_day_of_week<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
+    pub fn set_day_of_week<T: std::convert::Into<google_cloud_type::model::DayOfWeek>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.day_of_week = v.into();
         self
     }
@@ -10436,7 +10439,7 @@ pub struct WeekDayOfMonth {
     pub week_ordinal: i32,
 
     /// Required. A day of the week.
-    pub day_of_week: gtype::model::DayOfWeek,
+    pub day_of_week: google_cloud_type::model::DayOfWeek,
 
     /// Optional. Represents the number of days before or after the given week day
     /// of month that the patch deployment is scheduled for. For example if
@@ -10472,12 +10475,15 @@ impl WeekDayOfMonth {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_osconfig_v1::model::WeekDayOfMonth;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x0 = WeekDayOfMonth::new().set_day_of_week(DayOfWeek::Monday);
     /// let x1 = WeekDayOfMonth::new().set_day_of_week(DayOfWeek::Tuesday);
     /// let x2 = WeekDayOfMonth::new().set_day_of_week(DayOfWeek::Wednesday);
     /// ```
-    pub fn set_day_of_week<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
+    pub fn set_day_of_week<T: std::convert::Into<google_cloud_type::model::DayOfWeek>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.day_of_week = v.into();
         self
     }

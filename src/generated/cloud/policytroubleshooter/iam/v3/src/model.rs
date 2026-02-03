@@ -22,7 +22,7 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate iam_v2;
 extern crate lazy_static;
 extern crate rpc;
@@ -1372,7 +1372,7 @@ pub struct AllowBindingExplanation {
     ///
     /// To learn about IAM Conditions, see
     /// <https://cloud.google.com/iam/help/conditions/overview>.
-    pub condition: std::option::Option<gtype::model::Expr>,
+    pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
     /// Condition evaluation state for this role binding.
     pub condition_explanation: std::option::Option<crate::model::ConditionExplanation>,
@@ -1531,12 +1531,12 @@ impl AllowBindingExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = AllowBindingExplanation::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -1547,13 +1547,13 @@ impl AllowBindingExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = AllowBindingExplanation::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
     /// let x = AllowBindingExplanation::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self
@@ -2149,7 +2149,7 @@ pub struct DenyRuleExplanation {
     ///
     /// To learn about IAM Conditions, see
     /// <https://cloud.google.com/iam/help/conditions/overview>.
-    pub condition: std::option::Option<gtype::model::Expr>,
+    pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
     /// Condition evaluation state for this role binding.
     pub condition_explanation: std::option::Option<crate::model::ConditionExplanation>,
@@ -2425,12 +2425,12 @@ impl DenyRuleExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = DenyRuleExplanation::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -2441,13 +2441,13 @@ impl DenyRuleExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = DenyRuleExplanation::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
     /// let x = DenyRuleExplanation::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self

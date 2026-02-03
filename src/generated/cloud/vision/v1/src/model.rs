@@ -23,7 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -1544,7 +1544,7 @@ pub mod face_annotation {
 #[non_exhaustive]
 pub struct LocationInfo {
     /// lat/long location coordinates.
-    pub lat_lng: std::option::Option<gtype::model::LatLng>,
+    pub lat_lng: std::option::Option<google_cloud_type::model::LatLng>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1559,12 +1559,12 @@ impl LocationInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::LocationInfo;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = LocationInfo::new().set_lat_lng(LatLng::default()/* use setters */);
     /// ```
     pub fn set_lat_lng<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.lat_lng = std::option::Option::Some(v.into());
         self
@@ -1575,13 +1575,13 @@ impl LocationInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::LocationInfo;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = LocationInfo::new().set_or_clear_lat_lng(Some(LatLng::default()/* use setters */));
     /// let x = LocationInfo::new().set_or_clear_lat_lng(None::<LatLng>);
     /// ```
     pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.lat_lng = v.map(|x| x.into());
         self
@@ -2114,10 +2114,10 @@ impl wkt::message::Message for SafeSearchAnnotation {
 #[non_exhaustive]
 pub struct LatLongRect {
     /// Min lat/long pair.
-    pub min_lat_lng: std::option::Option<gtype::model::LatLng>,
+    pub min_lat_lng: std::option::Option<google_cloud_type::model::LatLng>,
 
     /// Max lat/long pair.
-    pub max_lat_lng: std::option::Option<gtype::model::LatLng>,
+    pub max_lat_lng: std::option::Option<google_cloud_type::model::LatLng>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2132,12 +2132,12 @@ impl LatLongRect {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::LatLongRect;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = LatLongRect::new().set_min_lat_lng(LatLng::default()/* use setters */);
     /// ```
     pub fn set_min_lat_lng<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.min_lat_lng = std::option::Option::Some(v.into());
         self
@@ -2148,13 +2148,13 @@ impl LatLongRect {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::LatLongRect;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = LatLongRect::new().set_or_clear_min_lat_lng(Some(LatLng::default()/* use setters */));
     /// let x = LatLongRect::new().set_or_clear_min_lat_lng(None::<LatLng>);
     /// ```
     pub fn set_or_clear_min_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.min_lat_lng = v.map(|x| x.into());
         self
@@ -2165,12 +2165,12 @@ impl LatLongRect {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::LatLongRect;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = LatLongRect::new().set_max_lat_lng(LatLng::default()/* use setters */);
     /// ```
     pub fn set_max_lat_lng<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.max_lat_lng = std::option::Option::Some(v.into());
         self
@@ -2181,13 +2181,13 @@ impl LatLongRect {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::LatLongRect;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = LatLongRect::new().set_or_clear_max_lat_lng(Some(LatLng::default()/* use setters */));
     /// let x = LatLongRect::new().set_or_clear_max_lat_lng(None::<LatLng>);
     /// ```
     pub fn set_or_clear_max_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.max_lat_lng = v.map(|x| x.into());
         self
@@ -2206,7 +2206,7 @@ impl wkt::message::Message for LatLongRect {
 #[non_exhaustive]
 pub struct ColorInfo {
     /// RGB components of the color.
-    pub color: std::option::Option<gtype::model::Color>,
+    pub color: std::option::Option<google_cloud_type::model::Color>,
 
     /// Image-specific score for this color. Value in range [0, 1].
     pub score: f32,
@@ -2228,12 +2228,12 @@ impl ColorInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::ColorInfo;
-    /// use gtype::model::Color;
+    /// use google_cloud_type::model::Color;
     /// let x = ColorInfo::new().set_color(Color::default()/* use setters */);
     /// ```
     pub fn set_color<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Color>,
+        T: std::convert::Into<google_cloud_type::model::Color>,
     {
         self.color = std::option::Option::Some(v.into());
         self
@@ -2244,13 +2244,13 @@ impl ColorInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vision_v1::model::ColorInfo;
-    /// use gtype::model::Color;
+    /// use google_cloud_type::model::Color;
     /// let x = ColorInfo::new().set_or_clear_color(Some(Color::default()/* use setters */));
     /// let x = ColorInfo::new().set_or_clear_color(None::<Color>);
     /// ```
     pub fn set_or_clear_color<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Color>,
+        T: std::convert::Into<google_cloud_type::model::Color>,
     {
         self.color = v.map(|x| x.into());
         self

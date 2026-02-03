@@ -26470,15 +26470,14 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQuerySource {
                                     "multiple values for `partition`, a oneof with full ID .google.cloud.discoveryengine.v1.BigQuerySource.partition_date, latest field was partitionDate",
                                 ));
                             }
-                            result.partition =
-                                std::option::Option::Some(
-                                    crate::model::big_query_source::Partition::PartitionDate(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<gtype::model::Date>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.partition = std::option::Option::Some(
+                                crate::model::big_query_source::Partition::PartitionDate(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_type::model::Date>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::__project_id => {
                             if !fields.insert(__FieldTag::__project_id) {

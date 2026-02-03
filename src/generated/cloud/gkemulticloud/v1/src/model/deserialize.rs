@@ -962,8 +962,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedPlatformVersionInfo {
                                     "multiple values for end_of_life_date",
                                 ));
                             }
-                            result.end_of_life_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.end_of_life_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__release_date => {
                             if !fields.insert(__FieldTag::__release_date) {
@@ -971,8 +972,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedPlatformVersionInfo {
                                     "multiple values for release_date",
                                 ));
                             }
-                            result.release_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.release_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5550,8 +5552,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AwsK8sVersionInfo {
                                     "multiple values for end_of_life_date",
                                 ));
                             }
-                            result.end_of_life_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.end_of_life_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__release_date => {
                             if !fields.insert(__FieldTag::__release_date) {
@@ -5559,8 +5562,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AwsK8sVersionInfo {
                                     "multiple values for release_date",
                                 ));
                             }
-                            result.release_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.release_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -11134,8 +11138,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AzureK8sVersionInfo {
                                     "multiple values for end_of_life_date",
                                 ));
                             }
-                            result.end_of_life_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.end_of_life_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__release_date => {
                             if !fields.insert(__FieldTag::__release_date) {
@@ -11143,8 +11148,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AzureK8sVersionInfo {
                                     "multiple values for release_date",
                                 ));
                             }
-                            result.release_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.release_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

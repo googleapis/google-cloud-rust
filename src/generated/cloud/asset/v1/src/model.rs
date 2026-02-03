@@ -25,7 +25,7 @@ extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate orgpolicy_v1;
 extern crate osconfig_v1;
@@ -2301,7 +2301,7 @@ pub struct Feed {
     /// See our [user
     /// guide](https://cloud.google.com/asset-inventory/docs/monitoring-asset-changes-with-condition)
     /// for detailed instructions.
-    pub condition: std::option::Option<gtype::model::Expr>,
+    pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
     /// A list of relationship types to output, for example:
     /// `INSTANCE_TO_INSTANCEGROUP`. This field should only be specified if
@@ -2432,12 +2432,12 @@ impl Feed {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::Feed;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = Feed::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -2448,13 +2448,13 @@ impl Feed {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::Feed;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = Feed::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
     /// let x = Feed::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self
@@ -7596,7 +7596,7 @@ pub mod analyzer_org_policy {
     #[non_exhaustive]
     pub struct Rule {
         /// The evaluating condition for this rule.
-        pub condition: std::option::Option<gtype::model::Expr>,
+        pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
         /// The condition evaluation result for this rule.
         /// Only populated if it meets all the following criteria:
@@ -7635,12 +7635,12 @@ pub mod analyzer_org_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_asset_v1::model::analyzer_org_policy::Rule;
-        /// use gtype::model::Expr;
+        /// use google_cloud_type::model::Expr;
         /// let x = Rule::new().set_condition(Expr::default()/* use setters */);
         /// ```
         pub fn set_condition<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Expr>,
+            T: std::convert::Into<google_cloud_type::model::Expr>,
         {
             self.condition = std::option::Option::Some(v.into());
             self
@@ -7651,13 +7651,13 @@ pub mod analyzer_org_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_asset_v1::model::analyzer_org_policy::Rule;
-        /// use gtype::model::Expr;
+        /// use google_cloud_type::model::Expr;
         /// let x = Rule::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
         /// let x = Rule::new().set_or_clear_condition(None::<Expr>);
         /// ```
         pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Expr>,
+            T: std::convert::Into<google_cloud_type::model::Expr>,
         {
             self.condition = v.map(|x| x.into());
             self

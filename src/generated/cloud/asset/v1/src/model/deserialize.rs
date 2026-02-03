@@ -2303,8 +2303,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Feed {
                                     "multiple values for condition",
                                 ));
                             }
-                            result.condition =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::__relationship_types => {
                             if !fields.insert(__FieldTag::__relationship_types) {
@@ -7132,8 +7133,9 @@ impl<'de> serde::de::Deserialize<'de> for super::analyzer_org_policy::Rule {
                                     "multiple values for condition",
                                 ));
                             }
-                            result.condition =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::__condition_evaluation => {
                             if !fields.insert(__FieldTag::__condition_evaluation) {

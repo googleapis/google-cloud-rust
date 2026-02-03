@@ -3404,8 +3404,9 @@ impl<'de> serde::de::Deserialize<'de> for super::list_runtimes_response::Runtime
                                     "multiple values for deprecation_date",
                                 ));
                             }
-                            result.deprecation_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.deprecation_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__decommission_date => {
                             if !fields.insert(__FieldTag::__decommission_date) {
@@ -3413,8 +3414,9 @@ impl<'de> serde::de::Deserialize<'de> for super::list_runtimes_response::Runtime
                                     "multiple values for decommission_date",
                                 ));
                             }
-                            result.decommission_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.decommission_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

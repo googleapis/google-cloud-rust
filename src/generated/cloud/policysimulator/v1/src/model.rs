@@ -24,7 +24,7 @@ extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate orgpolicy_v2;
 extern crate rpc;
@@ -363,7 +363,7 @@ pub struct BindingExplanation {
     ///
     /// To learn about IAM Conditions, see
     /// <https://cloud.google.com/iam/docs/conditions-overview>.
-    pub condition: std::option::Option<gtype::model::Expr>,
+    pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -483,12 +483,12 @@ impl BindingExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::BindingExplanation;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = BindingExplanation::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -499,13 +499,13 @@ impl BindingExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::BindingExplanation;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = BindingExplanation::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
     /// let x = BindingExplanation::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self
@@ -2460,10 +2460,10 @@ pub mod replay {
         pub error_count: i32,
 
         /// The date of the oldest log entry replayed.
-        pub oldest_date: std::option::Option<gtype::model::Date>,
+        pub oldest_date: std::option::Option<google_cloud_type::model::Date>,
 
         /// The date of the newest log entry replayed.
-        pub newest_date: std::option::Option<gtype::model::Date>,
+        pub newest_date: std::option::Option<google_cloud_type::model::Date>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2526,12 +2526,12 @@ pub mod replay {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = ResultsSummary::new().set_oldest_date(Date::default()/* use setters */);
         /// ```
         pub fn set_oldest_date<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.oldest_date = std::option::Option::Some(v.into());
             self
@@ -2542,13 +2542,13 @@ pub mod replay {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = ResultsSummary::new().set_or_clear_oldest_date(Some(Date::default()/* use setters */));
         /// let x = ResultsSummary::new().set_or_clear_oldest_date(None::<Date>);
         /// ```
         pub fn set_or_clear_oldest_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.oldest_date = v.map(|x| x.into());
             self
@@ -2559,12 +2559,12 @@ pub mod replay {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = ResultsSummary::new().set_newest_date(Date::default()/* use setters */);
         /// ```
         pub fn set_newest_date<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.newest_date = std::option::Option::Some(v.into());
             self
@@ -2575,13 +2575,13 @@ pub mod replay {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = ResultsSummary::new().set_or_clear_newest_date(Some(Date::default()/* use setters */));
         /// let x = ResultsSummary::new().set_or_clear_newest_date(None::<Date>);
         /// ```
         pub fn set_or_clear_newest_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.newest_date = v.map(|x| x.into());
             self
@@ -2771,7 +2771,7 @@ pub struct ReplayResult {
     pub access_tuple: std::option::Option<crate::model::AccessTuple>,
 
     /// The latest date this access tuple was seen in the logs.
-    pub last_seen_date: std::option::Option<gtype::model::Date>,
+    pub last_seen_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// The result of replaying the access tuple.
     pub result: std::option::Option<crate::model::replay_result::Result>,
@@ -2846,12 +2846,12 @@ impl ReplayResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = ReplayResult::new().set_last_seen_date(Date::default()/* use setters */);
     /// ```
     pub fn set_last_seen_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.last_seen_date = std::option::Option::Some(v.into());
         self
@@ -2862,13 +2862,13 @@ impl ReplayResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = ReplayResult::new().set_or_clear_last_seen_date(Some(Date::default()/* use setters */));
     /// let x = ReplayResult::new().set_or_clear_last_seen_date(None::<Date>);
     /// ```
     pub fn set_or_clear_last_seen_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.last_seen_date = v.map(|x| x.into());
         self

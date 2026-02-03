@@ -25,7 +25,7 @@ extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -1232,7 +1232,7 @@ pub struct MaintenanceWindow {
     pub hour_of_day: std::option::Option<wkt::Int32Value>,
 
     /// The day of week, when the window starts.
-    pub day_of_week: gtype::model::DayOfWeek,
+    pub day_of_week: google_cloud_type::model::DayOfWeek,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1280,12 +1280,15 @@ impl MaintenanceWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_metastore_v1::model::MaintenanceWindow;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x0 = MaintenanceWindow::new().set_day_of_week(DayOfWeek::Monday);
     /// let x1 = MaintenanceWindow::new().set_day_of_week(DayOfWeek::Tuesday);
     /// let x2 = MaintenanceWindow::new().set_day_of_week(DayOfWeek::Wednesday);
     /// ```
-    pub fn set_day_of_week<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
+    pub fn set_day_of_week<T: std::convert::Into<google_cloud_type::model::DayOfWeek>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.day_of_week = v.into();
         self
     }

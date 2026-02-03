@@ -24,7 +24,7 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -9115,7 +9115,7 @@ pub struct AggregateFrameworkComplianceReportRequest {
 
     /// Optional. The start and end time range for the aggregated compliance
     /// report.
-    pub interval: std::option::Option<gtype::model::Interval>,
+    pub interval: std::option::Option<google_cloud_type::model::Interval>,
 
     /// Optional. The filtering results.
     pub filter: std::string::String,
@@ -9145,12 +9145,12 @@ impl AggregateFrameworkComplianceReportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::AggregateFrameworkComplianceReportRequest;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = AggregateFrameworkComplianceReportRequest::new().set_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.interval = std::option::Option::Some(v.into());
         self
@@ -9161,13 +9161,13 @@ impl AggregateFrameworkComplianceReportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudsecuritycompliance_v1::model::AggregateFrameworkComplianceReportRequest;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = AggregateFrameworkComplianceReportRequest::new().set_or_clear_interval(Some(Interval::default()/* use setters */));
     /// let x = AggregateFrameworkComplianceReportRequest::new().set_or_clear_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.interval = v.map(|x| x.into());
         self

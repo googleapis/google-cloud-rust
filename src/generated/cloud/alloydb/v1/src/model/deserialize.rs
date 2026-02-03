@@ -1345,7 +1345,11 @@ impl<'de> serde::de::Deserialize<'de> for super::automated_backup_policy::Weekly
                                     "multiple values for start_times",
                                 ));
                             }
-                            result.start_times = map.next_value::<std::option::Option<std::vec::Vec<gtype::model::TimeOfDay>>>()?.unwrap_or_default();
+                            result.start_times = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_type::model::TimeOfDay>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__days_of_week => {
                             if !fields.insert(__FieldTag::__days_of_week) {
@@ -1353,7 +1357,11 @@ impl<'de> serde::de::Deserialize<'de> for super::automated_backup_policy::Weekly
                                     "multiple values for days_of_week",
                                 ));
                             }
-                            result.days_of_week = map.next_value::<std::option::Option<std::vec::Vec<gtype::model::DayOfWeek>>>()?.unwrap_or_default();
+                            result.days_of_week = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_type::model::DayOfWeek>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1744,7 +1752,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ContinuousBackupInfo {
                                     "multiple values for schedule",
                                 ));
                             }
-                            result.schedule = map.next_value::<std::option::Option<std::vec::Vec<gtype::model::DayOfWeek>>>()?.unwrap_or_default();
+                            result.schedule = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_type::model::DayOfWeek>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__earliest_restorable_time => {
                             if !fields.insert(__FieldTag::__earliest_restorable_time) {
@@ -2118,9 +2130,7 @@ impl<'de> serde::de::Deserialize<'de> for super::maintenance_update_policy::Main
                                     "multiple values for day",
                                 ));
                             }
-                            result.day = map
-                                .next_value::<std::option::Option<gtype::model::DayOfWeek>>()?
-                                .unwrap_or_default();
+                            result.day = map.next_value::<std::option::Option<google_cloud_type::model::DayOfWeek>>()?.unwrap_or_default();
                         }
                         __FieldTag::__start_time => {
                             if !fields.insert(__FieldTag::__start_time) {
@@ -2128,8 +2138,8 @@ impl<'de> serde::de::Deserialize<'de> for super::maintenance_update_policy::Main
                                     "multiple values for start_time",
                                 ));
                             }
-                            result.start_time =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.start_time = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2213,8 +2223,9 @@ impl<'de> serde::de::Deserialize<'de> for super::maintenance_update_policy::Deny
                                     "multiple values for start_date",
                                 ));
                             }
-                            result.start_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.start_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__end_date => {
                             if !fields.insert(__FieldTag::__end_date) {
@@ -2222,8 +2233,9 @@ impl<'de> serde::de::Deserialize<'de> for super::maintenance_update_policy::Deny
                                     "multiple values for end_date",
                                 ));
                             }
-                            result.end_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.end_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__time => {
                             if !fields.insert(__FieldTag::__time) {
@@ -2231,8 +2243,8 @@ impl<'de> serde::de::Deserialize<'de> for super::maintenance_update_policy::Deny
                                     "multiple values for time",
                                 ));
                             }
-                            result.time =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.time = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

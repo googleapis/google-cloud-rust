@@ -8861,8 +8861,9 @@ impl<'de> serde::de::Deserialize<'de> for super::BiosDetails {
                                     "multiple values for release_date",
                                 ));
                             }
-                            result.release_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.release_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__smbios_uuid => {
                             if !fields.insert(__FieldTag::__smbios_uuid) {
@@ -13766,8 +13767,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DailyResourceUsageAggregation {
                                     "multiple values for date",
                                 ));
                             }
-                            result.date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__cpu => {
                             if !fields.insert(__FieldTag::__cpu) {
@@ -19882,8 +19884,9 @@ impl<'de> serde::de::Deserialize<'de> for super::report_summary::GroupPreference
                                     "multiple values for monthly_cost_total",
                                 ));
                             }
-                            result.monthly_cost_total =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.monthly_cost_total = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::__monthly_cost_compute => {
                             if !fields.insert(__FieldTag::__monthly_cost_compute) {
@@ -19891,8 +19894,9 @@ impl<'de> serde::de::Deserialize<'de> for super::report_summary::GroupPreference
                                     "multiple values for monthly_cost_compute",
                                 ));
                             }
-                            result.monthly_cost_compute =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.monthly_cost_compute = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::__monthly_cost_os_license => {
                             if !fields.insert(__FieldTag::__monthly_cost_os_license) {
@@ -19900,8 +19904,9 @@ impl<'de> serde::de::Deserialize<'de> for super::report_summary::GroupPreference
                                     "multiple values for monthly_cost_os_license",
                                 ));
                             }
-                            result.monthly_cost_os_license =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.monthly_cost_os_license = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::__monthly_cost_network_egress => {
                             if !fields.insert(__FieldTag::__monthly_cost_network_egress) {
@@ -19909,8 +19914,9 @@ impl<'de> serde::de::Deserialize<'de> for super::report_summary::GroupPreference
                                     "multiple values for monthly_cost_network_egress",
                                 ));
                             }
-                            result.monthly_cost_network_egress =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.monthly_cost_network_egress = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::__monthly_cost_storage => {
                             if !fields.insert(__FieldTag::__monthly_cost_storage) {
@@ -19918,8 +19924,9 @@ impl<'de> serde::de::Deserialize<'de> for super::report_summary::GroupPreference
                                     "multiple values for monthly_cost_storage",
                                 ));
                             }
-                            result.monthly_cost_storage =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.monthly_cost_storage = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::__monthly_cost_other => {
                             if !fields.insert(__FieldTag::__monthly_cost_other) {
@@ -19927,8 +19934,9 @@ impl<'de> serde::de::Deserialize<'de> for super::report_summary::GroupPreference
                                     "multiple values for monthly_cost_other",
                                 ));
                             }
-                            result.monthly_cost_other =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.monthly_cost_other = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::__compute_engine_finding => {
                             if !fields.insert(__FieldTag::__compute_engine_finding) {

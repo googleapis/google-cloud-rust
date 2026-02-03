@@ -4630,8 +4630,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Retrohunt {
                                     "multiple values for process_interval",
                                 ));
                             }
-                            result.process_interval =
-                                map.next_value::<std::option::Option<gtype::model::Interval>>()?;
+                            result.process_interval = map.next_value::<std::option::Option<google_cloud_type::model::Interval>>()?
+                                ;
                         }
                         __FieldTag::__execution_interval => {
                             if !fields.insert(__FieldTag::__execution_interval) {
@@ -4639,8 +4639,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Retrohunt {
                                     "multiple values for execution_interval",
                                 ));
                             }
-                            result.execution_interval =
-                                map.next_value::<std::option::Option<gtype::model::Interval>>()?;
+                            result.execution_interval = map.next_value::<std::option::Option<google_cloud_type::model::Interval>>()?
+                                ;
                         }
                         __FieldTag::__state => {
                             if !fields.insert(__FieldTag::__state) {
@@ -6718,8 +6718,8 @@ impl<'de> serde::de::Deserialize<'de> for super::RetrohuntMetadata {
                                     "multiple values for execution_interval",
                                 ));
                             }
-                            result.execution_interval =
-                                map.next_value::<std::option::Option<gtype::model::Interval>>()?;
+                            result.execution_interval = map.next_value::<std::option::Option<google_cloud_type::model::Interval>>()?
+                                ;
                         }
                         __FieldTag::__progress_percentage => {
                             if !fields.insert(__FieldTag::__progress_percentage) {

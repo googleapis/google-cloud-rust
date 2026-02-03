@@ -21,7 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -1382,7 +1382,7 @@ pub struct Backup {
     /// Output only. This output contains the following values:
     /// start_time: All database writes up to this time are available.
     /// end_time: Any database writes after this time aren't available.
-    pub backup_interval: std::option::Option<gtype::model::Interval>,
+    pub backup_interval: std::option::Option<google_cloud_type::model::Interval>,
 
     /// Output only. The status of this backup.
     pub state: crate::model::backup::SqlBackupState,
@@ -1540,12 +1540,12 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::Backup;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = Backup::new().set_backup_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_backup_interval<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.backup_interval = std::option::Option::Some(v.into());
         self
@@ -1556,13 +1556,13 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::Backup;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = Backup::new().set_or_clear_backup_interval(Some(Interval::default()/* use setters */));
     /// let x = Backup::new().set_or_clear_backup_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_backup_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.backup_interval = v.map(|x| x.into());
         self

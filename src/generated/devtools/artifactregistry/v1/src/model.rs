@@ -25,7 +25,7 @@ extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -10626,7 +10626,7 @@ pub struct Rule {
 
     /// Optional. A CEL expression for conditions that must be met in order for the
     /// rule to apply. If not provided, the rule matches all objects.
-    pub condition: std::option::Option<gtype::model::Expr>,
+    pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
     /// The package ID the rule applies to.
     /// If empty, this rule applies to all packages inside the repository.
@@ -10687,12 +10687,12 @@ impl Rule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::Rule;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = Rule::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -10703,13 +10703,13 @@ impl Rule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::Rule;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = Rule::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
     /// let x = Rule::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self

@@ -24,7 +24,7 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -2824,7 +2824,7 @@ pub mod queued_resource {
         /// holds a different branch.
         pub fn valid_interval(
             &self,
-        ) -> std::option::Option<&std::boxed::Box<gtype::model::Interval>> {
+        ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::Interval>> {
             #[allow(unreachable_patterns)]
             self.start_timing_constraints.as_ref().and_then(|v| match v {
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidInterval(v) => std::option::Option::Some(v),
@@ -2841,7 +2841,7 @@ pub mod queued_resource {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_tpu_v2::model::queued_resource::QueueingPolicy;
-        /// use gtype::model::Interval;
+        /// use google_cloud_type::model::Interval;
         /// let x = QueueingPolicy::new().set_valid_interval(Interval::default()/* use setters */);
         /// assert!(x.valid_interval().is_some());
         /// assert!(x.valid_until_duration().is_none());
@@ -2850,7 +2850,7 @@ pub mod queued_resource {
         /// assert!(x.valid_after_time().is_none());
         /// ```
         pub fn set_valid_interval<
-            T: std::convert::Into<std::boxed::Box<gtype::model::Interval>>,
+            T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Interval>>,
         >(
             mut self,
             v: T,
@@ -2893,7 +2893,7 @@ pub mod queued_resource {
             ValidAfterTime(std::boxed::Box<wkt::Timestamp>),
             /// Optional. An absolute time interval within which resources may be
             /// created.
-            ValidInterval(std::boxed::Box<gtype::model::Interval>),
+            ValidInterval(std::boxed::Box<google_cloud_type::model::Interval>),
         }
     }
 

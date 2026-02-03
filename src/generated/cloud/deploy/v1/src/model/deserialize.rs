@@ -8224,8 +8224,9 @@ impl<'de> serde::de::Deserialize<'de> for super::OneTimeWindow {
                                     "multiple values for start_date",
                                 ));
                             }
-                            result.start_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.start_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__start_time => {
                             if !fields.insert(__FieldTag::__start_time) {
@@ -8233,8 +8234,8 @@ impl<'de> serde::de::Deserialize<'de> for super::OneTimeWindow {
                                     "multiple values for start_time",
                                 ));
                             }
-                            result.start_time =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.start_time = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::__end_date => {
                             if !fields.insert(__FieldTag::__end_date) {
@@ -8242,8 +8243,9 @@ impl<'de> serde::de::Deserialize<'de> for super::OneTimeWindow {
                                     "multiple values for end_date",
                                 ));
                             }
-                            result.end_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.end_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__end_time => {
                             if !fields.insert(__FieldTag::__end_time) {
@@ -8251,8 +8253,8 @@ impl<'de> serde::de::Deserialize<'de> for super::OneTimeWindow {
                                     "multiple values for end_time",
                                 ));
                             }
-                            result.end_time =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.end_time = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -8337,7 +8339,11 @@ impl<'de> serde::de::Deserialize<'de> for super::WeeklyWindow {
                                     "multiple values for days_of_week",
                                 ));
                             }
-                            result.days_of_week = map.next_value::<std::option::Option<std::vec::Vec<gtype::model::DayOfWeek>>>()?.unwrap_or_default();
+                            result.days_of_week = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_type::model::DayOfWeek>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__start_time => {
                             if !fields.insert(__FieldTag::__start_time) {
@@ -8345,8 +8351,8 @@ impl<'de> serde::de::Deserialize<'de> for super::WeeklyWindow {
                                     "multiple values for start_time",
                                 ));
                             }
-                            result.start_time =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.start_time = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::__end_time => {
                             if !fields.insert(__FieldTag::__end_time) {
@@ -8354,8 +8360,8 @@ impl<'de> serde::de::Deserialize<'de> for super::WeeklyWindow {
                                     "multiple values for end_time",
                                 ));
                             }
-                            result.end_time =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.end_time = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -16421,8 +16427,9 @@ impl<'de> serde::de::Deserialize<'de> for super::SkaffoldVersion {
                                     "multiple values for support_end_date",
                                 ));
                             }
-                            result.support_end_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.support_end_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
