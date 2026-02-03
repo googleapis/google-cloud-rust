@@ -204,49 +204,49 @@ impl Compliance {
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn set_iam_policy(&self) -> super::builder::compliance::SetIamPolicy {
         super::builder::compliance::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn get_iam_policy(&self) -> super::builder::compliance::GetIamPolicy {
         super::builder::compliance::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn test_iam_permissions(&self) -> super::builder::compliance::TestIamPermissions {
         super::builder::compliance::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::compliance::ListOperations {
         super::builder::compliance::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::compliance::GetOperation {
         super::builder::compliance::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::compliance::DeleteOperation {
         super::builder::compliance::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::compliance::CancelOperation {
         super::builder::compliance::CancelOperation::new(self.inner.clone())
     }
@@ -447,49 +447,49 @@ impl Echo {
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn set_iam_policy(&self) -> super::builder::echo::SetIamPolicy {
         super::builder::echo::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn get_iam_policy(&self) -> super::builder::echo::GetIamPolicy {
         super::builder::echo::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn test_iam_permissions(&self) -> super::builder::echo::TestIamPermissions {
         super::builder::echo::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::echo::ListOperations {
         super::builder::echo::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::echo::GetOperation {
         super::builder::echo::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::echo::DeleteOperation {
         super::builder::echo::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::echo::CancelOperation {
         super::builder::echo::CancelOperation::new(self.inner.clone())
     }
@@ -638,49 +638,49 @@ impl Identity {
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn set_iam_policy(&self) -> super::builder::identity::SetIamPolicy {
         super::builder::identity::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn get_iam_policy(&self) -> super::builder::identity::GetIamPolicy {
         super::builder::identity::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn test_iam_permissions(&self) -> super::builder::identity::TestIamPermissions {
         super::builder::identity::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::identity::ListOperations {
         super::builder::identity::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::identity::GetOperation {
         super::builder::identity::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::identity::DeleteOperation {
         super::builder::identity::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::identity::CancelOperation {
         super::builder::identity::CancelOperation::new(self.inner.clone())
     }
@@ -877,49 +877,49 @@ impl Messaging {
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn set_iam_policy(&self) -> super::builder::messaging::SetIamPolicy {
         super::builder::messaging::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn get_iam_policy(&self) -> super::builder::messaging::GetIamPolicy {
         super::builder::messaging::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn test_iam_permissions(&self) -> super::builder::messaging::TestIamPermissions {
         super::builder::messaging::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::messaging::ListOperations {
         super::builder::messaging::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::messaging::GetOperation {
         super::builder::messaging::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::messaging::DeleteOperation {
         super::builder::messaging::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::messaging::CancelOperation {
         super::builder::messaging::CancelOperation::new(self.inner.clone())
     }
@@ -1074,49 +1074,49 @@ impl SequenceService {
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn set_iam_policy(&self) -> super::builder::sequence_service::SetIamPolicy {
         super::builder::sequence_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn get_iam_policy(&self) -> super::builder::sequence_service::GetIamPolicy {
         super::builder::sequence_service::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn test_iam_permissions(&self) -> super::builder::sequence_service::TestIamPermissions {
         super::builder::sequence_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::sequence_service::ListOperations {
         super::builder::sequence_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::sequence_service::GetOperation {
         super::builder::sequence_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::sequence_service::DeleteOperation {
         super::builder::sequence_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::sequence_service::CancelOperation {
         super::builder::sequence_service::CancelOperation::new(self.inner.clone())
     }
@@ -1301,49 +1301,49 @@ impl Testing {
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn set_iam_policy(&self) -> super::builder::testing::SetIamPolicy {
         super::builder::testing::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn get_iam_policy(&self) -> super::builder::testing::GetIamPolicy {
         super::builder::testing::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
-    /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
+    /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
     pub fn test_iam_permissions(&self) -> super::builder::testing::TestIamPermissions {
         super::builder::testing::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::testing::ListOperations {
         super::builder::testing::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::testing::GetOperation {
         super::builder::testing::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::testing::DeleteOperation {
         super::builder::testing::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::testing::CancelOperation {
         super::builder::testing::CancelOperation::new(self.inner.clone())
     }

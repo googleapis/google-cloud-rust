@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use bigquery::client::DatasetService;
 use gax::error::rpc::Code;
 use google_cloud_auth::credentials::idtoken::{
     Builder as IDTokenCredentialBuilder, impersonated::Builder as ImpersonatedIDTokenBuilder,
@@ -32,12 +31,13 @@ use google_cloud_auth::credentials::{
     subject_token::{Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider},
 };
 use google_cloud_auth::errors::SubjectTokenProviderError;
+use google_cloud_bigquery_v2::client::DatasetService;
+use google_cloud_iam_credentials_v1::client::IAMCredentials;
+use google_cloud_language_v2::client::LanguageService;
+use google_cloud_language_v2::model::{Document, document::Type};
+use google_cloud_secretmanager_v1::{client::SecretManagerService, model::SecretPayload};
 use httptest::{Expectation, Server, matchers::*, responders::*};
-use iamcredentials::client::IAMCredentials;
-use language::client::LanguageService;
-use language::model::Document;
 use scoped_env::ScopedEnv;
-use secretmanager::{client::SecretManagerService, model::SecretPayload};
 use std::sync::Arc;
 
 pub async fn service_account() -> anyhow::Result<()> {
@@ -194,7 +194,7 @@ pub async fn api_key() -> anyhow::Result<()> {
     // Make a request using the API key.
     let d = Document::new()
         .set_content("Hello, world!")
-        .set_type(language::model::document::Type::PlainText);
+        .set_type(Type::PlainText);
     client.analyze_sentiment().set_document(d).send().await?;
 
     Ok(())

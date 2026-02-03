@@ -844,7 +844,7 @@ impl Iam {
     ///
     /// [google.iam.admin.v1.IAM.ListRoles]: crate::client::Iam::list_roles
     /// [google.iam.admin.v1.Role]: crate::model::Role
-    /// [google.iam.v1.Policy]: iam_v1::model::Policy
+    /// [google.iam.v1.Policy]: google_cloud_iam_v1::model::Policy
     ///
     /// # Example
     /// ```
@@ -932,7 +932,7 @@ impl Iam {
     /// Successful calls to this method always return an HTTP `200 OK` status code,
     /// even if the linter detects an issue in the IAM policy.
     ///
-    /// [google.iam.v1.Binding.condition]: iam_v1::model::Binding::condition
+    /// [google.iam.v1.Binding.condition]: google_cloud_iam_v1::model::Binding::condition
     ///
     /// # Example
     /// ```

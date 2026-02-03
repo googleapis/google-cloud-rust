@@ -221,7 +221,7 @@ impl DatastoreAdmin {
     /// Indexes with a single property cannot be created.
     ///
     /// [google.datastore.admin.v1.DatastoreAdmin.DeleteIndex]: crate::client::DatastoreAdmin::delete_index
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -250,7 +250,7 @@ impl DatastoreAdmin {
     ///
     /// [google.datastore.admin.v1.DatastoreAdmin.DeleteIndex]: crate::client::DatastoreAdmin::delete_index
     /// [google.datastore.admin.v1.Index.State]: crate::model::index::State
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -279,28 +279,28 @@ impl DatastoreAdmin {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::datastore_admin::ListOperations {
         super::builder::datastore_admin::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::datastore_admin::GetOperation {
         super::builder::datastore_admin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::datastore_admin::DeleteOperation {
         super::builder::datastore_admin::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::datastore_admin::CancelOperation {
         super::builder::datastore_admin::CancelOperation::new(self.inner.clone())
     }

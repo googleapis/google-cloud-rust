@@ -33,13 +33,13 @@ use gaxi::prost::{ConvertError, FromProto, ToProto};
 // this code to support them.
 use crate::generated::gapic_control::transport::{lro_any_from_prost, lro_any_to_prost};
 
-impl ToProto<google::longrunning::Operation> for longrunning::model::Operation {
+impl ToProto<google::longrunning::Operation> for google_cloud_longrunning::model::Operation {
     type Output = google::longrunning::Operation;
     fn to_proto(
         self,
     ) -> std::result::Result<google::longrunning::Operation, gaxi::prost::ConvertError> {
         use google::longrunning::operation::Result as P;
-        use longrunning::model::operation::Result as M;
+        use google_cloud_longrunning::model::operation::Result as M;
         let metadata = self.metadata.map(lro_any_to_prost).transpose()?;
         #[warn(clippy::wildcard_enum_match_arm)]
         let result = self
@@ -60,10 +60,10 @@ impl ToProto<google::longrunning::Operation> for longrunning::model::Operation {
     }
 }
 
-impl FromProto<longrunning::model::Operation> for google::longrunning::Operation {
-    fn cnv(self) -> std::result::Result<longrunning::model::Operation, ConvertError> {
+impl FromProto<google_cloud_longrunning::model::Operation> for google::longrunning::Operation {
+    fn cnv(self) -> std::result::Result<google_cloud_longrunning::model::Operation, ConvertError> {
         use google::longrunning::operation::Result as P;
-        use longrunning::model::operation::Result as M;
+        use google_cloud_longrunning::model::operation::Result as M;
         let metadata = self.metadata.map(lro_any_from_prost).transpose()?;
         let result = self
             .result
@@ -73,7 +73,7 @@ impl FromProto<longrunning::model::Operation> for google::longrunning::Operation
             })
             .transpose()?;
 
-        Ok(longrunning::model::Operation::new()
+        Ok(google_cloud_longrunning::model::Operation::new()
             .set_name(self.name)
             .set_or_clear_metadata(metadata)
             .set_done(self.done)
@@ -115,8 +115,8 @@ mod tests {
         wkt::Any::from_msg(&md).unwrap()
     }
 
-    fn wkt_lro_with_metadata() -> longrunning::model::Operation {
-        longrunning::model::Operation::new()
+    fn wkt_lro_with_metadata() -> google_cloud_longrunning::model::Operation {
+        google_cloud_longrunning::model::Operation::new()
             .set_name("name")
             .set_metadata(wkt_create_metadata())
     }
@@ -129,8 +129,8 @@ mod tests {
         }
     }
 
-    fn wkt_lro_with_response() -> longrunning::model::Operation {
-        longrunning::model::Operation::new()
+    fn wkt_lro_with_response() -> google_cloud_longrunning::model::Operation {
+        google_cloud_longrunning::model::Operation::new()
             .set_name("name")
             .set_done(true)
             .set_response(wkt_folder())
@@ -147,8 +147,8 @@ mod tests {
         }
     }
 
-    fn wkt_lro_with_error() -> longrunning::model::Operation {
-        longrunning::model::Operation::new()
+    fn wkt_lro_with_error() -> google_cloud_longrunning::model::Operation {
+        google_cloud_longrunning::model::Operation::new()
             .set_name("name")
             .set_done(true)
             .set_error(rpc::model::Status::new().set_code(5))
@@ -174,7 +174,7 @@ mod tests {
     #[test_case(prost_lro_with_error(), wkt_lro_with_error(); "with error")]
     fn lro_roundtrip(
         prost: google::longrunning::Operation,
-        wkt: longrunning::model::Operation,
+        wkt: google_cloud_longrunning::model::Operation,
     ) -> anyhow::Result<()> {
         assert_eq!(prost, wkt.clone().to_proto()?);
         assert_eq!(wkt, prost.cnv()?);
@@ -183,7 +183,7 @@ mod tests {
 
     #[test]
     fn lro_to_prost_unknown_metadata() -> anyhow::Result<()> {
-        let wkt = longrunning::model::Operation::new()
+        let wkt = google_cloud_longrunning::model::Operation::new()
             .set_metadata(wkt::Any::from_msg(&wkt::Duration::default())?);
         let prost = wkt.to_proto();
         assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
@@ -192,7 +192,7 @@ mod tests {
 
     #[test]
     fn lro_to_prost_unknown_response() -> anyhow::Result<()> {
-        let wkt = longrunning::model::Operation::new()
+        let wkt = google_cloud_longrunning::model::Operation::new()
             .set_response(wkt::Any::from_msg(&wkt::Duration::default())?);
         let prost = wkt.to_proto();
         assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));

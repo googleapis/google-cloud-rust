@@ -21,10 +21,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
+extern crate google_cloud_lro;
 extern crate lazy_static;
 extern crate location;
-extern crate longrunning;
-extern crate lro;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
@@ -1601,7 +1601,7 @@ pub struct OperationMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub requested_cancellation: bool,
 
@@ -2618,7 +2618,7 @@ pub struct ImportDataMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub requested_cancellation: bool,
 
@@ -2846,7 +2846,7 @@ pub struct ExportDataMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub requested_cancellation: bool,
 

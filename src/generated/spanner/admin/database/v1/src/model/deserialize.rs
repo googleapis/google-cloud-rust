@@ -1496,9 +1496,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListBackupOperationsResponse {
                                     "multiple values for operations",
                                 ));
                             }
-                            result.operations =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<longrunning::model::Operation>,
+                            result.operations = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_longrunning::model::Operation>,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -5194,9 +5194,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListDatabaseOperationsResponse 
                                     "multiple values for operations",
                                 ));
                             }
-                            result.operations =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<longrunning::model::Operation>,
+                            result.operations = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_longrunning::model::Operation>,
                                 >>()?
                                 .unwrap_or_default();
                         }

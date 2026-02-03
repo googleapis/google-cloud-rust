@@ -42,10 +42,10 @@ pin-project     = { workspace = true, optional = true }
 serde.workspace = true
 tokio           = { workspace = true, features = ["time"] }
 # Local crates
-gax.workspace         = true
-longrunning.workspace = true
-rpc.workspace         = true
-wkt.workspace         = true
+gax.workspace            = true
+google-cloud-longrunning = { workspace = true }
+rpc.workspace            = true
+wkt.workspace            = true
 
 [features]
 unstable-stream = ["dep:futures", "dep:pin-project"]

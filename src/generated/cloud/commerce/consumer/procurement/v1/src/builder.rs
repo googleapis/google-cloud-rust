@@ -510,7 +510,7 @@ pub mod license_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -520,7 +520,7 @@ pub mod license_management_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -535,14 +535,14 @@ pub mod license_management_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -620,7 +620,7 @@ pub mod consumer_procurement_service {
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::consumer_procurement_service::PlaceOrder;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -659,19 +659,22 @@ pub mod consumer_procurement_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [place_order][crate::client::ConsumerProcurementService::place_order].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .place_order(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `place_order`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `place_order`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Order, crate::model::PlaceOrderMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Order, crate::model::PlaceOrderMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Order, crate::model::PlaceOrderMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Order,
+                crate::model::PlaceOrderMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -696,7 +699,12 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::PlaceOrderRequest::parent].
@@ -916,7 +924,7 @@ pub mod consumer_procurement_service {
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::consumer_procurement_service::ModifyOrder;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -955,19 +963,22 @@ pub mod consumer_procurement_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [modify_order][crate::client::ConsumerProcurementService::modify_order].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .modify_order(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `modify_order`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `modify_order`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Order, crate::model::ModifyOrderMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Order, crate::model::ModifyOrderMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Order, crate::model::ModifyOrderMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Order,
+                crate::model::ModifyOrderMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -992,7 +1003,12 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ModifyOrderRequest::name].
@@ -1040,7 +1056,7 @@ pub mod consumer_procurement_service {
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::consumer_procurement_service::CancelOrder;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1079,19 +1095,22 @@ pub mod consumer_procurement_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [cancel_order][crate::client::ConsumerProcurementService::cancel_order].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .cancel_order(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `cancel_order`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `cancel_order`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Order, crate::model::CancelOrderMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Order, crate::model::CancelOrderMetadata>;
+        ) -> impl google_cloud_lro::Poller<crate::model::Order, crate::model::CancelOrderMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Order,
+                crate::model::CancelOrderMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1116,7 +1135,12 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::CancelOrderRequest::name].
@@ -1169,7 +1193,7 @@ pub mod consumer_procurement_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1179,7 +1203,7 @@ pub mod consumer_procurement_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -1194,14 +1218,14 @@ pub mod consumer_procurement_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

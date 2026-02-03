@@ -189,7 +189,7 @@ the normal commands to use the directory where your librarian changes live. For
 example:
 
 ```bash
-go -C ../librarian/cmd/librarian build && ../librarian/cmd/librarian/librarian generate --all
+go -C ../librarian/cmd/librarian build && ../librarian/cmd/librarian/librarian -f generate --all
 ```
 
 Once the changes work then send a PR in the librarian repo to make your changes.

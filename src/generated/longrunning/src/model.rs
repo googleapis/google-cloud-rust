@@ -248,7 +248,7 @@ pub mod operation {
 /// The request message for
 /// [Operations.GetOperation][google.longrunning.Operations.GetOperation].
 ///
-/// [google.longrunning.Operations.GetOperation]: crate::client::Operations::get_operation
+/// [google.longrunning.Operations.GetOperation]: google-cloud-longrunning::client::Operations::get_operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOperationRequest {
@@ -285,7 +285,7 @@ impl wkt::message::Message for GetOperationRequest {
 /// The request message for
 /// [Operations.ListOperations][google.longrunning.Operations.ListOperations].
 ///
-/// [google.longrunning.Operations.ListOperations]: crate::client::Operations::list_operations
+/// [google.longrunning.Operations.ListOperations]: google-cloud-longrunning::client::Operations::list_operations
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOperationsRequest {
@@ -391,7 +391,7 @@ impl wkt::message::Message for ListOperationsRequest {
 /// The response message for
 /// [Operations.ListOperations][google.longrunning.Operations.ListOperations].
 ///
-/// [google.longrunning.Operations.ListOperations]: crate::client::Operations::list_operations
+/// [google.longrunning.Operations.ListOperations]: google-cloud-longrunning::client::Operations::list_operations
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOperationsResponse {
@@ -490,7 +490,7 @@ impl gax::paginator::internal::PageableResponse for ListOperationsResponse {
 /// The request message for
 /// [Operations.CancelOperation][google.longrunning.Operations.CancelOperation].
 ///
-/// [google.longrunning.Operations.CancelOperation]: crate::client::Operations::cancel_operation
+/// [google.longrunning.Operations.CancelOperation]: google-cloud-longrunning::client::Operations::cancel_operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelOperationRequest {
@@ -527,7 +527,7 @@ impl wkt::message::Message for CancelOperationRequest {
 /// The request message for
 /// [Operations.DeleteOperation][google.longrunning.Operations.DeleteOperation].
 ///
-/// [google.longrunning.Operations.DeleteOperation]: crate::client::Operations::delete_operation
+/// [google.longrunning.Operations.DeleteOperation]: google-cloud-longrunning::client::Operations::delete_operation
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteOperationRequest {

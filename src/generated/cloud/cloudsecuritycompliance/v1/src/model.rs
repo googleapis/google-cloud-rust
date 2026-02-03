@@ -21,11 +21,11 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
+extern crate google_cloud_lro;
 extern crate gtype;
 extern crate lazy_static;
 extern crate location;
-extern crate longrunning;
-extern crate lro;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -5225,7 +5225,7 @@ pub struct OperationMetadata {
     /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
     /// contains the value [google.rpc.Code.CANCELLED][google.rpc.Code.CANCELLED].
     ///
-    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
     pub requested_cancellation: bool,
 
     /// Output only. The API version that was used to start the operation.

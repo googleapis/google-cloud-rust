@@ -2525,9 +2525,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListInstanceConfigOperationsRes
                                     "multiple values for operations",
                                 ));
                             }
-                            result.operations =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<longrunning::model::Operation>,
+                            result.operations = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_longrunning::model::Operation>,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -5052,9 +5052,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListInstancePartitionOperations
                                     "multiple values for operations",
                                 ));
                             }
-                            result.operations =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<longrunning::model::Operation>,
+                            result.operations = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_longrunning::model::Operation>,
                                 >>()?
                                 .unwrap_or_default();
                         }

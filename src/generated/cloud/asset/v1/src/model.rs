@@ -22,11 +22,11 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_iam_v1;
+extern crate google_cloud_longrunning;
+extern crate google_cloud_lro;
 extern crate gtype;
-extern crate iam_v1;
 extern crate lazy_static;
-extern crate longrunning;
-extern crate lro;
 extern crate orgpolicy_v1;
 extern crate osconfig_v1;
 extern crate rpc;
@@ -350,7 +350,7 @@ impl wkt::message::Message for ExportAssetsRequest {
 /// [google.longrunning.Operation.response][google.longrunning.Operation.response]
 /// field.
 ///
-/// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+/// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportAssetsResponse {
@@ -7383,7 +7383,7 @@ pub mod batch_get_effective_iam_policies_response {
             /// [attached_resource][google.cloud.asset.v1.BatchGetEffectiveIamPoliciesResponse.EffectiveIamPolicy.PolicyInfo.attached_resource].
             ///
             /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesResponse.EffectiveIamPolicy.PolicyInfo.attached_resource]: crate::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo::attached_resource
-            pub policy: std::option::Option<iam_v1::model::Policy>,
+            pub policy: std::option::Option<google_cloud_iam_v1::model::Policy>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -7413,12 +7413,12 @@ pub mod batch_get_effective_iam_policies_response {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_asset_v1::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo;
-            /// use iam_v1::model::Policy;
+            /// use google_cloud_iam_v1::model::Policy;
             /// let x = PolicyInfo::new().set_policy(Policy::default()/* use setters */);
             /// ```
             pub fn set_policy<T>(mut self, v: T) -> Self
             where
-                T: std::convert::Into<iam_v1::model::Policy>,
+                T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
             {
                 self.policy = std::option::Option::Some(v.into());
                 self
@@ -7429,13 +7429,13 @@ pub mod batch_get_effective_iam_policies_response {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_asset_v1::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo;
-            /// use iam_v1::model::Policy;
+            /// use google_cloud_iam_v1::model::Policy;
             /// let x = PolicyInfo::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
             /// let x = PolicyInfo::new().set_or_clear_policy(None::<Policy>);
             /// ```
             pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
             where
-                T: std::convert::Into<iam_v1::model::Policy>,
+                T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
             {
                 self.policy = v.map(|x| x.into());
                 self
@@ -10424,7 +10424,7 @@ pub mod analyze_org_policy_governed_assets_response {
         pub attached_resource: std::string::String,
 
         /// The IAM policy directly set on the given resource.
-        pub policy: std::option::Option<iam_v1::model::Policy>,
+        pub policy: std::option::Option<google_cloud_iam_v1::model::Policy>,
 
         /// The project that this IAM policy belongs to, in the format of
         /// projects/{PROJECT_NUMBER}. This field is available when the IAM policy
@@ -10480,12 +10480,12 @@ pub mod analyze_org_policy_governed_assets_response {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy;
-        /// use iam_v1::model::Policy;
+        /// use google_cloud_iam_v1::model::Policy;
         /// let x = GovernedIamPolicy::new().set_policy(Policy::default()/* use setters */);
         /// ```
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.policy = std::option::Option::Some(v.into());
             self
@@ -10496,13 +10496,13 @@ pub mod analyze_org_policy_governed_assets_response {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy;
-        /// use iam_v1::model::Policy;
+        /// use google_cloud_iam_v1::model::Policy;
         /// let x = GovernedIamPolicy::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
         /// let x = GovernedIamPolicy::new().set_or_clear_policy(None::<Policy>);
         /// ```
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.policy = v.map(|x| x.into());
             self
@@ -11363,7 +11363,7 @@ pub struct Asset {
     /// the hierarchy. See
     /// [this topic](https://cloud.google.com/iam/help/allow-policies/inheritance)
     /// for more information.
-    pub iam_policy: std::option::Option<iam_v1::model::Policy>,
+    pub iam_policy: std::option::Option<google_cloud_iam_v1::model::Policy>,
 
     /// A representation of an [organization
     /// policy](https://cloud.google.com/resource-manager/docs/organization-policy/overview#organization_policy).
@@ -11504,12 +11504,12 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::Asset;
-    /// use iam_v1::model::Policy;
+    /// use google_cloud_iam_v1::model::Policy;
     /// let x = Asset::new().set_iam_policy(Policy::default()/* use setters */);
     /// ```
     pub fn set_iam_policy<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<iam_v1::model::Policy>,
+        T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
     {
         self.iam_policy = std::option::Option::Some(v.into());
         self
@@ -11520,13 +11520,13 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::Asset;
-    /// use iam_v1::model::Policy;
+    /// use google_cloud_iam_v1::model::Policy;
     /// let x = Asset::new().set_or_clear_iam_policy(Some(Policy::default()/* use setters */));
     /// let x = Asset::new().set_or_clear_iam_policy(None::<Policy>);
     /// ```
     pub fn set_or_clear_iam_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<iam_v1::model::Policy>,
+        T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
     {
         self.iam_policy = v.map(|x| x.into());
         self
@@ -13801,7 +13801,7 @@ pub struct IamPolicySearchResult {
     ///     `policy:roles/compute.admin`
     ///   - query by the policy contained roles' included permissions. Example:
     ///     `policy.role.permissions:compute.instances.create`
-    pub policy: std::option::Option<iam_v1::model::Policy>,
+    pub policy: std::option::Option<google_cloud_iam_v1::model::Policy>,
 
     /// Explanation about the IAM policy search result. It contains additional
     /// information to explain why the search result matches the query.
@@ -13885,12 +13885,12 @@ impl IamPolicySearchResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::IamPolicySearchResult;
-    /// use iam_v1::model::Policy;
+    /// use google_cloud_iam_v1::model::Policy;
     /// let x = IamPolicySearchResult::new().set_policy(Policy::default()/* use setters */);
     /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<iam_v1::model::Policy>,
+        T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -13901,13 +13901,13 @@ impl IamPolicySearchResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::IamPolicySearchResult;
-    /// use iam_v1::model::Policy;
+    /// use google_cloud_iam_v1::model::Policy;
     /// let x = IamPolicySearchResult::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
     /// let x = IamPolicySearchResult::new().set_or_clear_policy(None::<Policy>);
     /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<iam_v1::model::Policy>,
+        T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
     {
         self.policy = v.map(|x| x.into());
         self
@@ -14320,7 +14320,7 @@ pub struct IamPolicyAnalysisResult {
     pub attached_resource_full_name: std::string::String,
 
     /// The IAM policy binding under analysis.
-    pub iam_binding: std::option::Option<iam_v1::model::Binding>,
+    pub iam_binding: std::option::Option<google_cloud_iam_v1::model::Binding>,
 
     /// The access control lists derived from the
     /// [iam_binding][google.cloud.asset.v1.IamPolicyAnalysisResult.iam_binding]
@@ -14373,12 +14373,12 @@ impl IamPolicyAnalysisResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::IamPolicyAnalysisResult;
-    /// use iam_v1::model::Binding;
+    /// use google_cloud_iam_v1::model::Binding;
     /// let x = IamPolicyAnalysisResult::new().set_iam_binding(Binding::default()/* use setters */);
     /// ```
     pub fn set_iam_binding<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<iam_v1::model::Binding>,
+        T: std::convert::Into<google_cloud_iam_v1::model::Binding>,
     {
         self.iam_binding = std::option::Option::Some(v.into());
         self
@@ -14389,13 +14389,13 @@ impl IamPolicyAnalysisResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::IamPolicyAnalysisResult;
-    /// use iam_v1::model::Binding;
+    /// use google_cloud_iam_v1::model::Binding;
     /// let x = IamPolicyAnalysisResult::new().set_or_clear_iam_binding(Some(Binding::default()/* use setters */));
     /// let x = IamPolicyAnalysisResult::new().set_or_clear_iam_binding(None::<Binding>);
     /// ```
     pub fn set_or_clear_iam_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<iam_v1::model::Binding>,
+        T: std::convert::Into<google_cloud_iam_v1::model::Binding>,
     {
         self.iam_binding = v.map(|x| x.into());
         self

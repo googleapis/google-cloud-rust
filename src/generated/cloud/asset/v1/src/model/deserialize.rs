@@ -6831,8 +6831,8 @@ impl<'de> serde::de::Deserialize<'de>
                                     "multiple values for policy",
                                 ));
                             }
-                            result.policy =
-                                map.next_value::<std::option::Option<iam_v1::model::Policy>>()?;
+                            result.policy = map.next_value::<std::option::Option<google_cloud_iam_v1::model::Policy>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9105,8 +9105,8 @@ impl<'de> serde::de::Deserialize<'de>
                                     "multiple values for policy",
                                 ));
                             }
-                            result.policy =
-                                map.next_value::<std::option::Option<iam_v1::model::Policy>>()?;
+                            result.policy = map.next_value::<std::option::Option<google_cloud_iam_v1::model::Policy>>()?
+                                ;
                         }
                         __FieldTag::__project => {
                             if !fields.insert(__FieldTag::__project) {
@@ -9744,8 +9744,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Asset {
                                     "multiple values for iam_policy",
                                 ));
                             }
-                            result.iam_policy =
-                                map.next_value::<std::option::Option<iam_v1::model::Policy>>()?;
+                            result.iam_policy = map.next_value::<std::option::Option<google_cloud_iam_v1::model::Policy>>()?
+                                ;
                         }
                         __FieldTag::__org_policy => {
                             if !fields.insert(__FieldTag::__org_policy) {
@@ -11471,8 +11471,8 @@ impl<'de> serde::de::Deserialize<'de> for super::IamPolicySearchResult {
                                     "multiple values for policy",
                                 ));
                             }
-                            result.policy =
-                                map.next_value::<std::option::Option<iam_v1::model::Policy>>()?;
+                            result.policy = map.next_value::<std::option::Option<google_cloud_iam_v1::model::Policy>>()?
+                                ;
                         }
                         __FieldTag::__explanation => {
                             if !fields.insert(__FieldTag::__explanation) {
@@ -11921,8 +11921,8 @@ impl<'de> serde::de::Deserialize<'de> for super::IamPolicyAnalysisResult {
                                     "multiple values for iam_binding",
                                 ));
                             }
-                            result.iam_binding =
-                                map.next_value::<std::option::Option<iam_v1::model::Binding>>()?;
+                            result.iam_binding = map.next_value::<std::option::Option<google_cloud_iam_v1::model::Binding>>()?
+                                ;
                         }
                         __FieldTag::__access_control_lists => {
                             if !fields.insert(__FieldTag::__access_control_lists) {

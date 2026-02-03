@@ -333,6 +333,9 @@ mod tests {
     use gax::exponential_backoff::ExponentialBackoff;
     use gax::exponential_backoff::ExponentialBackoffBuilder;
     use gax::polling_error_policy::*;
+    use google_cloud_longrunning::model::{
+        Operation as OperationAny, operation::Result as ResultAny,
+    };
     use std::time::Duration;
 
     type ResponseType = wkt::Duration;
@@ -346,7 +349,7 @@ mod tests {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
-            let op = longrunning::model::Operation::default()
+            let op = OperationAny::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
             let op = TestOperation::new(op);
@@ -356,10 +359,8 @@ mod tests {
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
                 .expect("test message deserializes via Any::from_msg");
-            let result = longrunning::model::operation::Result::Response(any.into());
-            let op = longrunning::model::Operation::default()
-                .set_done(true)
-                .set_result(result);
+            let result = ResultAny::Response(any.into());
+            let op = OperationAny::default().set_done(true).set_result(result);
             let op = TestOperation::new(op);
 
             Ok::<TestOperation, Error>(op)
@@ -401,7 +402,7 @@ mod tests {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
-            let op = longrunning::model::Operation::default()
+            let op = OperationAny::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
             let op = TestOperation::new(op);
@@ -411,10 +412,8 @@ mod tests {
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
                 .expect("test message deserializes via Any::from_msg");
-            let result = longrunning::model::operation::Result::Response(any.into());
-            let op = longrunning::model::Operation::default()
-                .set_done(true)
-                .set_result(result);
+            let result = ResultAny::Response(any.into());
+            let op = OperationAny::default().set_done(true).set_result(result);
             let op = TestOperation::new(op);
 
             Ok::<TestOperation, Error>(op)
@@ -458,7 +457,7 @@ mod tests {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
-            let op = longrunning::model::Operation::default()
+            let op = OperationAny::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
             let op = TestOperation::new(op);
@@ -468,10 +467,8 @@ mod tests {
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
                 .expect("test message deserializes via Any::from_msg");
-            let result = longrunning::model::operation::Result::Response(any.into());
-            let op = longrunning::model::Operation::default()
-                .set_done(true)
-                .set_result(result);
+            let result = ResultAny::Response(any.into());
+            let op = OperationAny::default().set_done(true).set_result(result);
             let op = TestOperation::new(op);
 
             Ok::<TestOperation, Error>(op)
@@ -498,7 +495,7 @@ mod tests {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
-            let op = longrunning::model::Operation::default()
+            let op = OperationAny::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
             let op = EmptyResponseOperation::new(op);
@@ -508,10 +505,8 @@ mod tests {
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .expect("test message deserializes via Any::from_msg");
-            let result = longrunning::model::operation::Result::Response(any.into());
-            let op = longrunning::model::Operation::default()
-                .set_done(true)
-                .set_result(result);
+            let result = ResultAny::Response(any.into());
+            let op = OperationAny::default().set_done(true).set_result(result);
             let op = EmptyResponseOperation::new(op);
 
             Ok::<EmptyResponseOperation, Error>(op)
@@ -553,7 +548,7 @@ mod tests {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
-            let op = longrunning::model::Operation::default()
+            let op = OperationAny::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
             let op = EmptyResponseOperation::new(op);
@@ -563,10 +558,8 @@ mod tests {
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .expect("test message deserializes via Any::from_msg");
-            let result = longrunning::model::operation::Result::Response(any.into());
-            let op = longrunning::model::Operation::default()
-                .set_done(true)
-                .set_result(result);
+            let result = ResultAny::Response(any.into());
+            let op = OperationAny::default().set_done(true).set_result(result);
             let op = EmptyResponseOperation::new(op);
 
             Ok::<EmptyResponseOperation, Error>(op)
@@ -610,7 +603,7 @@ mod tests {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
-            let op = longrunning::model::Operation::default()
+            let op = OperationAny::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
             let op = EmptyResponseOperation::new(op);
@@ -620,10 +613,8 @@ mod tests {
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .expect("test message deserializes via Any::from_msg");
-            let result = longrunning::model::operation::Result::Response(any.into());
-            let op = longrunning::model::Operation::default()
-                .set_done(true)
-                .set_result(result);
+            let result = ResultAny::Response(any.into());
+            let op = OperationAny::default().set_done(true).set_result(result);
             let op = EmptyResponseOperation::new(op);
 
             Ok::<EmptyResponseOperation, Error>(op)
@@ -648,7 +639,7 @@ mod tests {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .expect("test message deserializes via Any::from_msg");
-            let op = longrunning::model::Operation::default()
+            let op = OperationAny::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
             let op = EmptyMetadataOperation::new(op);
@@ -658,10 +649,8 @@ mod tests {
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 456))
                 .expect("test message deserializes via Any::from_msg");
-            let result = longrunning::model::operation::Result::Response(any.into());
-            let op = longrunning::model::Operation::default()
-                .set_done(true)
-                .set_result(result);
+            let result = ResultAny::Response(any.into());
+            let op = OperationAny::default().set_done(true).set_result(result);
             let op = EmptyMetadataOperation::new(op);
 
             Ok::<EmptyMetadataOperation, Error>(op)
@@ -703,7 +692,7 @@ mod tests {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .expect("test message deserializes via Any::from_msg");
-            let op = longrunning::model::Operation::default()
+            let op = OperationAny::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
             let op = EmptyMetadataOperation::new(op);
@@ -713,10 +702,8 @@ mod tests {
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 456))
                 .expect("test message deserializes via Any::from_msg");
-            let result = longrunning::model::operation::Result::Response(any.into());
-            let op = longrunning::model::Operation::default()
-                .set_done(true)
-                .set_result(result);
+            let result = ResultAny::Response(any.into());
+            let op = OperationAny::default().set_done(true).set_result(result);
             let op = EmptyMetadataOperation::new(op);
 
             Ok::<EmptyMetadataOperation, Error>(op)
@@ -762,7 +749,7 @@ mod tests {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .expect("test message deserializes via Any::from_msg");
-            let op = longrunning::model::Operation::default()
+            let op = OperationAny::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
             let op = EmptyMetadataOperation::new(op);
@@ -772,10 +759,8 @@ mod tests {
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 456))
                 .expect("test message deserializes via Any::from_msg");
-            let result = longrunning::model::operation::Result::Response(any.into());
-            let op = longrunning::model::Operation::default()
-                .set_done(true)
-                .set_result(result);
+            let result = ResultAny::Response(any.into());
+            let op = OperationAny::default().set_done(true).set_result(result);
             let op = EmptyMetadataOperation::new(op);
 
             Ok::<EmptyMetadataOperation, Error>(op)
@@ -824,7 +809,7 @@ mod tests {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .expect("test message deserializes via Any::from_msg");
-            let op = longrunning::model::Operation::default()
+            let op = OperationAny::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
             let op = EmptyOperation::new(op);
@@ -834,10 +819,8 @@ mod tests {
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .expect("test message deserializes via Any::from_msg");
-            let result = longrunning::model::operation::Result::Response(any.into());
-            let op = longrunning::model::Operation::default()
-                .set_done(true)
-                .set_result(result);
+            let result = ResultAny::Response(any.into());
+            let op = OperationAny::default().set_done(true).set_result(result);
             let op = EmptyOperation::new(op);
 
             Ok::<EmptyOperation, Error>(op)
@@ -881,7 +864,7 @@ mod tests {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
-            let op = longrunning::model::Operation::default()
+            let op = OperationAny::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
             let op = TestOperation::new(op);
@@ -900,10 +883,8 @@ mod tests {
                 }
                 let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
                     .expect("test message deserializes via Any::from_msg");
-                let result = longrunning::model::operation::Result::Response(any.into());
-                let op = longrunning::model::Operation::default()
-                    .set_done(true)
-                    .set_result(result);
+                let result = ResultAny::Response(any.into());
+                let op = OperationAny::default().set_done(true).set_result(result);
                 let op = TestOperation::new(op);
 
                 Ok::<TestOperation, Error>(op)
@@ -931,7 +912,7 @@ mod tests {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
-            let op = longrunning::model::Operation::default()
+            let op = OperationAny::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
             let op = TestOperation::new(op);

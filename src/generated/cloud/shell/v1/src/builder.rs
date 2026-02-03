@@ -139,7 +139,7 @@ pub mod cloud_shell_service {
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::StartEnvironment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -181,21 +181,21 @@ pub mod cloud_shell_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [start_environment][crate::client::CloudShellService::start_environment].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .start_environment(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `start_environment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `start_environment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::StartEnvironmentResponse,
             crate::model::StartEnvironmentMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::StartEnvironmentResponse,
                 crate::model::StartEnvironmentMetadata,
             >;
@@ -223,7 +223,12 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::StartEnvironmentRequest::name].
@@ -263,7 +268,7 @@ pub mod cloud_shell_service {
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::AuthorizeEnvironment;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -305,21 +310,21 @@ pub mod cloud_shell_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [authorize_environment][crate::client::CloudShellService::authorize_environment].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .authorize_environment(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `authorize_environment`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `authorize_environment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<
+        ) -> impl google_cloud_lro::Poller<
             crate::model::AuthorizeEnvironmentResponse,
             crate::model::AuthorizeEnvironmentMetadata,
         > {
-            type Operation = lro::internal::Operation<
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AuthorizeEnvironmentResponse,
                 crate::model::AuthorizeEnvironmentMetadata,
             >;
@@ -347,7 +352,12 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::AuthorizeEnvironmentRequest::name].
@@ -400,7 +410,7 @@ pub mod cloud_shell_service {
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::AddPublicKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -439,19 +449,21 @@ pub mod cloud_shell_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [add_public_key][crate::client::CloudShellService::add_public_key].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .add_public_key(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `add_public_key`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `add_public_key`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::AddPublicKeyResponse, crate::model::AddPublicKeyMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AddPublicKeyResponse,
+            crate::model::AddPublicKeyMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::AddPublicKeyResponse,
                 crate::model::AddPublicKeyMetadata,
             >;
@@ -479,7 +491,12 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [environment][crate::model::AddPublicKeyRequest::environment].
@@ -508,7 +525,7 @@ pub mod cloud_shell_service {
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::RemovePublicKey;
     /// # async fn sample() -> gax::Result<()> {
-    /// use lro::Poller;
+    /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -547,19 +564,21 @@ pub mod cloud_shell_service {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [remove_public_key][crate::client::CloudShellService::remove_public_key].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .remove_public_key(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `remove_public_key`.
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `remove_public_key`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::RemovePublicKeyResponse, crate::model::RemovePublicKeyMetadata>
-        {
-            type Operation = lro::internal::Operation<
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::RemovePublicKeyResponse,
+            crate::model::RemovePublicKeyMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
                 crate::model::RemovePublicKeyResponse,
                 crate::model::RemovePublicKeyMetadata,
             >;
@@ -587,7 +606,12 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [environment][crate::model::RemovePublicKeyRequest::environment].
@@ -627,7 +651,7 @@ pub mod cloud_shell_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -637,7 +661,7 @@ pub mod cloud_shell_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -652,14 +676,14 @@ pub mod cloud_shell_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

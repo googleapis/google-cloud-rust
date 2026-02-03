@@ -152,7 +152,7 @@ impl FirestoreAdmin {
     /// [IndexOperationMetadata][google.firestore.admin.v1.IndexOperationMetadata].
     ///
     /// [google.firestore.admin.v1.IndexOperationMetadata]: crate::model::IndexOperationMetadata
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -206,7 +206,7 @@ impl FirestoreAdmin {
     ///
     /// [google.firestore.admin.v1.FieldOperationMetadata]: crate::model::FieldOperationMetadata
     /// [google.firestore.admin.v1.FirestoreAdmin.UpdateField]: crate::client::FirestoreAdmin::update_field
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -430,9 +430,9 @@ impl FirestoreAdmin {
     /// [google.firestore.admin.v1.Database]: crate::model::Database
     /// [google.firestore.admin.v1.FirestoreAdmin.CreateDatabase]: crate::client::FirestoreAdmin::create_database
     /// [google.firestore.admin.v1.RestoreDatabaseMetadata]: crate::model::RestoreDatabaseMetadata
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
     ///
     /// # Long running operations
     ///
@@ -495,9 +495,9 @@ impl FirestoreAdmin {
     /// [google.firestore.admin.v1.CloneDatabaseMetadata]: crate::model::CloneDatabaseMetadata
     /// [google.firestore.admin.v1.Database]: crate::model::Database
     /// [google.firestore.admin.v1.FirestoreAdmin.CreateDatabase]: crate::client::FirestoreAdmin::create_database
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
     ///
     /// # Long running operations
     ///
@@ -514,28 +514,28 @@ impl FirestoreAdmin {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::firestore_admin::ListOperations {
         super::builder::firestore_admin::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::firestore_admin::GetOperation {
         super::builder::firestore_admin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::firestore_admin::DeleteOperation {
         super::builder::firestore_admin::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::firestore_admin::CancelOperation {
         super::builder::firestore_admin::CancelOperation::new(self.inner.clone())
     }

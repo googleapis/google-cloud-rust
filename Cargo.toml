@@ -286,6 +286,7 @@ members = [
   "src/storage/tests/scenarios",
   "src/wkt",
   "tests/auto-populated",
+  "tests/bigquery",
   "tests/crypto-providers/auth-with-default",
   "tests/crypto-providers/auth-without-default",
   "tests/crypto-providers/gaxi-with-aws-lc-rs",
@@ -449,13 +450,10 @@ google-cloud-auth             = { default-features = false, version = "1.5", pat
 gax                           = { default-features = false, version = "1.6", path = "src/gax", package = "google-cloud-gax" }
 google-cloud-gax              = { default-features = false, version = "1.6", path = "src/gax" }
 gaxi                          = { default-features = false, version = "0.7.9", path = "src/gax-internal", package = "google-cloud-gax-internal" }
-iam_v1                        = { default-features = false, version = "1", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
 google-cloud-iam-v1           = { default-features = false, version = "1", path = "src/generated/iam/v1" }
 location                      = { default-features = false, version = "1", path = "src/generated/cloud/location", package = "google-cloud-location" }
-longrunning                   = { default-features = false, version = "1.2", path = "src/generated/longrunning", package = "google-cloud-longrunning" }
-google-cloud-longrunning      = { default-features = false, version = "1.2", path = "src/generated/longrunning", package = "google-cloud-longrunning" }
-lro                           = { default-features = false, version = "1.1", path = "src/lro", package = "google-cloud-lro" }
-google-cloud-lro              = { default-features = false, version = "1.1", path = "src/lro", package = "google-cloud-lro" }
+google-cloud-longrunning      = { default-features = false, version = "1.2", path = "src/generated/longrunning" }
+google-cloud-lro              = { default-features = false, version = "1.1", path = "src/lro" }
 wkt                           = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt              = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 api                           = { default-features = false, version = "1", path = "src/generated/api/types", package = "google-cloud-api" }
@@ -486,22 +484,19 @@ iam_v2                        = { default-features = false, version = "1", path 
 recommender                   = { default-features = false, version = "1", path = "src/generated/cloud/recommender/v1", package = "google-cloud-recommender-v1" }
 accesscontextmanager_type     = { default-features = false, version = "1", path = "src/generated/identity/accesscontextmanager/type", package = "google-cloud-identity-accesscontextmanager-type" }
 # Used in integration tests
-google-cloud-speech-v2          = { default-features = false, version = "1", path = "src/generated/cloud/speech/v2" }
+google-cloud-speech-v2          = { default-features = false, path = "src/generated/cloud/speech/v2" }
 google-cloud-secretmanager-v1   = { default-features = false, path = "src/generated/cloud/secretmanager/v1" }
-secretmanager                   = { default-features = false, path = "src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }
 google-cloud-aiplatform-v1      = { default-features = false, path = "src/generated/cloud/aiplatform/v1" }
-google-cloud-compute-v1         = { default-features = false, version = "2", path = "src/generated/cloud/compute/v1" }
+google-cloud-compute-v1         = { default-features = false, path = "src/generated/cloud/compute/v1" }
 google-cloud-storage            = { default-features = false, version = "1.7", path = "src/storage" }
 google-cloud-pubsub             = { default-features = false, path = "src/pubsub" }
 google-cloud-bigquery-v2        = { default-features = false, version = "1", path = "src/generated/cloud/bigquery/v2" }
-bigquery                        = { default-features = false, version = "1", path = "src/generated/cloud/bigquery/v2", package = "google-cloud-bigquery-v2" }
-google-cloud-iam-credentials-v1 = { default-features = false, version = "1", path = "src/generated/iam/credentials/v1" }
-iamcredentials                  = { default-features = false, version = "1", path = "src/generated/iam/credentials/v1", package = "google-cloud-iam-credentials-v1" }
-google-cloud-language-v2        = { default-features = false, version = "1", path = "src/generated/cloud/language/v2" }
-language                        = { default-features = false, version = "1", path = "src/generated/cloud/language/v2", package = "google-cloud-language-v2" }
+google-cloud-iam-credentials-v1 = { default-features = false, path = "src/generated/iam/credentials/v1" }
+google-cloud-language-v2        = { default-features = false, path = "src/generated/cloud/language/v2" }
 google-cloud-dns-v1             = { default-features = false, path = "src/generated/cloud/dns/v1" }
 google-cloud-firestore          = { default-features = false, path = "src/firestore" }
 google-cloud-showcase-v1beta1   = { default-features = false, path = "src/generated/showcase" }
+google-cloud-telcoautomation-v1 = { default-features = false, path = "src/generated/cloud/telcoautomation/v1" }
 google-cloud-trace-v1           = { default-features = false, path = "src/generated/devtools/cloudtrace/v1" }
 secretmanager-openapi-v1        = { default-features = false, path = "src/generated/openapi-validation" }
 # The names on these are too long, I do not want to reformat the whole file for them.

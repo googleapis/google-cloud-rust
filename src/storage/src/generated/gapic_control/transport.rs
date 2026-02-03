@@ -347,7 +347,7 @@ impl super::stub::StorageControl for StorageControl {
         &self,
         req: crate::model::RenameFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
@@ -417,7 +417,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_longrunning::model::Operation>)
     }
 
     async fn get_storage_layout(
@@ -787,7 +787,7 @@ impl super::stub::StorageControl for StorageControl {
         &self,
         req: crate::model::CreateAnywhereCacheRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
@@ -846,14 +846,14 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_longrunning::model::Operation>)
     }
 
     async fn update_anywhere_cache(
         &self,
         req: crate::model::UpdateAnywhereCacheRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
@@ -929,7 +929,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_longrunning::model::Operation>)
     }
 
     async fn disable_anywhere_cache(
@@ -1569,9 +1569,9 @@ impl super::stub::StorageControl for StorageControl {
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
@@ -1659,14 +1659,14 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, iam_v1::model::Policy>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_iam_v1::model::Policy>)
     }
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
@@ -1754,14 +1754,15 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, iam_v1::model::Policy>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_iam_v1::model::Policy>)
     }
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
@@ -1883,14 +1884,19 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, iam_v1::model::TestIamPermissionsResponse>)
+            .and_then(
+                gaxi::grpc::to_gax_response::<
+                    TR,
+                    google_cloud_iam_v1::model::TestIamPermissionsResponse,
+                >,
+            )
     }
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
@@ -1925,7 +1931,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_longrunning::model::Operation>)
     }
 
     fn get_polling_error_policy(
