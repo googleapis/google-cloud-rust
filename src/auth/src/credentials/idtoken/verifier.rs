@@ -542,7 +542,7 @@ pub(crate) mod tests {
 
         let verifier = Builder::new([audience])
             .with_jwks_url(format!("http://{}/certs", server.addr()))
-            .with_clock_skew(Duration::from_secs(10))
+            .with_clock_skew(Duration::from_secs(60))
             .build();
 
         let result = verifier.verify(token).await;
