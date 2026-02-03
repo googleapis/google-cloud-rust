@@ -706,14 +706,10 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        let builder = AuthHeadersBuilder::new(token);
-        let builder = self
-            .quota_project_id
-            .iter()
-            .fold(builder, |builder, project| {
-                builder.with_quota_project_id(project)
-            });
-        builder.build()
+
+        AuthHeadersBuilder::new(&token)
+            .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .build()
     }
 }
 

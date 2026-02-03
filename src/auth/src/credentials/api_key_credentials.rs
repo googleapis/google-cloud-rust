@@ -116,7 +116,7 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let cached_token = self.token_provider.token(extensions).await?;
-        AuthHeadersBuilder::for_api_key(cached_token).build()
+        AuthHeadersBuilder::for_api_key(&cached_token).build()
     }
 }
 
