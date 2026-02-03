@@ -52,6 +52,10 @@ locals {
       script = "coverage"
       flags  = local.unstable_flags
     }
+    deny = {
+      config = "complex.yaml"
+      script = "deny"
+    }
     docs = {
       config = "complex.yaml"
       script = "docs"

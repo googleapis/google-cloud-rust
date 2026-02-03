@@ -76,6 +76,13 @@ steps:
       cargo install taplo-cli --version 0.10.0 --locked
       git ls-files -z -- '*.toml' ':!:testdata/**' ':!:**/generated/**' | \
         xargs -0 taplo fmt
+  - name: 'rust:${_RUST_VERSION}-bookworm'
+    id: 'Format Rust files'
+    script: |
+      #!/usr/bin/env bash
+      set -euv
+      rustup component add rustfmt
+      cargo fmt
   - name: 'golang:${_GO_VERSION}'
     id: 'Format YAML files'
     script: |

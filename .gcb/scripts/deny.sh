@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright 2025 Google LLC
+# Copyright 2026 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,16 +15,14 @@
 
 set -ev
 
-rustup toolchain install nightly
-rustup default nightly
-rustup component add clippy
 cargo version
 rustup show active-toolchain -v
+time cargo install --locked cargo-deny@0.19.0
 
 set +v
 
-echo "==== cargo clippy ===="
-cargo clippy --workspace --all-targets --profile=test -- --deny warnings
+echo "==== cargo deny ===="
+cargo deny check
 
 echo "==== DONE ===="
 /workspace/.bin/sccache --show-stats
