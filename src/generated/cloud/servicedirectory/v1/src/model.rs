@@ -21,7 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate iam_v1;
+extern crate google_cloud_iam_v1;
 extern crate lazy_static;
 extern crate location;
 extern crate serde;

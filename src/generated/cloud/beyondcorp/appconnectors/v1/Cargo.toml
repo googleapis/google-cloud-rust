@@ -42,9 +42,9 @@ async-trait.workspace              = true
 bytes.workspace                    = true
 gax.workspace                      = true
 gaxi                               = { workspace = true, features = ["_internal-http-client"] }
+google-cloud-iam-v1.workspace      = true
 google-cloud-longrunning.workspace = true
 google-cloud-lro.workspace         = true
-iam_v1.workspace                   = true
 lazy_static.workspace              = true
 location.workspace                 = true
 serde.workspace                    = true

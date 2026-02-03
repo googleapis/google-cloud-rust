@@ -385,7 +385,7 @@ pub mod data_foundry_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -395,7 +395,10 @@ pub mod data_foundry_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -407,14 +410,14 @@ pub mod data_foundry_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -422,29 +425,29 @@ pub mod data_foundry_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -453,7 +456,7 @@ pub mod data_foundry_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -487,7 +490,7 @@ pub mod data_foundry_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -497,7 +500,10 @@ pub mod data_foundry_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -509,14 +515,14 @@ pub mod data_foundry_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -524,19 +530,19 @@ pub mod data_foundry_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -567,7 +573,9 @@ pub mod data_foundry_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -577,7 +585,7 @@ pub mod data_foundry_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -592,14 +600,14 @@ pub mod data_foundry_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -607,7 +615,7 @@ pub mod data_foundry_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -3564,7 +3572,7 @@ pub mod dataset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -3574,7 +3582,10 @@ pub mod dataset_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3586,14 +3597,14 @@ pub mod dataset_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3601,29 +3612,29 @@ pub mod dataset_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3632,7 +3643,7 @@ pub mod dataset_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3666,7 +3677,7 @@ pub mod dataset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -3676,7 +3687,10 @@ pub mod dataset_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3688,14 +3702,14 @@ pub mod dataset_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3703,19 +3717,19 @@ pub mod dataset_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -3746,7 +3760,9 @@ pub mod dataset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -3756,7 +3772,7 @@ pub mod dataset_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -3771,14 +3787,14 @@ pub mod dataset_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3786,7 +3802,7 @@ pub mod dataset_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -5147,7 +5163,7 @@ pub mod deployment_resource_pool_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -5157,7 +5173,10 @@ pub mod deployment_resource_pool_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5169,14 +5188,14 @@ pub mod deployment_resource_pool_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5184,29 +5203,29 @@ pub mod deployment_resource_pool_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -5215,7 +5234,7 @@ pub mod deployment_resource_pool_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -5249,7 +5268,7 @@ pub mod deployment_resource_pool_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -5259,7 +5278,10 @@ pub mod deployment_resource_pool_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5271,14 +5293,14 @@ pub mod deployment_resource_pool_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5286,19 +5308,19 @@ pub mod deployment_resource_pool_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -5329,7 +5351,9 @@ pub mod deployment_resource_pool_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -5339,7 +5363,7 @@ pub mod deployment_resource_pool_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -5354,14 +5378,14 @@ pub mod deployment_resource_pool_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5369,7 +5393,7 @@ pub mod deployment_resource_pool_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -7134,7 +7158,7 @@ pub mod endpoint_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -7144,7 +7168,10 @@ pub mod endpoint_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7156,14 +7183,14 @@ pub mod endpoint_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7171,29 +7198,29 @@ pub mod endpoint_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -7202,7 +7229,7 @@ pub mod endpoint_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -7236,7 +7263,7 @@ pub mod endpoint_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -7246,7 +7273,10 @@ pub mod endpoint_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7258,14 +7288,14 @@ pub mod endpoint_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7273,19 +7303,19 @@ pub mod endpoint_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -7316,7 +7346,9 @@ pub mod endpoint_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -7326,7 +7358,7 @@ pub mod endpoint_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -7341,14 +7373,14 @@ pub mod endpoint_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7356,7 +7388,7 @@ pub mod endpoint_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -8471,7 +8503,7 @@ pub mod evaluation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -8481,7 +8513,10 @@ pub mod evaluation_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -8493,14 +8528,14 @@ pub mod evaluation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8508,29 +8543,29 @@ pub mod evaluation_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -8539,7 +8574,7 @@ pub mod evaluation_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -8573,7 +8608,7 @@ pub mod evaluation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -8583,7 +8618,10 @@ pub mod evaluation_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -8595,14 +8633,14 @@ pub mod evaluation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8610,19 +8648,19 @@ pub mod evaluation_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -8653,7 +8691,9 @@ pub mod evaluation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -8663,7 +8703,7 @@ pub mod evaluation_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -8678,14 +8718,14 @@ pub mod evaluation_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8693,7 +8733,7 @@ pub mod evaluation_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -10788,7 +10828,7 @@ pub mod feature_online_store_admin_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -10798,7 +10838,10 @@ pub mod feature_online_store_admin_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -10810,14 +10853,14 @@ pub mod feature_online_store_admin_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10825,29 +10868,29 @@ pub mod feature_online_store_admin_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -10856,7 +10899,7 @@ pub mod feature_online_store_admin_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -10890,7 +10933,7 @@ pub mod feature_online_store_admin_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -10900,7 +10943,10 @@ pub mod feature_online_store_admin_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -10912,14 +10958,14 @@ pub mod feature_online_store_admin_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10927,19 +10973,19 @@ pub mod feature_online_store_admin_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -10970,7 +11016,9 @@ pub mod feature_online_store_admin_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -10980,7 +11028,7 @@ pub mod feature_online_store_admin_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -10995,14 +11043,14 @@ pub mod feature_online_store_admin_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -11010,7 +11058,7 @@ pub mod feature_online_store_admin_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -11922,7 +11970,7 @@ pub mod feature_online_store_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -11932,7 +11980,10 @@ pub mod feature_online_store_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -11944,14 +11995,14 @@ pub mod feature_online_store_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -11959,29 +12010,29 @@ pub mod feature_online_store_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -11990,7 +12041,7 @@ pub mod feature_online_store_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -12024,7 +12075,7 @@ pub mod feature_online_store_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -12034,7 +12085,10 @@ pub mod feature_online_store_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -12046,14 +12100,14 @@ pub mod feature_online_store_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -12061,19 +12115,19 @@ pub mod feature_online_store_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -12104,7 +12158,9 @@ pub mod feature_online_store_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -12114,7 +12170,7 @@ pub mod feature_online_store_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -12129,14 +12185,14 @@ pub mod feature_online_store_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -12144,7 +12200,7 @@ pub mod feature_online_store_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -14111,7 +14167,7 @@ pub mod feature_registry_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -14121,7 +14177,10 @@ pub mod feature_registry_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -14133,14 +14192,14 @@ pub mod feature_registry_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -14148,29 +14207,29 @@ pub mod feature_registry_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -14179,7 +14238,7 @@ pub mod feature_registry_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -14213,7 +14272,7 @@ pub mod feature_registry_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -14223,7 +14282,10 @@ pub mod feature_registry_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -14235,14 +14297,14 @@ pub mod feature_registry_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -14250,19 +14312,19 @@ pub mod feature_registry_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -14293,7 +14355,9 @@ pub mod feature_registry_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -14303,7 +14367,7 @@ pub mod feature_registry_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -14318,14 +14382,14 @@ pub mod feature_registry_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -14333,7 +14397,7 @@ pub mod feature_registry_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -15168,7 +15232,7 @@ pub mod featurestore_online_serving_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -15178,7 +15242,10 @@ pub mod featurestore_online_serving_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -15190,14 +15257,14 @@ pub mod featurestore_online_serving_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -15205,29 +15272,29 @@ pub mod featurestore_online_serving_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -15236,7 +15303,7 @@ pub mod featurestore_online_serving_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -15270,7 +15337,7 @@ pub mod featurestore_online_serving_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -15280,7 +15347,10 @@ pub mod featurestore_online_serving_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -15292,14 +15362,14 @@ pub mod featurestore_online_serving_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -15307,19 +15377,19 @@ pub mod featurestore_online_serving_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -15350,7 +15420,9 @@ pub mod featurestore_online_serving_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -15360,7 +15432,7 @@ pub mod featurestore_online_serving_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -15375,14 +15447,14 @@ pub mod featurestore_online_serving_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -15390,7 +15462,7 @@ pub mod featurestore_online_serving_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -18829,7 +18901,7 @@ pub mod featurestore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -18839,7 +18911,10 @@ pub mod featurestore_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -18851,14 +18926,14 @@ pub mod featurestore_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -18866,29 +18941,29 @@ pub mod featurestore_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -18897,7 +18972,7 @@ pub mod featurestore_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -18931,7 +19006,7 @@ pub mod featurestore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -18941,7 +19016,10 @@ pub mod featurestore_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -18953,14 +19031,14 @@ pub mod featurestore_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -18968,19 +19046,19 @@ pub mod featurestore_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -19011,7 +19089,9 @@ pub mod featurestore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -19021,7 +19101,7 @@ pub mod featurestore_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -19036,14 +19116,14 @@ pub mod featurestore_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -19051,7 +19131,7 @@ pub mod featurestore_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -20138,7 +20218,7 @@ pub mod gen_ai_cache_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -20148,7 +20228,10 @@ pub mod gen_ai_cache_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -20160,14 +20243,14 @@ pub mod gen_ai_cache_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -20175,29 +20258,29 @@ pub mod gen_ai_cache_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -20206,7 +20289,7 @@ pub mod gen_ai_cache_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -20240,7 +20323,7 @@ pub mod gen_ai_cache_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -20250,7 +20333,10 @@ pub mod gen_ai_cache_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -20262,14 +20348,14 @@ pub mod gen_ai_cache_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -20277,19 +20363,19 @@ pub mod gen_ai_cache_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -20320,7 +20406,9 @@ pub mod gen_ai_cache_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -20330,7 +20418,7 @@ pub mod gen_ai_cache_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -20345,14 +20433,14 @@ pub mod gen_ai_cache_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -20360,7 +20448,7 @@ pub mod gen_ai_cache_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -21516,7 +21604,7 @@ pub mod gen_ai_tuning_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -21526,7 +21614,10 @@ pub mod gen_ai_tuning_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -21538,14 +21629,14 @@ pub mod gen_ai_tuning_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -21553,29 +21644,29 @@ pub mod gen_ai_tuning_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -21584,7 +21675,7 @@ pub mod gen_ai_tuning_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -21618,7 +21709,7 @@ pub mod gen_ai_tuning_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -21628,7 +21719,10 @@ pub mod gen_ai_tuning_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -21640,14 +21734,14 @@ pub mod gen_ai_tuning_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -21655,19 +21749,19 @@ pub mod gen_ai_tuning_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -21698,7 +21792,9 @@ pub mod gen_ai_tuning_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -21708,7 +21804,7 @@ pub mod gen_ai_tuning_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -21723,14 +21819,14 @@ pub mod gen_ai_tuning_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -21738,7 +21834,7 @@ pub mod gen_ai_tuning_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -23332,7 +23428,7 @@ pub mod index_endpoint_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -23342,7 +23438,10 @@ pub mod index_endpoint_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -23354,14 +23453,14 @@ pub mod index_endpoint_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -23369,29 +23468,29 @@ pub mod index_endpoint_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -23400,7 +23499,7 @@ pub mod index_endpoint_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -23434,7 +23533,7 @@ pub mod index_endpoint_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -23444,7 +23543,10 @@ pub mod index_endpoint_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -23456,14 +23558,14 @@ pub mod index_endpoint_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -23471,19 +23573,19 @@ pub mod index_endpoint_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -23514,7 +23616,9 @@ pub mod index_endpoint_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -23524,7 +23628,7 @@ pub mod index_endpoint_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -23539,14 +23643,14 @@ pub mod index_endpoint_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -23554,7 +23658,7 @@ pub mod index_endpoint_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -24954,7 +25058,7 @@ pub mod index_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -24964,7 +25068,10 @@ pub mod index_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -24976,14 +25083,14 @@ pub mod index_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -24991,29 +25098,29 @@ pub mod index_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -25022,7 +25129,7 @@ pub mod index_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -25056,7 +25163,7 @@ pub mod index_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -25066,7 +25173,10 @@ pub mod index_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -25078,14 +25188,14 @@ pub mod index_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -25093,19 +25203,19 @@ pub mod index_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -25136,7 +25246,9 @@ pub mod index_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -25146,7 +25258,7 @@ pub mod index_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -25161,14 +25273,14 @@ pub mod index_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -25176,7 +25288,7 @@ pub mod index_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -29179,7 +29291,7 @@ pub mod job_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -29189,7 +29301,10 @@ pub mod job_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -29201,14 +29316,14 @@ pub mod job_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -29216,29 +29331,29 @@ pub mod job_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -29247,7 +29362,7 @@ pub mod job_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -29281,7 +29396,7 @@ pub mod job_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -29291,7 +29406,10 @@ pub mod job_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -29303,14 +29421,14 @@ pub mod job_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -29318,19 +29436,19 @@ pub mod job_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -29361,7 +29479,9 @@ pub mod job_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -29371,7 +29491,7 @@ pub mod job_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -29386,14 +29506,14 @@ pub mod job_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -29401,7 +29521,7 @@ pub mod job_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -30290,7 +30410,7 @@ pub mod llm_utility_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -30300,7 +30420,10 @@ pub mod llm_utility_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -30312,14 +30435,14 @@ pub mod llm_utility_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -30327,29 +30450,29 @@ pub mod llm_utility_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -30358,7 +30481,7 @@ pub mod llm_utility_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -30392,7 +30515,7 @@ pub mod llm_utility_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -30402,7 +30525,10 @@ pub mod llm_utility_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -30414,14 +30540,14 @@ pub mod llm_utility_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -30429,19 +30555,19 @@ pub mod llm_utility_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -30472,7 +30598,9 @@ pub mod llm_utility_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -30482,7 +30610,7 @@ pub mod llm_utility_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -30497,14 +30625,14 @@ pub mod llm_utility_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -30512,7 +30640,7 @@ pub mod llm_utility_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -31341,7 +31469,7 @@ pub mod match_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -31351,7 +31479,10 @@ pub mod match_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -31363,14 +31494,14 @@ pub mod match_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -31378,29 +31509,29 @@ pub mod match_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -31409,7 +31540,7 @@ pub mod match_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -31443,7 +31574,7 @@ pub mod match_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -31453,7 +31584,10 @@ pub mod match_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -31465,14 +31599,14 @@ pub mod match_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -31480,19 +31614,19 @@ pub mod match_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -31523,7 +31657,9 @@ pub mod match_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -31533,7 +31669,7 @@ pub mod match_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -31548,14 +31684,14 @@ pub mod match_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -31563,7 +31699,7 @@ pub mod match_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -35280,7 +35416,7 @@ pub mod metadata_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -35290,7 +35426,10 @@ pub mod metadata_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -35302,14 +35441,14 @@ pub mod metadata_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -35317,29 +35456,29 @@ pub mod metadata_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -35348,7 +35487,7 @@ pub mod metadata_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -35382,7 +35521,7 @@ pub mod metadata_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -35392,7 +35531,10 @@ pub mod metadata_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -35404,14 +35546,14 @@ pub mod metadata_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -35419,19 +35561,19 @@ pub mod metadata_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -35462,7 +35604,9 @@ pub mod metadata_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -35472,7 +35616,7 @@ pub mod metadata_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -35487,14 +35631,14 @@ pub mod metadata_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -35502,7 +35646,7 @@ pub mod metadata_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -36408,7 +36552,7 @@ pub mod migration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -36418,7 +36562,10 @@ pub mod migration_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -36430,14 +36577,14 @@ pub mod migration_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -36445,29 +36592,29 @@ pub mod migration_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -36476,7 +36623,7 @@ pub mod migration_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -36510,7 +36657,7 @@ pub mod migration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -36520,7 +36667,10 @@ pub mod migration_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -36532,14 +36682,14 @@ pub mod migration_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -36547,19 +36697,19 @@ pub mod migration_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -36590,7 +36740,9 @@ pub mod migration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -36600,7 +36752,7 @@ pub mod migration_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -36615,14 +36767,14 @@ pub mod migration_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -36630,7 +36782,7 @@ pub mod migration_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -37584,7 +37736,7 @@ pub mod model_garden_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -37594,7 +37746,10 @@ pub mod model_garden_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -37606,14 +37761,14 @@ pub mod model_garden_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -37621,29 +37776,29 @@ pub mod model_garden_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -37652,7 +37807,7 @@ pub mod model_garden_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -37686,7 +37841,7 @@ pub mod model_garden_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -37696,7 +37851,10 @@ pub mod model_garden_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -37708,14 +37866,14 @@ pub mod model_garden_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -37723,19 +37881,19 @@ pub mod model_garden_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -37766,7 +37924,9 @@ pub mod model_garden_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -37776,7 +37936,7 @@ pub mod model_garden_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -37791,14 +37951,14 @@ pub mod model_garden_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -37806,7 +37966,7 @@ pub mod model_garden_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -40540,7 +40700,7 @@ pub mod model_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -40550,7 +40710,10 @@ pub mod model_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -40562,14 +40725,14 @@ pub mod model_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -40577,29 +40740,29 @@ pub mod model_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -40608,7 +40771,7 @@ pub mod model_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -40642,7 +40805,7 @@ pub mod model_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -40652,7 +40815,10 @@ pub mod model_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -40664,14 +40830,14 @@ pub mod model_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -40679,19 +40845,19 @@ pub mod model_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -40722,7 +40888,9 @@ pub mod model_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -40732,7 +40900,7 @@ pub mod model_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -40747,14 +40915,14 @@ pub mod model_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -40762,7 +40930,7 @@ pub mod model_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -43265,7 +43433,7 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -43275,7 +43443,10 @@ pub mod notebook_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -43287,14 +43458,14 @@ pub mod notebook_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -43302,29 +43473,29 @@ pub mod notebook_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -43333,7 +43504,7 @@ pub mod notebook_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -43367,7 +43538,7 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -43377,7 +43548,10 @@ pub mod notebook_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -43389,14 +43563,14 @@ pub mod notebook_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -43404,19 +43578,19 @@ pub mod notebook_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -43447,7 +43621,9 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -43457,7 +43633,7 @@ pub mod notebook_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -43472,14 +43648,14 @@ pub mod notebook_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -43487,7 +43663,7 @@ pub mod notebook_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -44852,7 +45028,7 @@ pub mod persistent_resource_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -44862,7 +45038,10 @@ pub mod persistent_resource_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -44874,14 +45053,14 @@ pub mod persistent_resource_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -44889,29 +45068,29 @@ pub mod persistent_resource_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -44920,7 +45099,7 @@ pub mod persistent_resource_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -44954,7 +45133,7 @@ pub mod persistent_resource_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -44964,7 +45143,10 @@ pub mod persistent_resource_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -44976,14 +45158,14 @@ pub mod persistent_resource_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -44991,19 +45173,19 @@ pub mod persistent_resource_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -45034,7 +45216,9 @@ pub mod persistent_resource_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -45044,7 +45228,7 @@ pub mod persistent_resource_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -45059,14 +45243,14 @@ pub mod persistent_resource_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -45074,7 +45258,7 @@ pub mod persistent_resource_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -46919,7 +47103,7 @@ pub mod pipeline_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -46929,7 +47113,10 @@ pub mod pipeline_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -46941,14 +47128,14 @@ pub mod pipeline_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -46956,29 +47143,29 @@ pub mod pipeline_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -46987,7 +47174,7 @@ pub mod pipeline_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -47021,7 +47208,7 @@ pub mod pipeline_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -47031,7 +47218,10 @@ pub mod pipeline_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -47043,14 +47233,14 @@ pub mod pipeline_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -47058,19 +47248,19 @@ pub mod pipeline_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -47101,7 +47291,9 @@ pub mod pipeline_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -47111,7 +47303,7 @@ pub mod pipeline_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -47126,14 +47318,14 @@ pub mod pipeline_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -47141,7 +47333,7 @@ pub mod pipeline_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -48623,7 +48815,7 @@ pub mod prediction_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -48633,7 +48825,10 @@ pub mod prediction_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -48645,14 +48840,14 @@ pub mod prediction_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -48660,29 +48855,29 @@ pub mod prediction_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -48691,7 +48886,7 @@ pub mod prediction_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -48725,7 +48920,7 @@ pub mod prediction_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -48735,7 +48930,10 @@ pub mod prediction_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -48747,14 +48945,14 @@ pub mod prediction_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -48762,19 +48960,19 @@ pub mod prediction_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -48805,7 +49003,9 @@ pub mod prediction_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -48815,7 +49015,7 @@ pub mod prediction_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -48830,14 +49030,14 @@ pub mod prediction_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -48845,7 +49045,7 @@ pub mod prediction_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -49596,7 +49796,7 @@ pub mod reasoning_engine_execution_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -49606,7 +49806,10 @@ pub mod reasoning_engine_execution_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -49618,14 +49821,14 @@ pub mod reasoning_engine_execution_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -49633,29 +49836,29 @@ pub mod reasoning_engine_execution_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -49664,7 +49867,7 @@ pub mod reasoning_engine_execution_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -49698,7 +49901,7 @@ pub mod reasoning_engine_execution_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -49708,7 +49911,10 @@ pub mod reasoning_engine_execution_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -49720,14 +49926,14 @@ pub mod reasoning_engine_execution_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -49735,19 +49941,19 @@ pub mod reasoning_engine_execution_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -49778,7 +49984,9 @@ pub mod reasoning_engine_execution_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -49788,7 +49996,7 @@ pub mod reasoning_engine_execution_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -49803,14 +50011,14 @@ pub mod reasoning_engine_execution_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -49818,7 +50026,7 @@ pub mod reasoning_engine_execution_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -51057,7 +51265,7 @@ pub mod reasoning_engine_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -51067,7 +51275,10 @@ pub mod reasoning_engine_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -51079,14 +51290,14 @@ pub mod reasoning_engine_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -51094,29 +51305,29 @@ pub mod reasoning_engine_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -51125,7 +51336,7 @@ pub mod reasoning_engine_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -51159,7 +51370,7 @@ pub mod reasoning_engine_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -51169,7 +51380,10 @@ pub mod reasoning_engine_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -51181,14 +51395,14 @@ pub mod reasoning_engine_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -51196,19 +51410,19 @@ pub mod reasoning_engine_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -51239,7 +51453,9 @@ pub mod reasoning_engine_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -51249,7 +51465,7 @@ pub mod reasoning_engine_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -51264,14 +51480,14 @@ pub mod reasoning_engine_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -51279,7 +51495,7 @@ pub mod reasoning_engine_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -52537,7 +52753,7 @@ pub mod schedule_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -52547,7 +52763,10 @@ pub mod schedule_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -52559,14 +52778,14 @@ pub mod schedule_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -52574,29 +52793,29 @@ pub mod schedule_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -52605,7 +52824,7 @@ pub mod schedule_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -52639,7 +52858,7 @@ pub mod schedule_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -52649,7 +52868,10 @@ pub mod schedule_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -52661,14 +52883,14 @@ pub mod schedule_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -52676,19 +52898,19 @@ pub mod schedule_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -52719,7 +52941,9 @@ pub mod schedule_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -52729,7 +52953,7 @@ pub mod schedule_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -52744,14 +52968,14 @@ pub mod schedule_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -52759,7 +52983,7 @@ pub mod schedule_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -54014,7 +54238,7 @@ pub mod specialist_pool_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -54024,7 +54248,10 @@ pub mod specialist_pool_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -54036,14 +54263,14 @@ pub mod specialist_pool_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -54051,29 +54278,29 @@ pub mod specialist_pool_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -54082,7 +54309,7 @@ pub mod specialist_pool_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -54116,7 +54343,7 @@ pub mod specialist_pool_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -54126,7 +54353,10 @@ pub mod specialist_pool_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -54138,14 +54368,14 @@ pub mod specialist_pool_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -54153,19 +54383,19 @@ pub mod specialist_pool_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -54196,7 +54426,9 @@ pub mod specialist_pool_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -54206,7 +54438,7 @@ pub mod specialist_pool_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -54221,14 +54453,14 @@ pub mod specialist_pool_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -54236,7 +54468,7 @@ pub mod specialist_pool_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -57774,7 +58006,7 @@ pub mod tensorboard_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -57784,7 +58016,10 @@ pub mod tensorboard_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -57796,14 +58031,14 @@ pub mod tensorboard_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -57811,29 +58046,29 @@ pub mod tensorboard_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -57842,7 +58077,7 @@ pub mod tensorboard_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -57876,7 +58111,7 @@ pub mod tensorboard_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -57886,7 +58121,10 @@ pub mod tensorboard_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -57898,14 +58136,14 @@ pub mod tensorboard_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -57913,19 +58151,19 @@ pub mod tensorboard_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -57956,7 +58194,9 @@ pub mod tensorboard_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -57966,7 +58206,7 @@ pub mod tensorboard_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -57981,14 +58221,14 @@ pub mod tensorboard_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -57996,7 +58236,7 @@ pub mod tensorboard_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -59898,7 +60138,7 @@ pub mod vertex_rag_data_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -59908,7 +60148,10 @@ pub mod vertex_rag_data_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -59920,14 +60163,14 @@ pub mod vertex_rag_data_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -59935,29 +60178,29 @@ pub mod vertex_rag_data_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -59966,7 +60209,7 @@ pub mod vertex_rag_data_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -60000,7 +60243,7 @@ pub mod vertex_rag_data_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -60010,7 +60253,10 @@ pub mod vertex_rag_data_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -60022,14 +60268,14 @@ pub mod vertex_rag_data_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -60037,19 +60283,19 @@ pub mod vertex_rag_data_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -60080,7 +60326,9 @@ pub mod vertex_rag_data_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -60090,7 +60338,7 @@ pub mod vertex_rag_data_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -60105,14 +60353,14 @@ pub mod vertex_rag_data_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -60120,7 +60368,7 @@ pub mod vertex_rag_data_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -61132,7 +61380,7 @@ pub mod vertex_rag_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -61142,7 +61390,10 @@ pub mod vertex_rag_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -61154,14 +61405,14 @@ pub mod vertex_rag_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -61169,29 +61420,29 @@ pub mod vertex_rag_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -61200,7 +61451,7 @@ pub mod vertex_rag_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -61234,7 +61485,7 @@ pub mod vertex_rag_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -61244,7 +61495,10 @@ pub mod vertex_rag_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -61256,14 +61510,14 @@ pub mod vertex_rag_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -61271,19 +61525,19 @@ pub mod vertex_rag_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -61314,7 +61568,9 @@ pub mod vertex_rag_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -61324,7 +61580,7 @@ pub mod vertex_rag_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -61339,14 +61595,14 @@ pub mod vertex_rag_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -61354,7 +61610,7 @@ pub mod vertex_rag_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -63266,7 +63522,7 @@ pub mod vizier_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -63276,7 +63532,10 @@ pub mod vizier_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -63288,14 +63547,14 @@ pub mod vizier_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -63303,29 +63562,29 @@ pub mod vizier_service {
             self
         }
 
-        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::Policy>,
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -63334,7 +63593,7 @@ pub mod vizier_service {
             self
         }
 
-        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -63368,7 +63627,7 @@ pub mod vizier_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -63378,7 +63637,10 @@ pub mod vizier_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -63390,14 +63652,14 @@ pub mod vizier_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::Policy> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -63405,19 +63667,19 @@ pub mod vizier_service {
             self
         }
 
-        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -63448,7 +63710,9 @@ pub mod vizier_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(
@@ -63458,7 +63722,7 @@ pub mod vizier_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -63473,14 +63737,14 @@ pub mod vizier_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -63488,7 +63752,7 @@ pub mod vizier_service {
             self
         }
 
-        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
         /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self

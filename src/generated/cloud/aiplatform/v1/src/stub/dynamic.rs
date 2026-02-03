@@ -38,21 +38,23 @@ pub trait DataFoundryService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -121,27 +123,29 @@ impl<T: super::DataFoundryService> DataFoundryService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -325,21 +329,23 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -580,27 +586,29 @@ impl<T: super::DatasetService> DatasetService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -720,21 +728,23 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -859,27 +869,29 @@ impl<T: super::DeploymentResourcePoolService> DeploymentResourcePoolService for 
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -1017,21 +1029,23 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -1182,27 +1196,29 @@ impl<T: super::EndpointService> EndpointService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -1292,21 +1308,23 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -1375,27 +1393,29 @@ impl<T: super::EvaluationService> EvaluationService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -1543,21 +1563,23 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -1744,27 +1766,29 @@ impl<T: super::FeatureOnlineStoreAdminService> FeatureOnlineStoreAdminService fo
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -1866,21 +1890,23 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -1968,27 +1994,29 @@ impl<T: super::FeatureOnlineStoreService> FeatureOnlineStoreService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -2124,21 +2152,23 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -2307,27 +2337,29 @@ impl<T: super::FeatureRegistryService> FeatureRegistryService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -2423,21 +2455,23 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -2515,27 +2549,29 @@ impl<T: super::FeaturestoreOnlineServingService> FeaturestoreOnlineServingServic
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -2731,21 +2767,23 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -3004,27 +3042,29 @@ impl<T: super::FeaturestoreService> FeaturestoreService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -3138,21 +3178,23 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -3257,27 +3299,29 @@ impl<T: super::GenAiCacheService> GenAiCacheService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -3377,21 +3421,23 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -3506,27 +3552,29 @@ impl<T: super::GenAiTuningService> GenAiTuningService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -3658,21 +3706,23 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -3814,27 +3864,29 @@ impl<T: super::IndexEndpointService> IndexEndpointService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -3960,21 +4012,23 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -4107,27 +4161,29 @@ impl<T: super::IndexService> IndexService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -4427,21 +4483,23 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -4833,27 +4891,29 @@ impl<T: super::JobService> JobService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -4949,21 +5009,23 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -5041,27 +5103,29 @@ impl<T: super::LlmUtilityService> LlmUtilityService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -5143,21 +5207,23 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -5235,27 +5301,29 @@ impl<T: super::MatchService> MatchService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -5519,21 +5587,23 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -5893,27 +5963,29 @@ impl<T: super::MetadataService> MetadataService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -6009,21 +6081,23 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -6112,27 +6186,29 @@ impl<T: super::MigrationService> MigrationService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -6228,21 +6304,23 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -6330,27 +6408,29 @@ impl<T: super::ModelGardenService> ModelGardenService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -6550,21 +6630,23 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -6810,27 +6892,29 @@ impl<T: super::ModelService> ModelService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -7010,21 +7094,23 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -7240,27 +7326,29 @@ impl<T: super::NotebookService> NotebookService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -7380,21 +7468,23 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -7518,27 +7608,29 @@ impl<T: super::PersistentResourceService> PersistentResourceService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -7694,21 +7786,23 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -7886,27 +7980,29 @@ impl<T: super::PipelineService> PipelineService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -8032,21 +8128,23 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -8169,27 +8267,29 @@ impl<T: super::PredictionService> PredictionService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -8265,21 +8365,23 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -8348,27 +8450,29 @@ impl<T: super::ReasoningEngineExecutionService> ReasoningEngineExecutionService 
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -8468,21 +8572,23 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -8597,27 +8703,29 @@ impl<T: super::ReasoningEngineService> ReasoningEngineService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -8743,21 +8851,23 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -8890,27 +9000,29 @@ impl<T: super::ScheduleService> ScheduleService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -9024,21 +9136,23 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -9153,27 +9267,29 @@ impl<T: super::SpecialistPoolService> SpecialistPoolService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -9435,21 +9551,23 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -9790,27 +9908,29 @@ impl<T: super::TensorboardService> TensorboardService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -9966,21 +10086,23 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -10158,27 +10280,29 @@ impl<T: super::VertexRagDataService> VertexRagDataService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -10280,21 +10404,23 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -10381,27 +10507,29 @@ impl<T: super::VertexRagService> VertexRagService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -10561,21 +10689,23 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -10780,27 +10910,29 @@ impl<T: super::VizierService> VizierService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+    > {
         T::test_iam_permissions(self, req, options).await
     }
 

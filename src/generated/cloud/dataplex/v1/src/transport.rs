@@ -1213,9 +1213,9 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -2012,9 +2012,9 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -3051,9 +3051,10 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -6397,9 +6398,9 @@ impl super::stub::CatalogService for CatalogService {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -7196,9 +7197,9 @@ impl super::stub::CatalogService for CatalogService {
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -8235,9 +8236,10 @@ impl super::stub::CatalogService for CatalogService {
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -9937,9 +9939,9 @@ impl super::stub::CmekService for CmekService {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -10736,9 +10738,9 @@ impl super::stub::CmekService for CmekService {
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -11775,9 +11777,10 @@ impl super::stub::CmekService for CmekService {
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -13503,9 +13506,9 @@ impl super::stub::ContentService for ContentService {
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -13636,9 +13639,9 @@ impl super::stub::ContentService for ContentService {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -13745,9 +13748,10 @@ impl super::stub::ContentService for ContentService {
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -15662,9 +15666,9 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -16461,9 +16465,9 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -17500,9 +17504,10 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -19510,9 +19515,9 @@ impl super::stub::DataScanService for DataScanService {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -20309,9 +20314,9 @@ impl super::stub::DataScanService for DataScanService {
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -21348,9 +21353,10 @@ impl super::stub::DataScanService for DataScanService {
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -23391,9 +23397,9 @@ impl super::stub::MetadataService for MetadataService {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -24190,9 +24196,9 @@ impl super::stub::MetadataService for MetadataService {
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -25229,9 +25235,10 @@ impl super::stub::MetadataService for MetadataService {
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -28934,9 +28941,9 @@ impl super::stub::DataplexService for DataplexService {
 
     async fn set_iam_policy(
         &self,
-        req: iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -29733,9 +29740,9 @@ impl super::stub::DataplexService for DataplexService {
 
     async fn get_iam_policy(
         &self,
-        req: iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -30772,9 +30779,10 @@ impl super::stub::DataplexService for DataplexService {
 
     async fn test_iam_permissions(
         &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;

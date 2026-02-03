@@ -273,7 +273,7 @@ impl DatabaseAdmin {
     /// For backups, authorization requires `spanner.backups.setIamPolicy`
     /// permission on [resource][google.iam.v1.SetIamPolicyRequest.resource].
     ///
-    /// [google.iam.v1.SetIamPolicyRequest.resource]: iam_v1::model::SetIamPolicyRequest::resource
+    /// [google.iam.v1.SetIamPolicyRequest.resource]: google_cloud_iam_v1::model::SetIamPolicyRequest::resource
     pub fn set_iam_policy(&self) -> super::builder::database_admin::SetIamPolicy {
         super::builder::database_admin::SetIamPolicy::new(self.inner.clone())
     }
@@ -287,7 +287,7 @@ impl DatabaseAdmin {
     /// For backups, authorization requires `spanner.backups.getIamPolicy`
     /// permission on [resource][google.iam.v1.GetIamPolicyRequest.resource].
     ///
-    /// [google.iam.v1.GetIamPolicyRequest.resource]: iam_v1::model::GetIamPolicyRequest::resource
+    /// [google.iam.v1.GetIamPolicyRequest.resource]: google_cloud_iam_v1::model::GetIamPolicyRequest::resource
     pub fn get_iam_policy(&self) -> super::builder::database_admin::GetIamPolicy {
         super::builder::database_admin::GetIamPolicy::new(self.inner.clone())
     }
