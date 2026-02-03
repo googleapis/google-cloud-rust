@@ -33,7 +33,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::RegisterDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn retrieve_transfer_parameters(
         &self,
@@ -45,7 +45,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::TransferDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_registrations(
         &self,
@@ -63,37 +63,37 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn configure_management_settings(
         &self,
         req: crate::model::ConfigureManagementSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn configure_dns_settings(
         &self,
         req: crate::model::ConfigureDnsSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn configure_contact_settings(
         &self,
         req: crate::model::ConfigureContactSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn export_registration(
         &self,
         req: crate::model::ExportRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_registration(
         &self,
         req: crate::model::DeleteRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn retrieve_authorization_code(
         &self,
@@ -109,15 +109,17 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -157,7 +159,7 @@ impl<T: super::Domains> Domains for T {
         &self,
         req: crate::model::RegisterDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::register_domain(self, req, options).await
     }
 
@@ -176,7 +178,7 @@ impl<T: super::Domains> Domains for T {
         &self,
         req: crate::model::TransferDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::transfer_domain(self, req, options).await
     }
 
@@ -203,7 +205,7 @@ impl<T: super::Domains> Domains for T {
         &self,
         req: crate::model::UpdateRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_registration(self, req, options).await
     }
 
@@ -212,7 +214,7 @@ impl<T: super::Domains> Domains for T {
         &self,
         req: crate::model::ConfigureManagementSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::configure_management_settings(self, req, options).await
     }
 
@@ -221,7 +223,7 @@ impl<T: super::Domains> Domains for T {
         &self,
         req: crate::model::ConfigureDnsSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::configure_dns_settings(self, req, options).await
     }
 
@@ -230,7 +232,7 @@ impl<T: super::Domains> Domains for T {
         &self,
         req: crate::model::ConfigureContactSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::configure_contact_settings(self, req, options).await
     }
 
@@ -239,7 +241,7 @@ impl<T: super::Domains> Domains for T {
         &self,
         req: crate::model::ExportRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::export_registration(self, req, options).await
     }
 
@@ -248,7 +250,7 @@ impl<T: super::Domains> Domains for T {
         &self,
         req: crate::model::DeleteRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_registration(self, req, options).await
     }
 
@@ -273,18 +275,20 @@ impl<T: super::Domains> Domains for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

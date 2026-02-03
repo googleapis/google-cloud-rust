@@ -67,6 +67,9 @@ default:
         package: google-cloud-gax-internal
         feature: _internal-http-client
         used_if: services
+      - name: google-cloud-longrunning
+        package: google-cloud-longrunning
+        source: google.longrunning
       - name: google-cloud-lro
         package: google-cloud-lro
         used_if: lro
@@ -88,9 +91,6 @@ default:
       - name: logging_type
         package: google-cloud-logging-type
         source: google.logging.type
-      - name: longrunning
-        package: google-cloud-longrunning
-        source: google.longrunning
       - name: rpc
         package: google-cloud-rpc
         source: google.rpc
@@ -1332,7 +1332,7 @@ libraries:
             - .google.iam.v1.ResourcePolicyMember
           source: google/iam/v1
           template: convert-prost
-        - module_path: longrunning::model
+        - module_path: google_cloud_longrunning::model
           output: src/storage/src/generated/convert/longrunning
           skipped_ids:
             - .google.longrunning.Operation

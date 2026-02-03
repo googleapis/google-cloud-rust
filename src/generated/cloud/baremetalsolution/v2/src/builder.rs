@@ -286,7 +286,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_instance][crate::client::BareMetalSolution::update_instance].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
                 .await
@@ -497,7 +497,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [reset_instance][crate::client::BareMetalSolution::reset_instance].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_instance(self.0.request, self.0.options)
                 .await
@@ -608,7 +608,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [start_instance][crate::client::BareMetalSolution::start_instance].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .start_instance(self.0.request, self.0.options)
                 .await
@@ -719,7 +719,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [stop_instance][crate::client::BareMetalSolution::stop_instance].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_instance(self.0.request, self.0.options)
                 .await
@@ -835,7 +835,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [enable_interactive_serial_console][crate::client::BareMetalSolution::enable_interactive_serial_console].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_interactive_serial_console(self.0.request, self.0.options)
                 .await
@@ -951,7 +951,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [disable_interactive_serial_console][crate::client::BareMetalSolution::disable_interactive_serial_console].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_interactive_serial_console(self.0.request, self.0.options)
                 .await
@@ -1062,7 +1062,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [detach_lun][crate::client::BareMetalSolution::detach_lun].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .detach_lun(self.0.request, self.0.options)
                 .await
@@ -1611,7 +1611,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_volume][crate::client::BareMetalSolution::update_volume].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_volume(self.0.request, self.0.options)
                 .await
@@ -1822,7 +1822,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [evict_volume][crate::client::BareMetalSolution::evict_volume].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .evict_volume(self.0.request, self.0.options)
                 .await
@@ -1926,7 +1926,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [resize_volume][crate::client::BareMetalSolution::resize_volume].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .resize_volume(self.0.request, self.0.options)
                 .await
@@ -2276,7 +2276,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_network][crate::client::BareMetalSolution::update_network].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_network(self.0.request, self.0.options)
                 .await
@@ -2507,7 +2507,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restore_volume_snapshot][crate::client::BareMetalSolution::restore_volume_snapshot].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_volume_snapshot(self.0.request, self.0.options)
                 .await
@@ -3017,7 +3017,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [evict_lun][crate::client::BareMetalSolution::evict_lun].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .evict_lun(self.0.request, self.0.options)
                 .await
@@ -3291,7 +3291,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_nfs_share][crate::client::BareMetalSolution::update_nfs_share].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_nfs_share(self.0.request, self.0.options)
                 .await
@@ -3432,7 +3432,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_nfs_share][crate::client::BareMetalSolution::create_nfs_share].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_nfs_share(self.0.request, self.0.options)
                 .await
@@ -3633,7 +3633,7 @@ pub mod bare_metal_solution {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_nfs_share][crate::client::BareMetalSolution::delete_nfs_share].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_nfs_share(self.0.request, self.0.options)
                 .await
@@ -4523,7 +4523,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4533,7 +4533,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -4548,14 +4548,14 @@ pub mod bare_metal_solution {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

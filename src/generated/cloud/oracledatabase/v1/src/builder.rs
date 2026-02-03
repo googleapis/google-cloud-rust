@@ -311,7 +311,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cloud_exadata_infrastructure][crate::client::OracleDatabase::create_cloud_exadata_infrastructure].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cloud_exadata_infrastructure(self.0.request, self.0.options)
                 .await
@@ -469,7 +469,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_cloud_exadata_infrastructure][crate::client::OracleDatabase::delete_cloud_exadata_infrastructure].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cloud_exadata_infrastructure(self.0.request, self.0.options)
                 .await
@@ -766,7 +766,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cloud_vm_cluster][crate::client::OracleDatabase::create_cloud_vm_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cloud_vm_cluster(self.0.request, self.0.options)
                 .await
@@ -914,7 +914,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_cloud_vm_cluster][crate::client::OracleDatabase::delete_cloud_vm_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cloud_vm_cluster(self.0.request, self.0.options)
                 .await
@@ -1864,7 +1864,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_autonomous_database][crate::client::OracleDatabase::create_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_autonomous_database(self.0.request, self.0.options)
                 .await
@@ -2016,7 +2016,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_autonomous_database][crate::client::OracleDatabase::update_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_autonomous_database(self.0.request, self.0.options)
                 .await
@@ -2170,7 +2170,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_autonomous_database][crate::client::OracleDatabase::delete_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_autonomous_database(self.0.request, self.0.options)
                 .await
@@ -2285,7 +2285,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restore_autonomous_database][crate::client::OracleDatabase::restore_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_autonomous_database(self.0.request, self.0.options)
                 .await
@@ -2855,7 +2855,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [stop_autonomous_database][crate::client::OracleDatabase::stop_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_autonomous_database(self.0.request, self.0.options)
                 .await
@@ -2971,7 +2971,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [start_autonomous_database][crate::client::OracleDatabase::start_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .start_autonomous_database(self.0.request, self.0.options)
                 .await
@@ -3087,7 +3087,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restart_autonomous_database][crate::client::OracleDatabase::restart_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .restart_autonomous_database(self.0.request, self.0.options)
                 .await
@@ -3203,7 +3203,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [switchover_autonomous_database][crate::client::OracleDatabase::switchover_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .switchover_autonomous_database(self.0.request, self.0.options)
                 .await
@@ -3327,7 +3327,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [failover_autonomous_database][crate::client::OracleDatabase::failover_autonomous_database].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .failover_autonomous_database(self.0.request, self.0.options)
                 .await
@@ -3625,7 +3625,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_odb_network][crate::client::OracleDatabase::create_odb_network].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_odb_network(self.0.request, self.0.options)
                 .await
@@ -3773,7 +3773,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_odb_network][crate::client::OracleDatabase::delete_odb_network].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_odb_network(self.0.request, self.0.options)
                 .await
@@ -4059,7 +4059,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_odb_subnet][crate::client::OracleDatabase::create_odb_subnet].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_odb_subnet(self.0.request, self.0.options)
                 .await
@@ -4204,7 +4204,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_odb_subnet][crate::client::OracleDatabase::delete_odb_subnet].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_odb_subnet(self.0.request, self.0.options)
                 .await
@@ -4501,7 +4501,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_exadb_vm_cluster][crate::client::OracleDatabase::create_exadb_vm_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_exadb_vm_cluster(self.0.request, self.0.options)
                 .await
@@ -4649,7 +4649,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_exadb_vm_cluster][crate::client::OracleDatabase::delete_exadb_vm_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_exadb_vm_cluster(self.0.request, self.0.options)
                 .await
@@ -4762,7 +4762,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_exadb_vm_cluster][crate::client::OracleDatabase::update_exadb_vm_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_exadb_vm_cluster(self.0.request, self.0.options)
                 .await
@@ -4914,7 +4914,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [remove_virtual_machine_exadb_vm_cluster][crate::client::OracleDatabase::remove_virtual_machine_exadb_vm_cluster].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .remove_virtual_machine_exadb_vm_cluster(self.0.request, self.0.options)
                 .await
@@ -5237,7 +5237,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_exascale_db_storage_vault][crate::client::OracleDatabase::create_exascale_db_storage_vault].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_exascale_db_storage_vault(self.0.request, self.0.options)
                 .await
@@ -5395,7 +5395,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_exascale_db_storage_vault][crate::client::OracleDatabase::delete_exascale_db_storage_vault].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_exascale_db_storage_vault(self.0.request, self.0.options)
                 .await
@@ -6142,7 +6142,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_db_system][crate::client::OracleDatabase::create_db_system].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_db_system(self.0.request, self.0.options)
                 .await
@@ -6287,7 +6287,7 @@ pub mod oracle_database {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_db_system][crate::client::OracleDatabase::delete_db_system].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_db_system(self.0.request, self.0.options)
                 .await
@@ -6767,7 +6767,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
 
     impl ListOperations {
         pub(crate) fn new(
@@ -6777,7 +6779,7 @@ pub mod oracle_database {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -6792,7 +6794,7 @@ pub mod oracle_database {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
@@ -6802,8 +6804,10 @@ pub mod oracle_database {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6818,38 +6822,38 @@ pub mod oracle_database {
         pub fn by_item(
             self,
         ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
+            google_cloud_longrunning::model::ListOperationsResponse,
             gax::error::Error,
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of [return_partial_success][longrunning::model::ListOperationsRequest::return_partial_success].
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
         pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.return_partial_success = v.into();
             self
@@ -6880,7 +6884,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -6890,7 +6894,7 @@ pub mod oracle_database {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -6905,14 +6909,14 @@ pub mod oracle_database {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -6943,7 +6947,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
 
     impl DeleteOperation {
         pub(crate) fn new(
@@ -6953,7 +6959,7 @@ pub mod oracle_database {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -6975,7 +6981,7 @@ pub mod oracle_database {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -7006,7 +7012,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -7016,7 +7024,7 @@ pub mod oracle_database {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -7038,7 +7046,7 @@ pub mod oracle_database {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

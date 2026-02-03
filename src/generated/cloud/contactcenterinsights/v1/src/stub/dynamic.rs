@@ -27,7 +27,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UploadConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_conversation(
         &self,
@@ -57,7 +57,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateAnalysisRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_analysis(
         &self,
@@ -81,31 +81,31 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::BulkAnalyzeConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn bulk_delete_conversations(
         &self,
         req: crate::model::BulkDeleteConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn ingest_conversations(
         &self,
         req: crate::model::IngestConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn export_insights_data(
         &self,
         req: crate::model::ExportInsightsDataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_issue_model(
         &self,
         req: crate::model::CreateIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_issue_model(
         &self,
@@ -129,31 +129,31 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeleteIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn deploy_issue_model(
         &self,
         req: crate::model::DeployIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn undeploy_issue_model(
         &self,
         req: crate::model::UndeployIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn export_issue_model(
         &self,
         req: crate::model::ExportIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn import_issue_model(
         &self,
         req: crate::model::ImportIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_issue(
         &self,
@@ -273,7 +273,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::InitializeEncryptionSpecRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_view(
         &self,
@@ -309,7 +309,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::QueryMetricsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_qa_question(
         &self,
@@ -387,7 +387,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::TuneQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn deploy_qa_scorecard_revision(
         &self,
@@ -453,29 +453,31 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::BulkUploadFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn bulk_download_feedback_labels(
         &self,
         req: crate::model::BulkDownloadFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
@@ -507,7 +509,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::UploadConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::upload_conversation(self, req, options).await
     }
 
@@ -552,7 +554,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::CreateAnalysisRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_analysis(self, req, options).await
     }
 
@@ -588,7 +590,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::BulkAnalyzeConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::bulk_analyze_conversations(self, req, options).await
     }
 
@@ -597,7 +599,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::BulkDeleteConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::bulk_delete_conversations(self, req, options).await
     }
 
@@ -606,7 +608,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::IngestConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::ingest_conversations(self, req, options).await
     }
 
@@ -615,7 +617,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::ExportInsightsDataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::export_insights_data(self, req, options).await
     }
 
@@ -624,7 +626,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::CreateIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_issue_model(self, req, options).await
     }
 
@@ -660,7 +662,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::DeleteIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_issue_model(self, req, options).await
     }
 
@@ -669,7 +671,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::DeployIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::deploy_issue_model(self, req, options).await
     }
 
@@ -678,7 +680,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::UndeployIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::undeploy_issue_model(self, req, options).await
     }
 
@@ -687,7 +689,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::ExportIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::export_issue_model(self, req, options).await
     }
 
@@ -696,7 +698,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::ImportIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::import_issue_model(self, req, options).await
     }
 
@@ -877,7 +879,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::InitializeEncryptionSpecRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::initialize_encryption_spec(self, req, options).await
     }
 
@@ -931,7 +933,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::QueryMetricsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::query_metrics(self, req, options).await
     }
 
@@ -1048,7 +1050,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::TuneQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::tune_qa_scorecard_revision(self, req, options).await
     }
 
@@ -1148,7 +1150,7 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::BulkUploadFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::bulk_upload_feedback_labels(self, req, options).await
     }
 
@@ -1157,32 +1159,34 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::BulkDownloadFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::bulk_download_feedback_labels(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await

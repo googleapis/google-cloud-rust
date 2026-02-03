@@ -21,10 +21,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate iam_v1;
 extern crate lazy_static;
-extern crate longrunning;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -3951,7 +3951,7 @@ pub struct ListInstanceConfigOperationsResponse {
     /// prefixed by the name of the instance configuration. The operation's
     /// metadata field type
     /// `metadata.type_url` describes the type of the metadata.
-    pub operations: std::vec::Vec<longrunning::model::Operation>,
+    pub operations: std::vec::Vec<google_cloud_longrunning::model::Operation>,
 
     /// `next_page_token` can be sent in a subsequent
     /// [ListInstanceConfigOperations][google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations]
@@ -3973,7 +3973,7 @@ impl ListInstanceConfigOperationsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::ListInstanceConfigOperationsResponse;
-    /// use longrunning::model::Operation;
+    /// use google_cloud_longrunning::model::Operation;
     /// let x = ListInstanceConfigOperationsResponse::new()
     ///     .set_operations([
     ///         Operation::default()/* use setters */,
@@ -3983,7 +3983,7 @@ impl ListInstanceConfigOperationsResponse {
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<longrunning::model::Operation>,
+        V: std::convert::Into<google_cloud_longrunning::model::Operation>,
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
@@ -4011,7 +4011,7 @@ impl wkt::message::Message for ListInstanceConfigOperationsResponse {
 
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListInstanceConfigOperationsResponse {
-    type PageItem = longrunning::model::Operation;
+    type PageItem = google_cloud_longrunning::model::Operation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.operations
@@ -7116,7 +7116,7 @@ pub struct ListInstancePartitionOperationsResponse {
     /// prefixed by the instance partition's name. The operation's
     /// metadata field type
     /// `metadata.type_url` describes the type of the metadata.
-    pub operations: std::vec::Vec<longrunning::model::Operation>,
+    pub operations: std::vec::Vec<google_cloud_longrunning::model::Operation>,
 
     /// `next_page_token` can be sent in a subsequent
     /// [ListInstancePartitionOperations][google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations]
@@ -7146,7 +7146,7 @@ impl ListInstancePartitionOperationsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionOperationsResponse;
-    /// use longrunning::model::Operation;
+    /// use google_cloud_longrunning::model::Operation;
     /// let x = ListInstancePartitionOperationsResponse::new()
     ///     .set_operations([
     ///         Operation::default()/* use setters */,
@@ -7156,7 +7156,7 @@ impl ListInstancePartitionOperationsResponse {
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<longrunning::model::Operation>,
+        V: std::convert::Into<google_cloud_longrunning::model::Operation>,
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
@@ -7201,7 +7201,7 @@ impl wkt::message::Message for ListInstancePartitionOperationsResponse {
 
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListInstancePartitionOperationsResponse {
-    type PageItem = longrunning::model::Operation;
+    type PageItem = google_cloud_longrunning::model::Operation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.operations

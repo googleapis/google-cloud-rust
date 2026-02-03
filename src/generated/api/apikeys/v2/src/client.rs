@@ -229,7 +229,7 @@ impl ApiKeys {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::api_keys::GetOperation {
         super::builder::api_keys::GetOperation::new(self.inner.clone())
     }

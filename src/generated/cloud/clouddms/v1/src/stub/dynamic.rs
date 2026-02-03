@@ -33,55 +33,55 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_migration_job(
         &self,
         req: crate::model::UpdateMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_migration_job(
         &self,
         req: crate::model::DeleteMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn start_migration_job(
         &self,
         req: crate::model::StartMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn stop_migration_job(
         &self,
         req: crate::model::StopMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn resume_migration_job(
         &self,
         req: crate::model::ResumeMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn promote_migration_job(
         &self,
         req: crate::model::PromoteMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn verify_migration_job(
         &self,
         req: crate::model::VerifyMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn restart_migration_job(
         &self,
         req: crate::model::RestartMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn generate_ssh_script(
         &self,
@@ -111,25 +111,25 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_connection_profile(
         &self,
         req: crate::model::UpdateConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_connection_profile(
         &self,
         req: crate::model::DeleteConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_private_connection(
         &self,
         req: crate::model::CreatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_private_connection(
         &self,
@@ -147,7 +147,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DeletePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_conversion_workspace(
         &self,
@@ -165,19 +165,19 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_conversion_workspace(
         &self,
         req: crate::model::UpdateConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_conversion_workspace(
         &self,
         req: crate::model::DeleteConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_mapping_rule(
         &self,
@@ -207,37 +207,37 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SeedConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn import_mapping_rules(
         &self,
         req: crate::model::ImportMappingRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn convert_conversion_workspace(
         &self,
         req: crate::model::ConvertConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn commit_conversion_workspace(
         &self,
         req: crate::model::CommitConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn rollback_conversion_workspace(
         &self,
         req: crate::model::RollbackConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn apply_conversion_workspace(
         &self,
         req: crate::model::ApplyConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn describe_database_entities(
         &self,
@@ -297,25 +297,27 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
 
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    >;
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
@@ -356,7 +358,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::CreateMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_migration_job(self, req, options).await
     }
 
@@ -365,7 +367,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::UpdateMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_migration_job(self, req, options).await
     }
 
@@ -374,7 +376,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::DeleteMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_migration_job(self, req, options).await
     }
 
@@ -383,7 +385,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::StartMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::start_migration_job(self, req, options).await
     }
 
@@ -392,7 +394,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::StopMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::stop_migration_job(self, req, options).await
     }
 
@@ -401,7 +403,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::ResumeMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::resume_migration_job(self, req, options).await
     }
 
@@ -410,7 +412,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::PromoteMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::promote_migration_job(self, req, options).await
     }
 
@@ -419,7 +421,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::VerifyMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::verify_migration_job(self, req, options).await
     }
 
@@ -428,7 +430,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::RestartMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::restart_migration_job(self, req, options).await
     }
 
@@ -473,7 +475,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::CreateConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_connection_profile(self, req, options).await
     }
 
@@ -482,7 +484,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::UpdateConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_connection_profile(self, req, options).await
     }
 
@@ -491,7 +493,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::DeleteConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_connection_profile(self, req, options).await
     }
 
@@ -500,7 +502,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::CreatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_private_connection(self, req, options).await
     }
 
@@ -527,7 +529,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::DeletePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_private_connection(self, req, options).await
     }
 
@@ -555,7 +557,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::CreateConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_conversion_workspace(self, req, options).await
     }
 
@@ -564,7 +566,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::UpdateConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_conversion_workspace(self, req, options).await
     }
 
@@ -573,7 +575,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::DeleteConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_conversion_workspace(self, req, options).await
     }
 
@@ -618,7 +620,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::SeedConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::seed_conversion_workspace(self, req, options).await
     }
 
@@ -627,7 +629,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::ImportMappingRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::import_mapping_rules(self, req, options).await
     }
 
@@ -636,7 +638,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::ConvertConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::convert_conversion_workspace(self, req, options).await
     }
 
@@ -645,7 +647,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::CommitConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::commit_conversion_workspace(self, req, options).await
     }
 
@@ -654,7 +656,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::RollbackConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::rollback_conversion_workspace(self, req, options).await
     }
 
@@ -663,7 +665,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::ApplyConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::apply_conversion_workspace(self, req, options).await
     }
 
@@ -754,25 +756,27 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+    > {
         T::list_operations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
@@ -781,7 +785,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await

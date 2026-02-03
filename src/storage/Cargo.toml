@@ -56,14 +56,14 @@ uuid.workspace             = true
 url.workspace              = true
 hex                        = { workspace = true, features = ["std"] }
 # Local crates
-google-cloud-auth     = { workspace = true }
-gax.workspace         = true
-gtype.workspace       = true
-iam_v1.workspace      = true
-longrunning.workspace = true
-google-cloud-lro      = { workspace = true }
-rpc.workspace         = true
-wkt.workspace         = true
+google-cloud-auth        = { workspace = true }
+gax.workspace            = true
+gtype.workspace          = true
+iam_v1.workspace         = true
+google-cloud-longrunning = { workspace = true }
+google-cloud-lro         = { workspace = true }
+rpc.workspace            = true
+wkt.workspace            = true
 # We use a lot of features from gaxi.
 gaxi = { workspace = true, features = [
   "_internal-common",

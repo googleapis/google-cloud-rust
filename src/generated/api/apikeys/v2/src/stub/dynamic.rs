@@ -21,7 +21,7 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_keys(
         &self,
@@ -45,19 +45,19 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_key(
         &self,
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn undelete_key(
         &self,
         req: crate::model::UndeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn lookup_key(
         &self,
@@ -67,9 +67,9 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -90,7 +90,7 @@ impl<T: super::ApiKeys> ApiKeys for T {
         &self,
         req: crate::model::CreateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::create_key(self, req, options).await
     }
 
@@ -126,7 +126,7 @@ impl<T: super::ApiKeys> ApiKeys for T {
         &self,
         req: crate::model::UpdateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::update_key(self, req, options).await
     }
 
@@ -135,7 +135,7 @@ impl<T: super::ApiKeys> ApiKeys for T {
         &self,
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_key(self, req, options).await
     }
 
@@ -144,7 +144,7 @@ impl<T: super::ApiKeys> ApiKeys for T {
         &self,
         req: crate::model::UndeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::undelete_key(self, req, options).await
     }
 
@@ -160,9 +160,9 @@ impl<T: super::ApiKeys> ApiKeys for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

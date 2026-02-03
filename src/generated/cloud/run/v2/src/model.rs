@@ -22,10 +22,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate iam_v1;
 extern crate lazy_static;
-extern crate longrunning;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
@@ -575,7 +575,7 @@ pub mod submit_build_request {
 #[non_exhaustive]
 pub struct SubmitBuildResponse {
     /// Cloud Build operation to be polled via CloudBuild API.
-    pub build_operation: std::option::Option<longrunning::model::Operation>,
+    pub build_operation: std::option::Option<google_cloud_longrunning::model::Operation>,
 
     /// URI of the base builder image in Artifact Registry being used in the build.
     /// Used to opt into automatic base image updates.
@@ -597,12 +597,12 @@ impl SubmitBuildResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::SubmitBuildResponse;
-    /// use longrunning::model::Operation;
+    /// use google_cloud_longrunning::model::Operation;
     /// let x = SubmitBuildResponse::new().set_build_operation(Operation::default()/* use setters */);
     /// ```
     pub fn set_build_operation<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<longrunning::model::Operation>,
+        T: std::convert::Into<google_cloud_longrunning::model::Operation>,
     {
         self.build_operation = std::option::Option::Some(v.into());
         self
@@ -613,13 +613,13 @@ impl SubmitBuildResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::SubmitBuildResponse;
-    /// use longrunning::model::Operation;
+    /// use google_cloud_longrunning::model::Operation;
     /// let x = SubmitBuildResponse::new().set_or_clear_build_operation(Some(Operation::default()/* use setters */));
     /// let x = SubmitBuildResponse::new().set_or_clear_build_operation(None::<Operation>);
     /// ```
     pub fn set_or_clear_build_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<longrunning::model::Operation>,
+        T: std::convert::Into<google_cloud_longrunning::model::Operation>,
     {
         self.build_operation = v.map(|x| x.into());
         self

@@ -21,7 +21,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ExportAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_assets(
         &self,
@@ -87,7 +87,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::AnalyzeIamPolicyLongrunningRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn analyze_move(
         &self,
@@ -159,9 +159,9 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
 
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -182,7 +182,7 @@ impl<T: super::AssetService> AssetService for T {
         &self,
         req: crate::model::ExportAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::export_assets(self, req, options).await
     }
 
@@ -281,7 +281,7 @@ impl<T: super::AssetService> AssetService for T {
         &self,
         req: crate::model::AnalyzeIamPolicyLongrunningRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::analyze_iam_policy_longrunning(self, req, options).await
     }
 
@@ -391,9 +391,9 @@ impl<T: super::AssetService> AssetService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

@@ -21,10 +21,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate gtype;
 extern crate lazy_static;
-extern crate longrunning;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -2795,7 +2795,7 @@ pub struct DeleteAttachedClusterRequest {
     /// Useful for idempotent deletion.
     ///
     /// [google.cloud.gkemulticloud.v1.AttachedCluster]: crate::model::AttachedCluster
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub allow_missing: bool,
 
     /// If set to true, the deletion of
@@ -7728,7 +7728,7 @@ pub struct DeleteAwsClusterRequest {
     /// Useful for idempotent deletion.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub allow_missing: bool,
 
     /// Optional. If set to true, the deletion of
@@ -8396,7 +8396,7 @@ pub struct DeleteAwsNodePoolRequest {
     /// Useful for idempotent deletion.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub allow_missing: bool,
 
     /// Optional. If set to true, the deletion of
@@ -13110,7 +13110,7 @@ pub struct DeleteAzureClusterRequest {
     /// Useful for idempotent deletion.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub allow_missing: bool,
 
     /// If set, only validate the request, but do not actually delete the resource.
@@ -13699,7 +13699,7 @@ pub struct DeleteAzureNodePoolRequest {
     /// Useful for idempotent deletion.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub allow_missing: bool,
 
     /// The current ETag of the
@@ -14277,7 +14277,7 @@ pub struct DeleteAzureClientRequest {
     /// Useful for idempotent deletion.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureClient]: crate::model::AzureClient
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     pub allow_missing: bool,
 
     /// If set, only validate the request, but do not actually delete the resource.
@@ -14972,7 +14972,7 @@ pub struct OperationMetadata {
     /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
     /// corresponding to `Code.CANCELLED`.
     ///
-    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub requested_cancellation: bool,
 

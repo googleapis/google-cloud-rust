@@ -185,7 +185,7 @@ impl ImageAnnotator {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::image_annotator::GetOperation {
         super::builder::image_annotator::GetOperation::new(self.inner.clone())
     }
@@ -521,7 +521,7 @@ impl ProductSearch {
     /// [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
     ///
     /// [google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri]: crate::model::ImportProductSetsGcsSource::csv_file_uri
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -561,7 +561,7 @@ impl ProductSearch {
     /// used to keep track of the progress and results of the request.
     /// `Operation.metadata` contains `BatchOperationMetadata`. (progress)
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     ///
     /// # Long running operations
     ///
@@ -578,7 +578,7 @@ impl ProductSearch {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::product_search::GetOperation {
         super::builder::product_search::GetOperation::new(self.inner.clone())
     }

@@ -568,7 +568,7 @@ pub mod storage_control {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [rename_folder][crate::client::StorageControl::rename_folder].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
                 .rename_folder(req, self.0.options)
@@ -1324,7 +1324,7 @@ pub mod storage_control {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_anywhere_cache][crate::client::StorageControl::create_anywhere_cache].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
                 .create_anywhere_cache(req, self.0.options)
@@ -1477,7 +1477,7 @@ pub mod storage_control {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_anywhere_cache][crate::client::StorageControl::update_anywhere_cache].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
                 .update_anywhere_cache(req, self.0.options)
@@ -2855,7 +2855,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2865,7 +2865,7 @@ pub mod storage_control {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2880,14 +2880,14 @@ pub mod storage_control {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

@@ -192,28 +192,28 @@ impl AutoscalingPolicyService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::autoscaling_policy_service::ListOperations {
         super::builder::autoscaling_policy_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::autoscaling_policy_service::GetOperation {
         super::builder::autoscaling_policy_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::autoscaling_policy_service::DeleteOperation {
         super::builder::autoscaling_policy_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::autoscaling_policy_service::CancelOperation {
         super::builder::autoscaling_policy_service::CancelOperation::new(self.inner.clone())
     }
@@ -383,28 +383,28 @@ impl BatchController {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::batch_controller::ListOperations {
         super::builder::batch_controller::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::batch_controller::GetOperation {
         super::builder::batch_controller::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::batch_controller::DeleteOperation {
         super::builder::batch_controller::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::batch_controller::CancelOperation {
         super::builder::batch_controller::CancelOperation::new(self.inner.clone())
     }
@@ -520,7 +520,7 @@ impl ClusterController {
     /// [Operation.metadata][google.longrunning.Operation.metadata] will be
     /// [ClusterOperationMetadata](https://cloud.google.com/dataproc/docs/reference/rpc/google.cloud.dataproc.v1#clusteroperationmetadata).
     ///
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
     ///
     /// # Long running operations
     ///
@@ -543,7 +543,7 @@ impl ClusterController {
     /// is returned.
     ///
     /// [google.cloud.dataproc.v1.ClusterStatus.State]: crate::model::cluster_status::State
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
     ///
     /// # Long running operations
     ///
@@ -592,7 +592,7 @@ impl ClusterController {
     /// [Operation.metadata][google.longrunning.Operation.metadata] will be
     /// [ClusterOperationMetadata](https://cloud.google.com/dataproc/docs/reference/rpc/google.cloud.dataproc.v1#clusteroperationmetadata).
     ///
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
     ///
     /// # Long running operations
     ///
@@ -625,8 +625,8 @@ impl ClusterController {
     /// contains
     /// [DiagnoseClusterResults](https://cloud.google.com/dataproc/docs/reference/rpc/google.cloud.dataproc.v1#diagnoseclusterresults).
     ///
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
     ///
     /// # Long running operations
     ///
@@ -669,28 +669,28 @@ impl ClusterController {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::cluster_controller::ListOperations {
         super::builder::cluster_controller::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::cluster_controller::GetOperation {
         super::builder::cluster_controller::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::cluster_controller::DeleteOperation {
         super::builder::cluster_controller::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::cluster_controller::CancelOperation {
         super::builder::cluster_controller::CancelOperation::new(self.inner.clone())
     }
@@ -876,28 +876,28 @@ impl JobController {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::job_controller::ListOperations {
         super::builder::job_controller::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::job_controller::GetOperation {
         super::builder::job_controller::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::job_controller::DeleteOperation {
         super::builder::job_controller::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::job_controller::CancelOperation {
         super::builder::job_controller::CancelOperation::new(self.inner.clone())
     }
@@ -1013,7 +1013,7 @@ impl NodeGroupController {
     /// [Operation.metadata][google.longrunning.Operation.metadata] is
     /// [NodeGroupOperationMetadata](https://cloud.google.com/dataproc/docs/reference/rpc/google.cloud.dataproc.v1#nodegroupoperationmetadata).
     ///
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
     ///
     /// # Long running operations
     ///
@@ -1032,7 +1032,7 @@ impl NodeGroupController {
     /// [Operation.metadata][google.longrunning.Operation.metadata] is
     /// [NodeGroupOperationMetadata](https://cloud.google.com/dataproc/docs/reference/rpc/google.cloud.dataproc.v1#nodegroupoperationmetadata).
     ///
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
     ///
     /// # Long running operations
     ///
@@ -1083,28 +1083,28 @@ impl NodeGroupController {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::node_group_controller::ListOperations {
         super::builder::node_group_controller::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::node_group_controller::GetOperation {
         super::builder::node_group_controller::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::node_group_controller::DeleteOperation {
         super::builder::node_group_controller::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::node_group_controller::CancelOperation {
         super::builder::node_group_controller::CancelOperation::new(self.inner.clone())
     }
@@ -1281,28 +1281,28 @@ impl SessionTemplateController {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::session_template_controller::ListOperations {
         super::builder::session_template_controller::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::session_template_controller::GetOperation {
         super::builder::session_template_controller::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::session_template_controller::DeleteOperation {
         super::builder::session_template_controller::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::session_template_controller::CancelOperation {
         super::builder::session_template_controller::CancelOperation::new(self.inner.clone())
     }
@@ -1497,28 +1497,28 @@ impl SessionController {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::session_controller::ListOperations {
         super::builder::session_controller::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::session_controller::GetOperation {
         super::builder::session_controller::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::session_controller::DeleteOperation {
         super::builder::session_controller::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::session_controller::CancelOperation {
         super::builder::session_controller::CancelOperation::new(self.inner.clone())
     }
@@ -1669,8 +1669,8 @@ impl WorkflowTemplateService {
     /// [Operation.response][google.longrunning.Operation.response] will be
     /// [Empty][google.protobuf.Empty].
     ///
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
     /// [google.protobuf.Empty]: wkt::Empty
     ///
     /// # Long running operations
@@ -1719,8 +1719,8 @@ impl WorkflowTemplateService {
     /// [google.cloud.dataproc.v1.WorkflowTemplateService.CreateWorkflowTemplate]: crate::client::WorkflowTemplateService::create_workflow_template
     /// [google.cloud.dataproc.v1.WorkflowTemplateService.DeleteWorkflowTemplate]: crate::client::WorkflowTemplateService::delete_workflow_template
     /// [google.cloud.dataproc.v1.WorkflowTemplateService.InstantiateWorkflowTemplate]: crate::client::WorkflowTemplateService::instantiate_workflow_template
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
     /// [google.protobuf.Empty]: wkt::Empty
     ///
     /// # Long running operations
@@ -1792,28 +1792,28 @@ impl WorkflowTemplateService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::workflow_template_service::ListOperations {
         super::builder::workflow_template_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::workflow_template_service::GetOperation {
         super::builder::workflow_template_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::workflow_template_service::DeleteOperation {
         super::builder::workflow_template_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::workflow_template_service::CancelOperation {
         super::builder::workflow_template_service::CancelOperation::new(self.inner.clone())
     }

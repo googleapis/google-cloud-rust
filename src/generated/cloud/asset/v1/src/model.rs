@@ -22,11 +22,11 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate gtype;
 extern crate iam_v1;
 extern crate lazy_static;
-extern crate longrunning;
 extern crate orgpolicy_v1;
 extern crate osconfig_v1;
 extern crate rpc;
@@ -350,7 +350,7 @@ impl wkt::message::Message for ExportAssetsRequest {
 /// [google.longrunning.Operation.response][google.longrunning.Operation.response]
 /// field.
 ///
-/// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+/// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportAssetsResponse {

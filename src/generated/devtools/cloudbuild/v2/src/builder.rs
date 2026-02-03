@@ -119,7 +119,7 @@ pub mod repository_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_connection][crate::client::RepositoryManager::create_connection].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connection(self.0.request, self.0.options)
                 .await
@@ -425,7 +425,7 @@ pub mod repository_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_connection][crate::client::RepositoryManager::update_connection].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connection(self.0.request, self.0.options)
                 .await
@@ -581,7 +581,7 @@ pub mod repository_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_connection][crate::client::RepositoryManager::delete_connection].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
                 .await
@@ -700,7 +700,7 @@ pub mod repository_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_repository][crate::client::RepositoryManager::create_repository].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_repository(self.0.request, self.0.options)
                 .await
@@ -844,7 +844,7 @@ pub mod repository_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [batch_create_repositories][crate::client::RepositoryManager::batch_create_repositories].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_create_repositories(self.0.request, self.0.options)
                 .await
@@ -1144,7 +1144,7 @@ pub mod repository_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_repository][crate::client::RepositoryManager::delete_repository].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_repository(self.0.request, self.0.options)
                 .await
@@ -1801,7 +1801,7 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1811,7 +1811,7 @@ pub mod repository_manager {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -1826,14 +1826,14 @@ pub mod repository_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1864,7 +1864,9 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -1874,7 +1876,7 @@ pub mod repository_manager {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -1896,7 +1898,7 @@ pub mod repository_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

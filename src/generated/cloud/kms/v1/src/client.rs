@@ -216,7 +216,7 @@ impl Autokey {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::autokey::GetOperation {
         super::builder::autokey::GetOperation::new(self.inner.clone())
     }
@@ -401,7 +401,7 @@ impl AutokeyAdmin {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::autokey_admin::GetOperation {
         super::builder::autokey_admin::GetOperation::new(self.inner.clone())
     }
@@ -611,7 +611,7 @@ impl EkmService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::ekm_service::GetOperation {
         super::builder::ekm_service::GetOperation::new(self.inner.clone())
     }
@@ -917,7 +917,7 @@ impl HsmManagement {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::hsm_management::GetOperation {
         super::builder::hsm_management::GetOperation::new(self.inner.clone())
     }
@@ -1458,7 +1458,7 @@ impl KeyManagementService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::key_management_service::GetOperation {
         super::builder::key_management_service::GetOperation::new(self.inner.clone())
     }

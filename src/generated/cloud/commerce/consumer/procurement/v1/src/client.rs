@@ -153,7 +153,7 @@ impl LicenseManagementService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::license_management_service::GetOperation {
         super::builder::license_management_service::GetOperation::new(self.inner.clone())
     }
@@ -356,7 +356,7 @@ impl ConsumerProcurementService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::consumer_procurement_service::GetOperation {
         super::builder::consumer_procurement_service::GetOperation::new(self.inner.clone())
     }

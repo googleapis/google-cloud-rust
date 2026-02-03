@@ -560,7 +560,7 @@ impl BareMetalSolution {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::bare_metal_solution::GetOperation {
         super::builder::bare_metal_solution::GetOperation::new(self.inner.clone())
     }

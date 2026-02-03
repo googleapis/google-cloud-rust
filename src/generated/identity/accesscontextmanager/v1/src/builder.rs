@@ -285,7 +285,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_access_policy][crate::client::AccessContextManager::create_access_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_access_policy(self.0.request, self.0.options)
                 .await
@@ -462,7 +462,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_access_policy][crate::client::AccessContextManager::update_access_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_access_policy(self.0.request, self.0.options)
                 .await
@@ -612,7 +612,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_access_policy][crate::client::AccessContextManager::delete_access_policy].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_access_policy(self.0.request, self.0.options)
                 .await
@@ -903,7 +903,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_access_level][crate::client::AccessContextManager::create_access_level].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_access_level(self.0.request, self.0.options)
                 .await
@@ -1039,7 +1039,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_access_level][crate::client::AccessContextManager::update_access_level].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_access_level(self.0.request, self.0.options)
                 .await
@@ -1189,7 +1189,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_access_level][crate::client::AccessContextManager::delete_access_level].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_access_level(self.0.request, self.0.options)
                 .await
@@ -1301,7 +1301,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [replace_access_levels][crate::client::AccessContextManager::replace_access_levels].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .replace_access_levels(self.0.request, self.0.options)
                 .await
@@ -1606,7 +1606,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_service_perimeter][crate::client::AccessContextManager::create_service_perimeter].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_perimeter(self.0.request, self.0.options)
                 .await
@@ -1742,7 +1742,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_service_perimeter][crate::client::AccessContextManager::update_service_perimeter].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service_perimeter(self.0.request, self.0.options)
                 .await
@@ -1892,7 +1892,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_service_perimeter][crate::client::AccessContextManager::delete_service_perimeter].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_perimeter(self.0.request, self.0.options)
                 .await
@@ -2006,7 +2006,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [replace_service_perimeters][crate::client::AccessContextManager::replace_service_perimeters].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .replace_service_perimeters(self.0.request, self.0.options)
                 .await
@@ -2141,7 +2141,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [commit_service_perimeters][crate::client::AccessContextManager::commit_service_perimeters].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .commit_service_perimeters(self.0.request, self.0.options)
                 .await
@@ -2441,7 +2441,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_gcp_user_access_binding][crate::client::AccessContextManager::create_gcp_user_access_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .create_gcp_user_access_binding(self.0.request, self.0.options)
                 .await
@@ -2579,7 +2579,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_gcp_user_access_binding][crate::client::AccessContextManager::update_gcp_user_access_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .update_gcp_user_access_binding(self.0.request, self.0.options)
                 .await
@@ -2731,7 +2731,7 @@ pub mod access_context_manager {
         ///
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_gcp_user_access_binding][crate::client::AccessContextManager::delete_gcp_user_access_binding].
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_gcp_user_access_binding(self.0.request, self.0.options)
                 .await
@@ -3072,7 +3072,7 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3082,7 +3082,7 @@ pub mod access_context_manager {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -3097,14 +3097,14 @@ pub mod access_context_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<longrunning::model::Operation> {
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

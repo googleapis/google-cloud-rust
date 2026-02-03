@@ -21,10 +21,10 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate gtype;
 extern crate lazy_static;
-extern crate longrunning;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
@@ -7760,7 +7760,7 @@ impl wkt::message::Message for ImportProductSetsRequest {
 /// [google.longrunning.Operation.response][google.longrunning.Operation.response]
 /// field.
 ///
-/// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+/// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportProductSetsResponse {
@@ -7851,7 +7851,7 @@ pub struct BatchOperationMetadata {
     /// [google.longrunning.Operation.done][google.longrunning.Operation.done] is
     /// set to true.
     ///
-    /// [google.longrunning.Operation.done]: longrunning::model::Operation::done
+    /// [google.longrunning.Operation.done]: google_cloud_longrunning::model::Operation::done
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

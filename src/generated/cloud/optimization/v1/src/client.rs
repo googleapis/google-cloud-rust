@@ -178,7 +178,7 @@ impl FleetRouting {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::fleet_routing::GetOperation {
         super::builder::fleet_routing::GetOperation::new(self.inner.clone())
     }

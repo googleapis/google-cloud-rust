@@ -65,7 +65,7 @@ where
         &self,
         req: crate::model::CreateCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner
             .create_cloud_exadata_infrastructure(req, options)
             .await
@@ -76,7 +76,7 @@ where
         &self,
         req: crate::model::DeleteCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner
             .delete_cloud_exadata_infrastructure(req, options)
             .await
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::CreateCloudVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_cloud_vm_cluster(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::DeleteCloudVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_cloud_vm_cluster(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::CreateAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_autonomous_database(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::UpdateAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_autonomous_database(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::DeleteAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_autonomous_database(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::RestoreAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.restore_autonomous_database(req, options).await
     }
 
@@ -275,7 +275,7 @@ where
         &self,
         req: crate::model::StopAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.stop_autonomous_database(req, options).await
     }
 
@@ -284,7 +284,7 @@ where
         &self,
         req: crate::model::StartAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.start_autonomous_database(req, options).await
     }
 
@@ -293,7 +293,7 @@ where
         &self,
         req: crate::model::RestartAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.restart_autonomous_database(req, options).await
     }
 
@@ -302,7 +302,7 @@ where
         &self,
         req: crate::model::SwitchoverAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner
             .switchover_autonomous_database(req, options)
             .await
@@ -313,7 +313,7 @@ where
         &self,
         req: crate::model::FailoverAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.failover_autonomous_database(req, options).await
     }
 
@@ -340,7 +340,7 @@ where
         &self,
         req: crate::model::CreateOdbNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_odb_network(req, options).await
     }
 
@@ -349,7 +349,7 @@ where
         &self,
         req: crate::model::DeleteOdbNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_odb_network(req, options).await
     }
 
@@ -376,7 +376,7 @@ where
         &self,
         req: crate::model::CreateOdbSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_odb_subnet(req, options).await
     }
 
@@ -385,7 +385,7 @@ where
         &self,
         req: crate::model::DeleteOdbSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_odb_subnet(req, options).await
     }
 
@@ -412,7 +412,7 @@ where
         &self,
         req: crate::model::CreateExadbVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_exadb_vm_cluster(req, options).await
     }
 
@@ -421,7 +421,7 @@ where
         &self,
         req: crate::model::DeleteExadbVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_exadb_vm_cluster(req, options).await
     }
 
@@ -430,7 +430,7 @@ where
         &self,
         req: crate::model::UpdateExadbVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_exadb_vm_cluster(req, options).await
     }
 
@@ -439,7 +439,7 @@ where
         &self,
         req: crate::model::RemoveVirtualMachineExadbVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner
             .remove_virtual_machine_exadb_vm_cluster(req, options)
             .await
@@ -470,7 +470,7 @@ where
         &self,
         req: crate::model::CreateExascaleDbStorageVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner
             .create_exascale_db_storage_vault(req, options)
             .await
@@ -481,7 +481,7 @@ where
         &self,
         req: crate::model::DeleteExascaleDbStorageVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner
             .delete_exascale_db_storage_vault(req, options)
             .await
@@ -558,7 +558,7 @@ where
         &self,
         req: crate::model::CreateDbSystemRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_db_system(req, options).await
     }
 
@@ -567,7 +567,7 @@ where
         &self,
         req: crate::model::DeleteDbSystemRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_db_system(req, options).await
     }
 
@@ -610,25 +610,26 @@ where
     #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
-        req: longrunning::model::ListOperationsRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         self.inner.list_operations(req, options).await
     }
 
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
-        req: longrunning::model::GetOperationRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     #[tracing::instrument(ret)]
     async fn delete_operation(
         &self,
-        req: longrunning::model::DeleteOperationRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
@@ -637,7 +638,7 @@ where
     #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
-        req: longrunning::model::CancelOperationRequest,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await

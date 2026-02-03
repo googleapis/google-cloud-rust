@@ -139,9 +139,9 @@ impl DatabaseAdmin {
     /// The [response][google.longrunning.Operation.response] field type is
     /// [Database][google.spanner.admin.database.v1.Database], if successful.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
     /// [google.spanner.admin.database.v1.CreateDatabaseMetadata]: crate::model::CreateDatabaseMetadata
     /// [google.spanner.admin.database.v1.Database]: crate::model::Database
     ///
@@ -200,9 +200,9 @@ impl DatabaseAdmin {
     /// The [response][google.longrunning.Operation.response] field type is
     /// [Database][google.spanner.admin.database.v1.Database], if successful.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
     /// [google.spanner.admin.database.v1.Database]: crate::model::Database
     /// [google.spanner.admin.database.v1.Database.reconciling]: crate::model::Database::reconciling
     /// [google.spanner.admin.database.v1.UpdateDatabaseMetadata]: crate::model::UpdateDatabaseMetadata
@@ -230,8 +230,8 @@ impl DatabaseAdmin {
     /// [UpdateDatabaseDdlMetadata][google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata].
     /// The operation has no response.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
     /// [google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata]: crate::model::UpdateDatabaseDdlMetadata
     ///
     /// # Long running operations
@@ -260,7 +260,7 @@ impl DatabaseAdmin {
     /// DDL statements. This method does not show pending schema updates, those may
     /// be queried using the [Operations][google.longrunning.Operations] API.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_database_ddl(&self) -> super::builder::database_admin::GetDatabaseDdl {
         super::builder::database_admin::GetDatabaseDdl::new(self.inner.clone())
     }
@@ -319,9 +319,9 @@ impl DatabaseAdmin {
     /// backup. There can be only one pending backup creation per database. Backup
     /// creation of different databases can run concurrently.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
     /// [google.spanner.admin.database.v1.Backup]: crate::model::Backup
     /// [google.spanner.admin.database.v1.CreateBackupMetadata]: crate::model::CreateBackupMetadata
     ///
@@ -352,9 +352,9 @@ impl DatabaseAdmin {
     /// destination backup. Concurrent CopyBackup requests can run on the same
     /// source backup.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
     /// [google.spanner.admin.database.v1.Backup]: crate::model::Backup
     /// [google.spanner.admin.database.v1.CopyBackupMetadata]: crate::model::CopyBackupMetadata
     ///
@@ -420,9 +420,9 @@ impl DatabaseAdmin {
     /// initiated, without waiting for the optimize operation associated with the
     /// first restore to complete.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
     /// [google.spanner.admin.database.v1.Database]: crate::model::Database
     /// [google.spanner.admin.database.v1.RestoreDatabaseMetadata]: crate::model::RestoreDatabaseMetadata
     ///
@@ -448,8 +448,8 @@ impl DatabaseAdmin {
     /// include those that have completed/failed/canceled within the last 7 days,
     /// and pending operations.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
     pub fn list_database_operations(
         &self,
     ) -> super::builder::database_admin::ListDatabaseOperations {
@@ -467,8 +467,8 @@ impl DatabaseAdmin {
     /// `operation.metadata.value.progress.start_time` in descending order starting
     /// from the most recently started operation.
     ///
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
     pub fn list_backup_operations(&self) -> super::builder::database_admin::ListBackupOperations {
         super::builder::database_admin::ListBackupOperations::new(self.inner.clone())
     }
@@ -510,28 +510,28 @@ impl DatabaseAdmin {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn list_operations(&self) -> super::builder::database_admin::ListOperations {
         super::builder::database_admin::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn get_operation(&self) -> super::builder::database_admin::GetOperation {
         super::builder::database_admin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn delete_operation(&self) -> super::builder::database_admin::DeleteOperation {
         super::builder::database_admin::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::database_admin::CancelOperation {
         super::builder::database_admin::CancelOperation::new(self.inner.clone())
     }
