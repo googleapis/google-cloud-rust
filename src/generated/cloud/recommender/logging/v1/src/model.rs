@@ -18,7 +18,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
 extern crate bytes;
-extern crate recommender;
+extern crate google_cloud_recommender_v1;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -37,7 +37,7 @@ pub struct ActionLog {
     pub actor: std::string::String,
 
     /// Required. State change that was made by the actor. Eg, SUCCEEDED.
-    pub state: recommender::model::recommendation_state_info::State,
+    pub state: google_cloud_recommender_v1::model::recommendation_state_info::State,
 
     /// Optional. Metadata that was included with the action that was taken.
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
@@ -71,13 +71,13 @@ impl ActionLog {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_logging_v1::model::ActionLog;
-    /// use recommender::model::recommendation_state_info::State;
+    /// use google_cloud_recommender_v1::model::recommendation_state_info::State;
     /// let x0 = ActionLog::new().set_state(State::Active);
     /// let x1 = ActionLog::new().set_state(State::Claimed);
     /// let x2 = ActionLog::new().set_state(State::Succeeded);
     /// ```
     pub fn set_state<
-        T: std::convert::Into<recommender::model::recommendation_state_info::State>,
+        T: std::convert::Into<google_cloud_recommender_v1::model::recommendation_state_info::State>,
     >(
         mut self,
         v: T,
@@ -137,7 +137,7 @@ pub struct InsightActionLog {
     pub actor: std::string::String,
 
     /// Required. State change that was made by the actor. Eg, ACCEPTED.
-    pub state: recommender::model::insight_state_info::State,
+    pub state: google_cloud_recommender_v1::model::insight_state_info::State,
 
     /// Optional. Metadata that was included with the action that was taken.
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
@@ -171,12 +171,14 @@ impl InsightActionLog {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_logging_v1::model::InsightActionLog;
-    /// use recommender::model::insight_state_info::State;
+    /// use google_cloud_recommender_v1::model::insight_state_info::State;
     /// let x0 = InsightActionLog::new().set_state(State::Active);
     /// let x1 = InsightActionLog::new().set_state(State::Accepted);
     /// let x2 = InsightActionLog::new().set_state(State::Dismissed);
     /// ```
-    pub fn set_state<T: std::convert::Into<recommender::model::insight_state_info::State>>(
+    pub fn set_state<
+        T: std::convert::Into<google_cloud_recommender_v1::model::insight_state_info::State>,
+    >(
         mut self,
         v: T,
     ) -> Self {

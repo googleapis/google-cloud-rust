@@ -1168,7 +1168,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: recommender
+        - name: google-cloud-recommender-v1
           package: google-cloud-recommender-v1
           source: google.cloud.recommender.v1
   - name: google-cloud-recommender-v1
