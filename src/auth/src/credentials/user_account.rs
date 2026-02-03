@@ -99,7 +99,7 @@ use crate::constants::OAUTH2_TOKEN_SERVER_URL;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
-use crate::headers_util::build_cacheable_headers;
+use crate::headers_util::{AuthHeaders, build_cacheable_headers};
 use crate::retry::Builder as RetryTokenProviderBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -505,7 +505,11 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        build_cacheable_headers(&token, &self.quota_project_id, &None)
+        build_cacheable_headers(AuthHeaders {
+            token,
+            quota_project_id: self.quota_project_id.clone(),
+            ..Default::default()
+        })
     }
 }
 

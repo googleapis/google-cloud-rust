@@ -76,7 +76,7 @@
 
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
-use crate::headers_util::build_cacheable_headers;
+use crate::headers_util::{AuthHeaders, build_cacheable_headers};
 use crate::mds::client::Client as MDSClient;
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
@@ -337,8 +337,12 @@ where
     T: CachedTokenProvider,
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
-        let cached_token = self.token_provider.token(extensions).await?;
-        build_cacheable_headers(&cached_token, &self.quota_project_id, &None)
+        let token = self.token_provider.token(extensions).await?;
+        build_cacheable_headers(AuthHeaders {
+            token,
+            quota_project_id: self.quota_project_id.clone(),
+            ..Default::default()
+        })
     }
 }
 
