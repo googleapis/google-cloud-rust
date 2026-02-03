@@ -15,8 +15,9 @@
 use crate::google;
 use gaxi::grpc::status::{any_from_prost, any_to_prost};
 use gaxi::prost::{ConvertError, FromProto, ToProto};
+use google_cloud_rpc::model::Status;
 
-impl ToProto<google::rpc::Status> for rpc::model::Status {
+impl ToProto<google::rpc::Status> for Status {
     type Output = google::rpc::Status;
     fn to_proto(self) -> Result<Self::Output, ConvertError> {
         Ok(Self::Output {
@@ -27,9 +28,9 @@ impl ToProto<google::rpc::Status> for rpc::model::Status {
     }
 }
 
-impl FromProto<rpc::model::Status> for google::rpc::Status {
-    fn cnv(self) -> Result<rpc::model::Status, ConvertError> {
-        Ok(rpc::model::Status::new()
+impl FromProto<Status> for google::rpc::Status {
+    fn cnv(self) -> Result<Status, ConvertError> {
+        Ok(Status::new()
             .set_code(self.code)
             .set_message(self.message)
             .set_details(self.details.into_iter().filter_map(any_from_prost)))
@@ -48,18 +49,14 @@ mod tests {
             ..Default::default()
         };
         let got = input.cnv()?;
-        let want = rpc::model::Status::new()
-            .set_code(12)
-            .set_message("test-message");
+        let want = Status::new().set_code(12).set_message("test-message");
         assert_eq!(got, want);
         Ok(())
     }
 
     #[test]
     fn to_proto() -> anyhow::Result<()> {
-        let input = rpc::model::Status::new()
-            .set_code(12)
-            .set_message("test-message");
+        let input = Status::new().set_code(12).set_message("test-message");
         let got: google::rpc::Status = input.to_proto()?;
         let want = google::rpc::Status {
             code: 12,
