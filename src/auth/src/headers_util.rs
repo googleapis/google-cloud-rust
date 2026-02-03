@@ -17,10 +17,10 @@
 //! [Credentials]: https://cloud.google.com/docs/authentication#credentials
 
 use crate::Result;
+use crate::constants::TRUST_BOUNDARY_HEADER;
 use crate::credentials::{CacheableResource, QUOTA_PROJECT_KEY};
 use crate::errors;
 use crate::token::Token;
-use crate::trust_boundary::TRUST_BOUNDARY_HEADER;
 
 use http::HeaderMap;
 use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
@@ -76,15 +76,16 @@ fn build_bearer_headers(
     quota_project_id: &Option<String>,
     trust_boundary_header: &Option<String>,
 ) -> Result<HeaderMap> {
+    let token2header = |token: &crate::token::Token| {
+        HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
+            .map_err(errors::non_retryable)
+    };
     build_headers(
         token,
         quota_project_id,
         trust_boundary_header,
         AUTHORIZATION,
-        |token| {
-            HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-                .map_err(errors::non_retryable)
-        },
+        token2header,
     )
 }
 
