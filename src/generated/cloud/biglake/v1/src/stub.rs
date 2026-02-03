@@ -125,7 +125,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         _req: crate::model::CreateIcebergTableRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -145,7 +145,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         _req: crate::model::GetIcebergTableRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -169,7 +169,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         _req: crate::model::UpdateIcebergTableRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -180,7 +180,7 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         _req: crate::model::RegisterIcebergTableRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

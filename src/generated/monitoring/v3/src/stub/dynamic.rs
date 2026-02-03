@@ -210,7 +210,7 @@ pub trait MetricService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetMonitoredResourceDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::MonitoredResourceDescriptor>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::MonitoredResourceDescriptor>>;
 
     async fn list_metric_descriptors(
         &self,
@@ -222,13 +222,13 @@ pub trait MetricService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::MetricDescriptor>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::MetricDescriptor>>;
 
     async fn create_metric_descriptor(
         &self,
         req: crate::model::CreateMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::MetricDescriptor>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::MetricDescriptor>>;
 
     async fn delete_metric_descriptor(
         &self,
@@ -274,7 +274,8 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::GetMonitoredResourceDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::MonitoredResourceDescriptor>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::MonitoredResourceDescriptor>>
+    {
         T::get_monitored_resource_descriptor(self, req, options).await
     }
 
@@ -292,7 +293,7 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::GetMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::MetricDescriptor>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::MetricDescriptor>> {
         T::get_metric_descriptor(self, req, options).await
     }
 
@@ -301,7 +302,7 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::CreateMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<api::model::MetricDescriptor>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_api::model::MetricDescriptor>> {
         T::create_metric_descriptor(self, req, options).await
     }
 

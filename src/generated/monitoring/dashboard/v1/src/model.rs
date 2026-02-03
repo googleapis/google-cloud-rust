@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_api;
 extern crate gtype;
 extern crate lazy_static;
 extern crate serde;
@@ -2620,7 +2620,7 @@ pub struct IncidentList {
     /// The resource doesn't need to be fully specified. That is, you can specify
     /// the resource type but not the values of the resource labels.
     /// The resource type and labels are used for filtering.
-    pub monitored_resources: std::vec::Vec<api::model::MonitoredResource>,
+    pub monitored_resources: std::vec::Vec<google_cloud_api::model::MonitoredResource>,
 
     /// Optional. A list of alert policy names to filter the incident list by.
     /// Don't include the project ID prefix in the policy name. For
@@ -2640,7 +2640,7 @@ impl IncidentList {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_dashboard_v1::model::IncidentList;
-    /// use api::model::MonitoredResource;
+    /// use google_cloud_api::model::MonitoredResource;
     /// let x = IncidentList::new()
     ///     .set_monitored_resources([
     ///         MonitoredResource::default()/* use setters */,
@@ -2650,7 +2650,7 @@ impl IncidentList {
     pub fn set_monitored_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::MonitoredResource>,
+        V: std::convert::Into<google_cloud_api::model::MonitoredResource>,
     {
         use std::iter::Iterator;
         self.monitored_resources = v.into_iter().map(|i| i.into()).collect();

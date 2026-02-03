@@ -727,7 +727,7 @@ pub mod service_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::Service> {
+        pub async fn send(self) -> Result<google_cloud_api::model::Service> {
             (*self.0.stub)
                 .get_service_config(self.0.request, self.0.options)
                 .await
@@ -809,7 +809,7 @@ pub mod service_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::Service> {
+        pub async fn send(self) -> Result<google_cloud_api::model::Service> {
             (*self.0.stub)
                 .create_service_config(self.0.request, self.0.options)
                 .await
@@ -829,7 +829,7 @@ pub mod service_manager {
         /// This is a **required** field for requests.
         pub fn set_service_config<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<api::model::Service>,
+            T: std::convert::Into<google_cloud_api::model::Service>,
         {
             self.0.request.service_config = std::option::Option::Some(v.into());
             self
@@ -840,7 +840,7 @@ pub mod service_manager {
         /// This is a **required** field for requests.
         pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<api::model::Service>,
+            T: std::convert::Into<google_cloud_api::model::Service>,
         {
             self.0.request.service_config = v.map(|x| x.into());
             self

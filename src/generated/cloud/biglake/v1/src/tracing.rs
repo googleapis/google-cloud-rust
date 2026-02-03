@@ -107,7 +107,7 @@ where
         &self,
         req: crate::model::CreateIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.create_iceberg_table(req, options).await
     }
 
@@ -125,7 +125,7 @@ where
         &self,
         req: crate::model::GetIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.get_iceberg_table(req, options).await
     }
 
@@ -145,7 +145,7 @@ where
         &self,
         req: crate::model::UpdateIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.update_iceberg_table(req, options).await
     }
 
@@ -154,7 +154,7 @@ where
         &self,
         req: crate::model::RegisterIcebergTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         self.inner.register_iceberg_table(req, options).await
     }
 

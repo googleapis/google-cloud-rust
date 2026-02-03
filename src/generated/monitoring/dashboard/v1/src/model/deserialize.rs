@@ -1610,9 +1610,9 @@ impl<'de> serde::de::Deserialize<'de> for super::IncidentList {
                                     "multiple values for monitored_resources",
                                 ));
                             }
-                            result.monitored_resources =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<api::model::MonitoredResource>,
+                            result.monitored_resources = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_api::model::MonitoredResource>,
                                 >>()?
                                 .unwrap_or_default();
                         }
