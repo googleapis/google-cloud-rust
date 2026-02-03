@@ -17,8 +17,8 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate apps_script_type;
 extern crate bytes;
+extern crate google_cloud_apps_script_type;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -40,7 +40,8 @@ pub struct GmailAddOnManifest {
     ///
     /// If present, this overrides the configuration from
     /// `addOns.common.homepageTrigger`.
-    pub homepage_trigger: std::option::Option<apps_script_type::model::HomepageExtensionPoint>,
+    pub homepage_trigger:
+        std::option::Option<google_cloud_apps_script_type::model::HomepageExtensionPoint>,
 
     /// Defines the set of conditions that trigger the add-on.
     pub contextual_triggers: std::vec::Vec<crate::model::ContextualTrigger>,
@@ -78,12 +79,12 @@ impl GmailAddOnManifest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apps_script_type_gmail::model::GmailAddOnManifest;
-    /// use apps_script_type::model::HomepageExtensionPoint;
+    /// use google_cloud_apps_script_type::model::HomepageExtensionPoint;
     /// let x = GmailAddOnManifest::new().set_homepage_trigger(HomepageExtensionPoint::default()/* use setters */);
     /// ```
     pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
+        T: std::convert::Into<google_cloud_apps_script_type::model::HomepageExtensionPoint>,
     {
         self.homepage_trigger = std::option::Option::Some(v.into());
         self
@@ -94,13 +95,13 @@ impl GmailAddOnManifest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apps_script_type_gmail::model::GmailAddOnManifest;
-    /// use apps_script_type::model::HomepageExtensionPoint;
+    /// use google_cloud_apps_script_type::model::HomepageExtensionPoint;
     /// let x = GmailAddOnManifest::new().set_or_clear_homepage_trigger(Some(HomepageExtensionPoint::default()/* use setters */));
     /// let x = GmailAddOnManifest::new().set_or_clear_homepage_trigger(None::<HomepageExtensionPoint>);
     /// ```
     pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
+        T: std::convert::Into<google_cloud_apps_script_type::model::HomepageExtensionPoint>,
     {
         self.homepage_trigger = v.map(|x| x.into());
         self
@@ -355,7 +356,7 @@ pub mod universal_action {
 pub struct ComposeTrigger {
     /// Defines the set of actions for compose time add-on. These are actions
     /// that user can trigger on a compose time addon.
-    pub actions: std::vec::Vec<apps_script_type::model::MenuItemExtensionPoint>,
+    pub actions: std::vec::Vec<google_cloud_apps_script_type::model::MenuItemExtensionPoint>,
 
     /// Define the level of data access when a compose time addon is triggered.
     pub draft_access: crate::model::compose_trigger::DraftAccess,
@@ -373,7 +374,7 @@ impl ComposeTrigger {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_apps_script_type_gmail::model::ComposeTrigger;
-    /// use apps_script_type::model::MenuItemExtensionPoint;
+    /// use google_cloud_apps_script_type::model::MenuItemExtensionPoint;
     /// let x = ComposeTrigger::new()
     ///     .set_actions([
     ///         MenuItemExtensionPoint::default()/* use setters */,
@@ -383,7 +384,7 @@ impl ComposeTrigger {
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<apps_script_type::model::MenuItemExtensionPoint>,
+        V: std::convert::Into<google_cloud_apps_script_type::model::MenuItemExtensionPoint>,
     {
         use std::iter::Iterator;
         self.actions = v.into_iter().map(|i| i.into()).collect();

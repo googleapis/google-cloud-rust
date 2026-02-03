@@ -1288,10 +1288,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AddOns {
                                     "multiple values for common",
                                 ));
                             }
-                            result.common =
-                                map.next_value::<std::option::Option<
-                                    apps_script_type::model::CommonAddOnManifest,
-                                >>()?;
+                            result.common = map.next_value::<std::option::Option<
+                                google_cloud_apps_script_type::model::CommonAddOnManifest,
+                            >>()?;
                         }
                         __FieldTag::__gmail => {
                             if !fields.insert(__FieldTag::__gmail) {
@@ -1299,10 +1298,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AddOns {
                                     "multiple values for gmail",
                                 ));
                             }
-                            result.gmail =
-                                map.next_value::<std::option::Option<
-                                    apps_script_gmail::model::GmailAddOnManifest,
-                                >>()?;
+                            result.gmail = map.next_value::<std::option::Option<
+                                google_cloud_apps_script_type_gmail::model::GmailAddOnManifest,
+                            >>()?;
                         }
                         __FieldTag::__drive => {
                             if !fields.insert(__FieldTag::__drive) {
@@ -1310,10 +1308,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AddOns {
                                     "multiple values for drive",
                                 ));
                             }
-                            result.drive =
-                                map.next_value::<std::option::Option<
-                                    apps_script_drive::model::DriveAddOnManifest,
-                                >>()?;
+                            result.drive = map.next_value::<std::option::Option<
+                                google_cloud_apps_script_type_drive::model::DriveAddOnManifest,
+                            >>()?;
                         }
                         __FieldTag::__calendar => {
                             if !fields.insert(__FieldTag::__calendar) {
@@ -1321,9 +1318,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AddOns {
                                     "multiple values for calendar",
                                 ));
                             }
-                            result.calendar = map.next_value::<std::option::Option<
-                                apps_script_calendar::model::CalendarAddOnManifest,
-                            >>()?;
+                            result.calendar = map.next_value::<std::option::Option<google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest>>()?
+                                ;
                         }
                         __FieldTag::__docs => {
                             if !fields.insert(__FieldTag::__docs) {
@@ -1331,8 +1327,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AddOns {
                                     "multiple values for docs",
                                 ));
                             }
-                            result.docs = map.next_value::<std::option::Option<apps_script_docs::model::DocsAddOnManifest>>()?
-                                ;
+                            result.docs = map.next_value::<std::option::Option<
+                                google_cloud_apps_script_type_docs::model::DocsAddOnManifest,
+                            >>()?;
                         }
                         __FieldTag::__sheets => {
                             if !fields.insert(__FieldTag::__sheets) {
@@ -1341,7 +1338,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AddOns {
                                 ));
                             }
                             result.sheets = map.next_value::<std::option::Option<
-                                apps_script_sheets::model::SheetsAddOnManifest,
+                                google_cloud_apps_script_type_sheets::model::SheetsAddOnManifest,
                             >>()?;
                         }
                         __FieldTag::__slides => {
@@ -1351,7 +1348,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AddOns {
                                 ));
                             }
                             result.slides = map.next_value::<std::option::Option<
-                                apps_script_slides::model::SlidesAddOnManifest,
+                                google_cloud_apps_script_type_slides::model::SlidesAddOnManifest,
                             >>()?;
                         }
                         __FieldTag::__http_options => {
@@ -1360,8 +1357,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AddOns {
                                     "multiple values for http_options",
                                 ));
                             }
-                            result.http_options = map.next_value::<std::option::Option<apps_script_type::model::HttpOptions>>()?
-                                ;
+                            result.http_options = map.next_value::<std::option::Option<
+                                google_cloud_apps_script_type::model::HttpOptions,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

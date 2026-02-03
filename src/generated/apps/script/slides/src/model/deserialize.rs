@@ -89,7 +89,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SlidesAddOnManifest {
                                 ));
                             }
                             result.homepage_trigger = map.next_value::<std::option::Option<
-                                apps_script_type::model::HomepageExtensionPoint,
+                                google_cloud_apps_script_type::model::HomepageExtensionPoint,
                             >>()?;
                         }
                         __FieldTag::__on_file_scope_granted_trigger => {

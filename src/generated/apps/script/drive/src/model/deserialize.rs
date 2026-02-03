@@ -87,7 +87,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DriveAddOnManifest {
                                 ));
                             }
                             result.homepage_trigger = map.next_value::<std::option::Option<
-                                apps_script_type::model::HomepageExtensionPoint,
+                                google_cloud_apps_script_type::model::HomepageExtensionPoint,
                             >>()?;
                         }
                         __FieldTag::__on_items_selected_trigger => {
