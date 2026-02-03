@@ -17,17 +17,17 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate apps_script_calendar;
-extern crate apps_script_docs;
-extern crate apps_script_drive;
-extern crate apps_script_gmail;
-extern crate apps_script_sheets;
-extern crate apps_script_slides;
-extern crate apps_script_type;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_apps_script_type;
+extern crate google_cloud_apps_script_type_calendar;
+extern crate google_cloud_apps_script_type_docs;
+extern crate google_cloud_apps_script_type_drive;
+extern crate google_cloud_apps_script_type_gmail;
+extern crate google_cloud_apps_script_type_sheets;
+extern crate google_cloud_apps_script_type_slides;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -819,28 +819,31 @@ impl wkt::message::Message for Deployment {
 #[non_exhaustive]
 pub struct AddOns {
     /// Configuration that is common across all Google Workspace add-ons.
-    pub common: std::option::Option<apps_script_type::model::CommonAddOnManifest>,
+    pub common: std::option::Option<google_cloud_apps_script_type::model::CommonAddOnManifest>,
 
     /// Gmail add-on configuration.
-    pub gmail: std::option::Option<apps_script_gmail::model::GmailAddOnManifest>,
+    pub gmail: std::option::Option<google_cloud_apps_script_type_gmail::model::GmailAddOnManifest>,
 
     /// Drive add-on configuration.
-    pub drive: std::option::Option<apps_script_drive::model::DriveAddOnManifest>,
+    pub drive: std::option::Option<google_cloud_apps_script_type_drive::model::DriveAddOnManifest>,
 
     /// Calendar add-on configuration.
-    pub calendar: std::option::Option<apps_script_calendar::model::CalendarAddOnManifest>,
+    pub calendar:
+        std::option::Option<google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest>,
 
     /// Docs add-on configuration.
-    pub docs: std::option::Option<apps_script_docs::model::DocsAddOnManifest>,
+    pub docs: std::option::Option<google_cloud_apps_script_type_docs::model::DocsAddOnManifest>,
 
     /// Sheets add-on configuration.
-    pub sheets: std::option::Option<apps_script_sheets::model::SheetsAddOnManifest>,
+    pub sheets:
+        std::option::Option<google_cloud_apps_script_type_sheets::model::SheetsAddOnManifest>,
 
     /// Slides add-on configuration.
-    pub slides: std::option::Option<apps_script_slides::model::SlidesAddOnManifest>,
+    pub slides:
+        std::option::Option<google_cloud_apps_script_type_slides::model::SlidesAddOnManifest>,
 
     /// Options for sending requests to add-on HTTP endpoints
-    pub http_options: std::option::Option<apps_script_type::model::HttpOptions>,
+    pub http_options: std::option::Option<google_cloud_apps_script_type::model::HttpOptions>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -855,12 +858,12 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_type::model::CommonAddOnManifest;
+    /// use google_cloud_apps_script_type::model::CommonAddOnManifest;
     /// let x = AddOns::new().set_common(CommonAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<apps_script_type::model::CommonAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type::model::CommonAddOnManifest>,
     {
         self.common = std::option::Option::Some(v.into());
         self
@@ -871,13 +874,13 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_type::model::CommonAddOnManifest;
+    /// use google_cloud_apps_script_type::model::CommonAddOnManifest;
     /// let x = AddOns::new().set_or_clear_common(Some(CommonAddOnManifest::default()/* use setters */));
     /// let x = AddOns::new().set_or_clear_common(None::<CommonAddOnManifest>);
     /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<apps_script_type::model::CommonAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type::model::CommonAddOnManifest>,
     {
         self.common = v.map(|x| x.into());
         self
@@ -888,12 +891,12 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_gmail::model::GmailAddOnManifest;
+    /// use google_cloud_apps_script_type_gmail::model::GmailAddOnManifest;
     /// let x = AddOns::new().set_gmail(GmailAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_gmail<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<apps_script_gmail::model::GmailAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type_gmail::model::GmailAddOnManifest>,
     {
         self.gmail = std::option::Option::Some(v.into());
         self
@@ -904,13 +907,13 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_gmail::model::GmailAddOnManifest;
+    /// use google_cloud_apps_script_type_gmail::model::GmailAddOnManifest;
     /// let x = AddOns::new().set_or_clear_gmail(Some(GmailAddOnManifest::default()/* use setters */));
     /// let x = AddOns::new().set_or_clear_gmail(None::<GmailAddOnManifest>);
     /// ```
     pub fn set_or_clear_gmail<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<apps_script_gmail::model::GmailAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type_gmail::model::GmailAddOnManifest>,
     {
         self.gmail = v.map(|x| x.into());
         self
@@ -921,12 +924,12 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_drive::model::DriveAddOnManifest;
+    /// use google_cloud_apps_script_type_drive::model::DriveAddOnManifest;
     /// let x = AddOns::new().set_drive(DriveAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_drive<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<apps_script_drive::model::DriveAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type_drive::model::DriveAddOnManifest>,
     {
         self.drive = std::option::Option::Some(v.into());
         self
@@ -937,13 +940,13 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_drive::model::DriveAddOnManifest;
+    /// use google_cloud_apps_script_type_drive::model::DriveAddOnManifest;
     /// let x = AddOns::new().set_or_clear_drive(Some(DriveAddOnManifest::default()/* use setters */));
     /// let x = AddOns::new().set_or_clear_drive(None::<DriveAddOnManifest>);
     /// ```
     pub fn set_or_clear_drive<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<apps_script_drive::model::DriveAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type_drive::model::DriveAddOnManifest>,
     {
         self.drive = v.map(|x| x.into());
         self
@@ -954,12 +957,12 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_calendar::model::CalendarAddOnManifest;
+    /// use google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest;
     /// let x = AddOns::new().set_calendar(CalendarAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_calendar<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<apps_script_calendar::model::CalendarAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest>,
     {
         self.calendar = std::option::Option::Some(v.into());
         self
@@ -970,13 +973,13 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_calendar::model::CalendarAddOnManifest;
+    /// use google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest;
     /// let x = AddOns::new().set_or_clear_calendar(Some(CalendarAddOnManifest::default()/* use setters */));
     /// let x = AddOns::new().set_or_clear_calendar(None::<CalendarAddOnManifest>);
     /// ```
     pub fn set_or_clear_calendar<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<apps_script_calendar::model::CalendarAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest>,
     {
         self.calendar = v.map(|x| x.into());
         self
@@ -987,12 +990,12 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_docs::model::DocsAddOnManifest;
+    /// use google_cloud_apps_script_type_docs::model::DocsAddOnManifest;
     /// let x = AddOns::new().set_docs(DocsAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_docs<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<apps_script_docs::model::DocsAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type_docs::model::DocsAddOnManifest>,
     {
         self.docs = std::option::Option::Some(v.into());
         self
@@ -1003,13 +1006,13 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_docs::model::DocsAddOnManifest;
+    /// use google_cloud_apps_script_type_docs::model::DocsAddOnManifest;
     /// let x = AddOns::new().set_or_clear_docs(Some(DocsAddOnManifest::default()/* use setters */));
     /// let x = AddOns::new().set_or_clear_docs(None::<DocsAddOnManifest>);
     /// ```
     pub fn set_or_clear_docs<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<apps_script_docs::model::DocsAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type_docs::model::DocsAddOnManifest>,
     {
         self.docs = v.map(|x| x.into());
         self
@@ -1020,12 +1023,12 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_sheets::model::SheetsAddOnManifest;
+    /// use google_cloud_apps_script_type_sheets::model::SheetsAddOnManifest;
     /// let x = AddOns::new().set_sheets(SheetsAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_sheets<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<apps_script_sheets::model::SheetsAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type_sheets::model::SheetsAddOnManifest>,
     {
         self.sheets = std::option::Option::Some(v.into());
         self
@@ -1036,13 +1039,13 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_sheets::model::SheetsAddOnManifest;
+    /// use google_cloud_apps_script_type_sheets::model::SheetsAddOnManifest;
     /// let x = AddOns::new().set_or_clear_sheets(Some(SheetsAddOnManifest::default()/* use setters */));
     /// let x = AddOns::new().set_or_clear_sheets(None::<SheetsAddOnManifest>);
     /// ```
     pub fn set_or_clear_sheets<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<apps_script_sheets::model::SheetsAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type_sheets::model::SheetsAddOnManifest>,
     {
         self.sheets = v.map(|x| x.into());
         self
@@ -1053,12 +1056,12 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_slides::model::SlidesAddOnManifest;
+    /// use google_cloud_apps_script_type_slides::model::SlidesAddOnManifest;
     /// let x = AddOns::new().set_slides(SlidesAddOnManifest::default()/* use setters */);
     /// ```
     pub fn set_slides<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<apps_script_slides::model::SlidesAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type_slides::model::SlidesAddOnManifest>,
     {
         self.slides = std::option::Option::Some(v.into());
         self
@@ -1069,13 +1072,13 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_slides::model::SlidesAddOnManifest;
+    /// use google_cloud_apps_script_type_slides::model::SlidesAddOnManifest;
     /// let x = AddOns::new().set_or_clear_slides(Some(SlidesAddOnManifest::default()/* use setters */));
     /// let x = AddOns::new().set_or_clear_slides(None::<SlidesAddOnManifest>);
     /// ```
     pub fn set_or_clear_slides<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<apps_script_slides::model::SlidesAddOnManifest>,
+        T: std::convert::Into<google_cloud_apps_script_type_slides::model::SlidesAddOnManifest>,
     {
         self.slides = v.map(|x| x.into());
         self
@@ -1086,12 +1089,12 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_type::model::HttpOptions;
+    /// use google_cloud_apps_script_type::model::HttpOptions;
     /// let x = AddOns::new().set_http_options(HttpOptions::default()/* use setters */);
     /// ```
     pub fn set_http_options<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<apps_script_type::model::HttpOptions>,
+        T: std::convert::Into<google_cloud_apps_script_type::model::HttpOptions>,
     {
         self.http_options = std::option::Option::Some(v.into());
         self
@@ -1102,13 +1105,13 @@ impl AddOns {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
-    /// use apps_script_type::model::HttpOptions;
+    /// use google_cloud_apps_script_type::model::HttpOptions;
     /// let x = AddOns::new().set_or_clear_http_options(Some(HttpOptions::default()/* use setters */));
     /// let x = AddOns::new().set_or_clear_http_options(None::<HttpOptions>);
     /// ```
     pub fn set_or_clear_http_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<apps_script_type::model::HttpOptions>,
+        T: std::convert::Into<google_cloud_apps_script_type::model::HttpOptions>,
     {
         self.http_options = v.map(|x| x.into());
         self
