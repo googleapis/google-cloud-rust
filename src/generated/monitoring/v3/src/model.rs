@@ -22,7 +22,7 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_api;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -2748,7 +2748,7 @@ pub mod alert_policy {
                 /// Optional. The time of day (in UTC) at which the query should run. If
                 /// left unspecified, the server picks an arbitrary time of day and runs
                 /// the query at the same time each day.
-                pub execution_time: std::option::Option<gtype::model::TimeOfDay>,
+                pub execution_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
@@ -2775,12 +2775,12 @@ pub mod alert_policy {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Daily;
-                /// use gtype::model::TimeOfDay;
+                /// use google_cloud_type::model::TimeOfDay;
                 /// let x = Daily::new().set_execution_time(TimeOfDay::default()/* use setters */);
                 /// ```
                 pub fn set_execution_time<T>(mut self, v: T) -> Self
                 where
-                    T: std::convert::Into<gtype::model::TimeOfDay>,
+                    T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
                 {
                     self.execution_time = std::option::Option::Some(v.into());
                     self
@@ -2791,13 +2791,13 @@ pub mod alert_policy {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Daily;
-                /// use gtype::model::TimeOfDay;
+                /// use google_cloud_type::model::TimeOfDay;
                 /// let x = Daily::new().set_or_clear_execution_time(Some(TimeOfDay::default()/* use setters */));
                 /// let x = Daily::new().set_or_clear_execution_time(None::<TimeOfDay>);
                 /// ```
                 pub fn set_or_clear_execution_time<T>(mut self, v: std::option::Option<T>) -> Self
                 where
-                    T: std::convert::Into<gtype::model::TimeOfDay>,
+                    T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
                 {
                     self.execution_time = v.map(|x| x.into());
                     self
@@ -12664,7 +12664,7 @@ impl ServiceLevelObjective {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
-    /// use gtype::model::CalendarPeriod;
+    /// use google_cloud_type::model::CalendarPeriod;
     /// let x0 = ServiceLevelObjective::new().set_period(Some(
     ///     google_cloud_monitoring_v3::model::service_level_objective::Period::CalendarPeriod(CalendarPeriod::Day)));
     /// let x1 = ServiceLevelObjective::new().set_period(Some(
@@ -12722,7 +12722,9 @@ impl ServiceLevelObjective {
     /// The value of [period][crate::model::ServiceLevelObjective::period]
     /// if it holds a `CalendarPeriod`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn calendar_period(&self) -> std::option::Option<&gtype::model::CalendarPeriod> {
+    pub fn calendar_period(
+        &self,
+    ) -> std::option::Option<&google_cloud_type::model::CalendarPeriod> {
         #[allow(unreachable_patterns)]
         self.period.as_ref().and_then(|v| match v {
             crate::model::service_level_objective::Period::CalendarPeriod(v) => {
@@ -12741,7 +12743,7 @@ impl ServiceLevelObjective {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
-    /// use gtype::model::CalendarPeriod;
+    /// use google_cloud_type::model::CalendarPeriod;
     /// let x0 = ServiceLevelObjective::new().set_calendar_period(CalendarPeriod::Day);
     /// let x1 = ServiceLevelObjective::new().set_calendar_period(CalendarPeriod::Week);
     /// let x2 = ServiceLevelObjective::new().set_calendar_period(CalendarPeriod::Fortnight);
@@ -12752,7 +12754,7 @@ impl ServiceLevelObjective {
     /// assert!(x2.calendar_period().is_some());
     /// assert!(x2.rolling_period().is_none());
     /// ```
-    pub fn set_calendar_period<T: std::convert::Into<gtype::model::CalendarPeriod>>(
+    pub fn set_calendar_period<T: std::convert::Into<google_cloud_type::model::CalendarPeriod>>(
         mut self,
         v: T,
     ) -> Self {
@@ -12923,7 +12925,7 @@ pub mod service_level_objective {
         /// A calendar period, semantically "since the start of the current
         /// `<calendar_period>`". At this time, only `DAY`, `WEEK`, `FORTNIGHT`, and
         /// `MONTH` are supported.
-        CalendarPeriod(gtype::model::CalendarPeriod),
+        CalendarPeriod(google_cloud_type::model::CalendarPeriod),
     }
 }
 

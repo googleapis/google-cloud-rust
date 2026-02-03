@@ -458,7 +458,6 @@ google-cloud-lro          = { default-features = false, version = "1.1", path = 
 wkt                       = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt          = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 cloud_common              = { default-features = false, version = "1", path = "src/generated/cloud/common", package = "google-cloud-common" }
-gtype                     = { default-features = false, version = "1", path = "src/generated/type", package = "google-cloud-type" }
 google-cloud-type         = { default-features = false, version = "1", path = "src/generated/type" }
 grafeas                   = { default-features = false, version = "1", path = "src/generated/grafeas/v1", package = "google-cloud-grafeas-v1" }
 logging_type              = { default-features = false, version = "1", path = "src/generated/logging/type", package = "google-cloud-logging-type" }

@@ -2570,9 +2570,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ScheduledOperationDetails {
                                     "multiple values for day_of_week",
                                 ));
                             }
-                            result.day_of_week = map
-                                .next_value::<std::option::Option<gtype::model::DayOfWeek>>()?
-                                .unwrap_or_default();
+                            result.day_of_week = map.next_value::<std::option::Option<google_cloud_type::model::DayOfWeek>>()?.unwrap_or_default();
                         }
                         __FieldTag::__start_time => {
                             if !fields.insert(__FieldTag::__start_time) {
@@ -2580,8 +2578,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ScheduledOperationDetails {
                                     "multiple values for start_time",
                                 ));
                             }
-                            result.start_time =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.start_time = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::__stop_time => {
                             if !fields.insert(__FieldTag::__stop_time) {
@@ -2589,8 +2587,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ScheduledOperationDetails {
                                     "multiple values for stop_time",
                                 ));
                             }
-                            result.stop_time =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.stop_time = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4129,9 +4127,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DbBackupConfig {
                                     "multiple values for auto_full_backup_day",
                                 ));
                             }
-                            result.auto_full_backup_day = map
-                                .next_value::<std::option::Option<gtype::model::DayOfWeek>>()?
-                                .unwrap_or_default();
+                            result.auto_full_backup_day = map.next_value::<std::option::Option<google_cloud_type::model::DayOfWeek>>()?.unwrap_or_default();
                         }
                         __FieldTag::__auto_full_backup_window => {
                             if !fields.insert(__FieldTag::__auto_full_backup_window) {
@@ -6004,8 +6000,8 @@ impl<'de> serde::de::Deserialize<'de> for super::DbSystemProperties {
                                     "multiple values for time_zone",
                                 ));
                             }
-                            result.time_zone =
-                                map.next_value::<std::option::Option<gtype::model::TimeZone>>()?;
+                            result.time_zone = map.next_value::<std::option::Option<google_cloud_type::model::TimeZone>>()?
+                                ;
                         }
                         __FieldTag::__lifecycle_state => {
                             if !fields.insert(__FieldTag::__lifecycle_state) {
@@ -9443,7 +9439,11 @@ impl<'de> serde::de::Deserialize<'de> for super::MaintenanceWindow {
                                     "multiple values for months",
                                 ));
                             }
-                            result.months = map.next_value::<std::option::Option<std::vec::Vec<gtype::model::Month>>>()?.unwrap_or_default();
+                            result.months =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_type::model::Month>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__weeks_of_month => {
                             if !fields.insert(__FieldTag::__weeks_of_month) {
@@ -9474,7 +9474,11 @@ impl<'de> serde::de::Deserialize<'de> for super::MaintenanceWindow {
                                     "multiple values for days_of_week",
                                 ));
                             }
-                            result.days_of_week = map.next_value::<std::option::Option<std::vec::Vec<gtype::model::DayOfWeek>>>()?.unwrap_or_default();
+                            result.days_of_week = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_type::model::DayOfWeek>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__hours_of_day => {
                             if !fields.insert(__FieldTag::__hours_of_day) {
@@ -10136,8 +10140,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ExadbVmClusterProperties {
                                     "multiple values for time_zone",
                                 ));
                             }
-                            result.time_zone =
-                                map.next_value::<std::option::Option<gtype::model::TimeZone>>()?;
+                            result.time_zone = map.next_value::<std::option::Option<google_cloud_type::model::TimeZone>>()?
+                                ;
                         }
                         __FieldTag::__lifecycle_state => {
                             if !fields.insert(__FieldTag::__lifecycle_state) {
@@ -10509,8 +10513,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ExascaleDbStorageVaultPropertie
                                     "multiple values for time_zone",
                                 ));
                             }
-                            result.time_zone =
-                                map.next_value::<std::option::Option<gtype::model::TimeZone>>()?;
+                            result.time_zone = map.next_value::<std::option::Option<google_cloud_type::model::TimeZone>>()?
+                                ;
                         }
                         __FieldTag::__exascale_db_storage_details => {
                             if !fields.insert(__FieldTag::__exascale_db_storage_details) {
@@ -19742,8 +19746,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CloudVmClusterProperties {
                                     "multiple values for time_zone",
                                 ));
                             }
-                            result.time_zone =
-                                map.next_value::<std::option::Option<gtype::model::TimeZone>>()?;
+                            result.time_zone = map.next_value::<std::option::Option<google_cloud_type::model::TimeZone>>()?
+                                ;
                         }
                         __FieldTag::__ssh_public_keys => {
                             if !fields.insert(__FieldTag::__ssh_public_keys) {

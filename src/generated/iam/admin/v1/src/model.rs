@@ -22,7 +22,7 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -3924,7 +3924,7 @@ impl LintPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::LintPolicyRequest;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = LintPolicyRequest::new().set_lint_object(Some(
     ///     google_cloud_iam_admin_v1::model::lint_policy_request::LintObject::Condition(Expr::default().into())));
     /// ```
@@ -3941,7 +3941,9 @@ impl LintPolicyRequest {
     /// The value of [lint_object][crate::model::LintPolicyRequest::lint_object]
     /// if it holds a `Condition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn condition(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Expr>> {
+    pub fn condition(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::Expr>> {
         #[allow(unreachable_patterns)]
         self.lint_object.as_ref().and_then(|v| match v {
             crate::model::lint_policy_request::LintObject::Condition(v) => {
@@ -3960,11 +3962,11 @@ impl LintPolicyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_admin_v1::model::LintPolicyRequest;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = LintPolicyRequest::new().set_condition(Expr::default()/* use setters */);
     /// assert!(x.condition().is_some());
     /// ```
-    pub fn set_condition<T: std::convert::Into<std::boxed::Box<gtype::model::Expr>>>(
+    pub fn set_condition<T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Expr>>>(
         mut self,
         v: T,
     ) -> Self {
@@ -3991,7 +3993,7 @@ pub mod lint_policy_request {
     #[non_exhaustive]
     pub enum LintObject {
         /// [google.iam.v1.Binding.condition] [google.iam.v1.Binding.condition] object to be linted.
-        Condition(std::boxed::Box<gtype::model::Expr>),
+        Condition(std::boxed::Box<google_cloud_type::model::Expr>),
     }
 }
 

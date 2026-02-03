@@ -190,8 +190,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Location {
                                     "multiple values for postal_address",
                                 ));
                             }
-                            result.postal_address = map
-                                .next_value::<std::option::Option<gtype::model::PostalAddress>>()?;
+                            result.postal_address = map.next_value::<std::option::Option<google_cloud_type::model::PostalAddress>>()?
+                                ;
                         }
                         __FieldTag::__lat_lng => {
                             if !fields.insert(__FieldTag::__lat_lng) {
@@ -199,8 +199,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Location {
                                     "multiple values for lat_lng",
                                 ));
                             }
-                            result.lat_lng =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.lat_lng = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::__radius_miles => {
                             if !fields.insert(__FieldTag::__radius_miles) {
@@ -997,7 +997,7 @@ impl<'de> serde::de::Deserialize<'de> for super::compensation_info::Compensation
                             }
                             result.compensation_amount = std::option::Option::Some(
                                 crate::model::compensation_info::compensation_entry::CompensationAmount::Amount(
-                                    map.next_value::<std::option::Option<std::boxed::Box<gtype::model::Money>>>()?.unwrap_or_default()
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_type::model::Money>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -1127,8 +1127,9 @@ impl<'de> serde::de::Deserialize<'de> for super::compensation_info::Compensation
                                     "multiple values for max_compensation",
                                 ));
                             }
-                            result.max_compensation =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.max_compensation = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::__min_compensation => {
                             if !fields.insert(__FieldTag::__min_compensation) {
@@ -1136,8 +1137,9 @@ impl<'de> serde::de::Deserialize<'de> for super::compensation_info::Compensation
                                     "multiple values for min_compensation",
                                 ));
                             }
-                            result.min_compensation =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.min_compensation = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3267,8 +3269,8 @@ impl<'de> serde::de::Deserialize<'de> for super::LocationFilter {
                                     "multiple values for lat_lng",
                                 ));
                             }
-                            result.lat_lng =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.lat_lng = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::__distance_in_miles => {
                             if !fields.insert(__FieldTag::__distance_in_miles) {
@@ -3537,8 +3539,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CommuteFilter {
                                     "multiple values for start_coordinates",
                                 ));
                             }
-                            result.start_coordinates =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.start_coordinates = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::__travel_duration => {
                             if !fields.insert(__FieldTag::__travel_duration) {
@@ -3593,7 +3595,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CommuteFilter {
                             result.traffic_option = std::option::Option::Some(
                                 crate::model::commute_filter::TrafficOption::DepartureTime(
                                     map.next_value::<std::option::Option<
-                                        std::boxed::Box<gtype::model::TimeOfDay>,
+                                        std::boxed::Box<google_cloud_type::model::TimeOfDay>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),

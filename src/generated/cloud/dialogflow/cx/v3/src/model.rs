@@ -24,7 +24,7 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -34433,7 +34433,7 @@ pub struct QueryParameters {
     pub time_zone: std::string::String,
 
     /// The geo location of this conversational query.
-    pub geo_location: std::option::Option<gtype::model::LatLng>,
+    pub geo_location: std::option::Option<google_cloud_type::model::LatLng>,
 
     /// Additional session entity types to replace or extend developer entity types
     /// with. The entity synonyms apply to all languages and persist for the
@@ -34630,12 +34630,12 @@ impl QueryParameters {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = QueryParameters::new().set_geo_location(LatLng::default()/* use setters */);
     /// ```
     pub fn set_geo_location<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.geo_location = std::option::Option::Some(v.into());
         self
@@ -34646,13 +34646,13 @@ impl QueryParameters {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = QueryParameters::new().set_or_clear_geo_location(Some(LatLng::default()/* use setters */));
     /// let x = QueryParameters::new().set_or_clear_geo_location(None::<LatLng>);
     /// ```
     pub fn set_or_clear_geo_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.geo_location = v.map(|x| x.into());
         self

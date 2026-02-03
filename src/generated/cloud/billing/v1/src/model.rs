@@ -22,7 +22,7 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -1694,7 +1694,7 @@ pub mod pricing_expression {
 
         /// The price per unit of usage.
         /// Example: unit_price of amount $10 indicates that each unit will cost $10.
-        pub unit_price: std::option::Option<gtype::model::Money>,
+        pub unit_price: std::option::Option<google_cloud_type::model::Money>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1721,12 +1721,12 @@ pub mod pricing_expression {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_billing_v1::model::pricing_expression::TierRate;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = TierRate::new().set_unit_price(Money::default()/* use setters */);
         /// ```
         pub fn set_unit_price<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.unit_price = std::option::Option::Some(v.into());
             self
@@ -1737,13 +1737,13 @@ pub mod pricing_expression {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_billing_v1::model::pricing_expression::TierRate;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = TierRate::new().set_or_clear_unit_price(Some(Money::default()/* use setters */));
         /// let x = TierRate::new().set_or_clear_unit_price(None::<Money>);
         /// ```
         pub fn set_or_clear_unit_price<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.unit_price = v.map(|x| x.into());
             self

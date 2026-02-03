@@ -2122,7 +2122,7 @@ impl<'de> serde::de::Deserialize<'de> for super::queued_resource::QueueingPolicy
                             }
                             result.start_timing_constraints = std::option::Option::Some(
                                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidInterval(
-                                    map.next_value::<std::option::Option<std::boxed::Box<gtype::model::Interval>>>()?.unwrap_or_default()
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_type::model::Interval>>>()?.unwrap_or_default()
                                 ),
                             );
                         }

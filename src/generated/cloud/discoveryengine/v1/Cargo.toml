@@ -110,7 +110,7 @@ gaxi                               = { workspace = true, features = ["_internal-
 google-cloud-api.workspace         = true
 google-cloud-longrunning.workspace = true
 google-cloud-lro.workspace         = true
-gtype.workspace                    = true
+google-cloud-type.workspace        = true
 lazy_static.workspace              = true
 rpc.workspace                      = true
 serde.workspace                    = true

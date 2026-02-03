@@ -24,7 +24,7 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -53,7 +53,7 @@ pub struct PolicyRule {
     /// "resource.matchTag('123456789/environment,
     /// 'prod')" or "resource.matchTagId('tagKeys/123',
     /// 'tagValues/456')".
-    pub condition: std::option::Option<gtype::model::Expr>,
+    pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
     pub kind: std::option::Option<crate::model::policy_rule::Kind>,
 
@@ -70,12 +70,12 @@ impl PolicyRule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::PolicyRule;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = PolicyRule::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -86,13 +86,13 @@ impl PolicyRule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::PolicyRule;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = PolicyRule::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
     /// let x = PolicyRule::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self
@@ -4274,7 +4274,7 @@ impl wkt::message::Message for SecurityHealthAnalyticsCustomModule {
 pub struct CustomConfig {
     /// Required. The CEL expression to evaluate to produce findings. When the
     /// expression evaluates to true against a resource, a finding is generated.
-    pub predicate: std::option::Option<gtype::model::Expr>,
+    pub predicate: std::option::Option<google_cloud_type::model::Expr>,
 
     /// Optional. Custom output properties.
     pub custom_output: std::option::Option<crate::model::custom_config::CustomOutputSpec>,
@@ -4311,12 +4311,12 @@ impl CustomConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::CustomConfig;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = CustomConfig::new().set_predicate(Expr::default()/* use setters */);
     /// ```
     pub fn set_predicate<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.predicate = std::option::Option::Some(v.into());
         self
@@ -4327,13 +4327,13 @@ impl CustomConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_securityposture_v1::model::CustomConfig;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = CustomConfig::new().set_or_clear_predicate(Some(Expr::default()/* use setters */));
     /// let x = CustomConfig::new().set_or_clear_predicate(None::<Expr>);
     /// ```
     pub fn set_or_clear_predicate<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.predicate = v.map(|x| x.into());
         self
@@ -4521,7 +4521,7 @@ pub mod custom_config {
             /// Optional. The CEL expression for the custom output. A resource property
             /// can be specified to return the value of the property or a text string
             /// enclosed in quotation marks.
-            pub value_expression: std::option::Option<gtype::model::Expr>,
+            pub value_expression: std::option::Option<google_cloud_type::model::Expr>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -4548,12 +4548,12 @@ pub mod custom_config {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_securityposture_v1::model::custom_config::custom_output_spec::Property;
-            /// use gtype::model::Expr;
+            /// use google_cloud_type::model::Expr;
             /// let x = Property::new().set_value_expression(Expr::default()/* use setters */);
             /// ```
             pub fn set_value_expression<T>(mut self, v: T) -> Self
             where
-                T: std::convert::Into<gtype::model::Expr>,
+                T: std::convert::Into<google_cloud_type::model::Expr>,
             {
                 self.value_expression = std::option::Option::Some(v.into());
                 self
@@ -4564,13 +4564,13 @@ pub mod custom_config {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_securityposture_v1::model::custom_config::custom_output_spec::Property;
-            /// use gtype::model::Expr;
+            /// use google_cloud_type::model::Expr;
             /// let x = Property::new().set_or_clear_value_expression(Some(Expr::default()/* use setters */));
             /// let x = Property::new().set_or_clear_value_expression(None::<Expr>);
             /// ```
             pub fn set_or_clear_value_expression<T>(mut self, v: std::option::Option<T>) -> Self
             where
-                T: std::convert::Into<gtype::model::Expr>,
+                T: std::convert::Into<google_cloud_type::model::Expr>,
             {
                 self.value_expression = v.map(|x| x.into());
                 self

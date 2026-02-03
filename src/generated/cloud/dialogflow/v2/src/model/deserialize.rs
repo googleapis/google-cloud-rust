@@ -40751,8 +40751,8 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryParameters {
                                     "multiple values for geo_location",
                                 ));
                             }
-                            result.geo_location =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.geo_location = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::__contexts => {
                             if !fields.insert(__FieldTag::__contexts) {

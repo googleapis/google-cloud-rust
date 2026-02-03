@@ -24,7 +24,7 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -592,7 +592,7 @@ pub struct ReportDetail {
 
     /// The date for which report is generated. The time part of target_datetime
     /// will be zero till we support multiple reports per day.
-    pub target_datetime: std::option::Option<gtype::model::DateTime>,
+    pub target_datetime: std::option::Option<google_cloud_type::model::DateTime>,
 
     /// Metrics of the report.
     pub report_metrics: std::option::Option<crate::model::report_detail::Metrics>,
@@ -736,12 +736,12 @@ impl ReportDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::ReportDetail;
-    /// use gtype::model::DateTime;
+    /// use google_cloud_type::model::DateTime;
     /// let x = ReportDetail::new().set_target_datetime(DateTime::default()/* use setters */);
     /// ```
     pub fn set_target_datetime<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::DateTime>,
+        T: std::convert::Into<google_cloud_type::model::DateTime>,
     {
         self.target_datetime = std::option::Option::Some(v.into());
         self
@@ -752,13 +752,13 @@ impl ReportDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::ReportDetail;
-    /// use gtype::model::DateTime;
+    /// use google_cloud_type::model::DateTime;
     /// let x = ReportDetail::new().set_or_clear_target_datetime(Some(DateTime::default()/* use setters */));
     /// let x = ReportDetail::new().set_or_clear_target_datetime(None::<DateTime>);
     /// ```
     pub fn set_or_clear_target_datetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::DateTime>,
+        T: std::convert::Into<google_cloud_type::model::DateTime>,
     {
         self.target_datetime = v.map(|x| x.into());
         self
@@ -1249,11 +1249,11 @@ pub struct FrequencyOptions {
 
     /// The date from which report generation should start.
     /// UTC time zone.
-    pub start_date: std::option::Option<gtype::model::Date>,
+    pub start_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// The date on which report generation should stop (Inclusive).
     /// UTC time zone.
-    pub end_date: std::option::Option<gtype::model::Date>,
+    pub end_date: std::option::Option<google_cloud_type::model::Date>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1285,12 +1285,12 @@ impl FrequencyOptions {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::FrequencyOptions;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = FrequencyOptions::new().set_start_date(Date::default()/* use setters */);
     /// ```
     pub fn set_start_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.start_date = std::option::Option::Some(v.into());
         self
@@ -1301,13 +1301,13 @@ impl FrequencyOptions {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::FrequencyOptions;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = FrequencyOptions::new().set_or_clear_start_date(Some(Date::default()/* use setters */));
     /// let x = FrequencyOptions::new().set_or_clear_start_date(None::<Date>);
     /// ```
     pub fn set_or_clear_start_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.start_date = v.map(|x| x.into());
         self
@@ -1318,12 +1318,12 @@ impl FrequencyOptions {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::FrequencyOptions;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = FrequencyOptions::new().set_end_date(Date::default()/* use setters */);
     /// ```
     pub fn set_end_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.end_date = std::option::Option::Some(v.into());
         self
@@ -1334,13 +1334,13 @@ impl FrequencyOptions {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::FrequencyOptions;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = FrequencyOptions::new().set_or_clear_end_date(Some(Date::default()/* use setters */));
     /// let x = FrequencyOptions::new().set_or_clear_end_date(None::<Date>);
     /// ```
     pub fn set_or_clear_end_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.end_date = v.map(|x| x.into());
         self

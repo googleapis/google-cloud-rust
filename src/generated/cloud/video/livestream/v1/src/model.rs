@@ -24,7 +24,7 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -3365,7 +3365,9 @@ impl TimecodeConfig {
     /// The value of [time_offset][crate::model::TimecodeConfig::time_offset]
     /// if it holds a `TimeZone`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn time_zone(&self) -> std::option::Option<&std::boxed::Box<gtype::model::TimeZone>> {
+    pub fn time_zone(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::TimeZone>> {
         #[allow(unreachable_patterns)]
         self.time_offset.as_ref().and_then(|v| match v {
             crate::model::timecode_config::TimeOffset::TimeZone(v) => std::option::Option::Some(v),
@@ -3382,12 +3384,14 @@ impl TimecodeConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_video_livestream_v1::model::TimecodeConfig;
-    /// use gtype::model::TimeZone;
+    /// use google_cloud_type::model::TimeZone;
     /// let x = TimecodeConfig::new().set_time_zone(TimeZone::default()/* use setters */);
     /// assert!(x.time_zone().is_some());
     /// assert!(x.utc_offset().is_none());
     /// ```
-    pub fn set_time_zone<T: std::convert::Into<std::boxed::Box<gtype::model::TimeZone>>>(
+    pub fn set_time_zone<
+        T: std::convert::Into<std::boxed::Box<google_cloud_type::model::TimeZone>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -3550,7 +3554,7 @@ pub mod timecode_config {
         /// UTC offset. Must be whole seconds, between -18 hours and +18 hours.
         UtcOffset(std::boxed::Box<wkt::Duration>),
         /// Time zone e.g. "America/Los_Angeles".
-        TimeZone(std::boxed::Box<gtype::model::TimeZone>),
+        TimeZone(std::boxed::Box<google_cloud_type::model::TimeZone>),
     }
 }
 

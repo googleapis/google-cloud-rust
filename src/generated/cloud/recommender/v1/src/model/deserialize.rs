@@ -1495,8 +1495,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CostProjection {
                                     "multiple values for cost",
                                 ));
                             }
-                            result.cost =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.cost = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::__duration => {
                             if !fields.insert(__FieldTag::__duration) {
@@ -1513,8 +1514,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CostProjection {
                                     "multiple values for cost_in_local_currency",
                                 ));
                             }
-                            result.cost_in_local_currency =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.cost_in_local_currency = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -25,7 +25,7 @@ extern crate google_cloud_api;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate rpc;
 extern crate serde;
@@ -772,10 +772,10 @@ pub mod document {
         pub text_anchor: std::option::Option<crate::model::document::TextAnchor>,
 
         /// Text color.
-        pub color: std::option::Option<gtype::model::Color>,
+        pub color: std::option::Option<google_cloud_type::model::Color>,
 
         /// Text background color.
-        pub background_color: std::option::Option<gtype::model::Color>,
+        pub background_color: std::option::Option<google_cloud_type::model::Color>,
 
         /// [Font weight](https://www.w3schools.com/cssref/pr_font_weight.asp).
         /// Possible values are `normal`, `bold`, `bolder`, and `lighter`.
@@ -844,12 +844,12 @@ pub mod document {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_documentai_v1::model::document::Style;
-        /// use gtype::model::Color;
+        /// use google_cloud_type::model::Color;
         /// let x = Style::new().set_color(Color::default()/* use setters */);
         /// ```
         pub fn set_color<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Color>,
+            T: std::convert::Into<google_cloud_type::model::Color>,
         {
             self.color = std::option::Option::Some(v.into());
             self
@@ -860,13 +860,13 @@ pub mod document {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_documentai_v1::model::document::Style;
-        /// use gtype::model::Color;
+        /// use google_cloud_type::model::Color;
         /// let x = Style::new().set_or_clear_color(Some(Color::default()/* use setters */));
         /// let x = Style::new().set_or_clear_color(None::<Color>);
         /// ```
         pub fn set_or_clear_color<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Color>,
+            T: std::convert::Into<google_cloud_type::model::Color>,
         {
             self.color = v.map(|x| x.into());
             self
@@ -877,12 +877,12 @@ pub mod document {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_documentai_v1::model::document::Style;
-        /// use gtype::model::Color;
+        /// use google_cloud_type::model::Color;
         /// let x = Style::new().set_background_color(Color::default()/* use setters */);
         /// ```
         pub fn set_background_color<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Color>,
+            T: std::convert::Into<google_cloud_type::model::Color>,
         {
             self.background_color = std::option::Option::Some(v.into());
             self
@@ -893,13 +893,13 @@ pub mod document {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_documentai_v1::model::document::Style;
-        /// use gtype::model::Color;
+        /// use google_cloud_type::model::Color;
         /// let x = Style::new().set_or_clear_background_color(Some(Color::default()/* use setters */));
         /// let x = Style::new().set_or_clear_background_color(None::<Color>);
         /// ```
         pub fn set_or_clear_background_color<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Color>,
+            T: std::convert::Into<google_cloud_type::model::Color>,
         {
             self.background_color = v.map(|x| x.into());
             self
@@ -2926,10 +2926,10 @@ pub mod document {
                 pub handwritten: bool,
 
                 /// Color of the text.
-                pub text_color: std::option::Option<gtype::model::Color>,
+                pub text_color: std::option::Option<google_cloud_type::model::Color>,
 
                 /// Color of the background.
-                pub background_color: std::option::Option<gtype::model::Color>,
+                pub background_color: std::option::Option<google_cloud_type::model::Color>,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
@@ -3103,12 +3103,12 @@ pub mod document {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
-                /// use gtype::model::Color;
+                /// use google_cloud_type::model::Color;
                 /// let x = StyleInfo::new().set_text_color(Color::default()/* use setters */);
                 /// ```
                 pub fn set_text_color<T>(mut self, v: T) -> Self
                 where
-                    T: std::convert::Into<gtype::model::Color>,
+                    T: std::convert::Into<google_cloud_type::model::Color>,
                 {
                     self.text_color = std::option::Option::Some(v.into());
                     self
@@ -3119,13 +3119,13 @@ pub mod document {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
-                /// use gtype::model::Color;
+                /// use google_cloud_type::model::Color;
                 /// let x = StyleInfo::new().set_or_clear_text_color(Some(Color::default()/* use setters */));
                 /// let x = StyleInfo::new().set_or_clear_text_color(None::<Color>);
                 /// ```
                 pub fn set_or_clear_text_color<T>(mut self, v: std::option::Option<T>) -> Self
                 where
-                    T: std::convert::Into<gtype::model::Color>,
+                    T: std::convert::Into<google_cloud_type::model::Color>,
                 {
                     self.text_color = v.map(|x| x.into());
                     self
@@ -3136,12 +3136,12 @@ pub mod document {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
-                /// use gtype::model::Color;
+                /// use google_cloud_type::model::Color;
                 /// let x = StyleInfo::new().set_background_color(Color::default()/* use setters */);
                 /// ```
                 pub fn set_background_color<T>(mut self, v: T) -> Self
                 where
-                    T: std::convert::Into<gtype::model::Color>,
+                    T: std::convert::Into<google_cloud_type::model::Color>,
                 {
                     self.background_color = std::option::Option::Some(v.into());
                     self
@@ -3152,13 +3152,13 @@ pub mod document {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
-                /// use gtype::model::Color;
+                /// use google_cloud_type::model::Color;
                 /// let x = StyleInfo::new().set_or_clear_background_color(Some(Color::default()/* use setters */));
                 /// let x = StyleInfo::new().set_or_clear_background_color(None::<Color>);
                 /// ```
                 pub fn set_or_clear_background_color<T>(mut self, v: std::option::Option<T>) -> Self
                 where
-                    T: std::convert::Into<gtype::model::Color>,
+                    T: std::convert::Into<google_cloud_type::model::Color>,
                 {
                     self.background_color = v.map(|x| x.into());
                     self
@@ -4624,7 +4624,8 @@ pub mod document {
             /// holds a different branch.
             pub fn money_value(
                 &self,
-            ) -> std::option::Option<&std::boxed::Box<gtype::model::Money>> {
+            ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::Money>>
+            {
                 #[allow(unreachable_patterns)]
                 self.structured_value.as_ref().and_then(|v| match v {
                     crate::model::document::entity::normalized_value::StructuredValue::MoneyValue(v) => std::option::Option::Some(v),
@@ -4641,7 +4642,7 @@ pub mod document {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
-            /// use gtype::model::Money;
+            /// use google_cloud_type::model::Money;
             /// let x = NormalizedValue::new().set_money_value(Money::default()/* use setters */);
             /// assert!(x.money_value().is_some());
             /// assert!(x.date_value().is_none());
@@ -4652,7 +4653,9 @@ pub mod document {
             /// assert!(x.float_value().is_none());
             /// assert!(x.signature_value().is_none());
             /// ```
-            pub fn set_money_value<T: std::convert::Into<std::boxed::Box<gtype::model::Money>>>(
+            pub fn set_money_value<
+                T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Money>>,
+            >(
                 mut self,
                 v: T,
             ) -> Self {
@@ -4667,7 +4670,9 @@ pub mod document {
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `DateValue`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn date_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
+            pub fn date_value(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::Date>> {
                 #[allow(unreachable_patterns)]
                 self.structured_value.as_ref().and_then(|v| match v {
                     crate::model::document::entity::normalized_value::StructuredValue::DateValue(v) => std::option::Option::Some(v),
@@ -4684,7 +4689,7 @@ pub mod document {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
-            /// use gtype::model::Date;
+            /// use google_cloud_type::model::Date;
             /// let x = NormalizedValue::new().set_date_value(Date::default()/* use setters */);
             /// assert!(x.date_value().is_some());
             /// assert!(x.money_value().is_none());
@@ -4695,7 +4700,9 @@ pub mod document {
             /// assert!(x.float_value().is_none());
             /// assert!(x.signature_value().is_none());
             /// ```
-            pub fn set_date_value<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(
+            pub fn set_date_value<
+                T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Date>>,
+            >(
                 mut self,
                 v: T,
             ) -> Self {
@@ -4712,7 +4719,8 @@ pub mod document {
             /// holds a different branch.
             pub fn datetime_value(
                 &self,
-            ) -> std::option::Option<&std::boxed::Box<gtype::model::DateTime>> {
+            ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::DateTime>>
+            {
                 #[allow(unreachable_patterns)]
                 self.structured_value.as_ref().and_then(|v| match v {
                     crate::model::document::entity::normalized_value::StructuredValue::DatetimeValue(v) => std::option::Option::Some(v),
@@ -4729,7 +4737,7 @@ pub mod document {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
-            /// use gtype::model::DateTime;
+            /// use google_cloud_type::model::DateTime;
             /// let x = NormalizedValue::new().set_datetime_value(DateTime::default()/* use setters */);
             /// assert!(x.datetime_value().is_some());
             /// assert!(x.money_value().is_none());
@@ -4741,7 +4749,7 @@ pub mod document {
             /// assert!(x.signature_value().is_none());
             /// ```
             pub fn set_datetime_value<
-                T: std::convert::Into<std::boxed::Box<gtype::model::DateTime>>,
+                T: std::convert::Into<std::boxed::Box<google_cloud_type::model::DateTime>>,
             >(
                 mut self,
                 v: T,
@@ -4759,7 +4767,8 @@ pub mod document {
             /// holds a different branch.
             pub fn address_value(
                 &self,
-            ) -> std::option::Option<&std::boxed::Box<gtype::model::PostalAddress>> {
+            ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::PostalAddress>>
+            {
                 #[allow(unreachable_patterns)]
                 self.structured_value.as_ref().and_then(|v| match v {
                     crate::model::document::entity::normalized_value::StructuredValue::AddressValue(v) => std::option::Option::Some(v),
@@ -4776,7 +4785,7 @@ pub mod document {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
-            /// use gtype::model::PostalAddress;
+            /// use google_cloud_type::model::PostalAddress;
             /// let x = NormalizedValue::new().set_address_value(PostalAddress::default()/* use setters */);
             /// assert!(x.address_value().is_some());
             /// assert!(x.money_value().is_none());
@@ -4788,7 +4797,7 @@ pub mod document {
             /// assert!(x.signature_value().is_none());
             /// ```
             pub fn set_address_value<
-                T: std::convert::Into<std::boxed::Box<gtype::model::PostalAddress>>,
+                T: std::convert::Into<std::boxed::Box<google_cloud_type::model::PostalAddress>>,
             >(
                 mut self,
                 v: T,
@@ -4978,16 +4987,16 @@ pub mod document {
             pub enum StructuredValue {
                 /// Money value. See also:
                 /// <https://github.com/googleapis/googleapis/blob/master/google/type/money.proto>
-                MoneyValue(std::boxed::Box<gtype::model::Money>),
+                MoneyValue(std::boxed::Box<google_cloud_type::model::Money>),
                 /// Date value. Includes year, month, day. See also:
                 /// <https://github.com/googleapis/googleapis/blob/master/google/type/date.proto>
-                DateValue(std::boxed::Box<gtype::model::Date>),
+                DateValue(std::boxed::Box<google_cloud_type::model::Date>),
                 /// DateTime value. Includes date, time, and timezone. See also:
                 /// <https://github.com/googleapis/googleapis/blob/master/google/type/datetime.proto>
-                DatetimeValue(std::boxed::Box<gtype::model::DateTime>),
+                DatetimeValue(std::boxed::Box<google_cloud_type::model::DateTime>),
                 /// Postal address. See also:
                 /// <https://github.com/googleapis/googleapis/blob/master/google/type/postal_address.proto>
-                AddressValue(std::boxed::Box<gtype::model::PostalAddress>),
+                AddressValue(std::boxed::Box<google_cloud_type::model::PostalAddress>),
                 /// Boolean value. Can be used for entities with binary values, or for
                 /// checkboxes.
                 BooleanValue(bool),

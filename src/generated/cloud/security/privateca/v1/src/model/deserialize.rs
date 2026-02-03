@@ -5016,8 +5016,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CertificateIdentityConstraints 
                                     "multiple values for cel_expression",
                                 ));
                             }
-                            result.cel_expression =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.cel_expression = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::__allow_subject_passthrough => {
                             if !fields.insert(__FieldTag::__allow_subject_passthrough) {

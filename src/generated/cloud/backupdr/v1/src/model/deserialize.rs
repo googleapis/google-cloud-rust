@@ -2137,7 +2137,11 @@ impl<'de> serde::de::Deserialize<'de> for super::StandardSchedule {
                                     "multiple values for days_of_week",
                                 ));
                             }
-                            result.days_of_week = map.next_value::<std::option::Option<std::vec::Vec<gtype::model::DayOfWeek>>>()?.unwrap_or_default();
+                            result.days_of_week = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_type::model::DayOfWeek>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__days_of_month => {
                             if !fields.insert(__FieldTag::__days_of_month) {
@@ -2178,7 +2182,11 @@ impl<'de> serde::de::Deserialize<'de> for super::StandardSchedule {
                                     "multiple values for months",
                                 ));
                             }
-                            result.months = map.next_value::<std::option::Option<std::vec::Vec<gtype::model::Month>>>()?.unwrap_or_default();
+                            result.months =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_type::model::Month>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__backup_window => {
                             if !fields.insert(__FieldTag::__backup_window) {
@@ -2405,9 +2413,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WeekDayOfMonth {
                                     "multiple values for day_of_week",
                                 ));
                             }
-                            result.day_of_week = map
-                                .next_value::<std::option::Option<gtype::model::DayOfWeek>>()?
-                                .unwrap_or_default();
+                            result.day_of_week = map.next_value::<std::option::Option<google_cloud_type::model::DayOfWeek>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

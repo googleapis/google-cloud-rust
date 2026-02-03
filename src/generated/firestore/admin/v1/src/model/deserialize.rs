@@ -7681,9 +7681,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WeeklyRecurrence {
                                     "multiple values for day",
                                 ));
                             }
-                            result.day = map
-                                .next_value::<std::option::Option<gtype::model::DayOfWeek>>()?
-                                .unwrap_or_default();
+                            result.day = map.next_value::<std::option::Option<google_cloud_type::model::DayOfWeek>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

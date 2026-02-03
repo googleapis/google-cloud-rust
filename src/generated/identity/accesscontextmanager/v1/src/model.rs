@@ -25,7 +25,7 @@ extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -2618,7 +2618,7 @@ impl wkt::message::Message for Condition {
 #[non_exhaustive]
 pub struct CustomLevel {
     /// Required. A Cloud CEL expression evaluating to a boolean.
-    pub expr: std::option::Option<gtype::model::Expr>,
+    pub expr: std::option::Option<google_cloud_type::model::Expr>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2633,12 +2633,12 @@ impl CustomLevel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::CustomLevel;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = CustomLevel::new().set_expr(Expr::default()/* use setters */);
     /// ```
     pub fn set_expr<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.expr = std::option::Option::Some(v.into());
         self
@@ -2649,13 +2649,13 @@ impl CustomLevel {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::CustomLevel;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = CustomLevel::new().set_or_clear_expr(Some(Expr::default()/* use setters */));
     /// let x = CustomLevel::new().set_or_clear_expr(None::<Expr>);
     /// ```
     pub fn set_or_clear_expr<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.expr = v.map(|x| x.into());
         self

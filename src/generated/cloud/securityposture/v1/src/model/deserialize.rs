@@ -163,8 +163,9 @@ impl<'de> serde::de::Deserialize<'de> for super::PolicyRule {
                                     "multiple values for condition",
                                 ));
                             }
-                            result.condition =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3966,8 +3967,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CustomConfig {
                                     "multiple values for predicate",
                                 ));
                             }
-                            result.predicate =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.predicate = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::__custom_output => {
                             if !fields.insert(__FieldTag::__custom_output) {
@@ -4190,8 +4192,9 @@ impl<'de> serde::de::Deserialize<'de> for super::custom_config::custom_output_sp
                                     "multiple values for value_expression",
                                 ));
                             }
-                            result.value_expression =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.value_expression = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
