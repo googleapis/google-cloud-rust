@@ -9214,8 +9214,9 @@ impl<'de> serde::de::Deserialize<'de> for super::MigrationJob {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__source_database => {
                             if !fields.insert(__FieldTag::__source_database) {
@@ -9894,8 +9895,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ConnectionProfile {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__provider => {
                             if !fields.insert(__FieldTag::__provider) {
@@ -10172,8 +10174,9 @@ impl<'de> serde::de::Deserialize<'de> for super::PrivateConnection {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__vpc_peering_config => {
                             if !fields.insert(__FieldTag::__vpc_peering_config) {

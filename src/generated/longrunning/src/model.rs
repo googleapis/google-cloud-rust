@@ -21,8 +21,8 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -134,7 +134,7 @@ impl Operation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_longrunning::model::Operation;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Operation::new().set_result(Some(
     ///     google_cloud_longrunning::model::operation::Result::Error(Status::default().into())));
     /// ```
@@ -151,7 +151,7 @@ impl Operation {
     /// The value of [result][crate::model::Operation::result]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
             crate::model::operation::Result::Error(v) => std::option::Option::Some(v),
@@ -168,12 +168,12 @@ impl Operation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_longrunning::model::Operation;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Operation::new().set_error(Status::default()/* use setters */);
     /// assert!(x.error().is_some());
     /// assert!(x.response().is_none());
     /// ```
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>>(
         mut self,
         v: T,
     ) -> Self {
@@ -232,7 +232,7 @@ pub mod operation {
     #[non_exhaustive]
     pub enum Result {
         /// The error result of the operation in case of failure or cancellation.
-        Error(std::boxed::Box<rpc::model::Status>),
+        Error(std::boxed::Box<google_cloud_rpc::model::Status>),
         /// The normal, successful response of the operation.  If the original
         /// method returns no data on success, such as `Delete`, the response is
         /// `google.protobuf.Empty`.  If the original method is standard

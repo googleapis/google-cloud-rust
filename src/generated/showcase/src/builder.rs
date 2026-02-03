@@ -2542,7 +2542,9 @@ pub mod echo {
         ///
         /// Note that all the setters affecting `response` are
         /// mutually exclusive.
-        pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+        pub fn set_error<
+            T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+        >(
             mut self,
             v: T,
         ) -> Self {
@@ -3141,7 +3143,9 @@ pub mod echo {
         ///
         /// Note that all the setters affecting `response` are
         /// mutually exclusive.
-        pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+        pub fn set_error<
+            T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+        >(
             mut self,
             v: T,
         ) -> Self {
@@ -3249,7 +3253,9 @@ pub mod echo {
         ///
         /// Note that all the setters affecting `response` are
         /// mutually exclusive.
-        pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+        pub fn set_error<
+            T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+        >(
             mut self,
             v: T,
         ) -> Self {

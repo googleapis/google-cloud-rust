@@ -22,10 +22,10 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
+extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate iam_v2;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -2635,7 +2635,7 @@ pub struct ConditionExplanation {
     pub value: std::option::Option<wkt::Value>,
 
     /// Any errors that prevented complete evaluation of the condition expression.
-    pub errors: std::vec::Vec<rpc::model::Status>,
+    pub errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// The value of each statement of the condition expression. The value can be
     /// `true`, `false`, or `null`. The value is `null` if the statement can't be
@@ -2688,7 +2688,7 @@ impl ConditionExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::ConditionExplanation;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ConditionExplanation::new()
     ///     .set_errors([
     ///         Status::default()/* use setters */,
@@ -2698,7 +2698,7 @@ impl ConditionExplanation {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -2756,7 +2756,7 @@ pub mod condition_explanation {
 
         /// Any errors that prevented complete evaluation of the condition
         /// expression.
-        pub errors: std::vec::Vec<rpc::model::Status>,
+        pub errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2828,7 +2828,7 @@ pub mod condition_explanation {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_explanation::EvaluationState;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = EvaluationState::new()
         ///     .set_errors([
         ///         Status::default()/* use setters */,
@@ -2838,7 +2838,7 @@ pub mod condition_explanation {
         pub fn set_errors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<rpc::model::Status>,
+            V: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             use std::iter::Iterator;
             self.errors = v.into_iter().map(|i| i.into()).collect();

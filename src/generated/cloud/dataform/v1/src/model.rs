@@ -23,9 +23,9 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
+extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -5623,7 +5623,9 @@ pub mod release_config {
         /// The value of [result][crate::model::release_config::ScheduledReleaseRecord::result]
         /// if it holds a `ErrorStatus`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn error_status(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+        pub fn error_status(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
             #[allow(unreachable_patterns)]
             self.result.as_ref().and_then(|v| match v {
                 crate::model::release_config::scheduled_release_record::Result::ErrorStatus(v) => {
@@ -5642,12 +5644,14 @@ pub mod release_config {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dataform_v1::model::release_config::ScheduledReleaseRecord;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ScheduledReleaseRecord::new().set_error_status(Status::default()/* use setters */);
         /// assert!(x.error_status().is_some());
         /// assert!(x.compilation_result().is_none());
         /// ```
-        pub fn set_error_status<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+        pub fn set_error_status<
+            T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+        >(
             mut self,
             v: T,
         ) -> Self {
@@ -5681,7 +5685,7 @@ pub mod release_config {
             CompilationResult(std::string::String),
             /// The error status encountered upon this attempt to create the
             /// compilation result, if the attempt was unsuccessful.
-            ErrorStatus(std::boxed::Box<rpc::model::Status>),
+            ErrorStatus(std::boxed::Box<google_cloud_rpc::model::Status>),
         }
     }
 }
@@ -10305,7 +10309,9 @@ pub mod workflow_config {
         /// The value of [result][crate::model::workflow_config::ScheduledExecutionRecord::result]
         /// if it holds a `ErrorStatus`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn error_status(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+        pub fn error_status(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
             #[allow(unreachable_patterns)]
             self.result.as_ref().and_then(|v| match v {
                 crate::model::workflow_config::scheduled_execution_record::Result::ErrorStatus(
@@ -10324,12 +10330,14 @@ pub mod workflow_config {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dataform_v1::model::workflow_config::ScheduledExecutionRecord;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ScheduledExecutionRecord::new().set_error_status(Status::default()/* use setters */);
         /// assert!(x.error_status().is_some());
         /// assert!(x.workflow_invocation().is_none());
         /// ```
-        pub fn set_error_status<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+        pub fn set_error_status<
+            T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+        >(
             mut self,
             v: T,
         ) -> Self {
@@ -10363,7 +10371,7 @@ pub mod workflow_config {
             WorkflowInvocation(std::string::String),
             /// The error status encountered upon this attempt to create the
             /// workflow invocation, if the attempt was unsuccessful.
-            ErrorStatus(std::boxed::Box<rpc::model::Status>),
+            ErrorStatus(std::boxed::Box<google_cloud_rpc::model::Status>),
         }
     }
 }

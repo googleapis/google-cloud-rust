@@ -25,8 +25,8 @@ extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -1782,7 +1782,7 @@ impl EchoRequest {
     /// The value of [response][crate::model::EchoRequest::response]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
         #[allow(unreachable_patterns)]
         self.response.as_ref().and_then(|v| match v {
             crate::model::echo_request::Response::Error(v) => std::option::Option::Some(v),
@@ -1799,12 +1799,12 @@ impl EchoRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = EchoRequest::new().set_error(Status::default()/* use setters */);
     /// assert!(x.error().is_some());
     /// assert!(x.content().is_none());
     /// ```
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>>(
         mut self,
         v: T,
     ) -> Self {
@@ -1831,7 +1831,7 @@ pub mod echo_request {
         /// The content to be echoed by the server.
         Content(std::string::String),
         /// The error to be thrown by the server.
-        Error(std::boxed::Box<rpc::model::Status>),
+        Error(std::boxed::Box<google_cloud_rpc::model::Status>),
     }
 }
 
@@ -2374,7 +2374,7 @@ pub struct ExpandRequest {
     pub content: std::string::String,
 
     /// The error that is thrown after all words are sent on the stream.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The wait time between each server streaming messages
     pub stream_wait_time: std::option::Option<wkt::Duration>,
@@ -2404,12 +2404,12 @@ impl ExpandRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::ExpandRequest;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ExpandRequest::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -2420,13 +2420,13 @@ impl ExpandRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::ExpandRequest;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ExpandRequest::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = ExpandRequest::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -2898,7 +2898,7 @@ impl WaitRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::WaitRequest;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = WaitRequest::new().set_response(Some(
     ///     google_cloud_showcase_v1beta1::model::wait_request::Response::Error(Status::default().into())));
     /// ```
@@ -2915,7 +2915,7 @@ impl WaitRequest {
     /// The value of [response][crate::model::WaitRequest::response]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
         #[allow(unreachable_patterns)]
         self.response.as_ref().and_then(|v| match v {
             crate::model::wait_request::Response::Error(v) => std::option::Option::Some(v),
@@ -2932,12 +2932,12 @@ impl WaitRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::WaitRequest;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = WaitRequest::new().set_error(Status::default()/* use setters */);
     /// assert!(x.error().is_some());
     /// assert!(x.success().is_none());
     /// ```
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>>(
         mut self,
         v: T,
     ) -> Self {
@@ -3006,7 +3006,7 @@ pub mod wait_request {
     pub enum Response {
         /// The error that will be returned by the server. If this code is specified
         /// to be the OK rpc code, an empty response will be returned.
-        Error(std::boxed::Box<rpc::model::Status>),
+        Error(std::boxed::Box<google_cloud_rpc::model::Status>),
         /// The response to be returned on operation completion.
         Success(std::boxed::Box<crate::model::WaitResponse>),
     }
@@ -3159,7 +3159,7 @@ impl BlockRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::BlockRequest;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BlockRequest::new().set_response(Some(
     ///     google_cloud_showcase_v1beta1::model::block_request::Response::Error(Status::default().into())));
     /// ```
@@ -3176,7 +3176,7 @@ impl BlockRequest {
     /// The value of [response][crate::model::BlockRequest::response]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
         #[allow(unreachable_patterns)]
         self.response.as_ref().and_then(|v| match v {
             crate::model::block_request::Response::Error(v) => std::option::Option::Some(v),
@@ -3193,12 +3193,12 @@ impl BlockRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::BlockRequest;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BlockRequest::new().set_error(Status::default()/* use setters */);
     /// assert!(x.error().is_some());
     /// assert!(x.success().is_none());
     /// ```
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>>(
         mut self,
         v: T,
     ) -> Self {
@@ -3258,7 +3258,7 @@ pub mod block_request {
     pub enum Response {
         /// The error that will be returned by the server. If this code is specified
         /// to be the OK rpc code, an empty response will be returned.
-        Error(std::boxed::Box<rpc::model::Status>),
+        Error(std::boxed::Box<google_cloud_rpc::model::Status>),
         /// The response to be returned that will signify successful method call.
         Success(std::boxed::Box<crate::model::BlockResponse>),
     }
@@ -5203,7 +5203,7 @@ impl wkt::message::Message for SearchBlurbsRequest {
 #[non_exhaustive]
 pub struct SearchBlurbsMetadata {
     /// This signals to the client when to next poll for response.
-    pub retry_info: std::option::Option<rpc::model::RetryInfo>,
+    pub retry_info: std::option::Option<google_cloud_rpc::model::RetryInfo>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5218,12 +5218,12 @@ impl SearchBlurbsMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::SearchBlurbsMetadata;
-    /// use rpc::model::RetryInfo;
+    /// use google_cloud_rpc::model::RetryInfo;
     /// let x = SearchBlurbsMetadata::new().set_retry_info(RetryInfo::default()/* use setters */);
     /// ```
     pub fn set_retry_info<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::RetryInfo>,
+        T: std::convert::Into<google_cloud_rpc::model::RetryInfo>,
     {
         self.retry_info = std::option::Option::Some(v.into());
         self
@@ -5234,13 +5234,13 @@ impl SearchBlurbsMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_showcase_v1beta1::model::SearchBlurbsMetadata;
-    /// use rpc::model::RetryInfo;
+    /// use google_cloud_rpc::model::RetryInfo;
     /// let x = SearchBlurbsMetadata::new().set_or_clear_retry_info(Some(RetryInfo::default()/* use setters */));
     /// let x = SearchBlurbsMetadata::new().set_or_clear_retry_info(None::<RetryInfo>);
     /// ```
     pub fn set_or_clear_retry_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::RetryInfo>,
+        T: std::convert::Into<google_cloud_rpc::model::RetryInfo>,
     {
         self.retry_info = v.map(|x| x.into());
         self
@@ -5883,7 +5883,7 @@ pub mod rest_error {
         pub message: std::string::String,
 
         /// This is the enum version for `google.rpc.Status.code`.
-        pub status: rpc::model::Code,
+        pub status: google_cloud_rpc::model::Code,
 
         /// This corresponds to `google.rpc.Status.details`.
         pub details: std::vec::Vec<wkt::Any>,
@@ -5925,12 +5925,15 @@ pub mod rest_error {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_showcase_v1beta1::model::rest_error::Status;
-        /// use rpc::model::Code;
+        /// use google_cloud_rpc::model::Code;
         /// let x0 = Status::new().set_status(Code::Cancelled);
         /// let x1 = Status::new().set_status(Code::Unknown);
         /// let x2 = Status::new().set_status(Code::InvalidArgument);
         /// ```
-        pub fn set_status<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
+        pub fn set_status<T: std::convert::Into<google_cloud_rpc::model::Code>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.status = v.into();
             self
         }
@@ -6033,7 +6036,7 @@ pub mod sequence {
     #[non_exhaustive]
     pub struct Response {
         /// The status to return for an individual attempt.
-        pub status: std::option::Option<rpc::model::Status>,
+        pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
         /// The amount of time to delay sending the response.
         pub delay: std::option::Option<wkt::Duration>,
@@ -6051,12 +6054,12 @@ pub mod sequence {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_showcase_v1beta1::model::sequence::Response;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = Response::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -6067,13 +6070,13 @@ pub mod sequence {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_showcase_v1beta1::model::sequence::Response;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = Response::new().set_or_clear_status(Some(Status::default()/* use setters */));
         /// let x = Response::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = v.map(|x| x.into());
             self
@@ -6203,7 +6206,7 @@ pub mod streaming_sequence {
     #[non_exhaustive]
     pub struct Response {
         /// The status to return for an individual attempt.
-        pub status: std::option::Option<rpc::model::Status>,
+        pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
         /// The amount of time to delay sending the response.
         pub delay: std::option::Option<wkt::Duration>,
@@ -6224,12 +6227,12 @@ pub mod streaming_sequence {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_showcase_v1beta1::model::streaming_sequence::Response;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = Response::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -6240,13 +6243,13 @@ pub mod streaming_sequence {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_showcase_v1beta1::model::streaming_sequence::Response;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = Response::new().set_or_clear_status(Some(Status::default()/* use setters */));
         /// let x = Response::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = v.map(|x| x.into());
             self
@@ -6386,7 +6389,7 @@ pub mod streaming_sequence_report {
         pub attempt_delay: std::option::Option<wkt::Duration>,
 
         /// The status returned to the attempt.
-        pub status: std::option::Option<rpc::model::Status>,
+        pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -6512,12 +6515,12 @@ pub mod streaming_sequence_report {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_showcase_v1beta1::model::streaming_sequence_report::Attempt;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = Attempt::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -6528,13 +6531,13 @@ pub mod streaming_sequence_report {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_showcase_v1beta1::model::streaming_sequence_report::Attempt;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = Attempt::new().set_or_clear_status(Some(Status::default()/* use setters */));
         /// let x = Attempt::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = v.map(|x| x.into());
             self
@@ -6629,7 +6632,7 @@ pub mod sequence_report {
         pub attempt_delay: std::option::Option<wkt::Duration>,
 
         /// The status returned to the attempt.
-        pub status: std::option::Option<rpc::model::Status>,
+        pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -6755,12 +6758,12 @@ pub mod sequence_report {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_showcase_v1beta1::model::sequence_report::Attempt;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = Attempt::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -6771,13 +6774,13 @@ pub mod sequence_report {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_showcase_v1beta1::model::sequence_report::Attempt;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = Attempt::new().set_or_clear_status(Some(Status::default()/* use setters */));
         /// let x = Attempt::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = v.map(|x| x.into());
             self

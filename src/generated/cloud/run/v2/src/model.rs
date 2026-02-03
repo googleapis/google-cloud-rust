@@ -25,8 +25,8 @@ extern crate google_cloud_api;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -13234,7 +13234,7 @@ impl wkt::message::Message for Task {
 pub struct TaskAttemptResult {
     /// Output only. The status of this attempt.
     /// If the status code is OK, then the attempt succeeded.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. The exit code of this attempt.
     /// This may be unset if the container was unable to exit cleanly with a code
@@ -13263,12 +13263,12 @@ impl TaskAttemptResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::TaskAttemptResult;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TaskAttemptResult::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -13279,13 +13279,13 @@ impl TaskAttemptResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_run_v2::model::TaskAttemptResult;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TaskAttemptResult::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = TaskAttemptResult::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self

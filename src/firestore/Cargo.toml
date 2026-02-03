@@ -42,7 +42,7 @@ tracing.workspace     = true
 gax.workspace     = true
 gaxi              = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
 google-cloud-type = { workspace = true }
-rpc.workspace     = true
+google-cloud-rpc  = { workspace = true }
 wkt.workspace     = true
 
 [features]

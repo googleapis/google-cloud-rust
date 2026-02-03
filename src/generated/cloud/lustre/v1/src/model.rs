@@ -24,8 +24,8 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -1034,7 +1034,7 @@ pub struct OperationMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1674,7 +1674,7 @@ pub struct ExportDataMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1881,7 +1881,7 @@ pub struct ImportDataMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -2329,7 +2329,7 @@ impl wkt::message::Message for ErrorLogEntry {
 #[non_exhaustive]
 pub struct ErrorSummary {
     /// Required.
-    pub error_code: rpc::model::Code,
+    pub error_code: google_cloud_rpc::model::Code,
 
     /// Required. Count of this type of error.
     pub error_count: i64,
@@ -2353,12 +2353,15 @@ impl ErrorSummary {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_lustre_v1::model::ErrorSummary;
-    /// use rpc::model::Code;
+    /// use google_cloud_rpc::model::Code;
     /// let x0 = ErrorSummary::new().set_error_code(Code::Cancelled);
     /// let x1 = ErrorSummary::new().set_error_code(Code::Unknown);
     /// let x2 = ErrorSummary::new().set_error_code(Code::InvalidArgument);
     /// ```
-    pub fn set_error_code<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
+    pub fn set_error_code<T: std::convert::Into<google_cloud_rpc::model::Code>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.error_code = v.into();
         self
     }

@@ -15447,8 +15447,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TransformationResultStatus {
                                     "multiple values for details",
                                 ));
                             }
-                            result.details =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.details = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -16061,8 +16062,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Error {
                                     "multiple values for details",
                                 ));
                             }
-                            result.details =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.details = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__timestamps => {
                             if !fields.insert(__FieldTag::__timestamps) {
@@ -32598,8 +32600,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ProfileStatus {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__timestamp => {
                             if !fields.insert(__FieldTag::__timestamp) {

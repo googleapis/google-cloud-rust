@@ -326,8 +326,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DataSet {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__ttl => {
                             if !fields.insert(__FieldTag::__ttl) {
@@ -1802,8 +1803,9 @@ impl<'de> serde::de::Deserialize<'de> for super::EvaluatedSlice {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

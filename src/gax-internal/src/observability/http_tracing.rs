@@ -453,7 +453,7 @@ mod tests {
         let span = create_http_attempt_span(&request, &options, None, 0);
         let _enter = span.enter();
 
-        let error_info = rpc::model::ErrorInfo::default()
+        let error_info = google_cloud_rpc::model::ErrorInfo::default()
             .set_reason("API_KEY_INVALID")
             .set_domain("googleapis.com");
         let status = gax::error::rpc::Status::default()

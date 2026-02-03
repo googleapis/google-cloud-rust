@@ -24,8 +24,8 @@ extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -8071,8 +8071,8 @@ pub struct ReconcileTagsMetadata {
     /// Maps the name of each tagged column (or empty string for a
     /// sole entry) to tagging operation [status][google.rpc.Status].
     ///
-    /// [google.rpc.Status]: rpc::model::Status
-    pub errors: std::collections::HashMap<std::string::String, rpc::model::Status>,
+    /// [google.rpc.Status]: google_cloud_rpc::model::Status
+    pub errors: std::collections::HashMap<std::string::String, google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8107,7 +8107,7 @@ impl ReconcileTagsMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ReconcileTagsMetadata;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ReconcileTagsMetadata::new().set_errors([
     ///     ("key0", Status::default()/* use setters */),
     ///     ("key1", Status::default()/* use (different) setters */),
@@ -8117,7 +8117,7 @@ impl ReconcileTagsMetadata {
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
         K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
@@ -8819,7 +8819,7 @@ pub struct ImportEntriesMetadata {
     /// There is no guarantee that all the encountered errors are reported.
     /// However, if no errors are reported, it means that no errors were
     /// encountered.
-    pub errors: std::vec::Vec<rpc::model::Status>,
+    pub errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8852,7 +8852,7 @@ impl ImportEntriesMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_datacatalog_v1::model::ImportEntriesMetadata;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportEntriesMetadata::new()
     ///     .set_errors([
     ///         Status::default()/* use setters */,
@@ -8862,7 +8862,7 @@ impl ImportEntriesMetadata {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();

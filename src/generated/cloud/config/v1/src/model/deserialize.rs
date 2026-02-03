@@ -2463,8 +2463,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TerraformError {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4456,8 +4457,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Preview {
                                     "multiple values for error_status",
                                 ));
                             }
-                            result.error_status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error_status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__build => {
                             if !fields.insert(__FieldTag::__build) {

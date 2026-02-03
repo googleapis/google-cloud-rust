@@ -24,9 +24,9 @@ extern crate gaxi;
 extern crate google_cloud_api;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
 extern crate logging_type;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -1208,7 +1208,7 @@ pub struct WriteLogEntriesPartialErrors {
     ///
     /// Failed requests for which no entries are written will not include
     /// per-entry errors.
-    pub log_entry_errors: std::collections::HashMap<i32, rpc::model::Status>,
+    pub log_entry_errors: std::collections::HashMap<i32, google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1223,7 +1223,7 @@ impl WriteLogEntriesPartialErrors {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::WriteLogEntriesPartialErrors;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = WriteLogEntriesPartialErrors::new().set_log_entry_errors([
     ///     (0, Status::default()/* use setters */),
     ///     (1, Status::default()/* use (different) setters */),
@@ -1233,7 +1233,7 @@ impl WriteLogEntriesPartialErrors {
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
         K: std::convert::Into<i32>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.log_entry_errors = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();

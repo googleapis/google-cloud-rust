@@ -25,8 +25,8 @@ extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -1389,7 +1389,7 @@ pub struct ReachabilityDetails {
     pub verify_time: std::option::Option<wkt::Timestamp>,
 
     /// The details of a failure or a cancellation of reachability analysis.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Result may contain a list of traces if a test has multiple possible
     /// paths in the network, such as when destination endpoint is a load balancer
@@ -1460,12 +1460,12 @@ impl ReachabilityDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::ReachabilityDetails;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ReachabilityDetails::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -1476,13 +1476,13 @@ impl ReachabilityDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::ReachabilityDetails;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ReachabilityDetails::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = ReachabilityDetails::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -1793,7 +1793,7 @@ pub struct ProbingDetails {
     pub verify_time: std::option::Option<wkt::Timestamp>,
 
     /// Details about an internal failure or the cancellation of active probing.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The reason probing was aborted.
     pub abort_cause: crate::model::probing_details::ProbingAbortCause,
@@ -1891,12 +1891,12 @@ impl ProbingDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::ProbingDetails;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ProbingDetails::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -1907,13 +1907,13 @@ impl ProbingDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_networkmanagement_v1::model::ProbingDetails;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ProbingDetails::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = ProbingDetails::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self

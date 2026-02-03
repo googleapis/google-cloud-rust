@@ -45,10 +45,10 @@ gaxi                               = { workspace = true, features = ["_internal-
 google-cloud-iam-v1.workspace      = true
 google-cloud-longrunning.workspace = true
 google-cloud-lro.workspace         = true
+google-cloud-rpc.workspace         = true
 google-cloud-type.workspace        = true
 lazy_static.workspace              = true
 orgpolicy_v2.workspace             = true
-rpc.workspace                      = true
 serde.workspace                    = true
 serde_json.workspace               = true
 serde_with.workspace               = true

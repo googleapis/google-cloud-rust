@@ -9173,7 +9173,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ExportAnalyticsMetricsResponse 
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__errors_config => {
                             if !fields.insert(__FieldTag::__errors_config) {
@@ -11859,7 +11863,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportProductsResponse {
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__errors_config => {
                             if !fields.insert(__FieldTag::__errors_config) {
@@ -11953,7 +11961,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportUserEventsResponse {
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__errors_config => {
                             if !fields.insert(__FieldTag::__errors_config) {
@@ -12164,7 +12176,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportCompletionDataResponse {
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

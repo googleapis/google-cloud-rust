@@ -23,8 +23,8 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -2466,7 +2466,7 @@ pub struct VideoAnnotationResults {
 
     /// If set, indicates an error. Note that for a single `AnnotateVideoRequest`
     /// some videos may succeed and some may fail.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2846,12 +2846,12 @@ impl VideoAnnotationResults {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = VideoAnnotationResults::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -2862,13 +2862,13 @@ impl VideoAnnotationResults {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_videointelligence_v1::model::VideoAnnotationResults;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = VideoAnnotationResults::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = VideoAnnotationResults::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self

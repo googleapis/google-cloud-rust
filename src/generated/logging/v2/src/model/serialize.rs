@@ -290,7 +290,7 @@ impl serde::ser::Serialize for super::WriteLogEntriesPartialErrors {
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.log_entry_errors.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i32, rpc::model::Status>);
+            struct __With<'a>(&'a std::collections::HashMap<i32, google_cloud_rpc::model::Status>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where

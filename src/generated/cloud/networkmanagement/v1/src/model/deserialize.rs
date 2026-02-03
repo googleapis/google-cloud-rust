@@ -933,8 +933,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ReachabilityDetails {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__traces => {
                             if !fields.insert(__FieldTag::__traces) {
@@ -1269,8 +1270,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ProbingDetails {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__abort_cause => {
                             if !fields.insert(__FieldTag::__abort_cause) {

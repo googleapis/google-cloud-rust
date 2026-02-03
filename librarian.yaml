@@ -79,6 +79,9 @@ default:
       - name: google-cloud-lro
         package: google-cloud-lro
         used_if: lro
+      - name: google-cloud-rpc
+        package: google-cloud-rpc
+        source: google.rpc
       - name: google-cloud-type
         package: google-cloud-type
         source: google.type
@@ -91,9 +94,6 @@ default:
       - name: logging_type
         package: google-cloud-logging-type
         source: google.logging.type
-      - name: rpc
-        package: google-cloud-rpc
-        source: google.rpc
       - name: rpc_context
         package: google-cloud-rpc-context
         source: google.rpc.context
@@ -527,7 +527,7 @@ libraries:
         - name: google-cloud-lro
           package: google-cloud-lro
           force_used: true
-        - name: rpc
+        - name: google-cloud-rpc
           package: google-cloud-rpc
           force_used: true
       disabled_rustdoc_warnings:
@@ -737,7 +737,7 @@ libraries:
     veneer: true
     rust:
       modules:
-        - module_path: rpc::model
+        - module_path: google_cloud_rpc::model
           output: src/gax-internal/src/generated/convert/rpc
           skipped_ids:
             - .google.rpc.Status

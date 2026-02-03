@@ -147,7 +147,7 @@ pub(crate) mod tests {
 
     #[test]
     fn test_from_gax_error_with_error_info() {
-        let error_info = rpc::model::ErrorInfo::default()
+        let error_info = google_cloud_rpc::model::ErrorInfo::default()
             .set_reason("API_KEY_INVALID")
             .set_domain("googleapis.com");
         let status = gax::error::rpc::Status::default()

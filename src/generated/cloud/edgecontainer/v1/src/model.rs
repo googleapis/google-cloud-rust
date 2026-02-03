@@ -24,8 +24,8 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -1366,7 +1366,7 @@ pub mod cluster {
         /// field may be populated only if `kms_key_state` is not
         /// `KMS_KEY_STATE_KEY_AVAILABLE`. If populated, this field contains the
         /// error status reported by Cloud KMS.
-        pub kms_status: std::option::Option<rpc::model::Status>,
+        pub kms_status: std::option::Option<google_cloud_rpc::model::Status>,
 
         /// Output only. The current resource state associated with the cmek.
         pub resource_state: crate::model::ResourceState,
@@ -1428,12 +1428,12 @@ pub mod cluster {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_edgecontainer_v1::model::cluster::ControlPlaneEncryption;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ControlPlaneEncryption::new().set_kms_status(Status::default()/* use setters */);
         /// ```
         pub fn set_kms_status<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.kms_status = std::option::Option::Some(v.into());
             self
@@ -1444,13 +1444,13 @@ pub mod cluster {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_edgecontainer_v1::model::cluster::ControlPlaneEncryption;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ControlPlaneEncryption::new().set_or_clear_kms_status(Some(Status::default()/* use setters */));
         /// let x = ControlPlaneEncryption::new().set_or_clear_kms_status(None::<Status>);
         /// ```
         pub fn set_or_clear_kms_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.kms_status = v.map(|x| x.into());
             self
@@ -3256,7 +3256,7 @@ pub mod node_pool {
         /// field may be populated only if `kms_key_state` is not
         /// `KMS_KEY_STATE_KEY_AVAILABLE`. If populated, this field contains the
         /// error status reported by Cloud KMS.
-        pub kms_status: std::option::Option<rpc::model::Status>,
+        pub kms_status: std::option::Option<google_cloud_rpc::model::Status>,
 
         /// Output only. The current resource state associated with the cmek.
         pub resource_state: crate::model::ResourceState,
@@ -3318,12 +3318,12 @@ pub mod node_pool {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_edgecontainer_v1::model::node_pool::LocalDiskEncryption;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = LocalDiskEncryption::new().set_kms_status(Status::default()/* use setters */);
         /// ```
         pub fn set_kms_status<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.kms_status = std::option::Option::Some(v.into());
             self
@@ -3334,13 +3334,13 @@ pub mod node_pool {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_edgecontainer_v1::model::node_pool::LocalDiskEncryption;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = LocalDiskEncryption::new().set_or_clear_kms_status(Some(Status::default()/* use setters */));
         /// let x = LocalDiskEncryption::new().set_or_clear_kms_status(None::<Status>);
         /// ```
         pub fn set_or_clear_kms_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.kms_status = v.map(|x| x.into());
             self
@@ -5431,7 +5431,7 @@ pub struct OperationMetadata {
     /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
     /// corresponding to `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// API version used to start the operation.

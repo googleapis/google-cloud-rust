@@ -25,11 +25,11 @@ extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate orgpolicy_v1;
 extern crate osconfig_v1;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -5953,7 +5953,7 @@ impl MoveAnalysis {
     /// The value of [result][crate::model::MoveAnalysis::result]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
             crate::model::move_analysis::Result::Error(v) => std::option::Option::Some(v),
@@ -5970,12 +5970,12 @@ impl MoveAnalysis {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::MoveAnalysis;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = MoveAnalysis::new().set_error(Status::default()/* use setters */);
     /// assert!(x.error().is_some());
     /// assert!(x.analysis().is_none());
     /// ```
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>>(
         mut self,
         v: T,
     ) -> Self {
@@ -6002,7 +6002,7 @@ pub mod move_analysis {
         /// Analysis result of moving the target resource.
         Analysis(std::boxed::Box<crate::model::MoveAnalysisResult>),
         /// Description of error encountered when performing the analysis.
-        Error(std::boxed::Box<rpc::model::Status>),
+        Error(std::boxed::Box<google_cloud_rpc::model::Status>),
     }
 }
 
@@ -6713,7 +6713,7 @@ impl QueryAssetsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::QueryAssetsResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = QueryAssetsResponse::new().set_response(Some(
     ///     google_cloud_asset_v1::model::query_assets_response::Response::Error(Status::default().into())));
     /// ```
@@ -6730,7 +6730,7 @@ impl QueryAssetsResponse {
     /// The value of [response][crate::model::QueryAssetsResponse::response]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
         #[allow(unreachable_patterns)]
         self.response.as_ref().and_then(|v| match v {
             crate::model::query_assets_response::Response::Error(v) => std::option::Option::Some(v),
@@ -6747,13 +6747,13 @@ impl QueryAssetsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::QueryAssetsResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = QueryAssetsResponse::new().set_error(Status::default()/* use setters */);
     /// assert!(x.error().is_some());
     /// assert!(x.query_result().is_none());
     /// assert!(x.output_config().is_none());
     /// ```
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>>(
         mut self,
         v: T,
     ) -> Self {
@@ -6859,7 +6859,7 @@ pub mod query_assets_response {
     #[non_exhaustive]
     pub enum Response {
         /// Error status.
-        Error(std::boxed::Box<rpc::model::Status>),
+        Error(std::boxed::Box<google_cloud_rpc::model::Status>),
         /// Result of the query.
         QueryResult(std::boxed::Box<crate::model::QueryResult>),
         /// Output configuration, which indicates that instead of being returned in
@@ -14069,7 +14069,7 @@ pub struct IamPolicyAnalysisState {
     /// - PERMISSION_DENIED means an access denied error is encountered;
     /// - DEADLINE_EXCEEDED means the analysis on this entity hasn't been started
     ///   in time;
-    pub code: rpc::model::Code,
+    pub code: google_cloud_rpc::model::Code,
 
     /// The human-readable description of the cause of failure.
     pub cause: std::string::String,
@@ -14087,12 +14087,12 @@ impl IamPolicyAnalysisState {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::IamPolicyAnalysisState;
-    /// use rpc::model::Code;
+    /// use google_cloud_rpc::model::Code;
     /// let x0 = IamPolicyAnalysisState::new().set_code(Code::Cancelled);
     /// let x1 = IamPolicyAnalysisState::new().set_code(Code::Unknown);
     /// let x2 = IamPolicyAnalysisState::new().set_code(Code::InvalidArgument);
     /// ```
-    pub fn set_code<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
+    pub fn set_code<T: std::convert::Into<google_cloud_rpc::model::Code>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }

@@ -370,8 +370,8 @@ impl TryFrom<&bytes::Bytes> for Status {
     }
 }
 
-impl From<rpc::model::Status> for Status {
-    fn from(value: rpc::model::Status) -> Self {
+impl From<google_cloud_rpc::model::Status> for Status {
+    fn from(value: google_cloud_rpc::model::Status) -> Self {
         Self {
             code: value.code.into(),
             message: value.message,
@@ -380,8 +380,8 @@ impl From<rpc::model::Status> for Status {
     }
 }
 
-impl From<&rpc::model::Status> for Status {
-    fn from(value: &rpc::model::Status) -> Self {
+impl From<&google_cloud_rpc::model::Status> for Status {
+    fn from(value: &google_cloud_rpc::model::Status) -> Self {
         Self {
             code: value.code.into(),
             message: value.message.clone(),
@@ -400,25 +400,25 @@ impl From<&rpc::model::Status> for Status {
 #[serde(tag = "@type")]
 pub enum StatusDetails {
     #[serde(rename = "type.googleapis.com/google.rpc.BadRequest")]
-    BadRequest(rpc::model::BadRequest),
+    BadRequest(google_cloud_rpc::model::BadRequest),
     #[serde(rename = "type.googleapis.com/google.rpc.DebugInfo")]
-    DebugInfo(rpc::model::DebugInfo),
+    DebugInfo(google_cloud_rpc::model::DebugInfo),
     #[serde(rename = "type.googleapis.com/google.rpc.ErrorInfo")]
-    ErrorInfo(rpc::model::ErrorInfo),
+    ErrorInfo(google_cloud_rpc::model::ErrorInfo),
     #[serde(rename = "type.googleapis.com/google.rpc.Help")]
-    Help(rpc::model::Help),
+    Help(google_cloud_rpc::model::Help),
     #[serde(rename = "type.googleapis.com/google.rpc.LocalizedMessage")]
-    LocalizedMessage(rpc::model::LocalizedMessage),
+    LocalizedMessage(google_cloud_rpc::model::LocalizedMessage),
     #[serde(rename = "type.googleapis.com/google.rpc.PreconditionFailure")]
-    PreconditionFailure(rpc::model::PreconditionFailure),
+    PreconditionFailure(google_cloud_rpc::model::PreconditionFailure),
     #[serde(rename = "type.googleapis.com/google.rpc.QuotaFailure")]
-    QuotaFailure(rpc::model::QuotaFailure),
+    QuotaFailure(google_cloud_rpc::model::QuotaFailure),
     #[serde(rename = "type.googleapis.com/google.rpc.RequestInfo")]
-    RequestInfo(rpc::model::RequestInfo),
+    RequestInfo(google_cloud_rpc::model::RequestInfo),
     #[serde(rename = "type.googleapis.com/google.rpc.ResourceInfo")]
-    ResourceInfo(rpc::model::ResourceInfo),
+    ResourceInfo(google_cloud_rpc::model::ResourceInfo),
     #[serde(rename = "type.googleapis.com/google.rpc.RetryInfo")]
-    RetryInfo(rpc::model::RetryInfo),
+    RetryInfo(google_cloud_rpc::model::RetryInfo),
     #[serde(untagged)]
     Other(wkt::Any),
 }
@@ -428,7 +428,7 @@ impl From<wkt::Any> for StatusDetails {
         macro_rules! try_convert {
             ($($variant:ident),*) => {
                 $(
-                    if let Ok(v) = value.to_msg::<rpc::model::$variant>() {
+                    if let Ok(v) = value.to_msg::<google_cloud_rpc::model::$variant>() {
                         return StatusDetails::$variant(v);
                     }
                 )*
@@ -457,7 +457,7 @@ impl From<&wkt::Any> for StatusDetails {
         macro_rules! try_convert {
             ($($variant:ident),*) => {
                 $(
-                    if let Ok(v) = value.to_msg::<rpc::model::$variant>() {
+                    if let Ok(v) = value.to_msg::<google_cloud_rpc::model::$variant>() {
                         return StatusDetails::$variant(v);
                     }
                 )*
@@ -485,16 +485,16 @@ impl From<&wkt::Any> for StatusDetails {
 mod tests {
     use super::*;
     use anyhow::Result;
-    use rpc::model::BadRequest;
-    use rpc::model::DebugInfo;
-    use rpc::model::ErrorInfo;
-    use rpc::model::Help;
-    use rpc::model::LocalizedMessage;
-    use rpc::model::PreconditionFailure;
-    use rpc::model::QuotaFailure;
-    use rpc::model::RequestInfo;
-    use rpc::model::ResourceInfo;
-    use rpc::model::RetryInfo;
+    use google_cloud_rpc::model::DebugInfo;
+    use google_cloud_rpc::model::ErrorInfo;
+    use google_cloud_rpc::model::LocalizedMessage;
+    use google_cloud_rpc::model::RequestInfo;
+    use google_cloud_rpc::model::ResourceInfo;
+    use google_cloud_rpc::model::RetryInfo;
+    use google_cloud_rpc::model::{BadRequest, bad_request};
+    use google_cloud_rpc::model::{Help, help};
+    use google_cloud_rpc::model::{PreconditionFailure, precondition_failure};
+    use google_cloud_rpc::model::{QuotaFailure, quota_failure};
     use serde_json::json;
     use test_case::test_case;
 
@@ -523,10 +523,9 @@ mod tests {
 
     #[test]
     fn status_detail_setter() -> Result<()> {
-        let d0 = StatusDetails::ErrorInfo(rpc::model::ErrorInfo::new().set_reason("test-reason"));
-        let d1 = StatusDetails::Help(
-            rpc::model::Help::new().set_links([rpc::model::help::Link::new().set_url("test-url")]),
-        );
+        let d0 = StatusDetails::ErrorInfo(ErrorInfo::new().set_reason("test-reason"));
+        let d1 =
+            StatusDetails::Help(Help::new().set_links([help::Link::new().set_url("test-url")]));
         let want = Status {
             details: vec![d0.clone(), d1.clone()],
             ..Default::default()
@@ -535,10 +534,9 @@ mod tests {
         let got = Status::default().set_details([d0, d1]);
         assert_eq!(got, want);
 
-        let a0 = wkt::Any::from_msg(&rpc::model::ErrorInfo::new().set_reason("test-reason"))?;
-        let a1 = wkt::Any::from_msg(
-            &rpc::model::Help::new().set_links([rpc::model::help::Link::new().set_url("test-url")]),
-        )?;
+        let a0 = wkt::Any::from_msg(&ErrorInfo::new().set_reason("test-reason"))?;
+        let a1 =
+            wkt::Any::from_msg(&Help::new().set_links([help::Link::new().set_url("test-url")]))?;
         let got = Status::default().set_details(&[a0, a1]);
         assert_eq!(got, want);
 
@@ -547,69 +545,66 @@ mod tests {
 
     #[test]
     fn serialization_all_variants() {
-        let status =
-            Status {
-                code: Code::Unimplemented,
-                message: "test".to_string(),
+        let status = Status {
+            code: Code::Unimplemented,
+            message: "test".to_string(),
 
-                details: vec![
-                    StatusDetails::BadRequest(BadRequest::default().set_field_violations(
-                        vec![rpc::model::bad_request::FieldViolation::default()
-                        .set_field("field").set_description("desc")],
-                    )),
-                    StatusDetails::DebugInfo(
-                        DebugInfo::default()
-                            .set_stack_entries(vec!["stack".to_string()])
-                            .set_detail("detail"),
-                    ),
-                    StatusDetails::ErrorInfo(
-                        ErrorInfo::default()
-                            .set_reason("reason")
-                            .set_domain("domain")
-                            .set_metadata([("", "")].into_iter().take(0)),
-                    ),
-                    StatusDetails::Help(Help::default().set_links(
-                        vec![rpc::model::help::Link::default()
-                        .set_description( "desc")
-                        .set_url( "url")
-                    ],
-                    )),
-                    StatusDetails::LocalizedMessage(
-                        LocalizedMessage::default()
-                            .set_locale("locale")
-                            .set_message("message"),
-                    ),
-                    StatusDetails::PreconditionFailure(
-                        PreconditionFailure::default().set_violations(vec![
-                            rpc::model::precondition_failure::Violation::default()
+            details: vec![
+                StatusDetails::BadRequest(BadRequest::default().set_field_violations(vec![
+                        bad_request::FieldViolation::default()
+                            .set_field("field")
+                            .set_description("desc"),
+                    ])),
+                StatusDetails::DebugInfo(
+                    DebugInfo::default()
+                        .set_stack_entries(vec!["stack".to_string()])
+                        .set_detail("detail"),
+                ),
+                StatusDetails::ErrorInfo(
+                    ErrorInfo::default()
+                        .set_reason("reason")
+                        .set_domain("domain")
+                        .set_metadata([("", "")].into_iter().take(0)),
+                ),
+                StatusDetails::Help(Help::default().set_links(vec![
+                    help::Link::default().set_description("desc").set_url("url"),
+                ])),
+                StatusDetails::LocalizedMessage(
+                    LocalizedMessage::default()
+                        .set_locale("locale")
+                        .set_message("message"),
+                ),
+                StatusDetails::PreconditionFailure(PreconditionFailure::default().set_violations(
+                    vec![
+                            precondition_failure::Violation::default()
                                 .set_type("type")
                                 .set_subject("subject")
                                 .set_description("desc"),
-                        ]),
-                    ),
-                    StatusDetails::QuotaFailure(QuotaFailure::default().set_violations(
-                        vec![rpc::model::quota_failure::Violation::default()
+                        ],
+                )),
+                StatusDetails::QuotaFailure(QuotaFailure::default().set_violations(
+                    vec![quota_failure::Violation::default()
                         .set_subject( "subject")
                         .set_description( "desc")
                     ],
-                    )),
-                    StatusDetails::RequestInfo(
-                        RequestInfo::default()
-                            .set_request_id("id")
-                            .set_serving_data("data"),
-                    ),
-                    StatusDetails::ResourceInfo(
-                        ResourceInfo::default()
-                            .set_resource_type("type")
-                            .set_resource_name("name")
-                            .set_owner("owner")
-                            .set_description("desc"),
-                    ),
-                    StatusDetails::RetryInfo(
-                        RetryInfo::default().set_retry_delay(wkt::Duration::clamp(1, 0)),
-                    ),
-                ],
-            };
+                )),
+                StatusDetails::RequestInfo(
+                    RequestInfo::default()
+                        .set_request_id("id")
+                        .set_serving_data("data"),
+                ),
+                StatusDetails::ResourceInfo(
+                    ResourceInfo::default()
+                        .set_resource_type("type")
+                        .set_resource_name("name")
+                        .set_owner("owner")
+                        .set_description("desc"),
+                ),
+                StatusDetails::RetryInfo(
+                    RetryInfo::default().set_retry_delay(wkt::Duration::clamp(1, 0)),
+                ),
+            ],
+        };
         let got = serde_json::to_value(&status).unwrap();
         let want = json!({
             "code": Code::Unimplemented,
@@ -654,7 +649,7 @@ mod tests {
             message: "test".to_string(),
             details: vec![
                 StatusDetails::BadRequest(BadRequest::default().set_field_violations(
-                    vec![rpc::model::bad_request::FieldViolation::default()
+                    vec![bad_request::FieldViolation::default()
                         .set_field( "field" )
                         .set_description( "desc" )
                     ],
@@ -670,7 +665,7 @@ mod tests {
                         .set_domain("domain"),
                 ),
                 StatusDetails::Help(Help::default().set_links(vec![
-                    rpc::model::help::Link::default().set_description("desc").set_url("url"),
+                    help::Link::default().set_description("desc").set_url("url"),
                 ])),
                 StatusDetails::LocalizedMessage(
                     LocalizedMessage::default()
@@ -678,14 +673,14 @@ mod tests {
                         .set_message("message"),
                 ),
                 StatusDetails::PreconditionFailure(PreconditionFailure::default().set_violations(
-                    vec![rpc::model::precondition_failure::Violation::default()
+                    vec![precondition_failure::Violation::default()
                         .set_type( "type" )
                         .set_subject( "subject" )
                         .set_description( "desc" )
                     ],
                 )),
                 StatusDetails::QuotaFailure(QuotaFailure::default().set_violations(
-                    vec![rpc::model::quota_failure::Violation::default()
+                    vec![quota_failure::Violation::default()
                         .set_subject( "subject")
                         .set_description( "desc")
                     ],
@@ -756,7 +751,7 @@ mod tests {
 
     #[test]
     fn status_from_rpc_no_details() {
-        let input = rpc::model::Status::default()
+        let input = google_cloud_rpc::model::Status::default()
             .set_code(Code::Unavailable as i32)
             .set_message("try-again");
         let got = Status::from(&input);
@@ -796,7 +791,7 @@ mod tests {
     where
         T: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
-        let input = rpc::model::Status::default()
+        let input = google_cloud_rpc::model::Status::default()
             .set_code(Code::Unavailable as i32)
             .set_message("try-again")
             .set_details(vec![wkt::Any::from_msg(&detail).unwrap()]);
@@ -814,7 +809,7 @@ mod tests {
     #[test]
     fn status_from_rpc_unknown_details() {
         let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 0)).unwrap();
-        let input = rpc::model::Status::default()
+        let input = google_cloud_rpc::model::Status::default()
             .set_code(Code::Unavailable as i32)
             .set_message("try-again")
             .set_details(vec![any.clone()]);

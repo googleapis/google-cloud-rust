@@ -21,8 +21,8 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate rpc_context;
 extern crate serde;
 extern crate serde_json;
@@ -283,8 +283,8 @@ pub struct CheckResponse {
     /// indicates a denial; [google.rpc.Status.details][google.rpc.Status.details]
     /// would contain additional details about the denial.
     ///
-    /// [google.rpc.Status.details]: rpc::model::Status::details
-    pub status: std::option::Option<rpc::model::Status>,
+    /// [google.rpc.Status.details]: google_cloud_rpc::model::Status::details
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Returns a set of request contexts generated from the `CheckRequest`.
     pub headers: std::collections::HashMap<std::string::String, std::string::String>,
@@ -302,12 +302,12 @@ impl CheckResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicecontrol_v2::model::CheckResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CheckResponse::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -318,13 +318,13 @@ impl CheckResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicecontrol_v2::model::CheckResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CheckResponse::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = CheckResponse::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self

@@ -24,8 +24,8 @@ extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -13724,7 +13724,7 @@ pub struct EncryptionInfo {
     /// Output only. The status of encrypt/decrypt calls on underlying data for
     /// this resource. Regardless of status, the existing data is always encrypted
     /// at rest.
-    pub encryption_status: std::option::Option<rpc::model::Status>,
+    pub encryption_status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. The version of the Cloud KMS key specified in the parent
     /// cluster that is in use for the data underlying this table.
@@ -13762,12 +13762,12 @@ impl EncryptionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::EncryptionInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = EncryptionInfo::new().set_encryption_status(Status::default()/* use setters */);
     /// ```
     pub fn set_encryption_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.encryption_status = std::option::Option::Some(v.into());
         self
@@ -13778,13 +13778,13 @@ impl EncryptionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigtable_admin_v2::model::EncryptionInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = EncryptionInfo::new().set_or_clear_encryption_status(Some(Status::default()/* use setters */));
     /// let x = EncryptionInfo::new().set_or_clear_encryption_status(None::<Status>);
     /// ```
     pub fn set_or_clear_encryption_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.encryption_status = v.map(|x| x.into());
         self

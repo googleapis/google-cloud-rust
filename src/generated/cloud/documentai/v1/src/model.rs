@@ -25,9 +25,9 @@ extern crate google_cloud_api;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -189,7 +189,7 @@ pub struct Document {
     pub shard_info: std::option::Option<crate::model::document::ShardInfo>,
 
     /// Any error that occurred while processing this document.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Placeholder. Revision history of this document.
     pub revisions: std::vec::Vec<crate::model::document::Revision>,
@@ -413,12 +413,12 @@ impl Document {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::Document;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Document::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -429,13 +429,13 @@ impl Document {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_documentai_v1::model::Document;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Document::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = Document::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -10679,7 +10679,7 @@ pub mod batch_process_metadata {
         pub input_gcs_source: std::string::String,
 
         /// The status processing the document.
-        pub status: std::option::Option<rpc::model::Status>,
+        pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
         /// The Cloud Storage output destination (in the request as
         /// [DocumentOutputConfig.GcsOutputConfig.gcs_uri][google.cloud.documentai.v1.DocumentOutputConfig.GcsOutputConfig.gcs_uri])
@@ -10719,12 +10719,12 @@ pub mod batch_process_metadata {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_documentai_v1::model::batch_process_metadata::IndividualProcessStatus;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = IndividualProcessStatus::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -10735,13 +10735,13 @@ pub mod batch_process_metadata {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_documentai_v1::model::batch_process_metadata::IndividualProcessStatus;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = IndividualProcessStatus::new().set_or_clear_status(Some(Status::default()/* use setters */));
         /// let x = IndividualProcessStatus::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = v.map(|x| x.into());
             self
@@ -13342,12 +13342,12 @@ pub mod train_processor_version_metadata {
         /// Error information pertaining to specific documents. A maximum of 10
         /// document errors will be returned.
         /// Any document with errors will not be used throughout training.
-        pub document_errors: std::vec::Vec<rpc::model::Status>,
+        pub document_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
         /// Error information for the dataset as a whole. A maximum of 10 dataset
         /// errors will be returned.
         /// A single dataset error is terminal for training.
-        pub dataset_errors: std::vec::Vec<rpc::model::Status>,
+        pub dataset_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -13386,7 +13386,7 @@ pub mod train_processor_version_metadata {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_documentai_v1::model::train_processor_version_metadata::DatasetValidation;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = DatasetValidation::new()
         ///     .set_document_errors([
         ///         Status::default()/* use setters */,
@@ -13396,7 +13396,7 @@ pub mod train_processor_version_metadata {
         pub fn set_document_errors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<rpc::model::Status>,
+            V: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             use std::iter::Iterator;
             self.document_errors = v.into_iter().map(|i| i.into()).collect();
@@ -13408,7 +13408,7 @@ pub mod train_processor_version_metadata {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_documentai_v1::model::train_processor_version_metadata::DatasetValidation;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = DatasetValidation::new()
         ///     .set_dataset_errors([
         ///         Status::default()/* use setters */,
@@ -13418,7 +13418,7 @@ pub mod train_processor_version_metadata {
         pub fn set_dataset_errors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<rpc::model::Status>,
+            V: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             use std::iter::Iterator;
             self.dataset_errors = v.into_iter().map(|i| i.into()).collect();

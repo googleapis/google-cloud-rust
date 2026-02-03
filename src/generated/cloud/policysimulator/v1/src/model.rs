@@ -24,10 +24,10 @@ extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate orgpolicy_v2;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -1241,7 +1241,7 @@ pub struct OrgPolicyViolation {
     pub custom_constraint: std::option::Option<orgpolicy_v2::model::CustomConstraint>,
 
     /// Any error encountered during the evaluation.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1334,12 +1334,12 @@ impl OrgPolicyViolation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolation;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = OrgPolicyViolation::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -1350,13 +1350,13 @@ impl OrgPolicyViolation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolation;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = OrgPolicyViolation::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = OrgPolicyViolation::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -2933,7 +2933,7 @@ impl ReplayResult {
     /// The value of [result][crate::model::ReplayResult::result]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
             crate::model::replay_result::Result::Error(v) => std::option::Option::Some(v),
@@ -2950,12 +2950,12 @@ impl ReplayResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ReplayResult::new().set_error(Status::default()/* use setters */);
     /// assert!(x.error().is_some());
     /// assert!(x.diff().is_none());
     /// ```
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>>(
         mut self,
         v: T,
     ) -> Self {
@@ -2992,7 +2992,7 @@ pub mod replay_result {
         ///
         /// This field is only included for access tuples that were not replayed
         /// successfully.
-        Error(std::boxed::Box<rpc::model::Status>),
+        Error(std::boxed::Box<google_cloud_rpc::model::Status>),
     }
 }
 
@@ -3987,7 +3987,7 @@ pub struct ExplainedAccess {
     /// omitted.
     ///
     /// [google.cloud.policysimulator.v1.AccessState]: crate::model::AccessState
-    pub errors: std::vec::Vec<rpc::model::Status>,
+    pub errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4042,7 +4042,7 @@ impl ExplainedAccess {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::ExplainedAccess;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ExplainedAccess::new()
     ///     .set_errors([
     ///         Status::default()/* use setters */,
@@ -4052,7 +4052,7 @@ impl ExplainedAccess {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();

@@ -1135,8 +1135,9 @@ impl<'de> serde::de::Deserialize<'de> for super::cluster::ControlPlaneEncryption
                                     "multiple values for kms_status",
                                 ));
                             }
-                            result.kms_status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.kms_status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__resource_state => {
                             if !fields.insert(__FieldTag::__resource_state) {
@@ -2190,8 +2191,9 @@ impl<'de> serde::de::Deserialize<'de> for super::node_pool::LocalDiskEncryption 
                                     "multiple values for kms_status",
                                 ));
                             }
-                            result.kms_status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.kms_status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__resource_state => {
                             if !fields.insert(__FieldTag::__resource_state) {

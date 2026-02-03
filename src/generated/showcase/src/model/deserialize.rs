@@ -1678,15 +1678,14 @@ impl<'de> serde::de::Deserialize<'de> for super::EchoRequest {
                                     "multiple values for `response`, a oneof with full ID .google.showcase.v1beta1.EchoRequest.error, latest field was error",
                                 ));
                             }
-                            result.response =
-                                std::option::Option::Some(
-                                    crate::model::echo_request::Response::Error(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<rpc::model::Status>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.response = std::option::Option::Some(
+                                crate::model::echo_request::Response::Error(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_rpc::model::Status>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::__severity => {
                             if !fields.insert(__FieldTag::__severity) {
@@ -2673,8 +2672,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ExpandRequest {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__stream_wait_time => {
                             if !fields.insert(__FieldTag::__stream_wait_time) {
@@ -3304,15 +3304,14 @@ impl<'de> serde::de::Deserialize<'de> for super::WaitRequest {
                                     "multiple values for `response`, a oneof with full ID .google.showcase.v1beta1.WaitRequest.error, latest field was error",
                                 ));
                             }
-                            result.response =
-                                std::option::Option::Some(
-                                    crate::model::wait_request::Response::Error(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<rpc::model::Status>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.response = std::option::Option::Some(
+                                crate::model::wait_request::Response::Error(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_rpc::model::Status>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::__success => {
                             if !fields.insert(__FieldTag::__success) {
@@ -3589,15 +3588,14 @@ impl<'de> serde::de::Deserialize<'de> for super::BlockRequest {
                                     "multiple values for `response`, a oneof with full ID .google.showcase.v1beta1.BlockRequest.error, latest field was error",
                                 ));
                             }
-                            result.response =
-                                std::option::Option::Some(
-                                    crate::model::block_request::Response::Error(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<rpc::model::Status>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.response = std::option::Option::Some(
+                                crate::model::block_request::Response::Error(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_rpc::model::Status>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::__success => {
                             if !fields.insert(__FieldTag::__success) {
@@ -6029,8 +6027,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchBlurbsMetadata {
                                     "multiple values for retry_info",
                                 ));
                             }
-                            result.retry_info =
-                                map.next_value::<std::option::Option<rpc::model::RetryInfo>>()?;
+                            result.retry_info = map.next_value::<std::option::Option<google_cloud_rpc::model::RetryInfo>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6772,7 +6770,7 @@ impl<'de> serde::de::Deserialize<'de> for super::rest_error::Status {
                                 ));
                             }
                             result.status = map
-                                .next_value::<std::option::Option<rpc::model::Code>>()?
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Code>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__details => {
@@ -6957,8 +6955,9 @@ impl<'de> serde::de::Deserialize<'de> for super::sequence::Response {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__delay => {
                             if !fields.insert(__FieldTag::__delay) {
@@ -7156,8 +7155,9 @@ impl<'de> serde::de::Deserialize<'de> for super::streaming_sequence::Response {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__delay => {
                             if !fields.insert(__FieldTag::__delay) {
@@ -7417,8 +7417,9 @@ impl<'de> serde::de::Deserialize<'de> for super::streaming_sequence_report::Atte
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7649,8 +7650,9 @@ impl<'de> serde::de::Deserialize<'de> for super::sequence_report::Attempt {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

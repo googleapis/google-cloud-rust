@@ -195,8 +195,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ReplicationCycle {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__warnings => {
                             if !fields.insert(__FieldTag::__warnings) {
@@ -1143,8 +1144,9 @@ impl<'de> serde::de::Deserialize<'de> for super::MigratingVm {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__recent_cutover_jobs => {
                             if !fields.insert(__FieldTag::__recent_cutover_jobs) {
@@ -1559,8 +1561,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CloneJob {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__steps => {
                             if !fields.insert(__FieldTag::__steps) {
@@ -2140,8 +2143,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CutoverJob {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__state_message => {
                             if !fields.insert(__FieldTag::__state_message) {
@@ -3591,8 +3595,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AwsSourceDetails {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__inventory_tag_list => {
                             if !fields.insert(__FieldTag::__inventory_tag_list) {
@@ -3980,8 +3985,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AzureSourceDetails {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__migration_resources_user_tags => {
                             if !fields.insert(__FieldTag::__migration_resources_user_tags) {
@@ -4319,8 +4325,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DatacenterConnector {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__appliance_infrastructure_version => {
                             if !fields.insert(__FieldTag::__appliance_infrastructure_version) {
@@ -4465,8 +4472,9 @@ impl<'de> serde::de::Deserialize<'de> for super::UpgradeStatus {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__start_time => {
                             if !fields.insert(__FieldTag::__start_time) {
@@ -7669,8 +7677,9 @@ impl<'de> serde::de::Deserialize<'de> for super::UtilizationReport {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__create_time => {
                             if !fields.insert(__FieldTag::__create_time) {
@@ -16199,9 +16208,8 @@ impl<'de> serde::de::Deserialize<'de> for super::MigrationError {
                                     "multiple values for error_message",
                                 ));
                             }
-                            result.error_message = map
-                                .next_value::<std::option::Option<rpc::model::LocalizedMessage>>(
-                                )?;
+                            result.error_message = map.next_value::<std::option::Option<google_cloud_rpc::model::LocalizedMessage>>()?
+                                ;
                         }
                         __FieldTag::__action_item => {
                             if !fields.insert(__FieldTag::__action_item) {
@@ -16209,9 +16217,8 @@ impl<'de> serde::de::Deserialize<'de> for super::MigrationError {
                                     "multiple values for action_item",
                                 ));
                             }
-                            result.action_item = map
-                                .next_value::<std::option::Option<rpc::model::LocalizedMessage>>(
-                                )?;
+                            result.action_item = map.next_value::<std::option::Option<google_cloud_rpc::model::LocalizedMessage>>()?
+                                ;
                         }
                         __FieldTag::__help_links => {
                             if !fields.insert(__FieldTag::__help_links) {
@@ -16219,7 +16226,11 @@ impl<'de> serde::de::Deserialize<'de> for super::MigrationError {
                                     "multiple values for help_links",
                                 ));
                             }
-                            result.help_links = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::help::Link>>>()?.unwrap_or_default();
+                            result.help_links = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::help::Link>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__error_time => {
                             if !fields.insert(__FieldTag::__error_time) {
@@ -16330,9 +16341,8 @@ impl<'de> serde::de::Deserialize<'de> for super::MigrationWarning {
                                     "multiple values for warning_message",
                                 ));
                             }
-                            result.warning_message = map
-                                .next_value::<std::option::Option<rpc::model::LocalizedMessage>>(
-                                )?;
+                            result.warning_message = map.next_value::<std::option::Option<google_cloud_rpc::model::LocalizedMessage>>()?
+                                ;
                         }
                         __FieldTag::__action_item => {
                             if !fields.insert(__FieldTag::__action_item) {
@@ -16340,9 +16350,8 @@ impl<'de> serde::de::Deserialize<'de> for super::MigrationWarning {
                                     "multiple values for action_item",
                                 ));
                             }
-                            result.action_item = map
-                                .next_value::<std::option::Option<rpc::model::LocalizedMessage>>(
-                                )?;
+                            result.action_item = map.next_value::<std::option::Option<google_cloud_rpc::model::LocalizedMessage>>()?
+                                ;
                         }
                         __FieldTag::__help_links => {
                             if !fields.insert(__FieldTag::__help_links) {
@@ -16350,7 +16359,11 @@ impl<'de> serde::de::Deserialize<'de> for super::MigrationWarning {
                                     "multiple values for help_links",
                                 ));
                             }
-                            result.help_links = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::help::Link>>>()?.unwrap_or_default();
+                            result.help_links = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::help::Link>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__warning_time => {
                             if !fields.insert(__FieldTag::__warning_time) {
@@ -17990,7 +18003,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageImportJob {
                                     "multiple values for errors",
                                 ));
                             }
-                            result.errors = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.errors =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__warnings => {
                             if !fields.insert(__FieldTag::__warnings) {
@@ -20586,7 +20603,11 @@ impl<'de> serde::de::Deserialize<'de> for super::DiskMigrationJob {
                                     "multiple values for errors",
                                 ));
                             }
-                            result.errors = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.errors =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__steps => {
                             if !fields.insert(__FieldTag::__steps) {

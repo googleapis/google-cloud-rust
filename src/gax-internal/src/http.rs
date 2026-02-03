@@ -490,7 +490,7 @@ mod tests {
             .set_code(Code::NotFound)
             .set_message("The thing is not there, oh noes!")
             .set_details([LocalizedMessage(
-                rpc::model::LocalizedMessage::new()
+                google_cloud_rpc::model::LocalizedMessage::new()
                     .set_locale("en-US")
                     .set_message("we searched everywhere, honest"),
             )]);

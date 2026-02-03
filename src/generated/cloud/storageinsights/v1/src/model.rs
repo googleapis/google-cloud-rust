@@ -24,9 +24,9 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -585,7 +585,7 @@ pub struct ReportDetail {
     pub shards_count: i64,
 
     /// Status of the ReportDetail.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Labels as key value pairs
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
@@ -682,12 +682,12 @@ impl ReportDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::ReportDetail;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ReportDetail::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -698,13 +698,13 @@ impl ReportDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::ReportDetail;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ReportDetail::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = ReportDetail::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self
@@ -1091,7 +1091,7 @@ pub struct OperationMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -2487,7 +2487,7 @@ pub struct DatasetConfig {
     pub identity: std::option::Option<crate::model::Identity>,
 
     /// Output only. Status of the `datasetConfig`.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. State of the `datasetConfig`.
     pub dataset_config_state: crate::model::dataset_config::ConfigState,
@@ -2747,12 +2747,12 @@ impl DatasetConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DatasetConfig::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -2763,13 +2763,13 @@ impl DatasetConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DatasetConfig::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = DatasetConfig::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self

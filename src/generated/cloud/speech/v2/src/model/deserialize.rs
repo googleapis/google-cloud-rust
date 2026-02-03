@@ -5316,8 +5316,9 @@ impl<'de> serde::de::Deserialize<'de> for super::BatchRecognizeFileResult {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__metadata => {
                             if !fields.insert(__FieldTag::__metadata) {
@@ -5485,8 +5486,9 @@ impl<'de> serde::de::Deserialize<'de> for super::BatchRecognizeTranscriptionMeta
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__uri => {
                             if !fields.insert(__FieldTag::__uri) {

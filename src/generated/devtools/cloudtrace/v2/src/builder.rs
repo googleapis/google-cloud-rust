@@ -355,7 +355,7 @@ pub mod trace_service {
         /// Sets the value of [status][crate::model::Span::status].
         pub fn set_status<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.0.request.status = std::option::Option::Some(v.into());
             self
@@ -364,7 +364,7 @@ pub mod trace_service {
         /// Sets or clears the value of [status][crate::model::Span::status].
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.0.request.status = v.map(|x| x.into());
             self
