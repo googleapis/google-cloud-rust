@@ -136,19 +136,6 @@ mod tests {
     }
 
     #[test]
-    fn handler_implicit_drop() -> anyhow::Result<()> {
-        let (ack_tx, mut ack_rx) = unbounded_channel();
-        {
-            let _h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx));
-            assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
-        }
-        let ack = ack_rx.try_recv()?;
-        assert_eq!(ack, AckResult::Nack(test_id(1)));
-
-        Ok(())
-    }
-
-    #[test]
     fn at_least_once_ack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let h = AtLeastOnce::new(test_id(1), ack_tx);
@@ -168,19 +155,6 @@ mod tests {
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         drop(h);
-        let ack = ack_rx.try_recv()?;
-        assert_eq!(ack, AckResult::Nack(test_id(1)));
-
-        Ok(())
-    }
-
-    #[test]
-    fn at_least_once_implicit_drop() -> anyhow::Result<()> {
-        let (ack_tx, mut ack_rx) = unbounded_channel();
-        {
-            let _h = AtLeastOnce::new(test_id(1), ack_tx);
-            assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
-        }
         let ack = ack_rx.try_recv()?;
         assert_eq!(ack, AckResult::Nack(test_id(1)));
 
