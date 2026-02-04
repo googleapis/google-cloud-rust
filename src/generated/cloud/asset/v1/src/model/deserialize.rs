@@ -9753,7 +9753,11 @@ impl<'de> serde::de::Deserialize<'de> for super::Asset {
                                     "multiple values for org_policy",
                                 ));
                             }
-                            result.org_policy = map.next_value::<std::option::Option<std::vec::Vec<orgpolicy_v1::model::Policy>>>()?.unwrap_or_default();
+                            result.org_policy = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_orgpolicy_v1::model::Policy>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__access_policy => {
                             if !fields.insert(__FieldTag::__access_policy) {
@@ -9768,12 +9772,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Asset {
                             }
                             result.access_context_policy = std::option::Option::Some(
                                 crate::model::asset::AccessContextPolicy::AccessPolicy(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            accesscontextmanager_v1::model::AccessPolicy,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -9790,12 +9789,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Asset {
                             }
                             result.access_context_policy = std::option::Option::Some(
                                 crate::model::asset::AccessContextPolicy::AccessLevel(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            accesscontextmanager_v1::model::AccessLevel,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::AccessLevel>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -9812,12 +9806,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Asset {
                             }
                             result.access_context_policy = std::option::Option::Some(
                                 crate::model::asset::AccessContextPolicy::ServicePerimeter(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            accesscontextmanager_v1::model::ServicePerimeter,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -9827,9 +9816,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Asset {
                                     "multiple values for os_inventory",
                                 ));
                             }
-                            result.os_inventory = map
-                                .next_value::<std::option::Option<osconfig_v1::model::Inventory>>(
-                                )?;
+                            result.os_inventory = map.next_value::<std::option::Option<google_cloud_osconfig_v1::model::Inventory>>()?
+                                ;
                         }
                         __FieldTag::__related_assets => {
                             if !fields.insert(__FieldTag::__related_assets) {

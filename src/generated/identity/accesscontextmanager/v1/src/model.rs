@@ -17,12 +17,12 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate accesscontextmanager_type;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
+extern crate google_cloud_identity_accesscontextmanager_type;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_type;
@@ -2685,16 +2685,18 @@ pub struct DevicePolicy {
     pub require_screenlock: bool,
 
     /// Allowed encryptions statuses, an empty list allows all statuses.
-    pub allowed_encryption_statuses:
-        std::vec::Vec<accesscontextmanager_type::model::DeviceEncryptionStatus>,
+    pub allowed_encryption_statuses: std::vec::Vec<
+        google_cloud_identity_accesscontextmanager_type::model::DeviceEncryptionStatus,
+    >,
 
     /// Allowed OS versions, an empty list allows all types and all versions.
     pub os_constraints: std::vec::Vec<crate::model::OsConstraint>,
 
     /// Allowed device management levels, an empty list allows all management
     /// levels.
-    pub allowed_device_management_levels:
-        std::vec::Vec<accesscontextmanager_type::model::DeviceManagementLevel>,
+    pub allowed_device_management_levels: std::vec::Vec<
+        google_cloud_identity_accesscontextmanager_type::model::DeviceManagementLevel,
+    >,
 
     /// Whether the device needs to be approved by the customer admin.
     pub require_admin_approval: bool,
@@ -2727,7 +2729,7 @@ impl DevicePolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::DevicePolicy;
-    /// use accesscontextmanager_type::model::DeviceEncryptionStatus;
+    /// use google_cloud_identity_accesscontextmanager_type::model::DeviceEncryptionStatus;
     /// let x = DevicePolicy::new().set_allowed_encryption_statuses([
     ///     DeviceEncryptionStatus::EncryptionUnsupported,
     ///     DeviceEncryptionStatus::Unencrypted,
@@ -2737,7 +2739,9 @@ impl DevicePolicy {
     pub fn set_allowed_encryption_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<accesscontextmanager_type::model::DeviceEncryptionStatus>,
+        V: std::convert::Into<
+                google_cloud_identity_accesscontextmanager_type::model::DeviceEncryptionStatus,
+            >,
     {
         use std::iter::Iterator;
         self.allowed_encryption_statuses = v.into_iter().map(|i| i.into()).collect();
@@ -2771,7 +2775,7 @@ impl DevicePolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::DevicePolicy;
-    /// use accesscontextmanager_type::model::DeviceManagementLevel;
+    /// use google_cloud_identity_accesscontextmanager_type::model::DeviceManagementLevel;
     /// let x = DevicePolicy::new().set_allowed_device_management_levels([
     ///     DeviceManagementLevel::None,
     ///     DeviceManagementLevel::Basic,
@@ -2781,7 +2785,9 @@ impl DevicePolicy {
     pub fn set_allowed_device_management_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<accesscontextmanager_type::model::DeviceManagementLevel>,
+        V: std::convert::Into<
+                google_cloud_identity_accesscontextmanager_type::model::DeviceManagementLevel,
+            >,
     {
         use std::iter::Iterator;
         self.allowed_device_management_levels = v.into_iter().map(|i| i.into()).collect();
@@ -2824,7 +2830,7 @@ impl wkt::message::Message for DevicePolicy {
 #[non_exhaustive]
 pub struct OsConstraint {
     /// Required. The allowed OS type.
-    pub os_type: accesscontextmanager_type::model::OsType,
+    pub os_type: google_cloud_identity_accesscontextmanager_type::model::OsType,
 
     /// The minimum allowed OS version. If not set, any version of this OS
     /// satisfies the constraint. Format: `"major.minor.patch"`.
@@ -2850,12 +2856,14 @@ impl OsConstraint {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_identity_accesscontextmanager_v1::model::OsConstraint;
-    /// use accesscontextmanager_type::model::OsType;
+    /// use google_cloud_identity_accesscontextmanager_type::model::OsType;
     /// let x0 = OsConstraint::new().set_os_type(OsType::DesktopMac);
     /// let x1 = OsConstraint::new().set_os_type(OsType::DesktopWindows);
     /// let x2 = OsConstraint::new().set_os_type(OsType::DesktopLinux);
     /// ```
-    pub fn set_os_type<T: std::convert::Into<accesscontextmanager_type::model::OsType>>(
+    pub fn set_os_type<
+        T: std::convert::Into<google_cloud_identity_accesscontextmanager_type::model::OsType>,
+    >(
         mut self,
         v: T,
     ) -> Self {
