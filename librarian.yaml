@@ -54,7 +54,7 @@ default:
       - name: bytes
         package: bytes
         force_used: true
-      - name: cloud_common
+      - name: google-cloud-common
         package: google-cloud-common
         source: google.cloud.common
       - name: gax
@@ -67,12 +67,18 @@ default:
       - name: google-cloud-api
         package: google-cloud-api
         source: google.api
+      - name: google-cloud-grafeas-v1
+        package: google-cloud-grafeas-v1
+        source: grafeas.v1
       - name: google-cloud-iam-v1
         package: google-cloud-iam-v1
         source: google.iam.v1
       - name: google-cloud-location
         package: google-cloud-location
         source: google.cloud.location
+      - name: google-cloud-logging-type
+        package: google-cloud-logging-type
+        source: google.logging.type
       - name: google-cloud-longrunning
         package: google-cloud-longrunning
         source: google.longrunning
@@ -82,21 +88,15 @@ default:
       - name: google-cloud-rpc
         package: google-cloud-rpc
         source: google.rpc
+      - name: google-cloud-rpc-context
+        package: google-cloud-rpc-context
+        source: google.rpc.context
       - name: google-cloud-type
         package: google-cloud-type
         source: google.type
-      - name: grafeas
-        package: google-cloud-grafeas-v1
-        source: grafeas.v1
       - name: lazy_static
         package: lazy_static
         used_if: services
-      - name: logging_type
-        package: google-cloud-logging-type
-        source: google.logging.type
-      - name: rpc_context
-        package: google-cloud-rpc-context
-        source: google.rpc.context
       - name: serde
         package: serde
         force_used: true
@@ -867,7 +867,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: kms
+        - name: google-cloud-kms-v1
           package: google-cloud-kms-v1
           source: google.cloud.kms.v1
   - name: google-cloud-kms-v1
@@ -1042,7 +1042,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: oslogin_common
+        - name: google-cloud-oslogin-common
           package: google-cloud-oslogin-common
           source: google.cloud.oslogin.common
   - name: google-cloud-parallelstore-v1
@@ -1056,7 +1056,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: orgpolicy_v2
+        - name: google-cloud-orgpolicy-v2
           package: google-cloud-orgpolicy-v2
           source: google.cloud.orgpolicy.v2
   - name: google-cloud-policytroubleshooter-iam-v3
@@ -1064,7 +1064,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: iam_v2
+        - name: google-cloud-iam-v2
           package: google-cloud-iam-v2
           source: google.iam.v2
   - name: google-cloud-policytroubleshooter-v1

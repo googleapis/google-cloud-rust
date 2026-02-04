@@ -22,11 +22,11 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_api;
+extern crate google_cloud_logging_type;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate logging_type;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -95,7 +95,7 @@ pub struct LogEntry {
 
     /// Optional. The severity of the log entry. The default value is
     /// `LogSeverity.DEFAULT`.
-    pub severity: logging_type::model::LogSeverity,
+    pub severity: google_cloud_logging_type::model::LogSeverity,
 
     /// Optional. A unique identifier for the log entry. If you provide a value,
     /// then Logging considers other log entries in the same project, with the same
@@ -112,7 +112,7 @@ pub struct LogEntry {
 
     /// Optional. Information about the HTTP request associated with this log
     /// entry, if applicable.
-    pub http_request: std::option::Option<logging_type::model::HttpRequest>,
+    pub http_request: std::option::Option<google_cloud_logging_type::model::HttpRequest>,
 
     /// Optional. A map of key, value pairs that provides additional information
     /// about the log entry. The labels can be user-defined or system-defined.
@@ -321,12 +321,12 @@ impl LogEntry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use logging_type::model::LogSeverity;
+    /// use google_cloud_logging_type::model::LogSeverity;
     /// let x0 = LogEntry::new().set_severity(LogSeverity::Debug);
     /// let x1 = LogEntry::new().set_severity(LogSeverity::Info);
     /// let x2 = LogEntry::new().set_severity(LogSeverity::Notice);
     /// ```
-    pub fn set_severity<T: std::convert::Into<logging_type::model::LogSeverity>>(
+    pub fn set_severity<T: std::convert::Into<google_cloud_logging_type::model::LogSeverity>>(
         mut self,
         v: T,
     ) -> Self {
@@ -351,12 +351,12 @@ impl LogEntry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use logging_type::model::HttpRequest;
+    /// use google_cloud_logging_type::model::HttpRequest;
     /// let x = LogEntry::new().set_http_request(HttpRequest::default()/* use setters */);
     /// ```
     pub fn set_http_request<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<logging_type::model::HttpRequest>,
+        T: std::convert::Into<google_cloud_logging_type::model::HttpRequest>,
     {
         self.http_request = std::option::Option::Some(v.into());
         self
@@ -367,13 +367,13 @@ impl LogEntry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use logging_type::model::HttpRequest;
+    /// use google_cloud_logging_type::model::HttpRequest;
     /// let x = LogEntry::new().set_or_clear_http_request(Some(HttpRequest::default()/* use setters */));
     /// let x = LogEntry::new().set_or_clear_http_request(None::<HttpRequest>);
     /// ```
     pub fn set_or_clear_http_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<logging_type::model::HttpRequest>,
+        T: std::convert::Into<google_cloud_logging_type::model::HttpRequest>,
     {
         self.http_request = v.map(|x| x.into());
         self

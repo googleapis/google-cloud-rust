@@ -21,7 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate kms;
+extern crate google_cloud_kms_v1;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -114,8 +114,8 @@ impl wkt::message::Message for ListCryptoKeysRequest {
 pub struct ListCryptoKeysResponse {
     /// The list of [CryptoKeys][google.cloud.kms.v1.CryptoKey].
     ///
-    /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
-    pub crypto_keys: std::vec::Vec<kms::model::CryptoKey>,
+    /// [google.cloud.kms.v1.CryptoKey]: google_cloud_kms_v1::model::CryptoKey
+    pub crypto_keys: std::vec::Vec<google_cloud_kms_v1::model::CryptoKey>,
 
     /// The page token returned from the previous response if the next page is
     /// desired.
@@ -134,7 +134,7 @@ impl ListCryptoKeysResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_kms_inventory_v1::model::ListCryptoKeysResponse;
-    /// use kms::model::CryptoKey;
+    /// use google_cloud_kms_v1::model::CryptoKey;
     /// let x = ListCryptoKeysResponse::new()
     ///     .set_crypto_keys([
     ///         CryptoKey::default()/* use setters */,
@@ -144,7 +144,7 @@ impl ListCryptoKeysResponse {
     pub fn set_crypto_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<kms::model::CryptoKey>,
+        V: std::convert::Into<google_cloud_kms_v1::model::CryptoKey>,
     {
         use std::iter::Iterator;
         self.crypto_keys = v.into_iter().map(|i| i.into()).collect();
@@ -172,7 +172,7 @@ impl wkt::message::Message for ListCryptoKeysResponse {
 
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListCryptoKeysResponse {
-    type PageItem = kms::model::CryptoKey;
+    type PageItem = google_cloud_kms_v1::model::CryptoKey;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.crypto_keys
@@ -194,7 +194,7 @@ pub struct GetProtectedResourcesSummaryRequest {
     /// Required. The resource name of the
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey].
     ///
-    /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
+    /// [google.cloud.kms.v1.CryptoKey]: google_cloud_kms_v1::model::CryptoKey
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -379,7 +379,7 @@ pub struct SearchProtectedResourcesRequest {
     /// Required. The resource name of the
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey].
     ///
-    /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
+    /// [google.cloud.kms.v1.CryptoKey]: google_cloud_kms_v1::model::CryptoKey
     pub crypto_key: std::string::String,
 
     /// The maximum number of resources to return. The service may return fewer

@@ -1715,8 +1715,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ExplainedDenyPolicy {
                                     "multiple values for policy",
                                 ));
                             }
-                            result.policy =
-                                map.next_value::<std::option::Option<iam_v2::model::Policy>>()?;
+                            result.policy = map.next_value::<std::option::Option<google_cloud_iam_v2::model::Policy>>()?
+                                ;
                         }
                         __FieldTag::__rule_explanations => {
                             if !fields.insert(__FieldTag::__rule_explanations) {
