@@ -33,8 +33,7 @@ mod tests {
             .with_credentials(test_credentials())
             .build()
             .await?;
-        let response = send_request(client, "no_retry_immediate_success").await;
-        assert!(response.is_ok(), "{response:?}");
+        let _response = send_request(client, "no_retry_immediate_success").await?;
         Ok(())
     }
 
@@ -61,8 +60,7 @@ mod tests {
             .with_backoff_policy(test_backoff())
             .build()
             .await?;
-        let response = send_request(client, "retry_then_success").await;
-        assert!(response.is_ok(), "{response:?}");
+        let _response = send_request(client, "retry_then_success").await?;
         Ok(())
     }
 

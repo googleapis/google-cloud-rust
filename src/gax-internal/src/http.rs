@@ -510,10 +510,7 @@ mod tests {
         let response = resp_from_code_content(code, content)?;
         assert!(response.status().is_success());
 
-        let response = super::to_http_response::<wkt::Empty>(response).await;
-        assert!(response.is_ok(), "{response:?}");
-
-        let response = response.unwrap();
+        let response = super::to_http_response::<wkt::Empty>(response).await?;
         let body = response.into_body();
         assert_eq!(body, wkt::Empty::default());
         Ok(())
