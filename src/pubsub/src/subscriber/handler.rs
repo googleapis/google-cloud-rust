@@ -52,32 +52,74 @@ impl Handler {
     }
 }
 
+#[derive(Debug)]
+struct AtLeastOnceImpl {
+    ack_id: String,
+    ack_tx: UnboundedSender<AckResult>,
+}
+
+impl AtLeastOnceImpl {
+    fn ack(self) {
+        let _ = self.ack_tx.send(AckResult::Ack(self.ack_id));
+    }
+
+    fn nack(self) {
+        let _ = self.ack_tx.send(AckResult::Nack(self.ack_id));
+    }
+}
+
 /// A handler for at-least-once delivery.
 #[derive(Debug)]
 pub struct AtLeastOnce {
-    pub(super) ack_id: String,
-    pub(super) ack_tx: UnboundedSender<AckResult>,
+    inner: Option<AtLeastOnceImpl>,
 }
 
 impl AtLeastOnce {
     pub(super) fn new(ack_id: String, ack_tx: UnboundedSender<AckResult>) -> Self {
-        Self { ack_id, ack_tx }
+        Self {
+            inner: Some(AtLeastOnceImpl { ack_id, ack_tx }),
+        }
     }
 
     /// Acknowledge the message associated with this handler.
     ///
     /// Note that the acknowledgement is best effort. The message may still be
     /// redelivered to this client, or another client.
-    pub fn ack(self) {
-        let _ = self.ack_tx.send(AckResult::Ack(self.ack_id));
+    pub fn ack(mut self) {
+        if let Some(inner) = self.inner.take() {
+            inner.ack();
+        }
     }
 
     /// Rejects the message associated with this handler.
     ///
     /// The message will be removed from this `Subscriber`'s lease management.
     /// The service will redeliver this message, possibly to another client.
-    pub fn nack(self) {
-        let _ = self.ack_tx.send(AckResult::Nack(self.ack_id));
+    pub fn nack(mut self) {
+        if let Some(inner) = self.inner.take() {
+            inner.nack();
+        }
+    }
+
+    #[cfg(test)]
+    pub(crate) fn ack_id(&self) -> &str {
+        self.inner
+            .as_ref()
+            .map(|i| i.ack_id.as_str())
+            .unwrap_or_default()
+    }
+}
+
+impl Drop for AtLeastOnce {
+    /// Automatically rejects the message if it hasn't been acknowledged yet.
+    ///
+    /// This ensures that messages are redelivered even if the application
+    /// forgets to call `ack()`, preventing leaked messages in the lease
+    /// management system.
+    fn drop(&mut self) {
+        if let Some(inner) = self.inner.take() {
+            inner.nack();
+        }
     }
 }
 
@@ -134,6 +176,19 @@ mod tests {
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         h.nack();
+        let ack = ack_rx.try_recv()?;
+        assert_eq!(ack, AckResult::Nack(test_id(1)));
+
+        Ok(())
+    }
+
+    #[test]
+    fn at_least_once_drop_nacks() -> anyhow::Result<()> {
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let h = AtLeastOnce::new(test_id(1), ack_tx);
+        assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
+
+        drop(h);
         let ack = ack_rx.try_recv()?;
         assert_eq!(ack, AckResult::Nack(test_id(1)));
 

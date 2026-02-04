@@ -406,7 +406,7 @@ mod tests {
             let (m, Handler::AtLeastOnce(h)) =
                 session.next().await.transpose()?.expect("message {i}/6");
             assert_eq!(m.data, test_data(i));
-            assert_eq!(h.ack_id, test_id(i));
+            assert_eq!(h.ack_id(), test_id(i));
             h.ack();
         }
         let end = session.next().await.transpose()?;
@@ -539,7 +539,7 @@ mod tests {
             .transpose()?
             .expect("stream should wait for a message");
         assert_eq!(m.data, test_data(1));
-        assert_eq!(h.ack_id, test_id(1));
+        assert_eq!(h.ack_id(), test_id(1));
 
         handle.await??;
 
@@ -567,7 +567,7 @@ mod tests {
             let (m, Handler::AtLeastOnce(h)) =
                 session.next().await.transpose()?.expect("message {i}/6");
             assert_eq!(m.data, test_data(i));
-            assert_eq!(h.ack_id, test_id(i));
+            assert_eq!(h.ack_id(), test_id(i));
         }
         drop(response_tx);
         let end = session.next().await.transpose()?;
@@ -597,7 +597,7 @@ mod tests {
             let (m, Handler::AtLeastOnce(h)) =
                 session.next().await.transpose()?.expect("message {i}/2");
             assert_eq!(m.data, test_data(i));
-            assert_eq!(h.ack_id, test_id(i));
+            assert_eq!(h.ack_id(), test_id(i));
         }
         let end = session.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
@@ -645,7 +645,7 @@ mod tests {
             let (m, Handler::AtLeastOnce(h)) =
                 session.next().await.transpose()?.expect("message {i}/6");
             assert_eq!(m.data, test_data(i));
-            assert_eq!(h.ack_id, test_id(i));
+            assert_eq!(h.ack_id(), test_id(i));
             handlers.push(h);
         }
         let end = session.next().await.transpose()?;
@@ -689,7 +689,7 @@ mod tests {
             let (m, Handler::AtLeastOnce(h)) =
                 session.next().await.transpose()?.expect("message {i}/3");
             assert_eq!(m.data, test_data(i));
-            assert_eq!(h.ack_id, test_id(i));
+            assert_eq!(h.ack_id(), test_id(i));
         }
         let err = session
             .next()
