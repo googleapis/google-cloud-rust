@@ -500,7 +500,6 @@ mod tests {
         req: crate::model::PublishRequest,
         _options: gax::options::RequestOptions,
     ) -> gax::Result<gax::response::Response<crate::model::PublishResponse>> {
-        assert_eq!(req.topic, TOPIC);
         let ids = req
             .messages
             .iter()
@@ -531,7 +530,10 @@ mod tests {
     #[tokio::test]
     async fn concurrent_actor_publish() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().returning(publish_ok).times(1);
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
+            .returning(publish_ok)
+            .times(1);
         let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
         tokio::spawn(
             ConcurrentBatchActor::new(
@@ -548,8 +550,7 @@ mod tests {
             msg: PubsubMessage::new().set_data("hello"),
             tx: publish_tx,
         };
-        let res = actor_tx.send(ToBatchActor::Publish(bundle));
-        assert!(res.is_ok(), "{res:?}");
+        let _ = actor_tx.send(ToBatchActor::Publish(bundle))?;
         let res = publish_rx.await;
         assert!(matches!(res, Ok(Ok(ref msg)) if msg == "hello"), "{res:?}");
         Ok(())
@@ -558,7 +559,10 @@ mod tests {
     #[tokio::test]
     async fn concurrent_actor_flush() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().returning(publish_ok).times(1);
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
+            .returning(publish_ok)
+            .times(1);
         let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
         tokio::spawn(
             ConcurrentBatchActor::new(
@@ -572,10 +576,8 @@ mod tests {
 
         // Flush on empty.
         let (flush_tx, flush_rx) = tokio::sync::oneshot::channel();
-        let res = actor_tx.send(ToBatchActor::Flush(flush_tx));
-        assert!(res.is_ok(), "{res:?}");
-        let res = flush_rx.await;
-        assert!(res.is_ok(), "{res:?}");
+        let _ = actor_tx.send(ToBatchActor::Flush(flush_tx))?;
+        let _ = flush_rx.await?;
 
         // Publish a message then Flush.
         let (publish_tx, publish_rx) = tokio::sync::oneshot::channel();
@@ -583,13 +585,10 @@ mod tests {
             msg: PubsubMessage::new().set_data("hello"),
             tx: publish_tx,
         };
-        let res = actor_tx.send(ToBatchActor::Publish(bundle));
-        assert!(res.is_ok(), "{res:?}");
+        let _ = actor_tx.send(ToBatchActor::Publish(bundle))?;
         let (flush_tx, flush_rx) = tokio::sync::oneshot::channel();
-        let res = actor_tx.send(ToBatchActor::Flush(flush_tx));
-        assert!(res.is_ok(), "{res:?}");
-        let res = flush_rx.await;
-        assert!(res.is_ok(), "{res:?}");
+        let _ = actor_tx.send(ToBatchActor::Flush(flush_tx))?;
+        let _ = flush_rx.await?;
         let res = publish_rx.await;
         assert!(matches!(res, Ok(Ok(ref msg)) if msg == "hello"), "{res:?}");
 
@@ -609,8 +608,7 @@ mod tests {
             .run(),
         );
 
-        let res = actor_tx.send(ToBatchActor::ResumePublish());
-        assert!(res.is_ok(), "{res:?}");
+        let _ = actor_tx.send(ToBatchActor::ResumePublish())?;
         Ok(())
     }
 }
