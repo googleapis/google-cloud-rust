@@ -164,7 +164,7 @@ mod tests {
             .await
             .expect_err("file should not exist");
         assert!(!err.is_transient(), "{err:?}");
-        assert!(err.source().is_some(), "{:?}", err.source());
+        assert!(err.source().is_some(), "{err:?}");
         Ok(())
     }
 
@@ -194,7 +194,7 @@ mod tests {
             .await
             .expect_err("parsing should fail");
         assert!(!err.is_transient(), "{err:?}");
-        assert!(err.source().is_some(), "{:?}", err.source());
+        assert!(err.source().is_some(), "{err:?}");
         Ok(())
     }
 }
