@@ -194,14 +194,14 @@ mod tests {
     fn handle_empty() -> anyhow::Result<()> {
         let normalized = NormalizedRange::new(100)?.with_length(50)?;
         let remaining = RemainingRange::Normalized(normalized);
-        let _ = remaining.handle_empty(false)?;
+        remaining.handle_empty(false)?;
         let result = remaining.handle_empty(true);
         assert!(matches!(result, Err(ReadError::ShortRead(_))), "{result:?}");
 
         let normalized = NormalizedRange::new(100)?;
         let remaining = RemainingRange::Normalized(normalized);
-        let _ = remaining.handle_empty(false)?;
-        let _ = remaining.handle_empty(true)?;
+        remaining.handle_empty(false)?;
+        remaining.handle_empty(true)?;
         Ok(())
     }
 }

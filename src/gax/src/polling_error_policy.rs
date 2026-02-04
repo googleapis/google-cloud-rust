@@ -523,7 +523,7 @@ mod tests {
     #[test]
     fn aip194_strict() -> anyhow::Result<()> {
         let p = Aip194Strict;
-        let _ = p.on_in_progress(&PollingState::default(), "unused")?;
+        p.on_in_progress(&PollingState::default(), "unused")?;
         assert!(
             p.on_error(&PollingState::default(), unavailable())
                 .is_continue()

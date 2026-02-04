@@ -273,7 +273,7 @@ mod tests {
         // Closing the stream without an error should not attempt a reconnect.
         drop(response_tx);
         drop(tx);
-        let _ = handle.await??;
+        handle.await??;
         Ok(())
     }
 

@@ -263,13 +263,13 @@ mod tests {
     #[test]
     fn handle_empty() -> anyhow::Result<()> {
         let normalized = NormalizedRange::new(100)?.with_length(50)?;
-        let _ = normalized.handle_empty(false)?;
+        normalized.handle_empty(false)?;
         let result = normalized.handle_empty(true);
         assert!(matches!(result, Err(ReadError::ShortRead(_))), "{result:?}");
 
         let normalized = NormalizedRange::new(100)?;
-        let _ = normalized.handle_empty(false)?;
-        let _ = normalized.handle_empty(true)?;
+        normalized.handle_empty(false)?;
+        normalized.handle_empty(true)?;
 
         Ok(())
     }
