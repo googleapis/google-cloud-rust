@@ -57,7 +57,7 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -euv
-      # Make two attempts to avoid download flakes.
+      # Make three attempts to avoid download flakes.
       cargo install typos-cli --version 1.32.0 --locked || \
         cargo install typos-cli --version 1.32.0 --locked || \
         cargo install typos-cli --version 1.32.0 --locked
@@ -87,6 +87,7 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -euv
+      # Make three attempts to avoid download flakes.
       rustup component add rustfmt || \
         rustup component add rustfmt || \
         rustup component add rustfmt
@@ -96,6 +97,7 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -euv
+      # Make three attempts to avoid download flakes.
       go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0 || \
         go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0 || \
         go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0
@@ -109,7 +111,7 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -euv
-      # Try this multiple times to avoid flakes due to transient download errors.
+      # Make three attempts to avoid download flakes.
       apt -o Acquire::Retries=3 update
       apt -o Acquire::Retries=3 install -y clang-format git
       git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' ':!:**/grpc-mock/**' | \
@@ -124,7 +126,7 @@ steps:
       - '-c'
       - |
         set -euv
-        # Try this multiple times to avoid flakes due to transient download errors.
+        # Make three attempts to avoid download flakes.
         pip install --retries 3 -r ci/requirements.txt
         git ls-files -z -- '*.md' ':!:testdata/**' ':!:**/generated/**' | \
           xargs -0 mdformat
