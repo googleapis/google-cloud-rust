@@ -965,4 +965,81 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test]
+    #[serial]
+    async fn test_credentials_refresh_recovers_after_outage() -> TestResult {
+        let server = Server::run();
+        let addr = server.addr().to_string();
+        let _e = ScopedEnv::set("GCE_METADATA_HOST", &addr);
+
+        // initial token request: success (200 OK)
+        server.expect(
+            Expectation::matching(request::path(
+                "/computeMetadata/v1/instance/service-accounts/default/token",
+            ))
+            .times(1)
+            .respond_with(json_encoded(json!({
+                "access_token": "token-1",
+                "expires_in": 1, // short lived to trigger refresh soon
+                "token_type": "Bearer"
+            }))),
+        );
+
+        let creds = MdsBuilder::default().build_access_token_credentials()?;
+
+        // get initial token, this starts the refresh_task
+        let access_token = creds.access_token().await?;
+        assert!(
+            access_token.token.contains("token-1"),
+            "Expected token-1, got {}",
+            access_token.token
+        );
+
+        // set up outage: fail (503 Service Unavailable)
+        server.expect(
+            Expectation::matching(request::path(
+                "/computeMetadata/v1/instance/service-accounts/default/token",
+            ))
+            .times(1..) // called at least once
+            .respond_with(status_code(503)),
+        );
+
+        // wait for the token to be refreshed
+        // it should exhaust retries, fail, and (with the fix) wait for SHORT_REFRESH_SLACK (10s)
+        tokio::time::sleep(std::time::Duration::from_millis(3000)).await;
+
+        // trying to get a token now should fail because retry was exhausted
+        let result = creds.headers(Extensions::new()).await;
+        assert!(
+            result.is_err(),
+            "expected error due to exhausted retries during outage, but got: {:?}",
+            result
+        );
+
+        // set up recovery: success (200 OK)
+        server.expect(
+            Expectation::matching(request::path(
+                "/computeMetadata/v1/instance/service-accounts/default/token",
+            ))
+            .respond_with(json_encoded(json!({
+                "access_token": "token-2",
+                "expires_in": 3600,
+                "token_type": "Bearer"
+            }))),
+        );
+
+        // advance time long enough to pass through SHORT_REFRESH_SLACK (10s + some buffer)
+        tokio::time::sleep(std::time::Duration::from_secs(12)).await;
+        let result = creds.access_token().await;
+        // if it recovered, we should get token-2
+        let access_token = result.expect("the credential should have recovered from the outage!");
+        assert!(
+            access_token.token.contains("token-2"),
+            "Expected token-2 after recovery, but got: {}",
+            access_token.token
+        );
+
+        Ok(())
+    }
 }

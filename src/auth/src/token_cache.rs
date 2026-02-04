@@ -153,8 +153,10 @@ async fn refresh_task<T>(
             }
             None => {
                 // The retry policy has been used already by the inner token provider.
-                // If it ended in an error, just quit the background task.
-                break;
+                // If it ended in an error, the background task will wait for a while
+                // and try again. This allows the task to eventually recover if the
+                // error was transient but exhausted all the retries.
+                sleep(SHORT_REFRESH_SLACK).await;
             }
         }
     }
