@@ -54,9 +54,6 @@ default:
       - name: bytes
         package: bytes
         force_used: true
-      - name: google-cloud-common
-        package: google-cloud-common
-        source: google.cloud.common
       - name: gax
         package: google-cloud-gax
         used_if: services
@@ -67,6 +64,9 @@ default:
       - name: google-cloud-api
         package: google-cloud-api
         source: google.api
+      - name: google-cloud-common
+        package: google-cloud-common
+        source: google.cloud.common
       - name: google-cloud-grafeas-v1
         package: google-cloud-grafeas-v1
         source: grafeas.v1
