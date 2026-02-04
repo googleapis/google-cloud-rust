@@ -1194,7 +1194,11 @@ impl<'de> serde::de::Deserialize<'de> for super::LogEntry {
                                     "multiple values for severity",
                                 ));
                             }
-                            result.severity = map.next_value::<std::option::Option<logging_type::model::LogSeverity>>()?.unwrap_or_default();
+                            result.severity =
+                                map.next_value::<std::option::Option<
+                                    google_cloud_logging_type::model::LogSeverity,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__http_request => {
                             if !fields.insert(__FieldTag::__http_request) {

@@ -44,7 +44,7 @@ impl super::stub::OsLoginService for OsLoginService {
         &self,
         req: crate::model::CreateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
+    ) -> Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -276,7 +276,7 @@ impl super::stub::OsLoginService for OsLoginService {
         &self,
         req: crate::model::GetSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
+    ) -> Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -391,7 +391,7 @@ impl super::stub::OsLoginService for OsLoginService {
         &self,
         req: crate::model::UpdateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
+    ) -> Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;

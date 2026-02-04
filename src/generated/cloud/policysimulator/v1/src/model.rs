@@ -24,10 +24,10 @@ extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_orgpolicy_v2;
 extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate orgpolicy_v2;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -1238,7 +1238,7 @@ pub struct OrgPolicyViolation {
     pub resource: std::option::Option<crate::model::ResourceContext>,
 
     /// The custom constraint being violated.
-    pub custom_constraint: std::option::Option<orgpolicy_v2::model::CustomConstraint>,
+    pub custom_constraint: std::option::Option<google_cloud_orgpolicy_v2::model::CustomConstraint>,
 
     /// Any error encountered during the evaluation.
     pub error: std::option::Option<google_cloud_rpc::model::Status>,
@@ -1301,12 +1301,12 @@ impl OrgPolicyViolation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolation;
-    /// use orgpolicy_v2::model::CustomConstraint;
+    /// use google_cloud_orgpolicy_v2::model::CustomConstraint;
     /// let x = OrgPolicyViolation::new().set_custom_constraint(CustomConstraint::default()/* use setters */);
     /// ```
     pub fn set_custom_constraint<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<orgpolicy_v2::model::CustomConstraint>,
+        T: std::convert::Into<google_cloud_orgpolicy_v2::model::CustomConstraint>,
     {
         self.custom_constraint = std::option::Option::Some(v.into());
         self
@@ -1317,13 +1317,13 @@ impl OrgPolicyViolation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolation;
-    /// use orgpolicy_v2::model::CustomConstraint;
+    /// use google_cloud_orgpolicy_v2::model::CustomConstraint;
     /// let x = OrgPolicyViolation::new().set_or_clear_custom_constraint(Some(CustomConstraint::default()/* use setters */));
     /// let x = OrgPolicyViolation::new().set_or_clear_custom_constraint(None::<CustomConstraint>);
     /// ```
     pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<orgpolicy_v2::model::CustomConstraint>,
+        T: std::convert::Into<google_cloud_orgpolicy_v2::model::CustomConstraint>,
     {
         self.custom_constraint = v.map(|x| x.into());
         self
@@ -1555,7 +1555,7 @@ pub mod org_policy_overlay {
         pub policy_parent: std::string::String,
 
         /// Optional. The new or updated OrgPolicy.
-        pub policy: std::option::Option<orgpolicy_v2::model::Policy>,
+        pub policy: std::option::Option<google_cloud_orgpolicy_v2::model::Policy>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1585,12 +1585,12 @@ pub mod org_policy_overlay {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_policysimulator_v1::model::org_policy_overlay::PolicyOverlay;
-        /// use orgpolicy_v2::model::Policy;
+        /// use google_cloud_orgpolicy_v2::model::Policy;
         /// let x = PolicyOverlay::new().set_policy(Policy::default()/* use setters */);
         /// ```
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<orgpolicy_v2::model::Policy>,
+            T: std::convert::Into<google_cloud_orgpolicy_v2::model::Policy>,
         {
             self.policy = std::option::Option::Some(v.into());
             self
@@ -1601,13 +1601,13 @@ pub mod org_policy_overlay {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_policysimulator_v1::model::org_policy_overlay::PolicyOverlay;
-        /// use orgpolicy_v2::model::Policy;
+        /// use google_cloud_orgpolicy_v2::model::Policy;
         /// let x = PolicyOverlay::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
         /// let x = PolicyOverlay::new().set_or_clear_policy(None::<Policy>);
         /// ```
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<orgpolicy_v2::model::Policy>,
+            T: std::convert::Into<google_cloud_orgpolicy_v2::model::Policy>,
         {
             self.policy = v.map(|x| x.into());
             self
@@ -1629,7 +1629,8 @@ pub mod org_policy_overlay {
         pub custom_constraint_parent: std::string::String,
 
         /// Optional. The new or updated custom constraint.
-        pub custom_constraint: std::option::Option<orgpolicy_v2::model::CustomConstraint>,
+        pub custom_constraint:
+            std::option::Option<google_cloud_orgpolicy_v2::model::CustomConstraint>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1659,12 +1660,12 @@ pub mod org_policy_overlay {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_policysimulator_v1::model::org_policy_overlay::CustomConstraintOverlay;
-        /// use orgpolicy_v2::model::CustomConstraint;
+        /// use google_cloud_orgpolicy_v2::model::CustomConstraint;
         /// let x = CustomConstraintOverlay::new().set_custom_constraint(CustomConstraint::default()/* use setters */);
         /// ```
         pub fn set_custom_constraint<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<orgpolicy_v2::model::CustomConstraint>,
+            T: std::convert::Into<google_cloud_orgpolicy_v2::model::CustomConstraint>,
         {
             self.custom_constraint = std::option::Option::Some(v.into());
             self
@@ -1675,13 +1676,13 @@ pub mod org_policy_overlay {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_policysimulator_v1::model::org_policy_overlay::CustomConstraintOverlay;
-        /// use orgpolicy_v2::model::CustomConstraint;
+        /// use google_cloud_orgpolicy_v2::model::CustomConstraint;
         /// let x = CustomConstraintOverlay::new().set_or_clear_custom_constraint(Some(CustomConstraint::default()/* use setters */));
         /// let x = CustomConstraintOverlay::new().set_or_clear_custom_constraint(None::<CustomConstraint>);
         /// ```
         pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<orgpolicy_v2::model::CustomConstraint>,
+            T: std::convert::Into<google_cloud_orgpolicy_v2::model::CustomConstraint>,
         {
             self.custom_constraint = v.map(|x| x.into());
             self

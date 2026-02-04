@@ -22,9 +22,9 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_api;
+extern crate google_cloud_logging_type;
 extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate logging_type;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -1302,7 +1302,7 @@ pub struct LogEntry {
 
     /// The severity of the log entry. The default value is
     /// `LogSeverity.DEFAULT`.
-    pub severity: logging_type::model::LogSeverity,
+    pub severity: google_cloud_logging_type::model::LogSeverity,
 
     /// Optional. Information about the HTTP request associated with this
     /// log entry, if applicable.
@@ -1391,12 +1391,12 @@ impl LogEntry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use logging_type::model::LogSeverity;
+    /// use google_cloud_logging_type::model::LogSeverity;
     /// let x0 = LogEntry::new().set_severity(LogSeverity::Debug);
     /// let x1 = LogEntry::new().set_severity(LogSeverity::Info);
     /// let x2 = LogEntry::new().set_severity(LogSeverity::Notice);
     /// ```
-    pub fn set_severity<T: std::convert::Into<logging_type::model::LogSeverity>>(
+    pub fn set_severity<T: std::convert::Into<google_cloud_logging_type::model::LogSeverity>>(
         mut self,
         v: T,
     ) -> Self {

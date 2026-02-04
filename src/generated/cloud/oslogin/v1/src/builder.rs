@@ -113,7 +113,7 @@ pub mod os_login_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<oslogin_common::model::SshPublicKey> {
+        pub async fn send(self) -> Result<google_cloud_oslogin_common::model::SshPublicKey> {
             (*self.0.stub)
                 .create_ssh_public_key(self.0.request, self.0.options)
                 .await
@@ -133,7 +133,7 @@ pub mod os_login_service {
         /// This is a **required** field for requests.
         pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+            T: std::convert::Into<google_cloud_oslogin_common::model::SshPublicKey>,
         {
             self.0.request.ssh_public_key = std::option::Option::Some(v.into());
             self
@@ -144,7 +144,7 @@ pub mod os_login_service {
         /// This is a **required** field for requests.
         pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+            T: std::convert::Into<google_cloud_oslogin_common::model::SshPublicKey>,
         {
             self.0.request.ssh_public_key = v.map(|x| x.into());
             self
@@ -401,7 +401,7 @@ pub mod os_login_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<oslogin_common::model::SshPublicKey> {
+        pub async fn send(self) -> Result<google_cloud_oslogin_common::model::SshPublicKey> {
             (*self.0.stub)
                 .get_ssh_public_key(self.0.request, self.0.options)
                 .await
@@ -484,7 +484,7 @@ pub mod os_login_service {
         /// Sets the value of [ssh_public_key][crate::model::ImportSshPublicKeyRequest::ssh_public_key].
         pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+            T: std::convert::Into<google_cloud_oslogin_common::model::SshPublicKey>,
         {
             self.0.request.ssh_public_key = std::option::Option::Some(v.into());
             self
@@ -493,7 +493,7 @@ pub mod os_login_service {
         /// Sets or clears the value of [ssh_public_key][crate::model::ImportSshPublicKeyRequest::ssh_public_key].
         pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+            T: std::convert::Into<google_cloud_oslogin_common::model::SshPublicKey>,
         {
             self.0.request.ssh_public_key = v.map(|x| x.into());
             self
@@ -566,7 +566,7 @@ pub mod os_login_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<oslogin_common::model::SshPublicKey> {
+        pub async fn send(self) -> Result<google_cloud_oslogin_common::model::SshPublicKey> {
             (*self.0.stub)
                 .update_ssh_public_key(self.0.request, self.0.options)
                 .await
@@ -586,7 +586,7 @@ pub mod os_login_service {
         /// This is a **required** field for requests.
         pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+            T: std::convert::Into<google_cloud_oslogin_common::model::SshPublicKey>,
         {
             self.0.request.ssh_public_key = std::option::Option::Some(v.into());
             self
@@ -597,7 +597,7 @@ pub mod os_login_service {
         /// This is a **required** field for requests.
         pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+            T: std::convert::Into<google_cloud_oslogin_common::model::SshPublicKey>,
         {
             self.0.request.ssh_public_key = v.map(|x| x.into());
             self

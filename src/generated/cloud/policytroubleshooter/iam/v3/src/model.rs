@@ -22,9 +22,9 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
+extern crate google_cloud_iam_v2;
 extern crate google_cloud_rpc;
 extern crate google_cloud_type;
-extern crate iam_v2;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -1913,7 +1913,7 @@ impl wkt::message::Message for ExplainedDenyResource {
 /// Details about how a specific IAM deny policy [Policy][google.iam.v2.Policy]
 /// contributed to the access check.
 ///
-/// [google.iam.v2.Policy]: iam_v2::model::Policy
+/// [google.iam.v2.Policy]: google_cloud_iam_v2::model::Policy
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainedDenyPolicy {
@@ -1933,7 +1933,7 @@ pub struct ExplainedDenyPolicy {
     ///
     /// If the sender of the request does not have access to the policy, this field
     /// is omitted.
-    pub policy: std::option::Option<iam_v2::model::Policy>,
+    pub policy: std::option::Option<google_cloud_iam_v2::model::Policy>,
 
     /// Details about how each rule in the policy affects the principal's inability
     /// to use the permission for the resource. The order of the deny rule matches
@@ -1983,12 +1983,12 @@ impl ExplainedDenyPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyPolicy;
-    /// use iam_v2::model::Policy;
+    /// use google_cloud_iam_v2::model::Policy;
     /// let x = ExplainedDenyPolicy::new().set_policy(Policy::default()/* use setters */);
     /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<iam_v2::model::Policy>,
+        T: std::convert::Into<google_cloud_iam_v2::model::Policy>,
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -1999,13 +1999,13 @@ impl ExplainedDenyPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyPolicy;
-    /// use iam_v2::model::Policy;
+    /// use google_cloud_iam_v2::model::Policy;
     /// let x = ExplainedDenyPolicy::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
     /// let x = ExplainedDenyPolicy::new().set_or_clear_policy(None::<Policy>);
     /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<iam_v2::model::Policy>,
+        T: std::convert::Into<google_cloud_iam_v2::model::Policy>,
     {
         self.policy = v.map(|x| x.into());
         self

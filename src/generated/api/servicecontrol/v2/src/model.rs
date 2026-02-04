@@ -22,8 +22,8 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_rpc;
+extern crate google_cloud_rpc_context;
 extern crate lazy_static;
-extern crate rpc_context;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -53,7 +53,7 @@ pub struct CheckRequest {
     pub service_config_id: std::string::String,
 
     /// Describes attributes about the operation being executed by the service.
-    pub attributes: std::option::Option<rpc_context::model::AttributeContext>,
+    pub attributes: std::option::Option<google_cloud_rpc_context::model::AttributeContext>,
 
     /// Describes the resources and the policies applied to each resource.
     pub resources: std::vec::Vec<crate::model::ResourceInfo>,
@@ -101,12 +101,12 @@ impl CheckRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicecontrol_v2::model::CheckRequest;
-    /// use rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::AttributeContext;
     /// let x = CheckRequest::new().set_attributes(AttributeContext::default()/* use setters */);
     /// ```
     pub fn set_attributes<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc_context::model::AttributeContext>,
+        T: std::convert::Into<google_cloud_rpc_context::model::AttributeContext>,
     {
         self.attributes = std::option::Option::Some(v.into());
         self
@@ -117,13 +117,13 @@ impl CheckRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicecontrol_v2::model::CheckRequest;
-    /// use rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::AttributeContext;
     /// let x = CheckRequest::new().set_or_clear_attributes(Some(AttributeContext::default()/* use setters */));
     /// let x = CheckRequest::new().set_or_clear_attributes(None::<AttributeContext>);
     /// ```
     pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc_context::model::AttributeContext>,
+        T: std::convert::Into<google_cloud_rpc_context::model::AttributeContext>,
     {
         self.attributes = v.map(|x| x.into());
         self
@@ -378,7 +378,7 @@ pub struct ReportRequest {
     /// Describes the list of operations to be reported. Each operation is
     /// represented as an AttributeContext, and contains all attributes around an
     /// API access.
-    pub operations: std::vec::Vec<rpc_context::model::AttributeContext>,
+    pub operations: std::vec::Vec<google_cloud_rpc_context::model::AttributeContext>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -420,7 +420,7 @@ impl ReportRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicecontrol_v2::model::ReportRequest;
-    /// use rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::AttributeContext;
     /// let x = ReportRequest::new()
     ///     .set_operations([
     ///         AttributeContext::default()/* use setters */,
@@ -430,7 +430,7 @@ impl ReportRequest {
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc_context::model::AttributeContext>,
+        V: std::convert::Into<google_cloud_rpc_context::model::AttributeContext>,
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();

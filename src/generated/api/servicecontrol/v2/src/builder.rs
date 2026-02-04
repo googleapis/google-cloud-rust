@@ -132,7 +132,7 @@ pub mod service_controller {
         /// Sets the value of [attributes][crate::model::CheckRequest::attributes].
         pub fn set_attributes<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc_context::model::AttributeContext>,
+            T: std::convert::Into<google_cloud_rpc_context::model::AttributeContext>,
         {
             self.0.request.attributes = std::option::Option::Some(v.into());
             self
@@ -141,7 +141,7 @@ pub mod service_controller {
         /// Sets or clears the value of [attributes][crate::model::CheckRequest::attributes].
         pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc_context::model::AttributeContext>,
+            T: std::convert::Into<google_cloud_rpc_context::model::AttributeContext>,
         {
             self.0.request.attributes = v.map(|x| x.into());
             self
@@ -234,7 +234,7 @@ pub mod service_controller {
         pub fn set_operations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<rpc_context::model::AttributeContext>,
+            V: std::convert::Into<google_cloud_rpc_context::model::AttributeContext>,
         {
             use std::iter::Iterator;
             self.0.request.operations = v.into_iter().map(|i| i.into()).collect();

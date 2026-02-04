@@ -845,7 +845,7 @@ pub mod validation_helper_v_1 {
         /// This is a **required** field for requests.
         pub fn set_attestation<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+            T: std::convert::Into<google_cloud_grafeas_v1::model::AttestationOccurrence>,
         {
             self.0.request.attestation = std::option::Option::Some(v.into());
             self
@@ -856,7 +856,7 @@ pub mod validation_helper_v_1 {
         /// This is a **required** field for requests.
         pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+            T: std::convert::Into<google_cloud_grafeas_v1::model::AttestationOccurrence>,
         {
             self.0.request.attestation = v.map(|x| x.into());
             self

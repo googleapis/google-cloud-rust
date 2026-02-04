@@ -21,7 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate grafeas;
+extern crate google_cloud_grafeas_v1;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -2178,8 +2178,8 @@ pub struct ValidateAttestationOccurrenceRequest {
     /// an existing entity in Container Analysis. It must otherwise be a valid
     /// AttestationOccurrence.
     ///
-    /// [grafeas.v1.AttestationOccurrence]: grafeas::model::AttestationOccurrence
-    pub attestation: std::option::Option<grafeas::model::AttestationOccurrence>,
+    /// [grafeas.v1.AttestationOccurrence]: google_cloud_grafeas_v1::model::AttestationOccurrence
+    pub attestation: std::option::Option<google_cloud_grafeas_v1::model::AttestationOccurrence>,
 
     /// Required. The resource name of the [Note][grafeas.v1.Note] to which the
     /// containing [Occurrence][grafeas.v1.Occurrence] is associated.
@@ -2214,12 +2214,12 @@ impl ValidateAttestationOccurrenceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_binaryauthorization_v1::model::ValidateAttestationOccurrenceRequest;
-    /// use grafeas::model::AttestationOccurrence;
+    /// use google_cloud_grafeas_v1::model::AttestationOccurrence;
     /// let x = ValidateAttestationOccurrenceRequest::new().set_attestation(AttestationOccurrence::default()/* use setters */);
     /// ```
     pub fn set_attestation<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+        T: std::convert::Into<google_cloud_grafeas_v1::model::AttestationOccurrence>,
     {
         self.attestation = std::option::Option::Some(v.into());
         self
@@ -2230,13 +2230,13 @@ impl ValidateAttestationOccurrenceRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_binaryauthorization_v1::model::ValidateAttestationOccurrenceRequest;
-    /// use grafeas::model::AttestationOccurrence;
+    /// use google_cloud_grafeas_v1::model::AttestationOccurrence;
     /// let x = ValidateAttestationOccurrenceRequest::new().set_or_clear_attestation(Some(AttestationOccurrence::default()/* use setters */));
     /// let x = ValidateAttestationOccurrenceRequest::new().set_or_clear_attestation(None::<AttestationOccurrence>);
     /// ```
     pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+        T: std::convert::Into<google_cloud_grafeas_v1::model::AttestationOccurrence>,
     {
         self.attestation = v.map(|x| x.into());
         self

@@ -930,8 +930,9 @@ impl<'de> serde::de::Deserialize<'de> for super::OrgPolicyViolation {
                                     "multiple values for custom_constraint",
                                 ));
                             }
-                            result.custom_constraint = map.next_value::<std::option::Option<orgpolicy_v2::model::CustomConstraint>>()?
-                                ;
+                            result.custom_constraint = map.next_value::<std::option::Option<
+                                google_cloud_orgpolicy_v2::model::CustomConstraint,
+                            >>()?;
                         }
                         __FieldTag::__error => {
                             if !fields.insert(__FieldTag::__error) {
@@ -1234,8 +1235,8 @@ impl<'de> serde::de::Deserialize<'de> for super::org_policy_overlay::PolicyOverl
                                     "multiple values for policy",
                                 ));
                             }
-                            result.policy = map
-                                .next_value::<std::option::Option<orgpolicy_v2::model::Policy>>()?;
+                            result.policy = map.next_value::<std::option::Option<google_cloud_orgpolicy_v2::model::Policy>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1329,8 +1330,9 @@ impl<'de> serde::de::Deserialize<'de> for super::org_policy_overlay::CustomConst
                                     "multiple values for custom_constraint",
                                 ));
                             }
-                            result.custom_constraint = map.next_value::<std::option::Option<orgpolicy_v2::model::CustomConstraint>>()?
-                                ;
+                            result.custom_constraint = map.next_value::<std::option::Option<
+                                google_cloud_orgpolicy_v2::model::CustomConstraint,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
