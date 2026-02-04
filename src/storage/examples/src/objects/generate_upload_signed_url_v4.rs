@@ -18,32 +18,21 @@ use google_cloud_storage::http::Method;
 use std::time::Duration;
 
 pub async fn sample(bucket_name: &str, object_name: &str) -> anyhow::Result<()> {
-    let signer = google_cloud_auth::credentials::Builder::default().build_signer();
-    let signer = match signer {
-        Ok(s) => s,
-        Err(err) if err.is_not_supported() => {
-            tracing::warn!("skipping run_storage_signed_urls: {err:?}");
-            return Ok(());
-        }
-        Err(err) => {
-            anyhow::bail!("error creating signer: {err:?}")
-        }
-    };
+    let signer = google_cloud_auth::credentials::Builder::default().build_signer()?;
 
-    let signed_url = SignedUrlBuilder::for_object(bucket_name, object_name)
-        .with_method(Method::PUT)
-        .with_expiration(Duration::from_secs(15 * 60)) // 15 minutes
-        .with_header("content-type", "application/octet-stream")
-        .sign_with(&signer)
-        .await
-        .map_err(anyhow::Error::new)?;
+    let signed_url =
+        SignedUrlBuilder::for_object(format!("projects/_/buckets/{bucket_name}"), object_name)
+            .with_method(Method::PUT)
+            .with_expiration(Duration::from_secs(15 * 60)) // 15 minutes
+            .with_header("content-type", "application/octet-stream")
+            .sign_with(&signer)
+            .await?;
 
     println!("Generated PUT signed URL:");
-    println!("{}", signed_url);
+    println!("{signed_url}");
     println!("You can use this URL with any user agent, for example:");
     println!(
-        "curl -X PUT -H 'Content-Type: application/octet-stream' --upload-file my-file '{}'",
-        signed_url
+        "curl -X PUT -H 'Content-Type: application/octet-stream' --upload-file my-file '{signed_url}'",
     );
 
     Ok(())
