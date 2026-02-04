@@ -2235,6 +2235,19 @@ impl std::fmt::Debug for super::BulkZoneSetLabelsRequest {
     }
 }
 
+#[cfg(feature = "machine-types")]
+impl std::fmt::Debug for super::BundledLocalSsds {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BundledLocalSsds");
+        debug_struct.field("default_interface", &self.default_interface);
+        debug_struct.field("partition_count", &self.partition_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "url-maps")]
 impl std::fmt::Debug for super::CacheInvalidationRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -10185,6 +10198,7 @@ impl std::fmt::Debug for super::MachineImage {
             &self.machine_image_encryption_key,
         );
         debug_struct.field("name", &self.name);
+        debug_struct.field("params", &self.params);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("saved_disks", &self.saved_disks);
@@ -10252,12 +10266,25 @@ impl std::fmt::Debug for super::machine_image_list::warning::Data {
     }
 }
 
+#[cfg(feature = "machine-images")]
+impl std::fmt::Debug for super::MachineImageParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MachineImageParams");
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::MachineType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MachineType");
         debug_struct.field("accelerators", &self.accelerators);
         debug_struct.field("architecture", &self.architecture);
+        debug_struct.field("bundled_local_ssds", &self.bundled_local_ssds);
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
         debug_struct.field("deprecated", &self.deprecated);
         debug_struct.field("description", &self.description);
@@ -16240,6 +16267,7 @@ impl std::fmt::Debug for super::ResourcePolicyDiskConsistencyGroupPolicy {
 impl std::fmt::Debug for super::ResourcePolicyGroupPlacementPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourcePolicyGroupPlacementPolicy");
+        debug_struct.field("accelerator_topology_mode", &self.accelerator_topology_mode);
         debug_struct.field("availability_domain_count", &self.availability_domain_count);
         debug_struct.field("collocation", &self.collocation);
         debug_struct.field("gpu_topology", &self.gpu_topology);
@@ -20220,6 +20248,7 @@ impl std::fmt::Debug for super::Subnetwork {
         debug_struct.field("purpose", &self.purpose);
         debug_struct.field("region", &self.region);
         debug_struct.field("reserved_internal_range", &self.reserved_internal_range);
+        debug_struct.field("resolve_subnet_mask", &self.resolve_subnet_mask);
         debug_struct.field("role", &self.role);
         debug_struct.field("secondary_ip_ranges", &self.secondary_ip_ranges);
         debug_struct.field("self_link", &self.self_link);
@@ -21868,6 +21897,7 @@ impl std::fmt::Debug for super::TestFailure {
     feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-groups",
     feature = "region-instant-snapshots",
@@ -21932,6 +21962,7 @@ impl std::fmt::Debug for super::TestPermissionsRequest {
     feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-groups",
     feature = "region-instant-snapshots",
@@ -31754,6 +31785,21 @@ impl std::fmt::Debug for super::region_health_check_services::PatchRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-check-services")]
+impl std::fmt::Debug for super::region_health_check_services::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource", &self.resource);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

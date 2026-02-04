@@ -19,11 +19,11 @@ sources:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: 85aa2660a9a62faa9e80e0d100b8dca4138ce249
-    sha256: b5f0d6364c8b731dde2a9b9fbb19a31a9e16a662c4d0d2b08bffe09e5b429154
+    commit: b976ae6b65bb9601e7bb01ed07f30b7cff442675
+    sha256: 471178ce7594f5f179ec2c86eab7f331dd92218dbdb3ed4768e7d83e0dd4dfbc
   googleapis:
-    commit: 4ba4d6d3b5e81359f508fb19db492b97bbb01fe6
-    sha256: 9e7a21571368eac7c454b06136b41aab3848721be6970eec35eaff2096f033eb
+    commit: 760ef85838a9f9decef98fcb91e2a73891ed8f7d
+    sha256: 79681d80fdd8a71c52c436c832c2447a9ef97b1ee12fabd56871cdb762cfd8a6
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -767,6 +767,7 @@ libraries:
   - name: google-cloud-gkehub-v1
     version: 1.6.0
     copyright_year: "2025"
+    skip_generate: true
     rust:
       package_dependencies:
         - name: google-cloud-gkehub-configmanagement-v1

@@ -7832,6 +7832,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_health_check_services::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
