@@ -132,8 +132,8 @@ impl Session {
 
     /// Returns the next message received on this subscription.
     ///
-    /// The message data is returned along with a [Handler] for acknowledging
-    /// (ack) or rejecting (nack) the message.
+    /// Returns the message data along with a [Handler] for acknowledging (ack) the message.
+    /// Dropping the [Handler] without acknowledging it will reject (nack) the message.
     ///
     /// If the underlying stream encounters a permanent error, an `Error` is
     /// returned instead.
@@ -469,7 +469,7 @@ mod tests {
             let Some((_, Handler::AtLeastOnce(h))) = session.next().await.transpose()? else {
                 anyhow::bail!("expected message {i}")
             };
-            h.nack();
+            drop(h);
         }
         // Take a long time to process some messages
         let mut hold = Vec::new();
