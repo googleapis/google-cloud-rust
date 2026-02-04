@@ -17,19 +17,19 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate accesscontextmanager_v1;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
+extern crate google_cloud_identity_accesscontextmanager_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_orgpolicy_v1;
+extern crate google_cloud_osconfig_v1;
 extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate orgpolicy_v1;
-extern crate osconfig_v1;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -11369,12 +11369,12 @@ pub struct Asset {
     /// policy](https://cloud.google.com/resource-manager/docs/organization-policy/overview#organization_policy).
     /// There can be more than one organization policy with different constraints
     /// set on a given resource.
-    pub org_policy: std::vec::Vec<orgpolicy_v1::model::Policy>,
+    pub org_policy: std::vec::Vec<google_cloud_orgpolicy_v1::model::Policy>,
 
     /// A representation of runtime OS Inventory information. See [this
     /// topic](https://cloud.google.com/compute/docs/instances/os-inventory-management)
     /// for more information.
-    pub os_inventory: std::option::Option<osconfig_v1::model::Inventory>,
+    pub os_inventory: std::option::Option<google_cloud_osconfig_v1::model::Inventory>,
 
     /// DEPRECATED. This field only presents for the purpose of
     /// backward-compatibility. The server will never generate responses with this
@@ -11537,7 +11537,7 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::Asset;
-    /// use orgpolicy_v1::model::Policy;
+    /// use google_cloud_orgpolicy_v1::model::Policy;
     /// let x = Asset::new()
     ///     .set_org_policy([
     ///         Policy::default()/* use setters */,
@@ -11547,7 +11547,7 @@ impl Asset {
     pub fn set_org_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<orgpolicy_v1::model::Policy>,
+        V: std::convert::Into<google_cloud_orgpolicy_v1::model::Policy>,
     {
         use std::iter::Iterator;
         self.org_policy = v.into_iter().map(|i| i.into()).collect();
@@ -11559,12 +11559,12 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::Asset;
-    /// use osconfig_v1::model::Inventory;
+    /// use google_cloud_osconfig_v1::model::Inventory;
     /// let x = Asset::new().set_os_inventory(Inventory::default()/* use setters */);
     /// ```
     pub fn set_os_inventory<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<osconfig_v1::model::Inventory>,
+        T: std::convert::Into<google_cloud_osconfig_v1::model::Inventory>,
     {
         self.os_inventory = std::option::Option::Some(v.into());
         self
@@ -11575,13 +11575,13 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::Asset;
-    /// use osconfig_v1::model::Inventory;
+    /// use google_cloud_osconfig_v1::model::Inventory;
     /// let x = Asset::new().set_or_clear_os_inventory(Some(Inventory::default()/* use setters */));
     /// let x = Asset::new().set_or_clear_os_inventory(None::<Inventory>);
     /// ```
     pub fn set_or_clear_os_inventory<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<osconfig_v1::model::Inventory>,
+        T: std::convert::Into<google_cloud_osconfig_v1::model::Inventory>,
     {
         self.os_inventory = v.map(|x| x.into());
         self
@@ -11680,7 +11680,7 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::Asset;
-    /// use accesscontextmanager_v1::model::AccessPolicy;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
     /// let x = Asset::new().set_access_context_policy(Some(
     ///     google_cloud_asset_v1::model::asset::AccessContextPolicy::AccessPolicy(AccessPolicy::default().into())));
     /// ```
@@ -11699,7 +11699,9 @@ impl Asset {
     /// holds a different branch.
     pub fn access_policy(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<accesscontextmanager_v1::model::AccessPolicy>> {
+    ) -> std::option::Option<
+        &std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy>,
+    > {
         #[allow(unreachable_patterns)]
         self.access_context_policy.as_ref().and_then(|v| match v {
             crate::model::asset::AccessContextPolicy::AccessPolicy(v) => {
@@ -11718,14 +11720,16 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::Asset;
-    /// use accesscontextmanager_v1::model::AccessPolicy;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
     /// let x = Asset::new().set_access_policy(AccessPolicy::default()/* use setters */);
     /// assert!(x.access_policy().is_some());
     /// assert!(x.access_level().is_none());
     /// assert!(x.service_perimeter().is_none());
     /// ```
     pub fn set_access_policy<
-        T: std::convert::Into<std::boxed::Box<accesscontextmanager_v1::model::AccessPolicy>>,
+        T: std::convert::Into<
+                std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy>,
+            >,
     >(
         mut self,
         v: T,
@@ -11741,7 +11745,9 @@ impl Asset {
     /// holds a different branch.
     pub fn access_level(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<accesscontextmanager_v1::model::AccessLevel>> {
+    ) -> std::option::Option<
+        &std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::AccessLevel>,
+    > {
         #[allow(unreachable_patterns)]
         self.access_context_policy.as_ref().and_then(|v| match v {
             crate::model::asset::AccessContextPolicy::AccessLevel(v) => {
@@ -11760,14 +11766,16 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::Asset;
-    /// use accesscontextmanager_v1::model::AccessLevel;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
     /// let x = Asset::new().set_access_level(AccessLevel::default()/* use setters */);
     /// assert!(x.access_level().is_some());
     /// assert!(x.access_policy().is_none());
     /// assert!(x.service_perimeter().is_none());
     /// ```
     pub fn set_access_level<
-        T: std::convert::Into<std::boxed::Box<accesscontextmanager_v1::model::AccessLevel>>,
+        T: std::convert::Into<
+                std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::AccessLevel>,
+            >,
     >(
         mut self,
         v: T,
@@ -11783,8 +11791,9 @@ impl Asset {
     /// holds a different branch.
     pub fn service_perimeter(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<accesscontextmanager_v1::model::ServicePerimeter>>
-    {
+    ) -> std::option::Option<
+        &std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter>,
+    > {
         #[allow(unreachable_patterns)]
         self.access_context_policy.as_ref().and_then(|v| match v {
             crate::model::asset::AccessContextPolicy::ServicePerimeter(v) => {
@@ -11803,14 +11812,18 @@ impl Asset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_asset_v1::model::Asset;
-    /// use accesscontextmanager_v1::model::ServicePerimeter;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
     /// let x = Asset::new().set_service_perimeter(ServicePerimeter::default()/* use setters */);
     /// assert!(x.service_perimeter().is_some());
     /// assert!(x.access_policy().is_none());
     /// assert!(x.access_level().is_none());
     /// ```
     pub fn set_service_perimeter<
-        T: std::convert::Into<std::boxed::Box<accesscontextmanager_v1::model::ServicePerimeter>>,
+        T: std::convert::Into<
+                std::boxed::Box<
+                    google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -11840,13 +11853,19 @@ pub mod asset {
     pub enum AccessContextPolicy {
         /// Also refer to the [access policy user
         /// guide](https://cloud.google.com/access-context-manager/docs/overview#access-policies).
-        AccessPolicy(std::boxed::Box<accesscontextmanager_v1::model::AccessPolicy>),
+        AccessPolicy(
+            std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy>,
+        ),
         /// Also refer to the [access level user
         /// guide](https://cloud.google.com/access-context-manager/docs/overview#access-levels).
-        AccessLevel(std::boxed::Box<accesscontextmanager_v1::model::AccessLevel>),
+        AccessLevel(
+            std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::AccessLevel>,
+        ),
         /// Also refer to the [service perimeter user
         /// guide](https://cloud.google.com/vpc-service-controls/docs/overview).
-        ServicePerimeter(std::boxed::Box<accesscontextmanager_v1::model::ServicePerimeter>),
+        ServicePerimeter(
+            std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter>,
+        ),
     }
 }
 
