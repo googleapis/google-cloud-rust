@@ -111,11 +111,10 @@ impl AtLeastOnce {
 }
 
 impl Drop for AtLeastOnce {
-    /// Automatically rejects the message if it hasn't been acknowledged yet.
+    /// Rejects the message associated with this handler.
     ///
-    /// This ensures that messages are redelivered even if the application
-    /// forgets to call `ack()`, preventing leaked messages in the lease
-    /// management system.
+    /// The message will be removed from this `Subscriber`'s lease management.
+    /// The service will redeliver this message, possibly to another client.
     fn drop(&mut self) {
         if let Some(inner) = self.inner.take() {
             inner.nack();
