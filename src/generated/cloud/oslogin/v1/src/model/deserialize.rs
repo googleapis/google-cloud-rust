@@ -98,7 +98,7 @@ impl<'de> serde::de::Deserialize<'de> for super::LoginProfile {
                             }
                             result.posix_accounts = map
                                 .next_value::<std::option::Option<
-                                    std::vec::Vec<oslogin_common::model::PosixAccount>,
+                                    std::vec::Vec<google_cloud_oslogin_common::model::PosixAccount>,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -112,7 +112,7 @@ impl<'de> serde::de::Deserialize<'de> for super::LoginProfile {
                                 .next_value::<std::option::Option<
                                     std::collections::HashMap<
                                         std::string::String,
-                                        oslogin_common::model::SshPublicKey,
+                                        google_cloud_oslogin_common::model::SshPublicKey,
                                     >,
                                 >>()?
                                 .unwrap_or_default();
@@ -206,8 +206,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateSshPublicKeyRequest {
                                     "multiple values for ssh_public_key",
                                 ));
                             }
-                            result.ssh_public_key = map.next_value::<std::option::Option<oslogin_common::model::SshPublicKey>>()?
-                                ;
+                            result.ssh_public_key = map.next_value::<std::option::Option<
+                                google_cloud_oslogin_common::model::SshPublicKey,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -649,8 +650,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportSshPublicKeyRequest {
                                     "multiple values for ssh_public_key",
                                 ));
                             }
-                            result.ssh_public_key = map.next_value::<std::option::Option<oslogin_common::model::SshPublicKey>>()?
-                                ;
+                            result.ssh_public_key = map.next_value::<std::option::Option<
+                                google_cloud_oslogin_common::model::SshPublicKey,
+                            >>()?;
                         }
                         __FieldTag::__project_id => {
                             if !fields.insert(__FieldTag::__project_id) {
@@ -854,8 +856,9 @@ impl<'de> serde::de::Deserialize<'de> for super::UpdateSshPublicKeyRequest {
                                     "multiple values for ssh_public_key",
                                 ));
                             }
-                            result.ssh_public_key = map.next_value::<std::option::Option<oslogin_common::model::SshPublicKey>>()?
-                                ;
+                            result.ssh_public_key = map.next_value::<std::option::Option<
+                                google_cloud_oslogin_common::model::SshPublicKey,
+                            >>()?;
                         }
                         __FieldTag::__update_mask => {
                             if !fields.insert(__FieldTag::__update_mask) {

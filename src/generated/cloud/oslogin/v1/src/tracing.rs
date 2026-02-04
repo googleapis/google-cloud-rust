@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
+    ) -> Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
         self.inner.create_ssh_public_key(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::GetSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
+    ) -> Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
         self.inner.get_ssh_public_key(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::UpdateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
+    ) -> Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
         self.inner.update_ssh_public_key(req, options).await
     }
 }
