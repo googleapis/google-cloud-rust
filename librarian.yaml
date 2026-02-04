@@ -767,7 +767,6 @@ libraries:
   - name: google-cloud-gkehub-v1
     version: 1.6.0
     copyright_year: "2025"
-    # TODO(https://github.com/googleapis/google-cloud-rust/issues/4553): fixExpand commentComment on line R772
     skip_generate: true
     rust:
       package_dependencies:
