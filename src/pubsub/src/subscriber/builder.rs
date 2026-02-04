@@ -64,8 +64,9 @@ impl StreamingPull {
 
     /// Sets the ack deadline to use for the stream.
     ///
-    /// This value represents how long the application has to ack or nack an
-    /// incoming message. Note that this value is independent of the deadline
+    /// This value represents how long the application has to ack an
+    /// incoming message. If the handler is dropped without being acked,
+    /// it is nacked. Note that this value is independent of the
     /// configured on the server-side subscription.
     ///
     /// If the server does not hear back from the client within this deadline
@@ -95,7 +96,7 @@ impl StreamingPull {
     /// Flow control settings for the maximum number of outstanding messages.
     ///
     /// The server will stop sending messages to a client when this many
-    /// messages are outstanding (i.e. that have not been acked or nacked).
+    /// messages are outstanding (i.e. that have not been acked).
     ///
     /// The server resumes sending messages when the outstanding message count
     /// drops below this value.
@@ -122,7 +123,7 @@ impl StreamingPull {
     /// Flow control settings for the maximum number of outstanding bytes.
     ///
     /// The server will stop sending messages to a client when this many bytes
-    /// of messages are outstanding (i.e. that have not been acked or nacked).
+    /// of messages are outstanding (i.e. that have not been acked).
     ///
     /// The server resumes sending messages when the outstanding byte count
     /// drops below this value.
