@@ -280,9 +280,7 @@ mod tests {
 
         let token = headers
             .get(HeaderName::from_static("authorization"))
-            .expect(&format!(
-                "headers contains {TRUST_BOUNDARY_HEADER}, got={headers:?}"
-            ));
+            .unwrap_or_else(|| panic!("headers contains {TRUST_BOUNDARY_HEADER}, got={headers:?}"));
 
         assert_eq!(token, HeaderValue::from_static("MAC special_token"));
         assert!(token.is_sensitive());
@@ -321,9 +319,7 @@ mod tests {
         assert_eq!(headers.len(), 1, "{headers:?}");
         let api_key = headers
             .get(HeaderName::from_static(API_KEY_HEADER_KEY))
-            .expect(&format!(
-                "headers contains {API_KEY_HEADER_KEY}, got={headers:?}"
-            ));
+            .unwrap_or_else(|| panic!("headers contains {API_KEY_HEADER_KEY}, got={headers:?}"));
 
         assert_eq!(api_key, HeaderValue::from_static("api_key_12345"));
         assert!(api_key.is_sensitive());
