@@ -1001,9 +1001,7 @@ mod tests {
         let client_email = signer.client_email().await?;
         assert_eq!(client_email, service_account_key["client_email"]);
 
-        let result = signer.sign(b"test").await;
-
-        assert!(result.is_ok(), "{result:?}");
+        let _bytes = signer.sign(b"test").await?;
 
         Ok(())
     }

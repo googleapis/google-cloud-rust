@@ -329,10 +329,10 @@ pub(crate) mod tests {
             .build();
 
         let claims = verifier.verify(token).await?;
-        assert!(!claims.is_empty(), "{claims:?}");
+        assert!(!claims.is_empty(), "{token:?}");
 
         let claims = verifier.verify(token).await?;
-        assert!(!claims.is_empty(), "{claims:?}");
+        assert!(!claims.is_empty(), "{token:?}");
 
         Ok(())
     }
@@ -379,7 +379,7 @@ pub(crate) mod tests {
             let token = generate_test_id_token(audience);
             let token = token.as_str();
             let claims = verifier.verify(token).await?;
-            assert!(!claims.is_empty(), "{claims:?}");
+            assert!(!claims.is_empty(), "{token:?}");
         }
 
         Ok(())
@@ -433,9 +433,7 @@ pub(crate) mod tests {
             .with_email(email)
             .build();
 
-        let result = verifier.verify(token).await;
-        assert!(result.is_ok(), "{result:?}");
-        let claims = result.unwrap();
+        let claims = verifier.verify(token).await?;
         assert_eq!(claims["email"].as_str().unwrap(), email);
 
         Ok(())
@@ -545,8 +543,7 @@ pub(crate) mod tests {
             .with_clock_skew(Duration::from_secs(60))
             .build();
 
-        let result = verifier.verify(token).await;
-        assert!(result.is_ok(), "{result:?}");
+        let _claims = verifier.verify(token).await?;
 
         Ok(())
     }
@@ -629,7 +626,7 @@ pub(crate) mod tests {
             .build();
 
         let claims = verifier.verify(&token).await?;
-        assert!(!claims.is_empty(), "{claims:?}");
+        assert!(!claims.is_empty(), "{token:?}");
 
         Ok(())
     }

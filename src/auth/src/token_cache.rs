@@ -354,9 +354,8 @@ mod tests {
 
         // Wait for the N token requests to complete, verifying the returned token.
         for task in tasks {
-            let actual = task.await.unwrap();
-            assert!(actual.is_ok(), "{}", actual.err().unwrap());
-            assert_eq!(get_cached_token(actual.unwrap())?, token);
+            let actual = task.await??;
+            assert_eq!(get_cached_token(actual)?, token);
         }
         Ok(())
     }
@@ -671,9 +670,8 @@ mod tests {
 
         // Wait for the N token requests to complete, verifying the returned token.
         for task in tasks {
-            let actual = task.await?;
-            assert!(actual.is_ok(), "{}", actual.unwrap_err());
-            assert_eq!(get_cached_token(actual?)?, token);
+            let actual = task.await??;
+            assert_eq!(get_cached_token(actual)?, token);
         }
 
         let calls = tp.calls();

@@ -170,22 +170,18 @@ mod tests {
     }
 
     #[test]
-    fn build_cacheable_headers_basic_success() {
+    fn build_cacheable_headers_basic_success() -> anyhow::Result<()> {
         let token = create_test_token("test_token", "Bearer");
         let cacheable_token = CacheableResource::New {
             entity_tag: EntityTag::default(),
             data: token,
         };
 
-        let result = AuthHeadersBuilder::new(&cacheable_token).build();
-
-        assert!(result.is_ok(), "{result:?}");
-        let cached_headers = result.unwrap();
+        let cached_headers = AuthHeadersBuilder::new(&cacheable_token).build()?;
         let headers = match cached_headers {
             CacheableResource::New { data, .. } => data,
             CacheableResource::NotModified => unreachable!("expecting new headers"),
         };
-
         assert_eq!(headers.len(), 1, "{headers:?}");
         let value = headers
             .get(HeaderName::from_static("authorization"))
@@ -193,24 +189,23 @@ mod tests {
 
         assert_eq!(value, HeaderValue::from_static("Bearer test_token"));
         assert!(value.is_sensitive());
+        Ok(())
     }
 
     #[test]
-    fn build_cacheable_headers_basic_not_modified() {
+    fn build_cacheable_headers_basic_not_modified() -> anyhow::Result<()> {
         let cacheable_token = CacheableResource::NotModified;
 
-        let result = AuthHeadersBuilder::new(&cacheable_token).build();
-
-        assert!(result.is_ok(), "{result:?}");
-        let cached_headers = result.unwrap();
-        match cached_headers {
-            CacheableResource::New { .. } => unreachable!("expecting new headers"),
-            CacheableResource::NotModified => CacheableResource::<Token>::NotModified,
-        };
+        let cached_headers = AuthHeadersBuilder::new(&cacheable_token).build()?;
+        assert!(
+            matches!(&cached_headers, CacheableResource::NotModified),
+            "{cached_headers:?}"
+        );
+        Ok(())
     }
 
     #[test]
-    fn build_cacheable_headers_with_quota_project_success() {
+    fn build_cacheable_headers_with_quota_project_success() -> anyhow::Result<()> {
         let token = create_test_token("test_token", "Bearer");
         let cacheable_token = CacheableResource::New {
             entity_tag: EntityTag::default(),
@@ -218,12 +213,9 @@ mod tests {
         };
 
         let quota_project_id = Some("test-project-123");
-        let result = AuthHeadersBuilder::new(&cacheable_token)
+        let cached_headers = AuthHeadersBuilder::new(&cacheable_token)
             .maybe_quota_project_id(quota_project_id)
-            .build();
-
-        assert!(result.is_ok(), "{result:?}");
-        let cached_headers = result.unwrap();
+            .build()?;
         let headers = match cached_headers {
             CacheableResource::New { data, .. } => data,
             CacheableResource::NotModified => unreachable!("expecting new headers"),
@@ -240,10 +232,11 @@ mod tests {
             .get(HeaderName::from_static(QUOTA_PROJECT_KEY))
             .unwrap();
         assert_eq!(quota_project, HeaderValue::from_static("test-project-123"));
+        Ok(())
     }
 
     #[test]
-    fn build_cacheable_headers_with_trust_boundary_success() {
+    fn build_cacheable_headers_with_trust_boundary_success() -> anyhow::Result<()> {
         let token = create_test_token("test_token", "Bearer");
         let cacheable_token = CacheableResource::New {
             entity_tag: EntityTag::default(),
@@ -251,12 +244,10 @@ mod tests {
         };
 
         let trust_boundary = Some("test-trust-boundary");
-        let result = AuthHeadersBuilder::new(&cacheable_token)
+        let cached_headers = AuthHeadersBuilder::new(&cacheable_token)
             .maybe_access_boundary(trust_boundary)
-            .build();
+            .build()?;
 
-        assert!(result.is_ok(), "{result:?}");
-        let cached_headers = result.unwrap();
         let headers = match cached_headers {
             CacheableResource::New { data, .. } => data,
             CacheableResource::NotModified => unreachable!("expecting new headers"),
@@ -271,30 +262,31 @@ mod tests {
 
         let trust_boundary = headers
             .get(HeaderName::from_static(TRUST_BOUNDARY_HEADER))
-            .unwrap();
+            .expect("headers contains {TRUST_BOUNDARY_HEADER}, got={headers:?}");
         assert_eq!(
             trust_boundary,
             HeaderValue::from_static("test-trust-boundary")
         );
+        Ok(())
     }
 
     #[test]
-    fn build_bearer_headers_different_token_type() {
+    fn build_bearer_headers_different_token_type() -> anyhow::Result<()> {
         let token = create_test_token("special_token", "MAC");
 
-        let result = AuthHeadersBuilder::new(&CacheableResource::NotModified).as_headers(&token);
-
-        assert!(result.is_ok(), "{result:?}");
-        let headers = result.unwrap();
-
+        let headers =
+            AuthHeadersBuilder::new(&CacheableResource::NotModified).as_headers(&token)?;
         assert_eq!(headers.len(), 1, "{headers:?}");
 
         let token = headers
             .get(HeaderName::from_static("authorization"))
-            .unwrap();
+            .expect(&format!(
+                "headers contains {TRUST_BOUNDARY_HEADER}, got={headers:?}"
+            ));
 
         assert_eq!(token, HeaderValue::from_static("MAC special_token"));
         assert!(token.is_sensitive());
+        Ok(())
     }
 
     #[test]
@@ -315,42 +307,38 @@ mod tests {
     }
 
     #[test]
-    fn build_cacheable_api_key_headers_basic_success() {
+    fn build_cacheable_api_key_headers_basic_success() -> anyhow::Result<()> {
         let token = create_test_token("api_key_12345", "Bearer");
         let cacheable_token = CacheableResource::New {
             entity_tag: EntityTag::default(),
             data: token,
         };
-
-        let result = AuthHeadersBuilder::for_api_key(&cacheable_token).build();
-
-        assert!(result.is_ok(), "{result:?}");
-        let cached_headers = result.unwrap();
+        let cached_headers = AuthHeadersBuilder::for_api_key(&cacheable_token).build()?;
         let headers = match cached_headers {
             CacheableResource::New { data, .. } => data,
             CacheableResource::NotModified => unreachable!("expecting new headers"),
         };
-
         assert_eq!(headers.len(), 1, "{headers:?}");
         let api_key = headers
             .get(HeaderName::from_static(API_KEY_HEADER_KEY))
-            .unwrap();
+            .expect(&format!(
+                "headers contains {API_KEY_HEADER_KEY}, got={headers:?}"
+            ));
 
         assert_eq!(api_key, HeaderValue::from_static("api_key_12345"));
         assert!(api_key.is_sensitive());
+        Ok(())
     }
 
     #[test]
-    fn build_cacheable_api_key_headers_basic_not_modified() {
+    fn build_cacheable_api_key_headers_basic_not_modified() -> anyhow::Result<()> {
         let cacheable_token = CacheableResource::NotModified;
-        let result = AuthHeadersBuilder::for_api_key(&cacheable_token).build();
-
-        assert!(result.is_ok(), "{result:?}");
-        let cached_headers = result.unwrap();
-        match cached_headers {
-            CacheableResource::New { .. } => unreachable!("expecting new headers"),
-            CacheableResource::NotModified => CacheableResource::<Token>::NotModified,
-        };
+        let cached_headers = AuthHeadersBuilder::for_api_key(&cacheable_token).build()?;
+        assert!(
+            matches!(&cached_headers, CacheableResource::NotModified),
+            "{cached_headers:?}"
+        );
+        Ok(())
     }
 
     #[test]
