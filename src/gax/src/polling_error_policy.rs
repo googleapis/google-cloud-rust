@@ -521,11 +521,9 @@ mod tests {
     }
 
     #[test]
-    fn aip194_strict() {
+    fn aip194_strict() -> anyhow::Result<()> {
         let p = Aip194Strict;
-
-        let result = p.on_in_progress(&PollingState::default(), "unused");
-        assert!(result.is_ok(), "{result:?}");
+        let _ = p.on_in_progress(&PollingState::default(), "unused")?;
         assert!(
             p.on_error(&PollingState::default(), unavailable())
                 .is_continue()
@@ -560,6 +558,7 @@ mod tests {
             p.on_error(&PollingState::default(), Error::ser("err".to_string()))
                 .is_permanent()
         );
+        Ok(())
     }
 
     #[test]

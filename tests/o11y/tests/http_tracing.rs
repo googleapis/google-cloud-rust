@@ -91,9 +91,12 @@ async fn http_tracing_to_otlp() -> anyhow::Result<()> {
         "Should have received at least one resource span"
     );
     let scope_spans = &request.resource_spans[0].scope_spans;
-    assert!(!scope_spans.is_empty(), "Should have scope spans");
+    assert!(
+        !scope_spans.is_empty(),
+        "request {request:?} should have scope spans"
+    );
     let spans = &scope_spans[0].spans;
-    assert!(!spans.is_empty(), "Should have spans");
+    assert!(!spans.is_empty(), "{request:?} should have spans");
 
     // Verify we captured the client span
     let client_span = spans.iter().find(|s| s.kind == 3 /* CLIENT */); // 3 is SPAN_KIND_CLIENT

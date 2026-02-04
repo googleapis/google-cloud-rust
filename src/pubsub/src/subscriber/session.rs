@@ -372,7 +372,10 @@ mod tests {
         assert_eq!(initial_req.stream_ack_deadline_seconds, 20);
         assert_eq!(initial_req.max_outstanding_messages, 2000);
         assert_eq!(initial_req.max_outstanding_bytes, 200 * MIB);
-        assert!(!initial_req.client_id.is_empty(), "{initial_req:?}");
+        assert!(
+            !initial_req.client_id.is_empty(),
+            "initial request has empty client id: {initial_req:?}"
+        );
         assert!(
             initial_req.protocol_version >= 1,
             "protocol_version={}",

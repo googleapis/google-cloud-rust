@@ -85,8 +85,7 @@ mod tests {
     fn validate_success() -> anyhow::Result<()> {
         let args = Args::try_parse_from(["program", "--bucket-name=bucket"])?;
         assert_eq!(args.bucket_name, "bucket");
-        let got = args.validate();
-        assert!(got.is_ok(), "{got:?} {args:?}");
+        let _ = args.validate()?;
         Ok(())
     }
 

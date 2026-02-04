@@ -345,7 +345,6 @@ mod tests {
         tokio::time::advance(REFRESH_INTERVAL).await;
 
         // Task should finish
-        let result = handle.await;
-        assert!(result.is_ok(), "{result:?}");
+        let _ = handle.await?;
     }
 }
