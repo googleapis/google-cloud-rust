@@ -195,7 +195,6 @@ mod tests {
         req: crate::model::PublishRequest,
         _options: gax::options::RequestOptions,
     ) -> gax::Result<gax::response::Response<crate::model::PublishResponse>> {
-        assert_eq!(req.topic, TOPIC);
         let ids = req
             .messages
             .iter()
@@ -206,10 +205,9 @@ mod tests {
     }
 
     fn publish_err(
-        req: crate::model::PublishRequest,
+        _req: crate::model::PublishRequest,
         _options: gax::options::RequestOptions,
     ) -> gax::Result<gax::response::Response<crate::model::PublishResponse>> {
-        assert_eq!(req.topic, TOPIC);
         Err(gax::error::Error::service(
             gax::error::rpc::Status::default()
                 .set_code(gax::error::rpc::Code::Unknown)
@@ -269,7 +267,10 @@ mod tests {
     #[tokio::test]
     async fn publisher_publish_successfully() {
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().returning(publish_ok).times(2);
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
+            .returning(publish_ok)
+            .times(2);
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
@@ -298,7 +299,10 @@ mod tests {
         // If we hold on to the handles returned from the publisher, it should
         // be safe to drop the publisher and .await on the handles.
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().times(2).returning(publish_ok);
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
+            .times(2)
+            .returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
@@ -335,7 +339,10 @@ mod tests {
     #[tokio::test]
     async fn publisher_handles_publish_errors() {
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().returning(publish_err).times(2);
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
+            .returning(publish_err)
+            .times(2);
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
@@ -362,7 +369,9 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn flush_sends_pending_messages_immediately() {
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().returning(publish_ok);
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
+            .returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
@@ -559,7 +568,9 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn batch_sends_on_delay_threshold() {
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().returning(publish_ok);
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
+            .returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         let delay = std::time::Duration::from_millis(10);
@@ -837,11 +848,13 @@ mod tests {
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
             .times(1)
             .in_sequence(&mut seq)
             .returning(publish_err);
 
         mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
             .times(2)
             .in_sequence(&mut seq)
             .returning(publish_ok);
@@ -925,11 +938,13 @@ mod tests {
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
             .times(1)
             .in_sequence(&mut seq)
             .returning(publish_err);
 
         mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
             .times(2)
             .in_sequence(&mut seq)
             .returning(publish_ok);
@@ -957,7 +972,10 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn resuming_non_paused_ordering_key_is_noop() {
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().times(4).returning(publish_ok);
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
+            .times(4)
+            .returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string()).build();
@@ -985,11 +1003,13 @@ mod tests {
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
             .times(1)
             .in_sequence(&mut seq)
             .returning(publish_err);
 
         mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
             .times(3)
             .in_sequence(&mut seq)
             .returning(publish_ok);
@@ -1023,11 +1043,13 @@ mod tests {
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
             .times(1)
             .in_sequence(&mut seq)
             .returning(publish_err);
 
         mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
             .times(3)
             .in_sequence(&mut seq)
             .returning(publish_ok);
@@ -1060,11 +1082,13 @@ mod tests {
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
             .times(2)
             .in_sequence(&mut seq)
             .returning(publish_err);
 
         mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
             .times(1)
             .in_sequence(&mut seq)
             .returning(publish_ok);
