@@ -3288,8 +3288,9 @@ impl<'de> serde::de::Deserialize<'de> for super::EncryptionInfo {
                                     "multiple values for encryption_status",
                                 ));
                             }
-                            result.encryption_status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.encryption_status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__kms_key_version => {
                             if !fields.insert(__FieldTag::__kms_key_version) {

@@ -245,10 +245,12 @@ pub trait CrossNetworkAutomationService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::CrossNetworkAutomationService::list_locations].
     fn list_locations(
         &self,
-        _req: location::model::ListLocationsRequest,
+        _req: google_cloud_location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -256,10 +258,10 @@ pub trait CrossNetworkAutomationService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::CrossNetworkAutomationService::get_location].
     fn get_location(
         &self,
-        _req: location::model::GetLocationRequest,
+        _req: google_cloud_location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
+        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -519,10 +521,12 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DataTransferService::list_locations].
     fn list_locations(
         &self,
-        _req: location::model::ListLocationsRequest,
+        _req: google_cloud_location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -530,10 +534,10 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DataTransferService::get_location].
     fn get_location(
         &self,
-        _req: location::model::GetLocationRequest,
+        _req: google_cloud_location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
+        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -905,10 +909,12 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::HubService::list_locations].
     fn list_locations(
         &self,
-        _req: location::model::ListLocationsRequest,
+        _req: google_cloud_location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -916,10 +922,10 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::HubService::get_location].
     fn get_location(
         &self,
-        _req: location::model::GetLocationRequest,
+        _req: google_cloud_location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
+        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1094,10 +1100,12 @@ pub trait InternalRangeService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::InternalRangeService::list_locations].
     fn list_locations(
         &self,
-        _req: location::model::ListLocationsRequest,
+        _req: google_cloud_location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1105,10 +1113,10 @@ pub trait InternalRangeService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::InternalRangeService::get_location].
     fn get_location(
         &self,
-        _req: location::model::GetLocationRequest,
+        _req: google_cloud_location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
+        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1274,10 +1282,12 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::PolicyBasedRoutingService::list_locations].
     fn list_locations(
         &self,
-        _req: location::model::ListLocationsRequest,
+        _req: google_cloud_location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1285,10 +1295,10 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::PolicyBasedRoutingService::get_location].
     fn get_location(
         &self,
-        _req: location::model::GetLocationRequest,
+        _req: google_cloud_location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
+        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

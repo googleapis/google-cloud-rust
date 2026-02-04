@@ -258,8 +258,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Job {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__mode => {
                             if !fields.insert(__FieldTag::__mode) {

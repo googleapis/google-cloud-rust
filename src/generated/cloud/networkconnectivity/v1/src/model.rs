@@ -22,11 +22,11 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
+extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate location;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -65,7 +65,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1021,7 +1021,7 @@ pub mod service_connection_map {
 
         /// The most recent error during operating this connection.
         #[deprecated]
-        pub error: std::option::Option<rpc::model::Status>,
+        pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
         /// The last Compute Engine operation to setup PSC connection.
         pub gce_operation: std::string::String,
@@ -1033,7 +1033,7 @@ pub mod service_connection_map {
 
         /// Output only. The error info for the latest error during operating this
         /// connection.
-        pub error_info: std::option::Option<rpc::model::ErrorInfo>,
+        pub error_info: std::option::Option<google_cloud_rpc::model::ErrorInfo>,
 
         /// Output only. The URI of the selected subnetwork selected to allocate IP
         /// address for this connection.
@@ -1171,13 +1171,13 @@ pub mod service_connection_map {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networkconnectivity_v1::model::service_connection_map::ConsumerPscConnection;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ConsumerPscConnection::new().set_error(Status::default()/* use setters */);
         /// ```
         #[deprecated]
         pub fn set_error<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.error = std::option::Option::Some(v.into());
             self
@@ -1188,14 +1188,14 @@ pub mod service_connection_map {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networkconnectivity_v1::model::service_connection_map::ConsumerPscConnection;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ConsumerPscConnection::new().set_or_clear_error(Some(Status::default()/* use setters */));
         /// let x = ConsumerPscConnection::new().set_or_clear_error(None::<Status>);
         /// ```
         #[deprecated]
         pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.error = v.map(|x| x.into());
             self
@@ -1236,12 +1236,12 @@ pub mod service_connection_map {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networkconnectivity_v1::model::service_connection_map::ConsumerPscConnection;
-        /// use rpc::model::ErrorInfo;
+        /// use google_cloud_rpc::model::ErrorInfo;
         /// let x = ConsumerPscConnection::new().set_error_info(ErrorInfo::default()/* use setters */);
         /// ```
         pub fn set_error_info<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::ErrorInfo>,
+            T: std::convert::Into<google_cloud_rpc::model::ErrorInfo>,
         {
             self.error_info = std::option::Option::Some(v.into());
             self
@@ -1252,13 +1252,13 @@ pub mod service_connection_map {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networkconnectivity_v1::model::service_connection_map::ConsumerPscConnection;
-        /// use rpc::model::ErrorInfo;
+        /// use google_cloud_rpc::model::ErrorInfo;
         /// let x = ConsumerPscConnection::new().set_or_clear_error_info(Some(ErrorInfo::default()/* use setters */));
         /// let x = ConsumerPscConnection::new().set_or_clear_error_info(None::<ErrorInfo>);
         /// ```
         pub fn set_or_clear_error_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::ErrorInfo>,
+            T: std::convert::Into<google_cloud_rpc::model::ErrorInfo>,
         {
             self.error_info = v.map(|x| x.into());
             self
@@ -2708,7 +2708,7 @@ pub mod service_connection_policy {
         /// The most recent error during operating this connection.
         /// Deprecated, please use error_info instead.
         #[deprecated]
-        pub error: std::option::Option<rpc::model::Status>,
+        pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
         /// The last Compute Engine operation to setup PSC connection.
         pub gce_operation: std::string::String,
@@ -2721,7 +2721,7 @@ pub mod service_connection_policy {
 
         /// Output only. The error info for the latest error during operating this
         /// connection.
-        pub error_info: std::option::Option<rpc::model::ErrorInfo>,
+        pub error_info: std::option::Option<google_cloud_rpc::model::ErrorInfo>,
 
         /// Output only. The URI of the subnetwork selected to allocate IP address
         /// for this connection.
@@ -2824,13 +2824,13 @@ pub mod service_connection_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networkconnectivity_v1::model::service_connection_policy::PscConnection;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = PscConnection::new().set_error(Status::default()/* use setters */);
         /// ```
         #[deprecated]
         pub fn set_error<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.error = std::option::Option::Some(v.into());
             self
@@ -2841,14 +2841,14 @@ pub mod service_connection_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networkconnectivity_v1::model::service_connection_policy::PscConnection;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = PscConnection::new().set_or_clear_error(Some(Status::default()/* use setters */));
         /// let x = PscConnection::new().set_or_clear_error(None::<Status>);
         /// ```
         #[deprecated]
         pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.error = v.map(|x| x.into());
             self
@@ -2904,12 +2904,12 @@ pub mod service_connection_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networkconnectivity_v1::model::service_connection_policy::PscConnection;
-        /// use rpc::model::ErrorInfo;
+        /// use google_cloud_rpc::model::ErrorInfo;
         /// let x = PscConnection::new().set_error_info(ErrorInfo::default()/* use setters */);
         /// ```
         pub fn set_error_info<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::ErrorInfo>,
+            T: std::convert::Into<google_cloud_rpc::model::ErrorInfo>,
         {
             self.error_info = std::option::Option::Some(v.into());
             self
@@ -2920,13 +2920,13 @@ pub mod service_connection_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_networkconnectivity_v1::model::service_connection_policy::PscConnection;
-        /// use rpc::model::ErrorInfo;
+        /// use google_cloud_rpc::model::ErrorInfo;
         /// let x = PscConnection::new().set_or_clear_error_info(Some(ErrorInfo::default()/* use setters */));
         /// let x = PscConnection::new().set_or_clear_error_info(None::<ErrorInfo>);
         /// ```
         pub fn set_or_clear_error_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::ErrorInfo>,
+            T: std::convert::Into<google_cloud_rpc::model::ErrorInfo>,
         {
             self.error_info = v.map(|x| x.into());
             self

@@ -10283,7 +10283,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Value {
                             result.r#type =
                                 std::option::Option::Some(crate::model::value::Type::TimeValue(
                                     map.next_value::<std::option::Option<
-                                        std::boxed::Box<gtype::model::TimeOfDay>,
+                                        std::boxed::Box<google_cloud_type::model::TimeOfDay>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ));
@@ -10300,14 +10300,12 @@ impl<'de> serde::de::Deserialize<'de> for super::Value {
                                 ));
                             }
                             result.r#type =
-                                std::option::Option::Some(
-                                    crate::model::value::Type::DateValue(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<gtype::model::Date>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                                std::option::Option::Some(crate::model::value::Type::DateValue(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_type::model::Date>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ));
                         }
                         __FieldTag::__day_of_week_value => {
                             if !fields.insert(__FieldTag::__day_of_week_value) {
@@ -10320,13 +10318,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Value {
                                     "multiple values for `r#type`, a oneof with full ID .google.privacy.dlp.v2.Value.day_of_week_value, latest field was dayOfWeekValue",
                                 ));
                             }
-                            result.r#type = std::option::Option::Some(
-                                crate::model::value::Type::DayOfWeekValue(
-                                    map.next_value::<std::option::Option<gtype::model::DayOfWeek>>(
-                                    )?
-                                    .unwrap_or_default(),
-                                ),
-                            );
+                            result.r#type =
+                                std::option::Option::Some(
+                                    crate::model::value::Type::DayOfWeekValue(
+                                        map.next_value::<std::option::Option<
+                                            google_cloud_type::model::DayOfWeek,
+                                        >>()?
+                                        .unwrap_or_default(),
+                                    ),
+                                );
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -10503,8 +10503,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DateTime {
                                     "multiple values for date",
                                 ));
                             }
-                            result.date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__day_of_week => {
                             if !fields.insert(__FieldTag::__day_of_week) {
@@ -10512,9 +10513,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DateTime {
                                     "multiple values for day_of_week",
                                 ));
                             }
-                            result.day_of_week = map
-                                .next_value::<std::option::Option<gtype::model::DayOfWeek>>()?
-                                .unwrap_or_default();
+                            result.day_of_week = map.next_value::<std::option::Option<google_cloud_type::model::DayOfWeek>>()?.unwrap_or_default();
                         }
                         __FieldTag::__time => {
                             if !fields.insert(__FieldTag::__time) {
@@ -10522,8 +10521,8 @@ impl<'de> serde::de::Deserialize<'de> for super::DateTime {
                                     "multiple values for time",
                                 ));
                             }
-                            result.time =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.time = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::__time_zone => {
                             if !fields.insert(__FieldTag::__time_zone) {
@@ -15448,8 +15447,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TransformationResultStatus {
                                     "multiple values for details",
                                 ));
                             }
-                            result.details =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.details = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -16062,8 +16062,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Error {
                                     "multiple values for details",
                                 ));
                             }
-                            result.details =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.details = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__timestamps => {
                             if !fields.insert(__FieldTag::__timestamps) {
@@ -32599,8 +32600,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ProfileStatus {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__timestamp => {
                             if !fields.insert(__FieldTag::__timestamp) {

@@ -413,7 +413,8 @@ mod tests {
 
         // Close the stream
         drop(tx);
-        assert!(response_stream.next().await.is_none());
+        let next = response_stream.next().await;
+        assert!(next.is_none(), "{next:?}");
 
         let spans = TestLayer::capture(&guard);
         let grpc_spans: Vec<_> = spans.iter().filter(|s| s.name == "grpc.request").collect();
@@ -504,9 +505,9 @@ mod tests {
 
         // Receive the error
         let response = response_stream.next().await;
-        assert!(response.is_some());
+        assert!(response.is_some(), "{response_stream:?}");
         let result = response.unwrap();
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let status = result.unwrap_err();
         assert_eq!(status.code(), tonic::Code::InvalidArgument);
 

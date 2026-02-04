@@ -17,16 +17,16 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_api;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -20648,7 +20648,7 @@ pub mod document {
 
         /// A sample of errors encountered while indexing the document.
         /// If this field is populated, the document is not indexed due to errors.
-        pub error_samples: std::vec::Vec<rpc::model::Status>,
+        pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
         /// Immutable. The message indicates the document index is in progress.
         /// If this field is populated, the document index is pending.
@@ -20706,7 +20706,7 @@ pub mod document {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_discoveryengine_v1::model::document::IndexStatus;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = IndexStatus::new()
         ///     .set_error_samples([
         ///         Status::default()/* use setters */,
@@ -20716,7 +20716,7 @@ pub mod document {
         pub fn set_error_samples<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<rpc::model::Status>,
+            V: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             use std::iter::Iterator;
             self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -29700,7 +29700,7 @@ pub mod import_identity_mappings_request {
 #[non_exhaustive]
 pub struct ImportIdentityMappingsResponse {
     /// A sample of errors encountered while processing the request.
-    pub error_samples: std::vec::Vec<rpc::model::Status>,
+    pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -29716,7 +29716,7 @@ impl ImportIdentityMappingsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ImportIdentityMappingsResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportIdentityMappingsResponse::new()
     ///     .set_error_samples([
     ///         Status::default()/* use setters */,
@@ -29726,7 +29726,7 @@ impl ImportIdentityMappingsResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -30729,7 +30729,7 @@ impl BigQuerySource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::BigQuerySource;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = BigQuerySource::new().set_partition(Some(
     ///     google_cloud_discoveryengine_v1::model::big_query_source::Partition::PartitionDate(Date::default().into())));
     /// ```
@@ -30746,7 +30746,9 @@ impl BigQuerySource {
     /// The value of [partition][crate::model::BigQuerySource::partition]
     /// if it holds a `PartitionDate`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn partition_date(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
+    pub fn partition_date(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::Date>> {
         #[allow(unreachable_patterns)]
         self.partition.as_ref().and_then(|v| match v {
             crate::model::big_query_source::Partition::PartitionDate(v) => {
@@ -30765,11 +30767,13 @@ impl BigQuerySource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::BigQuerySource;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = BigQuerySource::new().set_partition_date(Date::default()/* use setters */);
     /// assert!(x.partition_date().is_some());
     /// ```
-    pub fn set_partition_date<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(
+    pub fn set_partition_date<
+        T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Date>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -30812,7 +30816,7 @@ pub mod big_query_source {
     #[non_exhaustive]
     pub enum Partition {
         /// BigQuery time partitioned table's _PARTITIONDATE in YYYY-MM-DD format.
-        PartitionDate(std::boxed::Box<gtype::model::Date>),
+        PartitionDate(std::boxed::Box<google_cloud_type::model::Date>),
     }
 }
 
@@ -32505,7 +32509,7 @@ pub mod import_user_events_request {
 #[non_exhaustive]
 pub struct ImportUserEventsResponse {
     /// A sample of errors encountered while processing the request.
-    pub error_samples: std::vec::Vec<rpc::model::Status>,
+    pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// Echoes the destination for the complete errors if this field was set in
     /// the request.
@@ -32532,7 +32536,7 @@ impl ImportUserEventsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ImportUserEventsResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportUserEventsResponse::new()
     ///     .set_error_samples([
     ///         Status::default()/* use setters */,
@@ -32542,7 +32546,7 @@ impl ImportUserEventsResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -33839,7 +33843,7 @@ pub mod import_documents_request {
 #[non_exhaustive]
 pub struct ImportDocumentsResponse {
     /// A sample of errors encountered while processing the request.
-    pub error_samples: std::vec::Vec<rpc::model::Status>,
+    pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// Echoes the destination for the complete errors in the request if set.
     pub error_config: std::option::Option<crate::model::ImportErrorConfig>,
@@ -33858,7 +33862,7 @@ impl ImportDocumentsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ImportDocumentsResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportDocumentsResponse::new()
     ///     .set_error_samples([
     ///         Status::default()/* use setters */,
@@ -33868,7 +33872,7 @@ impl ImportDocumentsResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -34160,7 +34164,7 @@ pub mod import_suggestion_deny_list_entries_request {
 #[non_exhaustive]
 pub struct ImportSuggestionDenyListEntriesResponse {
     /// A sample of errors encountered while processing the request.
-    pub error_samples: std::vec::Vec<rpc::model::Status>,
+    pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// Count of deny list entries successfully imported.
     pub imported_entries_count: i64,
@@ -34182,7 +34186,7 @@ impl ImportSuggestionDenyListEntriesResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ImportSuggestionDenyListEntriesResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportSuggestionDenyListEntriesResponse::new()
     ///     .set_error_samples([
     ///         Status::default()/* use setters */,
@@ -34192,7 +34196,7 @@ impl ImportSuggestionDenyListEntriesResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -34642,7 +34646,7 @@ pub mod import_completion_suggestions_request {
 #[non_exhaustive]
 pub struct ImportCompletionSuggestionsResponse {
     /// A sample of errors encountered while processing the request.
-    pub error_samples: std::vec::Vec<rpc::model::Status>,
+    pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// The desired location of errors incurred during the Import.
     pub error_config: std::option::Option<crate::model::ImportErrorConfig>,
@@ -34661,7 +34665,7 @@ impl ImportCompletionSuggestionsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::ImportCompletionSuggestionsResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportCompletionSuggestionsResponse::new()
     ///     .set_error_samples([
     ///         Status::default()/* use setters */,
@@ -34671,7 +34675,7 @@ impl ImportCompletionSuggestionsResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -36342,7 +36346,7 @@ pub struct PurgeSuggestionDenyListEntriesResponse {
     pub purge_count: i64,
 
     /// A sample of errors encountered while processing the request.
-    pub error_samples: std::vec::Vec<rpc::model::Status>,
+    pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -36370,7 +36374,7 @@ impl PurgeSuggestionDenyListEntriesResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::PurgeSuggestionDenyListEntriesResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = PurgeSuggestionDenyListEntriesResponse::new()
     ///     .set_error_samples([
     ///         Status::default()/* use setters */,
@@ -36380,7 +36384,7 @@ impl PurgeSuggestionDenyListEntriesResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -36548,7 +36552,7 @@ pub struct PurgeCompletionSuggestionsResponse {
     pub purge_succeeded: bool,
 
     /// A sample of errors encountered while processing the request.
-    pub error_samples: std::vec::Vec<rpc::model::Status>,
+    pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -36576,7 +36580,7 @@ impl PurgeCompletionSuggestionsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::PurgeCompletionSuggestionsResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = PurgeCompletionSuggestionsResponse::new()
     ///     .set_error_samples([
     ///         Status::default()/* use setters */,
@@ -36586,7 +36590,7 @@ impl PurgeCompletionSuggestionsResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -46905,7 +46909,7 @@ pub mod train_custom_model_request {
 #[non_exhaustive]
 pub struct TrainCustomModelResponse {
     /// A sample of errors encountered while processing the data.
-    pub error_samples: std::vec::Vec<rpc::model::Status>,
+    pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// Echoes the destination for the complete errors in the request if set.
     pub error_config: std::option::Option<crate::model::ImportErrorConfig>,
@@ -46941,7 +46945,7 @@ impl TrainCustomModelResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::TrainCustomModelResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TrainCustomModelResponse::new()
     ///     .set_error_samples([
     ///         Status::default()/* use setters */,
@@ -46951,7 +46955,7 @@ impl TrainCustomModelResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -55034,7 +55038,7 @@ pub struct WriteUserEventRequest {
     ///
     /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
-    /// [google.cloud.location.Location]: location::model::Location
+    /// [google.cloud.location.Location]: google_cloud_location::model::Location
     pub parent: std::string::String,
 
     /// Required. User event to write.
@@ -55136,7 +55140,7 @@ pub struct CollectUserEventRequest {
     ///
     /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
-    /// [google.cloud.location.Location]: location::model::Location
+    /// [google.cloud.location.Location]: google_cloud_location::model::Location
     pub parent: std::string::String,
 
     /// Required. URL encoded UserEvent proto with a length limit of 2,000,000
@@ -56208,7 +56212,7 @@ pub struct BatchUpdateUserLicensesResponse {
     pub user_licenses: std::vec::Vec<crate::model::UserLicense>,
 
     /// A sample of errors encountered while processing the request.
-    pub error_samples: std::vec::Vec<rpc::model::Status>,
+    pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -56246,7 +56250,7 @@ impl BatchUpdateUserLicensesResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_discoveryengine_v1::model::BatchUpdateUserLicensesResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BatchUpdateUserLicensesResponse::new()
     ///     .set_error_samples([
     ///         Status::default()/* use setters */,
@@ -56256,7 +56260,7 @@ impl BatchUpdateUserLicensesResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();

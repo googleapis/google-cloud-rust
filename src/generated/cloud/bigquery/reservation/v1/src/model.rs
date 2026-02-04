@@ -22,8 +22,8 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -650,7 +650,7 @@ pub mod reservation {
         /// Output only. The last error encountered while trying to replicate changes
         /// from the primary to the secondary. This field is only available if the
         /// replication has not succeeded since.
-        pub error: std::option::Option<rpc::model::Status>,
+        pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
         /// Output only. The time at which the last error was encountered while
         /// trying to replicate changes from the primary to the secondary. This field
@@ -681,12 +681,12 @@ pub mod reservation {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_bigquery_reservation_v1::model::reservation::ReplicationStatus;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ReplicationStatus::new().set_error(Status::default()/* use setters */);
         /// ```
         pub fn set_error<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.error = std::option::Option::Some(v.into());
             self
@@ -697,13 +697,13 @@ pub mod reservation {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_bigquery_reservation_v1::model::reservation::ReplicationStatus;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ReplicationStatus::new().set_or_clear_error(Some(Status::default()/* use setters */));
         /// let x = ReplicationStatus::new().set_or_clear_error(None::<Status>);
         /// ```
         pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.error = v.map(|x| x.into());
             self
@@ -1177,7 +1177,7 @@ pub struct CapacityCommitment {
     pub commitment_end_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. For FAILED commitment plan, provides the reason of failure.
-    pub failure_status: std::option::Option<rpc::model::Status>,
+    pub failure_status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Optional. The plan this capacity commitment is converted to after
     /// commitment_end_time passes. Once the plan is changed, committed period is
@@ -1343,12 +1343,12 @@ impl CapacityCommitment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CapacityCommitment::new().set_failure_status(Status::default()/* use setters */);
     /// ```
     pub fn set_failure_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.failure_status = std::option::Option::Some(v.into());
         self
@@ -1359,13 +1359,13 @@ impl CapacityCommitment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CapacityCommitment::new().set_or_clear_failure_status(Some(Status::default()/* use setters */));
     /// let x = CapacityCommitment::new().set_or_clear_failure_status(None::<Status>);
     /// ```
     pub fn set_or_clear_failure_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.failure_status = v.map(|x| x.into());
         self

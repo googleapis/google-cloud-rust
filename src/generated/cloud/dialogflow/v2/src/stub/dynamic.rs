@@ -74,15 +74,15 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -203,18 +203,19 @@ impl<T: super::Agents> Agents for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -280,15 +281,15 @@ pub trait AnswerRecords: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -336,18 +337,19 @@ impl<T: super::AnswerRecords> AnswerRecords for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -423,15 +425,15 @@ pub trait Contexts: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -515,18 +517,19 @@ impl<T: super::Contexts> Contexts for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -632,15 +635,15 @@ pub trait Conversations: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -772,18 +775,19 @@ impl<T: super::Conversations> Conversations for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -853,15 +857,15 @@ pub trait ConversationDatasets: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -947,18 +951,19 @@ impl<T: super::ConversationDatasets> ConversationDatasets for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -1068,15 +1073,15 @@ pub trait ConversationModels: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -1199,18 +1204,19 @@ impl<T: super::ConversationModels> ConversationModels for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -1306,15 +1312,15 @@ pub trait ConversationProfiles: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -1418,18 +1424,19 @@ impl<T: super::ConversationProfiles> ConversationProfiles for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -1531,15 +1538,15 @@ pub trait Documents: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -1651,18 +1658,19 @@ impl<T: super::Documents> Documents for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -1728,15 +1736,15 @@ pub trait EncryptionSpecService: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -1794,18 +1802,19 @@ impl<T: super::EncryptionSpecService> EncryptionSpecService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -1919,15 +1928,15 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -2057,18 +2066,19 @@ impl<T: super::EntityTypes> EntityTypes for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -2158,15 +2168,15 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -2250,18 +2260,19 @@ impl<T: super::Environments> Environments for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -2313,15 +2324,15 @@ pub trait Fulfillments: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -2369,18 +2380,19 @@ impl<T: super::Fulfillments> Fulfillments for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -2450,15 +2462,15 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -2533,18 +2545,19 @@ impl<T: super::Generators> Generators for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -2608,15 +2621,15 @@ pub trait GeneratorEvaluations: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -2693,18 +2706,19 @@ impl<T: super::GeneratorEvaluations> GeneratorEvaluations for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -2800,15 +2814,15 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -2911,18 +2925,19 @@ impl<T: super::Intents> Intents for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -3006,15 +3021,15 @@ pub trait KnowledgeBases: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -3089,18 +3104,19 @@ impl<T: super::KnowledgeBases> KnowledgeBases for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -3194,15 +3210,15 @@ pub trait Participants: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -3313,18 +3329,19 @@ impl<T: super::Participants> Participants for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -3370,15 +3387,15 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -3417,18 +3434,19 @@ impl<T: super::Sessions> Sessions for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -3498,15 +3516,15 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -3581,18 +3599,19 @@ impl<T: super::SessionEntityTypes> SessionEntityTypes for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -3662,15 +3681,15 @@ pub trait SipTrunks: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -3745,18 +3764,19 @@ impl<T: super::SipTrunks> SipTrunks for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -3826,15 +3846,15 @@ pub trait Tools: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -3909,18 +3929,19 @@ impl<T: super::Tools> Tools for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -3990,15 +4011,15 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
@@ -4073,18 +4094,19 @@ impl<T: super::Versions> Versions for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 

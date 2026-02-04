@@ -21,9 +21,9 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_location;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate location;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -665,7 +665,7 @@ pub struct Job {
     pub state: crate::model::job::State,
 
     /// Output only. The response from the target for the last attempted execution.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. The next time the job is scheduled. Note that this may be a
     /// retry of a previously failed attempt or the next execution time
@@ -822,12 +822,12 @@ impl Job {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_scheduler_v1::model::Job;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Job::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -838,13 +838,13 @@ impl Job {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_scheduler_v1::model::Job;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Job::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = Job::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self

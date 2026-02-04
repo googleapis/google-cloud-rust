@@ -21,11 +21,11 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate location;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -6327,7 +6327,7 @@ impl wkt::message::Message for InlineResult {
 #[non_exhaustive]
 pub struct BatchRecognizeFileResult {
     /// Error if one was encountered.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub metadata: std::option::Option<crate::model::RecognitionResponseMetadata>,
 
@@ -6354,12 +6354,12 @@ impl BatchRecognizeFileResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::BatchRecognizeFileResult;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BatchRecognizeFileResult::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -6370,13 +6370,13 @@ impl BatchRecognizeFileResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::BatchRecognizeFileResult;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BatchRecognizeFileResult::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = BatchRecognizeFileResult::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -6607,7 +6607,7 @@ pub struct BatchRecognizeTranscriptionMetadata {
     pub progress_percent: i32,
 
     /// Error if one was encountered.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The Cloud Storage URI to which recognition results will be written.
     pub uri: std::string::String,
@@ -6637,12 +6637,12 @@ impl BatchRecognizeTranscriptionMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::BatchRecognizeTranscriptionMetadata;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BatchRecognizeTranscriptionMetadata::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -6653,13 +6653,13 @@ impl BatchRecognizeTranscriptionMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_speech_v2::model::BatchRecognizeTranscriptionMetadata;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BatchRecognizeTranscriptionMetadata::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = BatchRecognizeTranscriptionMetadata::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self

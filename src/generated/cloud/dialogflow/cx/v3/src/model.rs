@@ -21,12 +21,12 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate location;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -34433,7 +34433,7 @@ pub struct QueryParameters {
     pub time_zone: std::string::String,
 
     /// The geo location of this conversational query.
-    pub geo_location: std::option::Option<gtype::model::LatLng>,
+    pub geo_location: std::option::Option<google_cloud_type::model::LatLng>,
 
     /// Additional session entity types to replace or extend developer entity types
     /// with. The entity synonyms apply to all languages and persist for the
@@ -34630,12 +34630,12 @@ impl QueryParameters {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = QueryParameters::new().set_geo_location(LatLng::default()/* use setters */);
     /// ```
     pub fn set_geo_location<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.geo_location = std::option::Option::Some(v.into());
         self
@@ -34646,13 +34646,13 @@ impl QueryParameters {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = QueryParameters::new().set_or_clear_geo_location(Some(LatLng::default()/* use setters */));
     /// let x = QueryParameters::new().set_or_clear_geo_location(None::<LatLng>);
     /// ```
     pub fn set_or_clear_geo_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.geo_location = v.map(|x| x.into());
         self
@@ -36249,7 +36249,7 @@ pub struct QueryResult {
     pub response_messages: std::vec::Vec<crate::model::ResponseMessage>,
 
     /// The list of webhook call status in the order of call sequence.
-    pub webhook_statuses: std::vec::Vec<rpc::model::Status>,
+    pub webhook_statuses: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// The list of webhook payload in
     /// [WebhookResponse.payload][google.cloud.dialogflow.cx.v3.WebhookResponse.payload],
@@ -36427,7 +36427,7 @@ impl QueryResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = QueryResult::new()
     ///     .set_webhook_statuses([
     ///         Status::default()/* use setters */,
@@ -36437,7 +36437,7 @@ impl QueryResult {
     pub fn set_webhook_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.webhook_statuses = v.into_iter().map(|i| i.into()).collect();
@@ -39808,7 +39808,7 @@ pub mod conversation_turn {
 
         /// Response error from the agent in the test result. If set, other output
         /// is empty.
-        pub status: std::option::Option<rpc::model::Status>,
+        pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -40000,12 +40000,12 @@ pub mod conversation_turn {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = VirtualAgentOutput::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -40016,13 +40016,13 @@ pub mod conversation_turn {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dialogflow_cx_v3::model::conversation_turn::VirtualAgentOutput;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = VirtualAgentOutput::new().set_or_clear_status(Some(Status::default()/* use setters */));
         /// let x = VirtualAgentOutput::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = v.map(|x| x.into());
             self
@@ -42493,7 +42493,7 @@ pub struct TestError {
     pub test_case: std::string::String,
 
     /// The status associated with the test.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The timestamp when the test was completed.
     pub test_time: std::option::Option<wkt::Timestamp>,
@@ -42524,12 +42524,12 @@ impl TestError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TestError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TestError::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -42540,13 +42540,13 @@ impl TestError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TestError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TestError::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = TestError::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self
@@ -42857,7 +42857,7 @@ pub struct TestCaseError {
     pub test_case: std::option::Option<crate::model::TestCase>,
 
     /// The status associated with the test case.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -42906,12 +42906,12 @@ impl TestCaseError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TestCaseError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TestCaseError::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -42922,13 +42922,13 @@ impl TestCaseError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dialogflow_cx_v3::model::TestCaseError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TestCaseError::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = TestCaseError::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self

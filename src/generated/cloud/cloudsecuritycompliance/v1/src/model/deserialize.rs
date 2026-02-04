@@ -9239,8 +9239,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AggregateFrameworkComplianceRep
                                     "multiple values for interval",
                                 ));
                             }
-                            result.interval =
-                                map.next_value::<std::option::Option<gtype::model::Interval>>()?;
+                            result.interval = map.next_value::<std::option::Option<google_cloud_type::model::Interval>>()?
+                                ;
                         }
                         __FieldTag::__filter => {
                             if !fields.insert(__FieldTag::__filter) {

@@ -22,11 +22,11 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
+extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate location;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -5233,7 +5233,7 @@ pub struct OperationMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -9042,7 +9042,7 @@ impl wkt::message::Message for EventFilter {
 #[non_exhaustive]
 pub struct StateCondition {
     /// The canonical code of the condition.
-    pub code: rpc::model::Code,
+    pub code: google_cloud_rpc::model::Code,
 
     /// Human-readable message.
     pub message: std::string::String,
@@ -9060,12 +9060,12 @@ impl StateCondition {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_eventarc_v1::model::StateCondition;
-    /// use rpc::model::Code;
+    /// use google_cloud_rpc::model::Code;
     /// let x0 = StateCondition::new().set_code(Code::Cancelled);
     /// let x1 = StateCondition::new().set_code(Code::Unknown);
     /// let x2 = StateCondition::new().set_code(Code::InvalidArgument);
     /// ```
-    pub fn set_code<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
+    pub fn set_code<T: std::convert::Into<google_cloud_rpc::model::Code>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }

@@ -44,7 +44,7 @@ tokio           = { workspace = true, features = ["time"] }
 # Local crates
 gax.workspace            = true
 google-cloud-longrunning = { workspace = true }
-rpc.workspace            = true
+google-cloud-rpc         = { workspace = true }
 wkt.workspace            = true
 
 [features]

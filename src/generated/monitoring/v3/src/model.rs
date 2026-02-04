@@ -17,14 +17,14 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate gtype;
+extern crate google_cloud_api;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -120,7 +120,7 @@ pub struct AlertPolicy {
     /// Read-only description of how the alerting policy is invalid. This field is
     /// only set when the alerting policy is invalid. An invalid alerting policy
     /// will not generate incidents.
-    pub validity: std::option::Option<rpc::model::Status>,
+    pub validity: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Identifies the notification channels to which notifications should be sent
     /// when incidents are opened or closed or when new violations occur on
@@ -320,12 +320,12 @@ impl AlertPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::AlertPolicy;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = AlertPolicy::new().set_validity(Status::default()/* use setters */);
     /// ```
     pub fn set_validity<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.validity = std::option::Option::Some(v.into());
         self
@@ -336,13 +336,13 @@ impl AlertPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::AlertPolicy;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = AlertPolicy::new().set_or_clear_validity(Some(Status::default()/* use setters */));
     /// let x = AlertPolicy::new().set_or_clear_validity(None::<Status>);
     /// ```
     pub fn set_or_clear_validity<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.validity = v.map(|x| x.into());
         self
@@ -2748,7 +2748,7 @@ pub mod alert_policy {
                 /// Optional. The time of day (in UTC) at which the query should run. If
                 /// left unspecified, the server picks an arbitrary time of day and runs
                 /// the query at the same time each day.
-                pub execution_time: std::option::Option<gtype::model::TimeOfDay>,
+                pub execution_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
@@ -2775,12 +2775,12 @@ pub mod alert_policy {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Daily;
-                /// use gtype::model::TimeOfDay;
+                /// use google_cloud_type::model::TimeOfDay;
                 /// let x = Daily::new().set_execution_time(TimeOfDay::default()/* use setters */);
                 /// ```
                 pub fn set_execution_time<T>(mut self, v: T) -> Self
                 where
-                    T: std::convert::Into<gtype::model::TimeOfDay>,
+                    T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
                 {
                     self.execution_time = std::option::Option::Some(v.into());
                     self
@@ -2791,13 +2791,13 @@ pub mod alert_policy {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Daily;
-                /// use gtype::model::TimeOfDay;
+                /// use google_cloud_type::model::TimeOfDay;
                 /// let x = Daily::new().set_or_clear_execution_time(Some(TimeOfDay::default()/* use setters */));
                 /// let x = Daily::new().set_or_clear_execution_time(None::<TimeOfDay>);
                 /// ```
                 pub fn set_or_clear_execution_time<T>(mut self, v: std::option::Option<T>) -> Self
                 where
-                    T: std::convert::Into<gtype::model::TimeOfDay>,
+                    T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
                 {
                     self.execution_time = v.map(|x| x.into());
                     self
@@ -4520,7 +4520,7 @@ impl TypedValue {
     /// holds a different branch.
     pub fn distribution_value(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<api::model::Distribution>> {
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_api::model::Distribution>> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::typed_value::Value::DistributionValue(v) => std::option::Option::Some(v),
@@ -4537,7 +4537,7 @@ impl TypedValue {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::TypedValue;
-    /// use api::model::Distribution;
+    /// use google_cloud_api::model::Distribution;
     /// let x = TypedValue::new().set_distribution_value(Distribution::default()/* use setters */);
     /// assert!(x.distribution_value().is_some());
     /// assert!(x.bool_value().is_none());
@@ -4546,7 +4546,7 @@ impl TypedValue {
     /// assert!(x.string_value().is_none());
     /// ```
     pub fn set_distribution_value<
-        T: std::convert::Into<std::boxed::Box<api::model::Distribution>>,
+        T: std::convert::Into<std::boxed::Box<google_cloud_api::model::Distribution>>,
     >(
         mut self,
         v: T,
@@ -4584,7 +4584,7 @@ pub mod typed_value {
         /// A variable-length string value.
         StringValue(std::string::String),
         /// A distribution value.
-        DistributionValue(std::boxed::Box<api::model::Distribution>),
+        DistributionValue(std::boxed::Box<google_cloud_api::model::Distribution>),
     }
 }
 
@@ -4964,8 +4964,8 @@ pub mod aggregation {
         /// interpolation. The `value_type`  of the aligned result is the same as
         /// the `value_type` of the input.
         ///
-        /// [google.api.MetricDescriptor.MetricKind.CUMULATIVE]: api::model::metric_descriptor::MetricKind::Cumulative
-        /// [google.api.MetricDescriptor.MetricKind.DELTA]: api::model::metric_descriptor::MetricKind::Delta
+        /// [google.api.MetricDescriptor.MetricKind.CUMULATIVE]: google_cloud_api::model::metric_descriptor::MetricKind::Cumulative
+        /// [google.api.MetricDescriptor.MetricKind.DELTA]: google_cloud_api::model::metric_descriptor::MetricKind::Delta
         AlignDelta,
         /// Align and convert to a rate. The result is computed as
         /// `rate = (y1 - y0)/(t1 - t0)`, or "delta over time".
@@ -5297,9 +5297,9 @@ pub mod aggregation {
         /// numeric or distribution values. The `value_type` of the output is
         /// [DOUBLE][google.api.MetricDescriptor.ValueType.DOUBLE].
         ///
-        /// [google.api.MetricDescriptor.MetricKind.DELTA]: api::model::metric_descriptor::MetricKind::Delta
-        /// [google.api.MetricDescriptor.MetricKind.GAUGE]: api::model::metric_descriptor::MetricKind::Gauge
-        /// [google.api.MetricDescriptor.ValueType.DOUBLE]: api::model::metric_descriptor::ValueType::Double
+        /// [google.api.MetricDescriptor.MetricKind.DELTA]: google_cloud_api::model::metric_descriptor::MetricKind::Delta
+        /// [google.api.MetricDescriptor.MetricKind.GAUGE]: google_cloud_api::model::metric_descriptor::MetricKind::Gauge
+        /// [google.api.MetricDescriptor.ValueType.DOUBLE]: google_cloud_api::model::metric_descriptor::ValueType::Double
         ReduceMean,
         /// Reduce by computing the minimum value across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
@@ -6447,7 +6447,7 @@ impl wkt::message::Message for ListGroupMembersRequest {
 #[non_exhaustive]
 pub struct ListGroupMembersResponse {
     /// A set of monitored resources in the group.
-    pub members: std::vec::Vec<api::model::MonitoredResource>,
+    pub members: std::vec::Vec<google_cloud_api::model::MonitoredResource>,
 
     /// If there are more results than have been returned, then this field is
     /// set to a non-empty value.  To see the additional results, use that value as
@@ -6470,7 +6470,7 @@ impl ListGroupMembersResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListGroupMembersResponse;
-    /// use api::model::MonitoredResource;
+    /// use google_cloud_api::model::MonitoredResource;
     /// let x = ListGroupMembersResponse::new()
     ///     .set_members([
     ///         MonitoredResource::default()/* use setters */,
@@ -6480,7 +6480,7 @@ impl ListGroupMembersResponse {
     pub fn set_members<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::MonitoredResource>,
+        V: std::convert::Into<google_cloud_api::model::MonitoredResource>,
     {
         use std::iter::Iterator;
         self.members = v.into_iter().map(|i| i.into()).collect();
@@ -6520,7 +6520,7 @@ impl wkt::message::Message for ListGroupMembersResponse {
 
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListGroupMembersResponse {
-    type PageItem = api::model::MonitoredResource;
+    type PageItem = google_cloud_api::model::MonitoredResource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.members
@@ -6640,18 +6640,18 @@ impl wkt::message::Message for Point {
 pub struct TimeSeries {
     /// The associated metric. A fully-specified metric used to identify the time
     /// series.
-    pub metric: std::option::Option<api::model::Metric>,
+    pub metric: std::option::Option<google_cloud_api::model::Metric>,
 
     /// The associated monitored resource.  Custom metrics can use only certain
     /// monitored resource types in their time series data. For more information,
     /// see [Monitored resources for custom
     /// metrics](https://cloud.google.com/monitoring/custom-metrics/creating-metrics#custom-metric-resources).
-    pub resource: std::option::Option<api::model::MonitoredResource>,
+    pub resource: std::option::Option<google_cloud_api::model::MonitoredResource>,
 
     /// Output only. The associated monitored resource metadata. When reading a
     /// time series, this field will include metadata labels that are explicitly
     /// named in the reduction. When creating a time series, this field is ignored.
-    pub metadata: std::option::Option<api::model::MonitoredResourceMetadata>,
+    pub metadata: std::option::Option<google_cloud_api::model::MonitoredResourceMetadata>,
 
     /// The metric kind of the time series. When listing time series, this metric
     /// kind might be different from the metric kind of the associated metric if
@@ -6662,7 +6662,7 @@ pub struct TimeSeries {
     /// metric's descriptor must be auto-created, then this field specifies the
     /// metric kind of the new descriptor and must be either `GAUGE` (the default)
     /// or `CUMULATIVE`.
-    pub metric_kind: api::model::metric_descriptor::MetricKind,
+    pub metric_kind: google_cloud_api::model::metric_descriptor::MetricKind,
 
     /// The value type of the time series. When listing time series, this value
     /// type might be different from the value type of the associated metric if
@@ -6670,7 +6670,7 @@ pub struct TimeSeries {
     ///
     /// When creating a time series, this field is optional. If present, it must be
     /// the same as the type of the data in the `points` field.
-    pub value_type: api::model::metric_descriptor::ValueType,
+    pub value_type: google_cloud_api::model::metric_descriptor::ValueType,
 
     /// The data points of this time series. When listing time series, points are
     /// returned in reverse time order.
@@ -6693,7 +6693,7 @@ pub struct TimeSeries {
     /// [google.api.MetricDescriptor][google.api.MetricDescriptor] for the metric.
     /// Once set, this field cannot be changed through CreateTimeSeries.
     ///
-    /// [google.api.MetricDescriptor]: api::model::MetricDescriptor
+    /// [google.api.MetricDescriptor]: google_cloud_api::model::MetricDescriptor
     pub description: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6709,12 +6709,12 @@ impl TimeSeries {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::TimeSeries;
-    /// use api::model::Metric;
+    /// use google_cloud_api::model::Metric;
     /// let x = TimeSeries::new().set_metric(Metric::default()/* use setters */);
     /// ```
     pub fn set_metric<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::Metric>,
+        T: std::convert::Into<google_cloud_api::model::Metric>,
     {
         self.metric = std::option::Option::Some(v.into());
         self
@@ -6725,13 +6725,13 @@ impl TimeSeries {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::TimeSeries;
-    /// use api::model::Metric;
+    /// use google_cloud_api::model::Metric;
     /// let x = TimeSeries::new().set_or_clear_metric(Some(Metric::default()/* use setters */));
     /// let x = TimeSeries::new().set_or_clear_metric(None::<Metric>);
     /// ```
     pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::Metric>,
+        T: std::convert::Into<google_cloud_api::model::Metric>,
     {
         self.metric = v.map(|x| x.into());
         self
@@ -6742,12 +6742,12 @@ impl TimeSeries {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::TimeSeries;
-    /// use api::model::MonitoredResource;
+    /// use google_cloud_api::model::MonitoredResource;
     /// let x = TimeSeries::new().set_resource(MonitoredResource::default()/* use setters */);
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::MonitoredResource>,
+        T: std::convert::Into<google_cloud_api::model::MonitoredResource>,
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -6758,13 +6758,13 @@ impl TimeSeries {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::TimeSeries;
-    /// use api::model::MonitoredResource;
+    /// use google_cloud_api::model::MonitoredResource;
     /// let x = TimeSeries::new().set_or_clear_resource(Some(MonitoredResource::default()/* use setters */));
     /// let x = TimeSeries::new().set_or_clear_resource(None::<MonitoredResource>);
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::MonitoredResource>,
+        T: std::convert::Into<google_cloud_api::model::MonitoredResource>,
     {
         self.resource = v.map(|x| x.into());
         self
@@ -6775,12 +6775,12 @@ impl TimeSeries {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::TimeSeries;
-    /// use api::model::MonitoredResourceMetadata;
+    /// use google_cloud_api::model::MonitoredResourceMetadata;
     /// let x = TimeSeries::new().set_metadata(MonitoredResourceMetadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::MonitoredResourceMetadata>,
+        T: std::convert::Into<google_cloud_api::model::MonitoredResourceMetadata>,
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -6791,13 +6791,13 @@ impl TimeSeries {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::TimeSeries;
-    /// use api::model::MonitoredResourceMetadata;
+    /// use google_cloud_api::model::MonitoredResourceMetadata;
     /// let x = TimeSeries::new().set_or_clear_metadata(Some(MonitoredResourceMetadata::default()/* use setters */));
     /// let x = TimeSeries::new().set_or_clear_metadata(None::<MonitoredResourceMetadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::MonitoredResourceMetadata>,
+        T: std::convert::Into<google_cloud_api::model::MonitoredResourceMetadata>,
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -6808,12 +6808,14 @@ impl TimeSeries {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::TimeSeries;
-    /// use api::model::metric_descriptor::MetricKind;
+    /// use google_cloud_api::model::metric_descriptor::MetricKind;
     /// let x0 = TimeSeries::new().set_metric_kind(MetricKind::Gauge);
     /// let x1 = TimeSeries::new().set_metric_kind(MetricKind::Delta);
     /// let x2 = TimeSeries::new().set_metric_kind(MetricKind::Cumulative);
     /// ```
-    pub fn set_metric_kind<T: std::convert::Into<api::model::metric_descriptor::MetricKind>>(
+    pub fn set_metric_kind<
+        T: std::convert::Into<google_cloud_api::model::metric_descriptor::MetricKind>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -6826,12 +6828,14 @@ impl TimeSeries {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::TimeSeries;
-    /// use api::model::metric_descriptor::ValueType;
+    /// use google_cloud_api::model::metric_descriptor::ValueType;
     /// let x0 = TimeSeries::new().set_value_type(ValueType::Bool);
     /// let x1 = TimeSeries::new().set_value_type(ValueType::Int64);
     /// let x2 = TimeSeries::new().set_value_type(ValueType::Double);
     /// ```
-    pub fn set_value_type<T: std::convert::Into<api::model::metric_descriptor::ValueType>>(
+    pub fn set_value_type<
+        T: std::convert::Into<google_cloud_api::model::metric_descriptor::ValueType>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -6897,7 +6901,7 @@ impl wkt::message::Message for TimeSeries {
 #[non_exhaustive]
 pub struct TimeSeriesDescriptor {
     /// Descriptors for the labels.
-    pub label_descriptors: std::vec::Vec<api::model::LabelDescriptor>,
+    pub label_descriptors: std::vec::Vec<google_cloud_api::model::LabelDescriptor>,
 
     /// Descriptors for the point data value columns.
     pub point_descriptors: std::vec::Vec<crate::model::time_series_descriptor::ValueDescriptor>,
@@ -6915,7 +6919,7 @@ impl TimeSeriesDescriptor {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::TimeSeriesDescriptor;
-    /// use api::model::LabelDescriptor;
+    /// use google_cloud_api::model::LabelDescriptor;
     /// let x = TimeSeriesDescriptor::new()
     ///     .set_label_descriptors([
     ///         LabelDescriptor::default()/* use setters */,
@@ -6925,7 +6929,7 @@ impl TimeSeriesDescriptor {
     pub fn set_label_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::LabelDescriptor>,
+        V: std::convert::Into<google_cloud_api::model::LabelDescriptor>,
     {
         use std::iter::Iterator;
         self.label_descriptors = v.into_iter().map(|i| i.into()).collect();
@@ -6974,10 +6978,10 @@ pub mod time_series_descriptor {
         pub key: std::string::String,
 
         /// The value type.
-        pub value_type: api::model::metric_descriptor::ValueType,
+        pub value_type: google_cloud_api::model::metric_descriptor::ValueType,
 
         /// The value stream kind.
-        pub metric_kind: api::model::metric_descriptor::MetricKind,
+        pub metric_kind: google_cloud_api::model::metric_descriptor::MetricKind,
 
         /// The unit in which `time_series` point values are reported. `unit`
         /// follows the UCUM format for units as seen in
@@ -7010,12 +7014,14 @@ pub mod time_series_descriptor {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_monitoring_v3::model::time_series_descriptor::ValueDescriptor;
-        /// use api::model::metric_descriptor::ValueType;
+        /// use google_cloud_api::model::metric_descriptor::ValueType;
         /// let x0 = ValueDescriptor::new().set_value_type(ValueType::Bool);
         /// let x1 = ValueDescriptor::new().set_value_type(ValueType::Int64);
         /// let x2 = ValueDescriptor::new().set_value_type(ValueType::Double);
         /// ```
-        pub fn set_value_type<T: std::convert::Into<api::model::metric_descriptor::ValueType>>(
+        pub fn set_value_type<
+            T: std::convert::Into<google_cloud_api::model::metric_descriptor::ValueType>,
+        >(
             mut self,
             v: T,
         ) -> Self {
@@ -7028,12 +7034,14 @@ pub mod time_series_descriptor {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_monitoring_v3::model::time_series_descriptor::ValueDescriptor;
-        /// use api::model::metric_descriptor::MetricKind;
+        /// use google_cloud_api::model::metric_descriptor::MetricKind;
         /// let x0 = ValueDescriptor::new().set_metric_kind(MetricKind::Gauge);
         /// let x1 = ValueDescriptor::new().set_metric_kind(MetricKind::Delta);
         /// let x2 = ValueDescriptor::new().set_metric_kind(MetricKind::Cumulative);
         /// ```
-        pub fn set_metric_kind<T: std::convert::Into<api::model::metric_descriptor::MetricKind>>(
+        pub fn set_metric_kind<
+            T: std::convert::Into<google_cloud_api::model::metric_descriptor::MetricKind>,
+        >(
             mut self,
             v: T,
         ) -> Self {
@@ -7791,7 +7799,7 @@ impl wkt::message::Message for ListMonitoredResourceDescriptorsRequest {
 pub struct ListMonitoredResourceDescriptorsResponse {
     /// The monitored resource descriptors that are available to this project
     /// and that match `filter`, if present.
-    pub resource_descriptors: std::vec::Vec<api::model::MonitoredResourceDescriptor>,
+    pub resource_descriptors: std::vec::Vec<google_cloud_api::model::MonitoredResourceDescriptor>,
 
     /// If there are more results than have been returned, then this field is set
     /// to a non-empty value.  To see the additional results,
@@ -7811,7 +7819,7 @@ impl ListMonitoredResourceDescriptorsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListMonitoredResourceDescriptorsResponse;
-    /// use api::model::MonitoredResourceDescriptor;
+    /// use google_cloud_api::model::MonitoredResourceDescriptor;
     /// let x = ListMonitoredResourceDescriptorsResponse::new()
     ///     .set_resource_descriptors([
     ///         MonitoredResourceDescriptor::default()/* use setters */,
@@ -7821,7 +7829,7 @@ impl ListMonitoredResourceDescriptorsResponse {
     pub fn set_resource_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::MonitoredResourceDescriptor>,
+        V: std::convert::Into<google_cloud_api::model::MonitoredResourceDescriptor>,
     {
         use std::iter::Iterator;
         self.resource_descriptors = v.into_iter().map(|i| i.into()).collect();
@@ -7849,7 +7857,7 @@ impl wkt::message::Message for ListMonitoredResourceDescriptorsResponse {
 
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListMonitoredResourceDescriptorsResponse {
-    type PageItem = api::model::MonitoredResourceDescriptor;
+    type PageItem = google_cloud_api::model::MonitoredResourceDescriptor;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.resource_descriptors
@@ -8032,7 +8040,7 @@ impl wkt::message::Message for ListMetricDescriptorsRequest {
 pub struct ListMetricDescriptorsResponse {
     /// The metric descriptors that are available to the project
     /// and that match the value of `filter`, if present.
-    pub metric_descriptors: std::vec::Vec<api::model::MetricDescriptor>,
+    pub metric_descriptors: std::vec::Vec<google_cloud_api::model::MetricDescriptor>,
 
     /// If there are more results than have been returned, then this field is set
     /// to a non-empty value.  To see the additional results,
@@ -8052,7 +8060,7 @@ impl ListMetricDescriptorsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListMetricDescriptorsResponse;
-    /// use api::model::MetricDescriptor;
+    /// use google_cloud_api::model::MetricDescriptor;
     /// let x = ListMetricDescriptorsResponse::new()
     ///     .set_metric_descriptors([
     ///         MetricDescriptor::default()/* use setters */,
@@ -8062,7 +8070,7 @@ impl ListMetricDescriptorsResponse {
     pub fn set_metric_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::MetricDescriptor>,
+        V: std::convert::Into<google_cloud_api::model::MetricDescriptor>,
     {
         use std::iter::Iterator;
         self.metric_descriptors = v.into_iter().map(|i| i.into()).collect();
@@ -8090,7 +8098,7 @@ impl wkt::message::Message for ListMetricDescriptorsResponse {
 
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListMetricDescriptorsResponse {
-    type PageItem = api::model::MetricDescriptor;
+    type PageItem = google_cloud_api::model::MetricDescriptor;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.metric_descriptors
@@ -8157,7 +8165,7 @@ pub struct CreateMetricDescriptorRequest {
 
     /// Required. The new [custom
     /// metric](https://cloud.google.com/monitoring/custom-metrics) descriptor.
-    pub metric_descriptor: std::option::Option<api::model::MetricDescriptor>,
+    pub metric_descriptor: std::option::Option<google_cloud_api::model::MetricDescriptor>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8184,12 +8192,12 @@ impl CreateMetricDescriptorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::CreateMetricDescriptorRequest;
-    /// use api::model::MetricDescriptor;
+    /// use google_cloud_api::model::MetricDescriptor;
     /// let x = CreateMetricDescriptorRequest::new().set_metric_descriptor(MetricDescriptor::default()/* use setters */);
     /// ```
     pub fn set_metric_descriptor<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::MetricDescriptor>,
+        T: std::convert::Into<google_cloud_api::model::MetricDescriptor>,
     {
         self.metric_descriptor = std::option::Option::Some(v.into());
         self
@@ -8200,13 +8208,13 @@ impl CreateMetricDescriptorRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::CreateMetricDescriptorRequest;
-    /// use api::model::MetricDescriptor;
+    /// use google_cloud_api::model::MetricDescriptor;
     /// let x = CreateMetricDescriptorRequest::new().set_or_clear_metric_descriptor(Some(MetricDescriptor::default()/* use setters */));
     /// let x = CreateMetricDescriptorRequest::new().set_or_clear_metric_descriptor(None::<MetricDescriptor>);
     /// ```
     pub fn set_or_clear_metric_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::MetricDescriptor>,
+        T: std::convert::Into<google_cloud_api::model::MetricDescriptor>,
     {
         self.metric_descriptor = v.map(|x| x.into());
         self
@@ -8662,7 +8670,7 @@ pub struct ListTimeSeriesResponse {
 
     /// Query execution errors that may have caused the time series data returned
     /// to be incomplete.
-    pub execution_errors: std::vec::Vec<rpc::model::Status>,
+    pub execution_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// The unit in which all `time_series` point values are reported. `unit`
     /// follows the UCUM format for units as seen in
@@ -8719,7 +8727,7 @@ impl ListTimeSeriesResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListTimeSeriesResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ListTimeSeriesResponse::new()
     ///     .set_execution_errors([
     ///         Status::default()/* use setters */,
@@ -8729,7 +8737,7 @@ impl ListTimeSeriesResponse {
     pub fn set_execution_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.execution_errors = v.into_iter().map(|i| i.into()).collect();
@@ -8850,7 +8858,7 @@ pub struct CreateTimeSeriesError {
 
     /// DEPRECATED. The status of the requested write operation for `time_series`.
     #[deprecated]
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8900,13 +8908,13 @@ impl CreateTimeSeriesError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::CreateTimeSeriesError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CreateTimeSeriesError::new().set_status(Status::default()/* use setters */);
     /// ```
     #[deprecated]
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -8917,14 +8925,14 @@ impl CreateTimeSeriesError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::CreateTimeSeriesError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CreateTimeSeriesError::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = CreateTimeSeriesError::new().set_or_clear_status(None::<Status>);
     /// ```
     #[deprecated]
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self
@@ -9021,7 +9029,7 @@ pub mod create_time_series_summary {
     #[non_exhaustive]
     pub struct Error {
         /// The status of the requested write operation.
-        pub status: std::option::Option<rpc::model::Status>,
+        pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
         /// The number of points that couldn't be written because of `status`.
         pub point_count: i32,
@@ -9039,12 +9047,12 @@ pub mod create_time_series_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_monitoring_v3::model::create_time_series_summary::Error;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = Error::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -9055,13 +9063,13 @@ pub mod create_time_series_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_monitoring_v3::model::create_time_series_summary::Error;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = Error::new().set_or_clear_status(Some(Status::default()/* use setters */));
         /// let x = Error::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = v.map(|x| x.into());
             self
@@ -9200,7 +9208,7 @@ pub struct QueryTimeSeriesResponse {
     /// Query execution errors that may have caused the time series data returned
     /// to be incomplete. The available data will be available in the
     /// response.
-    pub partial_errors: std::vec::Vec<rpc::model::Status>,
+    pub partial_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9282,7 +9290,7 @@ impl QueryTimeSeriesResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::QueryTimeSeriesResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = QueryTimeSeriesResponse::new()
     ///     .set_partial_errors([
     ///         Status::default()/* use setters */,
@@ -9292,7 +9300,7 @@ impl QueryTimeSeriesResponse {
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.partial_errors = v.into_iter().map(|i| i.into()).collect();
@@ -9484,7 +9492,7 @@ pub struct NotificationChannelDescriptor {
     /// The set of labels that must be defined to identify a particular
     /// channel of the corresponding type. Each label includes a
     /// description for how that field should be populated.
-    pub labels: std::vec::Vec<api::model::LabelDescriptor>,
+    pub labels: std::vec::Vec<google_cloud_api::model::LabelDescriptor>,
 
     /// The tiers that support this notification channel; the project service tier
     /// must be one of the supported_tiers.
@@ -9492,7 +9500,7 @@ pub struct NotificationChannelDescriptor {
     pub supported_tiers: std::vec::Vec<crate::model::ServiceTier>,
 
     /// The product launch stage for channels of this type.
-    pub launch_stage: api::model::LaunchStage,
+    pub launch_stage: google_cloud_api::model::LaunchStage,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9555,7 +9563,7 @@ impl NotificationChannelDescriptor {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::NotificationChannelDescriptor;
-    /// use api::model::LabelDescriptor;
+    /// use google_cloud_api::model::LabelDescriptor;
     /// let x = NotificationChannelDescriptor::new()
     ///     .set_labels([
     ///         LabelDescriptor::default()/* use setters */,
@@ -9565,7 +9573,7 @@ impl NotificationChannelDescriptor {
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::LabelDescriptor>,
+        V: std::convert::Into<google_cloud_api::model::LabelDescriptor>,
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|i| i.into()).collect();
@@ -9599,12 +9607,12 @@ impl NotificationChannelDescriptor {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::NotificationChannelDescriptor;
-    /// use api::model::LaunchStage;
+    /// use google_cloud_api::model::LaunchStage;
     /// let x0 = NotificationChannelDescriptor::new().set_launch_stage(LaunchStage::Unimplemented);
     /// let x1 = NotificationChannelDescriptor::new().set_launch_stage(LaunchStage::Prelaunch);
     /// let x2 = NotificationChannelDescriptor::new().set_launch_stage(LaunchStage::EarlyAccess);
     /// ```
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
+    pub fn set_launch_stage<T: std::convert::Into<google_cloud_api::model::LaunchStage>>(
         mut self,
         v: T,
     ) -> Self {
@@ -12656,7 +12664,7 @@ impl ServiceLevelObjective {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
-    /// use gtype::model::CalendarPeriod;
+    /// use google_cloud_type::model::CalendarPeriod;
     /// let x0 = ServiceLevelObjective::new().set_period(Some(
     ///     google_cloud_monitoring_v3::model::service_level_objective::Period::CalendarPeriod(CalendarPeriod::Day)));
     /// let x1 = ServiceLevelObjective::new().set_period(Some(
@@ -12714,7 +12722,9 @@ impl ServiceLevelObjective {
     /// The value of [period][crate::model::ServiceLevelObjective::period]
     /// if it holds a `CalendarPeriod`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn calendar_period(&self) -> std::option::Option<&gtype::model::CalendarPeriod> {
+    pub fn calendar_period(
+        &self,
+    ) -> std::option::Option<&google_cloud_type::model::CalendarPeriod> {
         #[allow(unreachable_patterns)]
         self.period.as_ref().and_then(|v| match v {
             crate::model::service_level_objective::Period::CalendarPeriod(v) => {
@@ -12733,7 +12743,7 @@ impl ServiceLevelObjective {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
-    /// use gtype::model::CalendarPeriod;
+    /// use google_cloud_type::model::CalendarPeriod;
     /// let x0 = ServiceLevelObjective::new().set_calendar_period(CalendarPeriod::Day);
     /// let x1 = ServiceLevelObjective::new().set_calendar_period(CalendarPeriod::Week);
     /// let x2 = ServiceLevelObjective::new().set_calendar_period(CalendarPeriod::Fortnight);
@@ -12744,7 +12754,7 @@ impl ServiceLevelObjective {
     /// assert!(x2.calendar_period().is_some());
     /// assert!(x2.rolling_period().is_none());
     /// ```
-    pub fn set_calendar_period<T: std::convert::Into<gtype::model::CalendarPeriod>>(
+    pub fn set_calendar_period<T: std::convert::Into<google_cloud_type::model::CalendarPeriod>>(
         mut self,
         v: T,
     ) -> Self {
@@ -12915,7 +12925,7 @@ pub mod service_level_objective {
         /// A calendar period, semantically "since the start of the current
         /// `<calendar_period>`". At this time, only `DAY`, `WEEK`, `FORTNIGHT`, and
         /// `MONTH` are supported.
-        CalendarPeriod(gtype::model::CalendarPeriod),
+        CalendarPeriod(google_cloud_type::model::CalendarPeriod),
     }
 }
 
@@ -15856,8 +15866,8 @@ impl wkt::message::Message for UpdateSnoozeRequest {
 /// projects/[PROJECT_ID_OR_NUMBER]/traces/[TRACE_ID]/spans/[SPAN_ID]
 /// ```
 ///
-/// [google.api.Distribution]: api::model::Distribution
-/// [google.api.Distribution.Exemplar]: api::model::distribution::Exemplar
+/// [google.api.Distribution]: google_cloud_api::model::Distribution
+/// [google.api.Distribution.Exemplar]: google_cloud_api::model::distribution::Exemplar
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpanContext {
@@ -16283,7 +16293,7 @@ pub mod synthetic_monitor_target {
         /// the GCFv2. The Synthetic Monitor execution results (metrics, logs, and
         /// spans) are reported against this Monitored Resource. This field is output
         /// only.
-        pub cloud_run_revision: std::option::Option<api::model::MonitoredResource>,
+        pub cloud_run_revision: std::option::Option<google_cloud_api::model::MonitoredResource>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -16310,12 +16320,12 @@ pub mod synthetic_monitor_target {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_monitoring_v3::model::synthetic_monitor_target::CloudFunctionV2Target;
-        /// use api::model::MonitoredResource;
+        /// use google_cloud_api::model::MonitoredResource;
         /// let x = CloudFunctionV2Target::new().set_cloud_run_revision(MonitoredResource::default()/* use setters */);
         /// ```
         pub fn set_cloud_run_revision<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<api::model::MonitoredResource>,
+            T: std::convert::Into<google_cloud_api::model::MonitoredResource>,
         {
             self.cloud_run_revision = std::option::Option::Some(v.into());
             self
@@ -16326,13 +16336,13 @@ pub mod synthetic_monitor_target {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_monitoring_v3::model::synthetic_monitor_target::CloudFunctionV2Target;
-        /// use api::model::MonitoredResource;
+        /// use google_cloud_api::model::MonitoredResource;
         /// let x = CloudFunctionV2Target::new().set_or_clear_cloud_run_revision(Some(MonitoredResource::default()/* use setters */));
         /// let x = CloudFunctionV2Target::new().set_or_clear_cloud_run_revision(None::<MonitoredResource>);
         /// ```
         pub fn set_or_clear_cloud_run_revision<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<api::model::MonitoredResource>,
+            T: std::convert::Into<google_cloud_api::model::MonitoredResource>,
         {
             self.cloud_run_revision = v.map(|x| x.into());
             self
@@ -16664,7 +16674,7 @@ impl UptimeCheckConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
-    /// use api::model::MonitoredResource;
+    /// use google_cloud_api::model::MonitoredResource;
     /// let x = UptimeCheckConfig::new().set_resource(Some(
     ///     google_cloud_monitoring_v3::model::uptime_check_config::Resource::MonitoredResource(MonitoredResource::default().into())));
     /// ```
@@ -16683,7 +16693,7 @@ impl UptimeCheckConfig {
     /// holds a different branch.
     pub fn monitored_resource(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<api::model::MonitoredResource>> {
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_api::model::MonitoredResource>> {
         #[allow(unreachable_patterns)]
         self.resource.as_ref().and_then(|v| match v {
             crate::model::uptime_check_config::Resource::MonitoredResource(v) => {
@@ -16702,14 +16712,14 @@ impl UptimeCheckConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
-    /// use api::model::MonitoredResource;
+    /// use google_cloud_api::model::MonitoredResource;
     /// let x = UptimeCheckConfig::new().set_monitored_resource(MonitoredResource::default()/* use setters */);
     /// assert!(x.monitored_resource().is_some());
     /// assert!(x.resource_group().is_none());
     /// assert!(x.synthetic_monitor().is_none());
     /// ```
     pub fn set_monitored_resource<
-        T: std::convert::Into<std::boxed::Box<api::model::MonitoredResource>>,
+        T: std::convert::Into<std::boxed::Box<google_cloud_api::model::MonitoredResource>>,
     >(
         mut self,
         v: T,
@@ -19042,7 +19052,7 @@ pub mod uptime_check_config {
         /// `k8s_service`
         /// `servicedirectory_service`
         /// `cloud_run_revision`
-        MonitoredResource(std::boxed::Box<api::model::MonitoredResource>),
+        MonitoredResource(std::boxed::Box<google_cloud_api::model::MonitoredResource>),
         /// The group resource associated with the configuration.
         ResourceGroup(std::boxed::Box<crate::model::uptime_check_config::ResourceGroup>),
         /// Specifies a Synthetic Monitor to invoke.

@@ -216,12 +216,9 @@ mod tests {
     #[test]
     fn find_version() -> anyhow::Result<()> {
         let metadata = metadata()?;
-        let v = super::find_version(&metadata, "reqwest");
-        assert!(v.is_ok(), "{v:?}");
-        let v = super::find_version(&metadata, "rustls");
-        assert!(v.is_ok(), "{v:?}");
-        let v = super::find_version(&metadata, "jsonwebtoken");
-        assert!(v.is_ok(), "{v:?}");
+        let _version = super::find_version(&metadata, "reqwest")?;
+        let _version = super::find_version(&metadata, "rustls")?;
+        let _version = super::find_version(&metadata, "jsonwebtoken")?;
         Ok(())
     }
 }

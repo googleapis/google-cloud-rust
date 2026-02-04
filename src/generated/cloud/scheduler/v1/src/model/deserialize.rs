@@ -1020,8 +1020,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Job {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__schedule_time => {
                             if !fields.insert(__FieldTag::__schedule_time) {

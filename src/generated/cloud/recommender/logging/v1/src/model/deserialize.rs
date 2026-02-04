@@ -98,11 +98,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ActionLog {
                                     "multiple values for state",
                                 ));
                             }
-                            result.state = map
-                                .next_value::<std::option::Option<
-                                    recommender::model::recommendation_state_info::State,
-                                >>()?
-                                .unwrap_or_default();
+                            result.state = map.next_value::<std::option::Option<google_cloud_recommender_v1::model::recommendation_state_info::State>>()?.unwrap_or_default();
                         }
                         __FieldTag::__state_metadata => {
                             if !fields.insert(__FieldTag::__state_metadata) {
@@ -222,9 +218,9 @@ impl<'de> serde::de::Deserialize<'de> for super::InsightActionLog {
                                     "multiple values for state",
                                 ));
                             }
-                            result.state =
-                                map.next_value::<std::option::Option<
-                                    recommender::model::insight_state_info::State,
+                            result.state = map
+                                .next_value::<std::option::Option<
+                                    google_cloud_recommender_v1::model::insight_state_info::State,
                                 >>()?
                                 .unwrap_or_default();
                         }

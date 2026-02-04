@@ -121,7 +121,7 @@ use crate::credentials::external_account_sources::programmatic_sourced::Programm
 use crate::credentials::subject_token::dynamic;
 use crate::credentials::{AccessToken, AccessTokenCredentials};
 use crate::errors::non_retryable;
-use crate::headers_util::build_cacheable_headers;
+use crate::headers_util::AuthHeadersBuilder;
 use crate::retry::Builder as RetryTokenProviderBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -1286,12 +1286,15 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        let trust_boundary_header = self
+        let access_boundary = self
             .trust_boundary
             .as_ref()
             .and_then(|tb| tb.header_value());
 
-        build_cacheable_headers(&token, &self.quota_project_id, &trust_boundary_header)
+        AuthHeadersBuilder::new(&token)
+            .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .maybe_access_boundary(access_boundary.as_deref())
+            .build()
     }
 }
 
@@ -1923,7 +1926,7 @@ mod tests {
             .with_token_url("http://test.com/token")
             .build();
 
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let error_string = result.unwrap_err().to_string();
         assert!(
             error_string.contains("missing required field: audience"),

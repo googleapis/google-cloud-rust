@@ -2852,8 +2852,8 @@ impl<'de> serde::de::Deserialize<'de> for super::shipment::VisitRequest {
                                     "multiple values for arrival_location",
                                 ));
                             }
-                            result.arrival_location =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.arrival_location = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::__arrival_waypoint => {
                             if !fields.insert(__FieldTag::__arrival_waypoint) {
@@ -2870,8 +2870,8 @@ impl<'de> serde::de::Deserialize<'de> for super::shipment::VisitRequest {
                                     "multiple values for departure_location",
                                 ));
                             }
-                            result.departure_location =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.departure_location = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::__departure_waypoint => {
                             if !fields.insert(__FieldTag::__departure_waypoint) {
@@ -3562,8 +3562,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Vehicle {
                                     "multiple values for start_location",
                                 ));
                             }
-                            result.start_location =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.start_location = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::__start_waypoint => {
                             if !fields.insert(__FieldTag::__start_waypoint) {
@@ -3580,8 +3580,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Vehicle {
                                     "multiple values for end_location",
                                 ));
                             }
-                            result.end_location =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.end_location = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::__end_waypoint => {
                             if !fields.insert(__FieldTag::__end_waypoint) {
@@ -5274,8 +5274,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Location {
                                     "multiple values for lat_lng",
                                 ));
                             }
-                            result.lat_lng =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.lat_lng = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::__heading => {
                             if !fields.insert(__FieldTag::__heading) {

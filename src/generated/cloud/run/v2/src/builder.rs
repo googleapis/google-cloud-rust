@@ -159,7 +159,10 @@ pub mod builds {
         }
 
         /// Sets the value of [release_track][crate::model::SubmitBuildRequest::release_track].
-        pub fn set_release_track<T: Into<api::model::LaunchStage>>(mut self, v: T) -> Self {
+        pub fn set_release_track<T: Into<google_cloud_api::model::LaunchStage>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.release_track = v.into();
             self
         }

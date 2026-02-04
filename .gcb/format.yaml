@@ -57,7 +57,10 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -euv
-      cargo install typos-cli --version 1.32.0 --locked
+      # Make three attempts to avoid download flakes.
+      cargo install typos-cli --version 1.32.0 --locked || \
+        cargo install typos-cli --version 1.32.0 --locked || \
+        cargo install typos-cli --version 1.32.0 --locked
       typos
   - name: 'rust:${_RUST_VERSION}-bookworm'
     id: 'Verify all files have a copyright boilerplate'
@@ -73,15 +76,31 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -euv
-      cargo install taplo-cli --version 0.10.0 --locked
+      # Make three attempts to avoid download flakes.
+      cargo install taplo-cli --version 0.10.0 --locked || \
+        cargo install taplo-cli --version 0.10.0 --locked || \
+        cargo install taplo-cli --version 0.10.0 --locked
       git ls-files -z -- '*.toml' ':!:testdata/**' ':!:**/generated/**' | \
         xargs -0 taplo fmt
+  - name: 'rust:${_RUST_VERSION}-bookworm'
+    id: 'Format Rust files'
+    script: |
+      #!/usr/bin/env bash
+      set -euv
+      # Make three attempts to avoid download flakes.
+      rustup component add rustfmt || \
+        rustup component add rustfmt || \
+        rustup component add rustfmt
+      cargo fmt
   - name: 'golang:${_GO_VERSION}'
     id: 'Format YAML files'
     script: |
       #!/usr/bin/env bash
       set -euv
-      go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0
+      # Make three attempts to avoid download flakes.
+      go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0 || \
+        go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0 || \
+        go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0
       git ls-files -z -- '*.yaml' '*.yml' ':!:testdata/**' ':!:**/generated/**' ':!:librarian.yaml' | \
         xargs -0 yamlfmt
       V=$(cat .librarian-version.txt)
@@ -92,7 +111,9 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -euv
-      apt update && apt install -y clang-format git
+      # Make three attempts to avoid download flakes.
+      apt -o Acquire::Retries=3 update
+      apt -o Acquire::Retries=3 install -y clang-format git
       git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' ':!:**/grpc-mock/**' | \
         xargs -0 -r -P "$(nproc)" -n 50 clang-format -i
     waitFor: ['-']
@@ -105,7 +126,8 @@ steps:
       - '-c'
       - |
         set -euv
-        pip install -r ci/requirements.txt
+        # Make three attempts to avoid download flakes.
+        pip install --retries 3 -r ci/requirements.txt
         git ls-files -z -- '*.md' ':!:testdata/**' ':!:**/generated/**' | \
           xargs -0 mdformat
     waitFor: ['-']

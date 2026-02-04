@@ -76,7 +76,7 @@
 
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
-use crate::headers_util::build_cacheable_headers;
+use crate::headers_util::AuthHeadersBuilder;
 use crate::mds::client::Client as MDSClient;
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
@@ -349,13 +349,13 @@ where
     T: CachedTokenProvider,
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
-        let cached_token = self.token_provider.token(extensions).await?;
-        let trust_boundary_header_value = self.trust_boundary.header_value();
-        build_cacheable_headers(
-            &cached_token,
-            &self.quota_project_id,
-            &trust_boundary_header_value,
-        )
+        let token = self.token_provider.token(extensions).await?;
+        let access_boundary = self.trust_boundary.header_value();
+
+        AuthHeadersBuilder::new(&token)
+            .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .maybe_access_boundary(access_boundary.as_deref())
+            .build()
     }
 }
 
@@ -565,10 +565,13 @@ mod tests {
     #[parallel]
     fn validate_default_endpoint_urls() {
         let default_endpoint_address = Url::parse(&format!("{METADATA_ROOT}{MDS_DEFAULT_URI}"));
-        assert!(default_endpoint_address.is_ok());
+        assert!(
+            default_endpoint_address.is_ok(),
+            "{default_endpoint_address:?}"
+        );
 
         let token_endpoint_address = Url::parse(&format!("{METADATA_ROOT}{MDS_DEFAULT_URI}/token"));
-        assert!(token_endpoint_address.is_ok());
+        assert!(token_endpoint_address.is_ok(), "{token_endpoint_address:?}");
     }
 
     #[tokio::test]
@@ -652,7 +655,8 @@ mod tests {
             token_provider: cache.clone(),
             trust_boundary: Arc::new(TrustBoundary::new(cache, "http://localhost".to_string())),
         };
-        assert!(mdsc.headers(Extensions::new()).await.is_err());
+        let result = mdsc.headers(Extensions::new()).await;
+        assert!(result.is_err(), "{result:?}");
     }
 
     #[test]

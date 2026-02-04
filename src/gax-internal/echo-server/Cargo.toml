@@ -27,6 +27,6 @@ serde_json.workspace = true
 tokio                = { workspace = true, features = ["macros"] }
 # Local dependencies
 google-cloud-auth.workspace = true
+google-cloud-rpc.workspace  = true
 gax.workspace               = true
-rpc.workspace               = true
 gaxi                        = { workspace = true, features = ["_internal-http-client"] }

@@ -395,8 +395,9 @@ impl<'de> serde::de::Deserialize<'de> for super::BindingExplanation {
                                     "multiple values for condition",
                                 ));
                             }
-                            result.condition =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -929,8 +930,9 @@ impl<'de> serde::de::Deserialize<'de> for super::OrgPolicyViolation {
                                     "multiple values for custom_constraint",
                                 ));
                             }
-                            result.custom_constraint = map.next_value::<std::option::Option<orgpolicy_v2::model::CustomConstraint>>()?
-                                ;
+                            result.custom_constraint = map.next_value::<std::option::Option<
+                                google_cloud_orgpolicy_v2::model::CustomConstraint,
+                            >>()?;
                         }
                         __FieldTag::__error => {
                             if !fields.insert(__FieldTag::__error) {
@@ -938,8 +940,9 @@ impl<'de> serde::de::Deserialize<'de> for super::OrgPolicyViolation {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1232,8 +1235,8 @@ impl<'de> serde::de::Deserialize<'de> for super::org_policy_overlay::PolicyOverl
                                     "multiple values for policy",
                                 ));
                             }
-                            result.policy = map
-                                .next_value::<std::option::Option<orgpolicy_v2::model::Policy>>()?;
+                            result.policy = map.next_value::<std::option::Option<google_cloud_orgpolicy_v2::model::Policy>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1327,8 +1330,9 @@ impl<'de> serde::de::Deserialize<'de> for super::org_policy_overlay::CustomConst
                                     "multiple values for custom_constraint",
                                 ));
                             }
-                            result.custom_constraint = map.next_value::<std::option::Option<orgpolicy_v2::model::CustomConstraint>>()?
-                                ;
+                            result.custom_constraint = map.next_value::<std::option::Option<
+                                google_cloud_orgpolicy_v2::model::CustomConstraint,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2412,8 +2416,9 @@ impl<'de> serde::de::Deserialize<'de> for super::replay::ResultsSummary {
                                     "multiple values for oldest_date",
                                 ));
                             }
-                            result.oldest_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.oldest_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__newest_date => {
                             if !fields.insert(__FieldTag::__newest_date) {
@@ -2421,8 +2426,9 @@ impl<'de> serde::de::Deserialize<'de> for super::replay::ResultsSummary {
                                     "multiple values for newest_date",
                                 ));
                             }
-                            result.newest_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.newest_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2537,15 +2543,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ReplayResult {
                                     "multiple values for `result`, a oneof with full ID .google.cloud.policysimulator.v1.ReplayResult.error, latest field was error",
                                 ));
                             }
-                            result.result =
-                                std::option::Option::Some(
-                                    crate::model::replay_result::Result::Error(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<rpc::model::Status>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.result = std::option::Option::Some(
+                                crate::model::replay_result::Result::Error(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_rpc::model::Status>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
@@ -2582,8 +2587,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ReplayResult {
                                     "multiple values for last_seen_date",
                                 ));
                             }
-                            result.last_seen_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.last_seen_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3431,7 +3437,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ExplainedAccess {
                                     "multiple values for errors",
                                 ));
                             }
-                            result.errors = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.errors =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

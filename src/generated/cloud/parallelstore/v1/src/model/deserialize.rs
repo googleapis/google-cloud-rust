@@ -2060,7 +2060,7 @@ impl<'de> serde::de::Deserialize<'de> for super::TransferErrorSummary {
                                 ));
                             }
                             result.error_code = map
-                                .next_value::<std::option::Option<rpc::model::Code>>()?
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Code>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__error_count => {

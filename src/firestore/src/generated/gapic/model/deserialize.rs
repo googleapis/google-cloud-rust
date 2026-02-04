@@ -1200,15 +1200,14 @@ impl<'de> serde::de::Deserialize<'de> for super::Value {
                                     "multiple values for `value_type`, a oneof with full ID .google.firestore.v1.Value.geo_point_value, latest field was geoPointValue",
                                 ));
                             }
-                            result.value_type =
-                                std::option::Option::Some(
-                                    crate::model::value::ValueType::GeoPointValue(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<gtype::model::LatLng>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.value_type = std::option::Option::Some(
+                                crate::model::value::ValueType::GeoPointValue(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_type::model::LatLng>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::__array_value => {
                             if !fields.insert(__FieldTag::__array_value) {
@@ -5407,8 +5406,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TargetChange {
                                     "multiple values for cause",
                                 ));
                             }
-                            result.cause =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.cause = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__resume_token => {
                             if !fields.insert(__FieldTag::__resume_token) {
@@ -5859,7 +5859,11 @@ impl<'de> serde::de::Deserialize<'de> for super::BatchWriteResponse {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.status =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

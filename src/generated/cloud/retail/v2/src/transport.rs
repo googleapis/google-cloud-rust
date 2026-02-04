@@ -7792,7 +7792,7 @@ impl super::stub::UserEventService for UserEventService {
         &self,
         req: crate::model::CollectUserEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;

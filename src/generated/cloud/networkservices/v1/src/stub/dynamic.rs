@@ -139,15 +139,15 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
@@ -392,18 +392,19 @@ impl<T: super::DepService> DepService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -842,15 +843,15 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
@@ -1437,18 +1438,19 @@ impl<T: super::NetworkServices> NetworkServices for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
+    {
         T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 

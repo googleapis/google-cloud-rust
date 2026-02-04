@@ -21,11 +21,11 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate location;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -1388,10 +1388,10 @@ pub struct Dataset {
 
     /// Required. Core time window of the dataset. All tables should have complete
     /// data covering this period.
-    pub date_range: std::option::Option<gtype::model::Interval>,
+    pub date_range: std::option::Option<google_cloud_type::model::Interval>,
 
     /// The timezone of the data, default will act as UTC.
-    pub time_zone: std::option::Option<gtype::model::TimeZone>,
+    pub time_zone: std::option::Option<google_cloud_type::model::TimeZone>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1541,12 +1541,12 @@ impl Dataset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = Dataset::new().set_date_range(Interval::default()/* use setters */);
     /// ```
     pub fn set_date_range<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.date_range = std::option::Option::Some(v.into());
         self
@@ -1557,13 +1557,13 @@ impl Dataset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = Dataset::new().set_or_clear_date_range(Some(Interval::default()/* use setters */));
     /// let x = Dataset::new().set_or_clear_date_range(None::<Interval>);
     /// ```
     pub fn set_or_clear_date_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.date_range = v.map(|x| x.into());
         self
@@ -1574,12 +1574,12 @@ impl Dataset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// use gtype::model::TimeZone;
+    /// use google_cloud_type::model::TimeZone;
     /// let x = Dataset::new().set_time_zone(TimeZone::default()/* use setters */);
     /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeZone>,
+        T: std::convert::Into<google_cloud_type::model::TimeZone>,
     {
         self.time_zone = std::option::Option::Some(v.into());
         self
@@ -1590,13 +1590,13 @@ impl Dataset {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// use gtype::model::TimeZone;
+    /// use google_cloud_type::model::TimeZone;
     /// let x = Dataset::new().set_or_clear_time_zone(Some(TimeZone::default()/* use setters */));
     /// let x = Dataset::new().set_or_clear_time_zone(None::<TimeZone>);
     /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeZone>,
+        T: std::convert::Into<google_cloud_type::model::TimeZone>,
     {
         self.time_zone = v.map(|x| x.into());
         self
@@ -7816,7 +7816,7 @@ pub struct OperationMetadata {
     /// with a [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding
     /// to `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

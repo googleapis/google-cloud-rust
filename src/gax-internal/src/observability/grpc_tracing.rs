@@ -444,8 +444,10 @@ mod tests {
                 "Publish".to_string()
             ))
         );
-        assert!(parse_method("/invalid/path/format").is_err());
-        assert!(parse_method("invalid").is_err());
+        let result = parse_method("/invalid/path/format");
+        assert!(result.is_err(), "{result:?}");
+        let result = parse_method("invalid");
+        assert!(result.is_err(), "{result:?}");
     }
 
     #[test]

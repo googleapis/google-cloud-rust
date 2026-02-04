@@ -870,9 +870,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WeeklyMaintenanceWindow {
                                     "multiple values for day",
                                 ));
                             }
-                            result.day = map
-                                .next_value::<std::option::Option<gtype::model::DayOfWeek>>()?
-                                .unwrap_or_default();
+                            result.day = map.next_value::<std::option::Option<google_cloud_type::model::DayOfWeek>>()?.unwrap_or_default();
                         }
                         __FieldTag::__start_time => {
                             if !fields.insert(__FieldTag::__start_time) {
@@ -880,8 +878,8 @@ impl<'de> serde::de::Deserialize<'de> for super::WeeklyMaintenanceWindow {
                                     "multiple values for start_time",
                                 ));
                             }
-                            result.start_time =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.start_time = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::__duration => {
                             if !fields.insert(__FieldTag::__duration) {

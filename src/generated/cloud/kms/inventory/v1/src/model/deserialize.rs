@@ -199,7 +199,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ListCryptoKeysResponse {
                                     "multiple values for crypto_keys",
                                 ));
                             }
-                            result.crypto_keys = map.next_value::<std::option::Option<std::vec::Vec<kms::model::CryptoKey>>>()?.unwrap_or_default();
+                            result.crypto_keys = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_kms_v1::model::CryptoKey>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__next_page_token => {
                             if !fields.insert(__FieldTag::__next_page_token) {

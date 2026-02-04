@@ -117,8 +117,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CheckError {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -406,7 +407,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Distribution {
                             }
                             result.exemplars = map
                                 .next_value::<std::option::Option<
-                                    std::vec::Vec<api::model::distribution::Exemplar>,
+                                    std::vec::Vec<google_cloud_api::model::distribution::Exemplar>,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -1193,7 +1194,11 @@ impl<'de> serde::de::Deserialize<'de> for super::LogEntry {
                                     "multiple values for severity",
                                 ));
                             }
-                            result.severity = map.next_value::<std::option::Option<logging_type::model::LogSeverity>>()?.unwrap_or_default();
+                            result.severity =
+                                map.next_value::<std::option::Option<
+                                    google_cloud_logging_type::model::LogSeverity,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__http_request => {
                             if !fields.insert(__FieldTag::__http_request) {
@@ -2553,8 +2558,9 @@ impl<'de> serde::de::Deserialize<'de> for super::QuotaError {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3325,8 +3331,9 @@ impl<'de> serde::de::Deserialize<'de> for super::report_response::ReportError {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

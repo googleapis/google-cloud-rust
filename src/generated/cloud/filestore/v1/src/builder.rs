@@ -302,11 +302,13 @@ pub mod cloud_filestore_manager {
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_instance`.
         pub fn poller(
             self,
-        ) -> impl google_cloud_lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
-        {
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Instance,
+            google_cloud_common::model::OperationMetadata,
+        > {
             type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
-                cloud_common::model::OperationMetadata,
+                google_cloud_common::model::OperationMetadata,
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -441,11 +443,13 @@ pub mod cloud_filestore_manager {
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_instance`.
         pub fn poller(
             self,
-        ) -> impl google_cloud_lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
-        {
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Instance,
+            google_cloud_common::model::OperationMetadata,
+        > {
             type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
-                cloud_common::model::OperationMetadata,
+                google_cloud_common::model::OperationMetadata,
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -578,11 +582,13 @@ pub mod cloud_filestore_manager {
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_instance`.
         pub fn poller(
             self,
-        ) -> impl google_cloud_lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
-        {
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Instance,
+            google_cloud_common::model::OperationMetadata,
+        > {
             type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
-                cloud_common::model::OperationMetadata,
+                google_cloud_common::model::OperationMetadata,
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -720,11 +726,13 @@ pub mod cloud_filestore_manager {
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `revert_instance`.
         pub fn poller(
             self,
-        ) -> impl google_cloud_lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
-        {
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Instance,
+            google_cloud_common::model::OperationMetadata,
+        > {
             type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
-                cloud_common::model::OperationMetadata,
+                google_cloud_common::model::OperationMetadata,
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -837,10 +845,11 @@ pub mod cloud_filestore_manager {
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_instance`.
         pub fn poller(
             self,
-        ) -> impl google_cloud_lro::Poller<(), cloud_common::model::OperationMetadata> {
+        ) -> impl google_cloud_lro::Poller<(), google_cloud_common::model::OperationMetadata>
+        {
             type Operation = google_cloud_lro::internal::Operation<
                 wkt::Empty,
-                cloud_common::model::OperationMetadata,
+                google_cloud_common::model::OperationMetadata,
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1133,11 +1142,13 @@ pub mod cloud_filestore_manager {
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_snapshot`.
         pub fn poller(
             self,
-        ) -> impl google_cloud_lro::Poller<crate::model::Snapshot, cloud_common::model::OperationMetadata>
-        {
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Snapshot,
+            google_cloud_common::model::OperationMetadata,
+        > {
             type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Snapshot,
-                cloud_common::model::OperationMetadata,
+                google_cloud_common::model::OperationMetadata,
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1272,10 +1283,11 @@ pub mod cloud_filestore_manager {
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_snapshot`.
         pub fn poller(
             self,
-        ) -> impl google_cloud_lro::Poller<(), cloud_common::model::OperationMetadata> {
+        ) -> impl google_cloud_lro::Poller<(), google_cloud_common::model::OperationMetadata>
+        {
             type Operation = google_cloud_lro::internal::Operation<
                 wkt::Empty,
-                cloud_common::model::OperationMetadata,
+                google_cloud_common::model::OperationMetadata,
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1380,11 +1392,13 @@ pub mod cloud_filestore_manager {
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_snapshot`.
         pub fn poller(
             self,
-        ) -> impl google_cloud_lro::Poller<crate::model::Snapshot, cloud_common::model::OperationMetadata>
-        {
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Snapshot,
+            google_cloud_common::model::OperationMetadata,
+        > {
             type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Snapshot,
-                cloud_common::model::OperationMetadata,
+                google_cloud_common::model::OperationMetadata,
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1701,11 +1715,13 @@ pub mod cloud_filestore_manager {
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backup`.
         pub fn poller(
             self,
-        ) -> impl google_cloud_lro::Poller<crate::model::Backup, cloud_common::model::OperationMetadata>
-        {
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Backup,
+            google_cloud_common::model::OperationMetadata,
+        > {
             type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Backup,
-                cloud_common::model::OperationMetadata,
+                google_cloud_common::model::OperationMetadata,
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1840,10 +1856,11 @@ pub mod cloud_filestore_manager {
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_backup`.
         pub fn poller(
             self,
-        ) -> impl google_cloud_lro::Poller<(), cloud_common::model::OperationMetadata> {
+        ) -> impl google_cloud_lro::Poller<(), google_cloud_common::model::OperationMetadata>
+        {
             type Operation = google_cloud_lro::internal::Operation<
                 wkt::Empty,
-                cloud_common::model::OperationMetadata,
+                google_cloud_common::model::OperationMetadata,
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1948,11 +1965,13 @@ pub mod cloud_filestore_manager {
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_backup`.
         pub fn poller(
             self,
-        ) -> impl google_cloud_lro::Poller<crate::model::Backup, cloud_common::model::OperationMetadata>
-        {
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Backup,
+            google_cloud_common::model::OperationMetadata,
+        > {
             type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Backup,
-                cloud_common::model::OperationMetadata,
+                google_cloud_common::model::OperationMetadata,
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2093,11 +2112,13 @@ pub mod cloud_filestore_manager {
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `promote_replica`.
         pub fn poller(
             self,
-        ) -> impl google_cloud_lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
-        {
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::Instance,
+            google_cloud_common::model::OperationMetadata,
+        > {
             type Operation = google_cloud_lro::internal::Operation<
                 crate::model::Instance,
-                cloud_common::model::OperationMetadata,
+                google_cloud_common::model::OperationMetadata,
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2174,7 +2195,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2184,7 +2205,7 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -2199,7 +2220,7 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -2209,8 +2230,10 @@ pub mod cloud_filestore_manager {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2224,31 +2247,33 @@ pub mod cloud_filestore_manager {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -2279,7 +2304,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
@@ -2289,7 +2314,10 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2301,14 +2329,14 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::Location> {
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [name][location::model::GetLocationRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

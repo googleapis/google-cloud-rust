@@ -58,7 +58,7 @@ impl Future for PublishHandle {
         // which would be a bug.
         Poll::Ready(
             result
-                .expect("the client library should not release the sender")
+                .expect("publisher should not close the sender for PublishHandle")
                 .map_err(convert_error),
         )
     }

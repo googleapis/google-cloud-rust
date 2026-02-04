@@ -230,9 +230,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SubmitBuildRequest {
                                     "multiple values for release_track",
                                 ));
                             }
-                            result.release_track = map
-                                .next_value::<std::option::Option<api::model::LaunchStage>>()?
-                                .unwrap_or_default();
+                            result.release_track = map.next_value::<std::option::Option<google_cloud_api::model::LaunchStage>>()?.unwrap_or_default();
                         }
                         __FieldTag::__client => {
                             if !fields.insert(__FieldTag::__client) {
@@ -1770,9 +1768,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Execution {
                                     "multiple values for launch_stage",
                                 ));
                             }
-                            result.launch_stage = map
-                                .next_value::<std::option::Option<api::model::LaunchStage>>()?
-                                .unwrap_or_default();
+                            result.launch_stage = map.next_value::<std::option::Option<google_cloud_api::model::LaunchStage>>()?.unwrap_or_default();
                         }
                         __FieldTag::__job => {
                             if !fields.insert(__FieldTag::__job) {
@@ -3222,9 +3218,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for launch_stage",
                                 ));
                             }
-                            result.launch_stage = map
-                                .next_value::<std::option::Option<api::model::LaunchStage>>()?
-                                .unwrap_or_default();
+                            result.launch_stage = map.next_value::<std::option::Option<google_cloud_api::model::LaunchStage>>()?.unwrap_or_default();
                         }
                         __FieldTag::__binary_authorization => {
                             if !fields.insert(__FieldTag::__binary_authorization) {
@@ -4929,9 +4923,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Job {
                                     "multiple values for launch_stage",
                                 ));
                             }
-                            result.launch_stage = map
-                                .next_value::<std::option::Option<api::model::LaunchStage>>()?
-                                .unwrap_or_default();
+                            result.launch_stage = map.next_value::<std::option::Option<google_cloud_api::model::LaunchStage>>()?.unwrap_or_default();
                         }
                         __FieldTag::__binary_authorization => {
                             if !fields.insert(__FieldTag::__binary_authorization) {
@@ -8485,9 +8477,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Revision {
                                     "multiple values for launch_stage",
                                 ));
                             }
-                            result.launch_stage = map
-                                .next_value::<std::option::Option<api::model::LaunchStage>>()?
-                                .unwrap_or_default();
+                            result.launch_stage = map.next_value::<std::option::Option<google_cloud_api::model::LaunchStage>>()?.unwrap_or_default();
                         }
                         __FieldTag::__service => {
                             if !fields.insert(__FieldTag::__service) {
@@ -10056,9 +10046,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Service {
                                     "multiple values for launch_stage",
                                 ));
                             }
-                            result.launch_stage = map
-                                .next_value::<std::option::Option<api::model::LaunchStage>>()?
-                                .unwrap_or_default();
+                            result.launch_stage = map.next_value::<std::option::Option<google_cloud_api::model::LaunchStage>>()?.unwrap_or_default();
                         }
                         __FieldTag::__binary_authorization => {
                             if !fields.insert(__FieldTag::__binary_authorization) {
@@ -11370,8 +11358,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TaskAttemptResult {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__exit_code => {
                             if !fields.insert(__FieldTag::__exit_code) {
@@ -13871,9 +13860,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WorkerPool {
                                     "multiple values for launch_stage",
                                 ));
                             }
-                            result.launch_stage = map
-                                .next_value::<std::option::Option<api::model::LaunchStage>>()?
-                                .unwrap_or_default();
+                            result.launch_stage = map.next_value::<std::option::Option<google_cloud_api::model::LaunchStage>>()?.unwrap_or_default();
                         }
                         __FieldTag::__binary_authorization => {
                             if !fields.insert(__FieldTag::__binary_authorization) {

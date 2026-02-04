@@ -100,7 +100,7 @@ use crate::credentials::{
 };
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::{
-    self, ACCESS_TOKEN_REQUEST_TYPE, build_cacheable_headers, metrics_header_value,
+    self, ACCESS_TOKEN_REQUEST_TYPE, AuthHeadersBuilder, metrics_header_value,
 };
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
@@ -721,11 +721,12 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        build_cacheable_headers(
-            &token,
-            &self.quota_project_id,
-            &self.trust_boundary.header_value(),
-        )
+        let access_boundary = self.trust_boundary.header_value();
+
+        AuthHeadersBuilder::new(&token)
+            .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .maybe_access_boundary(access_boundary.as_deref())
+            .build()
     }
 }
 
@@ -1366,7 +1367,7 @@ mod tests {
         .unwrap();
 
         let result = Builder::from_source_credentials(source_credentials).build();
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_parsing());
         assert!(
@@ -1393,7 +1394,7 @@ mod tests {
         });
 
         let result = Builder::new(nested_impersonated).build();
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_parsing());
         assert!(
@@ -1411,7 +1412,7 @@ mod tests {
         });
 
         let result = Builder::new(malformed_impersonated).build();
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_parsing());
         assert!(
@@ -1431,7 +1432,7 @@ mod tests {
         });
 
         let result = Builder::new(invalid_source).build();
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_unknown_type());
     }

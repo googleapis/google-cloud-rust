@@ -117,9 +117,9 @@ pub enum PollingResult<ResponseType, MetadataType> {
     /// recover.
     ///
     /// [Error]: gax::error::Error
-    /// [NOT_FOUND]: rpc::model::Code::NotFound
-    /// [ABORTED]: rpc::model::Code::Aborted
-    /// [PERMISSION_DENIED]: rpc::model::Code::PermissionDenied
+    /// [NOT_FOUND]: google_cloud_rpc::model::Code::NotFound
+    /// [ABORTED]: google_cloud_rpc::model::Code::Aborted
+    /// [PERMISSION_DENIED]: google_cloud_rpc::model::Code::PermissionDenied
     PollingError(Error),
 }
 

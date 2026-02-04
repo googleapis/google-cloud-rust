@@ -24,7 +24,7 @@ extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -9447,7 +9447,7 @@ pub struct DiagnoseClusterRequest {
 
     /// Optional. Time interval in which diagnosis should be carried out on the
     /// cluster.
-    pub diagnosis_interval: std::option::Option<gtype::model::Interval>,
+    pub diagnosis_interval: std::option::Option<google_cloud_type::model::Interval>,
 
     /// Optional. Specifies a list of jobs on which diagnosis is to be performed.
     /// Format: projects/{project}/regions/{region}/jobs/{job}
@@ -9537,12 +9537,12 @@ impl DiagnoseClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::DiagnoseClusterRequest;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = DiagnoseClusterRequest::new().set_diagnosis_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_diagnosis_interval<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.diagnosis_interval = std::option::Option::Some(v.into());
         self
@@ -9553,13 +9553,13 @@ impl DiagnoseClusterRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataproc_v1::model::DiagnoseClusterRequest;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = DiagnoseClusterRequest::new().set_or_clear_diagnosis_interval(Some(Interval::default()/* use setters */));
     /// let x = DiagnoseClusterRequest::new().set_or_clear_diagnosis_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_diagnosis_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.diagnosis_interval = v.map(|x| x.into());
         self

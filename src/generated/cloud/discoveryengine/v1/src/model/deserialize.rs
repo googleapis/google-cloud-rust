@@ -17042,7 +17042,11 @@ impl<'de> serde::de::Deserialize<'de> for super::document::IndexStatus {
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__pending_message => {
                             if !fields.insert(__FieldTag::__pending_message) {
@@ -25399,7 +25403,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportIdentityMappingsResponse 
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -26470,15 +26478,14 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQuerySource {
                                     "multiple values for `partition`, a oneof with full ID .google.cloud.discoveryengine.v1.BigQuerySource.partition_date, latest field was partitionDate",
                                 ));
                             }
-                            result.partition =
-                                std::option::Option::Some(
-                                    crate::model::big_query_source::Partition::PartitionDate(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<gtype::model::Date>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.partition = std::option::Option::Some(
+                                crate::model::big_query_source::Partition::PartitionDate(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_type::model::Date>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::__project_id => {
                             if !fields.insert(__FieldTag::__project_id) {
@@ -28087,7 +28094,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportUserEventsResponse {
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__error_config => {
                             if !fields.insert(__FieldTag::__error_config) {
@@ -28968,7 +28979,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportDocumentsResponse {
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__error_config => {
                             if !fields.insert(__FieldTag::__error_config) {
@@ -29272,7 +29287,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportSuggestionDenyListEntries
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__imported_entries_count => {
                             if !fields.insert(__FieldTag::__imported_entries_count) {
@@ -29728,7 +29747,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportCompletionSuggestionsResp
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__error_config => {
                             if !fields.insert(__FieldTag::__error_config) {
@@ -31427,7 +31450,11 @@ impl<'de> serde::de::Deserialize<'de> for super::PurgeSuggestionDenyListEntriesR
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -31695,7 +31722,11 @@ impl<'de> serde::de::Deserialize<'de> for super::PurgeCompletionSuggestionsRespo
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -39210,7 +39241,11 @@ impl<'de> serde::de::Deserialize<'de> for super::TrainCustomModelResponse {
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__error_config => {
                             if !fields.insert(__FieldTag::__error_config) {
@@ -47137,7 +47172,11 @@ impl<'de> serde::de::Deserialize<'de> for super::BatchUpdateUserLicensesResponse
                                     "multiple values for error_samples",
                                 ));
                             }
-                            result.error_samples = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.error_samples =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

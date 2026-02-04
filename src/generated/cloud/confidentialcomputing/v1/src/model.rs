@@ -21,9 +21,9 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_location;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate location;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -720,7 +720,7 @@ pub struct VerifyAttestationResponse {
 
     /// Output only. A list of messages that carry the partial error details
     /// related to VerifyAttestation.
-    pub partial_errors: std::vec::Vec<rpc::model::Status>,
+    pub partial_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -750,7 +750,7 @@ impl VerifyAttestationResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = VerifyAttestationResponse::new()
     ///     .set_partial_errors([
     ///         Status::default()/* use setters */,
@@ -760,7 +760,7 @@ impl VerifyAttestationResponse {
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.partial_errors = v.into_iter().map(|i| i.into()).collect();
@@ -2092,7 +2092,7 @@ pub struct VerifyConfidentialSpaceResponse {
     /// in the provided image signatures. This does not block the issuing of an
     /// attestation token, but the token will not contain claims for the failed
     /// image signatures.
-    pub partial_errors: std::vec::Vec<rpc::model::Status>,
+    pub partial_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2122,7 +2122,7 @@ impl VerifyConfidentialSpaceResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = VerifyConfidentialSpaceResponse::new()
     ///     .set_partial_errors([
     ///         Status::default()/* use setters */,
@@ -2132,7 +2132,7 @@ impl VerifyConfidentialSpaceResponse {
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.partial_errors = v.into_iter().map(|i| i.into()).collect();

@@ -689,8 +689,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Binding {
                                     "multiple values for condition",
                                 ));
                             }
-                            result.condition =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1081,8 +1082,9 @@ impl<'de> serde::de::Deserialize<'de> for super::BindingDelta {
                                     "multiple values for condition",
                                 ));
                             }
-                            result.condition =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

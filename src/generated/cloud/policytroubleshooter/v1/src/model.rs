@@ -22,9 +22,9 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
-extern crate gtype;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -119,7 +119,7 @@ pub struct TroubleshootIamPolicyResponse {
     pub explained_policies: std::vec::Vec<crate::model::ExplainedPolicy>,
 
     /// The general errors contained in the troubleshooting response.
-    pub errors: std::vec::Vec<rpc::model::Status>,
+    pub errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -171,7 +171,7 @@ impl TroubleshootIamPolicyResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_v1::model::TroubleshootIamPolicyResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TroubleshootIamPolicyResponse::new()
     ///     .set_errors([
     ///         Status::default()/* use setters */,
@@ -181,7 +181,7 @@ impl TroubleshootIamPolicyResponse {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -507,7 +507,7 @@ pub struct BindingExplanation {
     ///
     /// To learn about IAM Conditions, see
     /// <https://cloud.google.com/iam/help/conditions/overview>.
-    pub condition: std::option::Option<gtype::model::Expr>,
+    pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -627,12 +627,12 @@ impl BindingExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_v1::model::BindingExplanation;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = BindingExplanation::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -643,13 +643,13 @@ impl BindingExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_v1::model::BindingExplanation;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = BindingExplanation::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
     /// let x = BindingExplanation::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self

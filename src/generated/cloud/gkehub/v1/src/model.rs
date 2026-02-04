@@ -21,8 +21,8 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate gkehub_configmanagement_v1;
-extern crate gkehub_multiclusteringress_v1;
+extern crate google_cloud_gkehub_configmanagement_v1;
+extern crate google_cloud_gkehub_multiclusteringress_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate lazy_static;
@@ -864,7 +864,7 @@ impl CommonFeatureSpec {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::CommonFeatureSpec;
-    /// use gkehub_multiclusteringress_v1::model::FeatureSpec;
+    /// use google_cloud_gkehub_multiclusteringress_v1::model::FeatureSpec;
     /// let x = CommonFeatureSpec::new().set_feature_spec(Some(
     ///     google_cloud_gkehub_v1::model::common_feature_spec::FeatureSpec::Multiclusteringress(FeatureSpec::default().into())));
     /// ```
@@ -883,8 +883,9 @@ impl CommonFeatureSpec {
     /// holds a different branch.
     pub fn multiclusteringress(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<gkehub_multiclusteringress_v1::model::FeatureSpec>>
-    {
+    ) -> std::option::Option<
+        &std::boxed::Box<google_cloud_gkehub_multiclusteringress_v1::model::FeatureSpec>,
+    > {
         #[allow(unreachable_patterns)]
         self.feature_spec.as_ref().and_then(|v| match v {
             crate::model::common_feature_spec::FeatureSpec::Multiclusteringress(v) => {
@@ -903,12 +904,14 @@ impl CommonFeatureSpec {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::CommonFeatureSpec;
-    /// use gkehub_multiclusteringress_v1::model::FeatureSpec;
+    /// use google_cloud_gkehub_multiclusteringress_v1::model::FeatureSpec;
     /// let x = CommonFeatureSpec::new().set_multiclusteringress(FeatureSpec::default()/* use setters */);
     /// assert!(x.multiclusteringress().is_some());
     /// ```
     pub fn set_multiclusteringress<
-        T: std::convert::Into<std::boxed::Box<gkehub_multiclusteringress_v1::model::FeatureSpec>>,
+        T: std::convert::Into<
+                std::boxed::Box<google_cloud_gkehub_multiclusteringress_v1::model::FeatureSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -935,7 +938,9 @@ pub mod common_feature_spec {
     #[non_exhaustive]
     pub enum FeatureSpec {
         /// Multicluster Ingress-specific spec.
-        Multiclusteringress(std::boxed::Box<gkehub_multiclusteringress_v1::model::FeatureSpec>),
+        Multiclusteringress(
+            std::boxed::Box<google_cloud_gkehub_multiclusteringress_v1::model::FeatureSpec>,
+        ),
     }
 }
 
@@ -1017,7 +1022,7 @@ impl MembershipFeatureSpec {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::MembershipFeatureSpec;
-    /// use gkehub_configmanagement_v1::model::MembershipSpec;
+    /// use google_cloud_gkehub_configmanagement_v1::model::MembershipSpec;
     /// let x = MembershipFeatureSpec::new().set_feature_spec(Some(
     ///     google_cloud_gkehub_v1::model::membership_feature_spec::FeatureSpec::Configmanagement(MembershipSpec::default().into())));
     /// ```
@@ -1036,8 +1041,9 @@ impl MembershipFeatureSpec {
     /// holds a different branch.
     pub fn configmanagement(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<gkehub_configmanagement_v1::model::MembershipSpec>>
-    {
+    ) -> std::option::Option<
+        &std::boxed::Box<google_cloud_gkehub_configmanagement_v1::model::MembershipSpec>,
+    > {
         #[allow(unreachable_patterns)]
         self.feature_spec.as_ref().and_then(|v| match v {
             crate::model::membership_feature_spec::FeatureSpec::Configmanagement(v) => {
@@ -1056,12 +1062,14 @@ impl MembershipFeatureSpec {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::MembershipFeatureSpec;
-    /// use gkehub_configmanagement_v1::model::MembershipSpec;
+    /// use google_cloud_gkehub_configmanagement_v1::model::MembershipSpec;
     /// let x = MembershipFeatureSpec::new().set_configmanagement(MembershipSpec::default()/* use setters */);
     /// assert!(x.configmanagement().is_some());
     /// ```
     pub fn set_configmanagement<
-        T: std::convert::Into<std::boxed::Box<gkehub_configmanagement_v1::model::MembershipSpec>>,
+        T: std::convert::Into<
+                std::boxed::Box<google_cloud_gkehub_configmanagement_v1::model::MembershipSpec>,
+            >,
     >(
         mut self,
         v: T,
@@ -1088,7 +1096,9 @@ pub mod membership_feature_spec {
     #[non_exhaustive]
     pub enum FeatureSpec {
         /// Config Management-specific spec.
-        Configmanagement(std::boxed::Box<gkehub_configmanagement_v1::model::MembershipSpec>),
+        Configmanagement(
+            std::boxed::Box<google_cloud_gkehub_configmanagement_v1::model::MembershipSpec>,
+        ),
     }
 }
 
@@ -1151,7 +1161,7 @@ impl MembershipFeatureState {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::MembershipFeatureState;
-    /// use gkehub_configmanagement_v1::model::MembershipState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::MembershipState;
     /// let x = MembershipFeatureState::new().set_feature_state(Some(
     ///     google_cloud_gkehub_v1::model::membership_feature_state::FeatureState::Configmanagement(MembershipState::default().into())));
     /// ```
@@ -1172,8 +1182,9 @@ impl MembershipFeatureState {
     /// holds a different branch.
     pub fn configmanagement(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<gkehub_configmanagement_v1::model::MembershipState>>
-    {
+    ) -> std::option::Option<
+        &std::boxed::Box<google_cloud_gkehub_configmanagement_v1::model::MembershipState>,
+    > {
         #[allow(unreachable_patterns)]
         self.feature_state.as_ref().and_then(|v| match v {
             crate::model::membership_feature_state::FeatureState::Configmanagement(v) => {
@@ -1192,12 +1203,14 @@ impl MembershipFeatureState {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkehub_v1::model::MembershipFeatureState;
-    /// use gkehub_configmanagement_v1::model::MembershipState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::MembershipState;
     /// let x = MembershipFeatureState::new().set_configmanagement(MembershipState::default()/* use setters */);
     /// assert!(x.configmanagement().is_some());
     /// ```
     pub fn set_configmanagement<
-        T: std::convert::Into<std::boxed::Box<gkehub_configmanagement_v1::model::MembershipState>>,
+        T: std::convert::Into<
+                std::boxed::Box<google_cloud_gkehub_configmanagement_v1::model::MembershipState>,
+            >,
     >(
         mut self,
         v: T,
@@ -1224,7 +1237,9 @@ pub mod membership_feature_state {
     #[non_exhaustive]
     pub enum FeatureState {
         /// Config Management-specific state.
-        Configmanagement(std::boxed::Box<gkehub_configmanagement_v1::model::MembershipState>),
+        Configmanagement(
+            std::boxed::Box<google_cloud_gkehub_configmanagement_v1::model::MembershipState>,
+        ),
     }
 }
 
@@ -4219,7 +4234,7 @@ pub struct OperationMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub cancel_requested: bool,
 
     /// Output only. API version used to start the operation.

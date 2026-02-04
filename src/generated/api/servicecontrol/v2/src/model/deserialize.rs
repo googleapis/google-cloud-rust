@@ -110,8 +110,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CheckRequest {
                                     "multiple values for attributes",
                                 ));
                             }
-                            result.attributes = map.next_value::<std::option::Option<rpc_context::model::AttributeContext>>()?
-                                ;
+                            result.attributes = map.next_value::<std::option::Option<
+                                google_cloud_rpc_context::model::AttributeContext,
+                            >>()?;
                         }
                         __FieldTag::__resources => {
                             if !fields.insert(__FieldTag::__resources) {
@@ -337,8 +338,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CheckResponse {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__headers => {
                             if !fields.insert(__FieldTag::__headers) {
@@ -459,7 +461,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ReportRequest {
                             }
                             result.operations = map
                                 .next_value::<std::option::Option<
-                                    std::vec::Vec<rpc_context::model::AttributeContext>,
+                                    std::vec::Vec<
+                                        google_cloud_rpc_context::model::AttributeContext,
+                                    >,
                                 >>()?
                                 .unwrap_or_default();
                         }

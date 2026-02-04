@@ -24,8 +24,8 @@ extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -915,7 +915,7 @@ pub struct CreateBackupMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub cancel_time: std::option::Option<wkt::Timestamp>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1218,7 +1218,7 @@ pub struct CopyBackupMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub cancel_time: std::option::Option<wkt::Timestamp>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3843,7 +3843,7 @@ pub struct EncryptionInfo {
     /// Output only. If present, the status of a recent encrypt/decrypt call on
     /// underlying data for this database or backup. Regardless of status, data is
     /// always encrypted at rest.
-    pub encryption_status: std::option::Option<rpc::model::Status>,
+    pub encryption_status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. A Cloud KMS key version that is being used to protect the
     /// database or backup.
@@ -3879,12 +3879,12 @@ impl EncryptionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::EncryptionInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = EncryptionInfo::new().set_encryption_status(Status::default()/* use setters */);
     /// ```
     pub fn set_encryption_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.encryption_status = std::option::Option::Some(v.into());
         self
@@ -3895,13 +3895,13 @@ impl EncryptionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_spanner_admin_database_v1::model::EncryptionInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = EncryptionInfo::new().set_or_clear_encryption_status(Some(Status::default()/* use setters */));
     /// let x = EncryptionInfo::new().set_or_clear_encryption_status(None::<Status>);
     /// ```
     pub fn set_or_clear_encryption_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.encryption_status = v.map(|x| x.into());
         self
@@ -6540,7 +6540,7 @@ pub struct RestoreDatabaseMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub cancel_time: std::option::Option<wkt::Timestamp>,
 
     /// If exists, the name of the long-running operation that will be used to

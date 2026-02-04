@@ -29048,8 +29048,8 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryParameters {
                                     "multiple values for geo_location",
                                 ));
                             }
-                            result.geo_location =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.geo_location = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::__session_entity_types => {
                             if !fields.insert(__FieldTag::__session_entity_types) {
@@ -30380,7 +30380,11 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryResult {
                                     "multiple values for webhook_statuses",
                                 ));
                             }
-                            result.webhook_statuses = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.webhook_statuses =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__webhook_payloads => {
                             if !fields.insert(__FieldTag::__webhook_payloads) {
@@ -33175,8 +33179,9 @@ impl<'de> serde::de::Deserialize<'de> for super::conversation_turn::VirtualAgent
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -35596,8 +35601,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TestError {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__test_time => {
                             if !fields.insert(__FieldTag::__test_time) {
@@ -35987,8 +35993,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TestCaseError {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

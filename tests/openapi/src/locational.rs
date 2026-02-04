@@ -61,7 +61,7 @@ pub async fn run() -> Result<()> {
         .await?;
     println!("GET = {get:?}");
     assert_eq!(get, create);
-    assert!(get.name.is_some());
+    assert!(get.name.is_some(), "{get:?}");
 
     println!("\nTesting update_secret_by_project_and_location_and_secret()");
     let mut new_labels = get.labels.clone();

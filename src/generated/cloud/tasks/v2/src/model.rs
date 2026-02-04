@@ -22,9 +22,9 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
+extern crate google_cloud_location;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate location;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -3607,7 +3607,7 @@ pub struct Attempt {
     ///
     /// If `response_time` is unset, then the task has not been attempted or is
     /// currently running and the `response_status` field is meaningless.
-    pub response_status: std::option::Option<rpc::model::Status>,
+    pub response_status: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3721,12 +3721,12 @@ impl Attempt {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::Attempt;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Attempt::new().set_response_status(Status::default()/* use setters */);
     /// ```
     pub fn set_response_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.response_status = std::option::Option::Some(v.into());
         self
@@ -3737,13 +3737,13 @@ impl Attempt {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_tasks_v2::model::Attempt;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Attempt::new().set_or_clear_response_status(Some(Status::default()/* use setters */));
     /// let x = Attempt::new().set_or_clear_response_status(None::<Status>);
     /// ```
     pub fn set_or_clear_response_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.response_status = v.map(|x| x.into());
         self

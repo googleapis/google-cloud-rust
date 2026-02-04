@@ -23,7 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -1228,10 +1228,10 @@ pub struct AttachedPlatformVersionInfo {
     /// will reach its end of life. Or if this version is no longer supported (the
     /// `end_of_life` field is true), this is the actual date (in Pacific time)
     /// when the version reached its end of life.
-    pub end_of_life_date: std::option::Option<gtype::model::Date>,
+    pub end_of_life_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// Optional. The date (in Pacific Time) when the cluster version was released.
-    pub release_date: std::option::Option<gtype::model::Date>,
+    pub release_date: std::option::Option<google_cloud_type::model::Date>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1282,12 +1282,12 @@ impl AttachedPlatformVersionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AttachedPlatformVersionInfo;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = AttachedPlatformVersionInfo::new().set_end_of_life_date(Date::default()/* use setters */);
     /// ```
     pub fn set_end_of_life_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.end_of_life_date = std::option::Option::Some(v.into());
         self
@@ -1298,13 +1298,13 @@ impl AttachedPlatformVersionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AttachedPlatformVersionInfo;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = AttachedPlatformVersionInfo::new().set_or_clear_end_of_life_date(Some(Date::default()/* use setters */));
     /// let x = AttachedPlatformVersionInfo::new().set_or_clear_end_of_life_date(None::<Date>);
     /// ```
     pub fn set_or_clear_end_of_life_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.end_of_life_date = v.map(|x| x.into());
         self
@@ -1315,12 +1315,12 @@ impl AttachedPlatformVersionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AttachedPlatformVersionInfo;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = AttachedPlatformVersionInfo::new().set_release_date(Date::default()/* use setters */);
     /// ```
     pub fn set_release_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.release_date = std::option::Option::Some(v.into());
         self
@@ -1331,13 +1331,13 @@ impl AttachedPlatformVersionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AttachedPlatformVersionInfo;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = AttachedPlatformVersionInfo::new().set_or_clear_release_date(Some(Date::default()/* use setters */));
     /// let x = AttachedPlatformVersionInfo::new().set_or_clear_release_date(None::<Date>);
     /// ```
     pub fn set_or_clear_release_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.release_date = v.map(|x| x.into());
         self
@@ -6619,10 +6619,10 @@ pub struct AwsK8sVersionInfo {
     /// will reach its end of life. Or if this version is no longer supported (the
     /// `end_of_life` field is true), this is the actual date (in Pacific time)
     /// when the version reached its end of life.
-    pub end_of_life_date: std::option::Option<gtype::model::Date>,
+    pub end_of_life_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// Optional. The date (in Pacific Time) when the cluster version was released.
-    pub release_date: std::option::Option<gtype::model::Date>,
+    pub release_date: std::option::Option<google_cloud_type::model::Date>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6673,12 +6673,12 @@ impl AwsK8sVersionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AwsK8sVersionInfo;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = AwsK8sVersionInfo::new().set_end_of_life_date(Date::default()/* use setters */);
     /// ```
     pub fn set_end_of_life_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.end_of_life_date = std::option::Option::Some(v.into());
         self
@@ -6689,13 +6689,13 @@ impl AwsK8sVersionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AwsK8sVersionInfo;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = AwsK8sVersionInfo::new().set_or_clear_end_of_life_date(Some(Date::default()/* use setters */));
     /// let x = AwsK8sVersionInfo::new().set_or_clear_end_of_life_date(None::<Date>);
     /// ```
     pub fn set_or_clear_end_of_life_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.end_of_life_date = v.map(|x| x.into());
         self
@@ -6706,12 +6706,12 @@ impl AwsK8sVersionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AwsK8sVersionInfo;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = AwsK8sVersionInfo::new().set_release_date(Date::default()/* use setters */);
     /// ```
     pub fn set_release_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.release_date = std::option::Option::Some(v.into());
         self
@@ -6722,13 +6722,13 @@ impl AwsK8sVersionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AwsK8sVersionInfo;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = AwsK8sVersionInfo::new().set_or_clear_release_date(Some(Date::default()/* use setters */));
     /// let x = AwsK8sVersionInfo::new().set_or_clear_release_date(None::<Date>);
     /// ```
     pub fn set_or_clear_release_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.release_date = v.map(|x| x.into());
         self
@@ -12330,10 +12330,10 @@ pub struct AzureK8sVersionInfo {
     /// will reach its end of life. Or if this version is no longer supported (the
     /// `end_of_life` field is true), this is the actual date (in Pacific time)
     /// when the version reached its end of life.
-    pub end_of_life_date: std::option::Option<gtype::model::Date>,
+    pub end_of_life_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// Optional. The date (in Pacific Time) when the cluster version was released.
-    pub release_date: std::option::Option<gtype::model::Date>,
+    pub release_date: std::option::Option<google_cloud_type::model::Date>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -12384,12 +12384,12 @@ impl AzureK8sVersionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AzureK8sVersionInfo;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = AzureK8sVersionInfo::new().set_end_of_life_date(Date::default()/* use setters */);
     /// ```
     pub fn set_end_of_life_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.end_of_life_date = std::option::Option::Some(v.into());
         self
@@ -12400,13 +12400,13 @@ impl AzureK8sVersionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AzureK8sVersionInfo;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = AzureK8sVersionInfo::new().set_or_clear_end_of_life_date(Some(Date::default()/* use setters */));
     /// let x = AzureK8sVersionInfo::new().set_or_clear_end_of_life_date(None::<Date>);
     /// ```
     pub fn set_or_clear_end_of_life_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.end_of_life_date = v.map(|x| x.into());
         self
@@ -12417,12 +12417,12 @@ impl AzureK8sVersionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AzureK8sVersionInfo;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = AzureK8sVersionInfo::new().set_release_date(Date::default()/* use setters */);
     /// ```
     pub fn set_release_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.release_date = std::option::Option::Some(v.into());
         self
@@ -12433,13 +12433,13 @@ impl AzureK8sVersionInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkemulticloud_v1::model::AzureK8sVersionInfo;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = AzureK8sVersionInfo::new().set_or_clear_release_date(Some(Date::default()/* use setters */));
     /// let x = AzureK8sVersionInfo::new().set_or_clear_release_date(None::<Date>);
     /// ```
     pub fn set_or_clear_release_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.release_date = v.map(|x| x.into());
         self
@@ -14973,7 +14973,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

@@ -21,11 +21,11 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate location;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -71,7 +71,7 @@ pub struct ReplicationCycle {
 
     /// Output only. Provides details on the state of the cycle in case of an
     /// error.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. Warnings that occurred during the cycle.
     pub warnings: std::vec::Vec<crate::model::MigrationWarning>,
@@ -265,12 +265,12 @@ impl ReplicationCycle {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ReplicationCycle::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -281,13 +281,13 @@ impl ReplicationCycle {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ReplicationCycle::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = ReplicationCycle::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -974,7 +974,7 @@ pub struct MigratingVm {
 
     /// Output only. Provides details on the state of the Migrating VM in case of
     /// an error in replication.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. The recent cutover jobs performed on the migrating VM.
     /// This field holds the vm's last completed cutover job and the vm's
@@ -1363,12 +1363,12 @@ impl MigratingVm {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::MigratingVm;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = MigratingVm::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -1379,13 +1379,13 @@ impl MigratingVm {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::MigratingVm;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = MigratingVm::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = MigratingVm::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -2165,7 +2165,7 @@ pub struct CloneJob {
 
     /// Output only. Provides details for the errors that led to the Clone Job's
     /// state.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. The clone steps list representing its progress.
     pub steps: std::vec::Vec<crate::model::CloneStep>,
@@ -2315,12 +2315,12 @@ impl CloneJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::CloneJob;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CloneJob::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -2331,13 +2331,13 @@ impl CloneJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::CloneJob;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CloneJob::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = CloneJob::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -2993,7 +2993,7 @@ pub struct CutoverJob {
 
     /// Output only. Provides details for the errors that led to the Cutover Job's
     /// state.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. A message providing possible extra details about the current
     /// state.
@@ -3159,12 +3159,12 @@ impl CutoverJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::CutoverJob;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CutoverJob::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -3175,13 +3175,13 @@ impl CutoverJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::CutoverJob;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CutoverJob::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = CutoverJob::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -4759,7 +4759,7 @@ pub struct AwsSourceDetails {
 
     /// Output only. Provides details on the state of the Source in case of an
     /// error.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// AWS resource tags to limit the scope of the source inventory.
     pub inventory_tag_list: std::vec::Vec<crate::model::aws_source_details::Tag>,
@@ -4824,12 +4824,12 @@ impl AwsSourceDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::AwsSourceDetails;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = AwsSourceDetails::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -4840,13 +4840,13 @@ impl AwsSourceDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::AwsSourceDetails;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = AwsSourceDetails::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = AwsSourceDetails::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -5291,7 +5291,7 @@ pub struct AzureSourceDetails {
 
     /// Output only. Provides details on the state of the Source in case of an
     /// error.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// User specified tags to add to every M2VM generated resource in Azure.
     /// These tags will be set in addition to the default tags that are set as part
@@ -5361,12 +5361,12 @@ impl AzureSourceDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::AzureSourceDetails;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = AzureSourceDetails::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -5377,13 +5377,13 @@ impl AzureSourceDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::AzureSourceDetails;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = AzureSourceDetails::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = AzureSourceDetails::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -5768,7 +5768,7 @@ pub struct DatacenterConnector {
 
     /// Output only. Provides details on the state of the Datacenter Connector in
     /// case of an error.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. Appliance OVA version.
     /// This is the OVA which is manually installed by the user and contains the
@@ -5976,12 +5976,12 @@ impl DatacenterConnector {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DatacenterConnector::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -5992,13 +5992,13 @@ impl DatacenterConnector {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DatacenterConnector::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = DatacenterConnector::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -6274,7 +6274,7 @@ pub struct UpgradeStatus {
 
     /// Output only. Provides details on the state of the upgrade operation in case
     /// of an error.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The time the operation was started.
     pub start_time: std::option::Option<wkt::Timestamp>,
@@ -6325,12 +6325,12 @@ impl UpgradeStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::UpgradeStatus;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = UpgradeStatus::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -6341,13 +6341,13 @@ impl UpgradeStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::UpgradeStatus;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = UpgradeStatus::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = UpgradeStatus::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -10708,7 +10708,7 @@ pub struct UtilizationReport {
 
     /// Output only. Provides details on the state of the report in case of an
     /// error.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. The time the report was created (this refers to the time of
     /// the request, not the time the report creation completed).
@@ -10820,12 +10820,12 @@ impl UtilizationReport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = UtilizationReport::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -10836,13 +10836,13 @@ impl UtilizationReport {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = UtilizationReport::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = UtilizationReport::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -18810,7 +18810,7 @@ pub struct OperationMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -18967,14 +18967,14 @@ pub struct MigrationError {
     pub code: crate::model::migration_error::ErrorCode,
 
     /// Output only. The localized error message.
-    pub error_message: std::option::Option<rpc::model::LocalizedMessage>,
+    pub error_message: std::option::Option<google_cloud_rpc::model::LocalizedMessage>,
 
     /// Output only. Suggested action for solving the error.
-    pub action_item: std::option::Option<rpc::model::LocalizedMessage>,
+    pub action_item: std::option::Option<google_cloud_rpc::model::LocalizedMessage>,
 
     /// Output only. URL(s) pointing to additional information on handling the
     /// current error.
-    pub help_links: std::vec::Vec<rpc::model::help::Link>,
+    pub help_links: std::vec::Vec<google_cloud_rpc::model::help::Link>,
 
     /// Output only. The time the error occurred.
     pub error_time: std::option::Option<wkt::Timestamp>,
@@ -19010,12 +19010,12 @@ impl MigrationError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::MigrationError;
-    /// use rpc::model::LocalizedMessage;
+    /// use google_cloud_rpc::model::LocalizedMessage;
     /// let x = MigrationError::new().set_error_message(LocalizedMessage::default()/* use setters */);
     /// ```
     pub fn set_error_message<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::LocalizedMessage>,
+        T: std::convert::Into<google_cloud_rpc::model::LocalizedMessage>,
     {
         self.error_message = std::option::Option::Some(v.into());
         self
@@ -19026,13 +19026,13 @@ impl MigrationError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::MigrationError;
-    /// use rpc::model::LocalizedMessage;
+    /// use google_cloud_rpc::model::LocalizedMessage;
     /// let x = MigrationError::new().set_or_clear_error_message(Some(LocalizedMessage::default()/* use setters */));
     /// let x = MigrationError::new().set_or_clear_error_message(None::<LocalizedMessage>);
     /// ```
     pub fn set_or_clear_error_message<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::LocalizedMessage>,
+        T: std::convert::Into<google_cloud_rpc::model::LocalizedMessage>,
     {
         self.error_message = v.map(|x| x.into());
         self
@@ -19043,12 +19043,12 @@ impl MigrationError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::MigrationError;
-    /// use rpc::model::LocalizedMessage;
+    /// use google_cloud_rpc::model::LocalizedMessage;
     /// let x = MigrationError::new().set_action_item(LocalizedMessage::default()/* use setters */);
     /// ```
     pub fn set_action_item<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::LocalizedMessage>,
+        T: std::convert::Into<google_cloud_rpc::model::LocalizedMessage>,
     {
         self.action_item = std::option::Option::Some(v.into());
         self
@@ -19059,13 +19059,13 @@ impl MigrationError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::MigrationError;
-    /// use rpc::model::LocalizedMessage;
+    /// use google_cloud_rpc::model::LocalizedMessage;
     /// let x = MigrationError::new().set_or_clear_action_item(Some(LocalizedMessage::default()/* use setters */));
     /// let x = MigrationError::new().set_or_clear_action_item(None::<LocalizedMessage>);
     /// ```
     pub fn set_or_clear_action_item<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::LocalizedMessage>,
+        T: std::convert::Into<google_cloud_rpc::model::LocalizedMessage>,
     {
         self.action_item = v.map(|x| x.into());
         self
@@ -19076,7 +19076,7 @@ impl MigrationError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::MigrationError;
-    /// use rpc::model::help::Link;
+    /// use google_cloud_rpc::model::help::Link;
     /// let x = MigrationError::new()
     ///     .set_help_links([
     ///         Link::default()/* use setters */,
@@ -19086,7 +19086,7 @@ impl MigrationError {
     pub fn set_help_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::help::Link>,
+        V: std::convert::Into<google_cloud_rpc::model::help::Link>,
     {
         use std::iter::Iterator;
         self.help_links = v.into_iter().map(|i| i.into()).collect();
@@ -19357,14 +19357,14 @@ pub struct MigrationWarning {
     pub code: crate::model::migration_warning::WarningCode,
 
     /// Output only. The localized warning message.
-    pub warning_message: std::option::Option<rpc::model::LocalizedMessage>,
+    pub warning_message: std::option::Option<google_cloud_rpc::model::LocalizedMessage>,
 
     /// Output only. Suggested action for solving the warning.
-    pub action_item: std::option::Option<rpc::model::LocalizedMessage>,
+    pub action_item: std::option::Option<google_cloud_rpc::model::LocalizedMessage>,
 
     /// Output only. URL(s) pointing to additional information on handling the
     /// current warning.
-    pub help_links: std::vec::Vec<rpc::model::help::Link>,
+    pub help_links: std::vec::Vec<google_cloud_rpc::model::help::Link>,
 
     /// The time the warning occurred.
     pub warning_time: std::option::Option<wkt::Timestamp>,
@@ -19398,12 +19398,12 @@ impl MigrationWarning {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::MigrationWarning;
-    /// use rpc::model::LocalizedMessage;
+    /// use google_cloud_rpc::model::LocalizedMessage;
     /// let x = MigrationWarning::new().set_warning_message(LocalizedMessage::default()/* use setters */);
     /// ```
     pub fn set_warning_message<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::LocalizedMessage>,
+        T: std::convert::Into<google_cloud_rpc::model::LocalizedMessage>,
     {
         self.warning_message = std::option::Option::Some(v.into());
         self
@@ -19414,13 +19414,13 @@ impl MigrationWarning {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::MigrationWarning;
-    /// use rpc::model::LocalizedMessage;
+    /// use google_cloud_rpc::model::LocalizedMessage;
     /// let x = MigrationWarning::new().set_or_clear_warning_message(Some(LocalizedMessage::default()/* use setters */));
     /// let x = MigrationWarning::new().set_or_clear_warning_message(None::<LocalizedMessage>);
     /// ```
     pub fn set_or_clear_warning_message<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::LocalizedMessage>,
+        T: std::convert::Into<google_cloud_rpc::model::LocalizedMessage>,
     {
         self.warning_message = v.map(|x| x.into());
         self
@@ -19431,12 +19431,12 @@ impl MigrationWarning {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::MigrationWarning;
-    /// use rpc::model::LocalizedMessage;
+    /// use google_cloud_rpc::model::LocalizedMessage;
     /// let x = MigrationWarning::new().set_action_item(LocalizedMessage::default()/* use setters */);
     /// ```
     pub fn set_action_item<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::LocalizedMessage>,
+        T: std::convert::Into<google_cloud_rpc::model::LocalizedMessage>,
     {
         self.action_item = std::option::Option::Some(v.into());
         self
@@ -19447,13 +19447,13 @@ impl MigrationWarning {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::MigrationWarning;
-    /// use rpc::model::LocalizedMessage;
+    /// use google_cloud_rpc::model::LocalizedMessage;
     /// let x = MigrationWarning::new().set_or_clear_action_item(Some(LocalizedMessage::default()/* use setters */));
     /// let x = MigrationWarning::new().set_or_clear_action_item(None::<LocalizedMessage>);
     /// ```
     pub fn set_or_clear_action_item<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::LocalizedMessage>,
+        T: std::convert::Into<google_cloud_rpc::model::LocalizedMessage>,
     {
         self.action_item = v.map(|x| x.into());
         self
@@ -19464,7 +19464,7 @@ impl MigrationWarning {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::MigrationWarning;
-    /// use rpc::model::help::Link;
+    /// use google_cloud_rpc::model::help::Link;
     /// let x = MigrationWarning::new()
     ///     .set_help_links([
     ///         Link::default()/* use setters */,
@@ -19474,7 +19474,7 @@ impl MigrationWarning {
     pub fn set_help_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::help::Link>,
+        V: std::convert::Into<google_cloud_rpc::model::help::Link>,
     {
         use std::iter::Iterator;
         self.help_links = v.into_iter().map(|i| i.into()).collect();
@@ -21327,7 +21327,7 @@ pub struct ImageImportJob {
 
     /// Output only. Provides details on the error that led to the image import
     /// state in case of an error.
-    pub errors: std::vec::Vec<rpc::model::Status>,
+    pub errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// Output only. Warnings that occurred during the image import.
     pub warnings: std::vec::Vec<crate::model::MigrationWarning>,
@@ -21467,7 +21467,7 @@ impl ImageImportJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImageImportJob::new()
     ///     .set_errors([
     ///         Status::default()/* use setters */,
@@ -21477,7 +21477,7 @@ impl ImageImportJob {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -24204,7 +24204,7 @@ pub struct DiskMigrationJob {
 
     /// Output only. Provides details on the errors that led to the disk migration
     /// job's state in case of an error.
-    pub errors: std::vec::Vec<rpc::model::Status>,
+    pub errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// Output only. The disk migration steps list representing its progress.
     pub steps: std::vec::Vec<crate::model::DiskMigrationStep>,
@@ -24355,7 +24355,7 @@ impl DiskMigrationJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_vmmigration_v1::model::DiskMigrationJob;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DiskMigrationJob::new()
     ///     .set_errors([
     ///         Status::default()/* use setters */,
@@ -24365,7 +24365,7 @@ impl DiskMigrationJob {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();

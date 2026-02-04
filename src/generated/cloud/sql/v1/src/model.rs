@@ -21,9 +21,9 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate gtype;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -1382,7 +1382,7 @@ pub struct Backup {
     /// Output only. This output contains the following values:
     /// start_time: All database writes up to this time are available.
     /// end_time: Any database writes after this time aren't available.
-    pub backup_interval: std::option::Option<gtype::model::Interval>,
+    pub backup_interval: std::option::Option<google_cloud_type::model::Interval>,
 
     /// Output only. The status of this backup.
     pub state: crate::model::backup::SqlBackupState,
@@ -1540,12 +1540,12 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::Backup;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = Backup::new().set_backup_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_backup_interval<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.backup_interval = std::option::Option::Some(v.into());
         self
@@ -1556,13 +1556,13 @@ impl Backup {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::Backup;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = Backup::new().set_or_clear_backup_interval(Some(Interval::default()/* use setters */));
     /// let x = Backup::new().set_or_clear_backup_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_backup_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.backup_interval = v.map(|x| x.into());
         self
@@ -15945,7 +15945,7 @@ pub struct SqlInstancesExecuteSqlResponse {
     pub results: std::vec::Vec<crate::model::QueryResult>,
 
     /// Contains the error from the database if the SQL execution failed.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -16037,12 +16037,12 @@ impl SqlInstancesExecuteSqlResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = SqlInstancesExecuteSqlResponse::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -16053,13 +16053,13 @@ impl SqlInstancesExecuteSqlResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = SqlInstancesExecuteSqlResponse::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = SqlInstancesExecuteSqlResponse::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self
@@ -16188,7 +16188,7 @@ pub struct QueryResult {
     pub partial_result: bool,
 
     /// If results were truncated due to an error, details of that error.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -16271,12 +16271,12 @@ impl QueryResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::QueryResult;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = QueryResult::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -16287,13 +16287,13 @@ impl QueryResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::QueryResult;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = QueryResult::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = QueryResult::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self

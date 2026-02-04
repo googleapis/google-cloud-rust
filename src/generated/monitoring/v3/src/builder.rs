@@ -1360,7 +1360,7 @@ pub mod metric_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::MonitoredResourceDescriptor> {
+        pub async fn send(self) -> Result<google_cloud_api::model::MonitoredResourceDescriptor> {
             (*self.0.stub)
                 .get_monitored_resource_descriptor(self.0.request, self.0.options)
                 .await
@@ -1544,7 +1544,7 @@ pub mod metric_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::MetricDescriptor> {
+        pub async fn send(self) -> Result<google_cloud_api::model::MetricDescriptor> {
             (*self.0.stub)
                 .get_metric_descriptor(self.0.request, self.0.options)
                 .await
@@ -1609,7 +1609,7 @@ pub mod metric_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<api::model::MetricDescriptor> {
+        pub async fn send(self) -> Result<google_cloud_api::model::MetricDescriptor> {
             (*self.0.stub)
                 .create_metric_descriptor(self.0.request, self.0.options)
                 .await
@@ -1629,7 +1629,7 @@ pub mod metric_service {
         /// This is a **required** field for requests.
         pub fn set_metric_descriptor<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<api::model::MetricDescriptor>,
+            T: std::convert::Into<google_cloud_api::model::MetricDescriptor>,
         {
             self.0.request.metric_descriptor = std::option::Option::Some(v.into());
             self
@@ -1640,7 +1640,7 @@ pub mod metric_service {
         /// This is a **required** field for requests.
         pub fn set_or_clear_metric_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<api::model::MetricDescriptor>,
+            T: std::convert::Into<google_cloud_api::model::MetricDescriptor>,
         {
             self.0.request.metric_descriptor = v.map(|x| x.into());
             self

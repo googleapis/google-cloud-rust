@@ -52,6 +52,10 @@ locals {
       script = "coverage"
       flags  = local.unstable_flags
     }
+    deny = {
+      config = "complex.yaml"
+      script = "deny"
+    }
     docs = {
       config = "complex.yaml"
       script = "docs"
@@ -63,6 +67,14 @@ locals {
     features = {
       config = "complex.yaml"
       script = "features"
+    }
+    features-gax-internal = {
+      config = "complex.yaml"
+      script = "features-gax-internal"
+    }
+    per-client-features = {
+      config = "complex.yaml"
+      script = "per-client-features"
     }
     format = {
       config = "format.yaml"

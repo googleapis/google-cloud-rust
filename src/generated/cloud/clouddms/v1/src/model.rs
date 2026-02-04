@@ -22,11 +22,11 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
+extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate location;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -2378,7 +2378,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -8544,7 +8544,7 @@ pub struct MigrationJob {
     pub duration: std::option::Option<wkt::Duration>,
 
     /// Output only. The error details in case of state FAILED.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The database engine type and provider of the source.
     pub source_database: std::option::Option<crate::model::DatabaseType>,
@@ -8866,12 +8866,12 @@ impl MigrationJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::MigrationJob;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = MigrationJob::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -8882,13 +8882,13 @@ impl MigrationJob {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::MigrationJob;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = MigrationJob::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = MigrationJob::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -10133,7 +10133,7 @@ pub struct ConnectionProfile {
     pub display_name: std::string::String,
 
     /// Output only. The error details in case of state FAILED.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The database provider.
     pub provider: crate::model::DatabaseProvider,
@@ -10284,12 +10284,12 @@ impl ConnectionProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::ConnectionProfile;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ConnectionProfile::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -10300,13 +10300,13 @@ impl ConnectionProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::ConnectionProfile;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ConnectionProfile::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = ConnectionProfile::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -11233,7 +11233,7 @@ pub struct PrivateConnection {
     pub state: crate::model::private_connection::State,
 
     /// Output only. The error details in case of state FAILED.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub connectivity: std::option::Option<crate::model::private_connection::Connectivity>,
 
@@ -11379,12 +11379,12 @@ impl PrivateConnection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::PrivateConnection;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = PrivateConnection::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -11395,13 +11395,13 @@ impl PrivateConnection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_clouddms_v1::model::PrivateConnection;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = PrivateConnection::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = PrivateConnection::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self

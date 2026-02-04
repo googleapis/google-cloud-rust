@@ -77,7 +77,7 @@ use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self};
-use crate::headers_util::build_cacheable_headers;
+use crate::headers_util::AuthHeadersBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::trust_boundary::TrustBoundary;
@@ -586,9 +586,12 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        let trust_boundary_header = self.trust_boundary.header_value();
+        let access_boundary = self.trust_boundary.header_value();
 
-        build_cacheable_headers(&token, &self.quota_project_id, &trust_boundary_header)
+        AuthHeadersBuilder::new(&token)
+            .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .maybe_access_boundary(access_boundary.as_deref())
+            .build()
     }
 }
 
@@ -746,7 +749,8 @@ mod tests {
             quota_project_id: None,
             trust_boundary: Arc::new(TrustBoundary::new(cache, "http://localhost".to_string())),
         };
-        assert!(sac.headers(Extensions::new()).await.is_err());
+        let result = sac.headers(Extensions::new()).await;
+        assert!(result.is_err(), "{result:?}");
     }
 
     fn get_mock_service_key() -> Value {
@@ -903,7 +907,7 @@ mod tests {
         };
         key.private_key = invalid_pem.to_string();
         let result = key.signer();
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let error_msg = result.unwrap_err().to_string();
         assert!(error_msg.contains("Failed to parse service account private key PEM"));
         Ok(())
@@ -1018,9 +1022,7 @@ mod tests {
         let client_email = signer.client_email().await?;
         assert_eq!(client_email, service_account_key["client_email"]);
 
-        let result = signer.sign(b"test").await;
-
-        assert!(result.is_ok());
+        let _bytes = signer.sign(b"test").await?;
 
         Ok(())
     }

@@ -21,12 +21,12 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate location;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -585,14 +585,14 @@ pub struct ReportDetail {
     pub shards_count: i64,
 
     /// Status of the ReportDetail.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Labels as key value pairs
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The date for which report is generated. The time part of target_datetime
     /// will be zero till we support multiple reports per day.
-    pub target_datetime: std::option::Option<gtype::model::DateTime>,
+    pub target_datetime: std::option::Option<google_cloud_type::model::DateTime>,
 
     /// Metrics of the report.
     pub report_metrics: std::option::Option<crate::model::report_detail::Metrics>,
@@ -682,12 +682,12 @@ impl ReportDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::ReportDetail;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ReportDetail::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -698,13 +698,13 @@ impl ReportDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::ReportDetail;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ReportDetail::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = ReportDetail::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self
@@ -736,12 +736,12 @@ impl ReportDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::ReportDetail;
-    /// use gtype::model::DateTime;
+    /// use google_cloud_type::model::DateTime;
     /// let x = ReportDetail::new().set_target_datetime(DateTime::default()/* use setters */);
     /// ```
     pub fn set_target_datetime<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::DateTime>,
+        T: std::convert::Into<google_cloud_type::model::DateTime>,
     {
         self.target_datetime = std::option::Option::Some(v.into());
         self
@@ -752,13 +752,13 @@ impl ReportDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::ReportDetail;
-    /// use gtype::model::DateTime;
+    /// use google_cloud_type::model::DateTime;
     /// let x = ReportDetail::new().set_or_clear_target_datetime(Some(DateTime::default()/* use setters */));
     /// let x = ReportDetail::new().set_or_clear_target_datetime(None::<DateTime>);
     /// ```
     pub fn set_or_clear_target_datetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::DateTime>,
+        T: std::convert::Into<google_cloud_type::model::DateTime>,
     {
         self.target_datetime = v.map(|x| x.into());
         self
@@ -1091,7 +1091,7 @@ pub struct OperationMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1249,11 +1249,11 @@ pub struct FrequencyOptions {
 
     /// The date from which report generation should start.
     /// UTC time zone.
-    pub start_date: std::option::Option<gtype::model::Date>,
+    pub start_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// The date on which report generation should stop (Inclusive).
     /// UTC time zone.
-    pub end_date: std::option::Option<gtype::model::Date>,
+    pub end_date: std::option::Option<google_cloud_type::model::Date>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1285,12 +1285,12 @@ impl FrequencyOptions {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::FrequencyOptions;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = FrequencyOptions::new().set_start_date(Date::default()/* use setters */);
     /// ```
     pub fn set_start_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.start_date = std::option::Option::Some(v.into());
         self
@@ -1301,13 +1301,13 @@ impl FrequencyOptions {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::FrequencyOptions;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = FrequencyOptions::new().set_or_clear_start_date(Some(Date::default()/* use setters */));
     /// let x = FrequencyOptions::new().set_or_clear_start_date(None::<Date>);
     /// ```
     pub fn set_or_clear_start_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.start_date = v.map(|x| x.into());
         self
@@ -1318,12 +1318,12 @@ impl FrequencyOptions {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::FrequencyOptions;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = FrequencyOptions::new().set_end_date(Date::default()/* use setters */);
     /// ```
     pub fn set_end_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.end_date = std::option::Option::Some(v.into());
         self
@@ -1334,13 +1334,13 @@ impl FrequencyOptions {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::FrequencyOptions;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = FrequencyOptions::new().set_or_clear_end_date(Some(Date::default()/* use setters */));
     /// let x = FrequencyOptions::new().set_or_clear_end_date(None::<Date>);
     /// ```
     pub fn set_or_clear_end_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.end_date = v.map(|x| x.into());
         self
@@ -2487,7 +2487,7 @@ pub struct DatasetConfig {
     pub identity: std::option::Option<crate::model::Identity>,
 
     /// Output only. Status of the `datasetConfig`.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. State of the `datasetConfig`.
     pub dataset_config_state: crate::model::dataset_config::ConfigState,
@@ -2747,12 +2747,12 @@ impl DatasetConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DatasetConfig::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -2763,13 +2763,13 @@ impl DatasetConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DatasetConfig::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = DatasetConfig::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self

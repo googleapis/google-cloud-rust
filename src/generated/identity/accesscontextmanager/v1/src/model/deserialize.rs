@@ -3307,8 +3307,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CustomLevel {
                                     "multiple values for expr",
                                 ));
                             }
-                            result.expr =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.expr = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3420,13 +3421,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DevicePolicy {
                                     "multiple values for allowed_encryption_statuses",
                                 ));
                             }
-                            result.allowed_encryption_statuses = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<
-                                        accesscontextmanager_type::model::DeviceEncryptionStatus,
-                                    >,
-                                >>()?
-                                .unwrap_or_default();
+                            result.allowed_encryption_statuses = map.next_value::<std::option::Option<std::vec::Vec<google_cloud_identity_accesscontextmanager_type::model::DeviceEncryptionStatus>>>()?.unwrap_or_default();
                         }
                         __FieldTag::__os_constraints => {
                             if !fields.insert(__FieldTag::__os_constraints) {
@@ -3442,13 +3437,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DevicePolicy {
                                     "multiple values for allowed_device_management_levels",
                                 ));
                             }
-                            result.allowed_device_management_levels = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<
-                                        accesscontextmanager_type::model::DeviceManagementLevel,
-                                    >,
-                                >>()?
-                                .unwrap_or_default();
+                            result.allowed_device_management_levels = map.next_value::<std::option::Option<std::vec::Vec<google_cloud_identity_accesscontextmanager_type::model::DeviceManagementLevel>>>()?.unwrap_or_default();
                         }
                         __FieldTag::__require_admin_approval => {
                             if !fields.insert(__FieldTag::__require_admin_approval) {
@@ -3557,7 +3546,11 @@ impl<'de> serde::de::Deserialize<'de> for super::OsConstraint {
                                     "multiple values for os_type",
                                 ));
                             }
-                            result.os_type = map.next_value::<std::option::Option<accesscontextmanager_type::model::OsType>>()?.unwrap_or_default();
+                            result.os_type = map
+                                .next_value::<std::option::Option<
+                                    google_cloud_identity_accesscontextmanager_type::model::OsType,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__minimum_version => {
                             if !fields.insert(__FieldTag::__minimum_version) {

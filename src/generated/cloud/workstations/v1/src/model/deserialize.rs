@@ -273,7 +273,11 @@ impl<'de> serde::de::Deserialize<'de> for super::WorkstationCluster {
                                     "multiple values for conditions",
                                 ));
                             }
-                            result.conditions = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.conditions =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -716,7 +720,11 @@ impl<'de> serde::de::Deserialize<'de> for super::WorkstationConfig {
                                     "multiple values for conditions",
                                 ));
                             }
-                            result.conditions = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.conditions =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

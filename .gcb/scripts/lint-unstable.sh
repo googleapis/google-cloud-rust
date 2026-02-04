@@ -17,16 +17,14 @@ set -ev
 
 rustup toolchain install nightly
 rustup default nightly
-rustup component add clippy rustfmt
+rustup component add clippy
 cargo version
 rustup show active-toolchain -v
 
-set -e
+set +v
 
+echo "==== cargo clippy ===="
 cargo clippy --workspace --all-targets --profile=test -- --deny warnings
-cargo fmt
-git diff --exit-code
 
 echo "==== DONE ===="
-
 /workspace/.bin/sccache --show-stats

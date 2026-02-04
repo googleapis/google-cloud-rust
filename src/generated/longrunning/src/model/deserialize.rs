@@ -122,14 +122,12 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                 ));
                             }
                             result.result =
-                                std::option::Option::Some(
-                                    crate::model::operation::Result::Error(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<rpc::model::Status>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                                std::option::Option::Some(crate::model::operation::Result::Error(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_rpc::model::Status>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ));
                         }
                         __FieldTag::__response => {
                             if !fields.insert(__FieldTag::__response) {

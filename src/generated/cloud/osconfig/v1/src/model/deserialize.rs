@@ -1477,8 +1477,9 @@ impl<'de> serde::de::Deserialize<'de> for super::inventory::WindowsApplication {
                                     "multiple values for install_date",
                                 ));
                             }
-                            result.install_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.install_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__help_link => {
                             if !fields.insert(__FieldTag::__help_link) {
@@ -7402,8 +7403,8 @@ impl<'de> serde::de::Deserialize<'de> for super::RecurringSchedule {
                                     "multiple values for time_zone",
                                 ));
                             }
-                            result.time_zone =
-                                map.next_value::<std::option::Option<gtype::model::TimeZone>>()?;
+                            result.time_zone = map.next_value::<std::option::Option<google_cloud_type::model::TimeZone>>()?
+                                ;
                         }
                         __FieldTag::__start_time => {
                             if !fields.insert(__FieldTag::__start_time) {
@@ -7429,8 +7430,8 @@ impl<'de> serde::de::Deserialize<'de> for super::RecurringSchedule {
                                     "multiple values for time_of_day",
                                 ));
                             }
-                            result.time_of_day =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.time_of_day = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::__frequency => {
                             if !fields.insert(__FieldTag::__frequency) {
@@ -7579,9 +7580,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WeeklySchedule {
                                     "multiple values for day_of_week",
                                 ));
                             }
-                            result.day_of_week = map
-                                .next_value::<std::option::Option<gtype::model::DayOfWeek>>()?
-                                .unwrap_or_default();
+                            result.day_of_week = map.next_value::<std::option::Option<google_cloud_type::model::DayOfWeek>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7807,9 +7806,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WeekDayOfMonth {
                                     "multiple values for day_of_week",
                                 ));
                             }
-                            result.day_of_week = map
-                                .next_value::<std::option::Option<gtype::model::DayOfWeek>>()?
-                                .unwrap_or_default();
+                            result.day_of_week = map.next_value::<std::option::Option<google_cloud_type::model::DayOfWeek>>()?.unwrap_or_default();
                         }
                         __FieldTag::__day_offset => {
                             if !fields.insert(__FieldTag::__day_offset) {

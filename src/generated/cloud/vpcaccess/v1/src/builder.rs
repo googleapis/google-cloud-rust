@@ -499,7 +499,7 @@ pub mod vpc_access_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -509,7 +509,7 @@ pub mod vpc_access_service {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -524,7 +524,7 @@ pub mod vpc_access_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
@@ -534,8 +534,10 @@ pub mod vpc_access_service {
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -549,31 +551,33 @@ pub mod vpc_access_service {
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        ) -> impl gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        /// Sets the value of [name][location::model::ListLocationsRequest::name].
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self

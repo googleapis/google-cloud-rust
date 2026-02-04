@@ -22,10 +22,10 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
+extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate lazy_static;
-extern crate location;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -3845,7 +3845,7 @@ pub struct OperationMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -18253,7 +18253,7 @@ pub mod private_connection {
 /// [google.cloud.location.Location][google.cloud.location.Location]. It is
 /// returned as a content of the `google.cloud.location.Location.metadata` field.
 ///
-/// [google.cloud.location.Location]: location::model::Location
+/// [google.cloud.location.Location]: google_cloud_location::model::Location
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {

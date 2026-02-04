@@ -14,7 +14,7 @@
 
 use crate::credentials::CacheableResource;
 use crate::errors::CredentialsError;
-use crate::headers_util::build_cacheable_headers;
+use crate::headers_util::AuthHeadersBuilder;
 use crate::mds::client::Client as MDSClient;
 use crate::token::CachedTokenProvider;
 use http::Extensions;
@@ -24,7 +24,6 @@ use std::fmt::Debug;
 use tokio::sync::watch;
 use tokio::time::{Duration, sleep};
 
-pub(crate) const TRUST_BOUNDARY_HEADER: &str = "x-goog-allowed-locations";
 const TRUST_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
 const NO_OP_ENCODED_LOCATIONS: &str = "0x0";
 
@@ -106,7 +105,7 @@ where
     T: CachedTokenProvider,
 {
     let token = token_provider.token(Extensions::new()).await?;
-    let headers = build_cacheable_headers(&token, &None, &None)?;
+    let headers = AuthHeadersBuilder::new(&token).build()?;
     let headers = match headers {
         CacheableResource::New { data, .. } => data,
         CacheableResource::NotModified => {

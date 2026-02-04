@@ -21,9 +21,9 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_location;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate location;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -3888,7 +3888,7 @@ pub struct TransferConfig {
 
     /// Output only. Error code with detailed information about reason of the
     /// latest config failure.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The desination of the transfer config.
     pub destination: std::option::Option<crate::model::transfer_config::Destination>,
@@ -4296,12 +4296,12 @@ impl TransferConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TransferConfig::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -4312,13 +4312,13 @@ impl TransferConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TransferConfig::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = TransferConfig::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -4474,7 +4474,7 @@ pub struct TransferRun {
     pub run_time: std::option::Option<wkt::Timestamp>,
 
     /// Status of the transfer run.
-    pub error_status: std::option::Option<rpc::model::Status>,
+    pub error_status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. Time when transfer run was started.
     /// Parameter ignored by server for input requests.
@@ -4616,12 +4616,12 @@ impl TransferRun {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TransferRun::new().set_error_status(Status::default()/* use setters */);
     /// ```
     pub fn set_error_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error_status = std::option::Option::Some(v.into());
         self
@@ -4632,13 +4632,13 @@ impl TransferRun {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_datatransfer_v1::model::TransferRun;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TransferRun::new().set_or_clear_error_status(Some(Status::default()/* use setters */));
     /// let x = TransferRun::new().set_or_clear_error_status(None::<Status>);
     /// ```
     pub fn set_or_clear_error_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error_status = v.map(|x| x.into());
         self

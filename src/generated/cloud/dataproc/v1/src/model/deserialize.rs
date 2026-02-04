@@ -8088,8 +8088,8 @@ impl<'de> serde::de::Deserialize<'de> for super::DiagnoseClusterRequest {
                                     "multiple values for diagnosis_interval",
                                 ));
                             }
-                            result.diagnosis_interval =
-                                map.next_value::<std::option::Option<gtype::model::Interval>>()?;
+                            result.diagnosis_interval = map.next_value::<std::option::Option<google_cloud_type::model::Interval>>()?
+                                ;
                         }
                         __FieldTag::__jobs => {
                             if !fields.insert(__FieldTag::__jobs) {

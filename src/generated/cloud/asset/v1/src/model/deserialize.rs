@@ -2303,8 +2303,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Feed {
                                     "multiple values for condition",
                                 ));
                             }
-                            result.condition =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::__relationship_types => {
                             if !fields.insert(__FieldTag::__relationship_types) {
@@ -5403,15 +5404,14 @@ impl<'de> serde::de::Deserialize<'de> for super::MoveAnalysis {
                                     "multiple values for `result`, a oneof with full ID .google.cloud.asset.v1.MoveAnalysis.error, latest field was error",
                                 ));
                             }
-                            result.result =
-                                std::option::Option::Some(
-                                    crate::model::move_analysis::Result::Error(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<rpc::model::Status>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.result = std::option::Option::Some(
+                                crate::model::move_analysis::Result::Error(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_rpc::model::Status>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6101,15 +6101,14 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryAssetsResponse {
                                     "multiple values for `response`, a oneof with full ID .google.cloud.asset.v1.QueryAssetsResponse.error, latest field was error",
                                 ));
                             }
-                            result.response =
-                                std::option::Option::Some(
-                                    crate::model::query_assets_response::Response::Error(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<rpc::model::Status>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.response = std::option::Option::Some(
+                                crate::model::query_assets_response::Response::Error(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_rpc::model::Status>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::__query_result => {
                             if !fields.insert(__FieldTag::__query_result) {
@@ -7132,8 +7131,9 @@ impl<'de> serde::de::Deserialize<'de> for super::analyzer_org_policy::Rule {
                                     "multiple values for condition",
                                 ));
                             }
-                            result.condition =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::__condition_evaluation => {
                             if !fields.insert(__FieldTag::__condition_evaluation) {
@@ -9753,7 +9753,11 @@ impl<'de> serde::de::Deserialize<'de> for super::Asset {
                                     "multiple values for org_policy",
                                 ));
                             }
-                            result.org_policy = map.next_value::<std::option::Option<std::vec::Vec<orgpolicy_v1::model::Policy>>>()?.unwrap_or_default();
+                            result.org_policy = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_orgpolicy_v1::model::Policy>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__access_policy => {
                             if !fields.insert(__FieldTag::__access_policy) {
@@ -9768,12 +9772,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Asset {
                             }
                             result.access_context_policy = std::option::Option::Some(
                                 crate::model::asset::AccessContextPolicy::AccessPolicy(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            accesscontextmanager_v1::model::AccessPolicy,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -9790,12 +9789,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Asset {
                             }
                             result.access_context_policy = std::option::Option::Some(
                                 crate::model::asset::AccessContextPolicy::AccessLevel(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            accesscontextmanager_v1::model::AccessLevel,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::AccessLevel>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -9812,12 +9806,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Asset {
                             }
                             result.access_context_policy = std::option::Option::Some(
                                 crate::model::asset::AccessContextPolicy::ServicePerimeter(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            accesscontextmanager_v1::model::ServicePerimeter,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -9827,9 +9816,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Asset {
                                     "multiple values for os_inventory",
                                 ));
                             }
-                            result.os_inventory = map
-                                .next_value::<std::option::Option<osconfig_v1::model::Inventory>>(
-                                )?;
+                            result.os_inventory = map.next_value::<std::option::Option<google_cloud_osconfig_v1::model::Inventory>>()?
+                                ;
                         }
                         __FieldTag::__related_assets => {
                             if !fields.insert(__FieldTag::__related_assets) {
@@ -11722,7 +11710,7 @@ impl<'de> serde::de::Deserialize<'de> for super::IamPolicyAnalysisState {
                                 ));
                             }
                             result.code = map
-                                .next_value::<std::option::Option<rpc::model::Code>>()?
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Code>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__cause => {

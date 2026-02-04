@@ -17,16 +17,16 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_api;
+extern crate google_cloud_logging_type;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate logging_type;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -74,7 +74,7 @@ pub struct LogEntry {
     /// Example: a log entry that reports a database error would be associated with
     /// the monitored resource designating the particular database that reported
     /// the error.
-    pub resource: std::option::Option<api::model::MonitoredResource>,
+    pub resource: std::option::Option<google_cloud_api::model::MonitoredResource>,
 
     /// Optional. The time the event described by the log entry occurred. This time
     /// is used to compute the log entry's age and to enforce the logs retention
@@ -95,7 +95,7 @@ pub struct LogEntry {
 
     /// Optional. The severity of the log entry. The default value is
     /// `LogSeverity.DEFAULT`.
-    pub severity: logging_type::model::LogSeverity,
+    pub severity: google_cloud_logging_type::model::LogSeverity,
 
     /// Optional. A unique identifier for the log entry. If you provide a value,
     /// then Logging considers other log entries in the same project, with the same
@@ -112,7 +112,7 @@ pub struct LogEntry {
 
     /// Optional. Information about the HTTP request associated with this log
     /// entry, if applicable.
-    pub http_request: std::option::Option<logging_type::model::HttpRequest>,
+    pub http_request: std::option::Option<google_cloud_logging_type::model::HttpRequest>,
 
     /// Optional. A map of key, value pairs that provides additional information
     /// about the log entry. The labels can be user-defined or system-defined.
@@ -222,12 +222,12 @@ impl LogEntry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use api::model::MonitoredResource;
+    /// use google_cloud_api::model::MonitoredResource;
     /// let x = LogEntry::new().set_resource(MonitoredResource::default()/* use setters */);
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::MonitoredResource>,
+        T: std::convert::Into<google_cloud_api::model::MonitoredResource>,
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -238,13 +238,13 @@ impl LogEntry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use api::model::MonitoredResource;
+    /// use google_cloud_api::model::MonitoredResource;
     /// let x = LogEntry::new().set_or_clear_resource(Some(MonitoredResource::default()/* use setters */));
     /// let x = LogEntry::new().set_or_clear_resource(None::<MonitoredResource>);
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::MonitoredResource>,
+        T: std::convert::Into<google_cloud_api::model::MonitoredResource>,
     {
         self.resource = v.map(|x| x.into());
         self
@@ -321,12 +321,12 @@ impl LogEntry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use logging_type::model::LogSeverity;
+    /// use google_cloud_logging_type::model::LogSeverity;
     /// let x0 = LogEntry::new().set_severity(LogSeverity::Debug);
     /// let x1 = LogEntry::new().set_severity(LogSeverity::Info);
     /// let x2 = LogEntry::new().set_severity(LogSeverity::Notice);
     /// ```
-    pub fn set_severity<T: std::convert::Into<logging_type::model::LogSeverity>>(
+    pub fn set_severity<T: std::convert::Into<google_cloud_logging_type::model::LogSeverity>>(
         mut self,
         v: T,
     ) -> Self {
@@ -351,12 +351,12 @@ impl LogEntry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use logging_type::model::HttpRequest;
+    /// use google_cloud_logging_type::model::HttpRequest;
     /// let x = LogEntry::new().set_http_request(HttpRequest::default()/* use setters */);
     /// ```
     pub fn set_http_request<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<logging_type::model::HttpRequest>,
+        T: std::convert::Into<google_cloud_logging_type::model::HttpRequest>,
     {
         self.http_request = std::option::Option::Some(v.into());
         self
@@ -367,13 +367,13 @@ impl LogEntry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogEntry;
-    /// use logging_type::model::HttpRequest;
+    /// use google_cloud_logging_type::model::HttpRequest;
     /// let x = LogEntry::new().set_or_clear_http_request(Some(HttpRequest::default()/* use setters */));
     /// let x = LogEntry::new().set_or_clear_http_request(None::<HttpRequest>);
     /// ```
     pub fn set_or_clear_http_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<logging_type::model::HttpRequest>,
+        T: std::convert::Into<google_cloud_logging_type::model::HttpRequest>,
     {
         self.http_request = v.map(|x| x.into());
         self
@@ -1000,7 +1000,7 @@ pub struct WriteLogEntriesRequest {
     /// See [LogEntry][google.logging.v2.LogEntry].
     ///
     /// [google.logging.v2.LogEntry]: crate::model::LogEntry
-    pub resource: std::option::Option<api::model::MonitoredResource>,
+    pub resource: std::option::Option<google_cloud_api::model::MonitoredResource>,
 
     /// Optional. Default labels that are added to the `labels` field of all log
     /// entries in `entries`. If a log entry already has a label with the same key
@@ -1077,12 +1077,12 @@ impl WriteLogEntriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::WriteLogEntriesRequest;
-    /// use api::model::MonitoredResource;
+    /// use google_cloud_api::model::MonitoredResource;
     /// let x = WriteLogEntriesRequest::new().set_resource(MonitoredResource::default()/* use setters */);
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::MonitoredResource>,
+        T: std::convert::Into<google_cloud_api::model::MonitoredResource>,
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -1093,13 +1093,13 @@ impl WriteLogEntriesRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::WriteLogEntriesRequest;
-    /// use api::model::MonitoredResource;
+    /// use google_cloud_api::model::MonitoredResource;
     /// let x = WriteLogEntriesRequest::new().set_or_clear_resource(Some(MonitoredResource::default()/* use setters */));
     /// let x = WriteLogEntriesRequest::new().set_or_clear_resource(None::<MonitoredResource>);
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::MonitoredResource>,
+        T: std::convert::Into<google_cloud_api::model::MonitoredResource>,
     {
         self.resource = v.map(|x| x.into());
         self
@@ -1208,7 +1208,7 @@ pub struct WriteLogEntriesPartialErrors {
     ///
     /// Failed requests for which no entries are written will not include
     /// per-entry errors.
-    pub log_entry_errors: std::collections::HashMap<i32, rpc::model::Status>,
+    pub log_entry_errors: std::collections::HashMap<i32, google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1223,7 +1223,7 @@ impl WriteLogEntriesPartialErrors {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::WriteLogEntriesPartialErrors;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = WriteLogEntriesPartialErrors::new().set_log_entry_errors([
     ///     (0, Status::default()/* use setters */),
     ///     (1, Status::default()/* use (different) setters */),
@@ -1233,7 +1233,7 @@ impl WriteLogEntriesPartialErrors {
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
         K: std::convert::Into<i32>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.log_entry_errors = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
@@ -1520,7 +1520,7 @@ impl wkt::message::Message for ListMonitoredResourceDescriptorsRequest {
 #[non_exhaustive]
 pub struct ListMonitoredResourceDescriptorsResponse {
     /// A list of resource descriptors.
-    pub resource_descriptors: std::vec::Vec<api::model::MonitoredResourceDescriptor>,
+    pub resource_descriptors: std::vec::Vec<google_cloud_api::model::MonitoredResourceDescriptor>,
 
     /// If there might be more results than those appearing in this response, then
     /// `nextPageToken` is included.  To get the next set of results, call this
@@ -1540,7 +1540,7 @@ impl ListMonitoredResourceDescriptorsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::ListMonitoredResourceDescriptorsResponse;
-    /// use api::model::MonitoredResourceDescriptor;
+    /// use google_cloud_api::model::MonitoredResourceDescriptor;
     /// let x = ListMonitoredResourceDescriptorsResponse::new()
     ///     .set_resource_descriptors([
     ///         MonitoredResourceDescriptor::default()/* use setters */,
@@ -1550,7 +1550,7 @@ impl ListMonitoredResourceDescriptorsResponse {
     pub fn set_resource_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::MonitoredResourceDescriptor>,
+        V: std::convert::Into<google_cloud_api::model::MonitoredResourceDescriptor>,
     {
         use std::iter::Iterator;
         self.resource_descriptors = v.into_iter().map(|i| i.into()).collect();
@@ -1578,7 +1578,7 @@ impl wkt::message::Message for ListMonitoredResourceDescriptorsResponse {
 
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListMonitoredResourceDescriptorsResponse {
-    type PageItem = api::model::MonitoredResourceDescriptor;
+    type PageItem = google_cloud_api::model::MonitoredResourceDescriptor;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.resource_descriptors
@@ -7466,7 +7466,7 @@ pub struct LogMetric {
     /// be updated once initially configured. New labels can be added in the
     /// `metric_descriptor`, but existing labels cannot be modified except for
     /// their description.
-    pub metric_descriptor: std::option::Option<api::model::MetricDescriptor>,
+    pub metric_descriptor: std::option::Option<google_cloud_api::model::MetricDescriptor>,
 
     /// Optional. A `value_extractor` is required when using a distribution
     /// logs-based metric to extract the values to record from a log entry.
@@ -7509,7 +7509,7 @@ pub struct LogMetric {
     /// Optional. The `bucket_options` are required when the logs-based metric is
     /// using a DISTRIBUTION value type and it describes the bucket boundaries
     /// used to create a histogram of the extracted values.
-    pub bucket_options: std::option::Option<api::model::distribution::BucketOptions>,
+    pub bucket_options: std::option::Option<google_cloud_api::model::distribution::BucketOptions>,
 
     /// Output only. The creation timestamp of the metric.
     ///
@@ -7599,12 +7599,12 @@ impl LogMetric {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogMetric;
-    /// use api::model::MetricDescriptor;
+    /// use google_cloud_api::model::MetricDescriptor;
     /// let x = LogMetric::new().set_metric_descriptor(MetricDescriptor::default()/* use setters */);
     /// ```
     pub fn set_metric_descriptor<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::MetricDescriptor>,
+        T: std::convert::Into<google_cloud_api::model::MetricDescriptor>,
     {
         self.metric_descriptor = std::option::Option::Some(v.into());
         self
@@ -7615,13 +7615,13 @@ impl LogMetric {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogMetric;
-    /// use api::model::MetricDescriptor;
+    /// use google_cloud_api::model::MetricDescriptor;
     /// let x = LogMetric::new().set_or_clear_metric_descriptor(Some(MetricDescriptor::default()/* use setters */));
     /// let x = LogMetric::new().set_or_clear_metric_descriptor(None::<MetricDescriptor>);
     /// ```
     pub fn set_or_clear_metric_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::MetricDescriptor>,
+        T: std::convert::Into<google_cloud_api::model::MetricDescriptor>,
     {
         self.metric_descriptor = v.map(|x| x.into());
         self
@@ -7665,12 +7665,12 @@ impl LogMetric {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogMetric;
-    /// use api::model::distribution::BucketOptions;
+    /// use google_cloud_api::model::distribution::BucketOptions;
     /// let x = LogMetric::new().set_bucket_options(BucketOptions::default()/* use setters */);
     /// ```
     pub fn set_bucket_options<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<api::model::distribution::BucketOptions>,
+        T: std::convert::Into<google_cloud_api::model::distribution::BucketOptions>,
     {
         self.bucket_options = std::option::Option::Some(v.into());
         self
@@ -7681,13 +7681,13 @@ impl LogMetric {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_logging_v2::model::LogMetric;
-    /// use api::model::distribution::BucketOptions;
+    /// use google_cloud_api::model::distribution::BucketOptions;
     /// let x = LogMetric::new().set_or_clear_bucket_options(Some(BucketOptions::default()/* use setters */));
     /// let x = LogMetric::new().set_or_clear_bucket_options(None::<BucketOptions>);
     /// ```
     pub fn set_or_clear_bucket_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<api::model::distribution::BucketOptions>,
+        T: std::convert::Into<google_cloud_api::model::distribution::BucketOptions>,
     {
         self.bucket_options = v.map(|x| x.into());
         self

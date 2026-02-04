@@ -1405,8 +1405,9 @@ impl<'de> serde::de::Deserialize<'de> for super::policy_spec::PolicyRule {
                                     "multiple values for condition",
                                 ));
                             }
-                            result.condition =
-                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                            result.condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::__parameters => {
                             if !fields.insert(__FieldTag::__parameters) {

@@ -22,11 +22,11 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
+extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate location;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -4234,10 +4234,10 @@ pub mod list_runtimes_response {
         pub environment: crate::model::Environment,
 
         /// Deprecation date for the runtime.
-        pub deprecation_date: std::option::Option<gtype::model::Date>,
+        pub deprecation_date: std::option::Option<google_cloud_type::model::Date>,
 
         /// Decommission date for the runtime.
-        pub decommission_date: std::option::Option<gtype::model::Date>,
+        pub decommission_date: std::option::Option<google_cloud_type::model::Date>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -4333,12 +4333,12 @@ pub mod list_runtimes_response {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = Runtime::new().set_deprecation_date(Date::default()/* use setters */);
         /// ```
         pub fn set_deprecation_date<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.deprecation_date = std::option::Option::Some(v.into());
             self
@@ -4349,13 +4349,13 @@ pub mod list_runtimes_response {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = Runtime::new().set_or_clear_deprecation_date(Some(Date::default()/* use setters */));
         /// let x = Runtime::new().set_or_clear_deprecation_date(None::<Date>);
         /// ```
         pub fn set_or_clear_deprecation_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.deprecation_date = v.map(|x| x.into());
             self
@@ -4366,12 +4366,12 @@ pub mod list_runtimes_response {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = Runtime::new().set_decommission_date(Date::default()/* use setters */);
         /// ```
         pub fn set_decommission_date<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.decommission_date = std::option::Option::Some(v.into());
             self
@@ -4382,13 +4382,13 @@ pub mod list_runtimes_response {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_functions_v2::model::list_runtimes_response::Runtime;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = Runtime::new().set_or_clear_decommission_date(Some(Date::default()/* use setters */));
         /// let x = Runtime::new().set_or_clear_decommission_date(None::<Date>);
         /// ```
         pub fn set_or_clear_decommission_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.decommission_date = v.map(|x| x.into());
             self
@@ -4644,7 +4644,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub cancel_requested: bool,
 
     /// API version used to start the operation.

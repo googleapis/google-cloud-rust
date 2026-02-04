@@ -21,8 +21,8 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -216,7 +216,7 @@ pub struct DataSet {
     pub state: crate::model::data_set::State,
 
     /// Dataset processing status.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Periodically we discard dataset [Event][google.cloud.timeseriesinsights.v1.Event] objects that have
     /// timestamps older than 'ttl'.  Omitting this field or a zero value means no
@@ -304,12 +304,12 @@ impl DataSet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_timeseriesinsights_v1::model::DataSet;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DataSet::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -320,13 +320,13 @@ impl DataSet {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_timeseriesinsights_v1::model::DataSet;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DataSet::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = DataSet::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self
@@ -1961,7 +1961,7 @@ pub struct EvaluatedSlice {
     ///   for this slice and could not evaluate it successfully. Should be a
     ///   transient error.
     /// - **"Internal server error"**: Internal unexpected error.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2188,12 +2188,12 @@ impl EvaluatedSlice {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = EvaluatedSlice::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -2204,13 +2204,13 @@ impl EvaluatedSlice {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = EvaluatedSlice::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = EvaluatedSlice::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self

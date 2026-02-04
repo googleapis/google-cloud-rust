@@ -299,13 +299,13 @@ mod tests {
         tokio::spawn(refresh_task(credentials, tx));
 
         // Should be no value initially
-        assert!(rx.borrow().is_none());
+        assert!(rx.borrow().is_none(), "{rx:?}");
 
         // Advance time past error retry
         tokio::time::advance(ERROR_RETRY_DELAY).await;
 
         // Still no value
-        assert!(rx.borrow().is_none());
+        assert!(rx.borrow().is_none(), "{rx:?}");
 
         // Switch to success
         let mut headers = HeaderMap::new();
@@ -324,7 +324,7 @@ mod tests {
     #[tokio::test]
     /// Verifies that the refresh task terminates gracefully when the receiver
     /// side of the watch channel is dropped.
-    async fn test_refresh_task_exits_when_receiver_dropped() {
+    async fn test_refresh_task_exits_when_receiver_dropped() -> anyhow::Result<()> {
         tokio::time::pause();
         let mut headers = HeaderMap::new();
         headers.insert("Authorization", HeaderValue::from_static("Bearer token1"));
@@ -338,13 +338,14 @@ mod tests {
         // We need to keep rx alive until here
         {
             let mut rx = rx;
-            rx.changed().await.unwrap();
+            rx.changed().await?;
         } // rx dropped here
 
         // Advance time to trigger next refresh loop iteration
         tokio::time::advance(REFRESH_INTERVAL).await;
 
         // Task should finish
-        assert!(handle.await.is_ok());
+        handle.await?;
+        Ok(())
     }
 }

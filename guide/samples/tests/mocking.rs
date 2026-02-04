@@ -109,7 +109,7 @@ mod tests {
         let display_name = my_application_function(&client).await;
 
         // Verify the final result of the RPC.
-        assert!(display_name.is_err());
+        assert!(display_name.is_err(), "{display_name:?}");
 
         Ok(())
     }

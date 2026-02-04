@@ -3079,7 +3079,11 @@ impl<'de> serde::de::Deserialize<'de> for super::DiscoveryOccurrence {
                                     "multiple values for analysis_error",
                                 ));
                             }
-                            result.analysis_error = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.analysis_error =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__analysis_status_error => {
                             if !fields.insert(__FieldTag::__analysis_status_error) {
@@ -3087,8 +3091,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DiscoveryOccurrence {
                                     "multiple values for analysis_status_error",
                                 ));
                             }
-                            result.analysis_status_error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.analysis_status_error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__cpe => {
                             if !fields.insert(__FieldTag::__cpe) {

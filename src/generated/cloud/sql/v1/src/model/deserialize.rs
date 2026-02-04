@@ -1656,8 +1656,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Backup {
                                     "multiple values for backup_interval",
                                 ));
                             }
-                            result.backup_interval =
-                                map.next_value::<std::option::Option<gtype::model::Interval>>()?;
+                            result.backup_interval = map.next_value::<std::option::Option<google_cloud_type::model::Interval>>()?
+                                ;
                         }
                         __FieldTag::__state => {
                             if !fields.insert(__FieldTag::__state) {
@@ -14047,8 +14047,9 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesExecuteSqlResponse 
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -14261,8 +14262,9 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryResult {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -98,7 +98,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GmailAddOnManifest {
                                 ));
                             }
                             result.homepage_trigger = map.next_value::<std::option::Option<
-                                apps_script_type::model::HomepageExtensionPoint,
+                                google_cloud_apps_script_type::model::HomepageExtensionPoint,
                             >>()?;
                         }
                         __FieldTag::__contextual_triggers => {
@@ -346,11 +346,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ComposeTrigger {
                                     "multiple values for actions",
                                 ));
                             }
-                            result.actions = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<apps_script_type::model::MenuItemExtensionPoint>,
-                                >>()?
-                                .unwrap_or_default();
+                            result.actions = map.next_value::<std::option::Option<std::vec::Vec<google_cloud_apps_script_type::model::MenuItemExtensionPoint>>>()?.unwrap_or_default();
                         }
                         __FieldTag::__draft_access => {
                             if !fields.insert(__FieldTag::__draft_access) {

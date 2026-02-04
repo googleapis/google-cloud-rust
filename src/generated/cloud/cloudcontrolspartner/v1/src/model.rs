@@ -21,7 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -4765,7 +4765,7 @@ pub struct ListViolationsRequest {
 
     /// Optional. Specifies the interval for retrieving violations.
     /// if unspecified, all violations will be returned.
-    pub interval: std::option::Option<gtype::model::Interval>,
+    pub interval: std::option::Option<google_cloud_type::model::Interval>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4840,12 +4840,12 @@ impl ListViolationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::ListViolationsRequest;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = ListViolationsRequest::new().set_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.interval = std::option::Option::Some(v.into());
         self
@@ -4856,13 +4856,13 @@ impl ListViolationsRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_cloudcontrolspartner_v1::model::ListViolationsRequest;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = ListViolationsRequest::new().set_or_clear_interval(Some(Interval::default()/* use setters */));
     /// let x = ListViolationsRequest::new().set_or_clear_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.interval = v.map(|x| x.into());
         self

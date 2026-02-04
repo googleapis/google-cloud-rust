@@ -21,11 +21,11 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate location;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -3809,7 +3809,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -6399,7 +6399,7 @@ pub struct InsightsConfig {
     /// Each error will be in the format: `field_name: error_message`, e.g.
     /// GetAppHubApplication: Permission denied while getting App Hub
     /// application. Please grant permissions to the P4SA.
-    pub errors: std::vec::Vec<rpc::model::Status>,
+    pub errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// The context of the InsightsConfig.
     pub insights_config_context:
@@ -6612,7 +6612,7 @@ impl InsightsConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_developerconnect_v1::model::InsightsConfig;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = InsightsConfig::new()
     ///     .set_errors([
     ///         Status::default()/* use setters */,
@@ -6622,7 +6622,7 @@ impl InsightsConfig {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();

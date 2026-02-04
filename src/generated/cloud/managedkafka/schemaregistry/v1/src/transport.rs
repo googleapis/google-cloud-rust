@@ -365,7 +365,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         &self,
         req: crate::model::ListContextsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -550,7 +550,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         &self,
         req: crate::model::GetSchemaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -671,7 +671,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         &self,
         req: crate::model::ListSchemaVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -800,7 +800,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         &self,
         req: crate::model::ListSchemaTypesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -905,7 +905,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         &self,
         req: crate::model::ListSubjectsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -1026,7 +1026,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         &self,
         req: crate::model::ListSubjectsBySchemaIdRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -1155,7 +1155,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         &self,
         req: crate::model::DeleteSubjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -1456,7 +1456,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         &self,
         req: crate::model::GetVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -1523,7 +1523,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         &self,
         req: crate::model::ListVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -1757,7 +1757,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -1824,7 +1824,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         &self,
         req: crate::model::ListReferencedSchemasRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::HttpBody>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -2684,9 +2684,9 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
 
     async fn list_locations(
         &self,
-        req: location::model::ListLocationsRequest,
+        req: google_cloud_location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -2737,9 +2737,9 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
 
     async fn get_location(
         &self,
-        req: location::model::GetLocationRequest,
+        req: google_cloud_location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<location::model::Location>> {
+    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;

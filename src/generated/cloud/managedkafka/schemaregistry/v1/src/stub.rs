@@ -97,7 +97,7 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListContextsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -119,7 +119,7 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         _req: crate::model::GetSchemaRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -130,7 +130,7 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListSchemaVersionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -141,7 +141,7 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListSchemaTypesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -152,7 +152,7 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListSubjectsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -163,7 +163,7 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListSubjectsBySchemaIdRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -174,7 +174,7 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteSubjectRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -207,7 +207,7 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         _req: crate::model::GetVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -218,7 +218,7 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListVersionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -240,7 +240,7 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -251,7 +251,7 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListReferencedSchemasRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+        Output = crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -336,10 +336,12 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ManagedSchemaRegistry::list_locations].
     fn list_locations(
         &self,
-        _req: location::model::ListLocationsRequest,
+        _req: google_cloud_location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        Output = crate::Result<
+            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -347,10 +349,10 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ManagedSchemaRegistry::get_location].
     fn get_location(
         &self,
-        _req: location::model::GetLocationRequest,
+        _req: google_cloud_location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<location::model::Location>>,
+        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

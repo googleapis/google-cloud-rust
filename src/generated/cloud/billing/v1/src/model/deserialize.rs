@@ -2072,8 +2072,9 @@ impl<'de> serde::de::Deserialize<'de> for super::pricing_expression::TierRate {
                                     "multiple values for unit_price",
                                 ));
                             }
-                            result.unit_price =
-                                map.next_value::<std::option::Option<gtype::model::Money>>()?;
+                            result.unit_price = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Money>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

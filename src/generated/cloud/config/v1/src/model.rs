@@ -22,11 +22,11 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
+extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate location;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -2624,7 +2624,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -3897,7 +3897,7 @@ pub struct TerraformError {
 
     /// Output only. Original error response from underlying Google API, if
     /// available.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3954,12 +3954,12 @@ impl TerraformError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::TerraformError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TerraformError::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -3970,13 +3970,13 @@ impl TerraformError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::TerraformError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TerraformError::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = TerraformError::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -5779,7 +5779,7 @@ pub struct Preview {
     pub error_code: crate::model::preview::ErrorCode,
 
     /// Output only. Additional information regarding the current state.
-    pub error_status: std::option::Option<rpc::model::Status>,
+    pub error_status: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. Cloud Build instance UUID associated with this preview.
     pub build: std::string::String,
@@ -6034,12 +6034,12 @@ impl Preview {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::Preview;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Preview::new().set_error_status(Status::default()/* use setters */);
     /// ```
     pub fn set_error_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error_status = std::option::Option::Some(v.into());
         self
@@ -6050,13 +6050,13 @@ impl Preview {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_config_v1::model::Preview;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = Preview::new().set_or_clear_error_status(Some(Status::default()/* use setters */));
     /// let x = Preview::new().set_or_clear_error_status(None::<Status>);
     /// ```
     pub fn set_or_clear_error_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error_status = v.map(|x| x.into());
         self

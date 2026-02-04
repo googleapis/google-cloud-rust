@@ -6657,7 +6657,7 @@ pub mod bucket {
 
                 /// Optional. This condition is satisfied when an object is created
                 /// before midnight of the specified date in UTC.
-                pub created_before: std::option::Option<gtype::model::Date>,
+                pub created_before: std::option::Option<google_cloud_type::model::Date>,
 
                 /// Relevant only for versioned objects. If the value is
                 /// `true`, this condition matches live objects; if the value
@@ -6682,7 +6682,7 @@ pub mod bucket {
 
                 /// Optional. An object matches this condition if the custom timestamp
                 /// set on the object is before the specified date in UTC.
-                pub custom_time_before: std::option::Option<gtype::model::Date>,
+                pub custom_time_before: std::option::Option<google_cloud_type::model::Date>,
 
                 /// This condition is relevant only for versioned objects. An object
                 /// version satisfies this condition only if these many days have been
@@ -6694,7 +6694,7 @@ pub mod bucket {
                 /// Optional. This condition is relevant only for versioned objects. An
                 /// object version satisfies this condition only if it became noncurrent
                 /// before the specified date in UTC.
-                pub noncurrent_time_before: std::option::Option<gtype::model::Date>,
+                pub noncurrent_time_before: std::option::Option<google_cloud_type::model::Date>,
 
                 /// Optional. List of object name prefixes. If any prefix exactly matches
                 /// the beginning of the object name, the condition evaluates to true.
@@ -6748,12 +6748,12 @@ pub mod bucket {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
-                /// use gtype::model::Date;
+                /// use google_cloud_type::model::Date;
                 /// let x = Condition::new().set_created_before(Date::default()/* use setters */);
                 /// ```
                 pub fn set_created_before<T>(mut self, v: T) -> Self
                 where
-                    T: std::convert::Into<gtype::model::Date>,
+                    T: std::convert::Into<google_cloud_type::model::Date>,
                 {
                     self.created_before = std::option::Option::Some(v.into());
                     self
@@ -6764,13 +6764,13 @@ pub mod bucket {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
-                /// use gtype::model::Date;
+                /// use google_cloud_type::model::Date;
                 /// let x = Condition::new().set_or_clear_created_before(Some(Date::default()/* use setters */));
                 /// let x = Condition::new().set_or_clear_created_before(None::<Date>);
                 /// ```
                 pub fn set_or_clear_created_before<T>(mut self, v: std::option::Option<T>) -> Self
                 where
-                    T: std::convert::Into<gtype::model::Date>,
+                    T: std::convert::Into<google_cloud_type::model::Date>,
                 {
                     self.created_before = v.map(|x| x.into());
                     self
@@ -6897,12 +6897,12 @@ pub mod bucket {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
-                /// use gtype::model::Date;
+                /// use google_cloud_type::model::Date;
                 /// let x = Condition::new().set_custom_time_before(Date::default()/* use setters */);
                 /// ```
                 pub fn set_custom_time_before<T>(mut self, v: T) -> Self
                 where
-                    T: std::convert::Into<gtype::model::Date>,
+                    T: std::convert::Into<google_cloud_type::model::Date>,
                 {
                     self.custom_time_before = std::option::Option::Some(v.into());
                     self
@@ -6913,7 +6913,7 @@ pub mod bucket {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
-                /// use gtype::model::Date;
+                /// use google_cloud_type::model::Date;
                 /// let x = Condition::new().set_or_clear_custom_time_before(Some(Date::default()/* use setters */));
                 /// let x = Condition::new().set_or_clear_custom_time_before(None::<Date>);
                 /// ```
@@ -6922,7 +6922,7 @@ pub mod bucket {
                     v: std::option::Option<T>,
                 ) -> Self
                 where
-                    T: std::convert::Into<gtype::model::Date>,
+                    T: std::convert::Into<google_cloud_type::model::Date>,
                 {
                     self.custom_time_before = v.map(|x| x.into());
                     self
@@ -6967,12 +6967,12 @@ pub mod bucket {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
-                /// use gtype::model::Date;
+                /// use google_cloud_type::model::Date;
                 /// let x = Condition::new().set_noncurrent_time_before(Date::default()/* use setters */);
                 /// ```
                 pub fn set_noncurrent_time_before<T>(mut self, v: T) -> Self
                 where
-                    T: std::convert::Into<gtype::model::Date>,
+                    T: std::convert::Into<google_cloud_type::model::Date>,
                 {
                     self.noncurrent_time_before = std::option::Option::Some(v.into());
                     self
@@ -6983,7 +6983,7 @@ pub mod bucket {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
-                /// use gtype::model::Date;
+                /// use google_cloud_type::model::Date;
                 /// let x = Condition::new().set_or_clear_noncurrent_time_before(Some(Date::default()/* use setters */));
                 /// let x = Condition::new().set_or_clear_noncurrent_time_before(None::<Date>);
                 /// ```
@@ -6992,7 +6992,7 @@ pub mod bucket {
                     v: std::option::Option<T>,
                 ) -> Self
                 where
-                    T: std::convert::Into<gtype::model::Date>,
+                    T: std::convert::Into<google_cloud_type::model::Date>,
                 {
                     self.noncurrent_time_before = v.map(|x| x.into());
                     self

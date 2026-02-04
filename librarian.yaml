@@ -13,7 +13,7 @@
 # limitations under the License.
 
 language: rust
-version: v0.8.1-0.20260203014256-98ce4f6a16a8
+version: v0.8.1-0.20260204170513-bb808cefd1d1
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
@@ -48,18 +48,12 @@ default:
   release_level: stable
   rust:
     package_dependencies:
-      - name: api
-        package: google-cloud-api
-        source: google.api
       - name: async-trait
         package: async-trait
         used_if: services
       - name: bytes
         package: bytes
         force_used: true
-      - name: cloud_common
-        package: google-cloud-common
-        source: google.cloud.common
       - name: gax
         package: google-cloud-gax
         used_if: services
@@ -67,36 +61,42 @@ default:
         package: google-cloud-gax-internal
         feature: _internal-http-client
         used_if: services
+      - name: google-cloud-api
+        package: google-cloud-api
+        source: google.api
+      - name: google-cloud-common
+        package: google-cloud-common
+        source: google.cloud.common
+      - name: google-cloud-grafeas-v1
+        package: google-cloud-grafeas-v1
+        source: grafeas.v1
       - name: google-cloud-iam-v1
         package: google-cloud-iam-v1
         source: google.iam.v1
+      - name: google-cloud-location
+        package: google-cloud-location
+        source: google.cloud.location
+      - name: google-cloud-logging-type
+        package: google-cloud-logging-type
+        source: google.logging.type
       - name: google-cloud-longrunning
         package: google-cloud-longrunning
         source: google.longrunning
       - name: google-cloud-lro
         package: google-cloud-lro
         used_if: lro
-      - name: grafeas
-        package: google-cloud-grafeas-v1
-        source: grafeas.v1
-      - name: gtype
+      - name: google-cloud-rpc
+        package: google-cloud-rpc
+        source: google.rpc
+      - name: google-cloud-rpc-context
+        package: google-cloud-rpc-context
+        source: google.rpc.context
+      - name: google-cloud-type
         package: google-cloud-type
         source: google.type
       - name: lazy_static
         package: lazy_static
         used_if: services
-      - name: location
-        package: google-cloud-location
-        source: google.cloud.location
-      - name: logging_type
-        package: google-cloud-logging-type
-        source: google.logging.type
-      - name: rpc
-        package: google-cloud-rpc
-        source: google.rpc
-      - name: rpc_context
-        package: google-cloud-rpc-context
-        source: google.rpc.context
       - name: serde
         package: serde
         force_used: true
@@ -318,7 +318,7 @@ libraries:
     output: src/generated/apps/script/calendar
     rust:
       package_dependencies:
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-docs
@@ -329,7 +329,7 @@ libraries:
     output: src/generated/apps/script/docs
     rust:
       package_dependencies:
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-drive
@@ -340,7 +340,7 @@ libraries:
     output: src/generated/apps/script/drive
     rust:
       package_dependencies:
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-gmail
@@ -351,7 +351,7 @@ libraries:
     output: src/generated/apps/script/gmail
     rust:
       package_dependencies:
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-sheets
@@ -362,7 +362,7 @@ libraries:
     output: src/generated/apps/script/sheets
     rust:
       package_dependencies:
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-slides
@@ -373,7 +373,7 @@ libraries:
     output: src/generated/apps/script/slides
     rust:
       package_dependencies:
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-artifactregistry-v1
@@ -388,13 +388,13 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: accesscontextmanager_v1
+        - name: google-cloud-identity-accesscontextmanager-v1
           package: google-cloud-identity-accesscontextmanager-v1
           source: google.identity.accesscontextmanager.v1
-        - name: orgpolicy_v1
+        - name: google-cloud-orgpolicy-v1
           package: google-cloud-orgpolicy-v1
           source: google.cloud.orgpolicy.v1
-        - name: osconfig_v1
+        - name: google-cloud-osconfig-v1
           package: google-cloud-osconfig-v1
           source: google.cloud.osconfig.v1
   - name: google-cloud-assuredworkloads-v1
@@ -527,7 +527,7 @@ libraries:
         - name: google-cloud-lro
           package: google-cloud-lro
           force_used: true
-        - name: rpc
+        - name: google-cloud-rpc
           package: google-cloud-rpc
           force_used: true
       disabled_rustdoc_warnings:
@@ -702,7 +702,7 @@ libraries:
           source: google/firestore/v1
           template: convert-prost
         - include_list: latlng.proto
-          module_path: gtype::model
+          module_path: google_cloud_type::model
           output: src/firestore/src/generated/convert/type
           source: google/type
           template: convert-prost
@@ -737,7 +737,7 @@ libraries:
     veneer: true
     rust:
       modules:
-        - module_path: rpc::model
+        - module_path: google_cloud_rpc::model
           output: src/gax-internal/src/generated/convert/rpc
           skipped_ids:
             - .google.rpc.Status
@@ -769,10 +769,10 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: gkehub_configmanagement_v1
+        - name: google-cloud-gkehub-configmanagement-v1
           package: google-cloud-gkehub-configmanagement-v1
           source: google.cloud.gkehub.configmanagement.v1
-        - name: gkehub_multiclusteringress_v1
+        - name: google-cloud-gkehub-multiclusteringress-v1
           package: google-cloud-gkehub-multiclusteringress-v1
           source: google.cloud.gkehub.multiclusteringress.v1
   - name: google-cloud-gkemulticloud-v1
@@ -791,27 +791,27 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: apps_script_calendar
-          package: google-cloud-apps-script-type-calendar
-          source: google.apps.script.type.calendar
-        - name: apps_script_docs
-          package: google-cloud-apps-script-type-docs
-          source: google.apps.script.type.docs
-        - name: apps_script_drive
-          package: google-cloud-apps-script-type-drive
-          source: google.apps.script.type.drive
-        - name: apps_script_gmail
-          package: google-cloud-apps-script-type-gmail
-          source: google.apps.script.type.gmail
-        - name: apps_script_sheets
-          package: google-cloud-apps-script-type-sheets
-          source: google.apps.script.type.sheets
-        - name: apps_script_slides
-          package: google-cloud-apps-script-type-slides
-          source: google.apps.script.type.slides
-        - name: apps_script_type
+        - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
+        - name: google-cloud-apps-script-type-calendar
+          package: google-cloud-apps-script-type-calendar
+          source: google.apps.script.type.calendar
+        - name: google-cloud-apps-script-type-docs
+          package: google-cloud-apps-script-type-docs
+          source: google.apps.script.type.docs
+        - name: google-cloud-apps-script-type-drive
+          package: google-cloud-apps-script-type-drive
+          source: google.apps.script.type.drive
+        - name: google-cloud-apps-script-type-gmail
+          package: google-cloud-apps-script-type-gmail
+          source: google.apps.script.type.gmail
+        - name: google-cloud-apps-script-type-sheets
+          package: google-cloud-apps-script-type-sheets
+          source: google.apps.script.type.sheets
+        - name: google-cloud-apps-script-type-slides
+          package: google-cloud-apps-script-type-slides
+          source: google.apps.script.type.slides
   - name: google-cloud-iam-admin-v1
     version: 1.5.0
     apis:
@@ -856,7 +856,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: accesscontextmanager_type
+        - name: google-cloud-identity-accesscontextmanager-type
           package: google-cloud-identity-accesscontextmanager-type
           source: google.identity.accesscontextmanager.type
   - name: google-cloud-ids-v1
@@ -867,7 +867,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: kms
+        - name: google-cloud-kms-v1
           package: google-cloud-kms-v1
           source: google.cloud.kms.v1
   - name: google-cloud-kms-v1
@@ -884,7 +884,7 @@ libraries:
     copyright_year: "2024"
     rust:
       package_dependencies:
-        - name: location
+        - name: google-cloud-location
           ignore: true
           package: ""
   - name: google-cloud-locationfinder-v1
@@ -1042,7 +1042,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: oslogin_common
+        - name: google-cloud-oslogin-common
           package: google-cloud-oslogin-common
           source: google.cloud.oslogin.common
   - name: google-cloud-parallelstore-v1
@@ -1056,7 +1056,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: orgpolicy_v2
+        - name: google-cloud-orgpolicy-v2
           package: google-cloud-orgpolicy-v2
           source: google.cloud.orgpolicy.v2
   - name: google-cloud-policytroubleshooter-iam-v3
@@ -1064,7 +1064,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: iam_v2
+        - name: google-cloud-iam-v2
           package: google-cloud-iam-v2
           source: google.iam.v2
   - name: google-cloud-policytroubleshooter-v1
@@ -1168,7 +1168,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: recommender
+        - name: google-cloud-recommender-v1
           package: google-cloud-recommender-v1
           source: google.cloud.recommender.v1
   - name: google-cloud-recommender-v1
@@ -1361,7 +1361,7 @@ libraries:
           source: google/storage/v2
           template: convert-prost
         - include_list: date.proto,expr.proto
-          module_path: gtype::model
+          module_path: google_cloud_type::model
           output: src/storage/src/generated/convert/type
           source: google/type
           template: convert-prost

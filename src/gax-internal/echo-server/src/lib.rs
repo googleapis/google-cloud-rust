@@ -122,8 +122,8 @@ async fn error_impl(
 
 fn make_status_value() -> Result<serde_json::Value> {
     use gax::error::rpc::StatusDetails;
-    use rpc::model::BadRequest;
-    use rpc::model::bad_request::FieldViolation;
+    use google_cloud_rpc::model::BadRequest;
+    use google_cloud_rpc::model::bad_request::FieldViolation;
     let details = StatusDetails::BadRequest(BadRequest::default().set_field_violations(
         vec![FieldViolation::default()
             .set_field( "field" )

@@ -35,7 +35,7 @@ gax.workspace               = true
 google-cloud-test-utils     = { workspace = true }
 google-cloud-longrunning    = { workspace = true }
 google-cloud-lro.workspace  = true
-rpc.workspace               = true
+google-cloud-rpc.workspace  = true
 google-cloud-workflows-v1   = { workspace = true, features = ["default"] }
 wkt.workspace               = true
 httptest.workspace          = true

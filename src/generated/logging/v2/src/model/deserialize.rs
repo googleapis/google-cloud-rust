@@ -132,9 +132,8 @@ impl<'de> serde::de::Deserialize<'de> for super::LogEntry {
                                     "multiple values for resource",
                                 ));
                             }
-                            result.resource = map
-                                .next_value::<std::option::Option<api::model::MonitoredResource>>(
-                                )?;
+                            result.resource = map.next_value::<std::option::Option<google_cloud_api::model::MonitoredResource>>()?
+                                ;
                         }
                         __FieldTag::__proto_payload => {
                             if !fields.insert(__FieldTag::__proto_payload) {
@@ -212,7 +211,11 @@ impl<'de> serde::de::Deserialize<'de> for super::LogEntry {
                                     "multiple values for severity",
                                 ));
                             }
-                            result.severity = map.next_value::<std::option::Option<logging_type::model::LogSeverity>>()?.unwrap_or_default();
+                            result.severity =
+                                map.next_value::<std::option::Option<
+                                    google_cloud_logging_type::model::LogSeverity,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__insert_id => {
                             if !fields.insert(__FieldTag::__insert_id) {
@@ -230,8 +233,9 @@ impl<'de> serde::de::Deserialize<'de> for super::LogEntry {
                                     "multiple values for http_request",
                                 ));
                             }
-                            result.http_request = map.next_value::<std::option::Option<logging_type::model::HttpRequest>>()?
-                                ;
+                            result.http_request = map.next_value::<std::option::Option<
+                                google_cloud_logging_type::model::HttpRequest,
+                            >>()?;
                         }
                         __FieldTag::__labels => {
                             if !fields.insert(__FieldTag::__labels) {
@@ -838,9 +842,8 @@ impl<'de> serde::de::Deserialize<'de> for super::WriteLogEntriesRequest {
                                     "multiple values for resource",
                                 ));
                             }
-                            result.resource = map
-                                .next_value::<std::option::Option<api::model::MonitoredResource>>(
-                                )?;
+                            result.resource = map.next_value::<std::option::Option<google_cloud_api::model::MonitoredResource>>()?
+                                ;
                         }
                         __FieldTag::__labels => {
                             if !fields.insert(__FieldTag::__labels) {
@@ -1029,7 +1032,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WriteLogEntriesPartialErrors {
                             }
                             struct __With(
                                 std::option::Option<
-                                    std::collections::HashMap<i32, rpc::model::Status>,
+                                    std::collections::HashMap<i32, google_cloud_rpc::model::Status>,
                                 >,
                             );
                             impl<'de> serde::de::Deserialize<'de> for __With {
@@ -1470,7 +1473,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ListMonitoredResourceDescriptor
                             }
                             result.resource_descriptors = map
                                 .next_value::<std::option::Option<
-                                    std::vec::Vec<api::model::MonitoredResourceDescriptor>,
+                                    std::vec::Vec<
+                                        google_cloud_api::model::MonitoredResourceDescriptor,
+                                    >,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -7474,9 +7479,8 @@ impl<'de> serde::de::Deserialize<'de> for super::LogMetric {
                                     "multiple values for metric_descriptor",
                                 ));
                             }
-                            result.metric_descriptor = map
-                                .next_value::<std::option::Option<api::model::MetricDescriptor>>(
-                                )?;
+                            result.metric_descriptor = map.next_value::<std::option::Option<google_cloud_api::model::MetricDescriptor>>()?
+                                ;
                         }
                         __FieldTag::__value_extractor => {
                             if !fields.insert(__FieldTag::__value_extractor) {
@@ -7509,8 +7513,9 @@ impl<'de> serde::de::Deserialize<'de> for super::LogMetric {
                                     "multiple values for bucket_options",
                                 ));
                             }
-                            result.bucket_options = map.next_value::<std::option::Option<api::model::distribution::BucketOptions>>()?
-                                ;
+                            result.bucket_options = map.next_value::<std::option::Option<
+                                google_cloud_api::model::distribution::BucketOptions,
+                            >>()?;
                         }
                         __FieldTag::__create_time => {
                             if !fields.insert(__FieldTag::__create_time) {

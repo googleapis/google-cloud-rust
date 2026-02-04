@@ -322,7 +322,7 @@ impl super::stub::ServiceManager for ServiceManager {
         &self,
         req: crate::model::GetServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::Service>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::Service>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
@@ -408,7 +408,7 @@ impl super::stub::ServiceManager for ServiceManager {
         &self,
         req: crate::model::CreateServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<api::model::Service>> {
+    ) -> Result<gax::response::Response<google_cloud_api::model::Service>> {
         use gax::error::binding::BindingError;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
