@@ -72,6 +72,7 @@
 
 pub(crate) mod jws;
 
+use crate::access_boundary::AccessBoundary;
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
@@ -80,7 +81,6 @@ use crate::errors::{self};
 use crate::headers_util::AuthHeadersBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
-use crate::trust_boundary::TrustBoundary;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
 use http::{Extensions, HeaderMap};
@@ -334,16 +334,16 @@ impl Builder {
         let client_email = token_provider.service_account_key.client_email.clone();
 
         let token_provider = TokenCache::new(token_provider);
-        let trust_boundary_url = crate::trust_boundary::service_account_lookup_url(&client_email);
-        let trust_boundary = Arc::new(TrustBoundary::new(
+        let access_boundary_url = crate::access_boundary::service_account_lookup_url(&client_email);
+        let access_boundary = Arc::new(AccessBoundary::new(
             token_provider.clone(),
-            trust_boundary_url,
+            access_boundary_url,
         ));
         Ok(AccessTokenCredentials {
             inner: Arc::new(ServiceAccountCredentials {
                 quota_project_id,
                 token_provider,
-                trust_boundary,
+                access_boundary,
             }),
         })
     }
@@ -474,7 +474,7 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
-    trust_boundary: Arc<TrustBoundary>,
+    access_boundary: Arc<AccessBoundary>,
 }
 
 #[derive(Debug)]
@@ -586,7 +586,7 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        let access_boundary = self.trust_boundary.header_value();
+        let access_boundary = self.access_boundary.header_value();
 
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())

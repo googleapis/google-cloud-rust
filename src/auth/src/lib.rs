@@ -52,6 +52,7 @@
 //! [Tokens]: https://cloud.google.com/docs/authentication#token
 //! [Credentials]: https://cloud.google.com/docs/authentication#credentials
 
+pub(crate) mod access_boundary;
 pub mod build_errors;
 pub(crate) mod constants;
 pub mod credentials;
@@ -62,7 +63,6 @@ pub(crate) mod retry;
 pub mod signer;
 pub(crate) mod token;
 pub(crate) mod token_cache;
-pub(crate) mod trust_boundary;
 
 /// A `Result` alias where the `Err` case is [BuildCredentialsError].
 pub(crate) type BuildResult<T> = std::result::Result<T, build_errors::Error>;

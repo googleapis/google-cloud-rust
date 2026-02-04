@@ -91,6 +91,7 @@
 //! [Service Account]: https://cloud.google.com/iam/docs/service-account-overview
 //! [Service Account Token Creator Role]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#required-roles
 
+use crate::access_boundary::AccessBoundary;
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
@@ -105,7 +106,6 @@ use crate::headers_util::{
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
-use crate::trust_boundary::{TrustBoundary, service_account_lookup_url};
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
 use gax::backoff_policy::BackoffPolicyArg;
@@ -472,15 +472,18 @@ impl Builder {
         let (token_provider, quota_project_id, service_account_impersonation_url) =
             self.build_components()?;
         let client_email = extract_client_email(&service_account_impersonation_url)?;
-        let tb_url = service_account_lookup_url(&client_email);
+        let access_boundary_url = crate::access_boundary::service_account_lookup_url(&client_email);
         let token_provider = TokenCache::new(token_provider);
-        let trust_boundary = Arc::new(TrustBoundary::new(token_provider.clone(), tb_url));
+        let access_boundary = Arc::new(AccessBoundary::new(
+            token_provider.clone(),
+            access_boundary_url,
+        ));
 
         Ok(AccessTokenCredentials {
             inner: Arc::new(ImpersonatedServiceAccount {
                 token_provider,
                 quota_project_id,
-                trust_boundary,
+                access_boundary,
             }),
         })
     }
@@ -711,7 +714,7 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
-    trust_boundary: Arc<TrustBoundary>,
+    access_boundary: Arc<AccessBoundary>,
 }
 
 #[async_trait::async_trait]
@@ -721,7 +724,7 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        let access_boundary = self.trust_boundary.header_value();
+        let access_boundary = self.access_boundary.header_value();
 
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())

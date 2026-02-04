@@ -74,6 +74,7 @@
 //! [gke-link]: https://cloud.google.com/kubernetes-engine
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
+use crate::access_boundary::AccessBoundary;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::headers_util::AuthHeadersBuilder;
@@ -81,7 +82,6 @@ use crate::mds::client::Client as MDSClient;
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
-use crate::trust_boundary::TrustBoundary;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
 use gax::backoff_policy::BackoffPolicyArg;
@@ -108,7 +108,7 @@ where
 {
     quota_project_id: Option<String>,
     token_provider: T,
-    trust_boundary: Arc<TrustBoundary>,
+    access_boundary: Arc<AccessBoundary>,
 }
 
 /// Creates [Credentials] instances backed by the [Metadata Service].
@@ -288,7 +288,7 @@ impl Builder {
         let mds_client = MDSClient::new(self.endpoint.clone());
         let token_provider = TokenCache::new(self.build_token_provider());
 
-        let trust_boundary = Arc::new(TrustBoundary::new_for_mds(
+        let access_boundary = Arc::new(AccessBoundary::new_for_mds(
             token_provider.clone(),
             mds_client.clone(),
         ));
@@ -296,7 +296,7 @@ impl Builder {
         let mdsc = MDSCredentials {
             quota_project_id,
             token_provider,
-            trust_boundary,
+            access_boundary,
         };
         Ok(AccessTokenCredentials {
             inner: Arc::new(mdsc),
@@ -350,7 +350,7 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        let access_boundary = self.trust_boundary.header_value();
+        let access_boundary = self.access_boundary.header_value();
 
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())

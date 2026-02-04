@@ -24,7 +24,7 @@ use std::fmt::Debug;
 use tokio::sync::watch;
 use tokio::time::{Duration, sleep};
 
-const TRUST_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
+const REGIONAL_ACCESS_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
 const NO_OP_ENCODED_LOCATIONS: &str = "0x0";
 
 // Refresh interval: 1 hour
@@ -33,16 +33,16 @@ const REFRESH_INTERVAL: Duration = Duration::from_secs(3600);
 const ERROR_RETRY_INTERVAL: Duration = Duration::from_secs(60);
 
 #[derive(Debug)]
-pub(crate) struct TrustBoundary {
+pub(crate) struct AccessBoundary {
     rx_header: watch::Receiver<Option<String>>,
 }
 
-impl TrustBoundary {
+impl AccessBoundary {
     pub(crate) fn new<T>(token_provider: T, url: String) -> Self
     where
         T: CachedTokenProvider + 'static,
     {
-        let enabled = Self::is_trust_boundaries_enabled();
+        let enabled = Self::is_regional_access_boundaries_enabled();
         let (tx_header, rx_header) = watch::channel(None);
 
         if enabled {
@@ -56,7 +56,7 @@ impl TrustBoundary {
     where
         T: CachedTokenProvider + 'static,
     {
-        let enabled = Self::is_trust_boundaries_enabled();
+        let enabled = Self::is_regional_access_boundaries_enabled();
         let (tx_header, rx_header) = watch::channel(None);
 
         if enabled {
@@ -72,8 +72,8 @@ impl TrustBoundary {
         Self { rx_header }
     }
 
-    fn is_trust_boundaries_enabled() -> bool {
-        std::env::var(TRUST_BOUNDARIES_ENV_VAR)
+    fn is_regional_access_boundaries_enabled() -> bool {
+        std::env::var(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR)
             .map(|v| v.to_lowercase() == "true")
             .unwrap_or(false)
     }
@@ -97,7 +97,7 @@ struct AllowedLocationsResponse {
     encoded_locations: String,
 }
 
-async fn fetch_trust_boundary<T>(
+async fn fetch_access_boundary<T>(
     token_provider: &T,
     url: &str,
 ) -> Result<Option<String>, CredentialsError>
@@ -109,7 +109,7 @@ where
     let headers = match headers {
         CacheableResource::New { data, .. } => data,
         CacheableResource::NotModified => {
-            unreachable!("requested trust boundary without a caching etag")
+            unreachable!("requested access boundary without a caching etag")
         }
     };
 
@@ -127,7 +127,7 @@ where
     if !resp.status().is_success() {
         return Err(CredentialsError::from_msg(
             true,
-            format!("Failed to fetch trust boundary: {}", resp.status()),
+            format!("Failed to fetch access boundary: {}", resp.status()),
         ));
     }
 
@@ -188,7 +188,7 @@ async fn fetch_and_update<T>(
 ) where
     T: CachedTokenProvider,
 {
-    match fetch_trust_boundary(token_provider, url).await {
+    match fetch_access_boundary(token_provider, url).await {
         Ok(val) => {
             let _ = tx_header.send(val);
             sleep(REFRESH_INTERVAL).await;
