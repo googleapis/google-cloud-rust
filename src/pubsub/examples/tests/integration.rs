@@ -31,4 +31,18 @@ mod tests {
         }
         result
     }
+
+    #[tokio::test]
+    async fn quickstart_publisher() -> anyhow::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+        let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
+        let topic_id = topic.name.split('/').last().unwrap();
+
+        let result = quickstart_publisher::sample(&project_id, topic_id).await;
+
+        if let Err(e) = cleanup_test_topic(&topic_admin, topic.name).await {
+            println!("Error cleaning up test topic {e:?}");
+        }
+        result
+    }
 }
