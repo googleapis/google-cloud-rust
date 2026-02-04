@@ -60,6 +60,10 @@ pub struct AtLeastOnce {
 }
 
 impl AtLeastOnce {
+    pub(super) fn new(ack_id: String, ack_tx: UnboundedSender<AckResult>) -> Self {
+        Self { ack_id, ack_tx }
+    }
+
     /// Acknowledge the message associated with this handler.
     ///
     /// Note that the acknowledgement is best effort. The message may still be
@@ -87,10 +91,7 @@ mod tests {
     #[test]
     fn handler_ack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
-        let h = Handler::AtLeastOnce(AtLeastOnce {
-            ack_id: test_id(1),
-            ack_tx,
-        });
+        let h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx));
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         h.ack();
@@ -103,10 +104,7 @@ mod tests {
     #[test]
     fn handler_nack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
-        let h = Handler::AtLeastOnce(AtLeastOnce {
-            ack_id: test_id(1),
-            ack_tx,
-        });
+        let h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx));
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         h.nack();
@@ -119,10 +117,7 @@ mod tests {
     #[test]
     fn at_least_once_ack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
-        let h = AtLeastOnce {
-            ack_id: test_id(1),
-            ack_tx,
-        };
+        let h = AtLeastOnce::new(test_id(1), ack_tx);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         h.ack();
@@ -135,10 +130,7 @@ mod tests {
     #[test]
     fn at_least_once_nack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
-        let h = AtLeastOnce {
-            ack_id: test_id(1),
-            ack_tx,
-        };
+        let h = AtLeastOnce::new(test_id(1), ack_tx);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         h.nack();
