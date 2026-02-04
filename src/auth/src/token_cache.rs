@@ -17,6 +17,9 @@
 use crate::Result;
 use crate::credentials::{CacheableResource, EntityTag};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
+use gax::backoff_policy::BackoffPolicy;
+use gax::exponential_backoff::ExponentialBackoff;
+use gax::retry_state::RetryState;
 use http::Extensions;
 use std::sync::Arc;
 use tokio::sync::watch;
@@ -116,6 +119,9 @@ async fn refresh_task<T>(
 ) where
     T: TokenProvider + Send + Sync + 'static,
 {
+    let backoff_policy = ExponentialBackoff::default();
+    let mut retry_state = RetryState::default();
+
     loop {
         let token_result = token_provider.token().await;
         let expiry = token_result.as_ref().ok().map(|t| t.expires_at);
@@ -128,6 +134,7 @@ async fn refresh_task<T>(
 
         match expiry {
             Some(Some(expiry)) => {
+                retry_state = RetryState::default(); // reset retry state
                 let time_until_expiry = expiry.checked_duration_since(Instant::now());
 
                 match time_until_expiry {
@@ -156,7 +163,9 @@ async fn refresh_task<T>(
                 // If it ended in an error, the background task will wait for a while
                 // and try again. This allows the task to eventually recover if the
                 // error was transient but exhausted all the retries.
-                sleep(SHORT_REFRESH_SLACK).await;
+                retry_state.attempt_count += 1;
+                let delay = backoff_policy.on_failure(&retry_state);
+                sleep(delay).await;
             }
         }
     }
