@@ -69,14 +69,14 @@ pub async fn objects(builder: StorageBuilder, bucket_name: &str, prefix: &str) -
     assert_eq!(object.size, CONTENTS.len() as i64);
     assert_eq!(object.content_encoding, "identity");
     assert_eq!(
-        object.checksums.unwrap().crc32c,
+        object.checksums.clone().unwrap().crc32c,
         Some(crc32c::crc32c(CONTENTS.as_bytes()))
     );
     assert_eq!(object.storage_class, "STANDARD");
     assert_eq!(object.content_language, "en");
     assert_eq!(object.content_type, "text/plain");
-    assert!(!object.content_disposition.is_empty());
-    assert!(!object.etag.is_empty());
+    assert!(!object.content_disposition.is_empty(), "{object:?}");
+    assert!(!object.etag.is_empty(), "{object:?}");
 
     let mut contents = Vec::new();
     while let Some(b) = response.next().await.transpose()? {

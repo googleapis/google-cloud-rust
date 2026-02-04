@@ -226,7 +226,7 @@ pub(crate) mod tests {
             .get_or_load_cert("unknown-kid".to_string(), Algorithm::RS256, Some(jwks_url))
             .await;
 
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(
             err.to_string()
@@ -253,7 +253,7 @@ pub(crate) mod tests {
             .get_or_load_cert(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url))
             .await;
 
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.to_string().contains("failed to fetch JWK set"));
 
@@ -288,7 +288,7 @@ pub(crate) mod tests {
 
         // Unsupported algorithm
         let result = client.resolve_jwks_url(Algorithm::HS256, None);
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
 
         Ok(())
     }

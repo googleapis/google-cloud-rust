@@ -510,10 +510,7 @@ mod tests {
         let response = resp_from_code_content(code, content)?;
         assert!(response.status().is_success());
 
-        let response = super::to_http_response::<wkt::Empty>(response).await;
-        assert!(response.is_ok());
-
-        let response = response.unwrap();
+        let response = super::to_http_response::<wkt::Empty>(response).await?;
         let body = response.into_body();
         assert_eq!(body, wkt::Empty::default());
         Ok(())
@@ -529,7 +526,7 @@ mod tests {
         assert!(response.status().is_success());
 
         let response = super::to_http_response::<wkt::Empty>(response).await;
-        assert!(response.is_err());
+        assert!(response.is_err(), "{response:?}");
         Ok(())
     }
 
@@ -580,7 +577,7 @@ mod tests {
         let client = ReqwestClient::new(config, "https://test.googleapis.com")
             .await
             .unwrap();
-        assert!(client.instrumentation.is_none());
+        assert!(client.instrumentation.is_none(), "{client:?}");
     }
 
     #[tokio::test]
@@ -589,10 +586,10 @@ mod tests {
         let client = ReqwestClient::new(config, "https://test.googleapis.com")
             .await
             .unwrap();
-        assert!(client.instrumentation.is_none());
+        assert!(client.instrumentation.is_none(), "{client:?}");
 
         let client = client.with_instrumentation(&TEST_INSTRUMENTATION_INFO);
-        assert!(client.instrumentation.is_some());
+        assert!(client.instrumentation.is_some(), "{client:?}");
         let info = client.instrumentation.unwrap();
         assert_eq!(info.service_name, "test-service");
         assert_eq!(info.client_version, "1.2.3");
@@ -778,7 +775,14 @@ mod tests {
         let result = client
             .execute_streaming_once(builder, options, None, 0)
             .await;
-        assert!(result.is_err());
+        assert!(
+            result.is_err(),
+            "expected error, got successful stream: {:?}",
+            {
+                let (parts, _body) = result.unwrap().into_parts();
+                parts
+            }
+        );
         assert_eq!(result.err().unwrap().http_status_code(), Some(308));
         Ok(())
     }

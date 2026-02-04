@@ -369,7 +369,10 @@ mod tests {
         assert_eq!(initial_req.stream_ack_deadline_seconds, 20);
         assert_eq!(initial_req.max_outstanding_messages, 2000);
         assert_eq!(initial_req.max_outstanding_bytes, 200 * MIB);
-        assert!(!initial_req.client_id.is_empty());
+        assert!(
+            !initial_req.client_id.is_empty(),
+            "initial request has empty client id: {initial_req:?}"
+        );
         assert!(
             initial_req.protocol_version >= 1,
             "protocol_version={}",
@@ -491,7 +494,7 @@ mod tests {
         let ack_req = ack_rx.try_recv()?;
         assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
         assert_eq!(sorted(ack_req.ack_ids), test_ids(0..10));
-        assert!(ack_rx.is_empty());
+        assert!(ack_rx.is_empty(), "{ack_rx:?}");
 
         // Verify the initial nacks went through.
         let nack_req = nack_rx.try_recv()?;
@@ -504,7 +507,7 @@ mod tests {
         assert_eq!(nack_req.subscription, "projects/p/subscriptions/s");
         assert_eq!(nack_req.ack_deadline_seconds, 0);
         assert_eq!(sorted(nack_req.ack_ids), test_ids(20..30));
-        assert!(nack_rx.is_empty());
+        assert!(nack_rx.is_empty(), "{nack_rx:?}");
 
         // Verify at least one lease extension attempt was made.
         let extend_req = extend_rx.try_recv()?;
@@ -754,7 +757,7 @@ mod tests {
         // Advance the time far enough to expect a keepalive ping, if the
         // keepalive task was still running.
         tokio::time::advance(4 * KEEPALIVE_PERIOD).await;
-        assert!(recover_writes_rx.is_empty());
+        assert!(recover_writes_rx.is_empty(), "{recover_writes_rx:?}");
 
         Ok(())
     }

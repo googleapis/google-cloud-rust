@@ -823,7 +823,8 @@ mod tests {
             token_provider: TokenCache::new(mock),
             quota_project_id: None,
         };
-        assert!(uc.headers(Extensions::new()).await.is_err());
+        let result = uc.headers(Extensions::new()).await;
+        assert!(result.is_err(), "{result:?}");
     }
 
     #[tokio::test]

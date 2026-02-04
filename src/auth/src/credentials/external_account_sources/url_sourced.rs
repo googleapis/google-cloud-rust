@@ -206,7 +206,7 @@ mod tests {
             .expect_err("parsing should fail");
 
         assert!(!err.is_transient(), "{err:?}");
-        assert!(err.source().is_none());
+        assert!(err.source().is_none(), "{:?}", err.source());
 
         assert!(err.to_string().contains("`access_token`"), "{err:?}");
         assert!(

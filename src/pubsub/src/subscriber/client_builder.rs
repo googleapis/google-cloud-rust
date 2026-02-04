@@ -132,9 +132,13 @@ mod tests {
     #[test]
     fn defaults() {
         let builder = ClientBuilder::new();
-        assert!(builder.config.endpoint.is_none());
-        assert!(builder.config.cred.is_none());
-        assert!(builder.config.grpc_subchannel_count.is_none());
+        assert!(builder.config.endpoint.is_none(), "{:?}", builder.config);
+        assert!(builder.config.cred.is_none(), "{:?}", builder.config);
+        assert!(
+            builder.config.grpc_subchannel_count.is_none(),
+            "{:?}",
+            builder.config
+        );
     }
 
     #[test]
@@ -147,7 +151,7 @@ mod tests {
             builder.config.endpoint,
             Some("test-endpoint.com".to_string())
         );
-        assert!(builder.config.cred.is_some());
+        assert!(builder.config.cred.is_some(), "{:?}", builder.config);
         assert_eq!(builder.config.grpc_subchannel_count, Some(16));
     }
 }

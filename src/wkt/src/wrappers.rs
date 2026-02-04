@@ -459,7 +459,8 @@ mod tests {
         U: Message + std::fmt::Debug + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
         let any = Any::from_msg(&from)?;
-        assert!(any.to_msg::<U>().is_err());
+        let got = any.to_msg::<U>();
+        assert!(got.is_err(), "{got:?}");
         Ok(())
     }
 
@@ -477,7 +478,7 @@ mod tests {
         let serializer = T::serializer();
         let e = serializer.deserialize_from_map(map.as_object().unwrap());
 
-        assert!(e.is_err());
+        assert!(e.is_err(), "{e:?}");
         let fmt = format!("{e:?}");
         assert!(fmt.contains("expected value field to be a string"), "{fmt}");
         Ok(())

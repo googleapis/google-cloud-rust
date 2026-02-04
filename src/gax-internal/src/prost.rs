@@ -282,7 +282,7 @@ mod tests {
     #[test_case(Err(err()), Err(err()))]
     fn pair_transpose_error(a: Result<i32>, b: Result<i32>) -> anyhow::Result<()> {
         let got = super::pair_transpose(a, b);
-        assert!(got.is_err());
+        assert!(got.is_err(), "{got:?}");
         Ok(())
     }
 

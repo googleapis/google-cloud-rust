@@ -139,7 +139,7 @@ mod tests {
     #[tokio::test]
     async fn test_push_and_flush_batch() {
         let mut batch = Batch::new("topic".len() as u32);
-        assert!(batch.is_empty());
+        assert!(batch.is_empty(), "{batch:?}");
 
         let (message_a, _rx_a) = create_bundled_message_from_bytes("hello");
         batch.push(message_a);

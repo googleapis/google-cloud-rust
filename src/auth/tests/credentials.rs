@@ -433,7 +433,7 @@ mod tests {
         match cached_headers {
             CacheableResource::New { entity_tag, data } => {
                 assert_eq!(entity_tag, EntityTag::default());
-                assert!(data.is_empty());
+                assert!(data.is_empty(), "{data:?}");
             }
             CacheableResource::NotModified => {
                 unreachable!("Expecting a header to be present");
@@ -508,7 +508,7 @@ mod tests {
         match creds.headers(Extensions::new()).await? {
             CacheableResource::New { entity_tag, data } => {
                 assert_eq!(entity_tag, EntityTag::default());
-                assert!(data.is_empty());
+                assert!(data.is_empty(), "{data:?}");
             }
             CacheableResource::NotModified => {
                 unreachable!("Expecting a header to be present");

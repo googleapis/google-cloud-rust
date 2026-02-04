@@ -61,7 +61,7 @@ mod tests {
         let client = SecretManagerService::from_stub(mock);
 
         let response = helper(&client, "my-project", "us-central1", "my-secret-id").await;
-        assert!(response.is_err());
+        assert!(response.is_err(), "{response:?}");
 
         Ok(())
     }
