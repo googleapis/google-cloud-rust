@@ -290,8 +290,28 @@ impl std::fmt::Debug for super::Part {
         let mut debug_struct = f.debug_struct("Part");
         debug_struct.field("thought", &self.thought);
         debug_struct.field("thought_signature", &self.thought_signature);
+        debug_struct.field("media_resolution", &self.media_resolution);
         debug_struct.field("data", &self.data);
         debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+impl std::fmt::Debug for super::part::MediaResolution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MediaResolution");
+        debug_struct.field("value", &self.value);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -352,6 +372,7 @@ impl std::fmt::Debug for super::VideoMetadata {
         let mut debug_struct = f.debug_struct("VideoMetadata");
         debug_struct.field("start_offset", &self.start_offset);
         debug_struct.field("end_offset", &self.end_offset);
+        debug_struct.field("fps", &self.fps);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -442,7 +463,23 @@ impl std::fmt::Debug for super::SpeechConfig {
 impl std::fmt::Debug for super::ImageConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImageConfig");
+        debug_struct.field("image_output_options", &self.image_output_options);
         debug_struct.field("aspect_ratio", &self.aspect_ratio);
+        debug_struct.field("person_generation", &self.person_generation);
+        debug_struct.field("image_size", &self.image_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+impl std::fmt::Debug for super::image_config::ImageOutputOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageOutputOptions");
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("compression_quality", &self.compression_quality);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -469,6 +506,9 @@ impl std::fmt::Debug for super::GenerationConfig {
         debug_struct.field("response_schema", &self.response_schema);
         debug_struct.field("response_json_schema", &self.response_json_schema);
         debug_struct.field("routing_config", &self.routing_config);
+        debug_struct.field("audio_timestamp", &self.audio_timestamp);
+        debug_struct.field("response_modalities", &self.response_modalities);
+        debug_struct.field("media_resolution", &self.media_resolution);
         debug_struct.field("speech_config", &self.speech_config);
         debug_struct.field("thinking_config", &self.thinking_config);
         debug_struct.field("image_config", &self.image_config);
@@ -521,6 +561,7 @@ impl std::fmt::Debug for super::generation_config::ThinkingConfig {
         let mut debug_struct = f.debug_struct("ThinkingConfig");
         debug_struct.field("include_thoughts", &self.include_thoughts);
         debug_struct.field("thinking_budget", &self.thinking_budget);
+        debug_struct.field("thinking_level", &self.thinking_level);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

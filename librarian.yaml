@@ -13,17 +13,17 @@
 # limitations under the License.
 
 language: rust
-version: v0.8.1-0.20260203014256-98ce4f6a16a8
+version: v0.8.1-0.20260204142215-81ff6187893a
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: 85aa2660a9a62faa9e80e0d100b8dca4138ce249
-    sha256: b5f0d6364c8b731dde2a9b9fbb19a31a9e16a662c4d0d2b08bffe09e5b429154
+    commit: b976ae6b65bb9601e7bb01ed07f30b7cff442675
+    sha256: 471178ce7594f5f179ec2c86eab7f331dd92218dbdb3ed4768e7d83e0dd4dfbc
   googleapis:
-    commit: 4ba4d6d3b5e81359f508fb19db492b97bbb01fe6
-    sha256: 9e7a21571368eac7c454b06136b41aab3848721be6970eec35eaff2096f033eb
+    commit: d077e5979c3e99b53fe43d606f553bba96b744d6
+    sha256: c8d96d056096337815e0c9465b790e78f399d5ef07c4e9c19f13c828e36a006f
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -400,6 +400,8 @@ libraries:
   - name: google-cloud-assuredworkloads-v1
     version: 1.6.0
     copyright_year: "2025"
+  - name: google-cloud-auditmanager-v1
+    copyright_year: "2026"
   - name: google-cloud-auth
     version: 1.6.0
     copyright_year: "2025"
@@ -767,6 +769,8 @@ libraries:
   - name: google-cloud-gkehub-v1
     version: 1.6.0
     copyright_year: "2025"
+    # TODO(https://github.com/googleapis/google-cloud-rust/issues/4553): fix
+    skip_generate: true
     rust:
       package_dependencies:
         - name: google-cloud-gkehub-configmanagement-v1

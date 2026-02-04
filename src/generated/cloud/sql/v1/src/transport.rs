@@ -4755,6 +4755,12 @@ impl super::stub::SqlUsersService for SqlUsersService {
                     .database_roles
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("databaseRoles", p)]));
+                let builder = req
+                    .revoke_existing_roles
+                    .iter()
+                    .fold(builder, |builder, p| {
+                        builder.query(&[("revokeExistingRoles", p)])
+                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PUT)))
             })
