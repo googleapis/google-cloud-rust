@@ -80,7 +80,6 @@ impl BackoffPolicy for NoBackoff {
     }
 }
 
-#[allow(dead_code)] // TODO(#4471) - use in DefaultLeaser
 /// The policies for lease management RPCs in at-least-once delivery.
 ///
 /// Specifically, these are the `Acknowledge` and `ModifyAckDeadline` RPCs.

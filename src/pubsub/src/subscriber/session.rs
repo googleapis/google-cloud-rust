@@ -100,6 +100,7 @@ impl Session {
             inner.clone(),
             subscription.clone(),
             builder.ack_deadline_seconds,
+            builder.grpc_subchannel_count,
         );
         let LeaseLoop {
             handle: _lease_loop,
