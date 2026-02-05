@@ -37,16 +37,7 @@ use google_cloud_test_utils::resource_names::random_bucket_id;
 use std::time::Duration;
 
 pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
+    let _guard = enable_info_tracing();
 
     let zone = "us-central1-f";
     tracing::info!("Create bucket for anywhere cache examples");
@@ -76,16 +67,7 @@ pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::R
 }
 
 pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
+    let _guard = enable_info_tracing();
 
     let client = control_client().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
@@ -290,16 +272,7 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 }
 
 pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
+    let _guard = enable_info_tracing();
 
     let client = control_client().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
@@ -344,16 +317,7 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
 }
 
 pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
+    let _guard = enable_info_tracing();
 
     let control = control_client().await?;
     let client = Storage::builder().build().await?;
@@ -553,17 +517,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 }
 
 pub async fn run_client_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .with_max_level(tracing::Level::TRACE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
+    let _guard = enable_info_tracing();
 
     let control = control_client().await?;
     let client = Storage::builder().build().await?;
@@ -876,6 +830,18 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
 
     client.delete_bucket().set_name(&name).send().await?;
     Ok(())
+}
+
+fn enable_info_tracing() -> tracing::subscriber::DefaultGuard {
+    use tracing_subscriber::fmt::format::FmtSpan;
+    let subscriber = tracing_subscriber::fmt()
+        .with_level(true)
+        .with_thread_ids(true)
+        .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+        .with_max_level(tracing::Level::INFO)
+        .finish();
+
+    tracing::subscriber::set_default(subscriber)
 }
 
 trait RetryPolicyExt2: Sized {
