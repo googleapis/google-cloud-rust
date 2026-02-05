@@ -152,7 +152,7 @@ the necessary directives to the library's `Cargo.toml` file.
 
 However, some libraries have ad-hoc dependencies that require some amount of
 configuration. This sub-section explains how to add these dependencies to the
-librarian configuration add the Cargo.toml file.
+librarian configuration and the Cargo.toml file.
 
 In this guide we will assume the new dependency already is part of the
 repository, if not, first follow the [Generate new library] subsection.
@@ -177,7 +177,7 @@ index e088d86a5..7531ff313 100644
            source: google.cloud.gkehub.configmanagement.v1
 ```
 
-The edit the `Cargo.toml` file to define this as a internal dependency:
+The edit the `Cargo.toml` file to define this as an internal dependency:
 
 ```patch
 diff --git a/Cargo.toml b/Cargo.toml
