@@ -142,6 +142,12 @@ impl GkeHub {
         super::builder::gke_hub::ListMemberships::new(self.inner.clone())
     }
 
+    /// Lists Memberships bound to a Scope. The response includes relevant
+    /// Memberships from all regions.
+    pub fn list_bound_memberships(&self) -> super::builder::gke_hub::ListBoundMemberships {
+        super::builder::gke_hub::ListBoundMemberships::new(self.inner.clone())
+    }
+
     /// Lists Features in a given project and location.
     pub fn list_features(&self) -> super::builder::gke_hub::ListFeatures {
         super::builder::gke_hub::ListFeatures::new(self.inner.clone())
@@ -261,6 +267,368 @@ impl GkeHub {
     /// Most clients should not need to call this method directly.
     pub fn generate_connect_manifest(&self) -> super::builder::gke_hub::GenerateConnectManifest {
         super::builder::gke_hub::GenerateConnectManifest::new(self.inner.clone())
+    }
+
+    /// Creates a fleet.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_fleet(&self) -> super::builder::gke_hub::CreateFleet {
+        super::builder::gke_hub::CreateFleet::new(self.inner.clone())
+    }
+
+    /// Returns the details of a fleet.
+    pub fn get_fleet(&self) -> super::builder::gke_hub::GetFleet {
+        super::builder::gke_hub::GetFleet::new(self.inner.clone())
+    }
+
+    /// Updates a fleet.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_fleet(&self) -> super::builder::gke_hub::UpdateFleet {
+        super::builder::gke_hub::UpdateFleet::new(self.inner.clone())
+    }
+
+    /// Removes a Fleet. There must be no memberships remaining in the Fleet.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_fleet(&self) -> super::builder::gke_hub::DeleteFleet {
+        super::builder::gke_hub::DeleteFleet::new(self.inner.clone())
+    }
+
+    /// Returns all fleets within an organization or a project that the caller has
+    /// access to.
+    pub fn list_fleets(&self) -> super::builder::gke_hub::ListFleets {
+        super::builder::gke_hub::ListFleets::new(self.inner.clone())
+    }
+
+    /// Returns the details of a fleet namespace.
+    pub fn get_scope_namespace(&self) -> super::builder::gke_hub::GetScopeNamespace {
+        super::builder::gke_hub::GetScopeNamespace::new(self.inner.clone())
+    }
+
+    /// Creates a fleet namespace.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_scope_namespace(&self) -> super::builder::gke_hub::CreateScopeNamespace {
+        super::builder::gke_hub::CreateScopeNamespace::new(self.inner.clone())
+    }
+
+    /// Updates a fleet namespace.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_scope_namespace(&self) -> super::builder::gke_hub::UpdateScopeNamespace {
+        super::builder::gke_hub::UpdateScopeNamespace::new(self.inner.clone())
+    }
+
+    /// Deletes a fleet namespace.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_scope_namespace(&self) -> super::builder::gke_hub::DeleteScopeNamespace {
+        super::builder::gke_hub::DeleteScopeNamespace::new(self.inner.clone())
+    }
+
+    /// Lists fleet namespaces.
+    pub fn list_scope_namespaces(&self) -> super::builder::gke_hub::ListScopeNamespaces {
+        super::builder::gke_hub::ListScopeNamespaces::new(self.inner.clone())
+    }
+
+    /// Returns the details of a Scope RBACRoleBinding.
+    pub fn get_scope_rbac_role_binding(&self) -> super::builder::gke_hub::GetScopeRBACRoleBinding {
+        super::builder::gke_hub::GetScopeRBACRoleBinding::new(self.inner.clone())
+    }
+
+    /// Creates a Scope RBACRoleBinding.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_scope_rbac_role_binding(
+        &self,
+    ) -> super::builder::gke_hub::CreateScopeRBACRoleBinding {
+        super::builder::gke_hub::CreateScopeRBACRoleBinding::new(self.inner.clone())
+    }
+
+    /// Updates a Scope RBACRoleBinding.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_scope_rbac_role_binding(
+        &self,
+    ) -> super::builder::gke_hub::UpdateScopeRBACRoleBinding {
+        super::builder::gke_hub::UpdateScopeRBACRoleBinding::new(self.inner.clone())
+    }
+
+    /// Deletes a Scope RBACRoleBinding.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_scope_rbac_role_binding(
+        &self,
+    ) -> super::builder::gke_hub::DeleteScopeRBACRoleBinding {
+        super::builder::gke_hub::DeleteScopeRBACRoleBinding::new(self.inner.clone())
+    }
+
+    /// Lists all Scope RBACRoleBindings.
+    pub fn list_scope_rbac_role_bindings(
+        &self,
+    ) -> super::builder::gke_hub::ListScopeRBACRoleBindings {
+        super::builder::gke_hub::ListScopeRBACRoleBindings::new(self.inner.clone())
+    }
+
+    /// Returns the details of a Scope.
+    pub fn get_scope(&self) -> super::builder::gke_hub::GetScope {
+        super::builder::gke_hub::GetScope::new(self.inner.clone())
+    }
+
+    /// Creates a Scope.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_scope(&self) -> super::builder::gke_hub::CreateScope {
+        super::builder::gke_hub::CreateScope::new(self.inner.clone())
+    }
+
+    /// Updates a scopes.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_scope(&self) -> super::builder::gke_hub::UpdateScope {
+        super::builder::gke_hub::UpdateScope::new(self.inner.clone())
+    }
+
+    /// Deletes a Scope.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_scope(&self) -> super::builder::gke_hub::DeleteScope {
+        super::builder::gke_hub::DeleteScope::new(self.inner.clone())
+    }
+
+    /// Lists Scopes.
+    pub fn list_scopes(&self) -> super::builder::gke_hub::ListScopes {
+        super::builder::gke_hub::ListScopes::new(self.inner.clone())
+    }
+
+    /// Lists permitted Scopes.
+    pub fn list_permitted_scopes(&self) -> super::builder::gke_hub::ListPermittedScopes {
+        super::builder::gke_hub::ListPermittedScopes::new(self.inner.clone())
+    }
+
+    /// Returns the details of a MembershipBinding.
+    pub fn get_membership_binding(&self) -> super::builder::gke_hub::GetMembershipBinding {
+        super::builder::gke_hub::GetMembershipBinding::new(self.inner.clone())
+    }
+
+    /// Creates a MembershipBinding.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_membership_binding(&self) -> super::builder::gke_hub::CreateMembershipBinding {
+        super::builder::gke_hub::CreateMembershipBinding::new(self.inner.clone())
+    }
+
+    /// Updates a MembershipBinding.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_membership_binding(&self) -> super::builder::gke_hub::UpdateMembershipBinding {
+        super::builder::gke_hub::UpdateMembershipBinding::new(self.inner.clone())
+    }
+
+    /// Deletes a MembershipBinding.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_membership_binding(&self) -> super::builder::gke_hub::DeleteMembershipBinding {
+        super::builder::gke_hub::DeleteMembershipBinding::new(self.inner.clone())
+    }
+
+    /// Lists MembershipBindings.
+    pub fn list_membership_bindings(&self) -> super::builder::gke_hub::ListMembershipBindings {
+        super::builder::gke_hub::ListMembershipBindings::new(self.inner.clone())
+    }
+
+    /// Returns the details of a Membership RBACRoleBinding.
+    pub fn get_membership_rbac_role_binding(
+        &self,
+    ) -> super::builder::gke_hub::GetMembershipRBACRoleBinding {
+        super::builder::gke_hub::GetMembershipRBACRoleBinding::new(self.inner.clone())
+    }
+
+    /// Creates a Membership RBACRoleBinding.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_membership_rbac_role_binding(
+        &self,
+    ) -> super::builder::gke_hub::CreateMembershipRBACRoleBinding {
+        super::builder::gke_hub::CreateMembershipRBACRoleBinding::new(self.inner.clone())
+    }
+
+    /// Updates a Membership RBACRoleBinding.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_membership_rbac_role_binding(
+        &self,
+    ) -> super::builder::gke_hub::UpdateMembershipRBACRoleBinding {
+        super::builder::gke_hub::UpdateMembershipRBACRoleBinding::new(self.inner.clone())
+    }
+
+    /// Deletes a Membership RBACRoleBinding.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_membership_rbac_role_binding(
+        &self,
+    ) -> super::builder::gke_hub::DeleteMembershipRBACRoleBinding {
+        super::builder::gke_hub::DeleteMembershipRBACRoleBinding::new(self.inner.clone())
+    }
+
+    /// Lists all Membership RBACRoleBindings.
+    pub fn list_membership_rbac_role_bindings(
+        &self,
+    ) -> super::builder::gke_hub::ListMembershipRBACRoleBindings {
+        super::builder::gke_hub::ListMembershipRBACRoleBindings::new(self.inner.clone())
+    }
+
+    /// Generates a YAML of the  RBAC policies for the specified
+    /// RoleBinding and its associated impersonation resources.
+    pub fn generate_membership_rbac_role_binding_yaml(
+        &self,
+    ) -> super::builder::gke_hub::GenerateMembershipRBACRoleBindingYAML {
+        super::builder::gke_hub::GenerateMembershipRBACRoleBindingYAML::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

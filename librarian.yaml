@@ -778,7 +778,6 @@ libraries:
   - name: google-cloud-gkehub-v1
     version: 1.6.0
     copyright_year: "2025"
-    skip_generate: true
     rust:
       package_dependencies:
         - name: google-cloud-gkehub-configmanagement-v1
@@ -787,6 +786,9 @@ libraries:
         - name: google-cloud-gkehub-multiclusteringress-v1
           package: google-cloud-gkehub-multiclusteringress-v1
           source: google.cloud.gkehub.multiclusteringress.v1
+        - name: google-cloud-gkehub-rbacrolebindingactuation-v1
+          package: google-cloud-gkehub-rbacrolebindingactuation-v1
+          source: google.cloud.gkehub.rbacrolebindingactuation.v1
   - name: google-cloud-gkemulticloud-v1
     version: 1.6.0
     copyright_year: "2025"

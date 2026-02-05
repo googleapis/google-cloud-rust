@@ -2937,6 +2937,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-gkehub-configmanagement-v1",
  "google-cloud-gkehub-multiclusteringress-v1",
+ "google-cloud-gkehub-rbacrolebindingactuation-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",

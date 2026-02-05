@@ -472,6 +472,7 @@ google-cloud-apps-script-type-slides            = { default-features = false, ve
 google-cloud-common                             = { default-features = false, version = "1", path = "src/generated/cloud/common" }
 google-cloud-gkehub-configmanagement-v1         = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/configmanagement/v1" }
 google-cloud-gkehub-multiclusteringress-v1      = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/multiclusteringress/v1" }
+google-cloud-gkehub-rbacrolebindingactuation-v1 = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/rbacrolebindingactuation/v1" }
 google-cloud-grafeas-v1                         = { default-features = false, version = "1", path = "src/generated/grafeas/v1" }
 google-cloud-iam-v2                             = { default-features = false, version = "1", path = "src/generated/iam/v2" }
 google-cloud-identity-accesscontextmanager-type = { default-features = false, version = "1", path = "src/generated/identity/accesscontextmanager/type" }
