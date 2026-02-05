@@ -86,6 +86,21 @@ Then send a PR with whatever changed.
 Alternatively you can run `librarian update --all` to update all sources at
 once. Note that this includes `showcase` and `protojson-conformance`, though.
 
+### Troubleshooting
+
+From time to time existing libraries gain new dependencies that are unknown to
+`librarian`. When this happens you may see an error like:
+
+```
+librarian: missing package "google.cloud.gkehub.rbacrolebindingactuation.v1" while generating "google.cloud.gkehub.v1", available packages:
+[google.api google.cloud.common google.cloud.gkehub.configmanagement.v1 google.cloud.gkehub.multiclusteringress.v1 google.cloud.location google.iam.v1 google.logging.type google.longrunning google.protobuf google.rpc google.rpc.context google.type grafeas.v1]
+```
+
+In this case you need to:
+
+1. Follow [Generate new library] if the new dependency is not part of the repo.
+1. Follow [Add new dependency] to add the new dependency.
+
 ## Bump all version numbers
 
 Run:
@@ -128,6 +143,65 @@ cargo minimal-versions check --package google-cloud-workflows-v1
 
 Alternatively, consider
 [this feature request](https://github.com/googleapis/librarian/issues/3720).
+
+## Add new dependency
+
+The librarian configuration handles most well-known dependencies between
+libraries. For example, if a library gains LROs, librarian automatically adds
+the necessary directives to the library's `Cargo.toml` file.
+
+However, some libraries have ad-hoc dependencies that require some amount of
+configuration. This sub-section explains how to add these dependencies to the
+librarian configuration add the Cargo.toml file.
+
+In this guide we will assume the new dependency already is part of the
+repository, if not, first follow the [Generate new library] subsection.
+
+First, add the new dependency to the `rust.package_dependencies` section of the
+library that needs them:
+
+```patch
+diff --git a/librarian.yaml b/librarian.yaml
+index e088d86a5..7531ff313 100644
+--- a/librarian.yaml
++++ b/librarian.yaml
+@@ -779,6 +779,9 @@ libraries:
+     skip_generate: true
+     rust:
+       package_dependencies:
++        - name: google-cloud-gkehub-rbacrolebindingactuation-v1
++          package: google-cloud-gkehub-rbacrolebindingactuation-v1
++          source: google.cloud.gkehub.rbacrolebindingactuation.v1
+         - name: google-cloud-gkehub-configmanagement-v1
+           package: google-cloud-gkehub-configmanagement-v1
+           source: google.cloud.gkehub.configmanagement.v1
+```
+
+The edit the `Cargo.toml` file to define this as a internal dependency:
+
+```patch
+diff --git a/Cargo.toml b/Cargo.toml
+index 37b2b80e5..9a38e417e 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -471,6 +471,7 @@ google-cloud-apps-script-type-slides            = { default-features = false, ve
+ google-cloud-common                             = { default-features = false, version = "1", path = "src/generated/cloud/common" }
+ google-cloud-gkehub-configmanagement-v1         = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/configmanagement/v1" }
+ google-cloud-gkehub-multiclusteringress-v1      = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/multiclusteringress/v1" }
++google-cloud-gkehub-rbacrolebindingactuation-v1 = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/rbacrolebindingactuation/v1" }
+ google-cloud-grafeas-v1                         = { default-features = false, version = "1", path = "src/generated/grafeas/v1" }
+ google-cloud-iam-v2                             = { default-features = false, version = "1", path = "src/generated/iam/v2" }
+ google-cloud-identity-accesscontextmanager-type = { default-features = false, version = "1", path = "src/generated/identity/accesscontextmanager/type" }
+```
+
+Then generate the library that gained a new dependency:
+
+```bash
+V=$(cat .librarian-version.txt)
+go run github.com/googleapis/librarian/cmd/librarian@${V} generate google-cloud-gkehub-v1
+```
+
+Commit all these changes and send a PR.
 
 ## Refreshing the code
 
@@ -284,6 +358,8 @@ Now add the library back (get the library name from librarian yaml):
 go run github.com/googleapis/librarian/cmd/librarian@main generate google-cloud-websecurityscanner-v1
 ```
 
+[add new dependency]: #add-new-dependency
 [api list]: https://github.com/googleapis/librarian/blob/main/internal/serviceconfig/api.go
+[generate new library]: #generate-new-library
 [protocol buffer compiler installation]: https://protobuf.dev/installation/
 [set up development environment]: /doc/contributor/howto-guide-set-up-development-environment.md
