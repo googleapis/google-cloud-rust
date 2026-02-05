@@ -767,6 +767,12 @@ libraries:
       - path: google/cloud/gkehub/v1/multiclusteringress
     copyright_year: "2025"
     output: src/generated/cloud/gkehub/multiclusteringress/v1
+  - name: google-cloud-gkehub-rbacrolebindingactuation-v1
+    version: 1.0.0
+    apis:
+      - path: google/cloud/gkehub/v1/rbacrolebindingactuation
+    copyright_year: "2026"
+    output: src/generated/cloud/gkehub/rbacrolebindingactuation/v1
   - name: google-cloud-gkehub-v1
     version: 1.6.0
     copyright_year: "2025"

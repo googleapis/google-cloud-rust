@@ -156,6 +156,7 @@ members = [
   "src/generated/cloud/gkeconnect/gateway/v1",
   "src/generated/cloud/gkehub/configmanagement/v1",
   "src/generated/cloud/gkehub/multiclusteringress/v1",
+  "src/generated/cloud/gkehub/rbacrolebindingactuation/v1",
   "src/generated/cloud/gkehub/v1",
   "src/generated/cloud/gkemulticloud/v1",
   "src/generated/cloud/gkerecommender/v1",
