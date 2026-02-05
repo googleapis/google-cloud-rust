@@ -33,6 +33,25 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn subscription_examples() -> anyhow::Result<()> {
+        let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
+        let client = SubscriptionAdmin::builder().build().await?;
+
+        let mut subscriptions = Vec::new();
+        let result = run_subscription_examples(&mut subscriptions, topic.name.clone()).await;
+
+        for name in subscriptions.into_iter() {
+            if let Err(e) = cleanup_test_subscription(&client, name.clone()).await {
+                println!("Error cleaning up test subscription {name}: {e:?}");
+            }
+        }
+        if let Err(e) = cleanup_test_topic(&topic_admin, topic.name).await {
+            println!("Error cleaning up test topic {e:?}");
+        }
+        result
+    }
+
+    #[tokio::test]
     async fn quickstart_publisher() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
         let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
