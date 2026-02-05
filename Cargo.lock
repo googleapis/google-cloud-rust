@@ -2896,6 +2896,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-gkehub-rbacrolebindingactuation-v1"
+version = "1.0.0"
+dependencies = [
+ "bytes",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+]
+
+[[package]]
 name = "google-cloud-gkehub-v1"
 version = "1.6.0"
 dependencies = [
