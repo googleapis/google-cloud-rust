@@ -23,17 +23,24 @@ pub struct StreamingPull {
     pub(super) inner: Arc<Transport>,
     pub(super) subscription: String,
     pub(super) client_id: String,
+    pub(super) grpc_subchannel_count: usize,
     pub(super) ack_deadline_seconds: i32,
     pub(super) max_outstanding_messages: i64,
     pub(super) max_outstanding_bytes: i64,
 }
 
 impl StreamingPull {
-    pub(super) fn new(inner: Arc<Transport>, subscription: String, client_id: String) -> Self {
+    pub(super) fn new(
+        inner: Arc<Transport>,
+        subscription: String,
+        client_id: String,
+        grpc_subchannel_count: usize,
+    ) -> Self {
         Self {
             inner,
             subscription,
             client_id,
+            grpc_subchannel_count,
             ack_deadline_seconds: 10,
             max_outstanding_messages: 1000,
             max_outstanding_bytes: 100 * MIB,
@@ -170,11 +177,13 @@ mod tests {
             test_inner().await?,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             "client-id".to_string(),
+            1_usize,
         );
         assert_eq!(
             builder.subscription,
             "projects/my-project/subscriptions/my-subscription"
         );
+        assert_eq!(builder.grpc_subchannel_count, 1);
         assert_eq!(builder.ack_deadline_seconds, 10);
         assert!(
             100_000 > builder.max_outstanding_messages && builder.max_outstanding_messages > 100,
@@ -196,6 +205,7 @@ mod tests {
             test_inner().await?,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             "client-id".to_string(),
+            1_usize,
         )
         .set_ack_deadline_seconds(20)
         .set_max_outstanding_messages(12345)
@@ -204,6 +214,7 @@ mod tests {
             builder.subscription,
             "projects/my-project/subscriptions/my-subscription"
         );
+        assert_eq!(builder.grpc_subchannel_count, 1);
         assert_eq!(builder.ack_deadline_seconds, 20);
         assert_eq!(builder.max_outstanding_messages, 12345);
         assert_eq!(builder.max_outstanding_bytes, 6789 * KIB);
