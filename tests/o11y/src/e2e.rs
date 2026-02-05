@@ -14,6 +14,7 @@
 
 use super::Anonymous;
 use super::otlp::CloudTelemetryTracerProviderBuilder;
+use google_cloud_auth::credentials::Builder as CredentialsBuilder;
 use google_cloud_gax::error::rpc::Code;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::runtime_config::project_id;
@@ -40,9 +41,13 @@ pub async fn run() -> anyhow::Result<()> {
     let project_id = project_id()?;
     let service_name = "e2e-telemetry-test";
 
-    // Configure OTLP provider (sends to telemetry.googleapis.com)
-    // This uses ADC automatically from the environment.
+    // Configure OTLP provider (sends to telemetry.googleapis.com). Use ADC, but
+    // always configure a quota project so this can work with user credentials.
+    let credentials = CredentialsBuilder::default()
+        .with_quota_project_id(&project_id)
+        .build()?;
     let provider = CloudTelemetryTracerProviderBuilder::new(&project_id, service_name)
+        .with_credentials(credentials)
         .build()
         .await?;
 
