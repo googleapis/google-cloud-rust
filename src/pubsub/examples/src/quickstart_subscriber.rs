@@ -14,6 +14,7 @@
 
 // [START pubsub_quickstart_subscriber]
 use google_cloud_pubsub::client::Subscriber;
+use std::time::{Duration, Instant};
 
 pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<()> {
     let subscription_name = format!("projects/{project_id}/subscriptions/{subscription_id}");
@@ -24,9 +25,9 @@ pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<(
 
     // Terminate the example after 10 seconds. Applications typically process
     // messages indefinitely in a long-running loop.
-    let deadline = tokio::time::Instant::now() + tokio::time::Duration::from_secs(10);
+    let deadline = Instant::now() + Duration::from_secs(10);
 
-    while let Ok(Some(item)) = tokio::time::timeout_at(deadline, session.next()).await {
+    while let Ok(Some(item)) = tokio::time::timeout_at(deadline.into(), session.next()).await {
         let (message, handler) = item?;
         println!("received message: {message:?}");
         handler.ack();
