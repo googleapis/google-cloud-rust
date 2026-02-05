@@ -32,7 +32,7 @@ You need to look at the [API list] for the pinned version of librarian, if the
 API is not in the list:
 
 1. Send a PR adding the API to librarian.
-2. Send a PR to update `.librarian-version.txt`.
+1. Send a PR to update `.librarian-version.txt`.
 
 ### Generate
 
