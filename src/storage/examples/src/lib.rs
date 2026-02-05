@@ -784,7 +784,7 @@ pub async fn custom_project_billing(msg: &str) -> anyhow::Result<bool> {
 The default credentials (see below) are configured to use project {project:?}.
 {credentials:?}"#
     );
-    return Ok(true);
+    Ok(true)
 }
 
 pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {
