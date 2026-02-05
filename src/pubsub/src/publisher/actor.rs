@@ -492,6 +492,8 @@ mod tests {
     use std::time::Duration;
 
     static TOPIC: &str = "my-topic";
+    const EXPECTED_BATCHES: usize = 5;
+    const TIME_PER_BATCH: Duration = Duration::from_secs(10);
 
     mockall::mock! {
         #[derive(Debug)]
@@ -623,11 +625,11 @@ mod tests {
         let mut mock = MockGapicPublisherWithFuture::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(5)
+            .times(EXPECTED_BATCHES)
             .returning({
                 |r, o| {
                     Box::pin(async move {
-                        tokio::time::sleep(Duration::from_millis(10)).await;
+                        tokio::time::sleep(TIME_PER_BATCH).await;
                         publish_ok(r, o)
                     })
                 }
@@ -647,9 +649,9 @@ mod tests {
         assert_publish_is_ok!(actor_tx, 10);
         assert_eq!(
             start.elapsed(),
-            Duration::from_millis(10),
+            TIME_PER_BATCH,
             "all batches should have been concurrently sent and completed by {:?}",
-            Duration::from_millis(10)
+            TIME_PER_BATCH
         );
         Ok(())
     }
@@ -659,11 +661,11 @@ mod tests {
         let mut mock = MockGapicPublisherWithFuture::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(5)
+            .times(EXPECTED_BATCHES)
             .returning({
                 |r, o| {
                     Box::pin(async move {
-                        tokio::time::sleep(Duration::from_millis(10)).await;
+                        tokio::time::sleep(TIME_PER_BATCH).await;
                         publish_ok(r, o)
                     })
                 }
@@ -683,9 +685,9 @@ mod tests {
         assert_publish_is_ok!(actor_tx, 10);
         assert_eq!(
             start.elapsed(),
-            Duration::from_millis(50), // 10msg / 2 msg/batch * 10ms/batch = 50ms
+            EXPECTED_BATCHES as u32 * TIME_PER_BATCH,
             "all batches should have been seqentially sent and takes {:?}",
-            Duration::from_millis(50)
+            EXPECTED_BATCHES as u32 * TIME_PER_BATCH
         );
         Ok(())
     }
@@ -695,11 +697,11 @@ mod tests {
         let mut mock = MockGapicPublisherWithFuture::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(5)
+            .times(EXPECTED_BATCHES)
             .returning({
                 |r, o| {
                     Box::pin(async move {
-                        tokio::time::sleep(Duration::from_millis(10)).await;
+                        tokio::time::sleep(TIME_PER_BATCH).await;
                         publish_ok(r, o)
                     })
                 }
@@ -741,9 +743,9 @@ mod tests {
         }
         assert_eq!(
             start.elapsed(),
-            Duration::from_millis(10),
+            TIME_PER_BATCH,
             "all batches should have been concurrently sent and completed by {:?}",
-            Duration::from_millis(10)
+            TIME_PER_BATCH
         );
 
         Ok(())
@@ -754,11 +756,11 @@ mod tests {
         let mut mock = MockGapicPublisherWithFuture::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(5)
+            .times(EXPECTED_BATCHES)
             .returning({
                 |r, o| {
                     Box::pin(async move {
-                        tokio::time::sleep(Duration::from_millis(10)).await;
+                        tokio::time::sleep(TIME_PER_BATCH).await;
                         publish_ok(r, o)
                     })
                 }
@@ -800,9 +802,9 @@ mod tests {
         }
         assert_eq!(
             start.elapsed(),
-            Duration::from_millis(50), // 10msg / 2 msg/batch * 10ms/batch = 50ms
+            EXPECTED_BATCHES as u32 * TIME_PER_BATCH,
             "all batches should have been seqentially sent and takes {:?}",
-            Duration::from_millis(50)
+            EXPECTED_BATCHES as u32 * TIME_PER_BATCH
         );
 
         Ok(())
