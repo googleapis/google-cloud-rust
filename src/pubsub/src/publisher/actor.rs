@@ -825,7 +825,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn sequential_actor_resume() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         let mut seq = Sequence::new();
