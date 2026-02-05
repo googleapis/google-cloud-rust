@@ -95,7 +95,7 @@ impl Builder {
 #[async_trait::async_trait]
 impl<T: TokenProvider + 'static> TokenProvider for TokenProviderWithRetry<T> {
     async fn token(&self) -> Result<Token> {
-        self.execute_retry_loop(self.retry_policy.clone()).await
+        self.execute_retry_loop().await
     }
 }
 
@@ -103,7 +103,7 @@ impl<T> TokenProviderWithRetry<T>
 where
     T: TokenProvider,
 {
-    async fn execute_retry_loop(&self, retry_policy: Arc<dyn RetryPolicy>) -> Result<Token> {
+    async fn execute_retry_loop(&self) -> Result<Token> {
         let inner = self.inner.clone();
         let sleep = async |d| tokio::time::sleep(d).await;
         let fetch_token = move |_| {
@@ -121,7 +121,7 @@ where
             sleep,
             true, // token fetching is idempotent
             self.retry_throttler.clone(),
-            retry_policy,
+            self.retry_policy.clone(),
             self.backoff_policy.clone(),
         )
         .await
@@ -133,14 +133,15 @@ where
             return CredentialsError::from_source(false, e);
         }
 
-        let msg = match e
+        match e
             .source()
             .and_then(|s| s.downcast_ref::<CredentialsError>())
         {
-            Some(cred_error) if cred_error.is_transient() => constants::RETRY_EXHAUSTED_ERROR,
-            _ => constants::TOKEN_FETCH_FAILED_ERROR,
-        };
-        CredentialsError::new(false, msg, e)
+            Some(cred_error) if cred_error.is_transient() => {
+                CredentialsError::new(true, constants::RETRY_EXHAUSTED_ERROR, e)
+            }
+            _ => CredentialsError::new(false, constants::TOKEN_FETCH_FAILED_ERROR, e),
+        }
     }
 }
 
@@ -286,7 +287,7 @@ mod tests {
             .build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
-        assert!(!error.is_transient());
+        assert!(error.is_transient());
         let original_error = find_source_error::<CredentialsError>(&error).unwrap();
         assert!(original_error.is_transient());
         assert!(error.to_string().contains(constants::RETRY_EXHAUSTED_ERROR));
@@ -350,7 +351,7 @@ mod tests {
         let provider = Builder::default().build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
-        assert!(!error.is_transient());
+        assert!(error.is_transient());
         let original_error = find_source_error::<CredentialsError>(&error).unwrap();
         assert!(original_error.is_transient());
     }

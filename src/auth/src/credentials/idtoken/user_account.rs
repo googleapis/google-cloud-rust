@@ -422,7 +422,7 @@ mod tests {
             .build()?;
 
         let err = credentials.id_token().await.unwrap_err();
-        assert!(!err.is_transient());
+        assert!(err.is_transient());
 
         Ok(())
     }
