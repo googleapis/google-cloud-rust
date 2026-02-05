@@ -95,7 +95,7 @@ impl Builder {
 #[async_trait::async_trait]
 impl<T: TokenProvider + 'static> TokenProvider for TokenProviderWithRetry<T> {
     async fn token(&self) -> Result<Token> {
-        self.execute_retry_loop().await
+        self.execute_retry_loop(self.retry_policy.clone()).await
     }
 }
 
@@ -103,7 +103,7 @@ impl<T> TokenProviderWithRetry<T>
 where
     T: TokenProvider,
 {
-    async fn execute_retry_loop(&self) -> Result<Token> {
+    async fn execute_retry_loop(&self, retry_policy: Arc<dyn RetryPolicy>) -> Result<Token> {
         let inner = self.inner.clone();
         let sleep = async |d| tokio::time::sleep(d).await;
         let fetch_token = move |_| {
@@ -121,7 +121,7 @@ where
             sleep,
             true, // token fetching is idempotent
             self.retry_throttler.clone(),
-            self.retry_policy.clone(),
+            retry_policy,
             self.backoff_policy.clone(),
         )
         .await
