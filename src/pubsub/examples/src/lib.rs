@@ -14,6 +14,7 @@
 
 pub mod quickstart_publisher;
 pub mod quickstart_subscriber;
+mod subscription;
 mod topic;
 
 use google_cloud_gax::paginator::ItemPaginator as _;
@@ -29,6 +30,21 @@ pub async fn run_topic_examples(topic_names: &mut Vec<String>) -> anyhow::Result
     let id = random_topic_id();
     topic_names.push(format!("projects/{project_id}/topics/{id}"));
     topic::create_topic::sample(&client, &project_id, &id).await?;
+
+    Ok(())
+}
+
+pub async fn run_subscription_examples(
+    subscription_names: &mut Vec<String>,
+    topic_name: String,
+) -> anyhow::Result<()> {
+    let client = SubscriptionAdmin::builder().build().await?;
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+
+    let topic_id = topic_name.split("/").last().unwrap();
+    let id = random_subscription_id();
+    subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
+    subscription::create_pull_subscription::sample(&client, &project_id, topic_id, &id).await?;
 
     Ok(())
 }
