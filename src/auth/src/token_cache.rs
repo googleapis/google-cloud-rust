@@ -32,7 +32,6 @@ const SHORT_REFRESH_SLACK: Duration = Duration::from_secs(10);
 #[derive(Debug, Clone)]
 pub(crate) struct TokenCache {
     rx_token: watch::Receiver<Option<Result<(Token, EntityTag)>>>,
-    notify: Arc<tokio::sync::Notify>,
 }
 
 impl TokenCache {
@@ -42,15 +41,13 @@ impl TokenCache {
     {
         let (tx_token, rx_token) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
         let token_provider = Arc::new(inner);
-        let notify = Arc::new(tokio::sync::Notify::new());
 
-        tokio::spawn(refresh_task(token_provider, tx_token, notify.clone()));
+        tokio::spawn(refresh_task(token_provider, tx_token));
 
-        Self { rx_token, notify }
+        Self { rx_token }
     }
 
     async fn latest_token_and_entity_tag(&self) -> Result<(Token, EntityTag)> {
-        self.notify.notify_one();
         let mut rx = self.rx_token.clone();
         let token_result = rx.borrow_and_update().clone();
         if let Some(token_result) = token_result {
@@ -99,7 +96,6 @@ async fn wait_for_next_token(
 async fn refresh_task<T>(
     token_provider: Arc<T>,
     tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
-    notify: Arc<tokio::sync::Notify>,
 ) where
     T: TokenProvider + Send + Sync + 'static,
 {
@@ -146,7 +142,7 @@ async fn refresh_task<T>(
                 if !err.is_transient() {
                     break;
                 }
-                notify.notified().await;
+                sleep(SHORT_REFRESH_SLACK).await;
             }
         }
     }
@@ -382,10 +378,9 @@ mod tests {
             .return_once(|| Ok(token2_clone));
 
         let (tx, mut rx) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
-        let notify = Arc::new(tokio::sync::Notify::new());
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock), tx, notify).await;
+            refresh_task(Arc::new(mock), tx).await;
         });
 
         // Give the refresh task a chance to run
@@ -442,14 +437,13 @@ mod tests {
             .return_once(|| Ok(token3_clone));
 
         let (tx, mut rx) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
-        let notify = Arc::new(tokio::sync::Notify::new());
 
         // check that channel has None before refresh task starts
         let actual = rx.borrow().clone();
         assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock), tx, notify).await;
+            refresh_task(Arc::new(mock), tx).await;
         });
 
         rx.changed().await.unwrap();
@@ -517,14 +511,13 @@ mod tests {
             .return_once(|| Ok(token2_clone));
 
         let (tx, mut rx) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
-        let notify = Arc::new(tokio::sync::Notify::new());
 
         // check that channel has None before refresh task starts
         let actual = rx.borrow().clone();
         assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock), tx, notify).await;
+            refresh_task(Arc::new(mock), tx).await;
         });
 
         rx.changed().await.unwrap();
@@ -583,14 +576,13 @@ mod tests {
             .return_once(|| Ok(token2_clone));
 
         let (tx, mut rx) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
-        let notify = Arc::new(tokio::sync::Notify::new());
 
         // check that channel has None before refresh task starts
         let actual = rx.borrow().clone();
         assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock), tx, notify).await;
+            refresh_task(Arc::new(mock), tx).await;
         });
 
         rx.changed().await.unwrap();
@@ -610,7 +602,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn refresh_task_blocks_on_transient_error_and_wakes_up_on_request() -> TestResult {
+    async fn refresh_task_sleeps_on_transient_error_and_recovers_on_next_loop() -> TestResult {
         let now = Instant::now();
 
         let token = Token {
@@ -638,7 +630,7 @@ mod tests {
             metadata: None,
         };
 
-        // 3rd request (triggered by waking up the task) succeeds
+        // 3rd request (triggered by next loop) succeeds
         mock.expect_token()
             .times(1)
             .return_once(move || Ok(token.clone()));
@@ -653,9 +645,14 @@ mod tests {
         let sleep = TOKEN_VALID_DURATION.add(Duration::from_secs(10));
         tokio::time::advance(sleep).await;
 
-        // try again. Last fetch failed and background loop is blocked,
-        // so calling `token` triggers `self.notify.notify_one()`,
-        // waking up the blocked background task, which will successfully fetch `token2`.
+        let result = cache.token(Extensions::new()).await;
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("transient error"));
+
+        // Wait another SHORT_REFRESH_SLACK + buffer for the background loop to try again and recover
+        tokio::time::advance(SHORT_REFRESH_SLACK.add(Duration::from_secs(10))).await;
+        tokio::task::yield_now().await;
+
         let actual = get_cached_token(cache.token(Extensions::new()).await.unwrap())?;
         assert_eq!(actual.token, "token-2");
 
