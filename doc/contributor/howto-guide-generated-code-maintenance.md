@@ -32,12 +32,12 @@ You need to look at the [API list] for the pinned version of librarian, if the
 API is not in the list:
 
 1. Send a PR adding the API to librarian.
-1. Send a PR to update `.librarian-version.txt`.
+2. Send a PR to update `.librarian-version.txt`.
 
 ### Generate
 
 Define the library's name. Note this should match the directory path where the
-code lives delimited by "-" e.g. google-cloud-kms-v1:
+code, e.g. google/cloud/kms/v1:
 
 ```bash
 library=... 
