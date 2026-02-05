@@ -45,4 +45,28 @@ mod tests {
         }
         result
     }
+
+    #[tokio::test]
+    async fn quickstart_subscriber() -> anyhow::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+
+        let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
+        let (subscription_admin, subscription) =
+            pubsub_samples::create_test_subscription(topic.name.clone()).await?;
+
+        let topic_id = topic.name.split('/').last().unwrap();
+        let subscription_id = subscription.name.split('/').last().unwrap();
+
+        quickstart_publisher::sample(&project_id, topic_id).await?;
+
+        let result = quickstart_subscriber::sample(&project_id, subscription_id).await;
+
+        if let Err(e) = cleanup_test_subscription(&subscription_admin, subscription.name).await {
+            println!("Error cleaning up test subscription {e:?}");
+        }
+        if let Err(e) = cleanup_test_topic(&topic_admin, topic.name).await {
+            println!("Error cleaning up test topic {e:?}");
+        }
+        result
+    }
 }
