@@ -1162,6 +1162,7 @@ libraries:
             - .google.pubsub.v1.Subscriber.StreamingPull
             - .google.pubsub.v1.Subscriber.Acknowledge
             - .google.pubsub.v1.Subscriber.ModifyAckDeadline
+          internal_builders: true
           output: src/pubsub/src/generated/gapic_dataplane
           service_config: google/pubsub/v1/pubsub_v1.yaml
           source: google/pubsub/v1
