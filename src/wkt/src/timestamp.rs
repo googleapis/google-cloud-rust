@@ -677,14 +677,14 @@ mod tests {
     fn deserialize_out_of_range(input: &str) -> Result {
         let value = serde_json::to_value(input)?;
         let got = serde_json::from_value::<Timestamp>(value);
-        assert!(got.is_err());
+        assert!(got.is_err(), "{got:?}");
         Ok(())
     }
 
     #[test]
     fn deserialize_unexpected_input_type() -> Result {
         let got = serde_json::from_value::<Timestamp>(serde_json::json!({}));
-        assert!(got.is_err());
+        assert!(got.is_err(), "{got:?}");
         let msg = format!("{got:?}");
         assert!(msg.contains("RFC 3339"), "message={msg}");
         Ok(())

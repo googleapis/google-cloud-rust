@@ -50,7 +50,7 @@ pub async fn run() -> Result<()> {
         .name
         .as_ref()
         .and_then(|s| s.strip_suffix(format!("/secrets/{secret_id}").as_str()));
-    assert!(project_name.is_some());
+    assert!(project_name.is_some(), "{create:?}");
 
     println!("\nTesting get_secret()");
     let get = client
@@ -61,7 +61,7 @@ pub async fn run() -> Result<()> {
         .await?;
     println!("GET = {get:?}");
     assert_eq!(get, create);
-    assert!(get.name.is_some());
+    assert!(get.name.is_some(), "{get:?}");
 
     let secret_name = get.name.as_ref().unwrap().clone();
 

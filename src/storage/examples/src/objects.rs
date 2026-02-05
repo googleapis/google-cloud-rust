@@ -27,6 +27,8 @@ pub mod download_public_file;
 pub mod file_download_into_memory;
 pub mod file_upload_from_memory;
 pub mod generate_encryption_key;
+pub mod generate_signed_url_v4;
+pub mod generate_upload_signed_url_v4;
 pub mod get_kms_key;
 pub mod get_metadata;
 pub mod get_object_contexts;

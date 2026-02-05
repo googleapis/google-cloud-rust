@@ -481,9 +481,7 @@ impl DatasetService {
         super::builder::dataset_service::GetAnnotationSpec::new(self.inner.clone())
     }
 
-    /// Lists Annotations belongs to a dataitem
-    /// This RPC is only available in InternalDatasetService. It is only used for
-    /// exporting conversation data to CCAI Insights.
+    /// Lists Annotations belongs to a dataitem.
     pub fn list_annotations(&self) -> super::builder::dataset_service::ListAnnotations {
         super::builder::dataset_service::ListAnnotations::new(self.inner.clone())
     }

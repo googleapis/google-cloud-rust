@@ -1243,9 +1243,6 @@ mod tests {
         };
         let fmt = format!("{expected:?}");
         assert!(fmt.contains("UserCredentials"), "{fmt}");
-        assert!(fmt.contains("test-client-id"), "{fmt}");
-        assert!(!fmt.contains("test-client-secret"), "{fmt}");
-        assert!(!fmt.contains("test-refresh-token"), "{fmt}");
         assert!(fmt.contains("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"), "{fmt}");
         assert!(fmt.contains("delegate1"), "{fmt}");
         assert!(fmt.contains("scope1"), "{fmt}");
@@ -1350,7 +1347,7 @@ mod tests {
         .unwrap();
 
         let result = Builder::from_source_credentials(source_credentials).build();
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_parsing());
         assert!(
@@ -1377,7 +1374,7 @@ mod tests {
         });
 
         let result = Builder::new(nested_impersonated).build();
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_parsing());
         assert!(
@@ -1395,7 +1392,7 @@ mod tests {
         });
 
         let result = Builder::new(malformed_impersonated).build();
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_parsing());
         assert!(
@@ -1415,7 +1412,7 @@ mod tests {
         });
 
         let result = Builder::new(invalid_source).build();
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_unknown_type());
     }

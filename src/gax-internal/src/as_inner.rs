@@ -43,51 +43,51 @@ mod tests {
 
         let err = WrappedError::Inner(err.into());
         let inner = as_inner::<BaseError, _>(&err);
-        assert!(inner.is_some());
+        assert!(inner.is_some(), "{err:?}");
 
         let err = WrappedError::Inner(err.into());
         let inner = as_inner::<BaseError, _>(&err);
-        assert!(inner.is_some());
+        assert!(inner.is_some(), "{err:?}");
 
         let err = WrappedError::Inner(err.into());
         let inner = as_inner::<BaseError, _>(&err);
-        assert!(inner.is_some());
+        assert!(inner.is_some(), "{err:?}");
     }
 
     #[test]
     fn simple_not_found() {
         let err = WrappedError::Inner("not a BaseError".into());
         let inner = as_inner::<BaseError, _>(&err);
-        assert!(inner.is_none());
+        assert!(inner.is_none(), "{err:?}");
 
         let err = WrappedError::Inner(err.into());
         let inner = as_inner::<BaseError, _>(&err);
-        assert!(inner.is_none());
+        assert!(inner.is_none(), "{err:?}");
 
         let err = WrappedError::Inner(err.into());
         let inner = as_inner::<BaseError, _>(&err);
-        assert!(inner.is_none());
+        assert!(inner.is_none(), "{err:?}");
     }
 
     #[test]
     fn at_least_one_level_deep() {
         let err = BaseError::BaseError;
         let inner = as_inner::<BaseError, _>(&err);
-        assert!(inner.is_none());
+        assert!(inner.is_none(), "{err:?}");
     }
 
     #[test]
     fn first_matching_type() {
         let err = RecursiveError;
         let inner = as_inner::<RecursiveError, _>(&err);
-        assert!(inner.is_some());
+        assert!(inner.is_some(), "{err:?}");
     }
 
     #[test]
     fn avoid_infinite_loops() {
         let err = RecursiveError;
         let inner = as_inner::<BaseError, _>(&err);
-        assert!(inner.is_none());
+        assert!(inner.is_none(), "{err:?}");
     }
 
     #[derive(Debug, thiserror::Error)]

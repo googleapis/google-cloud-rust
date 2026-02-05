@@ -523,9 +523,7 @@ impl<'de> serde::de::Deserialize<'de>
                                     "multiple values for severity",
                                 ));
                             }
-                            result.severity = map
-                                .next_value::<std::option::Option<grafeas::model::Severity>>()?
-                                .unwrap_or_default();
+                            result.severity = map.next_value::<std::option::Option<google_cloud_grafeas_v1::model::Severity>>()?.unwrap_or_default();
                         }
                         __FieldTag::__fixable_count => {
                             if !fields.insert(__FieldTag::__fixable_count) {

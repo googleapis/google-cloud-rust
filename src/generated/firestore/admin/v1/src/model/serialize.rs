@@ -191,6 +191,18 @@ impl serde::ser::Serialize for super::Database {
         if !wkt::internal::is_default(&self.database_edition) {
             state.serialize_entry("databaseEdition", &self.database_edition)?;
         }
+        if !wkt::internal::is_default(&self.realtime_updates_mode) {
+            state.serialize_entry("realtimeUpdatesMode", &self.realtime_updates_mode)?;
+        }
+        if !wkt::internal::is_default(&self.firestore_data_access_mode) {
+            state.serialize_entry("firestoreDataAccessMode", &self.firestore_data_access_mode)?;
+        }
+        if !wkt::internal::is_default(&self.mongodb_compatible_data_access_mode) {
+            state.serialize_entry(
+                "mongodbCompatibleDataAccessMode",
+                &self.mongodb_compatible_data_access_mode,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1532,6 +1544,9 @@ impl serde::ser::Serialize for super::Index {
                 }
             }
             state.serialize_entry("shardCount", &__With(&self.shard_count))?;
+        }
+        if !wkt::internal::is_default(&self.unique) {
+            state.serialize_entry("unique", &self.unique)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

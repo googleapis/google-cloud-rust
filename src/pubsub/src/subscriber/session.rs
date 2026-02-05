@@ -132,8 +132,8 @@ impl Session {
 
     /// Returns the next message received on this subscription.
     ///
-    /// The message data is returned along with a [Handler] for acknowledging
-    /// (ack) or rejecting (nack) the message.
+    /// Returns the message data along with a [Handler] for acknowledging (ack) the message.
+    /// Dropping the [Handler] without acknowledging it will reject (nack) the message.
     ///
     /// If the underlying stream encounters a permanent error, an `Error` is
     /// returned instead.
@@ -369,7 +369,10 @@ mod tests {
         assert_eq!(initial_req.stream_ack_deadline_seconds, 20);
         assert_eq!(initial_req.max_outstanding_messages, 2000);
         assert_eq!(initial_req.max_outstanding_bytes, 200 * MIB);
-        assert!(!initial_req.client_id.is_empty());
+        assert!(
+            !initial_req.client_id.is_empty(),
+            "initial request has empty client id: {initial_req:?}"
+        );
         assert!(
             initial_req.protocol_version >= 1,
             "protocol_version={}",
@@ -406,7 +409,7 @@ mod tests {
             let (m, Handler::AtLeastOnce(h)) =
                 session.next().await.transpose()?.expect("message {i}/6");
             assert_eq!(m.data, test_data(i));
-            assert_eq!(h.ack_id, test_id(i));
+            assert_eq!(h.ack_id(), test_id(i));
             h.ack();
         }
         let end = session.next().await.transpose()?;
@@ -469,7 +472,7 @@ mod tests {
             let Some((_, Handler::AtLeastOnce(h))) = session.next().await.transpose()? else {
                 anyhow::bail!("expected message {i}")
             };
-            h.nack();
+            drop(h);
         }
         // Take a long time to process some messages
         let mut hold = Vec::new();
@@ -491,7 +494,7 @@ mod tests {
         let ack_req = ack_rx.try_recv()?;
         assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
         assert_eq!(sorted(ack_req.ack_ids), test_ids(0..10));
-        assert!(ack_rx.is_empty());
+        assert!(ack_rx.is_empty(), "{ack_rx:?}");
 
         // Verify the initial nacks went through.
         let nack_req = nack_rx.try_recv()?;
@@ -504,7 +507,7 @@ mod tests {
         assert_eq!(nack_req.subscription, "projects/p/subscriptions/s");
         assert_eq!(nack_req.ack_deadline_seconds, 0);
         assert_eq!(sorted(nack_req.ack_ids), test_ids(20..30));
-        assert!(nack_rx.is_empty());
+        assert!(nack_rx.is_empty(), "{nack_rx:?}");
 
         // Verify at least one lease extension attempt was made.
         let extend_req = extend_rx.try_recv()?;
@@ -539,7 +542,7 @@ mod tests {
             .transpose()?
             .expect("stream should wait for a message");
         assert_eq!(m.data, test_data(1));
-        assert_eq!(h.ack_id, test_id(1));
+        assert_eq!(h.ack_id(), test_id(1));
 
         handle.await??;
 
@@ -567,7 +570,7 @@ mod tests {
             let (m, Handler::AtLeastOnce(h)) =
                 session.next().await.transpose()?.expect("message {i}/6");
             assert_eq!(m.data, test_data(i));
-            assert_eq!(h.ack_id, test_id(i));
+            assert_eq!(h.ack_id(), test_id(i));
         }
         drop(response_tx);
         let end = session.next().await.transpose()?;
@@ -597,7 +600,7 @@ mod tests {
             let (m, Handler::AtLeastOnce(h)) =
                 session.next().await.transpose()?.expect("message {i}/2");
             assert_eq!(m.data, test_data(i));
-            assert_eq!(h.ack_id, test_id(i));
+            assert_eq!(h.ack_id(), test_id(i));
         }
         let end = session.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
@@ -645,7 +648,7 @@ mod tests {
             let (m, Handler::AtLeastOnce(h)) =
                 session.next().await.transpose()?.expect("message {i}/6");
             assert_eq!(m.data, test_data(i));
-            assert_eq!(h.ack_id, test_id(i));
+            assert_eq!(h.ack_id(), test_id(i));
             handlers.push(h);
         }
         let end = session.next().await.transpose()?;
@@ -689,7 +692,7 @@ mod tests {
             let (m, Handler::AtLeastOnce(h)) =
                 session.next().await.transpose()?.expect("message {i}/3");
             assert_eq!(m.data, test_data(i));
-            assert_eq!(h.ack_id, test_id(i));
+            assert_eq!(h.ack_id(), test_id(i));
         }
         let err = session
             .next()
@@ -754,7 +757,7 @@ mod tests {
         // Advance the time far enough to expect a keepalive ping, if the
         // keepalive task was still running.
         tokio::time::advance(4 * KEEPALIVE_PERIOD).await;
-        assert!(recover_writes_rx.is_empty());
+        assert!(recover_writes_rx.is_empty(), "{recover_writes_rx:?}");
 
         Ok(())
     }

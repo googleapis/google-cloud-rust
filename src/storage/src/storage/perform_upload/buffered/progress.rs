@@ -491,13 +491,11 @@ mod tests {
         let mut payload = Payload::from(new_line(0, 2048));
         upload.next_buffer(&mut payload).await?;
         assert_eq!(upload.range_header(), "bytes 0-1023/*", "{upload:?}");
-        let handled = upload.handle_partial(1024);
-        assert!(handled.is_ok(), "{handled:?}");
+        upload.handle_partial(1024)?;
 
         upload.next_buffer(&mut Payload::from("")).await?;
         assert_eq!(upload.range_header(), "bytes 1024-2047/*", "{upload:?}");
-        let handled = upload.handle_partial(2048);
-        assert!(handled.is_ok(), "{handled:?}");
+        upload.handle_partial(2048)?;
 
         upload.next_buffer(&mut payload).await?;
         assert_eq!(upload.range_header(), "bytes */2048", "{upload:?}");
@@ -510,13 +508,11 @@ mod tests {
         let mut payload = Payload::from(new_line(0, 2058));
         upload.next_buffer(&mut payload).await?;
         assert_eq!(upload.range_header(), "bytes 0-1023/*", "{upload:?}");
-        let handled = upload.handle_partial(1024);
-        assert!(handled.is_ok(), "{handled:?}");
+        upload.handle_partial(1024)?;
 
         upload.next_buffer(&mut Payload::from("")).await?;
         assert_eq!(upload.range_header(), "bytes 1024-2047/*", "{upload:?}");
-        let handled = upload.handle_partial(2048);
-        assert!(handled.is_ok(), "{handled:?}");
+        upload.handle_partial(2048)?;
 
         upload.next_buffer(&mut payload).await?;
         assert_eq!(upload.range_header(), "bytes 2048-2057/2058", "{upload:?}");

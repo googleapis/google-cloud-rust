@@ -21,8 +21,8 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_oslogin_common;
 extern crate lazy_static;
-extern crate oslogin_common;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -43,11 +43,13 @@ pub struct LoginProfile {
     pub name: std::string::String,
 
     /// The list of POSIX accounts associated with the user.
-    pub posix_accounts: std::vec::Vec<oslogin_common::model::PosixAccount>,
+    pub posix_accounts: std::vec::Vec<google_cloud_oslogin_common::model::PosixAccount>,
 
     /// A map from SSH public key fingerprint to the associated key object.
-    pub ssh_public_keys:
-        std::collections::HashMap<std::string::String, oslogin_common::model::SshPublicKey>,
+    pub ssh_public_keys: std::collections::HashMap<
+        std::string::String,
+        google_cloud_oslogin_common::model::SshPublicKey,
+    >,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -74,7 +76,7 @@ impl LoginProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::LoginProfile;
-    /// use oslogin_common::model::PosixAccount;
+    /// use google_cloud_oslogin_common::model::PosixAccount;
     /// let x = LoginProfile::new()
     ///     .set_posix_accounts([
     ///         PosixAccount::default()/* use setters */,
@@ -84,7 +86,7 @@ impl LoginProfile {
     pub fn set_posix_accounts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<oslogin_common::model::PosixAccount>,
+        V: std::convert::Into<google_cloud_oslogin_common::model::PosixAccount>,
     {
         use std::iter::Iterator;
         self.posix_accounts = v.into_iter().map(|i| i.into()).collect();
@@ -96,7 +98,7 @@ impl LoginProfile {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::LoginProfile;
-    /// use oslogin_common::model::SshPublicKey;
+    /// use google_cloud_oslogin_common::model::SshPublicKey;
     /// let x = LoginProfile::new().set_ssh_public_keys([
     ///     ("key0", SshPublicKey::default()/* use setters */),
     ///     ("key1", SshPublicKey::default()/* use (different) setters */),
@@ -106,7 +108,7 @@ impl LoginProfile {
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
         K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        V: std::convert::Into<google_cloud_oslogin_common::model::SshPublicKey>,
     {
         use std::iter::Iterator;
         self.ssh_public_keys = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
@@ -128,7 +130,7 @@ pub struct CreateSshPublicKeyRequest {
     pub parent: std::string::String,
 
     /// Required. The SSH public key and expiration time.
-    pub ssh_public_key: std::option::Option<oslogin_common::model::SshPublicKey>,
+    pub ssh_public_key: std::option::Option<google_cloud_oslogin_common::model::SshPublicKey>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -155,12 +157,12 @@ impl CreateSshPublicKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::CreateSshPublicKeyRequest;
-    /// use oslogin_common::model::SshPublicKey;
+    /// use google_cloud_oslogin_common::model::SshPublicKey;
     /// let x = CreateSshPublicKeyRequest::new().set_ssh_public_key(SshPublicKey::default()/* use setters */);
     /// ```
     pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        T: std::convert::Into<google_cloud_oslogin_common::model::SshPublicKey>,
     {
         self.ssh_public_key = std::option::Option::Some(v.into());
         self
@@ -171,13 +173,13 @@ impl CreateSshPublicKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::CreateSshPublicKeyRequest;
-    /// use oslogin_common::model::SshPublicKey;
+    /// use google_cloud_oslogin_common::model::SshPublicKey;
     /// let x = CreateSshPublicKeyRequest::new().set_or_clear_ssh_public_key(Some(SshPublicKey::default()/* use setters */));
     /// let x = CreateSshPublicKeyRequest::new().set_or_clear_ssh_public_key(None::<SshPublicKey>);
     /// ```
     pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        T: std::convert::Into<google_cloud_oslogin_common::model::SshPublicKey>,
     {
         self.ssh_public_key = v.map(|x| x.into());
         self
@@ -370,7 +372,7 @@ pub struct ImportSshPublicKeyRequest {
     pub parent: std::string::String,
 
     /// Optional. The SSH public key and expiration time.
-    pub ssh_public_key: std::option::Option<oslogin_common::model::SshPublicKey>,
+    pub ssh_public_key: std::option::Option<google_cloud_oslogin_common::model::SshPublicKey>,
 
     /// The project ID of the Google Cloud Platform project.
     pub project_id: std::string::String,
@@ -405,12 +407,12 @@ impl ImportSshPublicKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::ImportSshPublicKeyRequest;
-    /// use oslogin_common::model::SshPublicKey;
+    /// use google_cloud_oslogin_common::model::SshPublicKey;
     /// let x = ImportSshPublicKeyRequest::new().set_ssh_public_key(SshPublicKey::default()/* use setters */);
     /// ```
     pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        T: std::convert::Into<google_cloud_oslogin_common::model::SshPublicKey>,
     {
         self.ssh_public_key = std::option::Option::Some(v.into());
         self
@@ -421,13 +423,13 @@ impl ImportSshPublicKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::ImportSshPublicKeyRequest;
-    /// use oslogin_common::model::SshPublicKey;
+    /// use google_cloud_oslogin_common::model::SshPublicKey;
     /// let x = ImportSshPublicKeyRequest::new().set_or_clear_ssh_public_key(Some(SshPublicKey::default()/* use setters */));
     /// let x = ImportSshPublicKeyRequest::new().set_or_clear_ssh_public_key(None::<SshPublicKey>);
     /// ```
     pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        T: std::convert::Into<google_cloud_oslogin_common::model::SshPublicKey>,
     {
         self.ssh_public_key = v.map(|x| x.into());
         self
@@ -549,7 +551,7 @@ pub struct UpdateSshPublicKeyRequest {
     pub name: std::string::String,
 
     /// Required. The SSH public key and expiration time.
-    pub ssh_public_key: std::option::Option<oslogin_common::model::SshPublicKey>,
+    pub ssh_public_key: std::option::Option<google_cloud_oslogin_common::model::SshPublicKey>,
 
     /// Mask to control which fields get updated. Updates all if not present.
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -579,12 +581,12 @@ impl UpdateSshPublicKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::UpdateSshPublicKeyRequest;
-    /// use oslogin_common::model::SshPublicKey;
+    /// use google_cloud_oslogin_common::model::SshPublicKey;
     /// let x = UpdateSshPublicKeyRequest::new().set_ssh_public_key(SshPublicKey::default()/* use setters */);
     /// ```
     pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        T: std::convert::Into<google_cloud_oslogin_common::model::SshPublicKey>,
     {
         self.ssh_public_key = std::option::Option::Some(v.into());
         self
@@ -595,13 +597,13 @@ impl UpdateSshPublicKeyRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oslogin_v1::model::UpdateSshPublicKeyRequest;
-    /// use oslogin_common::model::SshPublicKey;
+    /// use google_cloud_oslogin_common::model::SshPublicKey;
     /// let x = UpdateSshPublicKeyRequest::new().set_or_clear_ssh_public_key(Some(SshPublicKey::default()/* use setters */));
     /// let x = UpdateSshPublicKeyRequest::new().set_or_clear_ssh_public_key(None::<SshPublicKey>);
     /// ```
     pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        T: std::convert::Into<google_cloud_oslogin_common::model::SshPublicKey>,
     {
         self.ssh_public_key = v.map(|x| x.into());
         self

@@ -23,6 +23,12 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListMembershipsResponse>>;
 
+    async fn list_bound_memberships(
+        &self,
+        req: crate::model::ListBoundMembershipsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListBoundMembershipsResponse>>;
+
     async fn list_features(
         &self,
         req: crate::model::ListFeaturesRequest,
@@ -83,6 +89,200 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::GenerateConnectManifestResponse>>;
 
+    async fn create_fleet(
+        &self,
+        req: crate::model::CreateFleetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_fleet(
+        &self,
+        req: crate::model::GetFleetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Fleet>>;
+
+    async fn update_fleet(
+        &self,
+        req: crate::model::UpdateFleetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_fleet(
+        &self,
+        req: crate::model::DeleteFleetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn list_fleets(
+        &self,
+        req: crate::model::ListFleetsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListFleetsResponse>>;
+
+    async fn get_scope_namespace(
+        &self,
+        req: crate::model::GetScopeNamespaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Namespace>>;
+
+    async fn create_scope_namespace(
+        &self,
+        req: crate::model::CreateScopeNamespaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_scope_namespace(
+        &self,
+        req: crate::model::UpdateScopeNamespaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_scope_namespace(
+        &self,
+        req: crate::model::DeleteScopeNamespaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn list_scope_namespaces(
+        &self,
+        req: crate::model::ListScopeNamespacesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListScopeNamespacesResponse>>;
+
+    async fn get_scope_rbac_role_binding(
+        &self,
+        req: crate::model::GetScopeRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::RBACRoleBinding>>;
+
+    async fn create_scope_rbac_role_binding(
+        &self,
+        req: crate::model::CreateScopeRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_scope_rbac_role_binding(
+        &self,
+        req: crate::model::UpdateScopeRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_scope_rbac_role_binding(
+        &self,
+        req: crate::model::DeleteScopeRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn list_scope_rbac_role_bindings(
+        &self,
+        req: crate::model::ListScopeRBACRoleBindingsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListScopeRBACRoleBindingsResponse>>;
+
+    async fn get_scope(
+        &self,
+        req: crate::model::GetScopeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Scope>>;
+
+    async fn create_scope(
+        &self,
+        req: crate::model::CreateScopeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_scope(
+        &self,
+        req: crate::model::UpdateScopeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_scope(
+        &self,
+        req: crate::model::DeleteScopeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn list_scopes(
+        &self,
+        req: crate::model::ListScopesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListScopesResponse>>;
+
+    async fn list_permitted_scopes(
+        &self,
+        req: crate::model::ListPermittedScopesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPermittedScopesResponse>>;
+
+    async fn get_membership_binding(
+        &self,
+        req: crate::model::GetMembershipBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::MembershipBinding>>;
+
+    async fn create_membership_binding(
+        &self,
+        req: crate::model::CreateMembershipBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_membership_binding(
+        &self,
+        req: crate::model::UpdateMembershipBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_membership_binding(
+        &self,
+        req: crate::model::DeleteMembershipBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn list_membership_bindings(
+        &self,
+        req: crate::model::ListMembershipBindingsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListMembershipBindingsResponse>>;
+
+    async fn get_membership_rbac_role_binding(
+        &self,
+        req: crate::model::GetMembershipRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::RBACRoleBinding>>;
+
+    async fn create_membership_rbac_role_binding(
+        &self,
+        req: crate::model::CreateMembershipRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_membership_rbac_role_binding(
+        &self,
+        req: crate::model::UpdateMembershipRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_membership_rbac_role_binding(
+        &self,
+        req: crate::model::DeleteMembershipRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn list_membership_rbac_role_bindings(
+        &self,
+        req: crate::model::ListMembershipRBACRoleBindingsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListMembershipRBACRoleBindingsResponse>>;
+
+    async fn generate_membership_rbac_role_binding_yaml(
+        &self,
+        req: crate::model::GenerateMembershipRBACRoleBindingYAMLRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<
+        gax::response::Response<crate::model::GenerateMembershipRBACRoleBindingYAMLResponse>,
+    >;
+
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
@@ -130,6 +330,15 @@ impl<T: super::GkeHub> GkeHub for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListMembershipsResponse>> {
         T::list_memberships(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_bound_memberships(
+        &self,
+        req: crate::model::ListBoundMembershipsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListBoundMembershipsResponse>> {
+        T::list_bound_memberships(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -220,6 +429,298 @@ impl<T: super::GkeHub> GkeHub for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::GenerateConnectManifestResponse>> {
         T::generate_connect_manifest(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_fleet(
+        &self,
+        req: crate::model::CreateFleetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_fleet(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_fleet(
+        &self,
+        req: crate::model::GetFleetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Fleet>> {
+        T::get_fleet(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_fleet(
+        &self,
+        req: crate::model::UpdateFleetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_fleet(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_fleet(
+        &self,
+        req: crate::model::DeleteFleetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_fleet(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_fleets(
+        &self,
+        req: crate::model::ListFleetsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListFleetsResponse>> {
+        T::list_fleets(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_scope_namespace(
+        &self,
+        req: crate::model::GetScopeNamespaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Namespace>> {
+        T::get_scope_namespace(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_scope_namespace(
+        &self,
+        req: crate::model::CreateScopeNamespaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_scope_namespace(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_scope_namespace(
+        &self,
+        req: crate::model::UpdateScopeNamespaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_scope_namespace(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_scope_namespace(
+        &self,
+        req: crate::model::DeleteScopeNamespaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_scope_namespace(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_scope_namespaces(
+        &self,
+        req: crate::model::ListScopeNamespacesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListScopeNamespacesResponse>> {
+        T::list_scope_namespaces(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_scope_rbac_role_binding(
+        &self,
+        req: crate::model::GetScopeRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::RBACRoleBinding>> {
+        T::get_scope_rbac_role_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_scope_rbac_role_binding(
+        &self,
+        req: crate::model::CreateScopeRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_scope_rbac_role_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_scope_rbac_role_binding(
+        &self,
+        req: crate::model::UpdateScopeRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_scope_rbac_role_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_scope_rbac_role_binding(
+        &self,
+        req: crate::model::DeleteScopeRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_scope_rbac_role_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_scope_rbac_role_bindings(
+        &self,
+        req: crate::model::ListScopeRBACRoleBindingsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListScopeRBACRoleBindingsResponse>>
+    {
+        T::list_scope_rbac_role_bindings(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_scope(
+        &self,
+        req: crate::model::GetScopeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Scope>> {
+        T::get_scope(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_scope(
+        &self,
+        req: crate::model::CreateScopeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_scope(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_scope(
+        &self,
+        req: crate::model::UpdateScopeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_scope(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_scope(
+        &self,
+        req: crate::model::DeleteScopeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_scope(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_scopes(
+        &self,
+        req: crate::model::ListScopesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListScopesResponse>> {
+        T::list_scopes(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_permitted_scopes(
+        &self,
+        req: crate::model::ListPermittedScopesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPermittedScopesResponse>> {
+        T::list_permitted_scopes(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_membership_binding(
+        &self,
+        req: crate::model::GetMembershipBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::MembershipBinding>> {
+        T::get_membership_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_membership_binding(
+        &self,
+        req: crate::model::CreateMembershipBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_membership_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_membership_binding(
+        &self,
+        req: crate::model::UpdateMembershipBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_membership_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_membership_binding(
+        &self,
+        req: crate::model::DeleteMembershipBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_membership_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_membership_bindings(
+        &self,
+        req: crate::model::ListMembershipBindingsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListMembershipBindingsResponse>> {
+        T::list_membership_bindings(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_membership_rbac_role_binding(
+        &self,
+        req: crate::model::GetMembershipRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::RBACRoleBinding>> {
+        T::get_membership_rbac_role_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_membership_rbac_role_binding(
+        &self,
+        req: crate::model::CreateMembershipRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_membership_rbac_role_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_membership_rbac_role_binding(
+        &self,
+        req: crate::model::UpdateMembershipRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_membership_rbac_role_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_membership_rbac_role_binding(
+        &self,
+        req: crate::model::DeleteMembershipRBACRoleBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_membership_rbac_role_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_membership_rbac_role_bindings(
+        &self,
+        req: crate::model::ListMembershipRBACRoleBindingsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListMembershipRBACRoleBindingsResponse>>
+    {
+        T::list_membership_rbac_role_bindings(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn generate_membership_rbac_role_binding_yaml(
+        &self,
+        req: crate::model::GenerateMembershipRBACRoleBindingYAMLRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<
+        gax::response::Response<crate::model::GenerateMembershipRBACRoleBindingYAMLResponse>,
+    > {
+        T::generate_membership_rbac_role_binding_yaml(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

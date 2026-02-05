@@ -200,8 +200,6 @@ pub(crate) struct BatchActorContext {
     batching_options: BatchingOptions,
     rx: mpsc::UnboundedReceiver<ToBatchActor>,
     pending_batch: Batch,
-    pending_msgs: VecDeque<BundledMessage>,
-    paused: bool,
 }
 
 impl BatchActorContext {
@@ -217,8 +215,6 @@ impl BatchActorContext {
             client,
             batching_options,
             rx,
-            pending_msgs: VecDeque::new(),
-            paused: false,
         }
     }
 
@@ -227,40 +223,6 @@ impl BatchActorContext {
         // message size (10MB), we should flush existing batch first.
         self.pending_batch.len() as u32 >= self.batching_options.message_count_threshold
             || self.pending_batch.size() >= self.batching_options.byte_threshold
-    }
-
-    // Move pending messages to the pending batch respecting batch thresholds.
-    pub(crate) fn move_to_batch(&mut self) {
-        while let Some(publish) = self.pending_msgs.pop_front() {
-            self.pending_batch.push(publish);
-            if self.at_batch_threshold() {
-                break;
-            }
-        }
-    }
-
-    // Pause publish operations.
-    pub(crate) fn pause(&mut self) {
-        self.paused = true;
-        while let Some(publish) = self.pending_msgs.pop_front() {
-            // The user may have dropped the handle, so it is ok if this fails.
-            let _ = publish
-                .tx
-                .send(Err(crate::error::PublishError::OrderingKeyPaused(())));
-        }
-    }
-
-    pub(crate) fn handle_inflight_join(
-        &mut self,
-        join_next_option: Option<Result<Result<(), gax::error::Error>, tokio::task::JoinError>>,
-    ) {
-        // If there was a JoinError or non-retryable error:
-        // 1. We need to pause publishing and send out errors for pending_msgs.
-        // 2. The pending batch should have sent out error for its messages.
-        // 3. The messages in rx will be handled when they are received.
-        if let Some(Err(_) | Ok(Err(_))) = join_next_option {
-            self.pause();
-        }
     }
 }
 
@@ -298,25 +260,26 @@ impl ConcurrentBatchActor {
     /// The loop terminates when the `rx` channel is closed, which happens when the
     /// Dispatcher drops the Sender.
     pub(crate) async fn run(mut self) {
+        // We have multiple inflight batches concurrently.
         let mut inflight = JoinSet::new();
-        // For messages without an ordering key, we can have multiple inflight batches concurrently.
         loop {
             tokio::select! {
+                // Remove completed inflight batches.
                 _ = inflight.join_next(), if !inflight.is_empty() => {
                     continue;
                 }
                 msg = self.context.rx.recv() => {
                     match msg {
                         Some(ToBatchActor::Publish(msg)) => {
-                            self.context.pending_msgs.push_back(msg);
-                            self.context.move_to_batch();
+                            self.move_to_batch(msg);
+                            // Flush without awaiting on previous batches.
                             if self.context.at_batch_threshold() {
-                                self.context.pending_batch.flush(self.context.client.clone(), self.context.topic.clone(), &mut inflight);
+                                self.flush(&mut inflight);
                             }
                         },
                         Some(ToBatchActor::Flush(tx)) => {
-                            // Send all the batches concurrently.
-                            self.flush(inflight).await;
+                            self.flush(&mut inflight);
+                            inflight.join_all().await;
                             inflight = JoinSet::new();
                             let _ = tx.send(());
                         },
@@ -326,7 +289,8 @@ impl ConcurrentBatchActor {
                         None => {
                             // This isn't guaranteed to execute if a user does not .await on the
                             // corresponding PublishHandles.
-                            self.flush(inflight).await;
+                            self.flush(&mut inflight);
+                            inflight.join_all().await;
                             break;
                         }
                     }
@@ -335,18 +299,20 @@ impl ConcurrentBatchActor {
         }
     }
 
-    // Flush the pending batch and pending messages by sending remaining
-    // messages in concurrent batches.
-    async fn flush(&mut self, mut inflight: JoinSet<Result<(), gax::error::Error>>) {
-        while !self.context.pending_batch.is_empty() || !self.context.pending_msgs.is_empty() {
-            self.context.move_to_batch();
+    // Flush the pending batch if it's not empty.
+    pub(crate) fn flush(&mut self, inflight: &mut JoinSet<Result<(), gax::error::Error>>) {
+        if !self.context.pending_batch.is_empty() {
             self.context.pending_batch.flush(
                 self.context.client.clone(),
                 self.context.topic.clone(),
-                &mut inflight,
+                inflight,
             );
         }
-        inflight.join_all().await;
+    }
+
+    // Move msg to the pending batch.
+    pub(crate) fn move_to_batch(&mut self, msg: BundledMessage) {
+        self.context.pending_batch.push(msg);
     }
 }
 
@@ -354,6 +320,8 @@ impl ConcurrentBatchActor {
 #[derive(Debug)]
 pub(crate) struct SequentialBatchActor {
     context: BatchActorContext,
+    pending_msgs: VecDeque<BundledMessage>,
+    paused: bool,
 }
 
 impl SequentialBatchActor {
@@ -365,6 +333,8 @@ impl SequentialBatchActor {
     ) -> Self {
         SequentialBatchActor {
             context: BatchActorContext::new(topic, client, batching_options, rx),
+            pending_msgs: VecDeque::new(),
+            paused: false,
         }
     }
 
@@ -392,7 +362,7 @@ impl SequentialBatchActor {
         // simplify the managing the inflight JoinHandle.
         let mut inflight: JoinSet<Result<(), gax::error::Error>> = JoinSet::new();
         loop {
-            if self.context.paused {
+            if self.paused {
                 // When paused, we do not need to check inflight as handle_inflight_join()
                 // ensures that there are no inflight batch.
                 let msg = self.context.rx.recv().await;
@@ -408,7 +378,7 @@ impl SequentialBatchActor {
                         let _ = tx.send(());
                     }
                     Some(ToBatchActor::ResumePublish()) => {
-                        self.context.paused = false;
+                        self.paused = false;
                     }
                     None => {
                         // There should be no pending messages and messages in the pending batch as
@@ -420,8 +390,8 @@ impl SequentialBatchActor {
             }
             tokio::select! {
                 join = inflight.join_next(), if !inflight.is_empty() => {
-                    self.context.handle_inflight_join(join);
-                    self.context.move_to_batch();
+                    self.handle_inflight_join(join);
+                    self.move_to_batch();
                     if self.context.at_batch_threshold() {
                         self.context.pending_batch.flush(self.context.client.clone(), self.context.topic.clone(), &mut inflight);
                     }
@@ -429,9 +399,9 @@ impl SequentialBatchActor {
                 msg = self.context.rx.recv() => {
                     match msg {
                         Some(ToBatchActor::Publish(msg)) => {
-                            self.context.pending_msgs.push_back(msg);
+                            self.pending_msgs.push_back(msg);
                             if inflight.is_empty() {
-                                self.context.move_to_batch();
+                                self.move_to_batch();
                                 if self.context.at_batch_threshold() {
                                     self.context.pending_batch.flush(self.context.client.clone(), self.context.topic.clone(), &mut inflight);
                                 }
@@ -459,17 +429,49 @@ impl SequentialBatchActor {
 
     // Flush the pending messages by sending the messages in sequential batches.
     async fn flush(&mut self, mut inflight: JoinSet<Result<(), gax::error::Error>>) {
-        self.context
-            .handle_inflight_join(inflight.join_next().await);
-        while !self.context.pending_batch.is_empty() || !self.context.pending_msgs.is_empty() {
-            self.context.move_to_batch();
+        self.handle_inflight_join(inflight.join_next().await);
+        while !self.context.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
+            self.move_to_batch();
             self.context.pending_batch.flush(
                 self.context.client.clone(),
                 self.context.topic.clone(),
                 &mut inflight,
             );
-            self.context
-                .handle_inflight_join(inflight.join_next().await);
+            self.handle_inflight_join(inflight.join_next().await);
+        }
+    }
+
+    // Move pending messages to the pending batch respecting batch thresholds.
+    pub(crate) fn move_to_batch(&mut self) {
+        while let Some(publish) = self.pending_msgs.pop_front() {
+            self.context.pending_batch.push(publish);
+            if self.context.at_batch_threshold() {
+                break;
+            }
+        }
+    }
+
+    // Pause publish operations.
+    pub(crate) fn pause(&mut self) {
+        self.paused = true;
+        while let Some(publish) = self.pending_msgs.pop_front() {
+            // The user may have dropped the handle, so it is ok if this fails.
+            let _ = publish
+                .tx
+                .send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+        }
+    }
+
+    pub(crate) fn handle_inflight_join(
+        &mut self,
+        join_next_option: Option<Result<Result<(), gax::error::Error>, tokio::task::JoinError>>,
+    ) {
+        // If there was a JoinError or non-retryable error:
+        // 1. We need to pause publishing and send out errors for pending_msgs.
+        // 2. The pending batch should have sent out error for its messages.
+        // 3. The messages in rx will be handled when they are received.
+        if let Some(Err(_) | Ok(Err(_))) = join_next_option {
+            self.pause();
         }
     }
 }
@@ -477,10 +479,14 @@ impl SequentialBatchActor {
 #[cfg(test)]
 mod tests {
     use super::{ConcurrentBatchActor, SequentialBatchActor};
+    use crate::publisher::actor::{BundledMessage, ToBatchActor};
+    use crate::publisher::options::BatchingOptions;
     use crate::{
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
-        publisher::options::BatchingOptions,
+        model::{PublishResponse, PubsubMessage},
     };
+
+    static TOPIC: &str = "my-topic";
 
     mockall::mock! {
         #[derive(Debug)]
@@ -490,6 +496,19 @@ mod tests {
         }
     }
 
+    fn publish_ok(
+        req: crate::model::PublishRequest,
+        _options: gax::options::RequestOptions,
+    ) -> gax::Result<gax::response::Response<crate::model::PublishResponse>> {
+        let ids = req
+            .messages
+            .iter()
+            .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+        Ok(gax::response::Response::from(
+            PublishResponse::new().set_message_ids(ids),
+        ))
+    }
+
     #[tokio::test]
     async fn basic() -> anyhow::Result<()> {
         let client = GapicPublisher::from_stub(MockGapicPublisher::new());
@@ -497,7 +516,7 @@ mod tests {
 
         let (_, rx) = tokio::sync::mpsc::unbounded_channel();
         let _ = ConcurrentBatchActor::new(
-            "topic".to_string(),
+            TOPIC.to_string(),
             client.clone(),
             batching_options.clone(),
             rx,
@@ -505,6 +524,91 @@ mod tests {
 
         let (_, rx) = tokio::sync::mpsc::unbounded_channel();
         let _ = SequentialBatchActor::new("topic".to_string(), client, batching_options, rx);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn concurrent_actor_publish() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
+            .returning(publish_ok)
+            .times(1);
+        let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
+        tokio::spawn(
+            ConcurrentBatchActor::new(
+                TOPIC.to_string(),
+                GapicPublisher::from_stub(mock),
+                BatchingOptions::default().set_message_count_threshold(1_u32),
+                actor_rx,
+            )
+            .run(),
+        );
+
+        let (publish_tx, publish_rx) = tokio::sync::oneshot::channel();
+        let bundle = BundledMessage {
+            msg: PubsubMessage::new().set_data("hello"),
+            tx: publish_tx,
+        };
+        actor_tx.send(ToBatchActor::Publish(bundle))?;
+        let res = publish_rx.await;
+        assert!(matches!(res, Ok(Ok(ref msg)) if msg == "hello"), "{res:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn concurrent_actor_flush() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
+            .returning(publish_ok)
+            .times(1);
+        let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
+        tokio::spawn(
+            ConcurrentBatchActor::new(
+                TOPIC.to_string(),
+                GapicPublisher::from_stub(mock),
+                BatchingOptions::default(),
+                actor_rx,
+            )
+            .run(),
+        );
+
+        // Flush on empty.
+        let (flush_tx, flush_rx) = tokio::sync::oneshot::channel();
+        actor_tx.send(ToBatchActor::Flush(flush_tx))?;
+        flush_rx.await?;
+
+        // Publish a message then Flush.
+        let (publish_tx, publish_rx) = tokio::sync::oneshot::channel();
+        let bundle = BundledMessage {
+            msg: PubsubMessage::new().set_data("hello"),
+            tx: publish_tx,
+        };
+        actor_tx.send(ToBatchActor::Publish(bundle))?;
+        let (flush_tx, flush_rx) = tokio::sync::oneshot::channel();
+        actor_tx.send(ToBatchActor::Flush(flush_tx))?;
+        flush_rx.await?;
+        let res = publish_rx.await;
+        assert!(matches!(res, Ok(Ok(ref msg)) if msg == "hello"), "{res:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn concurrent_actor_resume() -> anyhow::Result<()> {
+        let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
+        tokio::spawn(
+            ConcurrentBatchActor::new(
+                TOPIC.to_string(),
+                GapicPublisher::from_stub(MockGapicPublisher::new()),
+                BatchingOptions::default(),
+                actor_rx,
+            )
+            .run(),
+        );
+
+        actor_tx.send(ToBatchActor::ResumePublish())?;
         Ok(())
     }
 }

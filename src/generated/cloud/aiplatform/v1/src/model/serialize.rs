@@ -737,6 +737,39 @@ impl serde::ser::Serialize for super::Part {
         if let Some(value) = self.video_metadata() {
             state.serialize_entry("videoMetadata", value)?;
         }
+        if self.media_resolution.is_some() {
+            state.serialize_entry("mediaResolution", &self.media_resolution)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::part::MediaResolution {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.level() {
+            state.serialize_entry("level", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -844,6 +877,18 @@ impl serde::ser::Serialize for super::VideoMetadata {
         }
         if self.end_offset.is_some() {
             state.serialize_entry("endOffset", &self.end_offset)?;
+        }
+        if !wkt::internal::is_default(&self.fps) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("fps", &__With(&self.fps))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1027,8 +1072,54 @@ impl serde::ser::Serialize for super::ImageConfig {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.image_output_options.is_some() {
+            state.serialize_entry("imageOutputOptions", &self.image_output_options)?;
+        }
         if self.aspect_ratio.is_some() {
             state.serialize_entry("aspectRatio", &self.aspect_ratio)?;
+        }
+        if self.person_generation.is_some() {
+            state.serialize_entry("personGeneration", &self.person_generation)?;
+        }
+        if self.image_size.is_some() {
+            state.serialize_entry("imageSize", &self.image_size)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::image_config::ImageOutputOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.mime_type.is_some() {
+            state.serialize_entry("mimeType", &self.mime_type)?;
+        }
+        if self.compression_quality.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("compressionQuality", &__With(&self.compression_quality))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1194,6 +1285,15 @@ impl serde::ser::Serialize for super::GenerationConfig {
         if self.routing_config.is_some() {
             state.serialize_entry("routingConfig", &self.routing_config)?;
         }
+        if self.audio_timestamp.is_some() {
+            state.serialize_entry("audioTimestamp", &self.audio_timestamp)?;
+        }
+        if !self.response_modalities.is_empty() {
+            state.serialize_entry("responseModalities", &self.response_modalities)?;
+        }
+        if self.media_resolution.is_some() {
+            state.serialize_entry("mediaResolution", &self.media_resolution)?;
+        }
         if self.speech_config.is_some() {
             state.serialize_entry("speechConfig", &self.speech_config)?;
         }
@@ -1311,6 +1411,9 @@ impl serde::ser::Serialize for super::generation_config::ThinkingConfig {
                 }
             }
             state.serialize_entry("thinkingBudget", &__With(&self.thinking_budget))?;
+        }
+        if self.thinking_level.is_some() {
+            state.serialize_entry("thinkingLevel", &self.thinking_level)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

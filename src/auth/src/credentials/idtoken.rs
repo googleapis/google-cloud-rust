@@ -438,7 +438,7 @@ pub(crate) mod tests {
         let token = parse_id_token_from_str_impl(id_token.clone(), now)?;
 
         assert_eq!(token.token, id_token);
-        assert!(token.expires_at.is_some());
+        assert!(token.expires_at.is_some(), "{token:?}");
 
         let expires_at = token.expires_at.unwrap();
         let expiration = expires_at.duration_since(Instant::now());
@@ -468,7 +468,7 @@ pub(crate) mod tests {
         });
 
         let result = build_id_token_credentials(audience, false, Some(json));
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_not_supported());
         assert!(
@@ -496,7 +496,7 @@ pub(crate) mod tests {
         });
 
         let result = build_id_token_credentials(audience, false, Some(json));
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_not_supported());
         assert!(err.to_string().contains("external_account"));
@@ -512,7 +512,7 @@ pub(crate) mod tests {
         });
 
         let result = build_id_token_credentials(audience, false, Some(json));
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_unknown_type());
         assert!(err.to_string().contains("unknown_credential_type"));

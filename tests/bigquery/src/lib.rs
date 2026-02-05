@@ -45,7 +45,7 @@ pub async fn dataset_admin() -> Result<()> {
         .await?;
     println!("CREATE DATASET = {create:?}");
 
-    assert!(create.dataset_reference.is_some());
+    assert!(create.dataset_reference.is_some(), "{create:?}");
 
     let list = client
         .list_datasets()
@@ -200,7 +200,7 @@ pub async fn job_service() -> Result<()> {
         .await?;
     println!("CREATE JOB = {job:?}");
 
-    assert!(job.job_reference.is_some());
+    assert!(job.job_reference.is_some(), "{job:?}");
 
     let list = client
         .list_jobs()

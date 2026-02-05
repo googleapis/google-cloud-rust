@@ -613,9 +613,7 @@ async fn put_partial_and_recover() -> Result {
         .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .set_if_generation_match(0_i64)
         .with_resumable_upload_buffer_size(TARGET);
-    let response = upload.send_buffered().await;
-    assert!(response.is_ok(), "{response:?}");
-    let response = response?;
+    let response = upload.send_buffered().await?;
     assert_eq!(response.name, "test-object");
     assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
     assert_eq!(

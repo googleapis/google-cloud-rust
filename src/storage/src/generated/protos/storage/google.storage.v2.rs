@@ -168,6 +168,8 @@ pub struct ComposeObjectRequest {
     pub common_object_request_params: ::core::option::Option<CommonObjectRequestParams>,
     #[prost(message, optional, tag = "10")]
     pub object_checksums: ::core::option::Option<ObjectChecksums>,
+    #[prost(bool, optional, tag = "11")]
+    pub delete_source_objects: ::core::option::Option<bool>,
 }
 /// Nested message and enum types in `ComposeObjectRequest`.
 pub mod compose_object_request {

@@ -21,8 +21,8 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_grafeas_v1;
 extern crate google_cloud_iam_v1;
-extern crate grafeas;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -328,7 +328,7 @@ pub mod vulnerability_occurrences_summary {
 
         /// The severity for this count. SEVERITY_UNSPECIFIED indicates total across
         /// all severities.
-        pub severity: grafeas::model::Severity,
+        pub severity: google_cloud_grafeas_v1::model::Severity,
 
         /// The number of fixable vulnerabilities associated with this resource.
         pub fixable_count: i64,
@@ -364,12 +364,12 @@ pub mod vulnerability_occurrences_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_containeranalysis_v1::model::vulnerability_occurrences_summary::FixableTotalByDigest;
-        /// use grafeas::model::Severity;
+        /// use google_cloud_grafeas_v1::model::Severity;
         /// let x0 = FixableTotalByDigest::new().set_severity(Severity::Minimal);
         /// let x1 = FixableTotalByDigest::new().set_severity(Severity::Low);
         /// let x2 = FixableTotalByDigest::new().set_severity(Severity::Medium);
         /// ```
-        pub fn set_severity<T: std::convert::Into<grafeas::model::Severity>>(
+        pub fn set_severity<T: std::convert::Into<google_cloud_grafeas_v1::model::Severity>>(
             mut self,
             v: T,
         ) -> Self {

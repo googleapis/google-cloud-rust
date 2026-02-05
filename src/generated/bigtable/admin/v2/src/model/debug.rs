@@ -1507,6 +1507,7 @@ impl std::fmt::Debug for super::Table {
         debug_struct.field("restore_info", &self.restore_info);
         debug_struct.field("change_stream_config", &self.change_stream_config);
         debug_struct.field("deletion_protection", &self.deletion_protection);
+        debug_struct.field("tiered_storage_config", &self.tiered_storage_config);
         debug_struct.field("row_key_schema", &self.row_key_schema);
         debug_struct.field("automated_backup_config", &self.automated_backup_config);
         if !self._unknown_fields.is_empty() {
@@ -1682,6 +1683,28 @@ impl std::fmt::Debug for super::BackupInfo {
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("source_table", &self.source_table);
         debug_struct.field("source_backup", &self.source_backup);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::TieredStorageConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TieredStorageConfig");
+        debug_struct.field("infrequent_access", &self.infrequent_access);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::TieredStorageRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TieredStorageRule");
+        debug_struct.field("rule", &self.rule);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

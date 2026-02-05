@@ -29,36 +29,22 @@ use tokio::time::{Duration, Instant, sleep};
 const NORMAL_REFRESH_SLACK: Duration = Duration::from_secs(240);
 const SHORT_REFRESH_SLACK: Duration = Duration::from_secs(10);
 
-#[derive(Debug)]
-pub(crate) struct TokenCache<T: TokenProvider> {
+#[derive(Debug, Clone)]
+pub(crate) struct TokenCache {
     rx_token: watch::Receiver<Option<Result<(Token, EntityTag)>>>,
-    token_provider: Arc<T>,
 }
 
-// The default implementation requires `T` to implement `Clone`, which is not always the case.
-impl<T: TokenProvider> Clone for TokenCache<T> {
-    fn clone(&self) -> Self {
-        Self {
-            rx_token: self.rx_token.clone(),
-            token_provider: self.token_provider.clone(),
-        }
-    }
-}
-
-impl<T> TokenCache<T>
-where
-    T: TokenProvider + Send + Sync + 'static,
-{
-    pub(crate) fn new(inner: T) -> Self {
+impl TokenCache {
+    pub(crate) fn new<T>(inner: T) -> Self
+    where
+        T: TokenProvider + Send + Sync + 'static,
+    {
         let (tx_token, rx_token) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
         let token_provider = Arc::new(inner);
 
-        tokio::spawn(refresh_task(token_provider.clone(), tx_token));
+        tokio::spawn(refresh_task(token_provider, tx_token));
 
-        Self {
-            rx_token,
-            token_provider,
-        }
+        Self { rx_token }
     }
 
     async fn latest_token_and_entity_tag(&self) -> Result<(Token, EntityTag)> {
@@ -88,10 +74,7 @@ where
 }
 
 #[async_trait::async_trait]
-impl<T> CachedTokenProvider for TokenCache<T>
-where
-    T: TokenProvider + Send + Sync + 'static,
-{
+impl CachedTokenProvider for TokenCache {
     async fn token(&self, extensions: Extensions) -> Result<CacheableResource<Token>> {
         let (data, entity_tag) = self.latest_token_and_entity_tag().await?;
         match extensions.get::<EntityTag>() {
@@ -242,11 +225,13 @@ mod tests {
             .returning(|| Err(errors::non_retryable_from_str("fail")));
 
         let cache = TokenCache::new(mock);
-        assert!(cache.token(Extensions::new()).await.is_err());
+        let result = cache.token(Extensions::new()).await;
+        assert!(result.is_err(), "{result:?}");
 
         // Verify that a new request is made to the mock token provider when we
         // don't have a valid token.
-        assert!(cache.token(Extensions::new()).await.is_err());
+        let result = cache.token(Extensions::new()).await;
+        assert!(result.is_err(), "{result:?}");
     }
 
     #[tokio::test(start_paused = true)]
@@ -325,7 +310,8 @@ mod tests {
         tokio::time::advance(sleep).await;
 
         // make sure we return the error, not the expired token
-        assert!(cache.token(Extensions::new()).await.is_err());
+        let result = cache.token(Extensions::new()).await;
+        assert!(result.is_err(), "{result:?}");
         Ok(())
     }
 
@@ -359,9 +345,8 @@ mod tests {
 
         // Wait for the N token requests to complete, verifying the returned token.
         for task in tasks {
-            let actual = task.await.unwrap();
-            assert!(actual.is_ok(), "{}", actual.err().unwrap());
-            assert_eq!(get_cached_token(actual.unwrap())?, token);
+            let actual = task.await??;
+            assert_eq!(get_cached_token(actual)?, token);
         }
         Ok(())
     }
@@ -458,7 +443,7 @@ mod tests {
 
         // check that channel has None before refresh task starts
         let actual = rx.borrow().clone();
-        assert!(actual.is_none());
+        assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
             refresh_task(Arc::new(mock), tx).await;
@@ -532,7 +517,7 @@ mod tests {
 
         // check that channel has None before refresh task starts
         let actual = rx.borrow().clone();
-        assert!(actual.is_none());
+        assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
             refresh_task(Arc::new(mock), tx).await;
@@ -597,7 +582,7 @@ mod tests {
 
         // check that channel has None before refresh task starts
         let actual = rx.borrow().clone();
-        assert!(actual.is_none());
+        assert!(actual.is_none(), "{actual:?}");
 
         tokio::spawn(async move {
             refresh_task(Arc::new(mock), tx).await;
@@ -676,9 +661,8 @@ mod tests {
 
         // Wait for the N token requests to complete, verifying the returned token.
         for task in tasks {
-            let actual = task.await?;
-            assert!(actual.is_ok(), "{}", actual.unwrap_err());
-            assert_eq!(get_cached_token(actual?)?, token);
+            let actual = task.await??;
+            assert_eq!(get_cached_token(actual)?, token);
         }
 
         let calls = tp.calls();
@@ -734,6 +718,5 @@ mod tests {
 
         assert!(debug_output.contains("TokenCache"));
         assert!(debug_output.contains("rx_token"));
-        assert!(debug_output.contains("token_provider: MockTokenProvider")); // Check for MockTokenProvider specific output part
     }
 }
