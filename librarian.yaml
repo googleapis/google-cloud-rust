@@ -388,6 +388,9 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
+        - name: google-cloud-identity-accesscontextmanager-type
+          package: google-cloud-identity-accesscontextmanager-type
+          source: google.identity.accesscontextmanager.type
         - name: google-cloud-identity-accesscontextmanager-v1
           package: google-cloud-identity-accesscontextmanager-v1
           source: google.identity.accesscontextmanager.v1
