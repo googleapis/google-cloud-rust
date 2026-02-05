@@ -17,6 +17,7 @@ pub mod read_object;
 pub mod write_object;
 
 use anyhow::Result;
+use google_cloud_auth::credentials::{Builder as CredentialsBuilder, CacheableResource};
 use google_cloud_auth::signer::Signer;
 use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use google_cloud_gax::options::RequestOptionsBuilder;
@@ -334,7 +335,6 @@ async fn buckets_iam(client: &StorageControl, bucket_name: &str) -> Result<()> {
 
 async fn folders(client: &StorageControl, bucket_name: &str) -> Result<()> {
     let folder_name = format!("{bucket_name}/folders/test-folder/");
-    let folder_rename = format!("{bucket_name}/folders/renamed-test-folder/");
 
     println!("\nTesting create_folder()");
     let create = client
@@ -363,26 +363,49 @@ async fn folders(client: &StorageControl, bucket_name: &str) -> Result<()> {
         "missing folder name {folder_name} in {folder_names:?}"
     );
 
+    let folder_name = rename_folder(client, bucket_name, &folder_name).await?;
+
+    println!("\nTesting delete_folder()");
+    client.delete_folder().set_name(&folder_name).send().await?;
+    println!("SUCCESS on delete_folder");
+
+    Ok(())
+}
+
+async fn rename_folder(
+    client: &StorageControl,
+    bucket_name: &str,
+    folder_name: &str,
+) -> Result<String> {
+    const ID: &str = "renamed-test-folder/";
+    let target_name = format!("{bucket_name}/folders/{ID}");
+
+    // TODO(#4576) - clean up this code when the service supports custom billing projects.
+    let credentials = CredentialsBuilder::default().build()?;
+    let headers = match credentials.headers(http::Extensions::new()).await? {
+        CacheableResource::NotModified => unreachable!("no caching requested"),
+        CacheableResource::New { data, .. } => data,
+    };
+    if let Some(project) = headers.get("x-goog-user-project") {
+        tracing::warn!(
+            r#"Skipping the test: the rename_folder() RPC does not support custom billing projects.
+The default credentials are configured to use {project:?}.
+{credentials:?}"#
+        );
+        return Ok(folder_name.to_string());
+    }
+
     println!("\nTesting rename_folder()");
     let rename = client
         .rename_folder()
         .set_name(folder_name)
-        .set_destination_folder_id("renamed-test-folder/")
+        .set_destination_folder_id(ID)
         .poller()
         .until_done()
         .await?;
     println!("SUCCESS on rename_folder: {rename:?}");
-    assert_eq!(rename.name, folder_rename);
-
-    println!("\nTesting delete_folder()");
-    client
-        .delete_folder()
-        .set_name(folder_rename)
-        .send()
-        .await?;
-    println!("SUCCESS on delete_folder");
-
-    Ok(())
+    assert_eq!(rename.name, target_name);
+    Ok(target_name)
 }
 
 fn test_backoff() -> ExponentialBackoff {
