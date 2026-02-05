@@ -54,10 +54,7 @@ mod tests {
         let (subscription_admin, subscription) =
             pubsub_samples::create_test_subscription(topic.name.clone()).await?;
 
-        let topic_id = topic.name.split('/').last().unwrap();
         let subscription_id = subscription.name.split('/').last().unwrap();
-
-        quickstart_publisher::sample(&project_id, topic_id).await?;
 
         let result = quickstart_subscriber::sample(&project_id, subscription_id).await;
 
