@@ -511,11 +511,25 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::remove_file_owner::sample(&control, &id, &service_account).await?;
     tracing::info!("running set_object_retention_policy example");
     objects::set_object_retention_policy::sample(&control, &id).await?;
+    Ok(())
+}
+
+pub async fn run_signed_url_examples() -> anyhow::Result<()> {
+    match CredentialsBuilder::default().build_signer() {
+        Err(err) if err.is_not_supported() => {
+            tracing::warn!(
+                "skipping signed_urls examples because the credentials type is not supported"
+            );
+            return Ok(());
+        }
+        Err(e) => return Err(e.into()),
+        Ok(_) => {}
+    };
+    let id = random_bucket_id();
     tracing::info!("running generate_signed_url_v4 example");
     objects::generate_signed_url_v4::sample(&id, "object-to-read").await?;
     tracing::info!("running generate_upload_signed_url_v4 example");
     objects::generate_upload_signed_url_v4::sample(&id, "object-to-upload").await?;
-
     Ok(())
 }
 
