@@ -8646,6 +8646,17 @@ pub trait RegionHealthCheckServices: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::RegionHealthCheckServices::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::region_health_check_services::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::RegionHealthCheckServices::get_operation].
     fn get_operation(
         &self,

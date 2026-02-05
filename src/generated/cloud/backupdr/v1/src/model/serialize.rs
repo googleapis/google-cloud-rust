@@ -1707,6 +1707,9 @@ impl serde::ser::Serialize for super::DataSourceGcpResource {
         if let Some(value) = self.cloud_sql_instance_datasource_properties() {
             state.serialize_entry("cloudSqlInstanceDatasourceProperties", value)?;
         }
+        if let Some(value) = self.alloy_db_cluster_datasource_properties() {
+            state.serialize_entry("alloyDbClusterDatasourceProperties", value)?;
+        }
         if let Some(value) = self.disk_datasource_properties() {
             state.serialize_entry("diskDatasourceProperties", value)?;
         }
@@ -1954,6 +1957,9 @@ impl serde::ser::Serialize for super::Backup {
         }
         if let Some(value) = self.backup_appliance_backup_properties() {
             state.serialize_entry("backupApplianceBackupProperties", value)?;
+        }
+        if let Some(value) = self.alloy_db_backup_properties() {
+            state.serialize_entry("alloyDbBackupProperties", value)?;
         }
         if let Some(value) = self.disk_backup_properties() {
             state.serialize_entry("diskBackupProperties", value)?;
@@ -2798,6 +2804,68 @@ impl serde::ser::Serialize for super::BackupGcpResource {
         }
         if !self.r#type.is_empty() {
             state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AlloyDBClusterDataSourceProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AlloyDbClusterBackupProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.description.is_some() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !wkt::internal::is_default(&self.stored_bytes) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("storedBytes", &__With(&self.stored_bytes))?;
+        }
+        if !self.chain_id.is_empty() {
+            state.serialize_entry("chainId", &self.chain_id)?;
+        }
+        if !self.database_version.is_empty() {
+            state.serialize_entry("databaseVersion", &self.database_version)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
