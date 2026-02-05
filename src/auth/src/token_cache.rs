@@ -29,36 +29,22 @@ use tokio::time::{Duration, Instant, sleep};
 const NORMAL_REFRESH_SLACK: Duration = Duration::from_secs(240);
 const SHORT_REFRESH_SLACK: Duration = Duration::from_secs(10);
 
-#[derive(Debug)]
-pub(crate) struct TokenCache<T: TokenProvider> {
+#[derive(Debug, Clone)]
+pub(crate) struct TokenCache {
     rx_token: watch::Receiver<Option<Result<(Token, EntityTag)>>>,
-    token_provider: Arc<T>,
 }
 
-// The default implementation requires `T` to implement `Clone`, which is not always the case.
-impl<T: TokenProvider> Clone for TokenCache<T> {
-    fn clone(&self) -> Self {
-        Self {
-            rx_token: self.rx_token.clone(),
-            token_provider: self.token_provider.clone(),
-        }
-    }
-}
-
-impl<T> TokenCache<T>
-where
-    T: TokenProvider + Send + Sync + 'static,
-{
-    pub(crate) fn new(inner: T) -> Self {
+impl TokenCache {
+    pub(crate) fn new<T>(inner: T) -> Self
+    where
+        T: TokenProvider + Send + Sync + 'static,
+    {
         let (tx_token, rx_token) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
         let token_provider = Arc::new(inner);
 
-        tokio::spawn(refresh_task(token_provider.clone(), tx_token));
+        tokio::spawn(refresh_task(token_provider, tx_token));
 
-        Self {
-            rx_token,
-            token_provider,
-        }
+        Self { rx_token }
     }
 
     async fn latest_token_and_entity_tag(&self) -> Result<(Token, EntityTag)> {
@@ -88,10 +74,7 @@ where
 }
 
 #[async_trait::async_trait]
-impl<T> CachedTokenProvider for TokenCache<T>
-where
-    T: TokenProvider + Send + Sync + 'static,
-{
+impl CachedTokenProvider for TokenCache {
     async fn token(&self, extensions: Extensions) -> Result<CacheableResource<Token>> {
         let (data, entity_tag) = self.latest_token_and_entity_tag().await?;
         match extensions.get::<EntityTag>() {
@@ -727,6 +710,5 @@ mod tests {
 
         assert!(debug_output.contains("TokenCache"));
         assert!(debug_output.contains("rx_token"));
-        assert!(debug_output.contains("token_provider: MockTokenProvider")); // Check for MockTokenProvider specific output part
     }
 }
