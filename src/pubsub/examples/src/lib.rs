@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub mod quickstart_publisher;
+pub mod quickstart_subscriber;
 mod topic;
 
 use google_cloud_gax::paginator::ItemPaginator as _;
