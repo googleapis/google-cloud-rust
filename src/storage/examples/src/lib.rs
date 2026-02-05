@@ -18,6 +18,7 @@ mod control;
 mod objects;
 mod quickstart;
 
+use google_cloud_auth::credentials::{Builder as CredentialsBuilder, CacheableResource};
 use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_gax::throttle_result::ThrottleResult;
@@ -324,8 +325,10 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
     control::create_folder::sample(&client, &id).await?;
     tracing::info!("running control::get_folder example");
     control::get_folder::sample(&client, &id).await?;
-    tracing::info!("running control::rename_folder example");
-    control::rename_folder::sample(&client, &id).await?;
+    if !custom_project_billing("the control::rename_folder example").await? {
+        tracing::info!("running control::rename_folder example");
+        control::rename_folder::sample(&client, &id).await?;
+    }
     tracing::info!("running control::list_folders example");
     control::list_folders::sample(&client, &id).await?;
 
@@ -765,6 +768,23 @@ pub async fn cleanup_stale_buckets(
         .for_each(|(r, name)| println!("deleting bucket {name}: {r:?}"));
 
     Ok(())
+}
+
+pub async fn custom_project_billing(msg: &str) -> anyhow::Result<bool> {
+    let credentials = CredentialsBuilder::default().build()?;
+    let headers = match credentials.headers(http::Extensions::new()).await? {
+        CacheableResource::NotModified => unreachable!("no caching requested"),
+        CacheableResource::New { data, .. } => data,
+    };
+    let Some(project) = headers.get("x-goog-user-project") else {
+        return Ok(false);
+    };
+    tracing::warn!(
+        r#"Skipping: {msg} does not support custom billing projects.
+The default credentials (see below) are configured to use project {project:?}.
+{credentials:?}"#
+    );
+    return Ok(true);
 }
 
 pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {

@@ -17,7 +17,6 @@ pub mod read_object;
 pub mod write_object;
 
 use anyhow::Result;
-use google_cloud_auth::credentials::{Builder as CredentialsBuilder, CacheableResource};
 use google_cloud_auth::signer::Signer;
 use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use google_cloud_gax::options::RequestOptionsBuilder;
@@ -37,7 +36,9 @@ use google_cloud_test_utils::resource_names::random_bucket_id;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
 use google_cloud_wkt::FieldMask;
 use std::time::Duration;
-pub use storage_samples::{cleanup_stale_buckets, create_test_bucket, create_test_hns_bucket};
+pub use storage_samples::{
+    cleanup_stale_buckets, create_test_bucket, create_test_hns_bucket, custom_project_billing,
+};
 
 pub async fn objects(builder: StorageBuilder, bucket_name: &str, prefix: &str) -> Result<()> {
     let client = builder.build().await?;
@@ -381,17 +382,7 @@ async fn rename_folder(
     let target_name = format!("{bucket_name}/folders/{ID}");
 
     // TODO(#4576) - clean up this code when the service supports custom billing projects.
-    let credentials = CredentialsBuilder::default().build()?;
-    let headers = match credentials.headers(http::Extensions::new()).await? {
-        CacheableResource::NotModified => unreachable!("no caching requested"),
-        CacheableResource::New { data, .. } => data,
-    };
-    if let Some(project) = headers.get("x-goog-user-project") {
-        tracing::warn!(
-            r#"Skipping the test: the rename_folder() RPC does not support custom billing projects.
-The default credentials are configured to use {project:?}.
-{credentials:?}"#
-        );
+    if custom_project_billing("the rename_folder() LRO").await? {
         return Ok(folder_name.to_string());
     }
 
