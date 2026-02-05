@@ -71,9 +71,6 @@ pub use gax::error::Error;
 pub mod builder {
     /// Request and client builders for the [Publisher][crate::client::Publisher] client.
     pub mod publisher {
-        // TODO(#3959) - remove internal types from the public API.
-        #[doc(hidden)]
-        pub use crate::generated::gapic_dataplane::builder::publisher::*;
         pub use crate::publisher::base_publisher::BasePublisherBuilder;
         pub use crate::publisher::builder::PublisherBuilder;
         pub use crate::publisher::builder::PublisherPartialBuilder;
@@ -82,9 +79,6 @@ pub mod builder {
     pub use crate::generated::gapic::builder::schema_service;
     /// Request and client builders for the [Subscriber][crate::client::Subscriber] client.
     pub mod subscriber {
-        // TODO(#3959) - remove internal types from the public API.
-        #[doc(hidden)]
-        pub use crate::generated::gapic_dataplane::builder::subscriber::*;
         pub use crate::subscriber::builder::StreamingPull;
         pub use crate::subscriber::client_builder::ClientBuilder;
     }

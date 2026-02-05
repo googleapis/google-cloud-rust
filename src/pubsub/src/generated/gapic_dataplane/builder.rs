@@ -41,23 +41,8 @@ pub mod publisher {
     }
 
     /// The request builder for [Publisher::publish][crate::client::Publisher::publish] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_pubsub::builder::publisher::Publish;
-    /// # async fn sample() -> gax::Result<()> {
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> Publish {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
     #[derive(Clone, Debug)]
-    pub struct Publish(RequestBuilder<crate::model::PublishRequest>);
+    pub(crate) struct Publish(RequestBuilder<crate::model::PublishRequest>);
 
     impl Publish {
         pub(crate) fn new(
@@ -143,23 +128,8 @@ pub mod subscriber {
     }
 
     /// The request builder for [Subscriber::modify_ack_deadline][crate::client::Subscriber::modify_ack_deadline] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_pubsub::builder::subscriber::ModifyAckDeadline;
-    /// # async fn sample() -> gax::Result<()> {
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> ModifyAckDeadline {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
     #[derive(Clone, Debug)]
-    pub struct ModifyAckDeadline(RequestBuilder<crate::model::ModifyAckDeadlineRequest>);
+    pub(crate) struct ModifyAckDeadline(RequestBuilder<crate::model::ModifyAckDeadlineRequest>);
 
     impl ModifyAckDeadline {
         pub(crate) fn new(
@@ -229,23 +199,8 @@ pub mod subscriber {
     }
 
     /// The request builder for [Subscriber::acknowledge][crate::client::Subscriber::acknowledge] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_pubsub::builder::subscriber::Acknowledge;
-    /// # async fn sample() -> gax::Result<()> {
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> Acknowledge {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
     #[derive(Clone, Debug)]
-    pub struct Acknowledge(RequestBuilder<crate::model::AcknowledgeRequest>);
+    pub(crate) struct Acknowledge(RequestBuilder<crate::model::AcknowledgeRequest>);
 
     impl Acknowledge {
         pub(crate) fn new(
