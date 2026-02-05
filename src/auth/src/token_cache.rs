@@ -101,6 +101,7 @@ async fn refresh_task<T>(
 {
     loop {
         let token_result = token_provider.token().await;
+        let expiry = token_result.as_ref().map(|t| t.expires_at);
         let tagged = token_result.clone().map(|token| {
             let entity_tag = EntityTag::new();
             (token, entity_tag)
@@ -108,34 +109,30 @@ async fn refresh_task<T>(
 
         let _ = tx_token.send(Some(tagged));
 
-        match token_result {
-            Ok(token) => {
-                match token.expires_at {
-                    Some(expiry) => {
-                        let time_until_expiry = expiry.checked_duration_since(Instant::now());
+        match expiry {
+            Ok(Some(expiry)) => {
+                let time_until_expiry = expiry.checked_duration_since(Instant::now());
 
-                        match time_until_expiry {
-                            None => {
-                                // We were given a token that is expired, or expires in less than 10 seconds.
-                                // We will immediately restart the loop, and fetch a new token.
-                            }
-                            Some(time_until_expiry) => {
-                                if time_until_expiry > NORMAL_REFRESH_SLACK {
-                                    sleep(time_until_expiry - NORMAL_REFRESH_SLACK).await;
-                                } else if time_until_expiry > SHORT_REFRESH_SLACK {
-                                    // If expiry is less than 4 mins, try to refresh every 10 seconds
-                                    // This is to handle cases where MDS **repeatedly** returns about to expire tokens.
-                                    sleep(SHORT_REFRESH_SLACK).await;
-                                }
-                            }
+                match time_until_expiry {
+                    None => {
+                        // We were given a token that is expired, or expires in less than 10 seconds.
+                        // We will immediately restart the loop, and fetch a new token.
+                    }
+                    Some(time_until_expiry) => {
+                        if time_until_expiry > NORMAL_REFRESH_SLACK {
+                            sleep(time_until_expiry - NORMAL_REFRESH_SLACK).await;
+                        } else if time_until_expiry > SHORT_REFRESH_SLACK {
+                            // If expiry is less than 4 mins, try to refresh every 10 seconds
+                            // This is to handle cases where MDS **repeatedly** returns about to expire tokens.
+                            sleep(SHORT_REFRESH_SLACK).await;
                         }
                     }
-                    None => {
-                        // If there is no expiry, the token is valid forever, so no need to refresh
-                        // TODO(#1553): Validate that all auth backends provide expiry and make expiry not optional.
-                        break;
-                    }
                 }
+            }
+            Ok(None) => {
+                // If there is no expiry, the token is valid forever, so no need to refresh
+                // TODO(#1553): Validate that all auth backends provide expiry and make expiry not optional.
+                break;
             }
             Err(err) => {
                 // The retry policy has been used already by the inner token provider.
