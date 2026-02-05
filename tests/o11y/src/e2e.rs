@@ -42,10 +42,18 @@ pub async fn run() -> anyhow::Result<()> {
     let service_name = "e2e-telemetry-test";
 
     // Configure OTLP provider (sends to telemetry.googleapis.com). Use ADC, but
-    // always configure a quota project so this can work with user credentials.
-    let credentials = CredentialsBuilder::default()
-        .with_quota_project_id(&project_id)
-        .build()?;
+    // configure a quota project for user credentials because the telemetry endpoint
+    // rejects user credentials without the quota user project. Note that some other
+    // services reject requests *with* a quota user project, so we cannot assume it is
+    // set.
+    let credentials = CredentialsBuilder::default().build()?;
+    let credentials = if format!("{credentials:?}").contains("UserCredentials") {
+        CredentialsBuilder::default()
+            .with_quota_project_id(&project_id)
+            .build()?
+    } else {
+        credentials
+    };
     let provider = CloudTelemetryTracerProviderBuilder::new(&project_id, service_name)
         .with_credentials(credentials)
         .build()
