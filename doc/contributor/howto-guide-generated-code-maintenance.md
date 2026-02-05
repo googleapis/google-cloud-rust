@@ -37,7 +37,7 @@ API is not in the list:
 ### Generate
 
 Define the library's name. Note this should match the directory path where the
-code, e.g. google/cloud/kms/v1:
+code, e.g. `google/cloud/kms/v1`:
 
 ```bash
 library=... 
