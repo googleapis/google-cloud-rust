@@ -22,17 +22,13 @@ pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<(
 
     println!("listening for messages...");
 
-    // For demonstration purposes, this example terminates after 10 seconds.
-    // In production, applications typically process messages indefinitely in a long-running loop.
+    // Terminate the example after 10 seconds. Applications typically process
+    // messages indefinitely in a long-running loop.
     let deadline = tokio::time::Instant::now() + tokio::time::Duration::from_secs(10);
 
     while let Ok(Some(item)) = tokio::time::timeout_at(deadline, session.next()).await {
         let (message, handler) = item?;
-
-        let data = String::from_utf8_lossy(&message.data);
-        println!("received message: {data}");
-
-        // Acknowledge the message so it isn't redelivered.
+        println!("received message: {message:?}");
         handler.ack();
     }
 
