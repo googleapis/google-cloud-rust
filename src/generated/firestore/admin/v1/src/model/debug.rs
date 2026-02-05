@@ -77,6 +77,15 @@ impl std::fmt::Debug for super::Database {
         debug_struct.field("free_tier", &self.free_tier);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("database_edition", &self.database_edition);
+        debug_struct.field("realtime_updates_mode", &self.realtime_updates_mode);
+        debug_struct.field(
+            "firestore_data_access_mode",
+            &self.firestore_data_access_mode,
+        );
+        debug_struct.field(
+            "mongodb_compatible_data_access_mode",
+            &self.mongodb_compatible_data_access_mode,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -707,6 +716,7 @@ impl std::fmt::Debug for super::Index {
         debug_struct.field("density", &self.density);
         debug_struct.field("multikey", &self.multikey);
         debug_struct.field("shard_count", &self.shard_count);
+        debug_struct.field("unique", &self.unique);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

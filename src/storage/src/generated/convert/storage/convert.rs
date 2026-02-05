@@ -249,6 +249,7 @@ impl gaxi::prost::ToProto<ComposeObjectRequest> for crate::generated::gapic::mod
             kms_key: self.kms_key.to_proto()?,
             common_object_request_params: self.common_object_request_params.map(|v| v.to_proto()).transpose()?,
             object_checksums: self.object_checksums.map(|v| v.to_proto()).transpose()?,
+            delete_source_objects: self.delete_source_objects.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -266,6 +267,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ComposeObjectRequest
                 .set_kms_key(self.kms_key)
                 .set_or_clear_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_object_checksums(self.object_checksums.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_delete_source_objects(self.delete_source_objects.map(|v| v.cnv()).transpose()?)
         )
     }
 }

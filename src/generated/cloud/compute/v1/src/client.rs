@@ -10802,6 +10802,13 @@ impl RegionHealthCheckServices {
         super::builder::region_health_check_services::Patch::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::region_health_check_services::TestIamPermissions {
+        super::builder::region_health_check_services::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Retrieves the specified region-specific Operations resource.
     pub fn get_operation(&self) -> super::builder::region_health_check_services::GetOperation {
         super::builder::region_health_check_services::GetOperation::new(self.inner.clone())

@@ -2068,7 +2068,7 @@ pub struct BackupPlan {
     /// Vault Service Account.
     pub backup_vault_service_account: std::string::String,
 
-    /// Optional. Applicable only for CloudSQL resource_type.
+    /// Optional. Applicable only for CloudSQL and AlloyDB resource_type.
     ///
     /// Configures how long logs will be stored. It is defined in “days”. This
     /// value should be greater than or equal to minimum enforced log retention
@@ -8468,6 +8468,7 @@ impl DataSourceGcpResource {
     /// let x = DataSourceGcpResource::new().set_compute_instance_datasource_properties(ComputeInstanceDataSourceProperties::default()/* use setters */);
     /// assert!(x.compute_instance_datasource_properties().is_some());
     /// assert!(x.cloud_sql_instance_datasource_properties().is_none());
+    /// assert!(x.alloy_db_cluster_datasource_properties().is_none());
     /// assert!(x.disk_datasource_properties().is_none());
     /// ```
     pub fn set_compute_instance_datasource_properties<
@@ -8511,6 +8512,7 @@ impl DataSourceGcpResource {
     /// let x = DataSourceGcpResource::new().set_cloud_sql_instance_datasource_properties(CloudSqlInstanceDataSourceProperties::default()/* use setters */);
     /// assert!(x.cloud_sql_instance_datasource_properties().is_some());
     /// assert!(x.compute_instance_datasource_properties().is_none());
+    /// assert!(x.alloy_db_cluster_datasource_properties().is_none());
     /// assert!(x.disk_datasource_properties().is_none());
     /// ```
     pub fn set_cloud_sql_instance_datasource_properties<
@@ -8521,6 +8523,50 @@ impl DataSourceGcpResource {
     ) -> Self {
         self.gcp_resource_properties = std::option::Option::Some(
             crate::model::data_source_gcp_resource::GcpResourceProperties::CloudSqlInstanceDatasourceProperties(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// The value of [gcp_resource_properties][crate::model::DataSourceGcpResource::gcp_resource_properties]
+    /// if it holds a `AlloyDbClusterDatasourceProperties`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn alloy_db_cluster_datasource_properties(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AlloyDBClusterDataSourceProperties>>
+    {
+        #[allow(unreachable_patterns)]
+        self.gcp_resource_properties.as_ref().and_then(|v| match v {
+            crate::model::data_source_gcp_resource::GcpResourceProperties::AlloyDbClusterDatasourceProperties(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [gcp_resource_properties][crate::model::DataSourceGcpResource::gcp_resource_properties]
+    /// to hold a `AlloyDbClusterDatasourceProperties`.
+    ///
+    /// Note that all the setters affecting `gcp_resource_properties` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::DataSourceGcpResource;
+    /// use google_cloud_backupdr_v1::model::AlloyDBClusterDataSourceProperties;
+    /// let x = DataSourceGcpResource::new().set_alloy_db_cluster_datasource_properties(AlloyDBClusterDataSourceProperties::default()/* use setters */);
+    /// assert!(x.alloy_db_cluster_datasource_properties().is_some());
+    /// assert!(x.compute_instance_datasource_properties().is_none());
+    /// assert!(x.cloud_sql_instance_datasource_properties().is_none());
+    /// assert!(x.disk_datasource_properties().is_none());
+    /// ```
+    pub fn set_alloy_db_cluster_datasource_properties<
+        T: std::convert::Into<std::boxed::Box<crate::model::AlloyDBClusterDataSourceProperties>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gcp_resource_properties = std::option::Option::Some(
+            crate::model::data_source_gcp_resource::GcpResourceProperties::AlloyDbClusterDatasourceProperties(
                 v.into()
             )
         );
@@ -8554,6 +8600,7 @@ impl DataSourceGcpResource {
     /// assert!(x.disk_datasource_properties().is_some());
     /// assert!(x.compute_instance_datasource_properties().is_none());
     /// assert!(x.cloud_sql_instance_datasource_properties().is_none());
+    /// assert!(x.alloy_db_cluster_datasource_properties().is_none());
     /// ```
     pub fn set_disk_datasource_properties<
         T: std::convert::Into<std::boxed::Box<crate::model::DiskDataSourceProperties>>,
@@ -8594,6 +8641,11 @@ pub mod data_source_gcp_resource {
         /// SQL Instance properties that are useful at the Datasource level.
         CloudSqlInstanceDatasourceProperties(
             std::boxed::Box<crate::model::CloudSqlInstanceDataSourceProperties>,
+        ),
+        /// Output only. AlloyDBClusterDataSourceProperties has a subset of AlloyDB
+        /// cluster properties that are useful at the Datasource level.
+        AlloyDbClusterDatasourceProperties(
+            std::boxed::Box<crate::model::AlloyDBClusterDataSourceProperties>,
         ),
         /// DiskDataSourceProperties has a subset of Disk properties that are useful
         /// at the Datasource level.
@@ -9766,6 +9818,7 @@ impl Backup {
     /// assert!(x.compute_instance_backup_properties().is_some());
     /// assert!(x.cloud_sql_instance_backup_properties().is_none());
     /// assert!(x.backup_appliance_backup_properties().is_none());
+    /// assert!(x.alloy_db_backup_properties().is_none());
     /// assert!(x.disk_backup_properties().is_none());
     /// ```
     pub fn set_compute_instance_backup_properties<
@@ -9809,6 +9862,7 @@ impl Backup {
     /// assert!(x.cloud_sql_instance_backup_properties().is_some());
     /// assert!(x.compute_instance_backup_properties().is_none());
     /// assert!(x.backup_appliance_backup_properties().is_none());
+    /// assert!(x.alloy_db_backup_properties().is_none());
     /// assert!(x.disk_backup_properties().is_none());
     /// ```
     pub fn set_cloud_sql_instance_backup_properties<
@@ -9852,6 +9906,7 @@ impl Backup {
     /// assert!(x.backup_appliance_backup_properties().is_some());
     /// assert!(x.compute_instance_backup_properties().is_none());
     /// assert!(x.cloud_sql_instance_backup_properties().is_none());
+    /// assert!(x.alloy_db_backup_properties().is_none());
     /// assert!(x.disk_backup_properties().is_none());
     /// ```
     pub fn set_backup_appliance_backup_properties<
@@ -9862,6 +9917,50 @@ impl Backup {
     ) -> Self {
         self.backup_properties = std::option::Option::Some(
             crate::model::backup::BackupProperties::BackupApplianceBackupProperties(v.into()),
+        );
+        self
+    }
+
+    /// The value of [backup_properties][crate::model::Backup::backup_properties]
+    /// if it holds a `AlloyDbBackupProperties`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn alloy_db_backup_properties(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AlloyDbClusterBackupProperties>> {
+        #[allow(unreachable_patterns)]
+        self.backup_properties.as_ref().and_then(|v| match v {
+            crate::model::backup::BackupProperties::AlloyDbBackupProperties(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [backup_properties][crate::model::Backup::backup_properties]
+    /// to hold a `AlloyDbBackupProperties`.
+    ///
+    /// Note that all the setters affecting `backup_properties` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::AlloyDbClusterBackupProperties;
+    /// let x = Backup::new().set_alloy_db_backup_properties(AlloyDbClusterBackupProperties::default()/* use setters */);
+    /// assert!(x.alloy_db_backup_properties().is_some());
+    /// assert!(x.compute_instance_backup_properties().is_none());
+    /// assert!(x.cloud_sql_instance_backup_properties().is_none());
+    /// assert!(x.backup_appliance_backup_properties().is_none());
+    /// assert!(x.disk_backup_properties().is_none());
+    /// ```
+    pub fn set_alloy_db_backup_properties<
+        T: std::convert::Into<std::boxed::Box<crate::model::AlloyDbClusterBackupProperties>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_properties = std::option::Option::Some(
+            crate::model::backup::BackupProperties::AlloyDbBackupProperties(v.into()),
         );
         self
     }
@@ -9896,6 +9995,7 @@ impl Backup {
     /// assert!(x.compute_instance_backup_properties().is_none());
     /// assert!(x.cloud_sql_instance_backup_properties().is_none());
     /// assert!(x.backup_appliance_backup_properties().is_none());
+    /// assert!(x.alloy_db_backup_properties().is_none());
     /// ```
     pub fn set_disk_backup_properties<
         T: std::convert::Into<std::boxed::Box<crate::model::DiskBackupProperties>>,
@@ -10444,6 +10544,8 @@ pub mod backup {
         BackupApplianceBackupProperties(
             std::boxed::Box<crate::model::BackupApplianceBackupProperties>,
         ),
+        /// Output only. AlloyDB specific backup properties.
+        AlloyDbBackupProperties(std::boxed::Box<crate::model::AlloyDbClusterBackupProperties>),
         /// Output only. Disk specific backup properties.
         DiskBackupProperties(std::boxed::Box<crate::model::DiskBackupProperties>),
     }
@@ -13118,6 +13220,148 @@ impl BackupGcpResource {
 impl wkt::message::Message for BackupGcpResource {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.backupdr.v1.BackupGcpResource"
+    }
+}
+
+/// AlloyDBClusterDataSourceProperties represents the properties of a
+/// AlloyDB cluster resource that are stored in the DataSource.
+/// .
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AlloyDBClusterDataSourceProperties {
+    /// Output only. Name of the AlloyDB cluster backed up by the datasource.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AlloyDBClusterDataSourceProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AlloyDBClusterDataSourceProperties::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AlloyDBClusterDataSourceProperties;
+    /// let x = AlloyDBClusterDataSourceProperties::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AlloyDBClusterDataSourceProperties {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.AlloyDBClusterDataSourceProperties"
+    }
+}
+
+/// AlloyDbClusterBackupProperties represents AlloyDB cluster
+/// backup properties.
+/// .
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AlloyDbClusterBackupProperties {
+    /// An optional text description for the backup.
+    pub description: std::option::Option<std::string::String>,
+
+    /// Output only. Storage usage of this particular backup
+    pub stored_bytes: i64,
+
+    /// Output only. The chain id of this backup. Backups belonging to the same
+    /// chain are sharing the same chain id. This property is calculated and
+    /// maintained by BackupDR.
+    pub chain_id: std::string::String,
+
+    /// Output only. The PostgreSQL major version of the AlloyDB cluster when the
+    /// backup was taken.
+    pub database_version: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AlloyDbClusterBackupProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [description][crate::model::AlloyDbClusterBackupProperties::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AlloyDbClusterBackupProperties;
+    /// let x = AlloyDbClusterBackupProperties::new().set_description("example");
+    /// ```
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::AlloyDbClusterBackupProperties::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AlloyDbClusterBackupProperties;
+    /// let x = AlloyDbClusterBackupProperties::new().set_or_clear_description(Some("example"));
+    /// let x = AlloyDbClusterBackupProperties::new().set_or_clear_description(None::<String>);
+    /// ```
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [stored_bytes][crate::model::AlloyDbClusterBackupProperties::stored_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AlloyDbClusterBackupProperties;
+    /// let x = AlloyDbClusterBackupProperties::new().set_stored_bytes(42);
+    /// ```
+    pub fn set_stored_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.stored_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [chain_id][crate::model::AlloyDbClusterBackupProperties::chain_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AlloyDbClusterBackupProperties;
+    /// let x = AlloyDbClusterBackupProperties::new().set_chain_id("example");
+    /// ```
+    pub fn set_chain_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.chain_id = v.into();
+        self
+    }
+
+    /// Sets the value of [database_version][crate::model::AlloyDbClusterBackupProperties::database_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AlloyDbClusterBackupProperties;
+    /// let x = AlloyDbClusterBackupProperties::new().set_database_version("example");
+    /// ```
+    pub fn set_database_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.database_version = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AlloyDbClusterBackupProperties {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.AlloyDbClusterBackupProperties"
     }
 }
 
