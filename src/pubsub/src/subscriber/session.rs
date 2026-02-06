@@ -1041,4 +1041,31 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test]
+    async fn routing_header() -> anyhow::Result<()> {
+        let mut mock = MockSubscriber::new();
+
+        let subscription = "projects/p/subscriptions/s";
+
+        mock.expect_streaming_pull().return_once(move |request| {
+            let metadata = request.metadata();
+            assert_eq!(
+                metadata
+                    .get("x-goog-request-params")
+                    .expect("routing header missing"),
+                &format!("subscription={subscription}")
+            );
+            Err(TonicStatus::failed_precondition(
+                "header verification failed",
+            ))
+        });
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+
+        let _ = client.streaming_pull(subscription).start().next().await;
+
+        Ok(())
+    }
 }
