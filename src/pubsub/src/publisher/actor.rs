@@ -581,7 +581,11 @@ mod tests {
     macro_rules! assert_publish_data {
         ($publish_rxs:ident) => {
             for (msg, publish_rx) in $publish_rxs {
-                assert_eq!(publish_rx.await??, msg, "unexpected message for given handler");
+                assert_eq!(
+                    publish_rx.await??,
+                    msg,
+                    "unexpected message for given handler"
+                );
             }
         };
     }
@@ -590,7 +594,11 @@ mod tests {
     macro_rules! assert_publish_data_with_seq {
         ($publish_rxs:ident, $expected_msg_seq_rx:ident) => {
             for (msg, publish_rx) in $publish_rxs {
-                assert_eq!(publish_rx.await??, msg, "unexpected message for given handler");
+                assert_eq!(
+                    publish_rx.await??,
+                    msg,
+                    "unexpected message for given handler"
+                );
                 // Assert that publish message matches the expected message sequence.
                 let expected_msg = $expected_msg_seq_rx.try_recv()?.data;
                 assert_eq!(msg, expected_msg, "message published out of order");
@@ -851,23 +859,34 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn sequential_actor_resume() -> anyhow::Result<()> {
-        let mut mock = MockGapicPublisher::new();
+        let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<PubsubMessage>();
+        let mut mock = MockGapicPublisherWithFuture::new();
         let mut seq = Sequence::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(5)
+            .times(EXPECTED_BATCHES)
             .in_sequence(&mut seq)
-            .returning(publish_ok);
+            .returning(move |r, o| Box::pin(async move { publish_ok(r, o) }));
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(1)
+            .once()
             .in_sequence(&mut seq)
-            .returning(publish_err);
+            .returning(move |r, o| Box::pin(async { publish_err(r, o) }));
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(5)
+            .times(EXPECTED_BATCHES)
             .in_sequence(&mut seq)
-            .returning(publish_ok);
+            .returning({
+                move |r, o| {
+                    Box::pin({
+                        let seq_tx = msg_seq_tx.clone();
+                        async move {
+                            track_publish_msg_seq(&r, seq_tx);
+                            publish_ok(r, o)
+                        }
+                    })
+                }
+            });
 
         let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
         tokio::spawn(
@@ -882,7 +901,7 @@ mod tests {
 
         // Validate resume when not paused.
         actor_tx.send(ToBatchActor::ResumePublish())?;
-        assert_publish_is_ok!(actor_tx, 5);
+        assert_publish_is_ok!(actor_tx, EXPECTED_BATCHES);
 
         // This message triggers the mock to return publish error and causes the actor to pause.
         let (publish_tx, publish_rx) = tokio::sync::oneshot::channel();
@@ -898,7 +917,7 @@ mod tests {
 
         // Resume then validate that the actor is no longer paused.
         actor_tx.send(ToBatchActor::ResumePublish())?;
-        assert_publish_is_ok!(actor_tx, 5);
+        assert_publish_is_ok!(actor_tx, msg_seq_rx, EXPECTED_BATCHES);
 
         Ok(())
     }
