@@ -24,9 +24,9 @@ extern crate gaxi;
 extern crate google_cloud_api;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -10156,7 +10156,7 @@ impl wkt::message::Message for ExportMetadata {
 #[non_exhaustive]
 pub struct ExportAnalyticsMetricsResponse {
     /// A sample of errors encountered while processing the request.
-    pub error_samples: std::vec::Vec<rpc::model::Status>,
+    pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// This field is never set.
     pub errors_config: std::option::Option<crate::model::ExportErrorsConfig>,
@@ -10177,7 +10177,7 @@ impl ExportAnalyticsMetricsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::ExportAnalyticsMetricsResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ExportAnalyticsMetricsResponse::new()
     ///     .set_error_samples([
     ///         Status::default()/* use setters */,
@@ -10187,7 +10187,7 @@ impl ExportAnalyticsMetricsResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -11266,7 +11266,7 @@ impl BigQuerySource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::BigQuerySource;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = BigQuerySource::new().set_partition(Some(
     ///     google_cloud_retail_v2::model::big_query_source::Partition::PartitionDate(Date::default().into())));
     /// ```
@@ -11283,7 +11283,9 @@ impl BigQuerySource {
     /// The value of [partition][crate::model::BigQuerySource::partition]
     /// if it holds a `PartitionDate`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn partition_date(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
+    pub fn partition_date(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::Date>> {
         #[allow(unreachable_patterns)]
         self.partition.as_ref().and_then(|v| match v {
             crate::model::big_query_source::Partition::PartitionDate(v) => {
@@ -11302,11 +11304,13 @@ impl BigQuerySource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::BigQuerySource;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = BigQuerySource::new().set_partition_date(Date::default()/* use setters */);
     /// assert!(x.partition_date().is_some());
     /// ```
-    pub fn set_partition_date<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(
+    pub fn set_partition_date<
+        T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Date>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -11334,7 +11338,7 @@ pub mod big_query_source {
     #[non_exhaustive]
     pub enum Partition {
         /// BigQuery time partitioned table's _PARTITIONDATE in YYYY-MM-DD format.
-        PartitionDate(std::boxed::Box<gtype::model::Date>),
+        PartitionDate(std::boxed::Box<google_cloud_type::model::Date>),
     }
 }
 
@@ -12757,7 +12761,7 @@ impl wkt::message::Message for ImportMetadata {
 #[non_exhaustive]
 pub struct ImportProductsResponse {
     /// A sample of errors encountered while processing the request.
-    pub error_samples: std::vec::Vec<rpc::model::Status>,
+    pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// Echoes the destination for the complete errors in the request if set.
     pub errors_config: std::option::Option<crate::model::ImportErrorsConfig>,
@@ -12775,7 +12779,7 @@ impl ImportProductsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::ImportProductsResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportProductsResponse::new()
     ///     .set_error_samples([
     ///         Status::default()/* use setters */,
@@ -12785,7 +12789,7 @@ impl ImportProductsResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -12839,7 +12843,7 @@ impl wkt::message::Message for ImportProductsResponse {
 #[non_exhaustive]
 pub struct ImportUserEventsResponse {
     /// A sample of errors encountered while processing the request.
-    pub error_samples: std::vec::Vec<rpc::model::Status>,
+    pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// Echoes the destination for the complete errors if this field was set in
     /// the request.
@@ -12861,7 +12865,7 @@ impl ImportUserEventsResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::ImportUserEventsResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportUserEventsResponse::new()
     ///     .set_error_samples([
     ///         Status::default()/* use setters */,
@@ -12871,7 +12875,7 @@ impl ImportUserEventsResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();
@@ -13012,7 +13016,7 @@ impl wkt::message::Message for UserEventImportSummary {
 #[non_exhaustive]
 pub struct ImportCompletionDataResponse {
     /// A sample of errors encountered while processing the request.
-    pub error_samples: std::vec::Vec<rpc::model::Status>,
+    pub error_samples: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -13027,7 +13031,7 @@ impl ImportCompletionDataResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_retail_v2::model::ImportCompletionDataResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportCompletionDataResponse::new()
     ///     .set_error_samples([
     ///         Status::default()/* use setters */,
@@ -13037,7 +13041,7 @@ impl ImportCompletionDataResponse {
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.error_samples = v.into_iter().map(|i| i.into()).collect();

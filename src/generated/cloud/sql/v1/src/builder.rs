@@ -6894,6 +6894,24 @@ pub mod sql_users_service {
             self
         }
 
+        /// Sets the value of [revoke_existing_roles][crate::model::SqlUsersUpdateRequest::revoke_existing_roles].
+        pub fn set_revoke_existing_roles<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.revoke_existing_roles = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [revoke_existing_roles][crate::model::SqlUsersUpdateRequest::revoke_existing_roles].
+        pub fn set_or_clear_revoke_existing_roles<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.revoke_existing_roles = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [body][crate::model::SqlUsersUpdateRequest::body].
         pub fn set_body<T>(mut self, v: T) -> Self
         where

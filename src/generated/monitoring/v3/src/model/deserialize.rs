@@ -187,8 +187,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AlertPolicy {
                                     "multiple values for validity",
                                 ));
                             }
-                            result.validity =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.validity = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__notification_channels => {
                             if !fields.insert(__FieldTag::__notification_channels) {
@@ -2060,8 +2061,8 @@ impl<'de> serde::de::Deserialize<'de> for super::alert_policy::condition::sql_co
                                     "multiple values for execution_time",
                                 ));
                             }
-                            result.execution_time =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.execution_time = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6872,7 +6873,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ListTimeSeriesResponse {
                                     "multiple values for execution_errors",
                                 ));
                             }
-                            result.execution_errors = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.execution_errors =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__unit => {
                             if !fields.insert(__FieldTag::__unit) {
@@ -7063,8 +7068,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateTimeSeriesError {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7273,8 +7279,9 @@ impl<'de> serde::de::Deserialize<'de> for super::create_time_series_summary::Err
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__point_count => {
                             if !fields.insert(__FieldTag::__point_count) {
@@ -7539,7 +7546,11 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryTimeSeriesResponse {
                                     "multiple values for partial_errors",
                                 ));
                             }
-                            result.partial_errors = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.partial_errors =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -11121,7 +11132,10 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceLevelObjective {
                             }
                             result.period = std::option::Option::Some(
                                 crate::model::service_level_objective::Period::CalendarPeriod(
-                                    map.next_value::<std::option::Option<gtype::model::CalendarPeriod>>()?.unwrap_or_default()
+                                    map.next_value::<std::option::Option<
+                                        google_cloud_type::model::CalendarPeriod,
+                                    >>()?
+                                    .unwrap_or_default(),
                                 ),
                             );
                         }

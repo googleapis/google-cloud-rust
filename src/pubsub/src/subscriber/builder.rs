@@ -23,17 +23,24 @@ pub struct StreamingPull {
     pub(super) inner: Arc<Transport>,
     pub(super) subscription: String,
     pub(super) client_id: String,
+    pub(super) grpc_subchannel_count: usize,
     pub(super) ack_deadline_seconds: i32,
     pub(super) max_outstanding_messages: i64,
     pub(super) max_outstanding_bytes: i64,
 }
 
 impl StreamingPull {
-    pub(super) fn new(inner: Arc<Transport>, subscription: String, client_id: String) -> Self {
+    pub(super) fn new(
+        inner: Arc<Transport>,
+        subscription: String,
+        client_id: String,
+        grpc_subchannel_count: usize,
+    ) -> Self {
         Self {
             inner,
             subscription,
             client_id,
+            grpc_subchannel_count,
             ack_deadline_seconds: 10,
             max_outstanding_messages: 1000,
             max_outstanding_bytes: 100 * MIB,
@@ -64,8 +71,9 @@ impl StreamingPull {
 
     /// Sets the ack deadline to use for the stream.
     ///
-    /// This value represents how long the application has to ack or nack an
-    /// incoming message. Note that this value is independent of the deadline
+    /// This value represents how long the application has to ack an
+    /// incoming message. If the handler is dropped without being acked,
+    /// it is nacked. Note that this value is independent of the
     /// configured on the server-side subscription.
     ///
     /// If the server does not hear back from the client within this deadline
@@ -95,7 +103,7 @@ impl StreamingPull {
     /// Flow control settings for the maximum number of outstanding messages.
     ///
     /// The server will stop sending messages to a client when this many
-    /// messages are outstanding (i.e. that have not been acked or nacked).
+    /// messages are outstanding (i.e. that have not been acked).
     ///
     /// The server resumes sending messages when the outstanding message count
     /// drops below this value.
@@ -122,7 +130,7 @@ impl StreamingPull {
     /// Flow control settings for the maximum number of outstanding bytes.
     ///
     /// The server will stop sending messages to a client when this many bytes
-    /// of messages are outstanding (i.e. that have not been acked or nacked).
+    /// of messages are outstanding (i.e. that have not been acked).
     ///
     /// The server resumes sending messages when the outstanding byte count
     /// drops below this value.
@@ -169,11 +177,13 @@ mod tests {
             test_inner().await?,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             "client-id".to_string(),
+            1_usize,
         );
         assert_eq!(
             builder.subscription,
             "projects/my-project/subscriptions/my-subscription"
         );
+        assert_eq!(builder.grpc_subchannel_count, 1);
         assert_eq!(builder.ack_deadline_seconds, 10);
         assert!(
             100_000 > builder.max_outstanding_messages && builder.max_outstanding_messages > 100,
@@ -195,6 +205,7 @@ mod tests {
             test_inner().await?,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             "client-id".to_string(),
+            1_usize,
         )
         .set_ack_deadline_seconds(20)
         .set_max_outstanding_messages(12345)
@@ -203,6 +214,7 @@ mod tests {
             builder.subscription,
             "projects/my-project/subscriptions/my-subscription"
         );
+        assert_eq!(builder.grpc_subchannel_count, 1);
         assert_eq!(builder.ack_deadline_seconds, 20);
         assert_eq!(builder.max_outstanding_messages, 12345);
         assert_eq!(builder.max_outstanding_bytes, 6789 * KIB);

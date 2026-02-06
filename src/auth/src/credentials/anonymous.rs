@@ -75,7 +75,7 @@ mod tests {
             CacheableResource::New { entity_tag, data } => (data, entity_tag),
             CacheableResource::NotModified => unreachable!("expecting new headers"),
         };
-        assert!(headers.is_empty());
+        assert!(headers.is_empty(), "{headers:?}");
 
         extensions.insert(entity_tag);
         let cached_headers = creds.headers(extensions).await.unwrap();

@@ -8350,8 +8350,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageVersion {
                                     "multiple values for release_date",
                                 ));
                             }
-                            result.release_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.release_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__creation_disabled => {
                             if !fields.insert(__FieldTag::__creation_disabled) {

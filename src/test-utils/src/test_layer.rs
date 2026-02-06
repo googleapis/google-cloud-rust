@@ -373,7 +373,7 @@ mod tests {
         assert_eq!(test2_spans[0].name, "span2");
 
         let remaining_spans = log.spans.lock().unwrap();
-        assert!(remaining_spans.is_empty());
+        assert!(remaining_spans.is_empty(), "{remaining_spans:?}");
     }
 
     /// Tests the clear functionality of `CapturedSpanLog`.
@@ -395,7 +395,7 @@ mod tests {
         let log = CapturedSpanLog::new();
         log.push(dummy_span(1, "span1", Some("test1")));
         let taken = log.take_by_test_id("nonexistent");
-        assert!(taken.is_empty());
+        assert!(taken.is_empty(), "{taken:?}");
         assert_eq!(log.spans.lock().unwrap().len(), 1);
     }
 

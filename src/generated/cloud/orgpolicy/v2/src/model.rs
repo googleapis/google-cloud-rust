@@ -21,7 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -2324,7 +2324,7 @@ pub mod policy_spec {
         /// "resource.matchTag('123456789/environment,
         /// 'prod')". or "resource.matchTagId('tagKeys/123',
         /// 'tagValues/456')".
-        pub condition: std::option::Option<gtype::model::Expr>,
+        pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
         /// Optional. Required for managed constraints if parameters are defined.
         /// Passes parameter values when policy enforcement is enabled. Ensure that
@@ -2351,12 +2351,12 @@ pub mod policy_spec {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_orgpolicy_v2::model::policy_spec::PolicyRule;
-        /// use gtype::model::Expr;
+        /// use google_cloud_type::model::Expr;
         /// let x = PolicyRule::new().set_condition(Expr::default()/* use setters */);
         /// ```
         pub fn set_condition<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Expr>,
+            T: std::convert::Into<google_cloud_type::model::Expr>,
         {
             self.condition = std::option::Option::Some(v.into());
             self
@@ -2367,13 +2367,13 @@ pub mod policy_spec {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_orgpolicy_v2::model::policy_spec::PolicyRule;
-        /// use gtype::model::Expr;
+        /// use google_cloud_type::model::Expr;
         /// let x = PolicyRule::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
         /// let x = PolicyRule::new().set_or_clear_condition(None::<Expr>);
         /// ```
         pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Expr>,
+            T: std::convert::Into<google_cloud_type::model::Expr>,
         {
             self.condition = v.map(|x| x.into());
             self

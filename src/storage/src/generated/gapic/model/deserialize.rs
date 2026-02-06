@@ -975,6 +975,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ComposeObjectRequest {
             __kms_key,
             __common_object_request_params,
             __object_checksums,
+            __delete_source_objects,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1018,6 +1019,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ComposeObjectRequest {
                             }
                             "objectChecksums" => Ok(__FieldTag::__object_checksums),
                             "object_checksums" => Ok(__FieldTag::__object_checksums),
+                            "deleteSourceObjects" => Ok(__FieldTag::__delete_source_objects),
+                            "delete_source_objects" => Ok(__FieldTag::__delete_source_objects),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1142,6 +1145,15 @@ impl<'de> serde::de::Deserialize<'de> for super::ComposeObjectRequest {
                             result.object_checksums = map
                                 .next_value::<std::option::Option<crate::model::ObjectChecksums>>(
                                 )?;
+                        }
+                        __FieldTag::__delete_source_objects => {
+                            if !fields.insert(__FieldTag::__delete_source_objects) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for delete_source_objects",
+                                ));
+                            }
+                            result.delete_source_objects =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5855,8 +5867,9 @@ impl<'de> serde::de::Deserialize<'de> for super::bucket::lifecycle::rule::Condit
                                     "multiple values for created_before",
                                 ));
                             }
-                            result.created_before =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.created_before = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__is_live => {
                             if !fields.insert(__FieldTag::__is_live) {
@@ -5918,8 +5931,9 @@ impl<'de> serde::de::Deserialize<'de> for super::bucket::lifecycle::rule::Condit
                                     "multiple values for custom_time_before",
                                 ));
                             }
-                            result.custom_time_before =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.custom_time_before = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__days_since_noncurrent_time => {
                             if !fields.insert(__FieldTag::__days_since_noncurrent_time) {
@@ -5946,8 +5960,9 @@ impl<'de> serde::de::Deserialize<'de> for super::bucket::lifecycle::rule::Condit
                                     "multiple values for noncurrent_time_before",
                                 ));
                             }
-                            result.noncurrent_time_before =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.noncurrent_time_before = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__matches_prefix => {
                             if !fields.insert(__FieldTag::__matches_prefix) {

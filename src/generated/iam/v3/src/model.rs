@@ -23,7 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -61,7 +61,7 @@ pub struct OperationMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -296,7 +296,7 @@ pub struct PolicyBinding {
     /// - iam.googleapis.com/WorkforcePoolIdentity
     /// - iam.googleapis.com/WorkloadPoolIdentity
     /// - iam.googleapis.com/ServiceAccount
-    pub condition: std::option::Option<gtype::model::Expr>,
+    pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
     /// Output only. The time when the policy binding was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -459,12 +459,12 @@ impl PolicyBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = PolicyBinding::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -475,13 +475,13 @@ impl PolicyBinding {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = PolicyBinding::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
     /// let x = PolicyBinding::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self

@@ -11358,8 +11358,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TaskAttemptResult {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__exit_code => {
                             if !fields.insert(__FieldTag::__exit_code) {

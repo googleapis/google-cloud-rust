@@ -22,9 +22,9 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_api;
-extern crate gtype;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -120,7 +120,7 @@ pub struct AlertPolicy {
     /// Read-only description of how the alerting policy is invalid. This field is
     /// only set when the alerting policy is invalid. An invalid alerting policy
     /// will not generate incidents.
-    pub validity: std::option::Option<rpc::model::Status>,
+    pub validity: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Identifies the notification channels to which notifications should be sent
     /// when incidents are opened or closed or when new violations occur on
@@ -320,12 +320,12 @@ impl AlertPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::AlertPolicy;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = AlertPolicy::new().set_validity(Status::default()/* use setters */);
     /// ```
     pub fn set_validity<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.validity = std::option::Option::Some(v.into());
         self
@@ -336,13 +336,13 @@ impl AlertPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::AlertPolicy;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = AlertPolicy::new().set_or_clear_validity(Some(Status::default()/* use setters */));
     /// let x = AlertPolicy::new().set_or_clear_validity(None::<Status>);
     /// ```
     pub fn set_or_clear_validity<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.validity = v.map(|x| x.into());
         self
@@ -2748,7 +2748,7 @@ pub mod alert_policy {
                 /// Optional. The time of day (in UTC) at which the query should run. If
                 /// left unspecified, the server picks an arbitrary time of day and runs
                 /// the query at the same time each day.
-                pub execution_time: std::option::Option<gtype::model::TimeOfDay>,
+                pub execution_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
@@ -2775,12 +2775,12 @@ pub mod alert_policy {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Daily;
-                /// use gtype::model::TimeOfDay;
+                /// use google_cloud_type::model::TimeOfDay;
                 /// let x = Daily::new().set_execution_time(TimeOfDay::default()/* use setters */);
                 /// ```
                 pub fn set_execution_time<T>(mut self, v: T) -> Self
                 where
-                    T: std::convert::Into<gtype::model::TimeOfDay>,
+                    T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
                 {
                     self.execution_time = std::option::Option::Some(v.into());
                     self
@@ -2791,13 +2791,13 @@ pub mod alert_policy {
                 /// # Example
                 /// ```ignore,no_run
                 /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Daily;
-                /// use gtype::model::TimeOfDay;
+                /// use google_cloud_type::model::TimeOfDay;
                 /// let x = Daily::new().set_or_clear_execution_time(Some(TimeOfDay::default()/* use setters */));
                 /// let x = Daily::new().set_or_clear_execution_time(None::<TimeOfDay>);
                 /// ```
                 pub fn set_or_clear_execution_time<T>(mut self, v: std::option::Option<T>) -> Self
                 where
-                    T: std::convert::Into<gtype::model::TimeOfDay>,
+                    T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
                 {
                     self.execution_time = v.map(|x| x.into());
                     self
@@ -8670,7 +8670,7 @@ pub struct ListTimeSeriesResponse {
 
     /// Query execution errors that may have caused the time series data returned
     /// to be incomplete.
-    pub execution_errors: std::vec::Vec<rpc::model::Status>,
+    pub execution_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// The unit in which all `time_series` point values are reported. `unit`
     /// follows the UCUM format for units as seen in
@@ -8727,7 +8727,7 @@ impl ListTimeSeriesResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ListTimeSeriesResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ListTimeSeriesResponse::new()
     ///     .set_execution_errors([
     ///         Status::default()/* use setters */,
@@ -8737,7 +8737,7 @@ impl ListTimeSeriesResponse {
     pub fn set_execution_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.execution_errors = v.into_iter().map(|i| i.into()).collect();
@@ -8858,7 +8858,7 @@ pub struct CreateTimeSeriesError {
 
     /// DEPRECATED. The status of the requested write operation for `time_series`.
     #[deprecated]
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8908,13 +8908,13 @@ impl CreateTimeSeriesError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::CreateTimeSeriesError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CreateTimeSeriesError::new().set_status(Status::default()/* use setters */);
     /// ```
     #[deprecated]
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -8925,14 +8925,14 @@ impl CreateTimeSeriesError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::CreateTimeSeriesError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CreateTimeSeriesError::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = CreateTimeSeriesError::new().set_or_clear_status(None::<Status>);
     /// ```
     #[deprecated]
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self
@@ -9029,7 +9029,7 @@ pub mod create_time_series_summary {
     #[non_exhaustive]
     pub struct Error {
         /// The status of the requested write operation.
-        pub status: std::option::Option<rpc::model::Status>,
+        pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
         /// The number of points that couldn't be written because of `status`.
         pub point_count: i32,
@@ -9047,12 +9047,12 @@ pub mod create_time_series_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_monitoring_v3::model::create_time_series_summary::Error;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = Error::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -9063,13 +9063,13 @@ pub mod create_time_series_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_monitoring_v3::model::create_time_series_summary::Error;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = Error::new().set_or_clear_status(Some(Status::default()/* use setters */));
         /// let x = Error::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = v.map(|x| x.into());
             self
@@ -9208,7 +9208,7 @@ pub struct QueryTimeSeriesResponse {
     /// Query execution errors that may have caused the time series data returned
     /// to be incomplete. The available data will be available in the
     /// response.
-    pub partial_errors: std::vec::Vec<rpc::model::Status>,
+    pub partial_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9290,7 +9290,7 @@ impl QueryTimeSeriesResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::QueryTimeSeriesResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = QueryTimeSeriesResponse::new()
     ///     .set_partial_errors([
     ///         Status::default()/* use setters */,
@@ -9300,7 +9300,7 @@ impl QueryTimeSeriesResponse {
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.partial_errors = v.into_iter().map(|i| i.into()).collect();
@@ -12664,7 +12664,7 @@ impl ServiceLevelObjective {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
-    /// use gtype::model::CalendarPeriod;
+    /// use google_cloud_type::model::CalendarPeriod;
     /// let x0 = ServiceLevelObjective::new().set_period(Some(
     ///     google_cloud_monitoring_v3::model::service_level_objective::Period::CalendarPeriod(CalendarPeriod::Day)));
     /// let x1 = ServiceLevelObjective::new().set_period(Some(
@@ -12722,7 +12722,9 @@ impl ServiceLevelObjective {
     /// The value of [period][crate::model::ServiceLevelObjective::period]
     /// if it holds a `CalendarPeriod`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn calendar_period(&self) -> std::option::Option<&gtype::model::CalendarPeriod> {
+    pub fn calendar_period(
+        &self,
+    ) -> std::option::Option<&google_cloud_type::model::CalendarPeriod> {
         #[allow(unreachable_patterns)]
         self.period.as_ref().and_then(|v| match v {
             crate::model::service_level_objective::Period::CalendarPeriod(v) => {
@@ -12741,7 +12743,7 @@ impl ServiceLevelObjective {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
-    /// use gtype::model::CalendarPeriod;
+    /// use google_cloud_type::model::CalendarPeriod;
     /// let x0 = ServiceLevelObjective::new().set_calendar_period(CalendarPeriod::Day);
     /// let x1 = ServiceLevelObjective::new().set_calendar_period(CalendarPeriod::Week);
     /// let x2 = ServiceLevelObjective::new().set_calendar_period(CalendarPeriod::Fortnight);
@@ -12752,7 +12754,7 @@ impl ServiceLevelObjective {
     /// assert!(x2.calendar_period().is_some());
     /// assert!(x2.rolling_period().is_none());
     /// ```
-    pub fn set_calendar_period<T: std::convert::Into<gtype::model::CalendarPeriod>>(
+    pub fn set_calendar_period<T: std::convert::Into<google_cloud_type::model::CalendarPeriod>>(
         mut self,
         v: T,
     ) -> Self {
@@ -12923,7 +12925,7 @@ pub mod service_level_objective {
         /// A calendar period, semantically "since the start of the current
         /// `<calendar_period>`". At this time, only `DAY`, `WEEK`, `FORTNIGHT`, and
         /// `MONTH` are supported.
-        CalendarPeriod(gtype::model::CalendarPeriod),
+        CalendarPeriod(google_cloud_type::model::CalendarPeriod),
     }
 }
 

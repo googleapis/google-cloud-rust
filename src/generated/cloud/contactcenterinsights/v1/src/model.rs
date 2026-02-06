@@ -23,9 +23,9 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -2215,7 +2215,7 @@ pub struct IngestConversationsMetadata {
 
     /// Output only. Partial errors during ingest operation that might cause the
     /// operation output to be incomplete.
-    pub partial_errors: std::vec::Vec<rpc::model::Status>,
+    pub partial_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// Output only. Statistics for IngestConversations operation.
     pub ingest_conversations_stats:
@@ -2333,7 +2333,7 @@ impl IngestConversationsMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsMetadata;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = IngestConversationsMetadata::new()
     ///     .set_partial_errors([
     ///         Status::default()/* use setters */,
@@ -2343,7 +2343,7 @@ impl IngestConversationsMetadata {
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.partial_errors = v.into_iter().map(|i| i.into()).collect();
@@ -2925,7 +2925,7 @@ pub struct BulkAnalyzeConversationsMetadata {
 
     /// Output only. Partial errors during bulk analyze operation that might cause
     /// the operation output to be incomplete.
-    pub partial_errors: std::vec::Vec<rpc::model::Status>,
+    pub partial_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3075,7 +3075,7 @@ impl BulkAnalyzeConversationsMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsMetadata;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BulkAnalyzeConversationsMetadata::new()
     ///     .set_partial_errors([
     ///         Status::default()/* use setters */,
@@ -3085,7 +3085,7 @@ impl BulkAnalyzeConversationsMetadata {
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.partial_errors = v.into_iter().map(|i| i.into()).collect();
@@ -3246,7 +3246,7 @@ pub struct BulkDeleteConversationsMetadata {
 
     /// Partial errors during bulk delete conversations operation that might cause
     /// the operation output to be incomplete.
-    pub partial_errors: std::vec::Vec<rpc::model::Status>,
+    pub partial_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3360,7 +3360,7 @@ impl BulkDeleteConversationsMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsMetadata;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BulkDeleteConversationsMetadata::new()
     ///     .set_partial_errors([
     ///         Status::default()/* use setters */,
@@ -3370,7 +3370,7 @@ impl BulkDeleteConversationsMetadata {
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.partial_errors = v.into_iter().map(|i| i.into()).collect();
@@ -3797,7 +3797,7 @@ pub struct ExportInsightsDataMetadata {
 
     /// Partial errors during export operation that might cause the operation
     /// output to be incomplete.
-    pub partial_errors: std::vec::Vec<rpc::model::Status>,
+    pub partial_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3911,7 +3911,7 @@ impl ExportInsightsDataMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataMetadata;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ExportInsightsDataMetadata::new()
     ///     .set_partial_errors([
     ///         Status::default()/* use setters */,
@@ -3921,7 +3921,7 @@ impl ExportInsightsDataMetadata {
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.partial_errors = v.into_iter().map(|i| i.into()).collect();
@@ -6828,7 +6828,7 @@ pub struct InitializeEncryptionSpecMetadata {
 
     /// Partial errors during initializing operation that might cause the operation
     /// output to be incomplete.
-    pub partial_errors: std::vec::Vec<rpc::model::Status>,
+    pub partial_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6942,7 +6942,7 @@ impl InitializeEncryptionSpecMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::InitializeEncryptionSpecMetadata;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = InitializeEncryptionSpecMetadata::new()
     ///     .set_partial_errors([
     ///         Status::default()/* use setters */,
@@ -6952,7 +6952,7 @@ impl InitializeEncryptionSpecMetadata {
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.partial_errors = v.into_iter().map(|i| i.into()).collect();
@@ -8689,7 +8689,7 @@ pub mod query_metrics_response {
             ///   [starting create time, ending create time) from the request.
             /// * If this a data point from the time series, the interval is
             ///   [time, time + time granularity from the request).
-            pub interval: std::option::Option<gtype::model::Interval>,
+            pub interval: std::option::Option<google_cloud_type::model::Interval>,
 
             /// The measure included in this data point.
             pub measure: std::option::Option<
@@ -8709,12 +8709,12 @@ pub mod query_metrics_response {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::DataPoint;
-            /// use gtype::model::Interval;
+            /// use google_cloud_type::model::Interval;
             /// let x = DataPoint::new().set_interval(Interval::default()/* use setters */);
             /// ```
             pub fn set_interval<T>(mut self, v: T) -> Self
             where
-                T: std::convert::Into<gtype::model::Interval>,
+                T: std::convert::Into<google_cloud_type::model::Interval>,
             {
                 self.interval = std::option::Option::Some(v.into());
                 self
@@ -8725,13 +8725,13 @@ pub mod query_metrics_response {
             /// # Example
             /// ```ignore,no_run
             /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::DataPoint;
-            /// use gtype::model::Interval;
+            /// use google_cloud_type::model::Interval;
             /// let x = DataPoint::new().set_or_clear_interval(Some(Interval::default()/* use setters */));
             /// let x = DataPoint::new().set_or_clear_interval(None::<Interval>);
             /// ```
             pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
             where
-                T: std::convert::Into<gtype::model::Interval>,
+                T: std::convert::Into<google_cloud_type::model::Interval>,
             {
                 self.interval = v.map(|x| x.into());
                 self
@@ -11998,7 +11998,7 @@ pub struct BulkUploadFeedbackLabelsMetadata {
 
     /// Partial errors during ingest operation that might cause the operation
     /// output to be incomplete.
-    pub partial_errors: std::vec::Vec<rpc::model::Status>,
+    pub partial_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// Output only. Statistics for BulkUploadFeedbackLabels operation.
     pub upload_stats:
@@ -12116,7 +12116,7 @@ impl BulkUploadFeedbackLabelsMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsMetadata;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BulkUploadFeedbackLabelsMetadata::new()
     ///     .set_partial_errors([
     ///         Status::default()/* use setters */,
@@ -12126,7 +12126,7 @@ impl BulkUploadFeedbackLabelsMetadata {
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.partial_errors = v.into_iter().map(|i| i.into()).collect();
@@ -12903,7 +12903,7 @@ pub struct BulkDownloadFeedbackLabelsMetadata {
 
     /// Partial errors during ingest operation that might cause the operation
     /// output to be incomplete.
-    pub partial_errors: std::vec::Vec<rpc::model::Status>,
+    pub partial_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// Output only. Statistics for BulkDownloadFeedbackLabels operation.
     pub download_stats:
@@ -13021,7 +13021,7 @@ impl BulkDownloadFeedbackLabelsMetadata {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsMetadata;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BulkDownloadFeedbackLabelsMetadata::new()
     ///     .set_partial_errors([
     ///         Status::default()/* use setters */,
@@ -13031,7 +13031,7 @@ impl BulkDownloadFeedbackLabelsMetadata {
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.partial_errors = v.into_iter().map(|i| i.into()).collect();

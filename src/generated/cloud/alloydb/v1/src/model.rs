@@ -24,9 +24,9 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -1764,13 +1764,13 @@ pub mod automated_backup_policy {
         ///
         /// If no start times are provided, a single fixed start time is chosen
         /// arbitrarily.
-        pub start_times: std::vec::Vec<gtype::model::TimeOfDay>,
+        pub start_times: std::vec::Vec<google_cloud_type::model::TimeOfDay>,
 
         /// The days of the week to perform a backup.
         ///
         /// If this field is left empty, the default of every day of the week is
         /// used.
-        pub days_of_week: std::vec::Vec<gtype::model::DayOfWeek>,
+        pub days_of_week: std::vec::Vec<google_cloud_type::model::DayOfWeek>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1785,7 +1785,7 @@ pub mod automated_backup_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_alloydb_v1::model::automated_backup_policy::WeeklySchedule;
-        /// use gtype::model::TimeOfDay;
+        /// use google_cloud_type::model::TimeOfDay;
         /// let x = WeeklySchedule::new()
         ///     .set_start_times([
         ///         TimeOfDay::default()/* use setters */,
@@ -1795,7 +1795,7 @@ pub mod automated_backup_policy {
         pub fn set_start_times<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<gtype::model::TimeOfDay>,
+            V: std::convert::Into<google_cloud_type::model::TimeOfDay>,
         {
             use std::iter::Iterator;
             self.start_times = v.into_iter().map(|i| i.into()).collect();
@@ -1807,7 +1807,7 @@ pub mod automated_backup_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_alloydb_v1::model::automated_backup_policy::WeeklySchedule;
-        /// use gtype::model::DayOfWeek;
+        /// use google_cloud_type::model::DayOfWeek;
         /// let x = WeeklySchedule::new().set_days_of_week([
         ///     DayOfWeek::Monday,
         ///     DayOfWeek::Tuesday,
@@ -1817,7 +1817,7 @@ pub mod automated_backup_policy {
         pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<gtype::model::DayOfWeek>,
+            V: std::convert::Into<google_cloud_type::model::DayOfWeek>,
         {
             use std::iter::Iterator;
             self.days_of_week = v.into_iter().map(|i| i.into()).collect();
@@ -2082,7 +2082,7 @@ pub struct ContinuousBackupInfo {
     pub enabled_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Days of the week on which a continuous backup is taken.
-    pub schedule: std::vec::Vec<gtype::model::DayOfWeek>,
+    pub schedule: std::vec::Vec<google_cloud_type::model::DayOfWeek>,
 
     /// Output only. The earliest restorable time that can be restored to. If
     /// continuous backups and recovery was recently enabled, the earliest
@@ -2175,7 +2175,7 @@ impl ContinuousBackupInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::ContinuousBackupInfo;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x = ContinuousBackupInfo::new().set_schedule([
     ///     DayOfWeek::Monday,
     ///     DayOfWeek::Tuesday,
@@ -2185,7 +2185,7 @@ impl ContinuousBackupInfo {
     pub fn set_schedule<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<gtype::model::DayOfWeek>,
+        V: std::convert::Into<google_cloud_type::model::DayOfWeek>,
     {
         use std::iter::Iterator;
         self.schedule = v.into_iter().map(|i| i.into()).collect();
@@ -2438,11 +2438,11 @@ pub mod maintenance_update_policy {
     #[non_exhaustive]
     pub struct MaintenanceWindow {
         /// Preferred day of the week for maintenance, e.g. MONDAY, TUESDAY, etc.
-        pub day: gtype::model::DayOfWeek,
+        pub day: google_cloud_type::model::DayOfWeek,
 
         /// Preferred time to start the maintenance operation on the specified day.
         /// Maintenance will start within 1 hour of this time.
-        pub start_time: std::option::Option<gtype::model::TimeOfDay>,
+        pub start_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2457,12 +2457,15 @@ pub mod maintenance_update_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::MaintenanceWindow;
-        /// use gtype::model::DayOfWeek;
+        /// use google_cloud_type::model::DayOfWeek;
         /// let x0 = MaintenanceWindow::new().set_day(DayOfWeek::Monday);
         /// let x1 = MaintenanceWindow::new().set_day(DayOfWeek::Tuesday);
         /// let x2 = MaintenanceWindow::new().set_day(DayOfWeek::Wednesday);
         /// ```
-        pub fn set_day<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
+        pub fn set_day<T: std::convert::Into<google_cloud_type::model::DayOfWeek>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.day = v.into();
             self
         }
@@ -2472,12 +2475,12 @@ pub mod maintenance_update_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::MaintenanceWindow;
-        /// use gtype::model::TimeOfDay;
+        /// use google_cloud_type::model::TimeOfDay;
         /// let x = MaintenanceWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
         /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::TimeOfDay>,
+            T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
         {
             self.start_time = std::option::Option::Some(v.into());
             self
@@ -2488,13 +2491,13 @@ pub mod maintenance_update_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::MaintenanceWindow;
-        /// use gtype::model::TimeOfDay;
+        /// use google_cloud_type::model::TimeOfDay;
         /// let x = MaintenanceWindow::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
         /// let x = MaintenanceWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
         /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::TimeOfDay>,
+            T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
         {
             self.start_time = v.map(|x| x.into());
             self
@@ -2518,21 +2521,21 @@ pub mod maintenance_update_policy {
         ///
         /// * A full date, with non-zero year, month and day values OR
         /// * A month and day value, with a zero year for recurring
-        pub start_date: std::option::Option<gtype::model::Date>,
+        pub start_date: std::option::Option<google_cloud_type::model::Date>,
 
         /// Deny period end date.
         /// This can be:
         ///
         /// * A full date, with non-zero year, month and day values OR
         /// * A month and day value, with a zero year for recurring
-        pub end_date: std::option::Option<gtype::model::Date>,
+        pub end_date: std::option::Option<google_cloud_type::model::Date>,
 
         /// Time in UTC when the deny period starts on start_date and ends on
         /// end_date. This can be:
         ///
         /// * Full time OR
         /// * All zeros for 00:00:00 UTC
-        pub time: std::option::Option<gtype::model::TimeOfDay>,
+        pub time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2547,12 +2550,12 @@ pub mod maintenance_update_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::DenyMaintenancePeriod;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = DenyMaintenancePeriod::new().set_start_date(Date::default()/* use setters */);
         /// ```
         pub fn set_start_date<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.start_date = std::option::Option::Some(v.into());
             self
@@ -2563,13 +2566,13 @@ pub mod maintenance_update_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::DenyMaintenancePeriod;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = DenyMaintenancePeriod::new().set_or_clear_start_date(Some(Date::default()/* use setters */));
         /// let x = DenyMaintenancePeriod::new().set_or_clear_start_date(None::<Date>);
         /// ```
         pub fn set_or_clear_start_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.start_date = v.map(|x| x.into());
             self
@@ -2580,12 +2583,12 @@ pub mod maintenance_update_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::DenyMaintenancePeriod;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = DenyMaintenancePeriod::new().set_end_date(Date::default()/* use setters */);
         /// ```
         pub fn set_end_date<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.end_date = std::option::Option::Some(v.into());
             self
@@ -2596,13 +2599,13 @@ pub mod maintenance_update_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::DenyMaintenancePeriod;
-        /// use gtype::model::Date;
+        /// use google_cloud_type::model::Date;
         /// let x = DenyMaintenancePeriod::new().set_or_clear_end_date(Some(Date::default()/* use setters */));
         /// let x = DenyMaintenancePeriod::new().set_or_clear_end_date(None::<Date>);
         /// ```
         pub fn set_or_clear_end_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Date>,
+            T: std::convert::Into<google_cloud_type::model::Date>,
         {
             self.end_date = v.map(|x| x.into());
             self
@@ -2613,12 +2616,12 @@ pub mod maintenance_update_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::DenyMaintenancePeriod;
-        /// use gtype::model::TimeOfDay;
+        /// use google_cloud_type::model::TimeOfDay;
         /// let x = DenyMaintenancePeriod::new().set_time(TimeOfDay::default()/* use setters */);
         /// ```
         pub fn set_time<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::TimeOfDay>,
+            T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
         {
             self.time = std::option::Option::Some(v.into());
             self
@@ -2629,13 +2632,13 @@ pub mod maintenance_update_policy {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_alloydb_v1::model::maintenance_update_policy::DenyMaintenancePeriod;
-        /// use gtype::model::TimeOfDay;
+        /// use google_cloud_type::model::TimeOfDay;
         /// let x = DenyMaintenancePeriod::new().set_or_clear_time(Some(TimeOfDay::default()/* use setters */));
         /// let x = DenyMaintenancePeriod::new().set_or_clear_time(None::<TimeOfDay>);
         /// ```
         pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::TimeOfDay>,
+            T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
         {
             self.time = v.map(|x| x.into());
             self
@@ -13303,7 +13306,7 @@ pub struct BatchCreateInstanceStatus {
 
     /// The RPC status of the instance creation operation. This field will be
     /// present if an error happened during the instance creation.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub r#type: crate::model::instance::InstanceType,
 
@@ -13350,12 +13353,12 @@ impl BatchCreateInstanceStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::BatchCreateInstanceStatus;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BatchCreateInstanceStatus::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -13366,13 +13369,13 @@ impl BatchCreateInstanceStatus {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_alloydb_v1::model::BatchCreateInstanceStatus;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BatchCreateInstanceStatus::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = BatchCreateInstanceStatus::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -15798,7 +15801,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

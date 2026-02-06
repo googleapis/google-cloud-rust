@@ -55,7 +55,7 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
     let project_name = create
         .name
         .strip_suffix(format!("/secrets/{secret_id}").as_str());
-    assert!(project_name.is_some());
+    assert!(project_name.is_some(), "{create:?}");
 
     println!("\nTesting get_secret()");
     let get = client.get_secret().set_name(&create.name).send().await?;

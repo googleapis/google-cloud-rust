@@ -1380,8 +1380,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Dataset {
                                     "multiple values for date_range",
                                 ));
                             }
-                            result.date_range =
-                                map.next_value::<std::option::Option<gtype::model::Interval>>()?;
+                            result.date_range = map.next_value::<std::option::Option<google_cloud_type::model::Interval>>()?
+                                ;
                         }
                         __FieldTag::__time_zone => {
                             if !fields.insert(__FieldTag::__time_zone) {
@@ -1389,8 +1389,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Dataset {
                                     "multiple values for time_zone",
                                 ));
                             }
-                            result.time_zone =
-                                map.next_value::<std::option::Option<gtype::model::TimeZone>>()?;
+                            result.time_zone = map.next_value::<std::option::Option<google_cloud_type::model::TimeZone>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

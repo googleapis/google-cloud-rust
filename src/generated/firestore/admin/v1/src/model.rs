@@ -23,7 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -483,6 +483,10 @@ pub struct Database {
     pub r#type: crate::model::database::DatabaseType,
 
     /// The concurrency control mode to use for this database.
+    ///
+    /// If unspecified in a CreateDatabase request, this will default based on the
+    /// database edition: Optimistic for Enterprise and Pessimistic for all other
+    /// databases.
     pub concurrency_mode: crate::model::database::ConcurrencyMode,
 
     /// Output only. The period during which past versions of data are retained in
@@ -561,6 +565,22 @@ pub struct Database {
 
     /// Immutable. The edition of the database.
     pub database_edition: crate::model::database::DatabaseEdition,
+
+    /// Immutable. The default Realtime Updates mode to use for this database.
+    pub realtime_updates_mode: crate::model::RealtimeUpdatesMode,
+
+    /// Optional. The Firestore API data access mode to use for this database. If
+    /// not set on write:
+    ///
+    /// - the default value is DATA_ACCESS_MODE_DISABLED for Enterprise Edition.
+    /// - the default value is DATA_ACCESS_MODE_ENABLED for Standard Edition.
+    pub firestore_data_access_mode: crate::model::database::DataAccessMode,
+
+    /// Optional. The MongoDB compatible API data access mode to use for this
+    /// database. If not set on write, the default value is
+    /// DATA_ACCESS_MODE_ENABLED for Enterprise Edition. The value is always
+    /// DATA_ACCESS_MODE_DISABLED for Standard Edition.
+    pub mongodb_compatible_data_access_mode: crate::model::database::DataAccessMode,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1033,6 +1053,61 @@ impl Database {
         self.database_edition = v.into();
         self
     }
+
+    /// Sets the value of [realtime_updates_mode][crate::model::Database::realtime_updates_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::model::RealtimeUpdatesMode;
+    /// let x0 = Database::new().set_realtime_updates_mode(RealtimeUpdatesMode::Enabled);
+    /// let x1 = Database::new().set_realtime_updates_mode(RealtimeUpdatesMode::Disabled);
+    /// ```
+    pub fn set_realtime_updates_mode<T: std::convert::Into<crate::model::RealtimeUpdatesMode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.realtime_updates_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [firestore_data_access_mode][crate::model::Database::firestore_data_access_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::model::database::DataAccessMode;
+    /// let x0 = Database::new().set_firestore_data_access_mode(DataAccessMode::Enabled);
+    /// let x1 = Database::new().set_firestore_data_access_mode(DataAccessMode::Disabled);
+    /// ```
+    pub fn set_firestore_data_access_mode<
+        T: std::convert::Into<crate::model::database::DataAccessMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.firestore_data_access_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [mongodb_compatible_data_access_mode][crate::model::Database::mongodb_compatible_data_access_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::model::database::DataAccessMode;
+    /// let x0 = Database::new().set_mongodb_compatible_data_access_mode(DataAccessMode::Enabled);
+    /// let x1 = Database::new().set_mongodb_compatible_data_access_mode(DataAccessMode::Disabled);
+    /// ```
+    pub fn set_mongodb_compatible_data_access_mode<
+        T: std::convert::Into<crate::model::database::DataAccessMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mongodb_compatible_data_access_mode = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Database {
@@ -1276,9 +1351,11 @@ pub mod database {
     /// Encryption configuration for a new database being created from another
     /// source.
     ///
-    /// The source could be a [Backup][google.firestore.admin.v1.Backup] .
+    /// The source could be a [Backup][google.firestore.admin.v1.Backup] or a
+    /// [PitrSnapshot][google.firestore.admin.v1.PitrSnapshot].
     ///
     /// [google.firestore.admin.v1.Backup]: crate::model::Backup
+    /// [google.firestore.admin.v1.PitrSnapshot]: crate::model::PitrSnapshot
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EncryptionConfig {
@@ -1747,18 +1824,23 @@ pub mod database {
         Unspecified,
         /// Use optimistic concurrency control by default. This mode is available
         /// for Cloud Firestore databases.
+        ///
+        /// This is the default setting for Cloud Firestore Enterprise Edition
+        /// databases.
         Optimistic,
         /// Use pessimistic concurrency control by default. This mode is available
         /// for Cloud Firestore databases.
         ///
-        /// This is the default setting for Cloud Firestore.
+        /// This is the default setting for Cloud Firestore Standard Edition
+        /// databases.
         Pessimistic,
         /// Use optimistic concurrency control with entity groups by default.
         ///
-        /// This is the only available mode for Cloud Datastore.
+        /// This mode is enabled for some databases that were automatically upgraded
+        /// from Cloud Datastore to Cloud Firestore with Datastore Mode.
         ///
-        /// This mode is also available for Cloud Firestore with Datastore Mode but
-        /// is not recommended.
+        /// It is not recommended for any new databases, and not supported for
+        /// Firestore Native databases.
         OptimisticWithEntityGroups,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2436,6 +2518,138 @@ pub mod database {
             ))
         }
     }
+
+    /// The data access mode.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DataAccessMode {
+        /// Not Used.
+        Unspecified,
+        /// Accessing the database through the API is allowed.
+        Enabled,
+        /// Accessing the database through the API is disallowed.
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DataAccessMode::value] or
+        /// [DataAccessMode::name].
+        UnknownValue(data_access_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod data_access_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl DataAccessMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::Disabled => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DATA_ACCESS_MODE_UNSPECIFIED"),
+                Self::Enabled => std::option::Option::Some("DATA_ACCESS_MODE_ENABLED"),
+                Self::Disabled => std::option::Option::Some("DATA_ACCESS_MODE_DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for DataAccessMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DataAccessMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DataAccessMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::Disabled,
+                _ => Self::UnknownValue(data_access_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DataAccessMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DATA_ACCESS_MODE_UNSPECIFIED" => Self::Unspecified,
+                "DATA_ACCESS_MODE_ENABLED" => Self::Enabled,
+                "DATA_ACCESS_MODE_DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(data_access_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DataAccessMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::Disabled => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DataAccessMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataAccessMode>::new(
+                ".google.firestore.admin.v1.Database.DataAccessMode",
+            ))
+        }
+    }
 }
 
 /// Represents a single field in the database.
@@ -2685,10 +2899,13 @@ pub mod field {
     /// set.
     ///
     /// Storing a timestamp value into a TTL-enabled field will be treated as
-    /// the document's absolute expiration time. Timestamp values in the past
-    /// indicate that the document is eligible for immediate expiration. Using any
-    /// other data type or leaving the field absent will disable expiration for the
-    /// individual document.
+    /// the document's absolute expiration time. For Enterprise edition databases,
+    /// the timestamp value may also be stored in an array value in the
+    /// TTL-enabled field.
+    ///
+    /// Timestamp values in the past indicate that the document is eligible for
+    /// immediate expiration. Using any other data type or leaving the field absent
+    /// will disable expiration for the individual document.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TtlConfig {
@@ -2955,7 +3172,7 @@ pub struct CreateDatabaseRequest {
     /// with first character a letter and the last a letter or a number. Must not
     /// be UUID-like /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/.
     ///
-    /// "(default)" database ID is also valid.
+    /// "(default)" database ID is also valid if the database is Standard edition.
     pub database_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4677,8 +4894,8 @@ pub struct ExportDocumentsRequest {
     /// `projects/{project_id}/databases/{database_id}`.
     pub name: std::string::String,
 
-    /// Which collection IDs to export. Unspecified means all collections. Each
-    /// collection ID in this list must be unique.
+    /// IDs of the collection groups to export. Unspecified means all
+    /// collection groups. Each collection group in this list must be unique.
     pub collection_ids: std::vec::Vec<std::string::String>,
 
     /// The output URI. Currently only supports Google Cloud Storage URIs of the
@@ -4830,8 +5047,9 @@ pub struct ImportDocumentsRequest {
     /// `projects/{project_id}/databases/{database_id}`.
     pub name: std::string::String,
 
-    /// Which collection IDs to import. Unspecified means all collections included
-    /// in the import. Each collection ID in this list must be unique.
+    /// IDs of the collection groups to import. Unspecified means all collection
+    /// groups that were included in the export. Each collection group in this list
+    /// must be unique.
     pub collection_ids: std::vec::Vec<std::string::String>,
 
     /// Location of the exported files.
@@ -5287,7 +5505,7 @@ pub struct RestoreDatabaseRequest {
     /// with first character a letter and the last a letter or a number. Must not
     /// be UUID-like /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/.
     ///
-    /// "(default)" database ID is also valid.
+    /// "(default)" database ID is also valid if the database is Standard edition.
     pub database_id: std::string::String,
 
     /// Required. Backup to restore from. Must be from the same project as the
@@ -5438,7 +5656,7 @@ pub struct CloneDatabaseRequest {
     /// with first character a letter and the last a letter or a number. Must not
     /// be UUID-like /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/.
     ///
-    /// "(default)" database ID is also valid.
+    /// "(default)" database ID is also valid if the database is Standard edition.
     pub database_id: std::string::String,
 
     /// Required. Specification of the PITR data to clone from. The source database
@@ -5644,6 +5862,10 @@ pub struct Index {
     /// Optional. The number of shards for the index.
     pub shard_count: i32,
 
+    /// Optional. Whether it is an unique index. Unique index ensures all values
+    /// for the indexed field(s) are unique across documents.
+    pub unique: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5775,6 +5997,18 @@ impl Index {
     /// ```
     pub fn set_shard_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.shard_count = v.into();
+        self
+    }
+
+    /// Sets the value of [unique][crate::model::Index::unique].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore_admin_v1::model::Index;
+    /// let x = Index::new().set_unique(true);
+    /// ```
+    pub fn set_unique<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.unique = v.into();
         self
     }
 }
@@ -6861,21 +7095,63 @@ pub mod index {
         /// Unspecified. It will use database default setting. This value is input
         /// only.
         Unspecified,
-        /// In order for an index entry to be added, the document must
-        /// contain all fields specified in the index.
+        /// An index entry will only exist if ALL fields are present in the document.
         ///
-        /// This is the only allowed value for indexes having ApiScope `ANY_API` and
-        /// `DATASTORE_MODE_API`.
+        /// This is both the default and only allowed value for Standard Edition
+        /// databases (for both Cloud Firestore `ANY_API` and Cloud Datastore
+        /// `DATASTORE_MODE_API`).
+        ///
+        /// Take for example the following document:
+        ///
+        /// ```norust
+        /// {
+        ///   "__name__": "...",
+        ///   "a": 1,
+        ///   "b": 2,
+        ///   "c": 3
+        /// }
+        /// ```
+        ///
+        /// an index on `(a ASC, b ASC, c ASC, __name__ ASC)` will generate an index
+        /// entry for this document since `a`, 'b', `c`, and `__name__` are all
+        /// present but an index of `(a ASC, d ASC, __name__ ASC)` will not generate
+        /// an index entry for this document since `d` is missing.
+        ///
+        /// This means that such indexes can only be used to serve a query when the
+        /// query has either implicit or explicit requirements that all fields from
+        /// the index are present.
         SparseAll,
-        /// In order for an index entry to be added, the document must
-        /// contain at least one of the fields specified in the index.
-        /// Non-existent fields are treated as having a NULL value when generating
-        /// index entries.
+        /// An index entry will exist if ANY field are present in the document.
+        ///
+        /// This is used as the definition of a sparse index for Enterprise Edition
+        /// databases.
+        ///
+        /// Take for example the following document:
+        ///
+        /// ```norust
+        /// {
+        ///   "__name__": "...",
+        ///   "a": 1,
+        ///   "b": 2,
+        ///   "c": 3
+        /// }
+        /// ```
+        ///
+        /// an index on `(a ASC, d ASC)` will generate an index entry for this
+        /// document since `a` is present, and will fill in an `unset` value for `d`.
+        /// An index on `(d ASC, e ASC)` will not generate any index entry as neither
+        /// `d` nor `e` are present.
+        ///
+        /// An index that contains `__name__` will generate an index entry for all
+        /// documents since Firestore guarantees that all documents have a `__name__`
+        /// field.
         SparseAny,
-        /// An index entry will be added regardless of whether the
-        /// document contains any of the fields specified in the index.
-        /// Non-existent fields are treated as having a NULL value when generating
-        /// index entries.
+        /// An index entry will exist regardless of if the fields are present or not.
+        ///
+        /// This is the default density for an Enterprise Edition database.
+        ///
+        /// The index will store `unset` values for fields that are not present in
+        /// the document.
         Dense,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -9489,7 +9765,7 @@ pub struct WeeklyRecurrence {
     /// The day of week to run.
     ///
     /// DAY_OF_WEEK_UNSPECIFIED is not allowed.
-    pub day: gtype::model::DayOfWeek,
+    pub day: google_cloud_type::model::DayOfWeek,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9504,12 +9780,15 @@ impl WeeklyRecurrence {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore_admin_v1::model::WeeklyRecurrence;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x0 = WeeklyRecurrence::new().set_day(DayOfWeek::Monday);
     /// let x1 = WeeklyRecurrence::new().set_day(DayOfWeek::Tuesday);
     /// let x2 = WeeklyRecurrence::new().set_day(DayOfWeek::Wednesday);
     /// ```
-    pub fn set_day<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
+    pub fn set_day<T: std::convert::Into<google_cloud_type::model::DayOfWeek>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.day = v.into();
         self
     }
@@ -10167,6 +10446,140 @@ impl<'de> serde::de::Deserialize<'de> for OperationState {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<OperationState>::new(
             ".google.firestore.admin.v1.OperationState",
+        ))
+    }
+}
+
+/// The Realtime Updates mode.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum RealtimeUpdatesMode {
+    /// The Realtime Updates feature is not specified.
+    Unspecified,
+    /// The Realtime Updates feature is enabled by default.
+    ///
+    /// This could potentially degrade write performance for the database.
+    Enabled,
+    /// The Realtime Updates feature is disabled by default.
+    Disabled,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [RealtimeUpdatesMode::value] or
+    /// [RealtimeUpdatesMode::name].
+    UnknownValue(realtime_updates_mode::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod realtime_updates_mode {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl RealtimeUpdatesMode {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Enabled => std::option::Option::Some(1),
+            Self::Disabled => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("REALTIME_UPDATES_MODE_UNSPECIFIED"),
+            Self::Enabled => std::option::Option::Some("REALTIME_UPDATES_MODE_ENABLED"),
+            Self::Disabled => std::option::Option::Some("REALTIME_UPDATES_MODE_DISABLED"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for RealtimeUpdatesMode {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for RealtimeUpdatesMode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for RealtimeUpdatesMode {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Enabled,
+            2 => Self::Disabled,
+            _ => Self::UnknownValue(realtime_updates_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for RealtimeUpdatesMode {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "REALTIME_UPDATES_MODE_UNSPECIFIED" => Self::Unspecified,
+            "REALTIME_UPDATES_MODE_ENABLED" => Self::Enabled,
+            "REALTIME_UPDATES_MODE_DISABLED" => Self::Disabled,
+            _ => Self::UnknownValue(realtime_updates_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for RealtimeUpdatesMode {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Enabled => serializer.serialize_i32(1),
+            Self::Disabled => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for RealtimeUpdatesMode {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<RealtimeUpdatesMode>::new(
+            ".google.firestore.admin.v1.RealtimeUpdatesMode",
         ))
     }
 }

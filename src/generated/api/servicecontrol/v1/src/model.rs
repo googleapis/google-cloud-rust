@@ -22,9 +22,9 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_api;
+extern crate google_cloud_logging_type;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate logging_type;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -60,7 +60,7 @@ pub struct CheckError {
     /// Contains public information about the check error. If available,
     /// `status.code` will be non zero and client can propagate it out as public
     /// error.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -117,12 +117,12 @@ impl CheckError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicecontrol_v1::model::CheckError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CheckError::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -133,13 +133,13 @@ impl CheckError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicecontrol_v1::model::CheckError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = CheckError::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = CheckError::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self
@@ -1302,7 +1302,7 @@ pub struct LogEntry {
 
     /// The severity of the log entry. The default value is
     /// `LogSeverity.DEFAULT`.
-    pub severity: logging_type::model::LogSeverity,
+    pub severity: google_cloud_logging_type::model::LogSeverity,
 
     /// Optional. Information about the HTTP request associated with this
     /// log entry, if applicable.
@@ -1391,12 +1391,12 @@ impl LogEntry {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use logging_type::model::LogSeverity;
+    /// use google_cloud_logging_type::model::LogSeverity;
     /// let x0 = LogEntry::new().set_severity(LogSeverity::Debug);
     /// let x1 = LogEntry::new().set_severity(LogSeverity::Info);
     /// let x2 = LogEntry::new().set_severity(LogSeverity::Notice);
     /// ```
-    pub fn set_severity<T: std::convert::Into<logging_type::model::LogSeverity>>(
+    pub fn set_severity<T: std::convert::Into<google_cloud_logging_type::model::LogSeverity>>(
         mut self,
         v: T,
     ) -> Self {
@@ -3279,7 +3279,7 @@ pub struct QuotaError {
 
     /// Contains additional information about the quota error.
     /// If available, `status.code` will be non zero.
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3336,12 +3336,12 @@ impl QuotaError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicecontrol_v1::model::QuotaError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = QuotaError::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -3352,13 +3352,13 @@ impl QuotaError {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_api_servicecontrol_v1::model::QuotaError;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = QuotaError::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = QuotaError::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self
@@ -4323,7 +4323,7 @@ pub mod report_response {
         /// [Operation][google.api.servicecontrol.v1.Operation].
         ///
         /// [google.api.servicecontrol.v1.Operation]: crate::model::Operation
-        pub status: std::option::Option<rpc::model::Status>,
+        pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -4353,12 +4353,12 @@ pub mod report_response {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_api_servicecontrol_v1::model::report_response::ReportError;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ReportError::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -4369,13 +4369,13 @@ pub mod report_response {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_api_servicecontrol_v1::model::report_response::ReportError;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ReportError::new().set_or_clear_status(Some(Status::default()/* use setters */));
         /// let x = ReportError::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<rpc::model::Status>,
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             self.status = v.map(|x| x.into());
             self

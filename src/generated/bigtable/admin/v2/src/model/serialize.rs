@@ -3381,6 +3381,9 @@ impl serde::ser::Serialize for super::Table {
         if let Some(value) = self.automated_backup_policy() {
             state.serialize_entry("automatedBackupPolicy", value)?;
         }
+        if self.tiered_storage_config.is_some() {
+            state.serialize_entry("tieredStorageConfig", &self.tiered_storage_config)?;
+        }
         if self.row_key_schema.is_some() {
             state.serialize_entry("rowKeySchema", &self.row_key_schema)?;
         }
@@ -3828,6 +3831,50 @@ impl serde::ser::Serialize for super::BackupInfo {
         }
         if !self.source_backup.is_empty() {
             state.serialize_entry("sourceBackup", &self.source_backup)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::TieredStorageConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.infrequent_access.is_some() {
+            state.serialize_entry("infrequentAccess", &self.infrequent_access)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::TieredStorageRule {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.include_if_older_than() {
+            state.serialize_entry("includeIfOlderThan", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

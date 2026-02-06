@@ -241,7 +241,7 @@ impl KeyTrackingService {
     /// holds the key must be part of an organization in order for this call to
     /// succeed.
     ///
-    /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
+    /// [google.cloud.kms.v1.CryptoKey]: google_cloud_kms_v1::model::CryptoKey
     pub fn get_protected_resources_summary(
         &self,
     ) -> super::builder::key_tracking_service::GetProtectedResourcesSummary {
@@ -251,7 +251,7 @@ impl KeyTrackingService {
     /// Returns metadata about the resources protected by the given Cloud KMS
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey] in the given Cloud organization.
     ///
-    /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
+    /// [google.cloud.kms.v1.CryptoKey]: google_cloud_kms_v1::model::CryptoKey
     pub fn search_protected_resources(
         &self,
     ) -> super::builder::key_tracking_service::SearchProtectedResources {

@@ -358,7 +358,7 @@ pub mod domains {
         /// This is a **required** field for requests.
         pub fn set_yearly_price<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.0.request.yearly_price = std::option::Option::Some(v.into());
             self
@@ -369,7 +369,7 @@ pub mod domains {
         /// This is a **required** field for requests.
         pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.0.request.yearly_price = v.map(|x| x.into());
             self
@@ -599,7 +599,7 @@ pub mod domains {
         /// This is a **required** field for requests.
         pub fn set_yearly_price<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.0.request.yearly_price = std::option::Option::Some(v.into());
             self
@@ -610,7 +610,7 @@ pub mod domains {
         /// This is a **required** field for requests.
         pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.0.request.yearly_price = v.map(|x| x.into());
             self

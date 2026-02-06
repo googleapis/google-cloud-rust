@@ -327,10 +327,10 @@ mod tests {
         let signer = Signer::from(mock);
 
         let result = signer.client_email().await;
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         assert!(result.unwrap_err().is_transport());
         let result = signer.sign("test").await;
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         assert!(result.unwrap_err().is_sign());
 
         Ok(())

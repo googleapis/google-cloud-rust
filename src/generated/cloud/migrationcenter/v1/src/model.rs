@@ -24,7 +24,7 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -2938,7 +2938,7 @@ pub struct OperationMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -9274,7 +9274,7 @@ pub struct BiosDetails {
     pub version: std::string::String,
 
     /// BIOS release date.
-    pub release_date: std::option::Option<gtype::model::Date>,
+    pub release_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// SMBIOS UUID.
     pub smbios_uuid: std::string::String,
@@ -9341,12 +9341,12 @@ impl BiosDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::BiosDetails;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = BiosDetails::new().set_release_date(Date::default()/* use setters */);
     /// ```
     pub fn set_release_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.release_date = std::option::Option::Some(v.into());
         self
@@ -9357,13 +9357,13 @@ impl BiosDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::BiosDetails;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = BiosDetails::new().set_or_clear_release_date(Some(Date::default()/* use setters */));
     /// let x = BiosDetails::new().set_or_clear_release_date(None::<Date>);
     /// ```
     pub fn set_or_clear_release_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.release_date = v.map(|x| x.into());
         self
@@ -14574,7 +14574,7 @@ impl wkt::message::Message for AssetPerformanceData {
 #[non_exhaustive]
 pub struct DailyResourceUsageAggregation {
     /// Aggregation date. Day boundaries are at midnight UTC.
-    pub date: std::option::Option<gtype::model::Date>,
+    pub date: std::option::Option<google_cloud_type::model::Date>,
 
     /// CPU usage.
     pub cpu: std::option::Option<crate::model::daily_resource_usage_aggregation::Cpu>,
@@ -14601,12 +14601,12 @@ impl DailyResourceUsageAggregation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::DailyResourceUsageAggregation;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = DailyResourceUsageAggregation::new().set_date(Date::default()/* use setters */);
     /// ```
     pub fn set_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.date = std::option::Option::Some(v.into());
         self
@@ -14617,13 +14617,13 @@ impl DailyResourceUsageAggregation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_migrationcenter_v1::model::DailyResourceUsageAggregation;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = DailyResourceUsageAggregation::new().set_or_clear_date(Some(Date::default()/* use setters */));
     /// let x = DailyResourceUsageAggregation::new().set_or_clear_date(None::<Date>);
     /// ```
     pub fn set_or_clear_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.date = v.map(|x| x.into());
         self
@@ -19898,22 +19898,22 @@ pub mod report_summary {
         pub machine_preferences: std::option::Option<crate::model::VirtualMachinePreferences>,
 
         /// Total monthly cost for this preference set.
-        pub monthly_cost_total: std::option::Option<gtype::model::Money>,
+        pub monthly_cost_total: std::option::Option<google_cloud_type::model::Money>,
 
         /// Compute monthly cost for this preference set.
-        pub monthly_cost_compute: std::option::Option<gtype::model::Money>,
+        pub monthly_cost_compute: std::option::Option<google_cloud_type::model::Money>,
 
         /// Licensing monthly cost for this preference set.
-        pub monthly_cost_os_license: std::option::Option<gtype::model::Money>,
+        pub monthly_cost_os_license: std::option::Option<google_cloud_type::model::Money>,
 
         /// Network Egress monthly cost for this preference set.
-        pub monthly_cost_network_egress: std::option::Option<gtype::model::Money>,
+        pub monthly_cost_network_egress: std::option::Option<google_cloud_type::model::Money>,
 
         /// Storage monthly cost for this preference set.
-        pub monthly_cost_storage: std::option::Option<gtype::model::Money>,
+        pub monthly_cost_storage: std::option::Option<google_cloud_type::model::Money>,
 
         /// Miscellaneous monthly cost for this preference set.
-        pub monthly_cost_other: std::option::Option<gtype::model::Money>,
+        pub monthly_cost_other: std::option::Option<google_cloud_type::model::Money>,
 
         /// A set of findings that applies to Compute Engine machines in the input.
         pub compute_engine_finding:
@@ -20000,12 +20000,12 @@ pub mod report_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_summary::GroupPreferenceSetFinding;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = GroupPreferenceSetFinding::new().set_monthly_cost_total(Money::default()/* use setters */);
         /// ```
         pub fn set_monthly_cost_total<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.monthly_cost_total = std::option::Option::Some(v.into());
             self
@@ -20016,13 +20016,13 @@ pub mod report_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_summary::GroupPreferenceSetFinding;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = GroupPreferenceSetFinding::new().set_or_clear_monthly_cost_total(Some(Money::default()/* use setters */));
         /// let x = GroupPreferenceSetFinding::new().set_or_clear_monthly_cost_total(None::<Money>);
         /// ```
         pub fn set_or_clear_monthly_cost_total<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.monthly_cost_total = v.map(|x| x.into());
             self
@@ -20033,12 +20033,12 @@ pub mod report_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_summary::GroupPreferenceSetFinding;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = GroupPreferenceSetFinding::new().set_monthly_cost_compute(Money::default()/* use setters */);
         /// ```
         pub fn set_monthly_cost_compute<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.monthly_cost_compute = std::option::Option::Some(v.into());
             self
@@ -20049,13 +20049,13 @@ pub mod report_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_summary::GroupPreferenceSetFinding;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = GroupPreferenceSetFinding::new().set_or_clear_monthly_cost_compute(Some(Money::default()/* use setters */));
         /// let x = GroupPreferenceSetFinding::new().set_or_clear_monthly_cost_compute(None::<Money>);
         /// ```
         pub fn set_or_clear_monthly_cost_compute<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.monthly_cost_compute = v.map(|x| x.into());
             self
@@ -20066,12 +20066,12 @@ pub mod report_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_summary::GroupPreferenceSetFinding;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = GroupPreferenceSetFinding::new().set_monthly_cost_os_license(Money::default()/* use setters */);
         /// ```
         pub fn set_monthly_cost_os_license<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.monthly_cost_os_license = std::option::Option::Some(v.into());
             self
@@ -20082,13 +20082,13 @@ pub mod report_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_summary::GroupPreferenceSetFinding;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = GroupPreferenceSetFinding::new().set_or_clear_monthly_cost_os_license(Some(Money::default()/* use setters */));
         /// let x = GroupPreferenceSetFinding::new().set_or_clear_monthly_cost_os_license(None::<Money>);
         /// ```
         pub fn set_or_clear_monthly_cost_os_license<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.monthly_cost_os_license = v.map(|x| x.into());
             self
@@ -20099,12 +20099,12 @@ pub mod report_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_summary::GroupPreferenceSetFinding;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = GroupPreferenceSetFinding::new().set_monthly_cost_network_egress(Money::default()/* use setters */);
         /// ```
         pub fn set_monthly_cost_network_egress<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.monthly_cost_network_egress = std::option::Option::Some(v.into());
             self
@@ -20115,7 +20115,7 @@ pub mod report_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_summary::GroupPreferenceSetFinding;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = GroupPreferenceSetFinding::new().set_or_clear_monthly_cost_network_egress(Some(Money::default()/* use setters */));
         /// let x = GroupPreferenceSetFinding::new().set_or_clear_monthly_cost_network_egress(None::<Money>);
         /// ```
@@ -20124,7 +20124,7 @@ pub mod report_summary {
             v: std::option::Option<T>,
         ) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.monthly_cost_network_egress = v.map(|x| x.into());
             self
@@ -20135,12 +20135,12 @@ pub mod report_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_summary::GroupPreferenceSetFinding;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = GroupPreferenceSetFinding::new().set_monthly_cost_storage(Money::default()/* use setters */);
         /// ```
         pub fn set_monthly_cost_storage<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.monthly_cost_storage = std::option::Option::Some(v.into());
             self
@@ -20151,13 +20151,13 @@ pub mod report_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_summary::GroupPreferenceSetFinding;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = GroupPreferenceSetFinding::new().set_or_clear_monthly_cost_storage(Some(Money::default()/* use setters */));
         /// let x = GroupPreferenceSetFinding::new().set_or_clear_monthly_cost_storage(None::<Money>);
         /// ```
         pub fn set_or_clear_monthly_cost_storage<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.monthly_cost_storage = v.map(|x| x.into());
             self
@@ -20168,12 +20168,12 @@ pub mod report_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_summary::GroupPreferenceSetFinding;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = GroupPreferenceSetFinding::new().set_monthly_cost_other(Money::default()/* use setters */);
         /// ```
         pub fn set_monthly_cost_other<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.monthly_cost_other = std::option::Option::Some(v.into());
             self
@@ -20184,13 +20184,13 @@ pub mod report_summary {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_migrationcenter_v1::model::report_summary::GroupPreferenceSetFinding;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = GroupPreferenceSetFinding::new().set_or_clear_monthly_cost_other(Some(Money::default()/* use setters */));
         /// let x = GroupPreferenceSetFinding::new().set_or_clear_monthly_cost_other(None::<Money>);
         /// ```
         pub fn set_or_clear_monthly_cost_other<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.monthly_cost_other = v.map(|x| x.into());
             self

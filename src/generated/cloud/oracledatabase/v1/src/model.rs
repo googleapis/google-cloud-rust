@@ -24,7 +24,7 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -5335,13 +5335,13 @@ impl wkt::message::Message for AutonomousDatabaseStandbySummary {
 #[non_exhaustive]
 pub struct ScheduledOperationDetails {
     /// Output only. Day of week.
-    pub day_of_week: gtype::model::DayOfWeek,
+    pub day_of_week: google_cloud_type::model::DayOfWeek,
 
     /// Output only. Auto start time.
-    pub start_time: std::option::Option<gtype::model::TimeOfDay>,
+    pub start_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     /// Output only. Auto stop time.
-    pub stop_time: std::option::Option<gtype::model::TimeOfDay>,
+    pub stop_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5356,12 +5356,15 @@ impl ScheduledOperationDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ScheduledOperationDetails;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x0 = ScheduledOperationDetails::new().set_day_of_week(DayOfWeek::Monday);
     /// let x1 = ScheduledOperationDetails::new().set_day_of_week(DayOfWeek::Tuesday);
     /// let x2 = ScheduledOperationDetails::new().set_day_of_week(DayOfWeek::Wednesday);
     /// ```
-    pub fn set_day_of_week<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
+    pub fn set_day_of_week<T: std::convert::Into<google_cloud_type::model::DayOfWeek>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.day_of_week = v.into();
         self
     }
@@ -5371,12 +5374,12 @@ impl ScheduledOperationDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ScheduledOperationDetails;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = ScheduledOperationDetails::new().set_start_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -5387,13 +5390,13 @@ impl ScheduledOperationDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ScheduledOperationDetails;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = ScheduledOperationDetails::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
     /// let x = ScheduledOperationDetails::new().set_or_clear_start_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -5404,12 +5407,12 @@ impl ScheduledOperationDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ScheduledOperationDetails;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = ScheduledOperationDetails::new().set_stop_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_stop_time<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.stop_time = std::option::Option::Some(v.into());
         self
@@ -5420,13 +5423,13 @@ impl ScheduledOperationDetails {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ScheduledOperationDetails;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = ScheduledOperationDetails::new().set_or_clear_stop_time(Some(TimeOfDay::default()/* use setters */));
     /// let x = ScheduledOperationDetails::new().set_or_clear_stop_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_stop_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.stop_time = v.map(|x| x.into());
         self
@@ -7715,7 +7718,7 @@ pub struct DbBackupConfig {
 
     /// Optional. The day of the week on which the full backup should be performed
     /// on the database. If no value is provided, it will default to Sunday.
-    pub auto_full_backup_day: gtype::model::DayOfWeek,
+    pub auto_full_backup_day: google_cloud_type::model::DayOfWeek,
 
     /// Optional. The window in which the full backup should be performed on the
     /// database. If no value is provided, the default is anytime.
@@ -7804,12 +7807,12 @@ impl DbBackupConfig {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DbBackupConfig;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x0 = DbBackupConfig::new().set_auto_full_backup_day(DayOfWeek::Monday);
     /// let x1 = DbBackupConfig::new().set_auto_full_backup_day(DayOfWeek::Tuesday);
     /// let x2 = DbBackupConfig::new().set_auto_full_backup_day(DayOfWeek::Wednesday);
     /// ```
-    pub fn set_auto_full_backup_day<T: std::convert::Into<gtype::model::DayOfWeek>>(
+    pub fn set_auto_full_backup_day<T: std::convert::Into<google_cloud_type::model::DayOfWeek>>(
         mut self,
         v: T,
     ) -> Self {
@@ -10112,7 +10115,7 @@ pub struct DbSystemProperties {
     pub data_collection_options: std::option::Option<crate::model::DataCollectionOptionsDbSystem>,
 
     /// Optional. Time zone of the DbSystem.
-    pub time_zone: std::option::Option<gtype::model::TimeZone>,
+    pub time_zone: std::option::Option<google_cloud_type::model::TimeZone>,
 
     /// Output only. State of the DbSystem.
     pub lifecycle_state: crate::model::db_system_properties::DbSystemLifecycleState,
@@ -10319,12 +10322,12 @@ impl DbSystemProperties {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use gtype::model::TimeZone;
+    /// use google_cloud_type::model::TimeZone;
     /// let x = DbSystemProperties::new().set_time_zone(TimeZone::default()/* use setters */);
     /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeZone>,
+        T: std::convert::Into<google_cloud_type::model::TimeZone>,
     {
         self.time_zone = std::option::Option::Some(v.into());
         self
@@ -10335,13 +10338,13 @@ impl DbSystemProperties {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
-    /// use gtype::model::TimeZone;
+    /// use google_cloud_type::model::TimeZone;
     /// let x = DbSystemProperties::new().set_or_clear_time_zone(Some(TimeZone::default()/* use setters */));
     /// let x = DbSystemProperties::new().set_or_clear_time_zone(None::<TimeZone>);
     /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeZone>,
+        T: std::convert::Into<google_cloud_type::model::TimeZone>,
     {
         self.time_zone = v.map(|x| x.into());
         self
@@ -14358,7 +14361,7 @@ pub struct MaintenanceWindow {
     pub preference: crate::model::maintenance_window::MaintenanceWindowPreference,
 
     /// Optional. Months during the year when maintenance should be performed.
-    pub months: std::vec::Vec<gtype::model::Month>,
+    pub months: std::vec::Vec<google_cloud_type::model::Month>,
 
     /// Optional. Weeks during the month when maintenance should be performed.
     /// Weeks start on the 1st, 8th, 15th, and 22nd days of the month, and have a
@@ -14367,7 +14370,7 @@ pub struct MaintenanceWindow {
     pub weeks_of_month: std::vec::Vec<i32>,
 
     /// Optional. Days during the week when maintenance should be performed.
-    pub days_of_week: std::vec::Vec<gtype::model::DayOfWeek>,
+    pub days_of_week: std::vec::Vec<google_cloud_type::model::DayOfWeek>,
 
     /// Optional. The window of hours during the day when maintenance should be
     /// performed. The window is a 4 hour slot. Valid values are:
@@ -14428,7 +14431,7 @@ impl MaintenanceWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::MaintenanceWindow;
-    /// use gtype::model::Month;
+    /// use google_cloud_type::model::Month;
     /// let x = MaintenanceWindow::new().set_months([
     ///     Month::January,
     ///     Month::February,
@@ -14438,7 +14441,7 @@ impl MaintenanceWindow {
     pub fn set_months<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<gtype::model::Month>,
+        V: std::convert::Into<google_cloud_type::model::Month>,
     {
         use std::iter::Iterator;
         self.months = v.into_iter().map(|i| i.into()).collect();
@@ -14467,7 +14470,7 @@ impl MaintenanceWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::MaintenanceWindow;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x = MaintenanceWindow::new().set_days_of_week([
     ///     DayOfWeek::Monday,
     ///     DayOfWeek::Tuesday,
@@ -14477,7 +14480,7 @@ impl MaintenanceWindow {
     pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<gtype::model::DayOfWeek>,
+        V: std::convert::Into<google_cloud_type::model::DayOfWeek>,
     {
         use std::iter::Iterator;
         self.days_of_week = v.into_iter().map(|i| i.into()).collect();
@@ -15168,7 +15171,7 @@ pub struct ExadbVmClusterProperties {
     pub data_collection_options: std::option::Option<crate::model::DataCollectionOptionsCommon>,
 
     /// Optional. Immutable. The time zone of the ExadbVmCluster.
-    pub time_zone: std::option::Option<gtype::model::TimeZone>,
+    pub time_zone: std::option::Option<google_cloud_type::model::TimeZone>,
 
     /// Output only. State of the cluster.
     pub lifecycle_state: crate::model::exadb_vm_cluster_properties::ExadbVmClusterLifecycleState,
@@ -15406,12 +15409,12 @@ impl ExadbVmClusterProperties {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// use gtype::model::TimeZone;
+    /// use google_cloud_type::model::TimeZone;
     /// let x = ExadbVmClusterProperties::new().set_time_zone(TimeZone::default()/* use setters */);
     /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeZone>,
+        T: std::convert::Into<google_cloud_type::model::TimeZone>,
     {
         self.time_zone = std::option::Option::Some(v.into());
         self
@@ -15422,13 +15425,13 @@ impl ExadbVmClusterProperties {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ExadbVmClusterProperties;
-    /// use gtype::model::TimeZone;
+    /// use google_cloud_type::model::TimeZone;
     /// let x = ExadbVmClusterProperties::new().set_or_clear_time_zone(Some(TimeZone::default()/* use setters */));
     /// let x = ExadbVmClusterProperties::new().set_or_clear_time_zone(None::<TimeZone>);
     /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeZone>,
+        T: std::convert::Into<google_cloud_type::model::TimeZone>,
     {
         self.time_zone = v.map(|x| x.into());
         self
@@ -16160,7 +16163,7 @@ pub struct ExascaleDbStorageVaultProperties {
     pub ocid: std::string::String,
 
     /// Output only. The time zone of the ExascaleDbStorageVault.
-    pub time_zone: std::option::Option<gtype::model::TimeZone>,
+    pub time_zone: std::option::Option<google_cloud_type::model::TimeZone>,
 
     /// Required. The storage details of the ExascaleDbStorageVault.
     pub exascale_db_storage_details: std::option::Option<crate::model::ExascaleDbStorageDetails>,
@@ -16221,12 +16224,12 @@ impl ExascaleDbStorageVaultProperties {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// use gtype::model::TimeZone;
+    /// use google_cloud_type::model::TimeZone;
     /// let x = ExascaleDbStorageVaultProperties::new().set_time_zone(TimeZone::default()/* use setters */);
     /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeZone>,
+        T: std::convert::Into<google_cloud_type::model::TimeZone>,
     {
         self.time_zone = std::option::Option::Some(v.into());
         self
@@ -16237,13 +16240,13 @@ impl ExascaleDbStorageVaultProperties {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVaultProperties;
-    /// use gtype::model::TimeZone;
+    /// use google_cloud_type::model::TimeZone;
     /// let x = ExascaleDbStorageVaultProperties::new().set_or_clear_time_zone(Some(TimeZone::default()/* use setters */));
     /// let x = ExascaleDbStorageVaultProperties::new().set_or_clear_time_zone(None::<TimeZone>);
     /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeZone>,
+        T: std::convert::Into<google_cloud_type::model::TimeZone>,
     {
         self.time_zone = v.map(|x| x.into());
         self
@@ -20545,7 +20548,7 @@ pub struct OperationMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -24720,7 +24723,7 @@ pub struct CloudVmClusterProperties {
     pub gi_version: std::string::String,
 
     /// Optional. Time zone of VM Cluster to set. Defaults to UTC if not specified.
-    pub time_zone: std::option::Option<gtype::model::TimeZone>,
+    pub time_zone: std::option::Option<google_cloud_type::model::TimeZone>,
 
     /// Optional. SSH public keys to be stored with cluster.
     pub ssh_public_keys: std::vec::Vec<std::string::String>,
@@ -24870,12 +24873,12 @@ impl CloudVmClusterProperties {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// use gtype::model::TimeZone;
+    /// use google_cloud_type::model::TimeZone;
     /// let x = CloudVmClusterProperties::new().set_time_zone(TimeZone::default()/* use setters */);
     /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeZone>,
+        T: std::convert::Into<google_cloud_type::model::TimeZone>,
     {
         self.time_zone = std::option::Option::Some(v.into());
         self
@@ -24886,13 +24889,13 @@ impl CloudVmClusterProperties {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
-    /// use gtype::model::TimeZone;
+    /// use google_cloud_type::model::TimeZone;
     /// let x = CloudVmClusterProperties::new().set_or_clear_time_zone(Some(TimeZone::default()/* use setters */));
     /// let x = CloudVmClusterProperties::new().set_or_clear_time_zone(None::<TimeZone>);
     /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeZone>,
+        T: std::convert::Into<google_cloud_type::model::TimeZone>,
     {
         self.time_zone = v.map(|x| x.into());
         self

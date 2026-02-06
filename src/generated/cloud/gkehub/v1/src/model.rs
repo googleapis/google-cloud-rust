@@ -23,6 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_gkehub_configmanagement_v1;
 extern crate google_cloud_gkehub_multiclusteringress_v1;
+extern crate google_cloud_gkehub_rbacrolebindingactuation_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate lazy_static;
@@ -37,7 +38,7 @@ mod debug;
 mod deserialize;
 mod serialize;
 
-/// Feature represents the settings and status of any Hub Feature.
+/// Feature represents the settings and status of any Fleet Feature.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Feature {
@@ -45,24 +46,23 @@ pub struct Feature {
     /// `projects/*/locations/*/features/*`.
     pub name: std::string::String,
 
-    /// GCP labels for this Feature.
+    /// Labels for this Feature.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. State of the Feature resource itself.
     pub resource_state: std::option::Option<crate::model::FeatureResourceState>,
 
-    /// Optional. Hub-wide Feature configuration. If this Feature does not support any
-    /// Hub-wide configuration, this field may be unused.
+    /// Optional. Fleet-wide Feature configuration. If this Feature does not
+    /// support any Fleet-wide configuration, this field may be unused.
     pub spec: std::option::Option<crate::model::CommonFeatureSpec>,
 
-    /// Optional. Membership-specific configuration for this Feature. If this Feature does
-    /// not support any per-Membership configuration, this field may be unused.
+    /// Optional. Membership-specific configuration for this Feature. If this
+    /// Feature does not support any per-Membership configuration, this field may
+    /// be unused.
     ///
     /// The keys indicate which Membership the configuration is for, in the form:
     ///
-    /// ```norust
-    /// projects/{p}/locations/{l}/memberships/{m}
-    /// ```
+    /// `projects/{p}/locations/{l}/memberships/{m}`
     ///
     /// Where {p} is the project, {l} is a valid location and {m} is a valid
     /// Membership in this project at that location. {p} WILL match the Feature's
@@ -77,7 +77,7 @@ pub struct Feature {
     pub membership_specs:
         std::collections::HashMap<std::string::String, crate::model::MembershipFeatureSpec>,
 
-    /// Output only. The Hub-wide Feature state.
+    /// Output only. The Fleet-wide Feature state.
     pub state: std::option::Option<crate::model::CommonFeatureState>,
 
     /// Output only. Membership-specific Feature status. If this Feature does
@@ -85,9 +85,7 @@ pub struct Feature {
     ///
     /// The keys indicate which Membership the state is for, in the form:
     ///
-    /// ```norust
-    /// projects/{p}/locations/{l}/memberships/{m}
-    /// ```
+    /// `projects/{p}/locations/{l}/memberships/{m}`
     ///
     /// Where {p} is the project number, {l} is a valid location and {m} is a valid
     /// Membership in this project at that location. {p} MUST match the Feature's
@@ -103,6 +101,40 @@ pub struct Feature {
 
     /// Output only. When the Feature resource was deleted.
     pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Scope-specific configuration for this Feature. If this Feature
+    /// does not support any per-Scope configuration, this field may be unused.
+    ///
+    /// The keys indicate which Scope the configuration is for, in the form:
+    ///
+    /// `projects/{p}/locations/global/scopes/{s}`
+    ///
+    /// Where {p} is the project, {s} is a valid Scope in this project.
+    /// {p} WILL match the Feature's project.
+    ///
+    /// {p} will always be returned as the project number, but the project ID is
+    /// also accepted during input. If the same Scope is specified in the map
+    /// twice (using the project ID form, and the project number form), exactly
+    /// ONE of the entries will be saved, with no guarantees as to which. For this
+    /// reason, it is recommended the same format be used for all entries when
+    /// mutating a Feature.
+    pub scope_specs: std::collections::HashMap<std::string::String, crate::model::ScopeFeatureSpec>,
+
+    /// Output only. Scope-specific Feature status. If this Feature does
+    /// report any per-Scope status, this field may be unused.
+    ///
+    /// The keys indicate which Scope the state is for, in the form:
+    ///
+    /// `projects/{p}/locations/global/scopes/{s}`
+    ///
+    /// Where {p} is the project, {s} is a valid Scope in this project.
+    /// {p} WILL match the Feature's project.
+    pub scope_states:
+        std::collections::HashMap<std::string::String, crate::model::ScopeFeatureState>,
+
+    /// Output only. List of locations that could not be reached while fetching
+    /// this feature.
+    pub unreachable: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -386,6 +418,67 @@ impl Feature {
         self.delete_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [scope_specs][crate::model::Feature::scope_specs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use google_cloud_gkehub_v1::model::ScopeFeatureSpec;
+    /// let x = Feature::new().set_scope_specs([
+    ///     ("key0", ScopeFeatureSpec::default()/* use setters */),
+    ///     ("key1", ScopeFeatureSpec::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_scope_specs<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ScopeFeatureSpec>,
+    {
+        use std::iter::Iterator;
+        self.scope_specs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [scope_states][crate::model::Feature::scope_states].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use google_cloud_gkehub_v1::model::ScopeFeatureState;
+    /// let x = Feature::new().set_scope_states([
+    ///     ("key0", ScopeFeatureState::default()/* use setters */),
+    ///     ("key1", ScopeFeatureState::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_scope_states<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ScopeFeatureState>,
+    {
+        use std::iter::Iterator;
+        self.scope_states = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::Feature::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// let x = Feature::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for Feature {
@@ -396,7 +489,7 @@ impl wkt::message::Message for Feature {
 
 /// FeatureResourceState describes the state of a Feature *resource* in the
 /// GkeHub API. See `FeatureState` for the "running state" of the Feature in the
-/// Hub and across Memberships.
+/// Fleet and across Memberships.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureResourceState {
@@ -462,12 +555,12 @@ pub mod feature_resource_state {
         /// State is unknown or not set.
         Unspecified,
         /// The Feature is being enabled, and the Feature resource is being created.
-        /// Once complete, the corresponding Feature will be enabled in this Hub.
+        /// Once complete, the corresponding Feature will be enabled in this Fleet.
         Enabling,
-        /// The Feature is enabled in this Hub, and the Feature resource is fully
+        /// The Feature is enabled in this Fleet, and the Feature resource is fully
         /// available.
         Active,
-        /// The Feature is being disabled in this Hub, and the Feature resource
+        /// The Feature is being disabled in this Fleet, and the Feature resource
         /// is being deleted.
         Disabling,
         /// The Feature resource is being updated.
@@ -944,12 +1037,14 @@ pub mod common_feature_spec {
     }
 }
 
-/// CommonFeatureState contains Hub-wide Feature status information.
+/// CommonFeatureState contains Fleet-wide Feature status information.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonFeatureState {
-    /// Output only. The "running state" of the Feature in this Hub.
+    /// Output only. The "running state" of the Feature in this Fleet.
     pub state: std::option::Option<crate::model::FeatureState>,
+
+    pub feature_state: std::option::Option<crate::model::common_feature_state::FeatureState>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -991,11 +1086,168 @@ impl CommonFeatureState {
         self.state = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [feature_state][crate::model::CommonFeatureState::feature_state].
+    ///
+    /// Note that all the setters affecting `feature_state` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CommonFeatureState;
+    /// use google_cloud_gkehub_rbacrolebindingactuation_v1::model::FeatureState;
+    /// let x = CommonFeatureState::new().set_feature_state(Some(
+    ///     google_cloud_gkehub_v1::model::common_feature_state::FeatureState::Rbacrolebindingactuation(FeatureState::default().into())));
+    /// ```
+    pub fn set_feature_state<
+        T: std::convert::Into<std::option::Option<crate::model::common_feature_state::FeatureState>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.feature_state = v.into();
+        self
+    }
+
+    /// The value of [feature_state][crate::model::CommonFeatureState::feature_state]
+    /// if it holds a `Rbacrolebindingactuation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn rbacrolebindingactuation(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<google_cloud_gkehub_rbacrolebindingactuation_v1::model::FeatureState>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.feature_state.as_ref().and_then(|v| match v {
+            crate::model::common_feature_state::FeatureState::Rbacrolebindingactuation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [feature_state][crate::model::CommonFeatureState::feature_state]
+    /// to hold a `Rbacrolebindingactuation`.
+    ///
+    /// Note that all the setters affecting `feature_state` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CommonFeatureState;
+    /// use google_cloud_gkehub_rbacrolebindingactuation_v1::model::FeatureState;
+    /// let x = CommonFeatureState::new().set_rbacrolebindingactuation(FeatureState::default()/* use setters */);
+    /// assert!(x.rbacrolebindingactuation().is_some());
+    /// ```
+    pub fn set_rbacrolebindingactuation<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    google_cloud_gkehub_rbacrolebindingactuation_v1::model::FeatureState,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.feature_state = std::option::Option::Some(
+            crate::model::common_feature_state::FeatureState::Rbacrolebindingactuation(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for CommonFeatureState {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.gkehub.v1.CommonFeatureState"
+    }
+}
+
+/// Defines additional types related to [CommonFeatureState].
+pub mod common_feature_state {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum FeatureState {
+        /// RBAC Role Binding Actuation feature state
+        Rbacrolebindingactuation(
+            std::boxed::Box<google_cloud_gkehub_rbacrolebindingactuation_v1::model::FeatureState>,
+        ),
+    }
+}
+
+/// ScopeFeatureSpec contains feature specs for a fleet scope.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ScopeFeatureSpec {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ScopeFeatureSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for ScopeFeatureSpec {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ScopeFeatureSpec"
+    }
+}
+
+/// ScopeFeatureState contains Scope-wide Feature status information.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ScopeFeatureState {
+    /// Output only. The "running state" of the Feature in this Scope.
+    pub state: std::option::Option<crate::model::FeatureState>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ScopeFeatureState {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [state][crate::model::ScopeFeatureState::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ScopeFeatureState;
+    /// use google_cloud_gkehub_v1::model::FeatureState;
+    /// let x = ScopeFeatureState::new().set_state(FeatureState::default()/* use setters */);
+    /// ```
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FeatureState>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::ScopeFeatureState::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ScopeFeatureState;
+    /// use google_cloud_gkehub_v1::model::FeatureState;
+    /// let x = ScopeFeatureState::new().set_or_clear_state(Some(FeatureState::default()/* use setters */));
+    /// let x = ScopeFeatureState::new().set_or_clear_state(None::<FeatureState>);
+    /// ```
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FeatureState>,
+    {
+        self.state = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ScopeFeatureState {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ScopeFeatureState"
     }
 }
 
@@ -1240,6 +1492,3585 @@ pub mod membership_feature_state {
         Configmanagement(
             std::boxed::Box<google_cloud_gkehub_configmanagement_v1::model::MembershipState>,
         ),
+    }
+}
+
+/// Fleet contains the Fleet-wide metadata and configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Fleet {
+    /// Output only. The full, unique resource name of this fleet in the format of
+    /// `projects/{project}/locations/{location}/fleets/{fleet}`.
+    ///
+    /// Each Google Cloud project can have at most one fleet resource, named
+    /// "default".
+    pub name: std::string::String,
+
+    /// Optional. A user-assigned display name of the Fleet.
+    /// When present, it must be between 4 to 30 characters.
+    /// Allowed characters are: lowercase and uppercase letters, numbers,
+    /// hyphen, single-quote, double-quote, space, and exclamation point.
+    ///
+    /// Example: `Production Fleet`
+    pub display_name: std::string::String,
+
+    /// Output only. When the Fleet was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. When the Fleet was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. When the Fleet was deleted.
+    pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Google-generated UUID for this resource. This is unique across
+    /// all Fleet resources. If a Fleet resource is deleted and another resource
+    /// with the same name is created, it gets a different uid.
+    pub uid: std::string::String,
+
+    /// Output only. State of the namespace resource.
+    pub state: std::option::Option<crate::model::FleetLifecycleState>,
+
+    /// Optional. The default cluster configurations to apply across the fleet.
+    pub default_cluster_config: std::option::Option<crate::model::DefaultClusterConfig>,
+
+    /// Optional. Labels for this Fleet.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Fleet {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Fleet::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// let x = Fleet::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::Fleet::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// let x = Fleet::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Fleet::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// use wkt::Timestamp;
+    /// let x = Fleet::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Fleet::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// use wkt::Timestamp;
+    /// let x = Fleet::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Fleet::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Fleet::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// use wkt::Timestamp;
+    /// let x = Fleet::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Fleet::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// use wkt::Timestamp;
+    /// let x = Fleet::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Fleet::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [delete_time][crate::model::Fleet::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// use wkt::Timestamp;
+    /// let x = Fleet::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::Fleet::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// use wkt::Timestamp;
+    /// let x = Fleet::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Fleet::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::Fleet::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// let x = Fleet::new().set_uid("example");
+    /// ```
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::Fleet::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// use google_cloud_gkehub_v1::model::FleetLifecycleState;
+    /// let x = Fleet::new().set_state(FleetLifecycleState::default()/* use setters */);
+    /// ```
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FleetLifecycleState>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::Fleet::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// use google_cloud_gkehub_v1::model::FleetLifecycleState;
+    /// let x = Fleet::new().set_or_clear_state(Some(FleetLifecycleState::default()/* use setters */));
+    /// let x = Fleet::new().set_or_clear_state(None::<FleetLifecycleState>);
+    /// ```
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FleetLifecycleState>,
+    {
+        self.state = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [default_cluster_config][crate::model::Fleet::default_cluster_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// use google_cloud_gkehub_v1::model::DefaultClusterConfig;
+    /// let x = Fleet::new().set_default_cluster_config(DefaultClusterConfig::default()/* use setters */);
+    /// ```
+    pub fn set_default_cluster_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DefaultClusterConfig>,
+    {
+        self.default_cluster_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [default_cluster_config][crate::model::Fleet::default_cluster_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// use google_cloud_gkehub_v1::model::DefaultClusterConfig;
+    /// let x = Fleet::new().set_or_clear_default_cluster_config(Some(DefaultClusterConfig::default()/* use setters */));
+    /// let x = Fleet::new().set_or_clear_default_cluster_config(None::<DefaultClusterConfig>);
+    /// ```
+    pub fn set_or_clear_default_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DefaultClusterConfig>,
+    {
+        self.default_cluster_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Fleet::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Fleet;
+    /// let x = Fleet::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Fleet {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.Fleet"
+    }
+}
+
+/// DefaultClusterConfig describes the default cluster configurations to be
+/// applied to all clusters born-in-fleet.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DefaultClusterConfig {
+    /// Enable/Disable Security Posture features for the cluster.
+    pub security_posture_config: std::option::Option<crate::model::SecurityPostureConfig>,
+
+    /// Optional. Enable/Disable binary authorization features for the cluster.
+    pub binary_authorization_config: std::option::Option<crate::model::BinaryAuthorizationConfig>,
+
+    /// Optional. Enable/Disable Compliance Posture features for the cluster.
+    /// Note that on UpdateFleet, only full replacement of this field is allowed.
+    /// Users are not allowed for partial updates through field mask.
+    pub compliance_posture_config: std::option::Option<crate::model::CompliancePostureConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DefaultClusterConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [security_posture_config][crate::model::DefaultClusterConfig::security_posture_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::DefaultClusterConfig;
+    /// use google_cloud_gkehub_v1::model::SecurityPostureConfig;
+    /// let x = DefaultClusterConfig::new().set_security_posture_config(SecurityPostureConfig::default()/* use setters */);
+    /// ```
+    pub fn set_security_posture_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityPostureConfig>,
+    {
+        self.security_posture_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [security_posture_config][crate::model::DefaultClusterConfig::security_posture_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::DefaultClusterConfig;
+    /// use google_cloud_gkehub_v1::model::SecurityPostureConfig;
+    /// let x = DefaultClusterConfig::new().set_or_clear_security_posture_config(Some(SecurityPostureConfig::default()/* use setters */));
+    /// let x = DefaultClusterConfig::new().set_or_clear_security_posture_config(None::<SecurityPostureConfig>);
+    /// ```
+    pub fn set_or_clear_security_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityPostureConfig>,
+    {
+        self.security_posture_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [binary_authorization_config][crate::model::DefaultClusterConfig::binary_authorization_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::DefaultClusterConfig;
+    /// use google_cloud_gkehub_v1::model::BinaryAuthorizationConfig;
+    /// let x = DefaultClusterConfig::new().set_binary_authorization_config(BinaryAuthorizationConfig::default()/* use setters */);
+    /// ```
+    pub fn set_binary_authorization_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorizationConfig>,
+    {
+        self.binary_authorization_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [binary_authorization_config][crate::model::DefaultClusterConfig::binary_authorization_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::DefaultClusterConfig;
+    /// use google_cloud_gkehub_v1::model::BinaryAuthorizationConfig;
+    /// let x = DefaultClusterConfig::new().set_or_clear_binary_authorization_config(Some(BinaryAuthorizationConfig::default()/* use setters */));
+    /// let x = DefaultClusterConfig::new().set_or_clear_binary_authorization_config(None::<BinaryAuthorizationConfig>);
+    /// ```
+    pub fn set_or_clear_binary_authorization_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorizationConfig>,
+    {
+        self.binary_authorization_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [compliance_posture_config][crate::model::DefaultClusterConfig::compliance_posture_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::DefaultClusterConfig;
+    /// use google_cloud_gkehub_v1::model::CompliancePostureConfig;
+    /// let x = DefaultClusterConfig::new().set_compliance_posture_config(CompliancePostureConfig::default()/* use setters */);
+    /// ```
+    pub fn set_compliance_posture_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CompliancePostureConfig>,
+    {
+        self.compliance_posture_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [compliance_posture_config][crate::model::DefaultClusterConfig::compliance_posture_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::DefaultClusterConfig;
+    /// use google_cloud_gkehub_v1::model::CompliancePostureConfig;
+    /// let x = DefaultClusterConfig::new().set_or_clear_compliance_posture_config(Some(CompliancePostureConfig::default()/* use setters */));
+    /// let x = DefaultClusterConfig::new().set_or_clear_compliance_posture_config(None::<CompliancePostureConfig>);
+    /// ```
+    pub fn set_or_clear_compliance_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CompliancePostureConfig>,
+    {
+        self.compliance_posture_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DefaultClusterConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.DefaultClusterConfig"
+    }
+}
+
+/// SecurityPostureConfig defines the flags needed to enable/disable features for
+/// the Security Posture API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SecurityPostureConfig {
+    /// Sets which mode to use for Security Posture features.
+    pub mode: crate::model::security_posture_config::Mode,
+
+    /// Sets which mode to use for vulnerability scanning.
+    pub vulnerability_mode: crate::model::security_posture_config::VulnerabilityMode,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SecurityPostureConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mode][crate::model::SecurityPostureConfig::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::SecurityPostureConfig;
+    /// use google_cloud_gkehub_v1::model::security_posture_config::Mode;
+    /// let x0 = SecurityPostureConfig::new().set_mode(Mode::Disabled);
+    /// let x1 = SecurityPostureConfig::new().set_mode(Mode::Basic);
+    /// let x2 = SecurityPostureConfig::new().set_mode(Mode::Enterprise);
+    /// ```
+    pub fn set_mode<T: std::convert::Into<crate::model::security_posture_config::Mode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mode = v.into();
+        self
+    }
+
+    /// Sets the value of [vulnerability_mode][crate::model::SecurityPostureConfig::vulnerability_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::SecurityPostureConfig;
+    /// use google_cloud_gkehub_v1::model::security_posture_config::VulnerabilityMode;
+    /// let x0 = SecurityPostureConfig::new().set_vulnerability_mode(VulnerabilityMode::VulnerabilityDisabled);
+    /// let x1 = SecurityPostureConfig::new().set_vulnerability_mode(VulnerabilityMode::VulnerabilityBasic);
+    /// let x2 = SecurityPostureConfig::new().set_vulnerability_mode(VulnerabilityMode::VulnerabilityEnterprise);
+    /// ```
+    pub fn set_vulnerability_mode<
+        T: std::convert::Into<crate::model::security_posture_config::VulnerabilityMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.vulnerability_mode = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SecurityPostureConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.SecurityPostureConfig"
+    }
+}
+
+/// Defines additional types related to [SecurityPostureConfig].
+pub mod security_posture_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Mode defines enablement mode for GKE Security posture features.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Mode {
+        /// Default value not specified.
+        Unspecified,
+        /// Disables Security Posture features on the cluster.
+        Disabled,
+        /// Applies Security Posture features on the cluster.
+        Basic,
+        /// Applies the Security Posture off cluster Enterprise level features.
+        Enterprise,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Mode::value] or
+        /// [Mode::name].
+        UnknownValue(mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Mode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Disabled => std::option::Option::Some(1),
+                Self::Basic => std::option::Option::Some(2),
+                Self::Enterprise => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Basic => std::option::Option::Some("BASIC"),
+                Self::Enterprise => std::option::Option::Some("ENTERPRISE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Mode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Disabled,
+                2 => Self::Basic,
+                3 => Self::Enterprise,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Mode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODE_UNSPECIFIED" => Self::Unspecified,
+                "DISABLED" => Self::Disabled,
+                "BASIC" => Self::Basic,
+                "ENTERPRISE" => Self::Enterprise,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Mode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Disabled => serializer.serialize_i32(1),
+                Self::Basic => serializer.serialize_i32(2),
+                Self::Enterprise => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Mode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                ".google.cloud.gkehub.v1.SecurityPostureConfig.Mode",
+            ))
+        }
+    }
+
+    /// VulnerabilityMode defines enablement mode for vulnerability scanning.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VulnerabilityMode {
+        /// Default value not specified.
+        Unspecified,
+        /// Disables vulnerability scanning on the cluster.
+        VulnerabilityDisabled,
+        /// Applies basic vulnerability scanning on the cluster.
+        VulnerabilityBasic,
+        /// Applies the Security Posture's vulnerability on cluster Enterprise level
+        /// features.
+        VulnerabilityEnterprise,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [VulnerabilityMode::value] or
+        /// [VulnerabilityMode::name].
+        UnknownValue(vulnerability_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod vulnerability_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl VulnerabilityMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::VulnerabilityDisabled => std::option::Option::Some(1),
+                Self::VulnerabilityBasic => std::option::Option::Some(2),
+                Self::VulnerabilityEnterprise => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("VULNERABILITY_MODE_UNSPECIFIED"),
+                Self::VulnerabilityDisabled => std::option::Option::Some("VULNERABILITY_DISABLED"),
+                Self::VulnerabilityBasic => std::option::Option::Some("VULNERABILITY_BASIC"),
+                Self::VulnerabilityEnterprise => {
+                    std::option::Option::Some("VULNERABILITY_ENTERPRISE")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for VulnerabilityMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for VulnerabilityMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for VulnerabilityMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::VulnerabilityDisabled,
+                2 => Self::VulnerabilityBasic,
+                3 => Self::VulnerabilityEnterprise,
+                _ => Self::UnknownValue(vulnerability_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for VulnerabilityMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VULNERABILITY_MODE_UNSPECIFIED" => Self::Unspecified,
+                "VULNERABILITY_DISABLED" => Self::VulnerabilityDisabled,
+                "VULNERABILITY_BASIC" => Self::VulnerabilityBasic,
+                "VULNERABILITY_ENTERPRISE" => Self::VulnerabilityEnterprise,
+                _ => Self::UnknownValue(vulnerability_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for VulnerabilityMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::VulnerabilityDisabled => serializer.serialize_i32(1),
+                Self::VulnerabilityBasic => serializer.serialize_i32(2),
+                Self::VulnerabilityEnterprise => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VulnerabilityMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<VulnerabilityMode>::new(
+                ".google.cloud.gkehub.v1.SecurityPostureConfig.VulnerabilityMode",
+            ))
+        }
+    }
+}
+
+/// BinaryAuthorizationConfig defines the fleet level configuration of binary
+/// authorization feature.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BinaryAuthorizationConfig {
+    /// Optional. Mode of operation for binauthz policy evaluation.
+    pub evaluation_mode: crate::model::binary_authorization_config::EvaluationMode,
+
+    /// Optional. Binauthz policies that apply to this cluster.
+    pub policy_bindings: std::vec::Vec<crate::model::binary_authorization_config::PolicyBinding>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BinaryAuthorizationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [evaluation_mode][crate::model::BinaryAuthorizationConfig::evaluation_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::BinaryAuthorizationConfig;
+    /// use google_cloud_gkehub_v1::model::binary_authorization_config::EvaluationMode;
+    /// let x0 = BinaryAuthorizationConfig::new().set_evaluation_mode(EvaluationMode::Disabled);
+    /// let x1 = BinaryAuthorizationConfig::new().set_evaluation_mode(EvaluationMode::PolicyBindings);
+    /// ```
+    pub fn set_evaluation_mode<
+        T: std::convert::Into<crate::model::binary_authorization_config::EvaluationMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.evaluation_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [policy_bindings][crate::model::BinaryAuthorizationConfig::policy_bindings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::BinaryAuthorizationConfig;
+    /// use google_cloud_gkehub_v1::model::binary_authorization_config::PolicyBinding;
+    /// let x = BinaryAuthorizationConfig::new()
+    ///     .set_policy_bindings([
+    ///         PolicyBinding::default()/* use setters */,
+    ///         PolicyBinding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::binary_authorization_config::PolicyBinding>,
+    {
+        use std::iter::Iterator;
+        self.policy_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BinaryAuthorizationConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.BinaryAuthorizationConfig"
+    }
+}
+
+/// Defines additional types related to [BinaryAuthorizationConfig].
+pub mod binary_authorization_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Binauthz policy that applies to this cluster.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PolicyBinding {
+        /// The relative resource name of the binauthz platform policy to audit. GKE
+        /// platform policies have the following format:
+        /// `projects/{project_number}/platforms/gke/policies/{policy_id}`.
+        pub name: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PolicyBinding {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::binary_authorization_config::PolicyBinding::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_gkehub_v1::model::binary_authorization_config::PolicyBinding;
+        /// let x = PolicyBinding::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PolicyBinding {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.gkehub.v1.BinaryAuthorizationConfig.PolicyBinding"
+        }
+    }
+
+    /// Binary Authorization mode of operation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EvaluationMode {
+        /// Default value
+        Unspecified,
+        /// Disable BinaryAuthorization
+        Disabled,
+        /// Use Binary Authorization with the policies specified in policy_bindings.
+        PolicyBindings,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EvaluationMode::value] or
+        /// [EvaluationMode::name].
+        UnknownValue(evaluation_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod evaluation_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl EvaluationMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Disabled => std::option::Option::Some(1),
+                Self::PolicyBindings => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EVALUATION_MODE_UNSPECIFIED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::PolicyBindings => std::option::Option::Some("POLICY_BINDINGS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for EvaluationMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EvaluationMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EvaluationMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Disabled,
+                2 => Self::PolicyBindings,
+                _ => Self::UnknownValue(evaluation_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EvaluationMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EVALUATION_MODE_UNSPECIFIED" => Self::Unspecified,
+                "DISABLED" => Self::Disabled,
+                "POLICY_BINDINGS" => Self::PolicyBindings,
+                _ => Self::UnknownValue(evaluation_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EvaluationMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Disabled => serializer.serialize_i32(1),
+                Self::PolicyBindings => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EvaluationMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EvaluationMode>::new(
+                ".google.cloud.gkehub.v1.BinaryAuthorizationConfig.EvaluationMode",
+            ))
+        }
+    }
+}
+
+/// CompliancePostureConfig defines the settings needed to enable/disable
+/// features for the Compliance Posture.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CompliancePostureConfig {
+    /// Defines the enablement mode for Compliance Posture.
+    pub mode: crate::model::compliance_posture_config::Mode,
+
+    /// List of enabled compliance standards.
+    pub compliance_standards:
+        std::vec::Vec<crate::model::compliance_posture_config::ComplianceStandard>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CompliancePostureConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mode][crate::model::CompliancePostureConfig::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CompliancePostureConfig;
+    /// use google_cloud_gkehub_v1::model::compliance_posture_config::Mode;
+    /// let x0 = CompliancePostureConfig::new().set_mode(Mode::Disabled);
+    /// let x1 = CompliancePostureConfig::new().set_mode(Mode::Enabled);
+    /// ```
+    pub fn set_mode<T: std::convert::Into<crate::model::compliance_posture_config::Mode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mode = v.into();
+        self
+    }
+
+    /// Sets the value of [compliance_standards][crate::model::CompliancePostureConfig::compliance_standards].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CompliancePostureConfig;
+    /// use google_cloud_gkehub_v1::model::compliance_posture_config::ComplianceStandard;
+    /// let x = CompliancePostureConfig::new()
+    ///     .set_compliance_standards([
+    ///         ComplianceStandard::default()/* use setters */,
+    ///         ComplianceStandard::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_compliance_standards<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::compliance_posture_config::ComplianceStandard>,
+    {
+        use std::iter::Iterator;
+        self.compliance_standards = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for CompliancePostureConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.CompliancePostureConfig"
+    }
+}
+
+/// Defines additional types related to [CompliancePostureConfig].
+pub mod compliance_posture_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ComplianceStandard {
+        /// Name of the compliance standard.
+        pub standard: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ComplianceStandard {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [standard][crate::model::compliance_posture_config::ComplianceStandard::standard].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_gkehub_v1::model::compliance_posture_config::ComplianceStandard;
+        /// let x = ComplianceStandard::new().set_standard("example");
+        /// ```
+        pub fn set_standard<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.standard = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ComplianceStandard {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.gkehub.v1.CompliancePostureConfig.ComplianceStandard"
+        }
+    }
+
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Mode {
+        /// Default value not specified.
+        Unspecified,
+        /// Disables Compliance Posture features on the cluster.
+        Disabled,
+        /// Enables Compliance Posture features on the cluster.
+        Enabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Mode::value] or
+        /// [Mode::name].
+        UnknownValue(mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Mode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Disabled => std::option::Option::Some(1),
+                Self::Enabled => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Mode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Disabled,
+                2 => Self::Enabled,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Mode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODE_UNSPECIFIED" => Self::Unspecified,
+                "DISABLED" => Self::Disabled,
+                "ENABLED" => Self::Enabled,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Mode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Disabled => serializer.serialize_i32(1),
+                Self::Enabled => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Mode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                ".google.cloud.gkehub.v1.CompliancePostureConfig.Mode",
+            ))
+        }
+    }
+}
+
+/// FleetLifecycleState describes the state of a Fleet resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FleetLifecycleState {
+    /// Output only. The current state of the Fleet resource.
+    pub code: crate::model::fleet_lifecycle_state::Code,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FleetLifecycleState {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [code][crate::model::FleetLifecycleState::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::FleetLifecycleState;
+    /// use google_cloud_gkehub_v1::model::fleet_lifecycle_state::Code;
+    /// let x0 = FleetLifecycleState::new().set_code(Code::Creating);
+    /// let x1 = FleetLifecycleState::new().set_code(Code::Ready);
+    /// let x2 = FleetLifecycleState::new().set_code(Code::Deleting);
+    /// ```
+    pub fn set_code<T: std::convert::Into<crate::model::fleet_lifecycle_state::Code>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.code = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FleetLifecycleState {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.FleetLifecycleState"
+    }
+}
+
+/// Defines additional types related to [FleetLifecycleState].
+pub mod fleet_lifecycle_state {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Code describes the state of a Fleet resource.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Code {
+        /// The code is not set.
+        Unspecified,
+        /// The fleet is being created.
+        Creating,
+        /// The fleet active.
+        Ready,
+        /// The fleet is being deleted.
+        Deleting,
+        /// The fleet is being updated.
+        Updating,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Code::value] or
+        /// [Code::name].
+        UnknownValue(code::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Code {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Ready => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Updating => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CODE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Ready,
+                3 => Self::Deleting,
+                4 => Self::Updating,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Code {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CODE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "READY" => Self::Ready,
+                "DELETING" => Self::Deleting,
+                "UPDATING" => Self::Updating,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Ready => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Updating => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                ".google.cloud.gkehub.v1.FleetLifecycleState.Code",
+            ))
+        }
+    }
+}
+
+/// Namespace represents a namespace across the Fleet
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Namespace {
+    /// The resource name for the namespace
+    /// `projects/{project}/locations/{location}/namespaces/{namespace}`
+    pub name: std::string::String,
+
+    /// Output only. Google-generated UUID for this resource. This is unique across
+    /// all namespace resources. If a namespace resource is deleted and another
+    /// resource with the same name is created, it gets a different uid.
+    pub uid: std::string::String,
+
+    /// Output only. When the namespace was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. When the namespace was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. When the namespace was deleted.
+    pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. State of the namespace resource.
+    pub state: std::option::Option<crate::model::NamespaceLifecycleState>,
+
+    /// Required. Scope associated with the namespace
+    pub scope: std::string::String,
+
+    /// Optional. Namespace-level cluster namespace labels. These labels are
+    /// applied to the related namespace of the member clusters bound to the parent
+    /// Scope. Scope-level labels (`namespace_labels` in the Fleet Scope
+    /// resource) take precedence over Namespace-level labels if they share
+    /// a key. Keys and values must be Kubernetes-conformant.
+    pub namespace_labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Labels for this Namespace.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Namespace {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Namespace::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Namespace;
+    /// let x = Namespace::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::Namespace::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Namespace;
+    /// let x = Namespace::new().set_uid("example");
+    /// ```
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Namespace::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Namespace;
+    /// use wkt::Timestamp;
+    /// let x = Namespace::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Namespace::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Namespace;
+    /// use wkt::Timestamp;
+    /// let x = Namespace::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Namespace::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Namespace::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Namespace;
+    /// use wkt::Timestamp;
+    /// let x = Namespace::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Namespace::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Namespace;
+    /// use wkt::Timestamp;
+    /// let x = Namespace::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Namespace::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [delete_time][crate::model::Namespace::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Namespace;
+    /// use wkt::Timestamp;
+    /// let x = Namespace::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::Namespace::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Namespace;
+    /// use wkt::Timestamp;
+    /// let x = Namespace::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Namespace::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::Namespace::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Namespace;
+    /// use google_cloud_gkehub_v1::model::NamespaceLifecycleState;
+    /// let x = Namespace::new().set_state(NamespaceLifecycleState::default()/* use setters */);
+    /// ```
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NamespaceLifecycleState>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::Namespace::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Namespace;
+    /// use google_cloud_gkehub_v1::model::NamespaceLifecycleState;
+    /// let x = Namespace::new().set_or_clear_state(Some(NamespaceLifecycleState::default()/* use setters */));
+    /// let x = Namespace::new().set_or_clear_state(None::<NamespaceLifecycleState>);
+    /// ```
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NamespaceLifecycleState>,
+    {
+        self.state = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [scope][crate::model::Namespace::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Namespace;
+    /// let x = Namespace::new().set_scope("example");
+    /// ```
+    pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.scope = v.into();
+        self
+    }
+
+    /// Sets the value of [namespace_labels][crate::model::Namespace::namespace_labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Namespace;
+    /// let x = Namespace::new().set_namespace_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_namespace_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.namespace_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Namespace::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Namespace;
+    /// let x = Namespace::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Namespace {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.Namespace"
+    }
+}
+
+/// NamespaceLifecycleState describes the state of a Namespace resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct NamespaceLifecycleState {
+    /// Output only. The current state of the Namespace resource.
+    pub code: crate::model::namespace_lifecycle_state::Code,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl NamespaceLifecycleState {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [code][crate::model::NamespaceLifecycleState::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::NamespaceLifecycleState;
+    /// use google_cloud_gkehub_v1::model::namespace_lifecycle_state::Code;
+    /// let x0 = NamespaceLifecycleState::new().set_code(Code::Creating);
+    /// let x1 = NamespaceLifecycleState::new().set_code(Code::Ready);
+    /// let x2 = NamespaceLifecycleState::new().set_code(Code::Deleting);
+    /// ```
+    pub fn set_code<T: std::convert::Into<crate::model::namespace_lifecycle_state::Code>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.code = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for NamespaceLifecycleState {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.NamespaceLifecycleState"
+    }
+}
+
+/// Defines additional types related to [NamespaceLifecycleState].
+pub mod namespace_lifecycle_state {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Code describes the state of a Namespace resource.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Code {
+        /// The code is not set.
+        Unspecified,
+        /// The namespace is being created.
+        Creating,
+        /// The namespace active.
+        Ready,
+        /// The namespace is being deleted.
+        Deleting,
+        /// The namespace is being updated.
+        Updating,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Code::value] or
+        /// [Code::name].
+        UnknownValue(code::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Code {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Ready => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Updating => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CODE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Ready,
+                3 => Self::Deleting,
+                4 => Self::Updating,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Code {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CODE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "READY" => Self::Ready,
+                "DELETING" => Self::Deleting,
+                "UPDATING" => Self::Updating,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Ready => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Updating => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                ".google.cloud.gkehub.v1.NamespaceLifecycleState.Code",
+            ))
+        }
+    }
+}
+
+/// RBACRoleBinding represents a rbacrolebinding across the Fleet
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RBACRoleBinding {
+    /// The resource name for the rbacrolebinding
+    /// `projects/{project}/locations/{location}/scopes/{scope}/rbacrolebindings/{rbacrolebinding}`
+    /// or
+    /// `projects/{project}/locations/{location}/memberships/{membership}/rbacrolebindings/{rbacrolebinding}`
+    pub name: std::string::String,
+
+    /// Output only. Google-generated UUID for this resource. This is unique across
+    /// all rbacrolebinding resources. If a rbacrolebinding resource is deleted and
+    /// another resource with the same name is created, it gets a different uid.
+    pub uid: std::string::String,
+
+    /// Output only. When the rbacrolebinding was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. When the rbacrolebinding was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. When the rbacrolebinding was deleted.
+    pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. State of the rbacrolebinding resource.
+    pub state: std::option::Option<crate::model::RBACRoleBindingLifecycleState>,
+
+    /// Required. Role to bind to the principal
+    pub role: std::option::Option<crate::model::rbac_role_binding::Role>,
+
+    /// Optional. Labels for this RBACRolebinding.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Principal that is be authorized in the cluster (at least of one the oneof
+    /// is required). Updating one will unset the other automatically.
+    pub principal: std::option::Option<crate::model::rbac_role_binding::Principal>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RBACRoleBinding {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RBACRoleBinding::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = RBACRoleBinding::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::RBACRoleBinding::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = RBACRoleBinding::new().set_uid("example");
+    /// ```
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::RBACRoleBinding::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use wkt::Timestamp;
+    /// let x = RBACRoleBinding::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::RBACRoleBinding::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use wkt::Timestamp;
+    /// let x = RBACRoleBinding::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RBACRoleBinding::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::RBACRoleBinding::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use wkt::Timestamp;
+    /// let x = RBACRoleBinding::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::RBACRoleBinding::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use wkt::Timestamp;
+    /// let x = RBACRoleBinding::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RBACRoleBinding::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [delete_time][crate::model::RBACRoleBinding::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use wkt::Timestamp;
+    /// let x = RBACRoleBinding::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::RBACRoleBinding::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use wkt::Timestamp;
+    /// let x = RBACRoleBinding::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RBACRoleBinding::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::RBACRoleBinding::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBindingLifecycleState;
+    /// let x = RBACRoleBinding::new().set_state(RBACRoleBindingLifecycleState::default()/* use setters */);
+    /// ```
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACRoleBindingLifecycleState>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::RBACRoleBinding::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBindingLifecycleState;
+    /// let x = RBACRoleBinding::new().set_or_clear_state(Some(RBACRoleBindingLifecycleState::default()/* use setters */));
+    /// let x = RBACRoleBinding::new().set_or_clear_state(None::<RBACRoleBindingLifecycleState>);
+    /// ```
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACRoleBindingLifecycleState>,
+    {
+        self.state = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [role][crate::model::RBACRoleBinding::role].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use google_cloud_gkehub_v1::model::rbac_role_binding::Role;
+    /// let x = RBACRoleBinding::new().set_role(Role::default()/* use setters */);
+    /// ```
+    pub fn set_role<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::rbac_role_binding::Role>,
+    {
+        self.role = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [role][crate::model::RBACRoleBinding::role].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use google_cloud_gkehub_v1::model::rbac_role_binding::Role;
+    /// let x = RBACRoleBinding::new().set_or_clear_role(Some(Role::default()/* use setters */));
+    /// let x = RBACRoleBinding::new().set_or_clear_role(None::<Role>);
+    /// ```
+    pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::rbac_role_binding::Role>,
+    {
+        self.role = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::RBACRoleBinding::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = RBACRoleBinding::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [principal][crate::model::RBACRoleBinding::principal].
+    ///
+    /// Note that all the setters affecting `principal` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use google_cloud_gkehub_v1::model::rbac_role_binding::Principal;
+    /// let x = RBACRoleBinding::new().set_principal(Some(Principal::User("example".to_string())));
+    /// ```
+    pub fn set_principal<
+        T: std::convert::Into<std::option::Option<crate::model::rbac_role_binding::Principal>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.principal = v.into();
+        self
+    }
+
+    /// The value of [principal][crate::model::RBACRoleBinding::principal]
+    /// if it holds a `User`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn user(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.principal.as_ref().and_then(|v| match v {
+            crate::model::rbac_role_binding::Principal::User(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [principal][crate::model::RBACRoleBinding::principal]
+    /// to hold a `User`.
+    ///
+    /// Note that all the setters affecting `principal` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = RBACRoleBinding::new().set_user("example");
+    /// assert!(x.user().is_some());
+    /// assert!(x.group().is_none());
+    /// ```
+    pub fn set_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.principal =
+            std::option::Option::Some(crate::model::rbac_role_binding::Principal::User(v.into()));
+        self
+    }
+
+    /// The value of [principal][crate::model::RBACRoleBinding::principal]
+    /// if it holds a `Group`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn group(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.principal.as_ref().and_then(|v| match v {
+            crate::model::rbac_role_binding::Principal::Group(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [principal][crate::model::RBACRoleBinding::principal]
+    /// to hold a `Group`.
+    ///
+    /// Note that all the setters affecting `principal` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = RBACRoleBinding::new().set_group("example");
+    /// assert!(x.group().is_some());
+    /// assert!(x.user().is_none());
+    /// ```
+    pub fn set_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.principal =
+            std::option::Option::Some(crate::model::rbac_role_binding::Principal::Group(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for RBACRoleBinding {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.RBACRoleBinding"
+    }
+}
+
+/// Defines additional types related to [RBACRoleBinding].
+pub mod rbac_role_binding {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Role is the type for Kubernetes roles
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Role {
+        /// predefined_role is the Kubernetes default role to use
+        pub predefined_role: crate::model::rbac_role_binding::role::PredefinedRoles,
+
+        /// Optional. custom_role is the name of a custom KubernetesClusterRole to
+        /// use.
+        pub custom_role: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Role {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [predefined_role][crate::model::rbac_role_binding::Role::predefined_role].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_gkehub_v1::model::rbac_role_binding::Role;
+        /// use google_cloud_gkehub_v1::model::rbac_role_binding::role::PredefinedRoles;
+        /// let x0 = Role::new().set_predefined_role(PredefinedRoles::Admin);
+        /// let x1 = Role::new().set_predefined_role(PredefinedRoles::Edit);
+        /// let x2 = Role::new().set_predefined_role(PredefinedRoles::View);
+        /// ```
+        pub fn set_predefined_role<
+            T: std::convert::Into<crate::model::rbac_role_binding::role::PredefinedRoles>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.predefined_role = v.into();
+            self
+        }
+
+        /// Sets the value of [custom_role][crate::model::rbac_role_binding::Role::custom_role].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_gkehub_v1::model::rbac_role_binding::Role;
+        /// let x = Role::new().set_custom_role("example");
+        /// ```
+        pub fn set_custom_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.custom_role = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Role {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.gkehub.v1.RBACRoleBinding.Role"
+        }
+    }
+
+    /// Defines additional types related to [Role].
+    pub mod role {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// PredefinedRoles is an ENUM representation of the default Kubernetes Roles
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum PredefinedRoles {
+            /// UNKNOWN
+            Unknown,
+            /// ADMIN has EDIT and RBAC permissions
+            Admin,
+            /// EDIT can edit all resources except RBAC
+            Edit,
+            /// VIEW can only read resources
+            View,
+            /// ANTHOS_SUPPORT gives Google Support read-only access to a number of
+            /// cluster resources.
+            AnthosSupport,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [PredefinedRoles::value] or
+            /// [PredefinedRoles::name].
+            UnknownValue(predefined_roles::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod predefined_roles {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl PredefinedRoles {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unknown => std::option::Option::Some(0),
+                    Self::Admin => std::option::Option::Some(1),
+                    Self::Edit => std::option::Option::Some(2),
+                    Self::View => std::option::Option::Some(3),
+                    Self::AnthosSupport => std::option::Option::Some(4),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unknown => std::option::Option::Some("UNKNOWN"),
+                    Self::Admin => std::option::Option::Some("ADMIN"),
+                    Self::Edit => std::option::Option::Some("EDIT"),
+                    Self::View => std::option::Option::Some("VIEW"),
+                    Self::AnthosSupport => std::option::Option::Some("ANTHOS_SUPPORT"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for PredefinedRoles {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for PredefinedRoles {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for PredefinedRoles {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unknown,
+                    1 => Self::Admin,
+                    2 => Self::Edit,
+                    3 => Self::View,
+                    4 => Self::AnthosSupport,
+                    _ => Self::UnknownValue(predefined_roles::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for PredefinedRoles {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "UNKNOWN" => Self::Unknown,
+                    "ADMIN" => Self::Admin,
+                    "EDIT" => Self::Edit,
+                    "VIEW" => Self::View,
+                    "ANTHOS_SUPPORT" => Self::AnthosSupport,
+                    _ => Self::UnknownValue(predefined_roles::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for PredefinedRoles {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unknown => serializer.serialize_i32(0),
+                    Self::Admin => serializer.serialize_i32(1),
+                    Self::Edit => serializer.serialize_i32(2),
+                    Self::View => serializer.serialize_i32(3),
+                    Self::AnthosSupport => serializer.serialize_i32(4),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for PredefinedRoles {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<PredefinedRoles>::new(
+                    ".google.cloud.gkehub.v1.RBACRoleBinding.Role.PredefinedRoles",
+                ))
+            }
+        }
+    }
+
+    /// Principal that is be authorized in the cluster (at least of one the oneof
+    /// is required). Updating one will unset the other automatically.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Principal {
+        /// user is the name of the user as seen by the kubernetes cluster, example
+        /// "alice" or "alice@domain.tld"
+        User(std::string::String),
+        /// group is the group, as seen by the kubernetes cluster.
+        Group(std::string::String),
+    }
+}
+
+/// RBACRoleBindingLifecycleState describes the state of a RbacRoleBinding
+/// resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RBACRoleBindingLifecycleState {
+    /// Output only. The current state of the rbacrolebinding resource.
+    pub code: crate::model::rbac_role_binding_lifecycle_state::Code,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RBACRoleBindingLifecycleState {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [code][crate::model::RBACRoleBindingLifecycleState::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::RBACRoleBindingLifecycleState;
+    /// use google_cloud_gkehub_v1::model::rbac_role_binding_lifecycle_state::Code;
+    /// let x0 = RBACRoleBindingLifecycleState::new().set_code(Code::Creating);
+    /// let x1 = RBACRoleBindingLifecycleState::new().set_code(Code::Ready);
+    /// let x2 = RBACRoleBindingLifecycleState::new().set_code(Code::Deleting);
+    /// ```
+    pub fn set_code<
+        T: std::convert::Into<crate::model::rbac_role_binding_lifecycle_state::Code>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.code = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RBACRoleBindingLifecycleState {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.RBACRoleBindingLifecycleState"
+    }
+}
+
+/// Defines additional types related to [RBACRoleBindingLifecycleState].
+pub mod rbac_role_binding_lifecycle_state {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Code describes the state of a rbacrolebinding resource.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Code {
+        /// The code is not set.
+        Unspecified,
+        /// The rbacrolebinding is being created.
+        Creating,
+        /// The rbacrolebinding active.
+        Ready,
+        /// The rbacrolebinding is being deleted.
+        Deleting,
+        /// The rbacrolebinding is being updated.
+        Updating,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Code::value] or
+        /// [Code::name].
+        UnknownValue(code::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Code {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Ready => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Updating => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CODE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Ready,
+                3 => Self::Deleting,
+                4 => Self::Updating,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Code {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CODE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "READY" => Self::Ready,
+                "DELETING" => Self::Deleting,
+                "UPDATING" => Self::Updating,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Ready => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Updating => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                ".google.cloud.gkehub.v1.RBACRoleBindingLifecycleState.Code",
+            ))
+        }
+    }
+}
+
+/// Scope represents a Scope in a Fleet.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Scope {
+    /// The resource name for the scope
+    /// `projects/{project}/locations/{location}/scopes/{scope}`
+    pub name: std::string::String,
+
+    /// Output only. Google-generated UUID for this resource. This is unique across
+    /// all scope resources. If a scope resource is deleted and another resource
+    /// with the same name is created, it gets a different uid.
+    pub uid: std::string::String,
+
+    /// Output only. When the scope was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. When the scope was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. When the scope was deleted.
+    pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. State of the scope resource.
+    pub state: std::option::Option<crate::model::ScopeLifecycleState>,
+
+    /// Optional. Scope-level cluster namespace labels. For the member clusters
+    /// bound to the Scope, these labels are applied to each namespace under the
+    /// Scope. Scope-level labels take precedence over Namespace-level
+    /// labels (`namespace_labels` in the Fleet Namespace resource) if they
+    /// share a key. Keys and values must be Kubernetes-conformant.
+    pub namespace_labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Labels for this Scope.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Scope {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Scope::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Scope;
+    /// let x = Scope::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::Scope::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Scope;
+    /// let x = Scope::new().set_uid("example");
+    /// ```
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Scope::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Scope;
+    /// use wkt::Timestamp;
+    /// let x = Scope::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Scope::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Scope;
+    /// use wkt::Timestamp;
+    /// let x = Scope::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Scope::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Scope::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Scope;
+    /// use wkt::Timestamp;
+    /// let x = Scope::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Scope::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Scope;
+    /// use wkt::Timestamp;
+    /// let x = Scope::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Scope::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [delete_time][crate::model::Scope::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Scope;
+    /// use wkt::Timestamp;
+    /// let x = Scope::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::Scope::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Scope;
+    /// use wkt::Timestamp;
+    /// let x = Scope::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Scope::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::Scope::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Scope;
+    /// use google_cloud_gkehub_v1::model::ScopeLifecycleState;
+    /// let x = Scope::new().set_state(ScopeLifecycleState::default()/* use setters */);
+    /// ```
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ScopeLifecycleState>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::Scope::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Scope;
+    /// use google_cloud_gkehub_v1::model::ScopeLifecycleState;
+    /// let x = Scope::new().set_or_clear_state(Some(ScopeLifecycleState::default()/* use setters */));
+    /// let x = Scope::new().set_or_clear_state(None::<ScopeLifecycleState>);
+    /// ```
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ScopeLifecycleState>,
+    {
+        self.state = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [namespace_labels][crate::model::Scope::namespace_labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Scope;
+    /// let x = Scope::new().set_namespace_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_namespace_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.namespace_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Scope::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::Scope;
+    /// let x = Scope::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Scope {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.Scope"
+    }
+}
+
+/// ScopeLifecycleState describes the state of a Scope resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ScopeLifecycleState {
+    /// Output only. The current state of the scope resource.
+    pub code: crate::model::scope_lifecycle_state::Code,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ScopeLifecycleState {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [code][crate::model::ScopeLifecycleState::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ScopeLifecycleState;
+    /// use google_cloud_gkehub_v1::model::scope_lifecycle_state::Code;
+    /// let x0 = ScopeLifecycleState::new().set_code(Code::Creating);
+    /// let x1 = ScopeLifecycleState::new().set_code(Code::Ready);
+    /// let x2 = ScopeLifecycleState::new().set_code(Code::Deleting);
+    /// ```
+    pub fn set_code<T: std::convert::Into<crate::model::scope_lifecycle_state::Code>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.code = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ScopeLifecycleState {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ScopeLifecycleState"
+    }
+}
+
+/// Defines additional types related to [ScopeLifecycleState].
+pub mod scope_lifecycle_state {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Code describes the state of a Scope resource.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Code {
+        /// The code is not set.
+        Unspecified,
+        /// The scope is being created.
+        Creating,
+        /// The scope active.
+        Ready,
+        /// The scope is being deleted.
+        Deleting,
+        /// The scope is being updated.
+        Updating,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Code::value] or
+        /// [Code::name].
+        UnknownValue(code::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Code {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Ready => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Updating => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CODE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Ready,
+                3 => Self::Deleting,
+                4 => Self::Updating,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Code {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CODE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "READY" => Self::Ready,
+                "DELETING" => Self::Deleting,
+                "UPDATING" => Self::Updating,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Ready => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Updating => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                ".google.cloud.gkehub.v1.ScopeLifecycleState.Code",
+            ))
+        }
+    }
+}
+
+/// MembershipBinding is a subresource of a Membership, representing
+/// what Fleet Scopes (or other, future Fleet resources) a Membership is bound
+/// to.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MembershipBinding {
+    /// The resource name for the membershipbinding itself
+    /// `projects/{project}/locations/{location}/memberships/{membership}/bindings/{membershipbinding}`
+    pub name: std::string::String,
+
+    /// Output only. Google-generated UUID for this resource. This is unique across
+    /// all membershipbinding resources. If a membershipbinding resource is deleted
+    /// and another resource with the same name is created, it gets a different
+    /// uid.
+    pub uid: std::string::String,
+
+    /// Output only. When the membership binding was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. When the membership binding was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. When the membership binding was deleted.
+    pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. State of the membership binding resource.
+    pub state: std::option::Option<crate::model::MembershipBindingLifecycleState>,
+
+    /// Optional. Labels for this MembershipBinding.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// What type of membershipbinding this is.
+    pub target: std::option::Option<crate::model::membership_binding::Target>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MembershipBinding {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::MembershipBinding::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// let x = MembershipBinding::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::MembershipBinding::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// let x = MembershipBinding::new().set_uid("example");
+    /// ```
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::MembershipBinding::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// use wkt::Timestamp;
+    /// let x = MembershipBinding::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::MembershipBinding::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// use wkt::Timestamp;
+    /// let x = MembershipBinding::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MembershipBinding::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::MembershipBinding::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// use wkt::Timestamp;
+    /// let x = MembershipBinding::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::MembershipBinding::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// use wkt::Timestamp;
+    /// let x = MembershipBinding::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MembershipBinding::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [delete_time][crate::model::MembershipBinding::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// use wkt::Timestamp;
+    /// let x = MembershipBinding::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::MembershipBinding::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// use wkt::Timestamp;
+    /// let x = MembershipBinding::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MembershipBinding::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::MembershipBinding::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// use google_cloud_gkehub_v1::model::MembershipBindingLifecycleState;
+    /// let x = MembershipBinding::new().set_state(MembershipBindingLifecycleState::default()/* use setters */);
+    /// ```
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MembershipBindingLifecycleState>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::MembershipBinding::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// use google_cloud_gkehub_v1::model::MembershipBindingLifecycleState;
+    /// let x = MembershipBinding::new().set_or_clear_state(Some(MembershipBindingLifecycleState::default()/* use setters */));
+    /// let x = MembershipBinding::new().set_or_clear_state(None::<MembershipBindingLifecycleState>);
+    /// ```
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MembershipBindingLifecycleState>,
+    {
+        self.state = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::MembershipBinding::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// let x = MembershipBinding::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [target][crate::model::MembershipBinding::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// use google_cloud_gkehub_v1::model::membership_binding::Target;
+    /// let x = MembershipBinding::new().set_target(Some(Target::Scope("example".to_string())));
+    /// ```
+    pub fn set_target<
+        T: std::convert::Into<std::option::Option<crate::model::membership_binding::Target>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target = v.into();
+        self
+    }
+
+    /// The value of [target][crate::model::MembershipBinding::target]
+    /// if it holds a `Scope`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn scope(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.target.as_ref().and_then(|v| match v {
+            crate::model::membership_binding::Target::Scope(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [target][crate::model::MembershipBinding::target]
+    /// to hold a `Scope`.
+    ///
+    /// Note that all the setters affecting `target` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// let x = MembershipBinding::new().set_scope("example");
+    /// assert!(x.scope().is_some());
+    /// ```
+    pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target =
+            std::option::Option::Some(crate::model::membership_binding::Target::Scope(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for MembershipBinding {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.MembershipBinding"
+    }
+}
+
+/// Defines additional types related to [MembershipBinding].
+pub mod membership_binding {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// What type of membershipbinding this is.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Target {
+        /// A Scope resource name in the format
+        /// `projects/*/locations/*/scopes/*`.
+        Scope(std::string::String),
+    }
+}
+
+/// MembershipBindingLifecycleState describes the state of a Binding resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MembershipBindingLifecycleState {
+    /// Output only. The current state of the MembershipBinding resource.
+    pub code: crate::model::membership_binding_lifecycle_state::Code,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MembershipBindingLifecycleState {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [code][crate::model::MembershipBindingLifecycleState::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::MembershipBindingLifecycleState;
+    /// use google_cloud_gkehub_v1::model::membership_binding_lifecycle_state::Code;
+    /// let x0 = MembershipBindingLifecycleState::new().set_code(Code::Creating);
+    /// let x1 = MembershipBindingLifecycleState::new().set_code(Code::Ready);
+    /// let x2 = MembershipBindingLifecycleState::new().set_code(Code::Deleting);
+    /// ```
+    pub fn set_code<
+        T: std::convert::Into<crate::model::membership_binding_lifecycle_state::Code>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.code = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MembershipBindingLifecycleState {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.MembershipBindingLifecycleState"
+    }
+}
+
+/// Defines additional types related to [MembershipBindingLifecycleState].
+pub mod membership_binding_lifecycle_state {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Code describes the state of a MembershipBinding resource.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Code {
+        /// The code is not set.
+        Unspecified,
+        /// The membershipbinding is being created.
+        Creating,
+        /// The membershipbinding active.
+        Ready,
+        /// The membershipbinding is being deleted.
+        Deleting,
+        /// The membershipbinding is being updated.
+        Updating,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Code::value] or
+        /// [Code::name].
+        UnknownValue(code::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Code {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Ready => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Updating => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CODE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Ready,
+                3 => Self::Deleting,
+                4 => Self::Updating,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Code {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CODE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "READY" => Self::Ready,
+                "DELETING" => Self::Deleting,
+                "UPDATING" => Self::Updating,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Ready => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Updating => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                ".google.cloud.gkehub.v1.MembershipBindingLifecycleState.Code",
+            ))
+        }
     }
 }
 
@@ -2749,6 +6580,1781 @@ impl wkt::message::Message for Authority {
     }
 }
 
+/// Request message for the `GkeHub.GetNamespace` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetScopeNamespaceRequest {
+    /// Required. The Namespace resource name in the format
+    /// `projects/*/locations/*/scopes/*/namespaces/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetScopeNamespaceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetScopeNamespaceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::GetScopeNamespaceRequest;
+    /// let x = GetScopeNamespaceRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetScopeNamespaceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.GetScopeNamespaceRequest"
+    }
+}
+
+/// Request to create a fleet namespace.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateScopeNamespaceRequest {
+    /// Required. The parent (project and location) where the Namespace will be
+    /// created. Specified in the format `projects/*/locations/*/scopes/*`.
+    pub parent: std::string::String,
+
+    /// Required. Client chosen ID for the Namespace. `namespace_id` must be a
+    /// valid RFC 1123 compliant DNS label:
+    ///
+    /// 1. At most 63 characters in length
+    /// 1. It must consist of lower case alphanumeric characters or `-`
+    /// 1. It must start and end with an alphanumeric character
+    ///
+    /// Which can be expressed as the regex: `[a-z0-9]([-a-z0-9]*[a-z0-9])?`,
+    /// with a maximum length of 63 characters.
+    pub scope_namespace_id: std::string::String,
+
+    /// Required. The fleet namespace to create.
+    pub scope_namespace: std::option::Option<crate::model::Namespace>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateScopeNamespaceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateScopeNamespaceRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateScopeNamespaceRequest;
+    /// let x = CreateScopeNamespaceRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [scope_namespace_id][crate::model::CreateScopeNamespaceRequest::scope_namespace_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateScopeNamespaceRequest;
+    /// let x = CreateScopeNamespaceRequest::new().set_scope_namespace_id("example");
+    /// ```
+    pub fn set_scope_namespace_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.scope_namespace_id = v.into();
+        self
+    }
+
+    /// Sets the value of [scope_namespace][crate::model::CreateScopeNamespaceRequest::scope_namespace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateScopeNamespaceRequest;
+    /// use google_cloud_gkehub_v1::model::Namespace;
+    /// let x = CreateScopeNamespaceRequest::new().set_scope_namespace(Namespace::default()/* use setters */);
+    /// ```
+    pub fn set_scope_namespace<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Namespace>,
+    {
+        self.scope_namespace = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scope_namespace][crate::model::CreateScopeNamespaceRequest::scope_namespace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateScopeNamespaceRequest;
+    /// use google_cloud_gkehub_v1::model::Namespace;
+    /// let x = CreateScopeNamespaceRequest::new().set_or_clear_scope_namespace(Some(Namespace::default()/* use setters */));
+    /// let x = CreateScopeNamespaceRequest::new().set_or_clear_scope_namespace(None::<Namespace>);
+    /// ```
+    pub fn set_or_clear_scope_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Namespace>,
+    {
+        self.scope_namespace = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateScopeNamespaceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.CreateScopeNamespaceRequest"
+    }
+}
+
+/// Request to update a fleet namespace.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateScopeNamespaceRequest {
+    /// Required. A namespace with fields updated. The 'name' field in this
+    /// namespace is used to identify the resource to update. Given 'updated'
+    /// prefix to follow go/proto-best-practices-checkers#keyword_conflict
+    pub scope_namespace: std::option::Option<crate::model::Namespace>,
+
+    /// Required. The fields to be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateScopeNamespaceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [scope_namespace][crate::model::UpdateScopeNamespaceRequest::scope_namespace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateScopeNamespaceRequest;
+    /// use google_cloud_gkehub_v1::model::Namespace;
+    /// let x = UpdateScopeNamespaceRequest::new().set_scope_namespace(Namespace::default()/* use setters */);
+    /// ```
+    pub fn set_scope_namespace<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Namespace>,
+    {
+        self.scope_namespace = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scope_namespace][crate::model::UpdateScopeNamespaceRequest::scope_namespace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateScopeNamespaceRequest;
+    /// use google_cloud_gkehub_v1::model::Namespace;
+    /// let x = UpdateScopeNamespaceRequest::new().set_or_clear_scope_namespace(Some(Namespace::default()/* use setters */));
+    /// let x = UpdateScopeNamespaceRequest::new().set_or_clear_scope_namespace(None::<Namespace>);
+    /// ```
+    pub fn set_or_clear_scope_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Namespace>,
+    {
+        self.scope_namespace = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateScopeNamespaceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateScopeNamespaceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateScopeNamespaceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateScopeNamespaceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateScopeNamespaceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateScopeNamespaceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateScopeNamespaceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateScopeNamespaceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.UpdateScopeNamespaceRequest"
+    }
+}
+
+/// Request to delete a fleet namespace.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteScopeNamespaceRequest {
+    /// Required. The Namespace resource name in the format
+    /// `projects/*/locations/*/scopes/*/namespaces/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteScopeNamespaceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteScopeNamespaceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::DeleteScopeNamespaceRequest;
+    /// let x = DeleteScopeNamespaceRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteScopeNamespaceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.DeleteScopeNamespaceRequest"
+    }
+}
+
+/// Request to list fleet namespaces.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListScopeNamespacesRequest {
+    /// Required. The parent (project and location) where the Features will be
+    /// listed. Specified in the format `projects/*/locations/*/scopes/*`.
+    pub parent: std::string::String,
+
+    /// Optional. When requesting a 'page' of resources, `page_size` specifies
+    /// number of resources to return. If unspecified or set to 0, all resources
+    /// will be returned.
+    pub page_size: i32,
+
+    /// Optional. Token returned by previous call to `ListFeatures` which
+    /// specifies the position in the list from where to continue listing the
+    /// resources.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListScopeNamespacesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListScopeNamespacesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopeNamespacesRequest;
+    /// let x = ListScopeNamespacesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListScopeNamespacesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopeNamespacesRequest;
+    /// let x = ListScopeNamespacesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListScopeNamespacesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopeNamespacesRequest;
+    /// let x = ListScopeNamespacesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListScopeNamespacesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListScopeNamespacesRequest"
+    }
+}
+
+/// List of fleet namespaces.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListScopeNamespacesResponse {
+    /// The list of fleet namespaces
+    pub scope_namespaces: std::vec::Vec<crate::model::Namespace>,
+
+    /// A token to request the next page of resources from the
+    /// `ListNamespaces` method. The value of an empty string means
+    /// that there are no more resources to return.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListScopeNamespacesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [scope_namespaces][crate::model::ListScopeNamespacesResponse::scope_namespaces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopeNamespacesResponse;
+    /// use google_cloud_gkehub_v1::model::Namespace;
+    /// let x = ListScopeNamespacesResponse::new()
+    ///     .set_scope_namespaces([
+    ///         Namespace::default()/* use setters */,
+    ///         Namespace::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_scope_namespaces<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Namespace>,
+    {
+        use std::iter::Iterator;
+        self.scope_namespaces = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListScopeNamespacesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopeNamespacesResponse;
+    /// let x = ListScopeNamespacesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListScopeNamespacesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListScopeNamespacesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListScopeNamespacesResponse {
+    type PageItem = crate::model::Namespace;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.scope_namespaces
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for the `GkeHub.GetScopeRBACRoleBinding` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetScopeRBACRoleBindingRequest {
+    /// Required. The RBACRoleBinding resource name in the format
+    /// `projects/*/locations/*/scopes/*/rbacrolebindings/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetScopeRBACRoleBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetScopeRBACRoleBindingRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::GetScopeRBACRoleBindingRequest;
+    /// let x = GetScopeRBACRoleBindingRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetScopeRBACRoleBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.GetScopeRBACRoleBindingRequest"
+    }
+}
+
+/// Request to create a rbacrolebindings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateScopeRBACRoleBindingRequest {
+    /// Required. The parent (project and location) where the RBACRoleBinding will
+    /// be created. Specified in the format `projects/*/locations/*/scopes/*`.
+    pub parent: std::string::String,
+
+    /// Required. Client chosen ID for the RBACRoleBinding. `rbacrolebinding_id`
+    /// must be a valid RFC 1123 compliant DNS label:
+    ///
+    /// 1. At most 63 characters in length
+    /// 1. It must consist of lower case alphanumeric characters or `-`
+    /// 1. It must start and end with an alphanumeric character
+    ///
+    /// Which can be expressed as the regex: `[a-z0-9]([-a-z0-9]*[a-z0-9])?`,
+    /// with a maximum length of 63 characters.
+    pub rbacrolebinding_id: std::string::String,
+
+    /// Required. The rbacrolebindings to create.
+    pub rbacrolebinding: std::option::Option<crate::model::RBACRoleBinding>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateScopeRBACRoleBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateScopeRBACRoleBindingRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateScopeRBACRoleBindingRequest;
+    /// let x = CreateScopeRBACRoleBindingRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [rbacrolebinding_id][crate::model::CreateScopeRBACRoleBindingRequest::rbacrolebinding_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateScopeRBACRoleBindingRequest;
+    /// let x = CreateScopeRBACRoleBindingRequest::new().set_rbacrolebinding_id("example");
+    /// ```
+    pub fn set_rbacrolebinding_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rbacrolebinding_id = v.into();
+        self
+    }
+
+    /// Sets the value of [rbacrolebinding][crate::model::CreateScopeRBACRoleBindingRequest::rbacrolebinding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateScopeRBACRoleBindingRequest;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = CreateScopeRBACRoleBindingRequest::new().set_rbacrolebinding(RBACRoleBinding::default()/* use setters */);
+    /// ```
+    pub fn set_rbacrolebinding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACRoleBinding>,
+    {
+        self.rbacrolebinding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rbacrolebinding][crate::model::CreateScopeRBACRoleBindingRequest::rbacrolebinding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateScopeRBACRoleBindingRequest;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = CreateScopeRBACRoleBindingRequest::new().set_or_clear_rbacrolebinding(Some(RBACRoleBinding::default()/* use setters */));
+    /// let x = CreateScopeRBACRoleBindingRequest::new().set_or_clear_rbacrolebinding(None::<RBACRoleBinding>);
+    /// ```
+    pub fn set_or_clear_rbacrolebinding<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACRoleBinding>,
+    {
+        self.rbacrolebinding = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateScopeRBACRoleBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.CreateScopeRBACRoleBindingRequest"
+    }
+}
+
+/// Request to update a scope rbacrolebinding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateScopeRBACRoleBindingRequest {
+    /// Required. A rbacrolebinding with fields updated. The 'name' field in this
+    /// rbacrolebinding is used to identify the resource to update.
+    pub rbacrolebinding: std::option::Option<crate::model::RBACRoleBinding>,
+
+    /// Required. The fields to be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateScopeRBACRoleBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [rbacrolebinding][crate::model::UpdateScopeRBACRoleBindingRequest::rbacrolebinding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateScopeRBACRoleBindingRequest;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = UpdateScopeRBACRoleBindingRequest::new().set_rbacrolebinding(RBACRoleBinding::default()/* use setters */);
+    /// ```
+    pub fn set_rbacrolebinding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACRoleBinding>,
+    {
+        self.rbacrolebinding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rbacrolebinding][crate::model::UpdateScopeRBACRoleBindingRequest::rbacrolebinding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateScopeRBACRoleBindingRequest;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = UpdateScopeRBACRoleBindingRequest::new().set_or_clear_rbacrolebinding(Some(RBACRoleBinding::default()/* use setters */));
+    /// let x = UpdateScopeRBACRoleBindingRequest::new().set_or_clear_rbacrolebinding(None::<RBACRoleBinding>);
+    /// ```
+    pub fn set_or_clear_rbacrolebinding<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACRoleBinding>,
+    {
+        self.rbacrolebinding = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateScopeRBACRoleBindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateScopeRBACRoleBindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateScopeRBACRoleBindingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateScopeRBACRoleBindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateScopeRBACRoleBindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateScopeRBACRoleBindingRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateScopeRBACRoleBindingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateScopeRBACRoleBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.UpdateScopeRBACRoleBindingRequest"
+    }
+}
+
+/// Request to delete a Scope RBACRoleBinding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteScopeRBACRoleBindingRequest {
+    /// Required. The RBACRoleBinding resource name in the format
+    /// `projects/*/locations/*/scopes/*/rbacrolebindings/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteScopeRBACRoleBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteScopeRBACRoleBindingRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::DeleteScopeRBACRoleBindingRequest;
+    /// let x = DeleteScopeRBACRoleBindingRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteScopeRBACRoleBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.DeleteScopeRBACRoleBindingRequest"
+    }
+}
+
+/// Request to list Scope RBACRoleBindings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListScopeRBACRoleBindingsRequest {
+    /// Required. The parent (project and location) where the Features will be
+    /// listed. Specified in the format `projects/*/locations/*/scopes/*`.
+    pub parent: std::string::String,
+
+    /// Optional. When requesting a 'page' of resources, `page_size` specifies
+    /// number of resources to return. If unspecified or set to 0, all resources
+    /// will be returned.
+    pub page_size: i32,
+
+    /// Optional. Token returned by previous call to `ListScopeRBACRoleBindings`
+    /// which specifies the position in the list from where to continue listing the
+    /// resources.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListScopeRBACRoleBindingsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListScopeRBACRoleBindingsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopeRBACRoleBindingsRequest;
+    /// let x = ListScopeRBACRoleBindingsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListScopeRBACRoleBindingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopeRBACRoleBindingsRequest;
+    /// let x = ListScopeRBACRoleBindingsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListScopeRBACRoleBindingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopeRBACRoleBindingsRequest;
+    /// let x = ListScopeRBACRoleBindingsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListScopeRBACRoleBindingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListScopeRBACRoleBindingsRequest"
+    }
+}
+
+/// List of Scope RBACRoleBindings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListScopeRBACRoleBindingsResponse {
+    /// The list of Scope RBACRoleBindings.
+    pub rbacrolebindings: std::vec::Vec<crate::model::RBACRoleBinding>,
+
+    /// A token to request the next page of resources from the
+    /// `ListScopeRBACRoleBindings` method. The value of an empty string means
+    /// that there are no more resources to return.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListScopeRBACRoleBindingsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [rbacrolebindings][crate::model::ListScopeRBACRoleBindingsResponse::rbacrolebindings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopeRBACRoleBindingsResponse;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = ListScopeRBACRoleBindingsResponse::new()
+    ///     .set_rbacrolebindings([
+    ///         RBACRoleBinding::default()/* use setters */,
+    ///         RBACRoleBinding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rbacrolebindings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RBACRoleBinding>,
+    {
+        use std::iter::Iterator;
+        self.rbacrolebindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListScopeRBACRoleBindingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopeRBACRoleBindingsResponse;
+    /// let x = ListScopeRBACRoleBindingsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListScopeRBACRoleBindingsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListScopeRBACRoleBindingsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListScopeRBACRoleBindingsResponse {
+    type PageItem = crate::model::RBACRoleBinding;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.rbacrolebindings
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for the `GkeHub.GetScope` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetScopeRequest {
+    /// Required. The Scope resource name in the format
+    /// `projects/*/locations/*/scopes/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetScopeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetScopeRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::GetScopeRequest;
+    /// let x = GetScopeRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetScopeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.GetScopeRequest"
+    }
+}
+
+/// Request to create a Scope.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateScopeRequest {
+    /// Required. The parent (project and location) where the Scope will be
+    /// created. Specified in the format `projects/*/locations/*`.
+    pub parent: std::string::String,
+
+    /// Required. Client chosen ID for the Scope. `scope_id` must be a
+    /// ????
+    pub scope_id: std::string::String,
+
+    /// Required. The Scope to create.
+    pub scope: std::option::Option<crate::model::Scope>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateScopeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateScopeRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateScopeRequest;
+    /// let x = CreateScopeRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [scope_id][crate::model::CreateScopeRequest::scope_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateScopeRequest;
+    /// let x = CreateScopeRequest::new().set_scope_id("example");
+    /// ```
+    pub fn set_scope_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.scope_id = v.into();
+        self
+    }
+
+    /// Sets the value of [scope][crate::model::CreateScopeRequest::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateScopeRequest;
+    /// use google_cloud_gkehub_v1::model::Scope;
+    /// let x = CreateScopeRequest::new().set_scope(Scope::default()/* use setters */);
+    /// ```
+    pub fn set_scope<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Scope>,
+    {
+        self.scope = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scope][crate::model::CreateScopeRequest::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateScopeRequest;
+    /// use google_cloud_gkehub_v1::model::Scope;
+    /// let x = CreateScopeRequest::new().set_or_clear_scope(Some(Scope::default()/* use setters */));
+    /// let x = CreateScopeRequest::new().set_or_clear_scope(None::<Scope>);
+    /// ```
+    pub fn set_or_clear_scope<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Scope>,
+    {
+        self.scope = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateScopeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.CreateScopeRequest"
+    }
+}
+
+/// Request to update a Scope.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateScopeRequest {
+    /// Required. A Scope with fields updated. The 'name' field in this
+    /// namespace is used to identify the resource to update.
+    pub scope: std::option::Option<crate::model::Scope>,
+
+    /// Required. The fields to be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateScopeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [scope][crate::model::UpdateScopeRequest::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateScopeRequest;
+    /// use google_cloud_gkehub_v1::model::Scope;
+    /// let x = UpdateScopeRequest::new().set_scope(Scope::default()/* use setters */);
+    /// ```
+    pub fn set_scope<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Scope>,
+    {
+        self.scope = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scope][crate::model::UpdateScopeRequest::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateScopeRequest;
+    /// use google_cloud_gkehub_v1::model::Scope;
+    /// let x = UpdateScopeRequest::new().set_or_clear_scope(Some(Scope::default()/* use setters */));
+    /// let x = UpdateScopeRequest::new().set_or_clear_scope(None::<Scope>);
+    /// ```
+    pub fn set_or_clear_scope<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Scope>,
+    {
+        self.scope = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateScopeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateScopeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateScopeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateScopeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateScopeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateScopeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateScopeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateScopeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.UpdateScopeRequest"
+    }
+}
+
+/// Request to delete a Scope.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteScopeRequest {
+    /// Required. The Scope resource name in the format
+    /// `projects/*/locations/*/scopes/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteScopeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteScopeRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::DeleteScopeRequest;
+    /// let x = DeleteScopeRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteScopeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.DeleteScopeRequest"
+    }
+}
+
+/// Request to list Scopes.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListScopesRequest {
+    /// Required. The parent (project and location) where the Scope will be listed.
+    /// Specified in the format `projects/*/locations/*`.
+    pub parent: std::string::String,
+
+    /// Optional. When requesting a 'page' of resources, `page_size` specifies
+    /// number of resources to return. If unspecified or set to 0, all resources
+    /// will be returned.
+    pub page_size: i32,
+
+    /// Optional. Token returned by previous call to `ListScopes` which
+    /// specifies the position in the list from where to continue listing the
+    /// resources.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListScopesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListScopesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopesRequest;
+    /// let x = ListScopesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListScopesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopesRequest;
+    /// let x = ListScopesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListScopesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopesRequest;
+    /// let x = ListScopesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListScopesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListScopesRequest"
+    }
+}
+
+/// List of Scopes.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListScopesResponse {
+    /// The list of Scopes
+    pub scopes: std::vec::Vec<crate::model::Scope>,
+
+    /// A token to request the next page of resources from the
+    /// `ListScopes` method. The value of an empty string means
+    /// that there are no more resources to return.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListScopesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [scopes][crate::model::ListScopesResponse::scopes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopesResponse;
+    /// use google_cloud_gkehub_v1::model::Scope;
+    /// let x = ListScopesResponse::new()
+    ///     .set_scopes([
+    ///         Scope::default()/* use setters */,
+    ///         Scope::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Scope>,
+    {
+        use std::iter::Iterator;
+        self.scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListScopesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListScopesResponse;
+    /// let x = ListScopesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListScopesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListScopesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListScopesResponse {
+    type PageItem = crate::model::Scope;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.scopes
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request to list permitted Scopes.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListPermittedScopesRequest {
+    /// Required. The parent (project and location) where the Scope will be listed.
+    /// Specified in the format `projects/*/locations/*`.
+    pub parent: std::string::String,
+
+    /// Optional. When requesting a 'page' of resources, `page_size` specifies
+    /// number of resources to return. If unspecified or set to 0, all resources
+    /// will be returned.
+    pub page_size: i32,
+
+    /// Optional. Token returned by previous call to `ListPermittedScopes` which
+    /// specifies the position in the list from where to continue listing the
+    /// resources.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListPermittedScopesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListPermittedScopesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListPermittedScopesRequest;
+    /// let x = ListPermittedScopesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListPermittedScopesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListPermittedScopesRequest;
+    /// let x = ListPermittedScopesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListPermittedScopesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListPermittedScopesRequest;
+    /// let x = ListPermittedScopesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListPermittedScopesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListPermittedScopesRequest"
+    }
+}
+
+/// List of permitted Scopes.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListPermittedScopesResponse {
+    /// The list of permitted Scopes
+    pub scopes: std::vec::Vec<crate::model::Scope>,
+
+    /// A token to request the next page of resources from the
+    /// `ListPermittedScopes` method. The value of an empty string means
+    /// that there are no more resources to return.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListPermittedScopesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [scopes][crate::model::ListPermittedScopesResponse::scopes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListPermittedScopesResponse;
+    /// use google_cloud_gkehub_v1::model::Scope;
+    /// let x = ListPermittedScopesResponse::new()
+    ///     .set_scopes([
+    ///         Scope::default()/* use setters */,
+    ///         Scope::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Scope>,
+    {
+        use std::iter::Iterator;
+        self.scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPermittedScopesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListPermittedScopesResponse;
+    /// let x = ListPermittedScopesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListPermittedScopesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListPermittedScopesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPermittedScopesResponse {
+    type PageItem = crate::model::Scope;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.scopes
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for the `GkeHub.GetMembershipBinding` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetMembershipBindingRequest {
+    /// Required. The MembershipBinding resource name in the format
+    /// `projects/*/locations/*/memberships/*/bindings/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetMembershipBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetMembershipBindingRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::GetMembershipBindingRequest;
+    /// let x = GetMembershipBindingRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetMembershipBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.GetMembershipBindingRequest"
+    }
+}
+
+/// Request to create a MembershipBinding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateMembershipBindingRequest {
+    /// Required. The parent (project and location) where the MembershipBinding
+    /// will be created. Specified in the format
+    /// `projects/*/locations/*/memberships/*`.
+    pub parent: std::string::String,
+
+    /// Required. The MembershipBinding to create.
+    pub membership_binding: std::option::Option<crate::model::MembershipBinding>,
+
+    /// Required. The ID to use for the MembershipBinding.
+    pub membership_binding_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateMembershipBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateMembershipBindingRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateMembershipBindingRequest;
+    /// let x = CreateMembershipBindingRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [membership_binding][crate::model::CreateMembershipBindingRequest::membership_binding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateMembershipBindingRequest;
+    /// use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// let x = CreateMembershipBindingRequest::new().set_membership_binding(MembershipBinding::default()/* use setters */);
+    /// ```
+    pub fn set_membership_binding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MembershipBinding>,
+    {
+        self.membership_binding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [membership_binding][crate::model::CreateMembershipBindingRequest::membership_binding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateMembershipBindingRequest;
+    /// use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// let x = CreateMembershipBindingRequest::new().set_or_clear_membership_binding(Some(MembershipBinding::default()/* use setters */));
+    /// let x = CreateMembershipBindingRequest::new().set_or_clear_membership_binding(None::<MembershipBinding>);
+    /// ```
+    pub fn set_or_clear_membership_binding<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MembershipBinding>,
+    {
+        self.membership_binding = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [membership_binding_id][crate::model::CreateMembershipBindingRequest::membership_binding_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateMembershipBindingRequest;
+    /// let x = CreateMembershipBindingRequest::new().set_membership_binding_id("example");
+    /// ```
+    pub fn set_membership_binding_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.membership_binding_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMembershipBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.CreateMembershipBindingRequest"
+    }
+}
+
+/// Request to update a MembershipBinding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateMembershipBindingRequest {
+    /// Required. The MembershipBinding object with fields updated.
+    pub membership_binding: std::option::Option<crate::model::MembershipBinding>,
+
+    /// Required. The fields to be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateMembershipBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [membership_binding][crate::model::UpdateMembershipBindingRequest::membership_binding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipBindingRequest;
+    /// use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// let x = UpdateMembershipBindingRequest::new().set_membership_binding(MembershipBinding::default()/* use setters */);
+    /// ```
+    pub fn set_membership_binding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MembershipBinding>,
+    {
+        self.membership_binding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [membership_binding][crate::model::UpdateMembershipBindingRequest::membership_binding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipBindingRequest;
+    /// use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// let x = UpdateMembershipBindingRequest::new().set_or_clear_membership_binding(Some(MembershipBinding::default()/* use setters */));
+    /// let x = UpdateMembershipBindingRequest::new().set_or_clear_membership_binding(None::<MembershipBinding>);
+    /// ```
+    pub fn set_or_clear_membership_binding<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MembershipBinding>,
+    {
+        self.membership_binding = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateMembershipBindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipBindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMembershipBindingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateMembershipBindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipBindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMembershipBindingRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateMembershipBindingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateMembershipBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.UpdateMembershipBindingRequest"
+    }
+}
+
+/// Request to delete a Binding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteMembershipBindingRequest {
+    /// Required. The MembershipBinding resource name in the format
+    /// `projects/*/locations/*/memberships/*/bindings/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteMembershipBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteMembershipBindingRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::DeleteMembershipBindingRequest;
+    /// let x = DeleteMembershipBindingRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteMembershipBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.DeleteMembershipBindingRequest"
+    }
+}
+
+/// Request to list MembershipBinding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMembershipBindingsRequest {
+    /// Required. The parent Membership for which the MembershipBindings will be
+    /// listed. Specified in the format `projects/*/locations/*/memberships/*`.
+    pub parent: std::string::String,
+
+    /// Optional. When requesting a 'page' of resources, `page_size` specifies
+    /// number of resources to return. If unspecified or set to 0, all resources
+    /// will be returned.
+    pub page_size: i32,
+
+    /// Optional. Token returned by previous call to `ListMembershipBindings` which
+    /// specifies the position in the list from where to continue listing the
+    /// resources.
+    pub page_token: std::string::String,
+
+    /// Optional. Lists MembershipBindings that match the filter expression,
+    /// following the syntax outlined in <https://google.aip.dev/160>.
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMembershipBindingsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListMembershipBindingsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListMembershipBindingsRequest;
+    /// let x = ListMembershipBindingsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListMembershipBindingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListMembershipBindingsRequest;
+    /// let x = ListMembershipBindingsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListMembershipBindingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListMembershipBindingsRequest;
+    /// let x = ListMembershipBindingsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListMembershipBindingsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListMembershipBindingsRequest;
+    /// let x = ListMembershipBindingsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMembershipBindingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListMembershipBindingsRequest"
+    }
+}
+
+/// List of MembershipBindings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMembershipBindingsResponse {
+    /// The list of membership_bindings
+    pub membership_bindings: std::vec::Vec<crate::model::MembershipBinding>,
+
+    /// A token to request the next page of resources from the
+    /// `ListMembershipBindings` method. The value of an empty string means
+    /// that there are no more resources to return.
+    pub next_page_token: std::string::String,
+
+    /// List of locations that could not be reached while fetching this list.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMembershipBindingsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [membership_bindings][crate::model::ListMembershipBindingsResponse::membership_bindings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListMembershipBindingsResponse;
+    /// use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// let x = ListMembershipBindingsResponse::new()
+    ///     .set_membership_bindings([
+    ///         MembershipBinding::default()/* use setters */,
+    ///         MembershipBinding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_membership_bindings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MembershipBinding>,
+    {
+        use std::iter::Iterator;
+        self.membership_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMembershipBindingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListMembershipBindingsResponse;
+    /// let x = ListMembershipBindingsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListMembershipBindingsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListMembershipBindingsResponse;
+    /// let x = ListMembershipBindingsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMembershipBindingsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListMembershipBindingsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListMembershipBindingsResponse {
+    type PageItem = crate::model::MembershipBinding;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.membership_bindings
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Request message for `GkeHub.ListMemberships` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -2867,6 +8473,564 @@ impl ListMembershipsRequest {
 impl wkt::message::Message for ListMembershipsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.gkehub.v1.ListMembershipsRequest"
+    }
+}
+
+/// Request message for the `GkeHub.GetMembershipRBACRoleBinding` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetMembershipRBACRoleBindingRequest {
+    /// Required. The RBACRoleBinding resource name in the format
+    /// `projects/*/locations/*/memberships/*/rbacrolebindings/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetMembershipRBACRoleBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetMembershipRBACRoleBindingRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::GetMembershipRBACRoleBindingRequest;
+    /// let x = GetMembershipRBACRoleBindingRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetMembershipRBACRoleBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.GetMembershipRBACRoleBindingRequest"
+    }
+}
+
+/// Request to create a rbacrolebindings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateMembershipRBACRoleBindingRequest {
+    /// Required. The parent (project and location) where the RBACRoleBinding will
+    /// be created. Specified in the format `projects/*/locations/*/memberships/*`.
+    pub parent: std::string::String,
+
+    /// Required. Client chosen ID for the RBACRoleBinding. `rbacrolebinding_id`
+    /// must be a valid RFC 1123 compliant DNS label:
+    ///
+    /// 1. At most 63 characters in length
+    /// 1. It must consist of lower case alphanumeric characters or `-`
+    /// 1. It must start and end with an alphanumeric character
+    ///
+    /// Which can be expressed as the regex: `[a-z0-9]([-a-z0-9]*[a-z0-9])?`,
+    /// with a maximum length of 63 characters.
+    pub rbacrolebinding_id: std::string::String,
+
+    /// Required. The rbacrolebindings to create.
+    pub rbacrolebinding: std::option::Option<crate::model::RBACRoleBinding>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateMembershipRBACRoleBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateMembershipRBACRoleBindingRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateMembershipRBACRoleBindingRequest;
+    /// let x = CreateMembershipRBACRoleBindingRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [rbacrolebinding_id][crate::model::CreateMembershipRBACRoleBindingRequest::rbacrolebinding_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateMembershipRBACRoleBindingRequest;
+    /// let x = CreateMembershipRBACRoleBindingRequest::new().set_rbacrolebinding_id("example");
+    /// ```
+    pub fn set_rbacrolebinding_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rbacrolebinding_id = v.into();
+        self
+    }
+
+    /// Sets the value of [rbacrolebinding][crate::model::CreateMembershipRBACRoleBindingRequest::rbacrolebinding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateMembershipRBACRoleBindingRequest;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = CreateMembershipRBACRoleBindingRequest::new().set_rbacrolebinding(RBACRoleBinding::default()/* use setters */);
+    /// ```
+    pub fn set_rbacrolebinding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACRoleBinding>,
+    {
+        self.rbacrolebinding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rbacrolebinding][crate::model::CreateMembershipRBACRoleBindingRequest::rbacrolebinding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateMembershipRBACRoleBindingRequest;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = CreateMembershipRBACRoleBindingRequest::new().set_or_clear_rbacrolebinding(Some(RBACRoleBinding::default()/* use setters */));
+    /// let x = CreateMembershipRBACRoleBindingRequest::new().set_or_clear_rbacrolebinding(None::<RBACRoleBinding>);
+    /// ```
+    pub fn set_or_clear_rbacrolebinding<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACRoleBinding>,
+    {
+        self.rbacrolebinding = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMembershipRBACRoleBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.CreateMembershipRBACRoleBindingRequest"
+    }
+}
+
+/// Request to update a membership rbacrolebinding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateMembershipRBACRoleBindingRequest {
+    /// Required. A rbacrolebinding with fields updated. The 'name' field in this
+    /// rbacrolebinding is used to identify the resource to update.
+    pub rbacrolebinding: std::option::Option<crate::model::RBACRoleBinding>,
+
+    /// Required. The fields to be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateMembershipRBACRoleBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [rbacrolebinding][crate::model::UpdateMembershipRBACRoleBindingRequest::rbacrolebinding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipRBACRoleBindingRequest;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = UpdateMembershipRBACRoleBindingRequest::new().set_rbacrolebinding(RBACRoleBinding::default()/* use setters */);
+    /// ```
+    pub fn set_rbacrolebinding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACRoleBinding>,
+    {
+        self.rbacrolebinding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rbacrolebinding][crate::model::UpdateMembershipRBACRoleBindingRequest::rbacrolebinding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipRBACRoleBindingRequest;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = UpdateMembershipRBACRoleBindingRequest::new().set_or_clear_rbacrolebinding(Some(RBACRoleBinding::default()/* use setters */));
+    /// let x = UpdateMembershipRBACRoleBindingRequest::new().set_or_clear_rbacrolebinding(None::<RBACRoleBinding>);
+    /// ```
+    pub fn set_or_clear_rbacrolebinding<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACRoleBinding>,
+    {
+        self.rbacrolebinding = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateMembershipRBACRoleBindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipRBACRoleBindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMembershipRBACRoleBindingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateMembershipRBACRoleBindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipRBACRoleBindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMembershipRBACRoleBindingRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateMembershipRBACRoleBindingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateMembershipRBACRoleBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.UpdateMembershipRBACRoleBindingRequest"
+    }
+}
+
+/// Request to delete a Membership RBACRoleBinding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteMembershipRBACRoleBindingRequest {
+    /// Required. The RBACRoleBinding resource name in the format
+    /// `projects/*/locations/*/memberships/*/rbacrolebindings/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteMembershipRBACRoleBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteMembershipRBACRoleBindingRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::DeleteMembershipRBACRoleBindingRequest;
+    /// let x = DeleteMembershipRBACRoleBindingRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteMembershipRBACRoleBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.DeleteMembershipRBACRoleBindingRequest"
+    }
+}
+
+/// Request to list Membership RBACRoleBindings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMembershipRBACRoleBindingsRequest {
+    /// Required. The parent (project and location) where the Features will be
+    /// listed. Specified in the format `projects/*/locations/*/memberships/*`.
+    pub parent: std::string::String,
+
+    /// Optional. When requesting a 'page' of resources, `page_size` specifies
+    /// number of resources to return. If unspecified or set to 0, all resources
+    /// will be returned.
+    pub page_size: i32,
+
+    /// Optional. Token returned by previous call to
+    /// `ListMembershipRBACRoleBindings` which specifies the position in the list
+    /// from where to continue listing the resources.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMembershipRBACRoleBindingsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListMembershipRBACRoleBindingsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListMembershipRBACRoleBindingsRequest;
+    /// let x = ListMembershipRBACRoleBindingsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListMembershipRBACRoleBindingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListMembershipRBACRoleBindingsRequest;
+    /// let x = ListMembershipRBACRoleBindingsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListMembershipRBACRoleBindingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListMembershipRBACRoleBindingsRequest;
+    /// let x = ListMembershipRBACRoleBindingsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMembershipRBACRoleBindingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListMembershipRBACRoleBindingsRequest"
+    }
+}
+
+/// List of Membership RBACRoleBindings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMembershipRBACRoleBindingsResponse {
+    /// The list of Membership RBACRoleBindings.
+    pub rbacrolebindings: std::vec::Vec<crate::model::RBACRoleBinding>,
+
+    /// A token to request the next page of resources from the
+    /// `ListMembershipRBACRoleBindings` method. The value of an empty string means
+    /// that there are no more resources to return.
+    pub next_page_token: std::string::String,
+
+    /// List of locations that could not be reached while fetching this list.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMembershipRBACRoleBindingsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [rbacrolebindings][crate::model::ListMembershipRBACRoleBindingsResponse::rbacrolebindings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListMembershipRBACRoleBindingsResponse;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = ListMembershipRBACRoleBindingsResponse::new()
+    ///     .set_rbacrolebindings([
+    ///         RBACRoleBinding::default()/* use setters */,
+    ///         RBACRoleBinding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rbacrolebindings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RBACRoleBinding>,
+    {
+        use std::iter::Iterator;
+        self.rbacrolebindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMembershipRBACRoleBindingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListMembershipRBACRoleBindingsResponse;
+    /// let x = ListMembershipRBACRoleBindingsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListMembershipRBACRoleBindingsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListMembershipRBACRoleBindingsResponse;
+    /// let x = ListMembershipRBACRoleBindingsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMembershipRBACRoleBindingsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListMembershipRBACRoleBindingsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListMembershipRBACRoleBindingsResponse {
+    type PageItem = crate::model::RBACRoleBinding;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.rbacrolebindings
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request to generate a YAML of the RBAC policies for the specified
+/// RoleBinding and its associated impersonation resources.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GenerateMembershipRBACRoleBindingYAMLRequest {
+    /// Required. The parent (project and location) where the RBACRoleBinding will
+    /// be created. Specified in the format `projects/*/locations/*/memberships/*`.
+    pub parent: std::string::String,
+
+    /// Required. Client chosen ID for the RBACRoleBinding. `rbacrolebinding_id`
+    /// must be a valid RFC 1123 compliant DNS label:
+    ///
+    /// 1. At most 63 characters in length
+    /// 1. It must consist of lower case alphanumeric characters or `-`
+    /// 1. It must start and end with an alphanumeric character
+    ///
+    /// Which can be expressed as the regex: `[a-z0-9]([-a-z0-9]*[a-z0-9])?`,
+    /// with a maximum length of 63 characters.
+    pub rbacrolebinding_id: std::string::String,
+
+    /// Required. The rbacrolebindings to generate the YAML for.
+    pub rbacrolebinding: std::option::Option<crate::model::RBACRoleBinding>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GenerateMembershipRBACRoleBindingYAMLRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::GenerateMembershipRBACRoleBindingYAMLRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::GenerateMembershipRBACRoleBindingYAMLRequest;
+    /// let x = GenerateMembershipRBACRoleBindingYAMLRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [rbacrolebinding_id][crate::model::GenerateMembershipRBACRoleBindingYAMLRequest::rbacrolebinding_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::GenerateMembershipRBACRoleBindingYAMLRequest;
+    /// let x = GenerateMembershipRBACRoleBindingYAMLRequest::new().set_rbacrolebinding_id("example");
+    /// ```
+    pub fn set_rbacrolebinding_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rbacrolebinding_id = v.into();
+        self
+    }
+
+    /// Sets the value of [rbacrolebinding][crate::model::GenerateMembershipRBACRoleBindingYAMLRequest::rbacrolebinding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::GenerateMembershipRBACRoleBindingYAMLRequest;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = GenerateMembershipRBACRoleBindingYAMLRequest::new().set_rbacrolebinding(RBACRoleBinding::default()/* use setters */);
+    /// ```
+    pub fn set_rbacrolebinding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACRoleBinding>,
+    {
+        self.rbacrolebinding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rbacrolebinding][crate::model::GenerateMembershipRBACRoleBindingYAMLRequest::rbacrolebinding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::GenerateMembershipRBACRoleBindingYAMLRequest;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// let x = GenerateMembershipRBACRoleBindingYAMLRequest::new().set_or_clear_rbacrolebinding(Some(RBACRoleBinding::default()/* use setters */));
+    /// let x = GenerateMembershipRBACRoleBindingYAMLRequest::new().set_or_clear_rbacrolebinding(None::<RBACRoleBinding>);
+    /// ```
+    pub fn set_or_clear_rbacrolebinding<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACRoleBinding>,
+    {
+        self.rbacrolebinding = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for GenerateMembershipRBACRoleBindingYAMLRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.GenerateMembershipRBACRoleBindingYAMLRequest"
+    }
+}
+
+/// Response for GenerateRBACRoleBindingYAML.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GenerateMembershipRBACRoleBindingYAMLResponse {
+    /// a yaml text blob including the RBAC policies.
+    pub role_bindings_yaml: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GenerateMembershipRBACRoleBindingYAMLResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [role_bindings_yaml][crate::model::GenerateMembershipRBACRoleBindingYAMLResponse::role_bindings_yaml].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::GenerateMembershipRBACRoleBindingYAMLResponse;
+    /// let x = GenerateMembershipRBACRoleBindingYAMLResponse::new().set_role_bindings_yaml("example");
+    /// ```
+    pub fn set_role_bindings_yaml<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.role_bindings_yaml = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GenerateMembershipRBACRoleBindingYAMLResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.GenerateMembershipRBACRoleBindingYAMLResponse"
     }
 }
 
@@ -2997,6 +9161,189 @@ impl GetMembershipRequest {
 impl wkt::message::Message for GetMembershipRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.gkehub.v1.GetMembershipRequest"
+    }
+}
+
+/// Request to list Memberships bound to a Scope.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBoundMembershipsRequest {
+    /// Required. Name of the Scope, in the format
+    /// `projects/*/locations/global/scopes/*`, to which the Memberships are bound.
+    pub scope_name: std::string::String,
+
+    /// Optional. Lists Memberships that match the filter expression, following the
+    /// syntax outlined in <https://google.aip.dev/160>. Currently, filtering
+    /// can be done only based on Memberships's `name`, `labels`, `create_time`,
+    /// `update_time`, and `unique_id`.
+    pub filter: std::string::String,
+
+    /// Optional. When requesting a 'page' of resources, `page_size` specifies
+    /// number of resources to return. If unspecified or set to 0, all resources
+    /// will be returned. Pagination is currently not supported; therefore, setting
+    /// this field does not have any impact for now.
+    pub page_size: i32,
+
+    /// Optional. Token returned by previous call to `ListBoundMemberships` which
+    /// specifies the position in the list from where to continue listing the
+    /// resources.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBoundMembershipsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [scope_name][crate::model::ListBoundMembershipsRequest::scope_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListBoundMembershipsRequest;
+    /// let x = ListBoundMembershipsRequest::new().set_scope_name("example");
+    /// ```
+    pub fn set_scope_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.scope_name = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListBoundMembershipsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListBoundMembershipsRequest;
+    /// let x = ListBoundMembershipsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListBoundMembershipsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListBoundMembershipsRequest;
+    /// let x = ListBoundMembershipsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListBoundMembershipsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListBoundMembershipsRequest;
+    /// let x = ListBoundMembershipsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBoundMembershipsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListBoundMembershipsRequest"
+    }
+}
+
+/// List of Memberships bound to a Scope.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBoundMembershipsResponse {
+    /// The list of Memberships bound to the given Scope.
+    pub memberships: std::vec::Vec<crate::model::Membership>,
+
+    /// List of locations that could not be reached while fetching this list.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    /// A token to request the next page of resources from the
+    /// `ListBoundMemberships` method. The value of an empty string means that
+    /// there are no more resources to return.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBoundMembershipsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [memberships][crate::model::ListBoundMembershipsResponse::memberships].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListBoundMembershipsResponse;
+    /// use google_cloud_gkehub_v1::model::Membership;
+    /// let x = ListBoundMembershipsResponse::new()
+    ///     .set_memberships([
+    ///         Membership::default()/* use setters */,
+    ///         Membership::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_memberships<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Membership>,
+    {
+        use std::iter::Iterator;
+        self.memberships = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListBoundMembershipsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListBoundMembershipsResponse;
+    /// let x = ListBoundMembershipsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBoundMembershipsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListBoundMembershipsResponse;
+    /// let x = ListBoundMembershipsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBoundMembershipsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListBoundMembershipsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBoundMembershipsResponse {
+    type PageItem = crate::model::Membership;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.memberships
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -3691,6 +10038,12 @@ pub struct ListFeaturesRequest {
     /// See <https://google.aip.dev/132#ordering>.
     pub order_by: std::string::String,
 
+    /// Optional. If set to true, the response will return partial results when
+    /// some regions are unreachable and the unreachable field in Feature proto
+    /// will be populated. If set to false, the request will fail when some regions
+    /// are unreachable.
+    pub return_partial_success: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3756,6 +10109,18 @@ impl ListFeaturesRequest {
     /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [return_partial_success][crate::model::ListFeaturesRequest::return_partial_success].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListFeaturesRequest;
+    /// let x = ListFeaturesRequest::new().set_return_partial_success(true);
+    /// ```
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
         self
     }
 }
@@ -3849,6 +10214,12 @@ pub struct GetFeatureRequest {
     /// `projects/*/locations/*/features/*`
     pub name: std::string::String,
 
+    /// Optional. If set to true, the response will return partial results when
+    /// some regions are unreachable and the unreachable field in Feature proto
+    /// will be populated. If set to false, the request will fail when some regions
+    /// are unreachable.
+    pub return_partial_success: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3866,6 +10237,18 @@ impl GetFeatureRequest {
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [return_partial_success][crate::model::GetFeatureRequest::return_partial_success].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::GetFeatureRequest;
+    /// let x = GetFeatureRequest::new().set_return_partial_success(true);
+    /// ```
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
         self
     }
 }
@@ -3890,7 +10273,7 @@ pub struct CreateFeatureRequest {
     /// The Feature resource to create.
     pub resource: std::option::Option<crate::model::Feature>,
 
-    /// Optional. A request ID to identify requests. Specify a unique request ID
+    /// A request ID to identify requests. Specify a unique request ID
     /// so that if you must retry your request, the server will know to ignore
     /// the request if it has already been completed. The server will guarantee
     /// that for at least 60 minutes after the first request.
@@ -4089,7 +10472,7 @@ pub struct UpdateFeatureRequest {
     /// user-modifiable fields to match `resource`.
     pub resource: std::option::Option<crate::model::Feature>,
 
-    /// Optional. A request ID to identify requests. Specify a unique request ID
+    /// A request ID to identify requests. Specify a unique request ID
     /// so that if you must retry your request, the server will know to ignore
     /// the request if it has already been completed. The server will guarantee
     /// that for at least 60 minutes after the first request.
@@ -4209,6 +10592,387 @@ impl wkt::message::Message for UpdateFeatureRequest {
     }
 }
 
+/// Request message for the `GkeHub.CreateFleet` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateFleetRequest {
+    /// Required. The parent (project and location) where the Fleet will be
+    /// created. Specified in the format `projects/*/locations/*`.
+    pub parent: std::string::String,
+
+    /// Required. The fleet to create.
+    pub fleet: std::option::Option<crate::model::Fleet>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateFleetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateFleetRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateFleetRequest;
+    /// let x = CreateFleetRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [fleet][crate::model::CreateFleetRequest::fleet].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateFleetRequest;
+    /// use google_cloud_gkehub_v1::model::Fleet;
+    /// let x = CreateFleetRequest::new().set_fleet(Fleet::default()/* use setters */);
+    /// ```
+    pub fn set_fleet<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Fleet>,
+    {
+        self.fleet = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [fleet][crate::model::CreateFleetRequest::fleet].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::CreateFleetRequest;
+    /// use google_cloud_gkehub_v1::model::Fleet;
+    /// let x = CreateFleetRequest::new().set_or_clear_fleet(Some(Fleet::default()/* use setters */));
+    /// let x = CreateFleetRequest::new().set_or_clear_fleet(None::<Fleet>);
+    /// ```
+    pub fn set_or_clear_fleet<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Fleet>,
+    {
+        self.fleet = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateFleetRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.CreateFleetRequest"
+    }
+}
+
+/// Request message for the `GkeHub.GetFleet` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetFleetRequest {
+    /// Required. The Fleet resource name in the format
+    /// `projects/*/locations/*/fleets/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetFleetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetFleetRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::GetFleetRequest;
+    /// let x = GetFleetRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetFleetRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.GetFleetRequest"
+    }
+}
+
+/// Request message for the `GkeHub.UpdateFleet` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateFleetRequest {
+    /// Required. The Fleet to update.
+    ///
+    /// The `name` field of the Fleet object identifies which fleet will be
+    /// updated.
+    pub fleet: std::option::Option<crate::model::Fleet>,
+
+    /// Required. The fields to be updated;
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateFleetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [fleet][crate::model::UpdateFleetRequest::fleet].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateFleetRequest;
+    /// use google_cloud_gkehub_v1::model::Fleet;
+    /// let x = UpdateFleetRequest::new().set_fleet(Fleet::default()/* use setters */);
+    /// ```
+    pub fn set_fleet<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Fleet>,
+    {
+        self.fleet = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [fleet][crate::model::UpdateFleetRequest::fleet].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateFleetRequest;
+    /// use google_cloud_gkehub_v1::model::Fleet;
+    /// let x = UpdateFleetRequest::new().set_or_clear_fleet(Some(Fleet::default()/* use setters */));
+    /// let x = UpdateFleetRequest::new().set_or_clear_fleet(None::<Fleet>);
+    /// ```
+    pub fn set_or_clear_fleet<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Fleet>,
+    {
+        self.fleet = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateFleetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateFleetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFleetRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateFleetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::UpdateFleetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFleetRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFleetRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateFleetRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.UpdateFleetRequest"
+    }
+}
+
+/// Request message for `GkeHub.DeleteFleet` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteFleetRequest {
+    /// Required. The Fleet resource name in the format
+    /// `projects/*/locations/*/fleets/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteFleetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteFleetRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::DeleteFleetRequest;
+    /// let x = DeleteFleetRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteFleetRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.DeleteFleetRequest"
+    }
+}
+
+/// Request message for the `GkeHub.ListFleets` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFleetsRequest {
+    /// Required. The organization or project to list for Fleets under, in the
+    /// format `organizations/*/locations/*` or `projects/*/locations/*`.
+    pub parent: std::string::String,
+
+    /// Optional. A page token, received from a previous `ListFleets` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListFleets` must match
+    /// the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. The maximum number of fleets to return. The service may return
+    /// fewer than this value. If unspecified, at most 200 fleets will be returned.
+    /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    pub page_size: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFleetsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListFleetsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListFleetsRequest;
+    /// let x = ListFleetsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListFleetsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListFleetsRequest;
+    /// let x = ListFleetsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListFleetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListFleetsRequest;
+    /// let x = ListFleetsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFleetsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListFleetsRequest"
+    }
+}
+
+/// Response message for the `GkeHub.ListFleetsResponse` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFleetsResponse {
+    /// The list of matching fleets.
+    pub fleets: std::vec::Vec<crate::model::Fleet>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    /// The token is only valid for 1h.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFleetsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [fleets][crate::model::ListFleetsResponse::fleets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListFleetsResponse;
+    /// use google_cloud_gkehub_v1::model::Fleet;
+    /// let x = ListFleetsResponse::new()
+    ///     .set_fleets([
+    ///         Fleet::default()/* use setters */,
+    ///         Fleet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_fleets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Fleet>,
+    {
+        use std::iter::Iterator;
+        self.fleets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFleetsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_gkehub_v1::model::ListFleetsResponse;
+    /// let x = ListFleetsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFleetsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkehub.v1.ListFleetsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListFleetsResponse {
+    type PageItem = crate::model::Fleet;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.fleets
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -4230,11 +10994,13 @@ pub struct OperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have successfully been cancelled
-    /// have [Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// have
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+    /// corresponding to `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub cancel_requested: bool,
 
     /// Output only. API version used to start the operation.

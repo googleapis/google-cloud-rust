@@ -178,7 +178,7 @@ impl ExecutableSourcedCredentials {
         Self::parse_token(output)
     }
 
-    /// Parses a full command string into a command and its arguments.    
+    /// Parses a full command string into a command and its arguments.
     fn split_command(command: String) -> (String, Vec<String>) {
         let mut parts = command.split_whitespace();
         let Some(cmd) = parts.next() else {
@@ -495,7 +495,7 @@ done";
             .expect_err("should fail with timeout");
 
         assert!(err.is_transient());
-        assert!(err.source().is_some());
+        assert!(err.source().is_some(), "{err:?}");
 
         let source_err = err.source().unwrap();
         assert!(source_err.to_string().contains("deadline"));

@@ -57,6 +57,15 @@ impl serde::ser::Serialize for super::Feature {
         if self.delete_time.is_some() {
             state.serialize_entry("deleteTime", &self.delete_time)?;
         }
+        if !self.scope_specs.is_empty() {
+            state.serialize_entry("scopeSpecs", &self.scope_specs)?;
+        }
+        if !self.scope_states.is_empty() {
+            state.serialize_entry("scopeStates", &self.scope_states)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -148,6 +157,50 @@ impl serde::ser::Serialize for super::CommonFeatureState {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.rbacrolebindingactuation() {
+            state.serialize_entry("rbacrolebindingactuation", value)?;
+        }
+        if self.state.is_some() {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ScopeFeatureSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ScopeFeatureState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.state.is_some() {
             state.serialize_entry("state", &self.state)?;
         }
@@ -197,6 +250,518 @@ impl serde::ser::Serialize for super::MembershipFeatureState {
         }
         if self.state.is_some() {
             state.serialize_entry("state", &self.state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Fleet {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if self.delete_time.is_some() {
+            state.serialize_entry("deleteTime", &self.delete_time)?;
+        }
+        if !self.uid.is_empty() {
+            state.serialize_entry("uid", &self.uid)?;
+        }
+        if self.state.is_some() {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if self.default_cluster_config.is_some() {
+            state.serialize_entry("defaultClusterConfig", &self.default_cluster_config)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DefaultClusterConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.security_posture_config.is_some() {
+            state.serialize_entry("securityPostureConfig", &self.security_posture_config)?;
+        }
+        if self.binary_authorization_config.is_some() {
+            state.serialize_entry(
+                "binaryAuthorizationConfig",
+                &self.binary_authorization_config,
+            )?;
+        }
+        if self.compliance_posture_config.is_some() {
+            state.serialize_entry("compliancePostureConfig", &self.compliance_posture_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SecurityPostureConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.mode) {
+            state.serialize_entry("mode", &self.mode)?;
+        }
+        if !wkt::internal::is_default(&self.vulnerability_mode) {
+            state.serialize_entry("vulnerabilityMode", &self.vulnerability_mode)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::BinaryAuthorizationConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.evaluation_mode) {
+            state.serialize_entry("evaluationMode", &self.evaluation_mode)?;
+        }
+        if !self.policy_bindings.is_empty() {
+            state.serialize_entry("policyBindings", &self.policy_bindings)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::binary_authorization_config::PolicyBinding {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CompliancePostureConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.mode) {
+            state.serialize_entry("mode", &self.mode)?;
+        }
+        if !self.compliance_standards.is_empty() {
+            state.serialize_entry("complianceStandards", &self.compliance_standards)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::compliance_posture_config::ComplianceStandard {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.standard.is_empty() {
+            state.serialize_entry("standard", &self.standard)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FleetLifecycleState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Namespace {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.uid.is_empty() {
+            state.serialize_entry("uid", &self.uid)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if self.delete_time.is_some() {
+            state.serialize_entry("deleteTime", &self.delete_time)?;
+        }
+        if self.state.is_some() {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self.scope.is_empty() {
+            state.serialize_entry("scope", &self.scope)?;
+        }
+        if !self.namespace_labels.is_empty() {
+            state.serialize_entry("namespaceLabels", &self.namespace_labels)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::NamespaceLifecycleState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RBACRoleBinding {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.user() {
+            state.serialize_entry("user", value)?;
+        }
+        if let Some(value) = self.group() {
+            state.serialize_entry("group", value)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.uid.is_empty() {
+            state.serialize_entry("uid", &self.uid)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if self.delete_time.is_some() {
+            state.serialize_entry("deleteTime", &self.delete_time)?;
+        }
+        if self.state.is_some() {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if self.role.is_some() {
+            state.serialize_entry("role", &self.role)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::rbac_role_binding::Role {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.predefined_role) {
+            state.serialize_entry("predefinedRole", &self.predefined_role)?;
+        }
+        if !self.custom_role.is_empty() {
+            state.serialize_entry("customRole", &self.custom_role)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RBACRoleBindingLifecycleState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Scope {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.uid.is_empty() {
+            state.serialize_entry("uid", &self.uid)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if self.delete_time.is_some() {
+            state.serialize_entry("deleteTime", &self.delete_time)?;
+        }
+        if self.state.is_some() {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self.namespace_labels.is_empty() {
+            state.serialize_entry("namespaceLabels", &self.namespace_labels)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ScopeLifecycleState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::MembershipBinding {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.scope() {
+            state.serialize_entry("scope", value)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.uid.is_empty() {
+            state.serialize_entry("uid", &self.uid)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if self.delete_time.is_some() {
+            state.serialize_entry("deleteTime", &self.delete_time)?;
+        }
+        if self.state.is_some() {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::MembershipBindingLifecycleState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            state.serialize_entry("code", &self.code)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -572,6 +1137,710 @@ impl serde::ser::Serialize for super::Authority {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::GetScopeNamespaceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateScopeNamespaceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.scope_namespace_id.is_empty() {
+            state.serialize_entry("scopeNamespaceId", &self.scope_namespace_id)?;
+        }
+        if self.scope_namespace.is_some() {
+            state.serialize_entry("scopeNamespace", &self.scope_namespace)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateScopeNamespaceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.scope_namespace.is_some() {
+            state.serialize_entry("scopeNamespace", &self.scope_namespace)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteScopeNamespaceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListScopeNamespacesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListScopeNamespacesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.scope_namespaces.is_empty() {
+            state.serialize_entry("scopeNamespaces", &self.scope_namespaces)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetScopeRBACRoleBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateScopeRBACRoleBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.rbacrolebinding_id.is_empty() {
+            state.serialize_entry("rbacrolebindingId", &self.rbacrolebinding_id)?;
+        }
+        if self.rbacrolebinding.is_some() {
+            state.serialize_entry("rbacrolebinding", &self.rbacrolebinding)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateScopeRBACRoleBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.rbacrolebinding.is_some() {
+            state.serialize_entry("rbacrolebinding", &self.rbacrolebinding)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteScopeRBACRoleBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListScopeRBACRoleBindingsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListScopeRBACRoleBindingsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.rbacrolebindings.is_empty() {
+            state.serialize_entry("rbacrolebindings", &self.rbacrolebindings)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetScopeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateScopeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.scope_id.is_empty() {
+            state.serialize_entry("scopeId", &self.scope_id)?;
+        }
+        if self.scope.is_some() {
+            state.serialize_entry("scope", &self.scope)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateScopeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.scope.is_some() {
+            state.serialize_entry("scope", &self.scope)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteScopeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListScopesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListScopesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.scopes.is_empty() {
+            state.serialize_entry("scopes", &self.scopes)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListPermittedScopesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListPermittedScopesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.scopes.is_empty() {
+            state.serialize_entry("scopes", &self.scopes)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetMembershipBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateMembershipBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.membership_binding.is_some() {
+            state.serialize_entry("membershipBinding", &self.membership_binding)?;
+        }
+        if !self.membership_binding_id.is_empty() {
+            state.serialize_entry("membershipBindingId", &self.membership_binding_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateMembershipBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.membership_binding.is_some() {
+            state.serialize_entry("membershipBinding", &self.membership_binding)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteMembershipBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListMembershipBindingsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListMembershipBindingsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.membership_bindings.is_empty() {
+            state.serialize_entry("membershipBindings", &self.membership_bindings)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::ListMembershipsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -604,6 +1873,218 @@ impl serde::ser::Serialize for super::ListMembershipsRequest {
         }
         if !self.order_by.is_empty() {
             state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetMembershipRBACRoleBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateMembershipRBACRoleBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.rbacrolebinding_id.is_empty() {
+            state.serialize_entry("rbacrolebindingId", &self.rbacrolebinding_id)?;
+        }
+        if self.rbacrolebinding.is_some() {
+            state.serialize_entry("rbacrolebinding", &self.rbacrolebinding)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateMembershipRBACRoleBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.rbacrolebinding.is_some() {
+            state.serialize_entry("rbacrolebinding", &self.rbacrolebinding)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteMembershipRBACRoleBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListMembershipRBACRoleBindingsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListMembershipRBACRoleBindingsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.rbacrolebindings.is_empty() {
+            state.serialize_entry("rbacrolebindings", &self.rbacrolebindings)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GenerateMembershipRBACRoleBindingYAMLRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.rbacrolebinding_id.is_empty() {
+            state.serialize_entry("rbacrolebindingId", &self.rbacrolebinding_id)?;
+        }
+        if self.rbacrolebinding.is_some() {
+            state.serialize_entry("rbacrolebinding", &self.rbacrolebinding)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GenerateMembershipRBACRoleBindingYAMLResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.role_bindings_yaml.is_empty() {
+            state.serialize_entry("roleBindingsYaml", &self.role_bindings_yaml)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -654,6 +2135,74 @@ impl serde::ser::Serialize for super::GetMembershipRequest {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListBoundMembershipsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.scope_name.is_empty() {
+            state.serialize_entry("scopeName", &self.scope_name)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListBoundMembershipsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.memberships.is_empty() {
+            state.serialize_entry("memberships", &self.memberships)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -921,6 +2470,9 @@ impl serde::ser::Serialize for super::ListFeaturesRequest {
         if !self.order_by.is_empty() {
             state.serialize_entry("orderBy", &self.order_by)?;
         }
+        if !wkt::internal::is_default(&self.return_partial_success) {
+            state.serialize_entry("returnPartialSuccess", &self.return_partial_success)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -967,6 +2519,9 @@ impl serde::ser::Serialize for super::GetFeatureRequest {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.return_partial_success) {
+            state.serialize_entry("returnPartialSuccess", &self.return_partial_success)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1057,6 +2612,162 @@ impl serde::ser::Serialize for super::UpdateFeatureRequest {
         }
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateFleetRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.fleet.is_some() {
+            state.serialize_entry("fleet", &self.fleet)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetFleetRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateFleetRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.fleet.is_some() {
+            state.serialize_entry("fleet", &self.fleet)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteFleetRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListFleetsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListFleetsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.fleets.is_empty() {
+            state.serialize_entry("fleets", &self.fleets)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

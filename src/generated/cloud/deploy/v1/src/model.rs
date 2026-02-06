@@ -25,7 +25,7 @@ extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -8374,16 +8374,16 @@ impl wkt::message::Message for TimeWindows {
 #[non_exhaustive]
 pub struct OneTimeWindow {
     /// Required. Start date.
-    pub start_date: std::option::Option<gtype::model::Date>,
+    pub start_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// Required. Start time (inclusive). Use 00:00 for the beginning of the day.
-    pub start_time: std::option::Option<gtype::model::TimeOfDay>,
+    pub start_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     /// Required. End date.
-    pub end_date: std::option::Option<gtype::model::Date>,
+    pub end_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// Required. End time (exclusive). You may use 24:00 for the end of the day.
-    pub end_time: std::option::Option<gtype::model::TimeOfDay>,
+    pub end_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8398,12 +8398,12 @@ impl OneTimeWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::OneTimeWindow;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = OneTimeWindow::new().set_start_date(Date::default()/* use setters */);
     /// ```
     pub fn set_start_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.start_date = std::option::Option::Some(v.into());
         self
@@ -8414,13 +8414,13 @@ impl OneTimeWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::OneTimeWindow;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = OneTimeWindow::new().set_or_clear_start_date(Some(Date::default()/* use setters */));
     /// let x = OneTimeWindow::new().set_or_clear_start_date(None::<Date>);
     /// ```
     pub fn set_or_clear_start_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.start_date = v.map(|x| x.into());
         self
@@ -8431,12 +8431,12 @@ impl OneTimeWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::OneTimeWindow;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = OneTimeWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -8447,13 +8447,13 @@ impl OneTimeWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::OneTimeWindow;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = OneTimeWindow::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
     /// let x = OneTimeWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -8464,12 +8464,12 @@ impl OneTimeWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::OneTimeWindow;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = OneTimeWindow::new().set_end_date(Date::default()/* use setters */);
     /// ```
     pub fn set_end_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.end_date = std::option::Option::Some(v.into());
         self
@@ -8480,13 +8480,13 @@ impl OneTimeWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::OneTimeWindow;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = OneTimeWindow::new().set_or_clear_end_date(Some(Date::default()/* use setters */));
     /// let x = OneTimeWindow::new().set_or_clear_end_date(None::<Date>);
     /// ```
     pub fn set_or_clear_end_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.end_date = v.map(|x| x.into());
         self
@@ -8497,12 +8497,12 @@ impl OneTimeWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::OneTimeWindow;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = OneTimeWindow::new().set_end_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -8513,13 +8513,13 @@ impl OneTimeWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::OneTimeWindow;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = OneTimeWindow::new().set_or_clear_end_time(Some(TimeOfDay::default()/* use setters */));
     /// let x = OneTimeWindow::new().set_or_clear_end_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -8539,17 +8539,17 @@ impl wkt::message::Message for OneTimeWindow {
 pub struct WeeklyWindow {
     /// Optional. Days of week. If left empty, all days of the week will be
     /// included.
-    pub days_of_week: std::vec::Vec<gtype::model::DayOfWeek>,
+    pub days_of_week: std::vec::Vec<google_cloud_type::model::DayOfWeek>,
 
     /// Optional. Start time (inclusive). Use 00:00 for the beginning of the day.
     /// If you specify start_time you must also specify end_time. If left empty,
     /// this will block for the entire day for the days specified in days_of_week.
-    pub start_time: std::option::Option<gtype::model::TimeOfDay>,
+    pub start_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     /// Optional. End time (exclusive). Use 24:00 to indicate midnight. If you
     /// specify end_time you must also specify start_time. If left empty, this will
     /// block for the entire day for the days specified in days_of_week.
-    pub end_time: std::option::Option<gtype::model::TimeOfDay>,
+    pub end_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8564,7 +8564,7 @@ impl WeeklyWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::WeeklyWindow;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x = WeeklyWindow::new().set_days_of_week([
     ///     DayOfWeek::Monday,
     ///     DayOfWeek::Tuesday,
@@ -8574,7 +8574,7 @@ impl WeeklyWindow {
     pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<gtype::model::DayOfWeek>,
+        V: std::convert::Into<google_cloud_type::model::DayOfWeek>,
     {
         use std::iter::Iterator;
         self.days_of_week = v.into_iter().map(|i| i.into()).collect();
@@ -8586,12 +8586,12 @@ impl WeeklyWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::WeeklyWindow;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = WeeklyWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -8602,13 +8602,13 @@ impl WeeklyWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::WeeklyWindow;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = WeeklyWindow::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
     /// let x = WeeklyWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -8619,12 +8619,12 @@ impl WeeklyWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::WeeklyWindow;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = WeeklyWindow::new().set_end_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -8635,13 +8635,13 @@ impl WeeklyWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::WeeklyWindow;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = WeeklyWindow::new().set_or_clear_end_time(Some(TimeOfDay::default()/* use setters */));
     /// let x = WeeklyWindow::new().set_or_clear_end_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -15018,7 +15018,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -17938,7 +17938,7 @@ pub struct SkaffoldVersion {
     pub support_expiration_time: std::option::Option<wkt::Timestamp>,
 
     /// Date when this version is expected to no longer be supported.
-    pub support_end_date: std::option::Option<gtype::model::Date>,
+    pub support_end_date: std::option::Option<google_cloud_type::model::Date>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -18031,12 +18031,12 @@ impl SkaffoldVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::SkaffoldVersion;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = SkaffoldVersion::new().set_support_end_date(Date::default()/* use setters */);
     /// ```
     pub fn set_support_end_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.support_end_date = std::option::Option::Some(v.into());
         self
@@ -18047,13 +18047,13 @@ impl SkaffoldVersion {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_deploy_v1::model::SkaffoldVersion;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = SkaffoldVersion::new().set_or_clear_support_end_date(Some(Date::default()/* use setters */));
     /// let x = SkaffoldVersion::new().set_or_clear_support_end_date(None::<Date>);
     /// ```
     pub fn set_or_clear_support_end_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.support_end_date = v.map(|x| x.into());
         self

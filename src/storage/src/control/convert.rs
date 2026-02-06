@@ -151,7 +151,7 @@ mod tests {
         google_cloud_longrunning::model::Operation::new()
             .set_name("name")
             .set_done(true)
-            .set_error(rpc::model::Status::new().set_code(5))
+            .set_error(google_cloud_rpc::model::Status::new().set_code(5))
     }
 
     fn prost_lro_with_error() -> google::longrunning::Operation {

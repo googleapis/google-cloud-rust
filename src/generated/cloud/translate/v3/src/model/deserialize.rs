@@ -2810,8 +2810,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportDataMetadata {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3108,8 +3109,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ExportDataMetadata {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3303,8 +3305,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteDatasetMetadata {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3795,8 +3798,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateDatasetMetadata {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4314,8 +4318,9 @@ impl<'de> serde::de::Deserialize<'de>
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4755,8 +4760,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateModelMetadata {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5248,8 +5254,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteModelMetadata {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

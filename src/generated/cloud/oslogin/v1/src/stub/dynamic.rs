@@ -21,7 +21,7 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>>;
 
     async fn delete_posix_account(
         &self,
@@ -45,7 +45,7 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>>;
 
     async fn import_ssh_public_key(
         &self,
@@ -57,7 +57,7 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::UpdateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>;
+    ) -> crate::Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>>;
 }
 
 /// All implementations of [super::OsLoginService] also implement [OsLoginService].
@@ -68,7 +68,8 @@ impl<T: super::OsLoginService> OsLoginService for T {
         &self,
         req: crate::model::CreateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>>
+    {
         T::create_ssh_public_key(self, req, options).await
     }
 
@@ -104,7 +105,8 @@ impl<T: super::OsLoginService> OsLoginService for T {
         &self,
         req: crate::model::GetSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>>
+    {
         T::get_ssh_public_key(self, req, options).await
     }
 
@@ -122,7 +124,8 @@ impl<T: super::OsLoginService> OsLoginService for T {
         &self,
         req: crate::model::UpdateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
+    ) -> crate::Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>>
+    {
         T::update_ssh_public_key(self, req, options).await
     }
 }

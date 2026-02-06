@@ -22,10 +22,10 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
-extern crate gtype;
-extern crate iam_v2;
+extern crate google_cloud_iam_v2;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -1372,7 +1372,7 @@ pub struct AllowBindingExplanation {
     ///
     /// To learn about IAM Conditions, see
     /// <https://cloud.google.com/iam/help/conditions/overview>.
-    pub condition: std::option::Option<gtype::model::Expr>,
+    pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
     /// Condition evaluation state for this role binding.
     pub condition_explanation: std::option::Option<crate::model::ConditionExplanation>,
@@ -1531,12 +1531,12 @@ impl AllowBindingExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = AllowBindingExplanation::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -1547,13 +1547,13 @@ impl AllowBindingExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = AllowBindingExplanation::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
     /// let x = AllowBindingExplanation::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self
@@ -1913,7 +1913,7 @@ impl wkt::message::Message for ExplainedDenyResource {
 /// Details about how a specific IAM deny policy [Policy][google.iam.v2.Policy]
 /// contributed to the access check.
 ///
-/// [google.iam.v2.Policy]: iam_v2::model::Policy
+/// [google.iam.v2.Policy]: google_cloud_iam_v2::model::Policy
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainedDenyPolicy {
@@ -1933,7 +1933,7 @@ pub struct ExplainedDenyPolicy {
     ///
     /// If the sender of the request does not have access to the policy, this field
     /// is omitted.
-    pub policy: std::option::Option<iam_v2::model::Policy>,
+    pub policy: std::option::Option<google_cloud_iam_v2::model::Policy>,
 
     /// Details about how each rule in the policy affects the principal's inability
     /// to use the permission for the resource. The order of the deny rule matches
@@ -1983,12 +1983,12 @@ impl ExplainedDenyPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyPolicy;
-    /// use iam_v2::model::Policy;
+    /// use google_cloud_iam_v2::model::Policy;
     /// let x = ExplainedDenyPolicy::new().set_policy(Policy::default()/* use setters */);
     /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<iam_v2::model::Policy>,
+        T: std::convert::Into<google_cloud_iam_v2::model::Policy>,
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -1999,13 +1999,13 @@ impl ExplainedDenyPolicy {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyPolicy;
-    /// use iam_v2::model::Policy;
+    /// use google_cloud_iam_v2::model::Policy;
     /// let x = ExplainedDenyPolicy::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
     /// let x = ExplainedDenyPolicy::new().set_or_clear_policy(None::<Policy>);
     /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<iam_v2::model::Policy>,
+        T: std::convert::Into<google_cloud_iam_v2::model::Policy>,
     {
         self.policy = v.map(|x| x.into());
         self
@@ -2149,7 +2149,7 @@ pub struct DenyRuleExplanation {
     ///
     /// To learn about IAM Conditions, see
     /// <https://cloud.google.com/iam/help/conditions/overview>.
-    pub condition: std::option::Option<gtype::model::Expr>,
+    pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
     /// Condition evaluation state for this role binding.
     pub condition_explanation: std::option::Option<crate::model::ConditionExplanation>,
@@ -2425,12 +2425,12 @@ impl DenyRuleExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = DenyRuleExplanation::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -2441,13 +2441,13 @@ impl DenyRuleExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = DenyRuleExplanation::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
     /// let x = DenyRuleExplanation::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self
@@ -2635,7 +2635,7 @@ pub struct ConditionExplanation {
     pub value: std::option::Option<wkt::Value>,
 
     /// Any errors that prevented complete evaluation of the condition expression.
-    pub errors: std::vec::Vec<rpc::model::Status>,
+    pub errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// The value of each statement of the condition expression. The value can be
     /// `true`, `false`, or `null`. The value is `null` if the statement can't be
@@ -2688,7 +2688,7 @@ impl ConditionExplanation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_policytroubleshooter_iam_v3::model::ConditionExplanation;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ConditionExplanation::new()
     ///     .set_errors([
     ///         Status::default()/* use setters */,
@@ -2698,7 +2698,7 @@ impl ConditionExplanation {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -2756,7 +2756,7 @@ pub mod condition_explanation {
 
         /// Any errors that prevented complete evaluation of the condition
         /// expression.
-        pub errors: std::vec::Vec<rpc::model::Status>,
+        pub errors: std::vec::Vec<google_cloud_rpc::model::Status>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2828,7 +2828,7 @@ pub mod condition_explanation {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_explanation::EvaluationState;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = EvaluationState::new()
         ///     .set_errors([
         ///         Status::default()/* use setters */,
@@ -2838,7 +2838,7 @@ pub mod condition_explanation {
         pub fn set_errors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<rpc::model::Status>,
+            V: std::convert::Into<google_cloud_rpc::model::Status>,
         {
             use std::iter::Iterator;
             self.errors = v.into_iter().map(|i| i.into()).collect();

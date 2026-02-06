@@ -4178,8 +4178,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Schedule {
                                     "multiple values for schedule_start_date",
                                 ));
                             }
-                            result.schedule_start_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.schedule_start_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__schedule_end_date => {
                             if !fields.insert(__FieldTag::__schedule_end_date) {
@@ -4187,8 +4188,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Schedule {
                                     "multiple values for schedule_end_date",
                                 ));
                             }
-                            result.schedule_end_date =
-                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            result.schedule_end_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::__start_time_of_day => {
                             if !fields.insert(__FieldTag::__start_time_of_day) {
@@ -4196,8 +4198,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Schedule {
                                     "multiple values for start_time_of_day",
                                 ));
                             }
-                            result.start_time_of_day =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.start_time_of_day = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::__end_time_of_day => {
                             if !fields.insert(__FieldTag::__end_time_of_day) {
@@ -4205,8 +4207,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Schedule {
                                     "multiple values for end_time_of_day",
                                 ));
                             }
-                            result.end_time_of_day =
-                                map.next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            result.end_time_of_day = map.next_value::<std::option::Option<google_cloud_type::model::TimeOfDay>>()?
+                                ;
                         }
                         __FieldTag::__repeat_interval => {
                             if !fields.insert(__FieldTag::__repeat_interval) {
@@ -4749,7 +4751,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ErrorSummary {
                                 ));
                             }
                             result.error_code = map
-                                .next_value::<std::option::Option<rpc::model::Code>>()?
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Code>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__error_count => {

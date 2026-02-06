@@ -1792,8 +1792,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ValidateAttestationOccurrenceRe
                                     "multiple values for attestation",
                                 ));
                             }
-                            result.attestation = map.next_value::<std::option::Option<grafeas::model::AttestationOccurrence>>()?
-                                ;
+                            result.attestation = map.next_value::<std::option::Option<
+                                google_cloud_grafeas_v1::model::AttestationOccurrence,
+                            >>()?;
                         }
                         __FieldTag::__occurrence_note => {
                             if !fields.insert(__FieldTag::__occurrence_note) {

@@ -224,11 +224,11 @@ mod tests {
 
         let request = &requests[0];
         let resource_spans = &request.resource_spans;
-        assert!(!resource_spans.is_empty());
+        assert!(!resource_spans.is_empty(), "{request:?}");
         let scope_spans = &resource_spans[0].scope_spans;
-        assert!(!scope_spans.is_empty());
+        assert!(!scope_spans.is_empty(), "{request:?}");
         let spans = &scope_spans[0].spans;
-        assert!(!spans.is_empty());
+        assert!(!spans.is_empty(), "{request:?}");
         assert_eq!(spans[0].name, "test-span");
 
         let headers = mock_collector.headers.lock().unwrap();

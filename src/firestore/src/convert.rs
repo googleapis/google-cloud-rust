@@ -42,12 +42,11 @@ mod tests {
     use crate::model;
     use gaxi::prost::FromProto;
     use gaxi::prost::ToProto;
+    use google_cloud_type::model::LatLng;
 
     #[test]
     fn test_basic_fields() -> anyhow::Result<()> {
-        let sidekick = gtype::model::LatLng::new()
-            .set_latitude(12.5)
-            .set_longitude(34.5);
+        let sidekick = LatLng::new().set_latitude(12.5).set_longitude(34.5);
         let proto = google::r#type::LatLng {
             latitude: 12.5,
             longitude: 34.5,

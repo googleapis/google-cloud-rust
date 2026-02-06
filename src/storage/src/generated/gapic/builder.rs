@@ -896,6 +896,24 @@ pub mod storage_control {
             self.0.request.object_checksums = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [delete_source_objects][crate::model::ComposeObjectRequest::delete_source_objects].
+        pub fn set_delete_source_objects<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.delete_source_objects = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [delete_source_objects][crate::model::ComposeObjectRequest::delete_source_objects].
+        pub fn set_or_clear_delete_source_objects<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.delete_source_objects = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]

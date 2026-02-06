@@ -718,8 +718,8 @@ mod tests {
                 assert_eq!(object.crc32c, checksums.crc32c)
             }
             None => {
-                assert!(object.md5_hash.is_empty());
-                assert!(object.crc32c.is_none());
+                assert!(object.md5_hash.is_empty(), "{:?}", object.md5_hash);
+                assert!(object.crc32c.is_none(), "{:?}", object.crc32c);
             }
         }
         assert_eq!(got.contexts, object.contexts);

@@ -375,8 +375,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Document {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__revisions => {
                             if !fields.insert(__FieldTag::__revisions) {
@@ -681,8 +682,9 @@ impl<'de> serde::de::Deserialize<'de> for super::document::Style {
                                     "multiple values for color",
                                 ));
                             }
-                            result.color =
-                                map.next_value::<std::option::Option<gtype::model::Color>>()?;
+                            result.color = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Color>>(
+                                )?;
                         }
                         __FieldTag::__background_color => {
                             if !fields.insert(__FieldTag::__background_color) {
@@ -690,8 +692,9 @@ impl<'de> serde::de::Deserialize<'de> for super::document::Style {
                                     "multiple values for background_color",
                                 ));
                             }
-                            result.background_color =
-                                map.next_value::<std::option::Option<gtype::model::Color>>()?;
+                            result.background_color = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Color>>(
+                                )?;
                         }
                         __FieldTag::__font_weight => {
                             if !fields.insert(__FieldTag::__font_weight) {
@@ -2500,8 +2503,9 @@ impl<'de> serde::de::Deserialize<'de> for super::document::page::token::StyleInf
                                     "multiple values for text_color",
                                 ));
                             }
-                            result.text_color =
-                                map.next_value::<std::option::Option<gtype::model::Color>>()?;
+                            result.text_color = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Color>>(
+                                )?;
                         }
                         __FieldTag::__background_color => {
                             if !fields.insert(__FieldTag::__background_color) {
@@ -2509,8 +2513,9 @@ impl<'de> serde::de::Deserialize<'de> for super::document::page::token::StyleInf
                                     "multiple values for background_color",
                                 ));
                             }
-                            result.background_color =
-                                map.next_value::<std::option::Option<gtype::model::Color>>()?;
+                            result.background_color = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Color>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3968,7 +3973,7 @@ impl<'de> serde::de::Deserialize<'de> for super::document::entity::NormalizedVal
                             }
                             result.structured_value = std::option::Option::Some(
                                 crate::model::document::entity::normalized_value::StructuredValue::MoneyValue(
-                                    map.next_value::<std::option::Option<std::boxed::Box<gtype::model::Money>>>()?.unwrap_or_default()
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_type::model::Money>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -3985,7 +3990,7 @@ impl<'de> serde::de::Deserialize<'de> for super::document::entity::NormalizedVal
                             }
                             result.structured_value = std::option::Option::Some(
                                 crate::model::document::entity::normalized_value::StructuredValue::DateValue(
-                                    map.next_value::<std::option::Option<std::boxed::Box<gtype::model::Date>>>()?.unwrap_or_default()
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_type::model::Date>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -4002,7 +4007,7 @@ impl<'de> serde::de::Deserialize<'de> for super::document::entity::NormalizedVal
                             }
                             result.structured_value = std::option::Option::Some(
                                 crate::model::document::entity::normalized_value::StructuredValue::DatetimeValue(
-                                    map.next_value::<std::option::Option<std::boxed::Box<gtype::model::DateTime>>>()?.unwrap_or_default()
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_type::model::DateTime>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -4019,7 +4024,7 @@ impl<'de> serde::de::Deserialize<'de> for super::document::entity::NormalizedVal
                             }
                             result.structured_value = std::option::Option::Some(
                                 crate::model::document::entity::normalized_value::StructuredValue::AddressValue(
-                                    map.next_value::<std::option::Option<std::boxed::Box<gtype::model::PostalAddress>>>()?.unwrap_or_default()
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_type::model::PostalAddress>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -9626,8 +9631,9 @@ impl<'de> serde::de::Deserialize<'de> for super::batch_process_metadata::Individ
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__output_gcs_destination => {
                             if !fields.insert(__FieldTag::__output_gcs_destination) {
@@ -13016,7 +13022,11 @@ impl<'de> serde::de::Deserialize<'de>
                                     "multiple values for document_errors",
                                 ));
                             }
-                            result.document_errors = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.document_errors =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__dataset_errors => {
                             if !fields.insert(__FieldTag::__dataset_errors) {
@@ -13024,7 +13034,11 @@ impl<'de> serde::de::Deserialize<'de>
                                     "multiple values for dataset_errors",
                                 ));
                             }
-                            result.dataset_errors = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.dataset_errors =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

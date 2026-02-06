@@ -335,6 +335,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Database {
             __free_tier,
             __etag,
             __database_edition,
+            __realtime_updates_mode,
+            __firestore_data_access_mode,
+            __mongodb_compatible_data_access_mode,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -402,6 +405,20 @@ impl<'de> serde::de::Deserialize<'de> for super::Database {
                             "etag" => Ok(__FieldTag::__etag),
                             "databaseEdition" => Ok(__FieldTag::__database_edition),
                             "database_edition" => Ok(__FieldTag::__database_edition),
+                            "realtimeUpdatesMode" => Ok(__FieldTag::__realtime_updates_mode),
+                            "realtime_updates_mode" => Ok(__FieldTag::__realtime_updates_mode),
+                            "firestoreDataAccessMode" => {
+                                Ok(__FieldTag::__firestore_data_access_mode)
+                            }
+                            "firestore_data_access_mode" => {
+                                Ok(__FieldTag::__firestore_data_access_mode)
+                            }
+                            "mongodbCompatibleDataAccessMode" => {
+                                Ok(__FieldTag::__mongodb_compatible_data_access_mode)
+                            }
+                            "mongodb_compatible_data_access_mode" => {
+                                Ok(__FieldTag::__mongodb_compatible_data_access_mode)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -632,6 +649,30 @@ impl<'de> serde::de::Deserialize<'de> for super::Database {
                                 ));
                             }
                             result.database_edition = map.next_value::<std::option::Option<crate::model::database::DatabaseEdition>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__realtime_updates_mode => {
+                            if !fields.insert(__FieldTag::__realtime_updates_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for realtime_updates_mode",
+                                ));
+                            }
+                            result.realtime_updates_mode = map.next_value::<std::option::Option<crate::model::RealtimeUpdatesMode>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__firestore_data_access_mode => {
+                            if !fields.insert(__FieldTag::__firestore_data_access_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for firestore_data_access_mode",
+                                ));
+                            }
+                            result.firestore_data_access_mode = map.next_value::<std::option::Option<crate::model::database::DataAccessMode>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__mongodb_compatible_data_access_mode => {
+                            if !fields.insert(__FieldTag::__mongodb_compatible_data_access_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mongodb_compatible_data_access_mode",
+                                ));
+                            }
+                            result.mongodb_compatible_data_access_mode = map.next_value::<std::option::Option<crate::model::database::DataAccessMode>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5383,6 +5424,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Index {
             __density,
             __multikey,
             __shard_count,
+            __unique,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5414,6 +5456,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Index {
                             "multikey" => Ok(__FieldTag::__multikey),
                             "shardCount" => Ok(__FieldTag::__shard_count),
                             "shard_count" => Ok(__FieldTag::__shard_count),
+                            "unique" => Ok(__FieldTag::__unique),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5530,6 +5573,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Index {
                                 }
                             }
                             result.shard_count = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__unique => {
+                            if !fields.insert(__FieldTag::__unique) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unique",
+                                ));
+                            }
+                            result.unique = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7681,9 +7734,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WeeklyRecurrence {
                                     "multiple values for day",
                                 ));
                             }
-                            result.day = map
-                                .next_value::<std::option::Option<gtype::model::DayOfWeek>>()?
-                                .unwrap_or_default();
+                            result.day = map.next_value::<std::option::Option<google_cloud_type::model::DayOfWeek>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

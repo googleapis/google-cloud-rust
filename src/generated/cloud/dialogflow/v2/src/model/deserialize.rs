@@ -10130,7 +10130,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportConversationDataOperation
                                     "multiple values for partial_failures",
                                 ));
                             }
-                            result.partial_failures = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.partial_failures =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__create_time => {
                             if !fields.insert(__FieldTag::__create_time) {
@@ -10531,8 +10535,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ConversationEvent {
                                     "multiple values for error_status",
                                 ));
                             }
-                            result.error_status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error_status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__new_message_payload => {
                             if !fields.insert(__FieldTag::__new_message_payload) {
@@ -17364,8 +17369,9 @@ impl<'de> serde::de::Deserialize<'de> for super::document::ReloadStatus {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -18084,7 +18090,11 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportDocumentsResponse {
                                     "multiple values for warnings",
                                 ));
                             }
-                            result.warnings = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                            result.warnings =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_rpc::model::Status>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -28920,8 +28930,9 @@ impl<'de> serde::de::Deserialize<'de> for super::EvaluationStatus {
                                     "multiple values for pipeline_status",
                                 ));
                             }
-                            result.pipeline_status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.pipeline_status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -38914,15 +38925,14 @@ impl<'de> serde::de::Deserialize<'de> for super::SuggestionResult {
                                     "multiple values for `suggestion_response`, a oneof with full ID .google.cloud.dialogflow.v2.SuggestionResult.error, latest field was error",
                                 ));
                             }
-                            result.suggestion_response =
-                                std::option::Option::Some(
-                                    crate::model::suggestion_result::SuggestionResponse::Error(
-                                        map.next_value::<std::option::Option<
-                                            std::boxed::Box<rpc::model::Status>,
-                                        >>()?
-                                        .unwrap_or_default(),
-                                    ),
-                                );
+                            result.suggestion_response = std::option::Option::Some(
+                                crate::model::suggestion_result::SuggestionResponse::Error(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<google_cloud_rpc::model::Status>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::__suggest_articles_response => {
                             if !fields.insert(__FieldTag::__suggest_articles_response) {
@@ -40606,8 +40616,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DetectIntentResponse {
                                     "multiple values for webhook_status",
                                 ));
                             }
-                            result.webhook_status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.webhook_status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__output_audio => {
                             if !fields.insert(__FieldTag::__output_audio) {
@@ -40751,8 +40762,8 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryParameters {
                                     "multiple values for geo_location",
                                 ));
                             }
-                            result.geo_location =
-                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            result.geo_location = map.next_value::<std::option::Option<google_cloud_type::model::LatLng>>()?
+                                ;
                         }
                         __FieldTag::__contexts => {
                             if !fields.insert(__FieldTag::__contexts) {
@@ -41934,8 +41945,9 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamingDetectIntentResponse {
                                     "multiple values for webhook_status",
                                 ));
                             }
-                            result.webhook_status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.webhook_status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__output_audio => {
                             if !fields.insert(__FieldTag::__output_audio) {

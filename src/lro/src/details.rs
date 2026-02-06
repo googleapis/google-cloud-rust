@@ -57,7 +57,7 @@ impl<R, M> Operation<R, M> {
             _ => None,
         })
     }
-    fn error(&self) -> Option<&rpc::model::Status> {
+    fn error(&self) -> Option<&google_cloud_rpc::model::Status> {
         self.inner.result.as_ref().and_then(|r| match r {
             ResultAny::Error(rpc) => Some(rpc.as_ref()),
             ResultAny::Response(_) => None,
@@ -180,15 +180,15 @@ mod tests {
     fn typed_operation_with_metadata() -> Result<()> {
         let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
             .expect("Any::from_msg should succeed");
-        let op = OperationAny::default()
+        let opa = OperationAny::default()
             .set_name("test-only-name")
             .set_metadata(any);
-        let op = TestOperation::new(op);
+        let op = TestOperation::new(opa.clone());
         assert_eq!(op.name(), "test-only-name");
         assert!(!op.done());
-        assert!(op.metadata().is_some());
-        assert!(op.response().is_none());
-        assert!(op.error().is_none());
+        assert!(op.metadata().is_some(), "{opa:?}");
+        assert!(op.response().is_none(), "{opa:?}");
+        assert!(op.error().is_none(), "{opa:?}");
         let got = op
             .metadata()
             .unwrap()
@@ -203,15 +203,15 @@ mod tests {
     fn typed_operation_with_response() -> Result<()> {
         let any = wkt::Any::from_msg(&wkt::Duration::clamp(23, 0))
             .expect("successful deserialization via Any::from_msg");
-        let op = OperationAny::default()
+        let opa = OperationAny::default()
             .set_name("test-only-name")
             .set_result(ResultAny::Response(any.into()));
-        let op = TestOperation::new(op);
+        let op = TestOperation::new(opa.clone());
         assert_eq!(op.name(), "test-only-name");
         assert!(!op.done());
-        assert!(op.metadata().is_none());
-        assert!(op.response().is_some());
-        assert!(op.error().is_none());
+        assert!(op.metadata().is_none(), "{opa:?}");
+        assert!(op.response().is_some(), "{opa:?}");
+        assert!(op.error().is_none(), "{opa:?}");
         let got = op
             .response()
             .unwrap()
@@ -224,18 +224,18 @@ mod tests {
 
     #[test]
     fn typed_operation_with_error() -> Result<()> {
-        let rpc = rpc::model::Status::default()
+        let rpc = google_cloud_rpc::model::Status::default()
             .set_message("test only")
             .set_code(16);
-        let op = OperationAny::default()
+        let opa = OperationAny::default()
             .set_name("test-only-name")
             .set_result(ResultAny::Error(rpc.clone().into()));
-        let op = TestOperation::new(op);
+        let op = TestOperation::new(opa.clone());
         assert_eq!(op.name(), "test-only-name");
         assert!(!op.done());
-        assert!(op.metadata().is_none());
-        assert!(op.response().is_none());
-        assert!(op.error().is_some());
+        assert!(op.metadata().is_none(), "{opa:?}");
+        assert!(op.response().is_none(), "{opa:?}");
+        assert!(op.error().is_some(), "{opa:?}");
         let got = op.error().unwrap();
         assert_eq!(got, &rpc);
 
@@ -468,7 +468,7 @@ mod tests {
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
         let op = OperationAny::default().set_result(ResultAny::Error(
-            rpc::model::Status::default()
+            google_cloud_rpc::model::Status::default()
                 .set_code(gax::error::rpc::Code::FailedPrecondition as i32)
                 .set_message("test only")
                 .into(),

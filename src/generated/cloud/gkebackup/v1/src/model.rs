@@ -25,7 +25,7 @@ extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -2714,7 +2714,7 @@ impl wkt::message::Message for RpoConfig {
 pub struct ExclusionWindow {
     /// Required. Specifies the start time of the window using time of the day in
     /// UTC.
-    pub start_time: std::option::Option<gtype::model::TimeOfDay>,
+    pub start_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     /// Required. Specifies duration of the window.
     /// Duration must be >= 5 minutes and < (target RPO - 20 minutes).
@@ -2746,12 +2746,12 @@ impl ExclusionWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::ExclusionWindow;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = ExclusionWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -2762,13 +2762,13 @@ impl ExclusionWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::ExclusionWindow;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = ExclusionWindow::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
     /// let x = ExclusionWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -2833,7 +2833,7 @@ impl ExclusionWindow {
     /// holds a different branch.
     pub fn single_occurrence_date(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::Date>> {
         #[allow(unreachable_patterns)]
         self.recurrence.as_ref().and_then(|v| match v {
             crate::model::exclusion_window::Recurrence::SingleOccurrenceDate(v) => {
@@ -2852,14 +2852,14 @@ impl ExclusionWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_gkebackup_v1::model::ExclusionWindow;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = ExclusionWindow::new().set_single_occurrence_date(Date::default()/* use setters */);
     /// assert!(x.single_occurrence_date().is_some());
     /// assert!(x.daily().is_none());
     /// assert!(x.days_of_week().is_none());
     /// ```
     pub fn set_single_occurrence_date<
-        T: std::convert::Into<std::boxed::Box<gtype::model::Date>>,
+        T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Date>>,
     >(
         mut self,
         v: T,
@@ -2960,7 +2960,7 @@ pub mod exclusion_window {
     #[non_exhaustive]
     pub struct DayOfWeekList {
         /// Optional. A list of days of week.
-        pub days_of_week: std::vec::Vec<gtype::model::DayOfWeek>,
+        pub days_of_week: std::vec::Vec<google_cloud_type::model::DayOfWeek>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2975,7 +2975,7 @@ pub mod exclusion_window {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_gkebackup_v1::model::exclusion_window::DayOfWeekList;
-        /// use gtype::model::DayOfWeek;
+        /// use google_cloud_type::model::DayOfWeek;
         /// let x = DayOfWeekList::new().set_days_of_week([
         ///     DayOfWeek::Monday,
         ///     DayOfWeek::Tuesday,
@@ -2985,7 +2985,7 @@ pub mod exclusion_window {
         pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<gtype::model::DayOfWeek>,
+            V: std::convert::Into<google_cloud_type::model::DayOfWeek>,
         {
             use std::iter::Iterator;
             self.days_of_week = v.into_iter().map(|i| i.into()).collect();
@@ -3006,7 +3006,7 @@ pub mod exclusion_window {
     pub enum Recurrence {
         /// No recurrence. The exclusion window occurs only once and on this
         /// date in UTC.
-        SingleOccurrenceDate(std::boxed::Box<gtype::model::Date>),
+        SingleOccurrenceDate(std::boxed::Box<google_cloud_type::model::Date>),
         /// The exclusion window occurs every day if set to "True".
         /// Specifying this field to "False" is an error.
         Daily(bool),
@@ -4344,7 +4344,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

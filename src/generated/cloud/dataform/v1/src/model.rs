@@ -23,9 +23,9 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
-extern crate gtype;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -5623,7 +5623,9 @@ pub mod release_config {
         /// The value of [result][crate::model::release_config::ScheduledReleaseRecord::result]
         /// if it holds a `ErrorStatus`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn error_status(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+        pub fn error_status(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
             #[allow(unreachable_patterns)]
             self.result.as_ref().and_then(|v| match v {
                 crate::model::release_config::scheduled_release_record::Result::ErrorStatus(v) => {
@@ -5642,12 +5644,14 @@ pub mod release_config {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dataform_v1::model::release_config::ScheduledReleaseRecord;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ScheduledReleaseRecord::new().set_error_status(Status::default()/* use setters */);
         /// assert!(x.error_status().is_some());
         /// assert!(x.compilation_result().is_none());
         /// ```
-        pub fn set_error_status<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+        pub fn set_error_status<
+            T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+        >(
             mut self,
             v: T,
         ) -> Self {
@@ -5681,7 +5685,7 @@ pub mod release_config {
             CompilationResult(std::string::String),
             /// The error status encountered upon this attempt to create the
             /// compilation result, if the attempt was unsuccessful.
-            ErrorStatus(std::boxed::Box<rpc::model::Status>),
+            ErrorStatus(std::boxed::Box<google_cloud_rpc::model::Status>),
         }
     }
 }
@@ -10305,7 +10309,9 @@ pub mod workflow_config {
         /// The value of [result][crate::model::workflow_config::ScheduledExecutionRecord::result]
         /// if it holds a `ErrorStatus`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn error_status(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+        pub fn error_status(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
             #[allow(unreachable_patterns)]
             self.result.as_ref().and_then(|v| match v {
                 crate::model::workflow_config::scheduled_execution_record::Result::ErrorStatus(
@@ -10324,12 +10330,14 @@ pub mod workflow_config {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_dataform_v1::model::workflow_config::ScheduledExecutionRecord;
-        /// use rpc::model::Status;
+        /// use google_cloud_rpc::model::Status;
         /// let x = ScheduledExecutionRecord::new().set_error_status(Status::default()/* use setters */);
         /// assert!(x.error_status().is_some());
         /// assert!(x.workflow_invocation().is_none());
         /// ```
-        pub fn set_error_status<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+        pub fn set_error_status<
+            T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+        >(
             mut self,
             v: T,
         ) -> Self {
@@ -10363,7 +10371,7 @@ pub mod workflow_config {
             WorkflowInvocation(std::string::String),
             /// The error status encountered upon this attempt to create the
             /// workflow invocation, if the attempt was unsuccessful.
-            ErrorStatus(std::boxed::Box<rpc::model::Status>),
+            ErrorStatus(std::boxed::Box<google_cloud_rpc::model::Status>),
         }
     }
 }
@@ -10932,7 +10940,7 @@ pub struct WorkflowInvocation {
     pub state: crate::model::workflow_invocation::State,
 
     /// Output only. This workflow invocation's timing details.
-    pub invocation_timing: std::option::Option<gtype::model::Interval>,
+    pub invocation_timing: std::option::Option<google_cloud_type::model::Interval>,
 
     /// Output only. The resolved compilation result that was used to create this
     /// invocation. Will be in the format
@@ -11027,12 +11035,12 @@ impl WorkflowInvocation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = WorkflowInvocation::new().set_invocation_timing(Interval::default()/* use setters */);
     /// ```
     pub fn set_invocation_timing<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.invocation_timing = std::option::Option::Some(v.into());
         self
@@ -11043,13 +11051,13 @@ impl WorkflowInvocation {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = WorkflowInvocation::new().set_or_clear_invocation_timing(Some(Interval::default()/* use setters */));
     /// let x = WorkflowInvocation::new().set_or_clear_invocation_timing(None::<Interval>);
     /// ```
     pub fn set_or_clear_invocation_timing<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.invocation_timing = v.map(|x| x.into());
         self
@@ -11820,7 +11828,7 @@ pub struct WorkflowInvocationAction {
     /// CANCELLED, FAILED] state.
     /// `end_time` will be set if the action is in [SUCCEEDED, CANCELLED, FAILED]
     /// state.
-    pub invocation_timing: std::option::Option<gtype::model::Interval>,
+    pub invocation_timing: std::option::Option<google_cloud_type::model::Interval>,
 
     /// Output only. All the metadata information that is used internally to serve
     /// the resource. For example: timestamps, flags, status fields, etc. The
@@ -11939,12 +11947,12 @@ impl WorkflowInvocationAction {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = WorkflowInvocationAction::new().set_invocation_timing(Interval::default()/* use setters */);
     /// ```
     pub fn set_invocation_timing<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.invocation_timing = std::option::Option::Some(v.into());
         self
@@ -11955,13 +11963,13 @@ impl WorkflowInvocationAction {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
-    /// use gtype::model::Interval;
+    /// use google_cloud_type::model::Interval;
     /// let x = WorkflowInvocationAction::new().set_or_clear_invocation_timing(Some(Interval::default()/* use setters */));
     /// let x = WorkflowInvocationAction::new().set_or_clear_invocation_timing(None::<Interval>);
     /// ```
     pub fn set_or_clear_invocation_timing<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Interval>,
+        T: std::convert::Into<google_cloud_type::model::Interval>,
     {
         self.invocation_timing = v.map(|x| x.into());
         self

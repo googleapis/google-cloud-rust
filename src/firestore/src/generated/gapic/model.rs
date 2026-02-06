@@ -1273,7 +1273,9 @@ impl Value {
     /// The value of [value_type][crate::model::Value::value_type]
     /// if it holds a `GeoPointValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn geo_point_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::LatLng>> {
+    pub fn geo_point_value(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::LatLng>> {
         #[allow(unreachable_patterns)]
         self.value_type.as_ref().and_then(|v| match v {
             crate::model::value::ValueType::GeoPointValue(v) => std::option::Option::Some(v),
@@ -1290,7 +1292,7 @@ impl Value {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore::model::Value;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = Value::new().set_geo_point_value(LatLng::default()/* use setters */);
     /// assert!(x.geo_point_value().is_some());
     /// assert!(x.null_value().is_none());
@@ -1307,7 +1309,9 @@ impl Value {
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
-    pub fn set_geo_point_value<T: std::convert::Into<std::boxed::Box<gtype::model::LatLng>>>(
+    pub fn set_geo_point_value<
+        T: std::convert::Into<std::boxed::Box<google_cloud_type::model::LatLng>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -1590,7 +1594,7 @@ pub mod value {
         /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
         ReferenceValue(std::string::String),
         /// A geo point value representing a point on the surface of Earth.
-        GeoPointValue(std::boxed::Box<gtype::model::LatLng>),
+        GeoPointValue(std::boxed::Box<google_cloud_type::model::LatLng>),
         /// An array value.
         ///
         /// Cannot directly contain another array value, though can contain a
@@ -1661,7 +1665,7 @@ pub mod value {
         }
         /// Initializes the enum to the [GeoPointValue](Self::GeoPointValue) branch.
         pub fn from_geo_point_value(
-            value: impl std::convert::Into<std::boxed::Box<gtype::model::LatLng>>,
+            value: impl std::convert::Into<std::boxed::Box<google_cloud_type::model::LatLng>>,
         ) -> Self {
             Self::GeoPointValue(value.into())
         }
@@ -6685,7 +6689,7 @@ pub struct TargetChange {
     pub target_ids: std::vec::Vec<i32>,
 
     /// The error that resulted in this change, if applicable.
-    pub cause: std::option::Option<rpc::model::Status>,
+    pub cause: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// A token that can be used to resume the stream for the given `target_ids`,
     /// or all targets if `target_ids` is empty.
@@ -6755,12 +6759,12 @@ impl TargetChange {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore::model::TargetChange;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TargetChange::new().set_cause(Status::default()/* use setters */);
     /// ```
     pub fn set_cause<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.cause = std::option::Option::Some(v.into());
         self
@@ -6771,13 +6775,13 @@ impl TargetChange {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore::model::TargetChange;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = TargetChange::new().set_or_clear_cause(Some(Status::default()/* use setters */));
     /// let x = TargetChange::new().set_or_clear_cause(None::<Status>);
     /// ```
     pub fn set_or_clear_cause<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.cause = v.map(|x| x.into());
         self
@@ -7329,7 +7333,7 @@ pub struct BatchWriteResponse {
     ///
     /// This i-th write status corresponds to the i-th write in the
     /// request.
-    pub status: std::vec::Vec<rpc::model::Status>,
+    pub status: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7366,7 +7370,7 @@ impl BatchWriteResponse {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_firestore::model::BatchWriteResponse;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = BatchWriteResponse::new()
     ///     .set_status([
     ///         Status::default()/* use setters */,
@@ -7376,7 +7380,7 @@ impl BatchWriteResponse {
     pub fn set_status<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.status = v.into_iter().map(|i| i.into()).collect();

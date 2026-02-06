@@ -44,12 +44,12 @@ _internal-http-client = [
   "_internal-common",
   "dep:bytes",
   "dep:futures",
+  "dep:google-cloud-rpc",
   "dep:http",
   "dep:http-body-util",
   "dep:hyper",
   "dep:opentelemetry-semantic-conventions",
   "dep:reqwest",
-  "dep:rpc",
   "dep:serde",
   "dep:serde_json",
   "dep:tokio",
@@ -63,6 +63,7 @@ _internal-grpc-client = [
   "_internal-common",
   "dep:bytes",
   "dep:futures",
+  "dep:google-cloud-rpc",
   "dep:http",
   "dep:http-body",
   "dep:http-body-util",
@@ -70,7 +71,6 @@ _internal-grpc-client = [
   "dep:pin-project",
   "dep:prost",
   "dep:prost-types",
-  "dep:rpc",
   "dep:serde_json",
   "dep:tokio",
   "dep:tokio-stream",
@@ -121,7 +121,7 @@ tracing                            = { workspace = true, optional = true }
 # Local crates
 google-cloud-auth = { workspace = true, optional = true }
 gax               = { workspace = true, optional = true }
-rpc               = { workspace = true, optional = true }
+google-cloud-rpc  = { workspace = true, optional = true }
 wkt               = { workspace = true, optional = true }
 
 [dev-dependencies]

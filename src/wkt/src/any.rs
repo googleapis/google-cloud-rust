@@ -564,7 +564,7 @@ mod tests {
         let input = json!({"@type": "type.googleapis.com/google.protobuf.Duration", "value-is-missing": "1.2s"});
         let any = serde_json::from_value::<Any>(input)?;
         let got = any.to_msg::<Duration>();
-        assert!(got.is_err());
+        assert!(got.is_err(), "{got:?}");
         Ok(())
     }
 
@@ -574,7 +574,7 @@ mod tests {
             json!({"@type": "type.googleapis.com/google.protobuf.Duration", "value": ["1.2s"]});
         let any = serde_json::from_value::<Any>(input)?;
         let got = any.to_msg::<Duration>();
-        assert!(got.is_err());
+        assert!(got.is_err(), "{got:?}");
         Ok(())
     }
 
@@ -584,7 +584,7 @@ mod tests {
             json!({"@type": "type.googleapis.com/google.protobuf.Duration", "value": "1.2s"});
         let any = serde_json::from_value::<Any>(input)?;
         let got = any.to_msg::<Timestamp>();
-        assert!(got.is_err());
+        assert!(got.is_err(), "{got:?}");
         let error = got.err().unwrap();
         assert!(
             format!("{error}").contains("type.googleapis.com/google.protobuf.Duration"),

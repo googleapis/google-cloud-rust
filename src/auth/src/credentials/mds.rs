@@ -76,7 +76,7 @@
 
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
-use crate::headers_util::build_cacheable_headers;
+use crate::headers_util::AuthHeadersBuilder;
 use crate::mds::client::Client as MDSClient;
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
@@ -337,8 +337,11 @@ where
     T: CachedTokenProvider,
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
-        let cached_token = self.token_provider.token(extensions).await?;
-        build_cacheable_headers(&cached_token, &self.quota_project_id)
+        let token = self.token_provider.token(extensions).await?;
+
+        AuthHeadersBuilder::new(&token)
+            .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .build()
     }
 }
 
@@ -548,10 +551,13 @@ mod tests {
     #[parallel]
     fn validate_default_endpoint_urls() {
         let default_endpoint_address = Url::parse(&format!("{METADATA_ROOT}{MDS_DEFAULT_URI}"));
-        assert!(default_endpoint_address.is_ok());
+        assert!(
+            default_endpoint_address.is_ok(),
+            "{default_endpoint_address:?}"
+        );
 
         let token_endpoint_address = Url::parse(&format!("{METADATA_ROOT}{MDS_DEFAULT_URI}/token"));
-        assert!(token_endpoint_address.is_ok());
+        assert!(token_endpoint_address.is_ok(), "{token_endpoint_address:?}");
     }
 
     #[tokio::test]
@@ -631,7 +637,8 @@ mod tests {
             quota_project_id: None,
             token_provider: TokenCache::new(mock),
         };
-        assert!(mdsc.headers(Extensions::new()).await.is_err());
+        let result = mdsc.headers(Extensions::new()).await;
+        assert!(result.is_err(), "{result:?}");
     }
 
     #[test]

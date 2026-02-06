@@ -23,9 +23,9 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -151,7 +151,7 @@ pub struct UpdateTransferJobRequest {
     /// [DELETED][google.storagetransfer.v1.TransferJob.Status.DELETED] requires
     /// `storagetransfer.jobs.delete` permission.
     ///
-    /// [google.rpc.Code.INVALID_ARGUMENT]: rpc::model::Code::InvalidArgument
+    /// [google.rpc.Code.INVALID_ARGUMENT]: google_cloud_rpc::model::Code::InvalidArgument
     /// [google.storagetransfer.v1.TransferJob.Status.DELETED]: crate::model::transfer_job::Status::Deleted
     /// [google.storagetransfer.v1.TransferJob.description]: crate::model::TransferJob::description
     /// [google.storagetransfer.v1.TransferJob.logging_config]: crate::model::TransferJob::logging_config
@@ -172,7 +172,7 @@ pub struct UpdateTransferJobRequest {
     /// rejected with the error
     /// [INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT].
     ///
-    /// [google.rpc.Code.INVALID_ARGUMENT]: rpc::model::Code::InvalidArgument
+    /// [google.rpc.Code.INVALID_ARGUMENT]: google_cloud_rpc::model::Code::InvalidArgument
     /// [google.storagetransfer.v1.TransferJob.description]: crate::model::TransferJob::description
     /// [google.storagetransfer.v1.TransferJob.logging_config]: crate::model::TransferJob::logging_config
     /// [google.storagetransfer.v1.TransferJob.notification_config]: crate::model::TransferJob::notification_config
@@ -788,7 +788,7 @@ pub struct UpdateAgentPoolRequest {
     ///   with the error [INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT].
     ///
     ///
-    /// [google.rpc.Code.INVALID_ARGUMENT]: rpc::model::Code::InvalidArgument
+    /// [google.rpc.Code.INVALID_ARGUMENT]: google_cloud_rpc::model::Code::InvalidArgument
     /// [google.storagetransfer.v1.AgentPool.bandwidth_limit]: crate::model::AgentPool::bandwidth_limit
     /// [google.storagetransfer.v1.AgentPool.display_name]: crate::model::AgentPool::display_name
     /// [google.storagetransfer.v1.AgentPool.name]: crate::model::AgentPool::name
@@ -3784,7 +3784,7 @@ pub struct TransferSpec {
     /// are specified, the request fails with an
     /// [INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT] error.
     ///
-    /// [google.rpc.Code.INVALID_ARGUMENT]: rpc::model::Code::InvalidArgument
+    /// [google.rpc.Code.INVALID_ARGUMENT]: google_cloud_rpc::model::Code::InvalidArgument
     /// [google.storagetransfer.v1.TransferOptions.delete_objects_unique_in_sink]: crate::model::TransferOptions::delete_objects_unique_in_sink
     pub transfer_options: std::option::Option<crate::model::TransferOptions>,
 
@@ -4514,7 +4514,7 @@ pub struct ReplicationSpec {
     /// request fails with an [INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT]
     /// error.
     ///
-    /// [google.rpc.Code.INVALID_ARGUMENT]: rpc::model::Code::InvalidArgument
+    /// [google.rpc.Code.INVALID_ARGUMENT]: google_cloud_rpc::model::Code::InvalidArgument
     pub transfer_options: std::option::Option<crate::model::TransferOptions>,
 
     /// The data source to be replicated.
@@ -6277,7 +6277,7 @@ pub struct Schedule {
     ///
     /// [google.storagetransfer.v1.Schedule.start_time_of_day]: crate::model::Schedule::start_time_of_day
     /// [google.storagetransfer.v1.TransferOperation]: crate::model::TransferOperation
-    pub schedule_start_date: std::option::Option<gtype::model::Date>,
+    pub schedule_start_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// The last day a transfer runs. Date boundaries are determined relative to
     /// UTC time. A job runs once per 24 hours within the following guidelines:
@@ -6294,7 +6294,7 @@ pub struct Schedule {
     ///
     /// [google.storagetransfer.v1.Schedule.schedule_start_date]: crate::model::Schedule::schedule_start_date
     /// [google.storagetransfer.v1.Schedule.start_time_of_day]: crate::model::Schedule::start_time_of_day
-    pub schedule_end_date: std::option::Option<gtype::model::Date>,
+    pub schedule_end_date: std::option::Option<google_cloud_type::model::Date>,
 
     /// The time in UTC that a transfer job is scheduled to run. Transfers may
     /// start later than this time.
@@ -6313,7 +6313,7 @@ pub struct Schedule {
     ///   `schedule_end_date`.
     ///
     /// [google.storagetransfer.v1.Schedule.schedule_end_date]: crate::model::Schedule::schedule_end_date
-    pub start_time_of_day: std::option::Option<gtype::model::TimeOfDay>,
+    pub start_time_of_day: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     /// The time in UTC that no further transfer operations are scheduled. Combined
     /// with
@@ -6333,11 +6333,11 @@ pub struct Schedule {
     ///   [INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT] is returned.
     ///
     ///
-    /// [google.rpc.Code.INVALID_ARGUMENT]: rpc::model::Code::InvalidArgument
+    /// [google.rpc.Code.INVALID_ARGUMENT]: google_cloud_rpc::model::Code::InvalidArgument
     /// [google.storagetransfer.v1.Schedule.schedule_end_date]: crate::model::Schedule::schedule_end_date
     /// [google.storagetransfer.v1.Schedule.schedule_start_date]: crate::model::Schedule::schedule_start_date
     /// [google.storagetransfer.v1.Schedule.start_time_of_day]: crate::model::Schedule::start_time_of_day
-    pub end_time_of_day: std::option::Option<gtype::model::TimeOfDay>,
+    pub end_time_of_day: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     /// Interval between the start of each scheduled TransferOperation. If
     /// unspecified, the default value is 24 hours. This value may not be less than
@@ -6357,12 +6357,12 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = Schedule::new().set_schedule_start_date(Date::default()/* use setters */);
     /// ```
     pub fn set_schedule_start_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.schedule_start_date = std::option::Option::Some(v.into());
         self
@@ -6373,13 +6373,13 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = Schedule::new().set_or_clear_schedule_start_date(Some(Date::default()/* use setters */));
     /// let x = Schedule::new().set_or_clear_schedule_start_date(None::<Date>);
     /// ```
     pub fn set_or_clear_schedule_start_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.schedule_start_date = v.map(|x| x.into());
         self
@@ -6390,12 +6390,12 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = Schedule::new().set_schedule_end_date(Date::default()/* use setters */);
     /// ```
     pub fn set_schedule_end_date<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.schedule_end_date = std::option::Option::Some(v.into());
         self
@@ -6406,13 +6406,13 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::Date;
+    /// use google_cloud_type::model::Date;
     /// let x = Schedule::new().set_or_clear_schedule_end_date(Some(Date::default()/* use setters */));
     /// let x = Schedule::new().set_or_clear_schedule_end_date(None::<Date>);
     /// ```
     pub fn set_or_clear_schedule_end_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Date>,
+        T: std::convert::Into<google_cloud_type::model::Date>,
     {
         self.schedule_end_date = v.map(|x| x.into());
         self
@@ -6423,12 +6423,12 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = Schedule::new().set_start_time_of_day(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_start_time_of_day<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time_of_day = std::option::Option::Some(v.into());
         self
@@ -6439,13 +6439,13 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = Schedule::new().set_or_clear_start_time_of_day(Some(TimeOfDay::default()/* use setters */));
     /// let x = Schedule::new().set_or_clear_start_time_of_day(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_start_time_of_day<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time_of_day = v.map(|x| x.into());
         self
@@ -6456,12 +6456,12 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = Schedule::new().set_end_time_of_day(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_end_time_of_day<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.end_time_of_day = std::option::Option::Some(v.into());
         self
@@ -6472,13 +6472,13 @@ impl Schedule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::Schedule;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = Schedule::new().set_or_clear_end_time_of_day(Some(TimeOfDay::default()/* use setters */));
     /// let x = Schedule::new().set_or_clear_end_time_of_day(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_end_time_of_day<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.end_time_of_day = v.map(|x| x.into());
         self
@@ -6670,8 +6670,8 @@ pub struct TransferJob {
     /// Invalid job names fail with an
     /// [INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT] error.
     ///
-    /// [google.rpc.Code.ALREADY_EXISTS]: rpc::model::Code::AlreadyExists
-    /// [google.rpc.Code.INVALID_ARGUMENT]: rpc::model::Code::InvalidArgument
+    /// [google.rpc.Code.ALREADY_EXISTS]: google_cloud_rpc::model::Code::AlreadyExists
+    /// [google.rpc.Code.INVALID_ARGUMENT]: google_cloud_rpc::model::Code::InvalidArgument
     pub name: std::string::String,
 
     /// A description provided by the user for the job. Its max length is 1024
@@ -7349,7 +7349,7 @@ impl wkt::message::Message for ErrorLogEntry {
 #[non_exhaustive]
 pub struct ErrorSummary {
     /// Required.
-    pub error_code: rpc::model::Code,
+    pub error_code: google_cloud_rpc::model::Code,
 
     /// Required. Count of this type of error.
     pub error_count: i64,
@@ -7373,12 +7373,15 @@ impl ErrorSummary {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_storagetransfer_v1::model::ErrorSummary;
-    /// use rpc::model::Code;
+    /// use google_cloud_rpc::model::Code;
     /// let x0 = ErrorSummary::new().set_error_code(Code::Cancelled);
     /// let x1 = ErrorSummary::new().set_error_code(Code::Unknown);
     /// let x2 = ErrorSummary::new().set_error_code(Code::InvalidArgument);
     /// ```
-    pub fn set_error_code<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
+    pub fn set_error_code<T: std::convert::Into<google_cloud_rpc::model::Code>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.error_code = v.into();
         self
     }
@@ -7836,7 +7839,7 @@ pub struct NotificationConfig {
     /// Not matching this format results in an
     /// [INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT] error.
     ///
-    /// [google.rpc.Code.INVALID_ARGUMENT]: rpc::model::Code::InvalidArgument
+    /// [google.rpc.Code.INVALID_ARGUMENT]: google_cloud_rpc::model::Code::InvalidArgument
     pub pubsub_topic: std::string::String,
 
     /// Event types for which a notification is desired. If empty, send

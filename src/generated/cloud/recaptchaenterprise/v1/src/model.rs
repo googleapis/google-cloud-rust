@@ -21,8 +21,8 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -8801,7 +8801,7 @@ impl wkt::message::Message for ChallengeMetrics {
 pub struct FirewallPolicyAssessment {
     /// Output only. If the processing of a policy config fails, an error is
     /// populated and the firewall_policy is left empty.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// Output only. The policy that matched the request. If more than one policy
     /// may match, this is the first match. If no policy matches the incoming
@@ -8821,12 +8821,12 @@ impl FirewallPolicyAssessment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::FirewallPolicyAssessment;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = FirewallPolicyAssessment::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -8837,13 +8837,13 @@ impl FirewallPolicyAssessment {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recaptchaenterprise_v1::model::FirewallPolicyAssessment;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = FirewallPolicyAssessment::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = FirewallPolicyAssessment::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self

@@ -13,17 +13,17 @@
 # limitations under the License.
 
 language: rust
-version: v0.8.1-0.20260203014256-98ce4f6a16a8
+version: v0.8.1-0.20260204230000-ecb27d3ef03a
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: 85aa2660a9a62faa9e80e0d100b8dca4138ce249
-    sha256: b5f0d6364c8b731dde2a9b9fbb19a31a9e16a662c4d0d2b08bffe09e5b429154
+    commit: b976ae6b65bb9601e7bb01ed07f30b7cff442675
+    sha256: 471178ce7594f5f179ec2c86eab7f331dd92218dbdb3ed4768e7d83e0dd4dfbc
   googleapis:
-    commit: 4ba4d6d3b5e81359f508fb19db492b97bbb01fe6
-    sha256: 9e7a21571368eac7c454b06136b41aab3848721be6970eec35eaff2096f033eb
+    commit: aa950c94fca3ea74ab574d0538b9ff1d57187f91
+    sha256: 6daa9905843049b81339b2687f5366a96fe62a4528df032db24a3e5c2f71e502
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -54,9 +54,6 @@ default:
       - name: bytes
         package: bytes
         force_used: true
-      - name: cloud_common
-        package: google-cloud-common
-        source: google.cloud.common
       - name: gax
         package: google-cloud-gax
         used_if: services
@@ -67,36 +64,39 @@ default:
       - name: google-cloud-api
         package: google-cloud-api
         source: google.api
+      - name: google-cloud-common
+        package: google-cloud-common
+        source: google.cloud.common
+      - name: google-cloud-grafeas-v1
+        package: google-cloud-grafeas-v1
+        source: grafeas.v1
       - name: google-cloud-iam-v1
         package: google-cloud-iam-v1
         source: google.iam.v1
       - name: google-cloud-location
         package: google-cloud-location
         source: google.cloud.location
+      - name: google-cloud-logging-type
+        package: google-cloud-logging-type
+        source: google.logging.type
       - name: google-cloud-longrunning
         package: google-cloud-longrunning
         source: google.longrunning
       - name: google-cloud-lro
         package: google-cloud-lro
         used_if: lro
-      - name: grafeas
-        package: google-cloud-grafeas-v1
-        source: grafeas.v1
-      - name: gtype
+      - name: google-cloud-rpc
+        package: google-cloud-rpc
+        source: google.rpc
+      - name: google-cloud-rpc-context
+        package: google-cloud-rpc-context
+        source: google.rpc.context
+      - name: google-cloud-type
         package: google-cloud-type
         source: google.type
       - name: lazy_static
         package: lazy_static
         used_if: services
-      - name: logging_type
-        package: google-cloud-logging-type
-        source: google.logging.type
-      - name: rpc
-        package: google-cloud-rpc
-        source: google.rpc
-      - name: rpc_context
-        package: google-cloud-rpc-context
-        source: google.rpc.context
       - name: serde
         package: serde
         force_used: true
@@ -388,18 +388,23 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: accesscontextmanager_v1
+        - name: google-cloud-identity-accesscontextmanager-type
+          package: google-cloud-identity-accesscontextmanager-type
+          source: google.identity.accesscontextmanager.type
+        - name: google-cloud-identity-accesscontextmanager-v1
           package: google-cloud-identity-accesscontextmanager-v1
           source: google.identity.accesscontextmanager.v1
-        - name: orgpolicy_v1
+        - name: google-cloud-orgpolicy-v1
           package: google-cloud-orgpolicy-v1
           source: google.cloud.orgpolicy.v1
-        - name: osconfig_v1
+        - name: google-cloud-osconfig-v1
           package: google-cloud-osconfig-v1
           source: google.cloud.osconfig.v1
   - name: google-cloud-assuredworkloads-v1
     version: 1.6.0
     copyright_year: "2025"
+  - name: google-cloud-auditmanager-v1
+    copyright_year: "2026"
   - name: google-cloud-auth
     version: 1.6.0
     copyright_year: "2025"
@@ -527,7 +532,7 @@ libraries:
         - name: google-cloud-lro
           package: google-cloud-lro
           force_used: true
-        - name: rpc
+        - name: google-cloud-rpc
           package: google-cloud-rpc
           force_used: true
       disabled_rustdoc_warnings:
@@ -702,7 +707,7 @@ libraries:
           source: google/firestore/v1
           template: convert-prost
         - include_list: latlng.proto
-          module_path: gtype::model
+          module_path: google_cloud_type::model
           output: src/firestore/src/generated/convert/type
           source: google/type
           template: convert-prost
@@ -737,7 +742,7 @@ libraries:
     veneer: true
     rust:
       modules:
-        - module_path: rpc::model
+        - module_path: google_cloud_rpc::model
           output: src/gax-internal/src/generated/convert/rpc
           skipped_ids:
             - .google.rpc.Status
@@ -764,6 +769,12 @@ libraries:
       - path: google/cloud/gkehub/v1/multiclusteringress
     copyright_year: "2025"
     output: src/generated/cloud/gkehub/multiclusteringress/v1
+  - name: google-cloud-gkehub-rbacrolebindingactuation-v1
+    version: 1.0.0
+    apis:
+      - path: google/cloud/gkehub/v1/rbacrolebindingactuation
+    copyright_year: "2026"
+    output: src/generated/cloud/gkehub/rbacrolebindingactuation/v1
   - name: google-cloud-gkehub-v1
     version: 1.6.0
     copyright_year: "2025"
@@ -775,6 +786,9 @@ libraries:
         - name: google-cloud-gkehub-multiclusteringress-v1
           package: google-cloud-gkehub-multiclusteringress-v1
           source: google.cloud.gkehub.multiclusteringress.v1
+        - name: google-cloud-gkehub-rbacrolebindingactuation-v1
+          package: google-cloud-gkehub-rbacrolebindingactuation-v1
+          source: google.cloud.gkehub.rbacrolebindingactuation.v1
   - name: google-cloud-gkemulticloud-v1
     version: 1.6.0
     copyright_year: "2025"
@@ -856,7 +870,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: accesscontextmanager_type
+        - name: google-cloud-identity-accesscontextmanager-type
           package: google-cloud-identity-accesscontextmanager-type
           source: google.identity.accesscontextmanager.type
   - name: google-cloud-ids-v1
@@ -867,7 +881,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: kms
+        - name: google-cloud-kms-v1
           package: google-cloud-kms-v1
           source: google.cloud.kms.v1
   - name: google-cloud-kms-v1
@@ -1042,7 +1056,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: oslogin_common
+        - name: google-cloud-oslogin-common
           package: google-cloud-oslogin-common
           source: google.cloud.oslogin.common
   - name: google-cloud-parallelstore-v1
@@ -1056,7 +1070,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: orgpolicy_v2
+        - name: google-cloud-orgpolicy-v2
           package: google-cloud-orgpolicy-v2
           source: google.cloud.orgpolicy.v2
   - name: google-cloud-policytroubleshooter-iam-v3
@@ -1064,7 +1078,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: iam_v2
+        - name: google-cloud-iam-v2
           package: google-cloud-iam-v2
           source: google.iam.v2
   - name: google-cloud-policytroubleshooter-v1
@@ -1148,6 +1162,7 @@ libraries:
             - .google.pubsub.v1.Subscriber.StreamingPull
             - .google.pubsub.v1.Subscriber.Acknowledge
             - .google.pubsub.v1.Subscriber.ModifyAckDeadline
+          internal_builders: true
           output: src/pubsub/src/generated/gapic_dataplane
           service_config: google/pubsub/v1/pubsub_v1.yaml
           source: google/pubsub/v1
@@ -1168,7 +1183,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_dependencies:
-        - name: recommender
+        - name: google-cloud-recommender-v1
           package: google-cloud-recommender-v1
           source: google.cloud.recommender.v1
   - name: google-cloud-recommender-v1
@@ -1361,7 +1376,7 @@ libraries:
           source: google/storage/v2
           template: convert-prost
         - include_list: date.proto,expr.proto
-          module_path: gtype::model
+          module_path: google_cloud_type::model
           output: src/storage/src/generated/convert/type
           source: google/type
           template: convert-prost

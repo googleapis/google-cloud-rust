@@ -932,7 +932,7 @@ mod tests {
             query,
         );
         let response = poller.until_done().await;
-        assert!(response.is_err());
+        assert!(response.is_err(), "{response:?}");
         assert!(
             format!("{response:?}").contains("unrecoverable"),
             "{response:?}"

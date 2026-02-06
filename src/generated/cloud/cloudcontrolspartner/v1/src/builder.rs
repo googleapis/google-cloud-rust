@@ -1153,7 +1153,7 @@ pub mod cloud_controls_partner_monitoring {
         /// Sets the value of [interval][crate::model::ListViolationsRequest::interval].
         pub fn set_interval<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Interval>,
+            T: std::convert::Into<google_cloud_type::model::Interval>,
         {
             self.0.request.interval = std::option::Option::Some(v.into());
             self
@@ -1162,7 +1162,7 @@ pub mod cloud_controls_partner_monitoring {
         /// Sets or clears the value of [interval][crate::model::ListViolationsRequest::interval].
         pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Interval>,
+            T: std::convert::Into<google_cloud_type::model::Interval>,
         {
             self.0.request.interval = v.map(|x| x.into());
             self

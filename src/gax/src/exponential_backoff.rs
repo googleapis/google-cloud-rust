@@ -279,33 +279,39 @@ mod tests {
     }
 
     #[test]
-    fn exponential_build_limits() {
-        let r = ExponentialBackoffBuilder::new()
+    fn exponential_build_limits() -> anyhow::Result<()> {
+        let e = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(1))
             .with_maximum_delay(Duration::MAX)
-            .build();
-        assert!(r.is_ok(), "{r:?}");
+            .build()?;
+        assert_eq!(e.initial_delay, Duration::from_secs(1));
+        assert_eq!(e.maximum_delay, Duration::MAX);
+        assert_eq!(e.scaling, 2.0);
 
-        let r = ExponentialBackoffBuilder::new()
+        let e = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_nanos(1))
             .with_maximum_delay(Duration::MAX)
-            .build();
-        assert!(r.is_ok(), "{r:?}");
+            .build()?;
+        assert_eq!(e.initial_delay, Duration::from_nanos(1));
+        assert_eq!(e.maximum_delay, Duration::MAX);
+        assert_eq!(e.scaling, 2.0);
 
-        let r = ExponentialBackoffBuilder::new()
+        let e = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_nanos(1))
             .with_maximum_delay(Duration::MAX)
             .with_scaling(1.0)
-            .build();
-        assert!(r.is_ok(), "{r:?}");
+            .build()?;
+        assert_eq!(e.initial_delay, Duration::from_nanos(1));
+        assert_eq!(e.maximum_delay, Duration::MAX);
+        assert_eq!(e.scaling, 1.0);
+        Ok(())
     }
 
     #[test]
-    fn exponential_builder_defaults() {
-        let r = ExponentialBackoffBuilder::new().build();
-        assert!(r.is_ok(), "{r:?}");
-        let r = ExponentialBackoffBuilder::default().build();
-        assert!(r.is_ok(), "{r:?}");
+    fn exponential_builder_defaults() -> anyhow::Result<()> {
+        let _e = ExponentialBackoffBuilder::new().build()?;
+        let _e = ExponentialBackoffBuilder::default().build()?;
+        Ok(())
     }
 
     #[test_case::test_case(Duration::from_secs(1), Duration::MAX, 0.5; "scaling below range")]

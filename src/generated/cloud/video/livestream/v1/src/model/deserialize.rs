@@ -666,8 +666,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Distribution {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__srt_push => {
                             if !fields.insert(__FieldTag::__srt_push) {
@@ -3232,7 +3233,7 @@ impl<'de> serde::de::Deserialize<'de> for super::TimecodeConfig {
                             result.time_offset = std::option::Option::Some(
                                 crate::model::timecode_config::TimeOffset::TimeZone(
                                     map.next_value::<std::option::Option<
-                                        std::boxed::Box<gtype::model::TimeZone>,
+                                        std::boxed::Box<google_cloud_type::model::TimeZone>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),
@@ -3787,8 +3788,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Channel {
                                     "multiple values for streaming_error",
                                 ));
                             }
-                            result.streaming_error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.streaming_error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__log_config => {
                             if !fields.insert(__FieldTag::__log_config) {
@@ -5696,8 +5698,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Event {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6415,8 +6418,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Clip {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__slices => {
                             if !fields.insert(__FieldTag::__slices) {
@@ -6963,8 +6967,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DvrSession {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__dvr_manifests => {
                             if !fields.insert(__FieldTag::__dvr_manifests) {
@@ -7370,8 +7375,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Asset {
                                     "multiple values for error",
                                 ));
                             }
-                            result.error =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.error = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

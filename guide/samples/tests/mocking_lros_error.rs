@@ -145,7 +145,11 @@ mod tests {
         let result = my_manual_poller(&client, "my-project").await;
 
         // Verify the the final result.
-        assert!(result.billed_duration.is_err());
+        assert!(
+            result.billed_duration.is_err(),
+            "{:?}",
+            result.billed_duration
+        );
 
         Ok(())
     }
@@ -188,7 +192,11 @@ mod tests {
 
         // Verify the partial metadata updates, and the final result.
         assert_eq!(result.progress_updates, [25, 50, 75]);
-        assert!(result.billed_duration.is_err());
+        assert!(
+            result.billed_duration.is_err(),
+            "{:?}",
+            result.billed_duration
+        );
 
         Ok(())
     }
@@ -223,7 +231,11 @@ mod tests {
 
         // Verify the partial metadata updates, and the final result.
         assert_eq!(result.progress_updates, [25]);
-        assert!(result.billed_duration.is_err());
+        assert!(
+            result.billed_duration.is_err(),
+            "{:?}",
+            result.billed_duration
+        );
 
         Ok(())
     }

@@ -23,7 +23,7 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -2162,7 +2162,7 @@ pub mod contact_settings {
     #[non_exhaustive]
     pub struct Contact {
         /// Required. Postal address of the contact.
-        pub postal_address: std::option::Option<gtype::model::PostalAddress>,
+        pub postal_address: std::option::Option<google_cloud_type::model::PostalAddress>,
 
         /// Required. Email address of the contact.
         pub email: std::string::String,
@@ -2188,12 +2188,12 @@ pub mod contact_settings {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_domains_v1::model::contact_settings::Contact;
-        /// use gtype::model::PostalAddress;
+        /// use google_cloud_type::model::PostalAddress;
         /// let x = Contact::new().set_postal_address(PostalAddress::default()/* use setters */);
         /// ```
         pub fn set_postal_address<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::PostalAddress>,
+            T: std::convert::Into<google_cloud_type::model::PostalAddress>,
         {
             self.postal_address = std::option::Option::Some(v.into());
             self
@@ -2204,13 +2204,13 @@ pub mod contact_settings {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_domains_v1::model::contact_settings::Contact;
-        /// use gtype::model::PostalAddress;
+        /// use google_cloud_type::model::PostalAddress;
         /// let x = Contact::new().set_or_clear_postal_address(Some(PostalAddress::default()/* use setters */));
         /// let x = Contact::new().set_or_clear_postal_address(None::<PostalAddress>);
         /// ```
         pub fn set_or_clear_postal_address<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::PostalAddress>,
+            T: std::convert::Into<google_cloud_type::model::PostalAddress>,
         {
             self.postal_address = v.map(|x| x.into());
             self
@@ -2483,7 +2483,7 @@ pub struct RegisterDomainRequest {
     /// Required. Yearly price to register or renew the domain.
     /// The value that should be put here can be obtained from
     /// RetrieveRegisterParameters or SearchDomains calls.
-    pub yearly_price: std::option::Option<gtype::model::Money>,
+    pub yearly_price: std::option::Option<google_cloud_type::model::Money>,
 
     /// When true, only validation is performed, without actually registering
     /// the domain. Follows:
@@ -2588,12 +2588,12 @@ impl RegisterDomainRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::RegisterDomainRequest;
-    /// use gtype::model::Money;
+    /// use google_cloud_type::model::Money;
     /// let x = RegisterDomainRequest::new().set_yearly_price(Money::default()/* use setters */);
     /// ```
     pub fn set_yearly_price<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Money>,
+        T: std::convert::Into<google_cloud_type::model::Money>,
     {
         self.yearly_price = std::option::Option::Some(v.into());
         self
@@ -2604,13 +2604,13 @@ impl RegisterDomainRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::RegisterDomainRequest;
-    /// use gtype::model::Money;
+    /// use google_cloud_type::model::Money;
     /// let x = RegisterDomainRequest::new().set_or_clear_yearly_price(Some(Money::default()/* use setters */));
     /// let x = RegisterDomainRequest::new().set_or_clear_yearly_price(None::<Money>);
     /// ```
     pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Money>,
+        T: std::convert::Into<google_cloud_type::model::Money>,
     {
         self.yearly_price = v.map(|x| x.into());
         self
@@ -2764,7 +2764,7 @@ pub struct TransferDomainRequest {
     /// Required. Acknowledgement of the price to transfer or renew the domain for one year.
     /// Call `RetrieveTransferParameters` to obtain the price, which you must
     /// acknowledge.
-    pub yearly_price: std::option::Option<gtype::model::Money>,
+    pub yearly_price: std::option::Option<google_cloud_type::model::Money>,
 
     /// The domain's transfer authorization code. You can obtain this from the
     /// domain's current registrar.
@@ -2851,12 +2851,12 @@ impl TransferDomainRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::TransferDomainRequest;
-    /// use gtype::model::Money;
+    /// use google_cloud_type::model::Money;
     /// let x = TransferDomainRequest::new().set_yearly_price(Money::default()/* use setters */);
     /// ```
     pub fn set_yearly_price<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Money>,
+        T: std::convert::Into<google_cloud_type::model::Money>,
     {
         self.yearly_price = std::option::Option::Some(v.into());
         self
@@ -2867,13 +2867,13 @@ impl TransferDomainRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::TransferDomainRequest;
-    /// use gtype::model::Money;
+    /// use google_cloud_type::model::Money;
     /// let x = TransferDomainRequest::new().set_or_clear_yearly_price(Some(Money::default()/* use setters */));
     /// let x = TransferDomainRequest::new().set_or_clear_yearly_price(None::<Money>);
     /// ```
     pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Money>,
+        T: std::convert::Into<google_cloud_type::model::Money>,
     {
         self.yearly_price = v.map(|x| x.into());
         self
@@ -3775,7 +3775,7 @@ pub struct RegisterParameters {
     pub domain_notices: std::vec::Vec<crate::model::DomainNotice>,
 
     /// Price to register or renew the domain for one year.
-    pub yearly_price: std::option::Option<gtype::model::Money>,
+    pub yearly_price: std::option::Option<google_cloud_type::model::Money>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3864,12 +3864,12 @@ impl RegisterParameters {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::RegisterParameters;
-    /// use gtype::model::Money;
+    /// use google_cloud_type::model::Money;
     /// let x = RegisterParameters::new().set_yearly_price(Money::default()/* use setters */);
     /// ```
     pub fn set_yearly_price<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Money>,
+        T: std::convert::Into<google_cloud_type::model::Money>,
     {
         self.yearly_price = std::option::Option::Some(v.into());
         self
@@ -3880,13 +3880,13 @@ impl RegisterParameters {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::RegisterParameters;
-    /// use gtype::model::Money;
+    /// use google_cloud_type::model::Money;
     /// let x = RegisterParameters::new().set_or_clear_yearly_price(Some(Money::default()/* use setters */));
     /// let x = RegisterParameters::new().set_or_clear_yearly_price(None::<Money>);
     /// ```
     pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Money>,
+        T: std::convert::Into<google_cloud_type::model::Money>,
     {
         self.yearly_price = v.map(|x| x.into());
         self
@@ -4076,7 +4076,7 @@ pub struct TransferParameters {
     pub supported_privacy: std::vec::Vec<crate::model::ContactPrivacy>,
 
     /// Price to transfer or renew the domain for one year.
-    pub yearly_price: std::option::Option<gtype::model::Money>,
+    pub yearly_price: std::option::Option<google_cloud_type::model::Money>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4174,12 +4174,12 @@ impl TransferParameters {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::TransferParameters;
-    /// use gtype::model::Money;
+    /// use google_cloud_type::model::Money;
     /// let x = TransferParameters::new().set_yearly_price(Money::default()/* use setters */);
     /// ```
     pub fn set_yearly_price<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Money>,
+        T: std::convert::Into<google_cloud_type::model::Money>,
     {
         self.yearly_price = std::option::Option::Some(v.into());
         self
@@ -4190,13 +4190,13 @@ impl TransferParameters {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_domains_v1::model::TransferParameters;
-    /// use gtype::model::Money;
+    /// use google_cloud_type::model::Money;
     /// let x = TransferParameters::new().set_or_clear_yearly_price(Some(Money::default()/* use setters */));
     /// let x = TransferParameters::new().set_or_clear_yearly_price(None::<Money>);
     /// ```
     pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Money>,
+        T: std::convert::Into<google_cloud_type::model::Money>,
     {
         self.yearly_price = v.map(|x| x.into());
         self

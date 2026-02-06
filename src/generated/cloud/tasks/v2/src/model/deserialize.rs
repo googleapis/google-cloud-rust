@@ -2918,8 +2918,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Attempt {
                                     "multiple values for response_status",
                                 ));
                             }
-                            result.response_status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.response_status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -21,8 +21,8 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -4300,12 +4300,12 @@ pub struct DiscoveryOccurrence {
 
     /// Indicates any errors encountered during analysis of a resource. There
     /// could be 0 or more of these errors.
-    pub analysis_error: std::vec::Vec<rpc::model::Status>,
+    pub analysis_error: std::vec::Vec<google_cloud_rpc::model::Status>,
 
     /// When an error is encountered this will contain a LocalizedMessage under
     /// details to show to the user. The LocalizedMessage is output only and
     /// populated by the API.
-    pub analysis_status_error: std::option::Option<rpc::model::Status>,
+    pub analysis_status_error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The CPE of the resource being scanned.
     pub cpe: std::string::String,
@@ -4414,7 +4414,7 @@ impl DiscoveryOccurrence {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DiscoveryOccurrence::new()
     ///     .set_analysis_error([
     ///         Status::default()/* use setters */,
@@ -4424,7 +4424,7 @@ impl DiscoveryOccurrence {
     pub fn set_analysis_error<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.analysis_error = v.into_iter().map(|i| i.into()).collect();
@@ -4436,12 +4436,12 @@ impl DiscoveryOccurrence {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DiscoveryOccurrence::new().set_analysis_status_error(Status::default()/* use setters */);
     /// ```
     pub fn set_analysis_status_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.analysis_status_error = std::option::Option::Some(v.into());
         self
@@ -4452,13 +4452,13 @@ impl DiscoveryOccurrence {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = DiscoveryOccurrence::new().set_or_clear_analysis_status_error(Some(Status::default()/* use setters */));
     /// let x = DiscoveryOccurrence::new().set_or_clear_analysis_status_error(None::<Status>);
     /// ```
     pub fn set_or_clear_analysis_status_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.analysis_status_error = v.map(|x| x.into());
         self

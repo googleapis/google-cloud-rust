@@ -77,7 +77,7 @@ use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self};
-use crate::headers_util::build_cacheable_headers;
+use crate::headers_util::AuthHeadersBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
@@ -573,7 +573,10 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        build_cacheable_headers(&token, &self.quota_project_id)
+
+        AuthHeadersBuilder::new(&token)
+            .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .build()
     }
 }
 
@@ -725,7 +728,8 @@ mod tests {
             token_provider: TokenCache::new(mock),
             quota_project_id: None,
         };
-        assert!(sac.headers(Extensions::new()).await.is_err());
+        let result = sac.headers(Extensions::new()).await;
+        assert!(result.is_err(), "{result:?}");
     }
 
     fn get_mock_service_key() -> Value {
@@ -882,7 +886,7 @@ mod tests {
         };
         key.private_key = invalid_pem.to_string();
         let result = key.signer();
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
         let error_msg = result.unwrap_err().to_string();
         assert!(error_msg.contains("Failed to parse service account private key PEM"));
         Ok(())
@@ -997,9 +1001,7 @@ mod tests {
         let client_email = signer.client_email().await?;
         assert_eq!(client_email, service_account_key["client_email"]);
 
-        let result = signer.sign(b"test").await;
-
-        assert!(result.is_ok());
+        let _bytes = signer.sign(b"test").await?;
 
         Ok(())
     }

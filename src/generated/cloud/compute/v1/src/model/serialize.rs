@@ -5443,6 +5443,43 @@ impl serde::ser::Serialize for super::BulkZoneSetLabelsRequest {
     }
 }
 
+#[cfg(feature = "machine-types")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::BundledLocalSsds {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.default_interface.is_some() {
+            state.serialize_entry("defaultInterface", &self.default_interface)?;
+        }
+        if self.partition_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("partitionCount", &__With(&self.partition_count))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "url-maps")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::CacheInvalidationRule {
@@ -23344,6 +23381,9 @@ impl serde::ser::Serialize for super::MachineImage {
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
         }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
+        }
         if self.satisfies_pzi.is_some() {
             state.serialize_entry("satisfiesPzi", &self.satisfies_pzi)?;
         }
@@ -23490,6 +23530,29 @@ impl serde::ser::Serialize for super::machine_image_list::warning::Data {
     }
 }
 
+#[cfg(feature = "machine-images")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::MachineImageParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::MachineType {
@@ -23506,6 +23569,9 @@ impl serde::ser::Serialize for super::MachineType {
         }
         if self.architecture.is_some() {
             state.serialize_entry("architecture", &self.architecture)?;
+        }
+        if self.bundled_local_ssds.is_some() {
+            state.serialize_entry("bundledLocalSsds", &self.bundled_local_ssds)?;
         }
         if self.creation_timestamp.is_some() {
             state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
@@ -36337,6 +36403,9 @@ impl serde::ser::Serialize for super::ResourcePolicyGroupPlacementPolicy {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.accelerator_topology_mode.is_some() {
+            state.serialize_entry("acceleratorTopologyMode", &self.accelerator_topology_mode)?;
+        }
         if self.availability_domain_count.is_some() {
             struct __With<'a>(&'a std::option::Option<i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -45359,6 +45428,9 @@ impl serde::ser::Serialize for super::Subnetwork {
         if self.reserved_internal_range.is_some() {
             state.serialize_entry("reservedInternalRange", &self.reserved_internal_range)?;
         }
+        if self.resolve_subnet_mask.is_some() {
+            state.serialize_entry("resolveSubnetMask", &self.resolve_subnet_mask)?;
+        }
         if self.role.is_some() {
             state.serialize_entry("role", &self.role)?;
         }
@@ -48989,6 +49061,7 @@ impl serde::ser::Serialize for super::TestFailure {
     feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-groups",
     feature = "region-instant-snapshots",
@@ -49064,6 +49137,7 @@ impl serde::ser::Serialize for super::TestPermissionsRequest {
     feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-groups",
     feature = "region-instant-snapshots",

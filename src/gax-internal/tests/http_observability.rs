@@ -300,7 +300,7 @@ mod tests {
         let result: gax::Result<Response<TestResponse>> =
             client.execute(request, None::<NoBody>, options).await;
 
-        assert!(result.is_err());
+        assert!(result.is_err(), "{result:?}");
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1, "Should capture one span: {:?}", captured);

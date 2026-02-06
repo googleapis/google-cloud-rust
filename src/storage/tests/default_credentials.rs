@@ -54,9 +54,9 @@ mod tests {
             destination.to_str().expect("tmp is a UTF-8 string"),
         );
 
-        // This should fail because the file does not exist.
-        let result = Storage::builder().build().await;
-        assert!(result.is_ok(), "{result:?}");
+        // This should succeed as the credentials file exists and is
+        // syntactically valid.
+        let _ = Storage::builder().build().await?;
         Ok(())
     }
 }

@@ -21,7 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -2239,13 +2239,13 @@ pub struct CostProjection {
     ///
     /// A user's permissions may affect whether the cost is computed using list
     /// prices or custom contract prices.
-    pub cost: std::option::Option<gtype::model::Money>,
+    pub cost: std::option::Option<google_cloud_type::model::Money>,
 
     /// Duration for which this cost applies.
     pub duration: std::option::Option<wkt::Duration>,
 
     /// The approximate cost savings in the billing account's local currency.
-    pub cost_in_local_currency: std::option::Option<gtype::model::Money>,
+    pub cost_in_local_currency: std::option::Option<google_cloud_type::model::Money>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2260,12 +2260,12 @@ impl CostProjection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::CostProjection;
-    /// use gtype::model::Money;
+    /// use google_cloud_type::model::Money;
     /// let x = CostProjection::new().set_cost(Money::default()/* use setters */);
     /// ```
     pub fn set_cost<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Money>,
+        T: std::convert::Into<google_cloud_type::model::Money>,
     {
         self.cost = std::option::Option::Some(v.into());
         self
@@ -2276,13 +2276,13 @@ impl CostProjection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::CostProjection;
-    /// use gtype::model::Money;
+    /// use google_cloud_type::model::Money;
     /// let x = CostProjection::new().set_or_clear_cost(Some(Money::default()/* use setters */));
     /// let x = CostProjection::new().set_or_clear_cost(None::<Money>);
     /// ```
     pub fn set_or_clear_cost<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Money>,
+        T: std::convert::Into<google_cloud_type::model::Money>,
     {
         self.cost = v.map(|x| x.into());
         self
@@ -2326,12 +2326,12 @@ impl CostProjection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::CostProjection;
-    /// use gtype::model::Money;
+    /// use google_cloud_type::model::Money;
     /// let x = CostProjection::new().set_cost_in_local_currency(Money::default()/* use setters */);
     /// ```
     pub fn set_cost_in_local_currency<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Money>,
+        T: std::convert::Into<google_cloud_type::model::Money>,
     {
         self.cost_in_local_currency = std::option::Option::Some(v.into());
         self
@@ -2342,13 +2342,13 @@ impl CostProjection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_recommender_v1::model::CostProjection;
-    /// use gtype::model::Money;
+    /// use google_cloud_type::model::Money;
     /// let x = CostProjection::new().set_or_clear_cost_in_local_currency(Some(Money::default()/* use setters */));
     /// let x = CostProjection::new().set_or_clear_cost_in_local_currency(None::<Money>);
     /// ```
     pub fn set_or_clear_cost_in_local_currency<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Money>,
+        T: std::convert::Into<google_cloud_type::model::Money>,
     {
         self.cost_in_local_currency = v.map(|x| x.into());
         self

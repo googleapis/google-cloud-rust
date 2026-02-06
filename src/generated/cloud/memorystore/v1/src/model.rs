@@ -24,7 +24,7 @@ extern crate gaxi;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -2730,7 +2730,7 @@ pub mod automated_backup_config {
     pub struct FixedFrequencySchedule {
         /// Required. The start time of every automated backup in UTC. It must be set
         /// to the start of an hour. This field is required.
-        pub start_time: std::option::Option<gtype::model::TimeOfDay>,
+        pub start_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2745,12 +2745,12 @@ pub mod automated_backup_config {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_memorystore_v1::model::automated_backup_config::FixedFrequencySchedule;
-        /// use gtype::model::TimeOfDay;
+        /// use google_cloud_type::model::TimeOfDay;
         /// let x = FixedFrequencySchedule::new().set_start_time(TimeOfDay::default()/* use setters */);
         /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::TimeOfDay>,
+            T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
         {
             self.start_time = std::option::Option::Some(v.into());
             self
@@ -2761,13 +2761,13 @@ pub mod automated_backup_config {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_memorystore_v1::model::automated_backup_config::FixedFrequencySchedule;
-        /// use gtype::model::TimeOfDay;
+        /// use google_cloud_type::model::TimeOfDay;
         /// let x = FixedFrequencySchedule::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
         /// let x = FixedFrequencySchedule::new().set_or_clear_start_time(None::<TimeOfDay>);
         /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::TimeOfDay>,
+            T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
         {
             self.start_time = v.map(|x| x.into());
             self
@@ -4429,10 +4429,10 @@ impl wkt::message::Message for MaintenancePolicy {
 #[non_exhaustive]
 pub struct WeeklyMaintenanceWindow {
     /// Optional. Allows to define schedule that runs specified day of the week.
-    pub day: gtype::model::DayOfWeek,
+    pub day: google_cloud_type::model::DayOfWeek,
 
     /// Optional. Start time of the window in UTC.
-    pub start_time: std::option::Option<gtype::model::TimeOfDay>,
+    pub start_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4447,12 +4447,15 @@ impl WeeklyMaintenanceWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::WeeklyMaintenanceWindow;
-    /// use gtype::model::DayOfWeek;
+    /// use google_cloud_type::model::DayOfWeek;
     /// let x0 = WeeklyMaintenanceWindow::new().set_day(DayOfWeek::Monday);
     /// let x1 = WeeklyMaintenanceWindow::new().set_day(DayOfWeek::Tuesday);
     /// let x2 = WeeklyMaintenanceWindow::new().set_day(DayOfWeek::Wednesday);
     /// ```
-    pub fn set_day<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
+    pub fn set_day<T: std::convert::Into<google_cloud_type::model::DayOfWeek>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.day = v.into();
         self
     }
@@ -4462,12 +4465,12 @@ impl WeeklyMaintenanceWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::WeeklyMaintenanceWindow;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = WeeklyMaintenanceWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -4478,13 +4481,13 @@ impl WeeklyMaintenanceWindow {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_memorystore_v1::model::WeeklyMaintenanceWindow;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = WeeklyMaintenanceWindow::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
     /// let x = WeeklyMaintenanceWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+        T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -7820,7 +7823,7 @@ pub struct OperationMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.rpc.Status.code]: rpc::model::Status::code
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

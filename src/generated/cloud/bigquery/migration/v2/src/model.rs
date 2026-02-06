@@ -22,8 +22,8 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_api;
+extern crate google_cloud_rpc;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -388,7 +388,7 @@ pub struct MigrationTask {
 
     /// Output only. An explanation that may be populated when the task is in
     /// FAILED state.
-    pub processing_error: std::option::Option<rpc::model::ErrorInfo>,
+    pub processing_error: std::option::Option<google_cloud_rpc::model::ErrorInfo>,
 
     /// Time when the task was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -477,12 +477,12 @@ impl MigrationTask {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use rpc::model::ErrorInfo;
+    /// use google_cloud_rpc::model::ErrorInfo;
     /// let x = MigrationTask::new().set_processing_error(ErrorInfo::default()/* use setters */);
     /// ```
     pub fn set_processing_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::ErrorInfo>,
+        T: std::convert::Into<google_cloud_rpc::model::ErrorInfo>,
     {
         self.processing_error = std::option::Option::Some(v.into());
         self
@@ -493,13 +493,13 @@ impl MigrationTask {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use rpc::model::ErrorInfo;
+    /// use google_cloud_rpc::model::ErrorInfo;
     /// let x = MigrationTask::new().set_or_clear_processing_error(Some(ErrorInfo::default()/* use setters */));
     /// let x = MigrationTask::new().set_or_clear_processing_error(None::<ErrorInfo>);
     /// ```
     pub fn set_or_clear_processing_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::ErrorInfo>,
+        T: std::convert::Into<google_cloud_rpc::model::ErrorInfo>,
     {
         self.processing_error = v.map(|x| x.into());
         self
@@ -998,7 +998,7 @@ pub struct MigrationSubtask {
 
     /// Output only. An explanation that may be populated when the task is in
     /// FAILED state.
-    pub processing_error: std::option::Option<rpc::model::ErrorInfo>,
+    pub processing_error: std::option::Option<google_cloud_rpc::model::ErrorInfo>,
 
     /// Output only. Provides details to errors and issues encountered while
     /// processing the subtask. Presence of error details does not mean that the
@@ -1087,12 +1087,12 @@ impl MigrationSubtask {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// use rpc::model::ErrorInfo;
+    /// use google_cloud_rpc::model::ErrorInfo;
     /// let x = MigrationSubtask::new().set_processing_error(ErrorInfo::default()/* use setters */);
     /// ```
     pub fn set_processing_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::ErrorInfo>,
+        T: std::convert::Into<google_cloud_rpc::model::ErrorInfo>,
     {
         self.processing_error = std::option::Option::Some(v.into());
         self
@@ -1103,13 +1103,13 @@ impl MigrationSubtask {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// use rpc::model::ErrorInfo;
+    /// use google_cloud_rpc::model::ErrorInfo;
     /// let x = MigrationSubtask::new().set_or_clear_processing_error(Some(ErrorInfo::default()/* use setters */));
     /// let x = MigrationSubtask::new().set_or_clear_processing_error(None::<ErrorInfo>);
     /// ```
     pub fn set_or_clear_processing_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::ErrorInfo>,
+        T: std::convert::Into<google_cloud_rpc::model::ErrorInfo>,
     {
         self.processing_error = v.map(|x| x.into());
         self
@@ -1584,7 +1584,7 @@ impl wkt::message::Message for TranslationTaskResult {
 #[non_exhaustive]
 pub struct ResourceErrorDetail {
     /// Required. Information about the resource where the error is located.
-    pub resource_info: std::option::Option<rpc::model::ResourceInfo>,
+    pub resource_info: std::option::Option<google_cloud_rpc::model::ResourceInfo>,
 
     /// Required. The error details for the resource.
     pub error_details: std::vec::Vec<crate::model::ErrorDetail>,
@@ -1607,12 +1607,12 @@ impl ResourceErrorDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::ResourceErrorDetail;
-    /// use rpc::model::ResourceInfo;
+    /// use google_cloud_rpc::model::ResourceInfo;
     /// let x = ResourceErrorDetail::new().set_resource_info(ResourceInfo::default()/* use setters */);
     /// ```
     pub fn set_resource_info<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::ResourceInfo>,
+        T: std::convert::Into<google_cloud_rpc::model::ResourceInfo>,
     {
         self.resource_info = std::option::Option::Some(v.into());
         self
@@ -1623,13 +1623,13 @@ impl ResourceErrorDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::ResourceErrorDetail;
-    /// use rpc::model::ResourceInfo;
+    /// use google_cloud_rpc::model::ResourceInfo;
     /// let x = ResourceErrorDetail::new().set_or_clear_resource_info(Some(ResourceInfo::default()/* use setters */));
     /// let x = ResourceErrorDetail::new().set_or_clear_resource_info(None::<ResourceInfo>);
     /// ```
     pub fn set_or_clear_resource_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::ResourceInfo>,
+        T: std::convert::Into<google_cloud_rpc::model::ResourceInfo>,
     {
         self.resource_info = v.map(|x| x.into());
         self
@@ -1685,7 +1685,7 @@ pub struct ErrorDetail {
     pub location: std::option::Option<crate::model::ErrorLocation>,
 
     /// Required. Describes the cause of the error with structured detail.
-    pub error_info: std::option::Option<rpc::model::ErrorInfo>,
+    pub error_info: std::option::Option<google_cloud_rpc::model::ErrorInfo>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1733,12 +1733,12 @@ impl ErrorDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::ErrorDetail;
-    /// use rpc::model::ErrorInfo;
+    /// use google_cloud_rpc::model::ErrorInfo;
     /// let x = ErrorDetail::new().set_error_info(ErrorInfo::default()/* use setters */);
     /// ```
     pub fn set_error_info<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::ErrorInfo>,
+        T: std::convert::Into<google_cloud_rpc::model::ErrorInfo>,
     {
         self.error_info = std::option::Option::Some(v.into());
         self
@@ -1749,13 +1749,13 @@ impl ErrorDetail {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_migration_v2::model::ErrorDetail;
-    /// use rpc::model::ErrorInfo;
+    /// use google_cloud_rpc::model::ErrorInfo;
     /// let x = ErrorDetail::new().set_or_clear_error_info(Some(ErrorInfo::default()/* use setters */));
     /// let x = ErrorDetail::new().set_or_clear_error_info(None::<ErrorInfo>);
     /// ```
     pub fn set_or_clear_error_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::ErrorInfo>,
+        T: std::convert::Into<google_cloud_rpc::model::ErrorInfo>,
     {
         self.error_info = v.map(|x| x.into());
         self

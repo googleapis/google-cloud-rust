@@ -181,7 +181,7 @@ pub fn missing(name: &str) -> gax::error::Error {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use rpc::model::Code;
+    use google_cloud_rpc::model::Code;
     use std::error::Error as _;
     use test_case::test_case;
 

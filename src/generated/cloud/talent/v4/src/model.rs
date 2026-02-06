@@ -23,9 +23,9 @@ extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -141,17 +141,17 @@ pub struct Location {
     ///
     /// [google.cloud.talent.v4.Location.LocationType.LOCALITY]: crate::model::location::LocationType::Locality
     /// [google.cloud.talent.v4.Location.LocationType.NEIGHBORHOOD]: crate::model::location::LocationType::Neighborhood
-    /// [google.type.PostalAddress]: gtype::model::PostalAddress
+    /// [google.type.PostalAddress]: google_cloud_type::model::PostalAddress
     pub location_type: crate::model::location::LocationType,
 
     /// Postal address of the location that includes human readable information,
     /// such as postal delivery and payments addresses. Given a postal address,
     /// a postal service can deliver items to a premises, P.O. Box, or other
     /// delivery location.
-    pub postal_address: std::option::Option<gtype::model::PostalAddress>,
+    pub postal_address: std::option::Option<google_cloud_type::model::PostalAddress>,
 
     /// An object representing a latitude/longitude pair.
-    pub lat_lng: std::option::Option<gtype::model::LatLng>,
+    pub lat_lng: std::option::Option<google_cloud_type::model::LatLng>,
 
     /// Radius in miles of the job location. This value is derived from the
     /// location bounding box in which a circle with the specified radius
@@ -159,7 +159,7 @@ pub struct Location {
     /// associated with the job location. For example, currently, "Mountain View,
     /// CA, USA" has a radius of 6.17 miles.
     ///
-    /// [google.type.LatLng]: gtype::model::LatLng
+    /// [google.type.LatLng]: google_cloud_type::model::LatLng
     pub radius_miles: f64,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -193,12 +193,12 @@ impl Location {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::Location;
-    /// use gtype::model::PostalAddress;
+    /// use google_cloud_type::model::PostalAddress;
     /// let x = Location::new().set_postal_address(PostalAddress::default()/* use setters */);
     /// ```
     pub fn set_postal_address<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::PostalAddress>,
+        T: std::convert::Into<google_cloud_type::model::PostalAddress>,
     {
         self.postal_address = std::option::Option::Some(v.into());
         self
@@ -209,13 +209,13 @@ impl Location {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::Location;
-    /// use gtype::model::PostalAddress;
+    /// use google_cloud_type::model::PostalAddress;
     /// let x = Location::new().set_or_clear_postal_address(Some(PostalAddress::default()/* use setters */));
     /// let x = Location::new().set_or_clear_postal_address(None::<PostalAddress>);
     /// ```
     pub fn set_or_clear_postal_address<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::PostalAddress>,
+        T: std::convert::Into<google_cloud_type::model::PostalAddress>,
     {
         self.postal_address = v.map(|x| x.into());
         self
@@ -226,12 +226,12 @@ impl Location {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::Location;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = Location::new().set_lat_lng(LatLng::default()/* use setters */);
     /// ```
     pub fn set_lat_lng<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.lat_lng = std::option::Option::Some(v.into());
         self
@@ -242,13 +242,13 @@ impl Location {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::Location;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = Location::new().set_or_clear_lat_lng(Some(LatLng::default()/* use setters */));
     /// let x = Location::new().set_or_clear_lat_lng(None::<LatLng>);
     /// ```
     pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.lat_lng = v.map(|x| x.into());
         self
@@ -1435,7 +1435,7 @@ pub mod compensation_info {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_talent_v4::model::compensation_info::CompensationEntry;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = CompensationEntry::new().set_compensation_amount(Some(
         ///     google_cloud_talent_v4::model::compensation_info::compensation_entry::CompensationAmount::Amount(Money::default().into())));
         /// ```
@@ -1456,7 +1456,9 @@ pub mod compensation_info {
         /// The value of [compensation_amount][crate::model::compensation_info::CompensationEntry::compensation_amount]
         /// if it holds a `Amount`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn amount(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Money>> {
+        pub fn amount(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::Money>> {
             #[allow(unreachable_patterns)]
             self.compensation_amount.as_ref().and_then(|v| match v {
                 crate::model::compensation_info::compensation_entry::CompensationAmount::Amount(
@@ -1475,12 +1477,14 @@ pub mod compensation_info {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_talent_v4::model::compensation_info::CompensationEntry;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = CompensationEntry::new().set_amount(Money::default()/* use setters */);
         /// assert!(x.amount().is_some());
         /// assert!(x.range().is_none());
         /// ```
-        pub fn set_amount<T: std::convert::Into<std::boxed::Box<gtype::model::Money>>>(
+        pub fn set_amount<
+            T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Money>>,
+        >(
             mut self,
             v: T,
         ) -> Self {
@@ -1553,7 +1557,7 @@ pub mod compensation_info {
         #[non_exhaustive]
         pub enum CompensationAmount {
             /// Compensation amount.
-            Amount(std::boxed::Box<gtype::model::Money>),
+            Amount(std::boxed::Box<google_cloud_type::model::Money>),
             /// Compensation range.
             Range(std::boxed::Box<crate::model::compensation_info::CompensationRange>),
         }
@@ -1568,15 +1572,15 @@ pub mod compensation_info {
         /// match the [currency code][google.type.Money.currency_code] of
         /// min_compensation.
         ///
-        /// [google.type.Money.currency_code]: gtype::model::Money::currency_code
-        pub max_compensation: std::option::Option<gtype::model::Money>,
+        /// [google.type.Money.currency_code]: google_cloud_type::model::Money::currency_code
+        pub max_compensation: std::option::Option<google_cloud_type::model::Money>,
 
         /// The minimum amount of compensation. If left empty, the value is set
         /// to zero and the currency code is set to match the
         /// [currency code][google.type.Money.currency_code] of max_compensation.
         ///
-        /// [google.type.Money.currency_code]: gtype::model::Money::currency_code
-        pub min_compensation: std::option::Option<gtype::model::Money>,
+        /// [google.type.Money.currency_code]: google_cloud_type::model::Money::currency_code
+        pub min_compensation: std::option::Option<google_cloud_type::model::Money>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1591,12 +1595,12 @@ pub mod compensation_info {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_talent_v4::model::compensation_info::CompensationRange;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = CompensationRange::new().set_max_compensation(Money::default()/* use setters */);
         /// ```
         pub fn set_max_compensation<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.max_compensation = std::option::Option::Some(v.into());
             self
@@ -1607,13 +1611,13 @@ pub mod compensation_info {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_talent_v4::model::compensation_info::CompensationRange;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = CompensationRange::new().set_or_clear_max_compensation(Some(Money::default()/* use setters */));
         /// let x = CompensationRange::new().set_or_clear_max_compensation(None::<Money>);
         /// ```
         pub fn set_or_clear_max_compensation<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.max_compensation = v.map(|x| x.into());
             self
@@ -1624,12 +1628,12 @@ pub mod compensation_info {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_talent_v4::model::compensation_info::CompensationRange;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = CompensationRange::new().set_min_compensation(Money::default()/* use setters */);
         /// ```
         pub fn set_min_compensation<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.min_compensation = std::option::Option::Some(v.into());
             self
@@ -1640,13 +1644,13 @@ pub mod compensation_info {
         /// # Example
         /// ```ignore,no_run
         /// # use google_cloud_talent_v4::model::compensation_info::CompensationRange;
-        /// use gtype::model::Money;
+        /// use google_cloud_type::model::Money;
         /// let x = CompensationRange::new().set_or_clear_min_compensation(Some(Money::default()/* use setters */));
         /// let x = CompensationRange::new().set_or_clear_min_compensation(None::<Money>);
         /// ```
         pub fn set_or_clear_min_compensation<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<gtype::model::Money>,
+            T: std::convert::Into<google_cloud_type::model::Money>,
         {
             self.min_compensation = v.map(|x| x.into());
             self
@@ -5025,7 +5029,7 @@ pub struct LocationFilter {
 
     /// The latitude and longitude of the geographic center to search from. This
     /// field is ignored if `address` is provided.
-    pub lat_lng: std::option::Option<gtype::model::LatLng>,
+    pub lat_lng: std::option::Option<google_cloud_type::model::LatLng>,
 
     /// The distance_in_miles is applied when the location being searched for is
     /// identified as a city or smaller. This field is ignored if the location
@@ -5105,12 +5109,12 @@ impl LocationFilter {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::LocationFilter;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = LocationFilter::new().set_lat_lng(LatLng::default()/* use setters */);
     /// ```
     pub fn set_lat_lng<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.lat_lng = std::option::Option::Some(v.into());
         self
@@ -5121,13 +5125,13 @@ impl LocationFilter {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::LocationFilter;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = LocationFilter::new().set_or_clear_lat_lng(Some(LatLng::default()/* use setters */));
     /// let x = LocationFilter::new().set_or_clear_lat_lng(None::<LatLng>);
     /// ```
     pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.lat_lng = v.map(|x| x.into());
         self
@@ -5647,7 +5651,7 @@ pub struct CommuteFilter {
 
     /// Required. The latitude and longitude of the location to calculate the
     /// commute time from.
-    pub start_coordinates: std::option::Option<gtype::model::LatLng>,
+    pub start_coordinates: std::option::Option<google_cloud_type::model::LatLng>,
 
     /// Required. The maximum travel time in seconds. The maximum allowed value is
     /// `3600s` (one hour). Format is `123s`.
@@ -5694,12 +5698,12 @@ impl CommuteFilter {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::CommuteFilter;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = CommuteFilter::new().set_start_coordinates(LatLng::default()/* use setters */);
     /// ```
     pub fn set_start_coordinates<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.start_coordinates = std::option::Option::Some(v.into());
         self
@@ -5710,13 +5714,13 @@ impl CommuteFilter {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::CommuteFilter;
-    /// use gtype::model::LatLng;
+    /// use google_cloud_type::model::LatLng;
     /// let x = CommuteFilter::new().set_or_clear_start_coordinates(Some(LatLng::default()/* use setters */));
     /// let x = CommuteFilter::new().set_or_clear_start_coordinates(None::<LatLng>);
     /// ```
     pub fn set_or_clear_start_coordinates<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::LatLng>,
+        T: std::convert::Into<google_cloud_type::model::LatLng>,
     {
         self.start_coordinates = v.map(|x| x.into());
         self
@@ -5834,7 +5838,9 @@ impl CommuteFilter {
     /// The value of [traffic_option][crate::model::CommuteFilter::traffic_option]
     /// if it holds a `DepartureTime`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn departure_time(&self) -> std::option::Option<&std::boxed::Box<gtype::model::TimeOfDay>> {
+    pub fn departure_time(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::TimeOfDay>> {
         #[allow(unreachable_patterns)]
         self.traffic_option.as_ref().and_then(|v| match v {
             crate::model::commute_filter::TrafficOption::DepartureTime(v) => {
@@ -5853,12 +5859,14 @@ impl CommuteFilter {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::CommuteFilter;
-    /// use gtype::model::TimeOfDay;
+    /// use google_cloud_type::model::TimeOfDay;
     /// let x = CommuteFilter::new().set_departure_time(TimeOfDay::default()/* use setters */);
     /// assert!(x.departure_time().is_some());
     /// assert!(x.road_traffic().is_none());
     /// ```
-    pub fn set_departure_time<T: std::convert::Into<std::boxed::Box<gtype::model::TimeOfDay>>>(
+    pub fn set_departure_time<
+        T: std::convert::Into<std::boxed::Box<google_cloud_type::model::TimeOfDay>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -6023,8 +6031,8 @@ pub mod commute_filter {
         ///
         /// Currently traffic model is restricted to hour level resolution.
         ///
-        /// [google.type.TimeOfDay]: gtype::model::TimeOfDay
-        DepartureTime(std::boxed::Box<gtype::model::TimeOfDay>),
+        /// [google.type.TimeOfDay]: google_cloud_type::model::TimeOfDay
+        DepartureTime(std::boxed::Box<google_cloud_type::model::TimeOfDay>),
     }
 }
 
@@ -10228,7 +10236,7 @@ pub struct JobResult {
     /// processing of the [job][google.cloud.talent.v4.JobResult.job] fails.
     ///
     /// [google.cloud.talent.v4.JobResult.job]: crate::model::JobResult::job
-    pub status: std::option::Option<rpc::model::Status>,
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10276,12 +10284,12 @@ impl JobResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::JobResult;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = JobResult::new().set_status(Status::default()/* use setters */);
     /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -10292,13 +10300,13 @@ impl JobResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_talent_v4::model::JobResult;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = JobResult::new().set_or_clear_status(Some(Status::default()/* use setters */));
     /// let x = JobResult::new().set_or_clear_status(None::<Status>);
     /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self

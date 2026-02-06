@@ -68,7 +68,7 @@ impl Publisher {
 
     /// Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic
     /// does not exist.
-    pub fn publish(&self) -> super::builder::publisher::Publish {
+    pub(crate) fn publish(&self) -> super::builder::publisher::Publish {
         super::builder::publisher::Publish::new(self.inner.clone())
     }
 }
@@ -128,7 +128,7 @@ impl Subscriber {
     /// subscriber, or to make the message available for redelivery if the
     /// processing was interrupted. Note that this does not modify the
     /// subscription-level `ackDeadlineSeconds` used for subsequent messages.
-    pub fn modify_ack_deadline(&self) -> super::builder::subscriber::ModifyAckDeadline {
+    pub(crate) fn modify_ack_deadline(&self) -> super::builder::subscriber::ModifyAckDeadline {
         super::builder::subscriber::ModifyAckDeadline::new(self.inner.clone())
     }
 
@@ -139,7 +139,7 @@ impl Subscriber {
     /// Acknowledging a message whose ack deadline has expired may succeed,
     /// but such a message may be redelivered later. Acknowledging a message more
     /// than once will not result in an error.
-    pub fn acknowledge(&self) -> super::builder::subscriber::Acknowledge {
+    pub(crate) fn acknowledge(&self) -> super::builder::subscriber::Acknowledge {
         super::builder::subscriber::Acknowledge::new(self.inner.clone())
     }
 }

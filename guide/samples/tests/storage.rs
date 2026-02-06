@@ -24,6 +24,7 @@ pub mod storage {
 
     use google_cloud_storage::client::StorageControl;
     pub use google_cloud_test_utils::resource_names::random_bucket_id;
+    use storage_samples::custom_project_billing;
 
     #[cfg(all(test, feature = "run-integration-tests"))]
     mod driver {
@@ -70,8 +71,10 @@ pub mod storage {
         }
         println!("running terminate_uploads() test");
         terminate_uploads::attempt_upload(bucket_name).await?;
-        println!("running lros() test");
-        lros::test(client, bucket_name).await?;
+        if !custom_project_billing("the LRO operation used for testing").await? {
+            println!("running lros() test");
+            lros::test(client, bucket_name).await?;
+        }
         println!("running polling_policies() test");
         polling_policies::test(client, bucket_name).await?;
         Ok(())

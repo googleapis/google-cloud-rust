@@ -32,3 +32,5 @@ pub(crate) const SAML2_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:saml
 pub(crate) const RETRY_EXHAUSTED_ERROR: &str = "All retry attempts to fetch the token were exhausted. Subsequent calls with this credential will also fail.";
 pub(crate) const TOKEN_FETCH_FAILED_ERROR: &str =
     "Request to fetch the token failed. Subsequent calls with this credential will also fail.";
+
+pub(crate) const TRUST_BOUNDARY_HEADER: &str = "x-goog-allowed-locations";

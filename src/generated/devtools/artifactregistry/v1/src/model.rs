@@ -25,9 +25,9 @@ extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate gtype;
+extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate lazy_static;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -465,7 +465,7 @@ pub mod import_apt_artifacts_request {
 #[non_exhaustive]
 pub struct ImportAptArtifactsErrorInfo {
     /// The detailed error status.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The source that was not imported.
     pub source: std::option::Option<crate::model::import_apt_artifacts_error_info::Source>,
@@ -483,12 +483,12 @@ impl ImportAptArtifactsErrorInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsErrorInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportAptArtifactsErrorInfo::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -499,13 +499,13 @@ impl ImportAptArtifactsErrorInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsErrorInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportAptArtifactsErrorInfo::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = ImportAptArtifactsErrorInfo::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -3332,6 +3332,7 @@ impl Hash {
     /// use google_cloud_artifactregistry_v1::model::hash::HashType;
     /// let x0 = Hash::new().set_type(HashType::Sha256);
     /// let x1 = Hash::new().set_type(HashType::Md5);
+    /// let x2 = Hash::new().set_type(HashType::DirsumSha256);
     /// ```
     pub fn set_type<T: std::convert::Into<crate::model::hash::HashType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -3386,6 +3387,8 @@ pub mod hash {
         Sha256,
         /// MD5 hash.
         Md5,
+        /// Dirsum SHA256 hash.
+        DirsumSha256,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [HashType::value] or
@@ -3411,6 +3414,7 @@ pub mod hash {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Sha256 => std::option::Option::Some(1),
                 Self::Md5 => std::option::Option::Some(2),
+                Self::DirsumSha256 => std::option::Option::Some(3),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -3424,6 +3428,7 @@ pub mod hash {
                 Self::Unspecified => std::option::Option::Some("HASH_TYPE_UNSPECIFIED"),
                 Self::Sha256 => std::option::Option::Some("SHA256"),
                 Self::Md5 => std::option::Option::Some("MD5"),
+                Self::DirsumSha256 => std::option::Option::Some("DIRSUM_SHA256"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -3448,6 +3453,7 @@ pub mod hash {
                 0 => Self::Unspecified,
                 1 => Self::Sha256,
                 2 => Self::Md5,
+                3 => Self::DirsumSha256,
                 _ => Self::UnknownValue(hash_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -3462,6 +3468,7 @@ pub mod hash {
                 "HASH_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "SHA256" => Self::Sha256,
                 "MD5" => Self::Md5,
+                "DIRSUM_SHA256" => Self::DirsumSha256,
                 _ => Self::UnknownValue(hash_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -3478,6 +3485,7 @@ pub mod hash {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Sha256 => serializer.serialize_i32(1),
                 Self::Md5 => serializer.serialize_i32(2),
+                Self::DirsumSha256 => serializer.serialize_i32(3),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -10626,7 +10634,7 @@ pub struct Rule {
 
     /// Optional. A CEL expression for conditions that must be met in order for the
     /// rule to apply. If not provided, the rule matches all objects.
-    pub condition: std::option::Option<gtype::model::Expr>,
+    pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
     /// The package ID the rule applies to.
     /// If empty, this rule applies to all packages inside the repository.
@@ -10687,12 +10695,12 @@ impl Rule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::Rule;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = Rule::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -10703,13 +10711,13 @@ impl Rule {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::Rule;
-    /// use gtype::model::Expr;
+    /// use google_cloud_type::model::Expr;
     /// let x = Rule::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
     /// let x = Rule::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<gtype::model::Expr>,
+        T: std::convert::Into<google_cloud_type::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self
@@ -13765,7 +13773,7 @@ pub mod import_yum_artifacts_request {
 #[non_exhaustive]
 pub struct ImportYumArtifactsErrorInfo {
     /// The detailed error status.
-    pub error: std::option::Option<rpc::model::Status>,
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
     /// The source that was not imported.
     pub source: std::option::Option<crate::model::import_yum_artifacts_error_info::Source>,
@@ -13783,12 +13791,12 @@ impl ImportYumArtifactsErrorInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsErrorInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportYumArtifactsErrorInfo::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -13799,13 +13807,13 @@ impl ImportYumArtifactsErrorInfo {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsErrorInfo;
-    /// use rpc::model::Status;
+    /// use google_cloud_rpc::model::Status;
     /// let x = ImportYumArtifactsErrorInfo::new().set_or_clear_error(Some(Status::default()/* use setters */));
     /// let x = ImportYumArtifactsErrorInfo::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<rpc::model::Status>,
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self

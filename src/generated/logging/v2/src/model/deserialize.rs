@@ -211,7 +211,11 @@ impl<'de> serde::de::Deserialize<'de> for super::LogEntry {
                                     "multiple values for severity",
                                 ));
                             }
-                            result.severity = map.next_value::<std::option::Option<logging_type::model::LogSeverity>>()?.unwrap_or_default();
+                            result.severity =
+                                map.next_value::<std::option::Option<
+                                    google_cloud_logging_type::model::LogSeverity,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__insert_id => {
                             if !fields.insert(__FieldTag::__insert_id) {
@@ -229,8 +233,9 @@ impl<'de> serde::de::Deserialize<'de> for super::LogEntry {
                                     "multiple values for http_request",
                                 ));
                             }
-                            result.http_request = map.next_value::<std::option::Option<logging_type::model::HttpRequest>>()?
-                                ;
+                            result.http_request = map.next_value::<std::option::Option<
+                                google_cloud_logging_type::model::HttpRequest,
+                            >>()?;
                         }
                         __FieldTag::__labels => {
                             if !fields.insert(__FieldTag::__labels) {
@@ -1027,7 +1032,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WriteLogEntriesPartialErrors {
                             }
                             struct __With(
                                 std::option::Option<
-                                    std::collections::HashMap<i32, rpc::model::Status>,
+                                    std::collections::HashMap<i32, google_cloud_rpc::model::Status>,
                                 >,
                             );
                             impl<'de> serde::de::Deserialize<'de> for __With {

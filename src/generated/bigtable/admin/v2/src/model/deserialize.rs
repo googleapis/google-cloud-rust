@@ -12132,6 +12132,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Table {
             __change_stream_config,
             __deletion_protection,
             __automated_backup_policy,
+            __tiered_storage_config,
             __row_key_schema,
             Unknown(std::string::String),
         }
@@ -12167,6 +12168,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Table {
                             "deletion_protection" => Ok(__FieldTag::__deletion_protection),
                             "automatedBackupPolicy" => Ok(__FieldTag::__automated_backup_policy),
                             "automated_backup_policy" => Ok(__FieldTag::__automated_backup_policy),
+                            "tieredStorageConfig" => Ok(__FieldTag::__tiered_storage_config),
+                            "tiered_storage_config" => Ok(__FieldTag::__tiered_storage_config),
                             "rowKeySchema" => Ok(__FieldTag::__row_key_schema),
                             "row_key_schema" => Ok(__FieldTag::__row_key_schema),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -12289,6 +12292,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Table {
                                     .unwrap_or_default(),
                                 ),
                             );
+                        }
+                        __FieldTag::__tiered_storage_config => {
+                            if !fields.insert(__FieldTag::__tiered_storage_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tiered_storage_config",
+                                ));
+                            }
+                            result.tiered_storage_config = map.next_value::<std::option::Option<crate::model::TieredStorageConfig>>()?
+                                ;
                         }
                         __FieldTag::__row_key_schema => {
                             if !fields.insert(__FieldTag::__row_key_schema) {
@@ -13357,8 +13369,9 @@ impl<'de> serde::de::Deserialize<'de> for super::EncryptionInfo {
                                     "multiple values for encryption_status",
                                 ));
                             }
-                            result.encryption_status =
-                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                            result.encryption_status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::__kms_key_version => {
                             if !fields.insert(__FieldTag::__kms_key_version) {
@@ -13874,6 +13887,175 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupInfo {
                             result.source_backup = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::TieredStorageConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __infrequent_access,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TieredStorageConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "infrequentAccess" => Ok(__FieldTag::__infrequent_access),
+                            "infrequent_access" => Ok(__FieldTag::__infrequent_access),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::TieredStorageConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TieredStorageConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__infrequent_access => {
+                            if !fields.insert(__FieldTag::__infrequent_access) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for infrequent_access",
+                                ));
+                            }
+                            result.infrequent_access = map
+                                .next_value::<std::option::Option<crate::model::TieredStorageRule>>(
+                                )?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::TieredStorageRule {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __include_if_older_than,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TieredStorageRule")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "includeIfOlderThan" => Ok(__FieldTag::__include_if_older_than),
+                            "include_if_older_than" => Ok(__FieldTag::__include_if_older_than),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::TieredStorageRule;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TieredStorageRule")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__include_if_older_than => {
+                            if !fields.insert(__FieldTag::__include_if_older_than) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for include_if_older_than",
+                                ));
+                            }
+                            if result.rule.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `rule`, a oneof with full ID .google.bigtable.admin.v2.TieredStorageRule.include_if_older_than, latest field was includeIfOlderThan",
+                                ));
+                            }
+                            result.rule = std::option::Option::Some(
+                                crate::model::tiered_storage_rule::Rule::IncludeIfOlderThan(
+                                    map.next_value::<std::option::Option<std::boxed::Box<wkt::Duration>>>()?.unwrap_or_default()
+                                ),
+                            );
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
