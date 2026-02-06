@@ -85,4 +85,26 @@ mod tests {
         }
         result
     }
+
+    #[cfg(feature = "unstable-stream")]
+    #[tokio::test]
+    async fn subscriber_stream() -> anyhow::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+
+        let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
+        let (subscription_admin, subscription) =
+            pubsub_samples::create_test_subscription(topic.name.clone()).await?;
+
+        let subscription_id = subscription.name.split('/').last().unwrap();
+
+        let result = subscriber_stream::sample(&project_id, subscription_id).await;
+
+        if let Err(e) = cleanup_test_subscription(&subscription_admin, subscription.name).await {
+            println!("Error cleaning up test subscription {e:?}");
+        }
+        if let Err(e) = cleanup_test_topic(&topic_admin, topic.name).await {
+            println!("Error cleaning up test topic {e:?}");
+        }
+        result
+    }
 }
