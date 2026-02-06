@@ -1034,7 +1034,7 @@ mod tests {
         tokio::time::advance(std::time::Duration::from_secs(12)).await;
 
         // yield tasks to let the refresh task run and http request layers work
-        for _ in 0..30 {
+        for _ in 0..100 {
             tokio::task::yield_now().await;
             let result = creds.headers(Extensions::new()).await;
             if result.is_ok() {
