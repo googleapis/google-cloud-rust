@@ -24,8 +24,11 @@ feature-depth = 1
 # More documentation for the advisories section can be found here:
 # https://embarkstudios.github.io/cargo-deny/checks/advisories/cfg.html
 [advisories]
-ignore             = [{ id = "RUSTSEC-2023-0071", reason = "Only used in tests and no new version available" }]
 git-fetch-with-cli = false
+ignore = [
+  { id = "RUSTSEC-2023-0071", reason = "Only used in tests and no new version available" },
+  { id = "RUSTSEC-2026-0009", reason = "Only affects RFC 2822 dates, which we do not use. An update is not possible, it requires bumping the MSRV to 1.88" },
+]
 
 [licenses]
 allow                = ["Apache-2.0", "BSD-3-Clause", "ISC", "MIT", "Unicode-3.0"]

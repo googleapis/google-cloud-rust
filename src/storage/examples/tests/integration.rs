@@ -71,6 +71,11 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn signed_url_examples() -> anyhow::Result<()> {
+        run_signed_url_examples().await
+    }
+
+    #[tokio::test]
     async fn client_examples() -> anyhow::Result<()> {
         let client = StorageControl::builder().build().await?;
 

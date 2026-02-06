@@ -14,13 +14,34 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
+    use google_cloud_gax::error::rpc::{Code, StatusDetails};
     use rand::{Rng, distr::Alphanumeric};
 
     const SECRET_ID_LENGTH: usize = 32;
 
     #[tokio::test(flavor = "multi_thread")]
     async fn authentication() -> anyhow::Result<()> {
-        user_guide_samples::authentication::adc::sample().await?;
+        let Err(err) = user_guide_samples::authentication::adc::sample().await else {
+            return Ok(());
+        };
+        // When the credentials lack a quota project the service returns this
+        // error.
+        let Some(StatusDetails::ErrorInfo(_)) = err
+            .downcast_ref::<google_cloud_gax::error::Error>()
+            .and_then(|s| s.status())
+            .filter(|s| s.code == Code::PermissionDenied)
+            .and_then(|s| {
+                // Must have a StatusDetails::ErrorInfo(_) in the details.
+                s.details.iter().find(
+                    // ErrorInfo.reason can be treated as an enum. Testing its
+                    // value programmatically is fine.
+                    |d| matches!(d, StatusDetails::ErrorInfo(i) if i.reason == "SERVICE_DISABLED"),
+                )
+            })
+        else {
+            return Err(err);
+        };
+        eprintln!("ignoring error: {err:?}");
         Ok(())
     }
 
@@ -28,15 +49,23 @@ mod driver {
     async fn id_token() -> anyhow::Result<()> {
         use google_cloud_auth::credentials::idtoken::Builder;
         use httptest::{Expectation, Server, matchers::*, responders::*};
+        const AUDIENCE: &str = "https://my-service.a.run.app";
 
-        let audience = "https://my-service.a.run.app";
+        let credentials = match Builder::new(AUDIENCE).build() {
+            Ok(c) => c,
+            Err(e) if e.is_not_supported() => {
+                eprintln!("ADC credentials type not supported for idtoken credentials: {e:?}");
+                return Ok(());
+            }
+            Err(e) => return Err(e.into()),
+        };
+
         let id_token =
-            user_guide_samples::authentication::request_id_token::sample(audience).await?;
-        user_guide_samples::authentication::verify_id_token::sample(&id_token, audience).await?;
+            user_guide_samples::authentication::request_id_token::sample(AUDIENCE).await?;
+        user_guide_samples::authentication::verify_id_token::sample(&id_token, AUDIENCE).await?;
 
-        let credentials = Builder::new(audience).build()?;
-        let id_token = credentials.id_token().await?;
-
+        // Create a server so the `api_call_with_id_token()` example has
+        // a valid URL to call upon.
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
@@ -53,7 +82,6 @@ mod driver {
             &credentials,
         )
         .await?;
-
         Ok(())
     }
 

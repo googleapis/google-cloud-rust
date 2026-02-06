@@ -36,7 +36,9 @@ use google_cloud_test_utils::resource_names::random_bucket_id;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
 use google_cloud_wkt::FieldMask;
 use std::time::Duration;
-pub use storage_samples::{cleanup_stale_buckets, create_test_bucket, create_test_hns_bucket};
+pub use storage_samples::{
+    cleanup_stale_buckets, create_test_bucket, create_test_hns_bucket, custom_project_billing,
+};
 
 pub async fn objects(builder: StorageBuilder, bucket_name: &str, prefix: &str) -> Result<()> {
     let client = builder.build().await?;
@@ -334,7 +336,6 @@ async fn buckets_iam(client: &StorageControl, bucket_name: &str) -> Result<()> {
 
 async fn folders(client: &StorageControl, bucket_name: &str) -> Result<()> {
     let folder_name = format!("{bucket_name}/folders/test-folder/");
-    let folder_rename = format!("{bucket_name}/folders/renamed-test-folder/");
 
     println!("\nTesting create_folder()");
     let create = client
@@ -363,26 +364,39 @@ async fn folders(client: &StorageControl, bucket_name: &str) -> Result<()> {
         "missing folder name {folder_name} in {folder_names:?}"
     );
 
+    let folder_name = rename_folder(client, bucket_name, &folder_name).await?;
+
+    println!("\nTesting delete_folder()");
+    client.delete_folder().set_name(&folder_name).send().await?;
+    println!("SUCCESS on delete_folder");
+
+    Ok(())
+}
+
+async fn rename_folder(
+    client: &StorageControl,
+    bucket_name: &str,
+    folder_name: &str,
+) -> Result<String> {
+    const ID: &str = "renamed-test-folder/";
+    let target_name = format!("{bucket_name}/folders/{ID}");
+
+    // TODO(#4576) - clean up this code when the service supports custom billing projects.
+    if custom_project_billing("the rename_folder() LRO").await? {
+        return Ok(folder_name.to_string());
+    }
+
     println!("\nTesting rename_folder()");
     let rename = client
         .rename_folder()
         .set_name(folder_name)
-        .set_destination_folder_id("renamed-test-folder/")
+        .set_destination_folder_id(ID)
         .poller()
         .until_done()
         .await?;
     println!("SUCCESS on rename_folder: {rename:?}");
-    assert_eq!(rename.name, folder_rename);
-
-    println!("\nTesting delete_folder()");
-    client
-        .delete_folder()
-        .set_name(folder_rename)
-        .send()
-        .await?;
-    println!("SUCCESS on delete_folder");
-
-    Ok(())
+    assert_eq!(rename.name, target_name);
+    Ok(target_name)
 }
 
 fn test_backoff() -> ExponentialBackoff {

@@ -7657,6 +7657,7 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-type",
  "google-cloud-wkt",
+ "http",
  "rand 0.9.2",
  "tempfile",
  "tokio",
