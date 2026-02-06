@@ -42,6 +42,8 @@
 //! [Google Cloud Storage]: https://cloud.google.com/storage
 //! [ring]: https://crates.io/crates/ring
 
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
 pub use gax::Result;
 pub use gax::error::Error;
 
