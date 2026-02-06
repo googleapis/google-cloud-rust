@@ -101,6 +101,7 @@ where
     // The only writes we perform are keepalives, which are sent so infrequently
     // that we don't fear any back pressure on this channel.
     let (request_tx, request_rx) = mpsc::channel(1);
+    let subscription = initial_req.subscription.clone();
     request_tx.send(initial_req).await.map_err(Error::io)?;
 
     // Start the keepalive task **before** we open the stream.
@@ -116,7 +117,7 @@ where
     keepalive::spawn(request_tx, shutdown.clone());
 
     let stream = inner
-        .streaming_pull(request_rx, RequestOptions::default())
+        .streaming_pull(&subscription, request_rx, RequestOptions::default())
         .await?
         .into_inner();
 
@@ -217,7 +218,7 @@ mod tests {
         let mut mock = MockStub::new();
         mock.expect_streaming_pull()
             .times(1)
-            .return_once(move |_r, _o| Ok(TonicResponse::from(response_rx)));
+            .return_once(move |_s, _r, _o| Ok(TonicResponse::from(response_rx)));
 
         response_tx.send(Ok(test_response(1..10))).await?;
         response_tx.send(Ok(test_response(11..20))).await?;
@@ -243,7 +244,7 @@ mod tests {
         let mut mock = MockStub::new();
         mock.expect_streaming_pull()
             .times(1)
-            .return_once(move |mut request_rx, _o| {
+            .return_once(move |_s, mut request_rx, _o| {
                 tokio::spawn(async move {
                     // Note that this task stays alive as long as we hold
                     // `recover_writes_rx`.
@@ -282,7 +283,7 @@ mod tests {
         let mut mock = MockStub::new();
         mock.expect_streaming_pull()
             .times(1)
-            .return_once(|_, _| Err(Error::io("fail")));
+            .return_once(|_, _, _| Err(Error::io("fail")));
 
         let err = open_stream(Arc::new(mock), initial_request())
             .await
@@ -304,7 +305,7 @@ mod tests {
                 .expect_streaming_pull()
                 .times(1)
                 .in_sequence(&mut seq)
-                .return_once(|_, _| Err(transient_error()));
+                .return_once(|_, _, _| Err(transient_error()));
             mock_backoff
                 .expect_on_failure()
                 .times(1)
@@ -321,7 +322,7 @@ mod tests {
             .expect_streaming_pull()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(move |_r, _o| Ok(TonicResponse::from(response_rx)));
+            .return_once(move |_s, _r, _o| Ok(TonicResponse::from(response_rx)));
 
         let mut stream = Stream::new_with_backoff(
             Arc::new(mock_stub),
@@ -347,7 +348,7 @@ mod tests {
                 .expect_streaming_pull()
                 .times(1)
                 .in_sequence(&mut seq)
-                .return_once(|_, _| Err(transient_error()));
+                .return_once(|_, _, _| Err(transient_error()));
             mock_backoff
                 .expect_on_failure()
                 .times(1)
@@ -360,7 +361,7 @@ mod tests {
             .expect_streaming_pull()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(|_, _| Err(permanent_error()));
+            .return_once(|_, _, _| Err(permanent_error()));
         // The retry loop calculates the backoff delay before determining
         // whether a retry should occur. Hence, we expect this extra call to
         // `on_failure()`.
