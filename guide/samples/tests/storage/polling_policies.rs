@@ -17,6 +17,7 @@
 use anyhow::{Result, anyhow};
 // ANCHOR: use
 use google_cloud_storage::client::StorageControl;
+use storage_samples::custom_project_billing;
 // ANCHOR_END: use
 
 // ANCHOR: client-backoff
@@ -222,13 +223,15 @@ pub async fn test(control: &StorageControl, bucket: &str) -> Result<()> {
     let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or(anyhow!(
         "bad bucket name format {bucket}, should start with `projects/_/buckets/`"
     ))?;
-    println!("running client_backoff example");
-    client_backoff(bucket_id, "client-backoff", "client-backoff-renamed").await?;
-    println!("running rpc_backoff example");
-    rpc_backoff(bucket_id, "rpc-backoff", "rpc-backoff-renamed").await?;
-    println!("running client_errors example");
-    client_errors(bucket_id, "client-errors", "client-errors-renamed").await?;
-    println!("running rpc_errors example");
-    rpc_errors(bucket_id, "rpc-errors", "rpc-errors-renamed").await?;
+    if !custom_project_billing("the operation used in the LRO examples").await? {
+        println!("running client_backoff example");
+        client_backoff(bucket_id, "client-backoff", "client-backoff-renamed").await?;
+        println!("running rpc_backoff example");
+        rpc_backoff(bucket_id, "rpc-backoff", "rpc-backoff-renamed").await?;
+        println!("running client_errors example");
+        client_errors(bucket_id, "client-errors", "client-errors-renamed").await?;
+        println!("running rpc_errors example");
+        rpc_errors(bucket_id, "rpc-errors", "rpc-errors-renamed").await?;
+    }
     Ok(())
 }
