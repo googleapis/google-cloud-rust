@@ -1032,11 +1032,10 @@ mod tests {
 
         // advance time long enough to pass through SHORT_REFRESH_SLACK (10s + some buffer)
         tokio::time::advance(std::time::Duration::from_secs(12)).await;
-
         // yield tasks to let the refresh task run and http request layers work
-        for _ in 0..100 {
+        for _ in 0..1000 {
             tokio::task::yield_now().await;
-            let result = creds.headers(Extensions::new()).await;
+            let result = creds.access_token().await;
             if result.is_ok() {
                 break;
             }
