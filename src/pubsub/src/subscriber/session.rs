@@ -1054,11 +1054,9 @@ mod tests {
                 metadata
                     .get("x-goog-request-params")
                     .expect("routing header missing"),
-                &format!("subscription={subscription}")
+                "subscription=projects/p/subscriptions/s"
             );
-            Err(TonicStatus::failed_precondition(
-                "header verification failed",
-            ))
+            Err(TonicStatus::failed_precondition("ignored"))
         });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
