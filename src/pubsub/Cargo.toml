@@ -65,6 +65,7 @@ test-case.workspace  = true
 tokio-test.workspace = true
 tokio.workspace      = true
 pubsub-grpc-mock     = { path = "grpc-mock" }
+google-cloud-pubsub  = { path = ".", features = ["default-rustls-provider"] }
 
 [lints]
 workspace = true
