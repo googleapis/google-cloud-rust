@@ -494,6 +494,26 @@ mod tests {
         );
     }
 
+    #[test_case(false, "invalid credentials"; "permanent auth error")]
+    #[test_case(true, "transient network error"; "transient auth error")]
+    fn test_map_retry_error_auth_error(transient: bool, message: &str) {
+        // 1. Create an authentication error.
+        let error = CredentialsError::from_msg(transient, message);
+        let error = gax::error::Error::authentication(error);
+        let error_string = error.to_string();
+
+        // 2. Call the function under test.
+        let credentials_error =
+            TokenProviderWithRetry::<MockTokenProvider>::map_retry_error(error);
+
+        // 3. Assert that the resulting error is transient or not like the original error and wraps the original error.
+        assert_eq!(credentials_error.is_transient(), transient);
+        assert_eq!(
+            credentials_error.source().unwrap().to_string(),
+            error_string
+        );
+    }
+
     #[test]
     fn test_unwind_safe() {
         assert_impl_all!(Builder: std::panic::UnwindSafe, std::panic::RefUnwindSafe);
