@@ -37,3 +37,4 @@ tracing.workspace          = true
 [features]
 run-integration-tests     = []
 skipped-integration-tests = []
+unstable-stream           = ["google-cloud-pubsub/unstable-stream"]
