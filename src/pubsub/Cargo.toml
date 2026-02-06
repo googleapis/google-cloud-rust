@@ -25,6 +25,9 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+[package.metadata.docs.rs]
+all-features = true
+
 [dependencies]
 async-trait.workspace  = true
 google-cloud-auth      = { workspace = true }
