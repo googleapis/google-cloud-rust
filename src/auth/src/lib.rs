@@ -52,6 +52,8 @@
 //! [Tokens]: https://cloud.google.com/docs/authentication#token
 //! [Credentials]: https://cloud.google.com/docs/authentication#credentials
 
+#[allow(dead_code)]
+pub(crate) mod access_boundary;
 pub mod build_errors;
 pub(crate) mod constants;
 pub mod credentials;
