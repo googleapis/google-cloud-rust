@@ -106,6 +106,8 @@ steps:
       V=$(cat .librarian-version.txt)
       go run github.com/googleapis/librarian/cmd/librarian@${V} tidy
     waitFor: ['-']
+    env:
+      - GOTOOLCHAIN=auto
   - name: 'ubuntu:24.04'
     id: 'Format Protobuf files'
     script: |
