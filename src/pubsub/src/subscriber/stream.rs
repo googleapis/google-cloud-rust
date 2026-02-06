@@ -101,7 +101,8 @@ where
     // The only writes we perform are keepalives, which are sent so infrequently
     // that we don't fear any back pressure on this channel.
     let (request_tx, request_rx) = mpsc::channel(1);
-    let subscription = initial_req.subscription.clone();
+    let request_params = format!("subscription={}", initial_req.subscription);
+
     request_tx.send(initial_req).await.map_err(Error::io)?;
 
     // Start the keepalive task **before** we open the stream.
@@ -117,7 +118,7 @@ where
     keepalive::spawn(request_tx, shutdown.clone());
 
     let stream = inner
-        .streaming_pull(&subscription, request_rx, RequestOptions::default())
+        .streaming_pull(&request_params, request_rx, RequestOptions::default())
         .await?
         .into_inner();
 

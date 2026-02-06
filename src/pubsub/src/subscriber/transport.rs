@@ -47,7 +47,7 @@ impl Stub for Transport {
     type Stream = Streaming<StreamingPullResponse>;
     async fn streaming_pull(
         &self,
-        subscription: &str,
+        request_params: &str,
         request_rx: Receiver<StreamingPullRequest>,
         options: gax::options::RequestOptions,
     ) -> Result<TonicResponse<Self::Stream>> {
@@ -63,7 +63,6 @@ impl Stub for Transport {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.pubsub.v1.Subscriber/StreamingPull");
-        let x_goog_request_params = format!("subscription={subscription}");
         self.inner
             .bidi_stream(
                 extensions,
@@ -71,7 +70,7 @@ impl Stub for Transport {
                 request,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
-                &x_goog_request_params,
+                request_params,
             )
             .await
     }
