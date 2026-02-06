@@ -30,13 +30,13 @@ const REGIONAL_ACCESS_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUND
 const NO_OP_ENCODED_LOCATIONS: &str = "0x0";
 
 // TTL: 6 hours
-const DEFAULT_TTL: Duration = Duration::from_hours(6);
+const DEFAULT_TTL: Duration = Duration::from_secs(6 * 60 * 60);
 // Refresh interval: 1 hour of TTL
-const REFRESH_INTERVAL: Duration = Duration::from_hours(1);
+const REFRESH_INTERVAL: Duration = Duration::from_secs(60 * 60);
 // Period to wait after err: 15 minutes
-const COOLDOWN_INTERVAL: Duration = Duration::from_mins(15);
+const COOLDOWN_INTERVAL: Duration = Duration::from_secs(15 * 60);
 // Max period to wait after err: 6 hours
-const MAX_COOLDOWN_INTERVAL: Duration = Duration::from_hours(6);
+const MAX_COOLDOWN_INTERVAL: Duration = Duration::from_secs(6 * 60 * 60);
 
 #[derive(Debug)]
 pub(crate) struct AccessBoundary {
@@ -136,7 +136,7 @@ where
 {
     let backoff = ExponentialBackoffBuilder::new()
         .with_initial_delay(COOLDOWN_INTERVAL)
-        .with_maximum_delay(Duration::from_hours(6))
+        .with_maximum_delay(MAX_COOLDOWN_INTERVAL)
         .with_scaling(2.0)
         .build()
         .expect("static cooldown settings should be valid");
