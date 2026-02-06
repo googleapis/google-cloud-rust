@@ -27,6 +27,10 @@ sha256sum -c <(echo f022b6aad78e362bcba9b0b94d09ad58c5a70c6ba3b7582905fababf5fe0
 tar -C /usr/local -xzf /tmp/go.tar.gz
 export PATH=${PATH}:/usr/local/go/bin
 
+echo "==== Go version and auto update feature"
+echo "which go: $(which go)" || echo "which failed"
+echo "go env GOTOOLCHAIN: $(go env GOTOOLCHAIN)" || echo "go env failed"
+
 echo "==== Install taplo ===="
 cargo install taplo-cli --locked
 
