@@ -1091,10 +1091,17 @@ mod tests {
     async fn into_stream() -> anyhow::Result<()> {
         use futures::TryStreamExt;
         let (response_tx, response_rx) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_acknowledge().returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
@@ -1115,6 +1122,13 @@ mod tests {
             .try_collect()
             .await?;
         assert_eq!(got, vec![test_data(1), test_data(2)]);
+
+        let ack_req = ack_rx
+            .recv()
+            .await
+            .expect("should receive acknowledgements");
+        assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(sorted(ack_req.ack_ids), test_ids(1..3));
 
         Ok(())
     }
