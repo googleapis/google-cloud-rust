@@ -91,6 +91,7 @@
 //! [Service Account]: https://cloud.google.com/iam/docs/service-account-overview
 //! [Service Account Token Creator Role]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#required-roles
 
+use crate::access_boundary::AccessBoundary;
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
@@ -468,11 +469,21 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
-        let (token_provider, quota_project_id) = self.build_components()?;
+        let (token_provider, quota_project_id, service_account_impersonation_url) =
+            self.build_components()?;
+        let client_email = extract_client_email(&service_account_impersonation_url)?;
+        let access_boundary_url = crate::access_boundary::service_account_lookup_url(&client_email);
+        let token_provider = TokenCache::new(token_provider);
+        let access_boundary = Arc::new(AccessBoundary::new(
+            token_provider.clone(),
+            access_boundary_url,
+        ));
+
         Ok(AccessTokenCredentials {
             inner: Arc::new(ImpersonatedServiceAccount {
-                token_provider: TokenCache::new(token_provider),
+                token_provider,
                 quota_project_id,
+                access_boundary,
             }),
         })
     }
@@ -556,6 +567,7 @@ impl Builder {
     ) -> BuildResult<(
         TokenProviderWithRetry<ImpersonatedTokenProvider>,
         Option<String>,
+        String,
     )> {
         let components = match self.source {
             BuilderSource::FromJson(json) => build_components_from_json(json)?,
@@ -574,16 +586,21 @@ impl Builder {
 
         let quota_project_id = self.quota_project_id.or(components.quota_project_id);
         let delegates = self.delegates.or(components.delegates);
+        let service_account_impersonation_url = components.service_account_impersonation_url;
 
         let token_provider = ImpersonatedTokenProvider {
             source_credentials: components.source_credentials,
-            service_account_impersonation_url: components.service_account_impersonation_url,
+            service_account_impersonation_url: service_account_impersonation_url.clone(),
             delegates,
             scopes,
             lifetime: self.lifetime.unwrap_or(DEFAULT_LIFETIME),
         };
         let token_provider = self.retry_builder.build(token_provider);
-        Ok((token_provider, quota_project_id))
+        Ok((
+            token_provider,
+            quota_project_id,
+            service_account_impersonation_url,
+        ))
     }
 }
 
@@ -697,6 +714,7 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
+    access_boundary: Arc<AccessBoundary>,
 }
 
 #[async_trait::async_trait]
@@ -706,9 +724,11 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
+        let access_boundary = self.access_boundary.header_value();
 
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .maybe_access_boundary(access_boundary.as_deref())
             .build()
     }
 }
@@ -999,7 +1019,7 @@ mod tests {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential)
+        let (token_provider, _, _) = Builder::new(impersonated_credential)
             .with_scopes(vec!["scope1", "scope2"])
             .build_components()?;
 
@@ -1057,7 +1077,7 @@ mod tests {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
+        let (token_provider, _, _) = Builder::new(impersonated_credential).build_components()?;
 
         let token = token_provider.token().await?;
         assert_eq!(token.token, "test-impersonated-token");
@@ -1113,7 +1133,7 @@ mod tests {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential)
+        let (token_provider, _, _) = Builder::new(impersonated_credential)
             .with_scopes(vec!["scope1", "scope2"])
             .with_lifetime(Duration::from_secs_f32(3.5))
             .build_components()?;
@@ -1172,7 +1192,7 @@ mod tests {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential)
+        let (token_provider, _, _) = Builder::new(impersonated_credential)
             .with_delegates(vec!["delegate1", "delegate2"])
             .build_components()?;
 
@@ -1214,7 +1234,7 @@ mod tests {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
+        let (token_provider, _, _) = Builder::new(impersonated_credential).build_components()?;
 
         let err = token_provider.token().await.unwrap_err();
         let original_err = find_source_error::<CredentialsError>(&err).unwrap();
@@ -1450,7 +1470,7 @@ mod tests {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
+        let (token_provider, _, _) = Builder::new(impersonated_credential).build_components()?;
 
         let err = token_provider.token().await.unwrap_err();
         assert!(!err.is_transient());
@@ -1492,7 +1512,7 @@ mod tests {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
+        let (token_provider, _, _) = Builder::new(impersonated_credential).build_components()?;
 
         let err = token_provider.token().await.unwrap_err();
         assert!(!err.is_transient());
@@ -1531,7 +1551,7 @@ mod tests {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
+        let (token_provider, _, _) = Builder::new(impersonated_credential).build_components()?;
 
         let e = token_provider.token().await.err().unwrap();
         assert!(!e.is_transient(), "{e}");
@@ -1570,7 +1590,7 @@ mod tests {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
+        let (token_provider, _, _) = Builder::new(impersonated_credential).build_components()?;
 
         let err = token_provider.token().await.unwrap_err();
         assert!(!err.is_transient());
@@ -1686,7 +1706,7 @@ mod tests {
         .build()
         .unwrap();
 
-        let (token_provider, _) = Builder::from_source_credentials(source_credentials)
+        let (token_provider, _, _) = Builder::from_source_credentials(source_credentials)
             .with_target_principal("test-principal@example.iam.gserviceaccount.com")
             .build_components()
             .unwrap();
@@ -1867,7 +1887,7 @@ mod tests {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
+        let (token_provider, _, _) = Builder::new(impersonated_credential).build_components()?;
 
         let token = token_provider.token().await?;
         assert_eq!(token.token, "test-impersonated-token");
@@ -1927,7 +1947,7 @@ mod tests {
             }
         });
 
-        let (token_provider, _) = Builder::new(impersonated_credential)
+        let (token_provider, _, _) = Builder::new(impersonated_credential)
             .with_retry_policy(get_mock_auth_retry_policy(3))
             .with_backoff_policy(get_mock_backoff_policy())
             .with_retry_throttler(get_mock_retry_throttler())
@@ -1984,7 +2004,7 @@ mod tests {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
+        let (token_provider, _, _) = Builder::new(impersonated_credential).build_components()?;
 
         let token = token_provider.token().await?;
         assert_eq!(token.token, "test-impersonated-token");
@@ -2036,7 +2056,7 @@ mod tests {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential)
+        let (token_provider, _, _) = Builder::new(impersonated_credential)
             .with_scopes(vec!["scope-from-with-scopes"])
             .build_components()?;
 
@@ -2081,7 +2101,7 @@ mod tests {
             }
         });
 
-        let (token_provider, _) = Builder::new(impersonated_credential)
+        let (token_provider, _, _) = Builder::new(impersonated_credential)
             .with_retry_policy(get_mock_auth_retry_policy(3))
             .with_backoff_policy(get_mock_backoff_policy())
             .with_retry_throttler(get_mock_retry_throttler())

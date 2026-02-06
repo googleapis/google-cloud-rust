@@ -72,6 +72,7 @@
 
 pub(crate) mod jws;
 
+use crate::access_boundary::AccessBoundary;
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
@@ -328,10 +329,21 @@ impl Builder {
     ///
     /// [service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        let quota_project_id = self.quota_project_id.clone();
+        let token_provider = self.build_token_provider()?;
+        let client_email = token_provider.service_account_key.client_email.clone();
+
+        let token_provider = TokenCache::new(token_provider);
+        let access_boundary_url = crate::access_boundary::service_account_lookup_url(&client_email);
+        let access_boundary = Arc::new(AccessBoundary::new(
+            token_provider.clone(),
+            access_boundary_url,
+        ));
         Ok(AccessTokenCredentials {
             inner: Arc::new(ServiceAccountCredentials {
-                quota_project_id: self.quota_project_id.clone(),
-                token_provider: TokenCache::new(self.build_token_provider()?),
+                quota_project_id,
+                token_provider,
+                access_boundary,
             }),
         })
     }
@@ -462,6 +474,7 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
+    access_boundary: Arc<AccessBoundary>,
 }
 
 #[derive(Debug)]
@@ -573,9 +586,11 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
+        let access_boundary = self.access_boundary.header_value();
 
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .maybe_access_boundary(access_boundary.as_deref())
             .build()
     }
 }
@@ -655,9 +670,11 @@ mod tests {
         let mut mock = MockTokenProvider::new();
         mock.expect_token().times(1).return_once(|| Ok(token));
 
+        let cache = TokenCache::new(mock);
         let sac = ServiceAccountCredentials {
-            token_provider: TokenCache::new(mock),
+            token_provider: cache.clone(),
             quota_project_id: None,
+            trust_boundary: Arc::new(TrustBoundary::new(cache, "http://localhost".to_string())),
         };
 
         let mut extensions = Extensions::new();
@@ -697,9 +714,11 @@ mod tests {
         let mut mock = MockTokenProvider::new();
         mock.expect_token().times(1).return_once(|| Ok(token));
 
+        let cache = TokenCache::new(mock);
         let sac = ServiceAccountCredentials {
-            token_provider: TokenCache::new(mock),
+            token_provider: cache.clone(),
             quota_project_id: Some(quota_project.to_string()),
+            trust_boundary: Arc::new(TrustBoundary::new(cache, "http://localhost".to_string())),
         };
 
         let headers = get_headers_from_cache(sac.headers(Extensions::new()).await.unwrap())?;
@@ -724,9 +743,11 @@ mod tests {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
+        let cache = TokenCache::new(mock);
         let sac = ServiceAccountCredentials {
-            token_provider: TokenCache::new(mock),
+            token_provider: cache.clone(),
             quota_project_id: None,
+            trust_boundary: Arc::new(TrustBoundary::new(cache, "http://localhost".to_string())),
         };
         let result = sac.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");
