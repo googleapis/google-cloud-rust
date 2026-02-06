@@ -592,12 +592,10 @@ mod tests {
     macro_rules! assert_publish_data_with_seq {
         ($publish_rxs:ident, $expected_msg_seq_rx:ident) => {
             for (msg, publish_rx) in $publish_rxs {
-                let res = publish_rx.await;
-                // Assert that input publish message matches resolved publish message.
-                assert!(matches!(res, Ok(Ok(ref res_msg)) if *res_msg == msg), "got {res:?}, expected {msg:?}");
+                assert_eq!(publish_rx.await??, msg, "unexpected message for given handler");
                 // Assert that publish message matches the expected message sequence.
                 let expected_msg = $expected_msg_seq_rx.try_recv()?.data;
-                assert_eq!(msg, expected_msg, "message sequence mismatch, got {msg:?}, expected {expected_msg:?}");
+                assert_eq!(msg, expected_msg, "message published out of order");
             }
         };
     }
