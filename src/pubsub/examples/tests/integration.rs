@@ -33,15 +33,35 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn subscription_examples() -> anyhow::Result<()> {
+    async fn sample_tests() -> anyhow::Result<()> {
         let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
-        let client = SubscriptionAdmin::builder().build().await?;
+        let subscription_admin = SubscriptionAdmin::builder().build().await?;
 
         let mut subscriptions = Vec::new();
-        let result = run_subscription_examples(&mut subscriptions, topic.name.clone()).await;
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+        let topic_id = topic.name.split('/').last().unwrap();
+
+        let result = async {
+            quickstart_publisher::sample(&project_id, topic_id).await?;
+
+            run_subscription_examples(&mut subscriptions, topic.name.clone()).await?;
+
+            let (_, subscription) =
+                pubsub_samples::create_test_subscription(topic.name.clone()).await?;
+            subscriptions.push(subscription.name.clone());
+            let subscription_id = subscription.name.split('/').last().unwrap();
+
+            quickstart_subscriber::sample(&project_id, subscription_id).await?;
+
+            #[cfg(feature = "unstable-stream")]
+            subscriber_stream::sample(&project_id, subscription_id).await?;
+
+            Ok(())
+        }
+        .await;
 
         for name in subscriptions.into_iter() {
-            if let Err(e) = cleanup_test_subscription(&client, name.clone()).await {
+            if let Err(e) = cleanup_test_subscription(&subscription_admin, name.clone()).await {
                 println!("Error cleaning up test subscription {name}: {e:?}");
             }
         }
