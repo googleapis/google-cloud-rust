@@ -218,6 +218,7 @@ mod tests {
 
         let mut mock = MockStub::new();
         mock.expect_streaming_pull()
+            .withf(|s, _, _| s == "subscription=projects/my-project/subscriptions/my-subscription")
             .times(1)
             .return_once(move |_s, _r, _o| Ok(TonicResponse::from(response_rx)));
 
@@ -244,6 +245,7 @@ mod tests {
 
         let mut mock = MockStub::new();
         mock.expect_streaming_pull()
+            .withf(|s, _, _| s == "subscription=projects/my-project/subscriptions/my-subscription")
             .times(1)
             .return_once(move |_s, mut request_rx, _o| {
                 tokio::spawn(async move {
@@ -283,6 +285,7 @@ mod tests {
     async fn error() -> anyhow::Result<()> {
         let mut mock = MockStub::new();
         mock.expect_streaming_pull()
+            .withf(|s, _, _| s == "subscription=projects/my-project/subscriptions/my-subscription")
             .times(1)
             .return_once(|_, _, _| Err(Error::io("fail")));
 
@@ -304,6 +307,9 @@ mod tests {
             // N > 10 (the default attempt limit for GAPICs).
             mock_stub
                 .expect_streaming_pull()
+                .withf(|s, _, _| {
+                    s == "subscription=projects/my-project/subscriptions/my-subscription"
+                })
                 .times(1)
                 .in_sequence(&mut seq)
                 .return_once(|_, _, _| Err(transient_error()));
@@ -321,6 +327,7 @@ mod tests {
 
         mock_stub
             .expect_streaming_pull()
+            .withf(|s, _, _| s == "subscription=projects/my-project/subscriptions/my-subscription")
             .times(1)
             .in_sequence(&mut seq)
             .return_once(move |_s, _r, _o| Ok(TonicResponse::from(response_rx)));
@@ -347,6 +354,9 @@ mod tests {
             // N > 10 (the default attempt limit for GAPICs).
             mock_stub
                 .expect_streaming_pull()
+                .withf(|s, _, _| {
+                    s == "subscription=projects/my-project/subscriptions/my-subscription"
+                })
                 .times(1)
                 .in_sequence(&mut seq)
                 .return_once(|_, _, _| Err(transient_error()));
@@ -360,6 +370,7 @@ mod tests {
         // Simulate a permanent error.
         mock_stub
             .expect_streaming_pull()
+            .withf(|s, _, _| s == "subscription=projects/my-project/subscriptions/my-subscription")
             .times(1)
             .in_sequence(&mut seq)
             .return_once(|_, _, _| Err(permanent_error()));
