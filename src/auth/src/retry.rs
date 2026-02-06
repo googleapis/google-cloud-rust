@@ -506,10 +506,15 @@ mod tests {
         let credentials_error = TokenProviderWithRetry::<MockTokenProvider>::map_retry_error(error);
 
         // 3. Assert that the resulting error is transient or not like the original error and wraps the original error.
-        assert_eq!(credentials_error.is_transient(), transient);
+        assert_eq!(
+            credentials_error.is_transient(),
+            transient,
+            "{credentials_error:?}"
+        );
         assert_eq!(
             credentials_error.source().unwrap().to_string(),
-            error_string
+            error_string,
+            "{credentials_error:?}"
         );
     }
 

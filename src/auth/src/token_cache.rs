@@ -135,10 +135,17 @@ async fn refresh_task<T>(
                 break;
             }
             Err(err) => {
-                // The retry policy has been used already by the inner token provider.
-                // If it ended in an error, the background task will wait for a while
-                // and try again. This allows the task to eventually recover if the
-                // error was transient but exhausted all the retries.
+                // On transient errors, even if the retry policy is exhausted,
+                // we want to continue running this retry loop.
+                // This loop cannot stop because that may leave the
+                // credentials in an unrecoverable state (see #4541).
+                // We considered using a notification to wake up the next time
+                // a caller wants to retrieve a token, but that seemed prone to
+                // deadlocks. We may implement this as an improvement (#4593).
+                // On permanent errors, then there is really no point in trying
+                // again, by definition of "permanent". If the error was misclassified
+                // as permanent, that is a bug in the retry policy and better fixed
+                // there than implemented as a workaround here.
                 if !err.is_transient() {
                     break;
                 }
