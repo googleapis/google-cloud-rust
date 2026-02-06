@@ -488,8 +488,9 @@ mod tests {
     };
     use mockall::Sequence;
     use rand::{Rng, distr::Alphanumeric};
-    use std::collections::HashMap;
+    use std::collections::VecDeque;
     use std::time::Duration;
+    use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
 
     static TOPIC: &str = "my-topic";
     const EXPECTED_BATCHES: usize = 5;
@@ -530,6 +531,17 @@ mod tests {
         ))
     }
 
+    fn track_publish_msg_seq(
+        req: &crate::model::PublishRequest,
+        msg_seq_tx: UnboundedSender<PubsubMessage>,
+    ) {
+        req.messages.iter().for_each(|m| {
+            msg_seq_tx
+                .send(m.clone())
+                .expect("sending should always succeed as the test should not close the channel");
+        });
+    }
+
     fn publish_err(
         _req: crate::model::PublishRequest,
         _options: gax::options::RequestOptions,
@@ -549,10 +561,9 @@ mod tests {
             .collect()
     }
 
-    // Send ToBatchActor::Publish with random data n times then await and assert the result.
-    macro_rules! assert_publish_is_ok {
-        ($actor_tx:ident, $n:expr) => {
-            let mut publish_rxs = HashMap::new();
+    // Send ToBatchActor::Publish with random data n times and track the messages in publish_rxs.
+    macro_rules! publish_random_data {
+        ($publish_rxs:ident, $actor_tx:ident, $n:expr) => {
             for _ in 0..$n {
                 let (publish_tx, publish_rx) = tokio::sync::oneshot::channel();
                 let msg = generate_random_data();
@@ -561,12 +572,51 @@ mod tests {
                     tx: publish_tx,
                 };
                 $actor_tx.send(ToBatchActor::Publish(bundle))?;
-                publish_rxs.insert(msg, publish_rx);
+                $publish_rxs.push_back((msg, publish_rx));
             }
-            for (k, v) in publish_rxs {
-                let res = v.await;
-                assert!(matches!(res, Ok(Ok(ref msg)) if *msg == k), "got {res:?}, expected {k:?}");
+        };
+    }
+
+    // Verify that the publish data in publish_rxs matches the resolved message.
+    macro_rules! assert_publish_data {
+        ($publish_rxs:ident) => {
+            for (msg, publish_rx) in $publish_rxs {
+                assert_eq!(
+                    publish_rx.await??,
+                    msg,
+                    "unexpected message for given handler"
+                );
             }
+        };
+    }
+
+    // Verify that the publish data in publish_rxs the resolved message and the expected sequence.
+    macro_rules! assert_publish_data_with_seq {
+        ($publish_rxs:ident, $expected_msg_seq_rx:ident) => {
+            for (msg, publish_rx) in $publish_rxs {
+                assert_eq!(
+                    publish_rx.await??,
+                    msg,
+                    "unexpected message for given handler"
+                );
+                // Assert that publish message matches the expected message sequence.
+                let expected_msg = $expected_msg_seq_rx.try_recv()?.data;
+                assert_eq!(msg, expected_msg, "message published out of order");
+            }
+        };
+    }
+
+    // Send ToBatchActor::Publish with random data n times then await and assert the result.
+    macro_rules! assert_publish_is_ok {
+        ($actor_tx:ident, $n:expr) => {
+            let mut publish_rxs = VecDeque::new();
+            publish_random_data!(publish_rxs, $actor_tx, $n);
+            assert_publish_data!(publish_rxs);
+        };
+        ($actor_tx:ident, $expected_msg_seq_rx:ident, $n:expr) => {
+            let mut publish_rxs = VecDeque::new();
+            publish_random_data!(publish_rxs, $actor_tx, $n);
+            assert_publish_data_with_seq!(publish_rxs, $expected_msg_seq_rx);
         };
     }
 
@@ -658,15 +708,20 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn sequential_actor_publish() -> anyhow::Result<()> {
+        let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<PubsubMessage>();
         let mut mock = MockGapicPublisherWithFuture::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
             .times(EXPECTED_BATCHES)
             .returning({
-                |r, o| {
-                    Box::pin(async move {
-                        tokio::time::sleep(TIME_PER_BATCH).await;
-                        publish_ok(r, o)
+                move |r, o| {
+                    Box::pin({
+                        let seq_tx = msg_seq_tx.clone();
+                        async move {
+                            tokio::time::sleep(TIME_PER_BATCH).await;
+                            track_publish_msg_seq(&r, seq_tx);
+                            publish_ok(r, o)
+                        }
                     })
                 }
             });
@@ -682,7 +737,7 @@ mod tests {
         );
 
         let start = tokio::time::Instant::now();
-        assert_publish_is_ok!(actor_tx, 10);
+        assert_publish_is_ok!(actor_tx, msg_seq_rx, 10);
         assert_eq!(
             start.elapsed(),
             EXPECTED_BATCHES as u32 * TIME_PER_BATCH,
@@ -722,25 +777,10 @@ mod tests {
 
         // Publish 10 messages then Flush.
         let start = tokio::time::Instant::now();
-        let mut publish_rxs = HashMap::new();
-        for _ in 0..10 {
-            let (publish_tx, publish_rx) = tokio::sync::oneshot::channel();
-            let msg = generate_random_data();
-            let bundle = BundledMessage {
-                msg: PubsubMessage::new().set_data(msg.clone()),
-                tx: publish_tx,
-            };
-            actor_tx.send(ToBatchActor::Publish(bundle))?;
-            publish_rxs.insert(msg, publish_rx);
-        }
+        let mut publish_rxs = VecDeque::new();
+        publish_random_data!(publish_rxs, actor_tx, 10);
         assert_flush!(actor_tx);
-        for (k, v) in publish_rxs {
-            let res = v.await;
-            assert!(
-                matches!(res, Ok(Ok(ref msg)) if *msg == k),
-                "got {res:?}, expected {k:?}"
-            );
-        }
+        assert_publish_data!(publish_rxs);
         assert_eq!(
             start.elapsed(),
             TIME_PER_BATCH,
@@ -753,15 +793,20 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn sequential_actor_flush() -> anyhow::Result<()> {
+        let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<PubsubMessage>();
         let mut mock = MockGapicPublisherWithFuture::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
             .times(EXPECTED_BATCHES)
             .returning({
-                |r, o| {
-                    Box::pin(async move {
-                        tokio::time::sleep(TIME_PER_BATCH).await;
-                        publish_ok(r, o)
+                move |r, o| {
+                    Box::pin({
+                        let seq_tx = msg_seq_tx.clone();
+                        async move {
+                            tokio::time::sleep(TIME_PER_BATCH).await;
+                            track_publish_msg_seq(&r, seq_tx);
+                            publish_ok(r, o)
+                        }
                     })
                 }
             });
@@ -781,25 +826,10 @@ mod tests {
 
         // Publish 10 messages then Flush.
         let start = tokio::time::Instant::now();
-        let mut publish_rxs = HashMap::new();
-        for _ in 0..10 {
-            let (publish_tx, publish_rx) = tokio::sync::oneshot::channel();
-            let msg = generate_random_data();
-            let bundle = BundledMessage {
-                msg: PubsubMessage::new().set_data(msg.clone()),
-                tx: publish_tx,
-            };
-            actor_tx.send(ToBatchActor::Publish(bundle))?;
-            publish_rxs.insert(msg, publish_rx);
-        }
+        let mut publish_rxs = VecDeque::new();
+        publish_random_data!(publish_rxs, actor_tx, 10);
         assert_flush!(actor_tx);
-        for (k, v) in publish_rxs {
-            let res = v.await;
-            assert!(
-                matches!(res, Ok(Ok(ref msg)) if *msg == k),
-                "got {res:?}, expected {k:?}"
-            );
-        }
+        assert_publish_data_with_seq!(publish_rxs, msg_seq_rx);
         assert_eq!(
             start.elapsed(),
             EXPECTED_BATCHES as u32 * TIME_PER_BATCH,
@@ -829,23 +859,34 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn sequential_actor_resume() -> anyhow::Result<()> {
-        let mut mock = MockGapicPublisher::new();
+        let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<PubsubMessage>();
+        let mut mock = MockGapicPublisherWithFuture::new();
         let mut seq = Sequence::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(5)
+            .times(EXPECTED_BATCHES)
             .in_sequence(&mut seq)
-            .returning(publish_ok);
+            .returning(move |r, o| Box::pin(async move { publish_ok(r, o) }));
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(1)
+            .once()
             .in_sequence(&mut seq)
-            .returning(publish_err);
+            .returning(move |r, o| Box::pin(async { publish_err(r, o) }));
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(5)
+            .times(EXPECTED_BATCHES)
             .in_sequence(&mut seq)
-            .returning(publish_ok);
+            .returning({
+                move |r, o| {
+                    Box::pin({
+                        let seq_tx = msg_seq_tx.clone();
+                        async move {
+                            track_publish_msg_seq(&r, seq_tx);
+                            publish_ok(r, o)
+                        }
+                    })
+                }
+            });
 
         let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
         tokio::spawn(
@@ -860,7 +901,7 @@ mod tests {
 
         // Validate resume when not paused.
         actor_tx.send(ToBatchActor::ResumePublish())?;
-        assert_publish_is_ok!(actor_tx, 5);
+        assert_publish_is_ok!(actor_tx, EXPECTED_BATCHES);
 
         // This message triggers the mock to return publish error and causes the actor to pause.
         let (publish_tx, publish_rx) = tokio::sync::oneshot::channel();
@@ -876,7 +917,7 @@ mod tests {
 
         // Resume then validate that the actor is no longer paused.
         actor_tx.send(ToBatchActor::ResumePublish())?;
-        assert_publish_is_ok!(actor_tx, 5);
+        assert_publish_is_ok!(actor_tx, msg_seq_rx, EXPECTED_BATCHES);
 
         Ok(())
     }
