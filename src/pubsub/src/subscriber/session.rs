@@ -1046,8 +1046,6 @@ mod tests {
     async fn routing_header() -> anyhow::Result<()> {
         let mut mock = MockSubscriber::new();
 
-        let subscription = "projects/p/subscriptions/s";
-
         mock.expect_streaming_pull().return_once(move |request| {
             let metadata = request.metadata();
             assert_eq!(
@@ -1062,7 +1060,11 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
 
-        let _ = client.streaming_pull(subscription).start().next().await;
+        let _ = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .next()
+            .await;
 
         Ok(())
     }
