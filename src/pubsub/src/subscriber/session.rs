@@ -182,6 +182,23 @@ impl Session {
         }
     }
 
+    #[cfg(feature = "unstable-stream")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    /// Converts the session to a [Stream][futures::Stream].
+    pub fn into_stream(
+        self,
+    ) -> impl futures::Stream<Item = Result<(PubsubMessage, Handler)>> + Unpin {
+        use futures::stream::unfold;
+        Box::pin(unfold(Some(self), move |state| async move {
+            if let Some(mut this) = state {
+                if let Some(chunk) = this.next().await {
+                    return Some((chunk, Some(this)));
+                }
+            };
+            None
+        }))
+    }
+
     /// Returns a mutable reference to the underlying stream.
     ///
     /// If a stream is not yet open, this method opens the stream.
@@ -1065,6 +1082,35 @@ mod tests {
             .start()
             .next()
             .await;
+
+        Ok(())
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[tokio::test]
+    async fn into_stream() -> anyhow::Result<()> {
+        use futures::StreamExt;
+        let (response_tx, response_rx) = channel(10);
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+
+        let session = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = session.into_stream();
+
+        response_tx.send(Ok(test_response(1..3))).await?;
+        drop(response_tx);
+
+        let mut count = 0;
+        while let Some((m, _h)) = stream.next().await.transpose()? {
+            assert_eq!(m.data, test_data(count + 1));
+            count += 1;
+        }
+        assert_eq!(count, 2);
 
         Ok(())
     }

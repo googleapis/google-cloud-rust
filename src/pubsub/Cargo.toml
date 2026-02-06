@@ -55,6 +55,7 @@ default = ["default-rustls-provider"]
 # cryptography (such as exclusively using the [ring] crate) should disable this
 # default and call `rustls::CryptoProvider::install_default()`.
 default-rustls-provider = ["gaxi/_default-rustls-provider"]
+unstable-stream         = []
 
 [dev-dependencies]
 anyhow.workspace     = true
