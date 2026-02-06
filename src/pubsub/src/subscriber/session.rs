@@ -1089,7 +1089,7 @@ mod tests {
     #[cfg(feature = "unstable-stream")]
     #[tokio::test]
     async fn into_stream() -> anyhow::Result<()> {
-        use futures::StreamExt;
+        use futures::TryStreamExt;
         let (response_tx, response_rx) = channel(10);
 
         let mut mock = MockSubscriber::new();
@@ -1099,18 +1099,22 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
 
-        let session = client.streaming_pull("projects/p/subscriptions/s").start();
-        let mut stream = session.into_stream();
+        let stream = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .into_stream();
 
         response_tx.send(Ok(test_response(1..3))).await?;
         drop(response_tx);
 
-        let mut count = 0;
-        while let Some((m, _h)) = stream.next().await.transpose()? {
-            assert_eq!(m.data, test_data(count + 1));
-            count += 1;
-        }
-        assert_eq!(count, 2);
+        let got: Vec<_> = stream
+            .map_ok(|(m, h)| {
+                h.ack();
+                m.data
+            })
+            .try_collect()
+            .await?;
+        assert_eq!(got, vec![test_data(1), test_data(2)]);
 
         Ok(())
     }
