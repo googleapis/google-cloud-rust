@@ -581,9 +581,7 @@ mod tests {
     macro_rules! assert_publish_data {
         ($publish_rxs:ident) => {
             for (msg, publish_rx) in $publish_rxs {
-                let res = publish_rx.await;
-                // Assert that input publish message matches resolved publish message.
-                assert!(matches!(res, Ok(Ok(ref res_msg)) if *res_msg == msg), "got {res:?}, expected {msg:?}");
+                assert_eq!(publish_rx.await??, msg, "unexpected message for given handler");
             }
         };
     }
