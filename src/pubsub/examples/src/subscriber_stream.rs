@@ -12,37 +12,35 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START pubsub_subscriber_stream]
+// [START rust_pubsub_subscriber_stream]
 use futures::StreamExt as _;
+use futures::TryStreamExt as _;
 use google_cloud_pubsub::client::Subscriber;
 use std::time::Duration;
 
 pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<()> {
     let subscription_name = format!("projects/{project_id}/subscriptions/{subscription_id}");
-
-    // Create a new subscriber client.
     let client = Subscriber::builder().build().await?;
-
-    // Create a streaming pull session.
     let session = client.streaming_pull(subscription_name).start();
 
     println!("listening for messages using streams...");
 
-    // Collect messages for 10 seconds.
     let deadline = tokio::time::sleep(Duration::from_secs(10));
-    let stream = session.into_stream().take_until(deadline);
-    tokio::pin!(stream);
-
-    while let Some((message, handler)) = stream.next().await.transpose()? {
-        println!(
-            "received message: {:?}",
-            String::from_utf8_lossy(&message.data)
-        );
-        handler.ack();
-    }
+    session
+        .into_stream()
+        .take_until(deadline)
+        .try_for_each(|(message, handler)| {
+            println!(
+                "received message: {:?}",
+                String::from_utf8_lossy(&message.data)
+            );
+            handler.ack();
+            async { Ok(()) }
+        })
+        .await?;
 
     println!("done listening for messages");
 
     Ok(())
 }
-// [END pubsub_subscriber_stream]
+// [END rust_pubsub_subscriber_stream]
