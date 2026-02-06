@@ -346,7 +346,7 @@ mod tests {
     fn test_is_regional_access_boundaries_enabled() {
         let cases = [
             (Some("true"), true),
-            (Some("TrUe"), true),
+            (Some("TRUE"), true),
             (Some("1"), true),
             (Some("false"), false),
             (Some("0"), false),
