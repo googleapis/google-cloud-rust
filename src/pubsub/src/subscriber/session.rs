@@ -1087,7 +1087,7 @@ mod tests {
     }
 
     #[cfg(feature = "unstable-stream")]
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn into_stream() -> anyhow::Result<()> {
         use futures::TryStreamExt;
         let (response_tx, response_rx) = channel(10);
