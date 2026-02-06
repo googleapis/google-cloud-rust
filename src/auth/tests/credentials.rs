@@ -966,7 +966,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     #[serial]
     async fn test_credentials_refresh_recovers_after_outage() -> TestResult {
         let server = Server::run();
@@ -1007,7 +1007,8 @@ mod tests {
 
         // wait for the token to be refreshed
         // it should exhaust retries, fail, and (with the fix) wait for SHORT_REFRESH_SLACK (10s)
-        tokio::time::sleep(std::time::Duration::from_millis(3000)).await;
+        tokio::time::advance(std::time::Duration::from_millis(3000)).await;
+        tokio::task::yield_now().await;
 
         // trying to get a token now should fail because retry was exhausted
         let result = creds.headers(Extensions::new()).await;
@@ -1030,7 +1031,17 @@ mod tests {
         );
 
         // advance time long enough to pass through SHORT_REFRESH_SLACK (10s + some buffer)
-        tokio::time::sleep(std::time::Duration::from_secs(12)).await;
+        tokio::time::advance(std::time::Duration::from_secs(12)).await;
+
+        // yield tasks to let the refresh task run and http request layers work
+        for _ in 0..30 {
+            tokio::task::yield_now().await;
+            let result = creds.headers(Extensions::new()).await;
+            if result.is_ok() {
+                break;
+            }
+        }
+
         let result = creds.access_token().await;
         // if it recovered, we should get token-2
         let access_token = result.expect("the credential should have recovered from the outage!");
