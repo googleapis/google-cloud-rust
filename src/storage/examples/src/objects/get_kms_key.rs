@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_get_kms_key]
+// [START storage_object_get_kms_key]
 use google_cloud_storage::client::StorageControl;
 
 pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
@@ -29,4 +29,4 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
     );
     Ok(())
 }
-// [END storage_get_kms_key]
+// [END storage_object_get_kms_key]
