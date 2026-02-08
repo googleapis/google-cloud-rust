@@ -13,11 +13,11 @@
 // limitations under the License.
 
 use super::redirect::is_redirect;
-use gax::error::Error;
-use gax::retry_policy::RetryPolicy;
-use gax::retry_result::RetryResult;
-use gax::retry_state::RetryState;
-use gax::throttle_result::ThrottleResult;
+use google_cloud_gax::error::Error;
+use google_cloud_gax::retry_policy::RetryPolicy;
+use google_cloud_gax::retry_result::RetryResult;
+use google_cloud_gax::retry_state::RetryState;
+use google_cloud_gax::throttle_result::ThrottleResult;
 use std::sync::Arc;
 
 /// Decorate the retry policy to continue on redirect errors.
@@ -60,12 +60,12 @@ mod tests {
     use super::super::tests::{permanent_error, redirect_status, transient_error};
     use super::*;
     use crate::retry_policy::RetryableErrors;
-    use gax::throttle_result::ThrottleResult;
     use gaxi::grpc::from_status::to_gax_error;
+    use google_cloud_gax::throttle_result::ThrottleResult;
 
     #[test]
     fn retry_redirect() {
-        use gax::retry_policy::RetryPolicyExt;
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
         let inner: Arc<dyn RetryPolicy + 'static> = Arc::new(RetryableErrors.with_attempt_limit(3));
         let p = RetryRedirect::new(inner);
 

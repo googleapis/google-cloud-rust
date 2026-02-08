@@ -31,7 +31,7 @@
 //! assert!(matches!(policy.on_error(&ResumeQuery::new(2), io_error()), ResumeResult::Continue(_)));
 //! assert!(matches!(policy.on_error(&ResumeQuery::new(3), io_error()), ResumeResult::Exhausted(_)));
 //!
-//! use gax::error::{Error, rpc::Code, rpc::Status};
+//! use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
 //! fn io_error() -> Error {
 //!    // ... details omitted ...
 //!    # Error::io("something failed in the read request")
@@ -39,9 +39,9 @@
 //! ```
 
 use crate::Error;
-use gax::error::rpc::Code;
+use google_cloud_gax::error::rpc::Code;
 
-pub use gax::retry_result::RetryResult as ResumeResult;
+pub use google_cloud_gax::retry_result::RetryResult as ResumeResult;
 
 /// Defines the interface to resume policies.
 pub trait ReadResumePolicy: Send + Sync + std::fmt::Debug {
@@ -72,7 +72,7 @@ pub trait ReadResumePolicyExt: Sized {
     /// assert!(matches!(policy.on_error(&ResumeQuery::new(2), transient_error()), ResumeResult::Continue(_)));
     /// assert!(matches!(policy.on_error(&ResumeQuery::new(3), transient_error()), ResumeResult::Exhausted(_)));
     ///
-    /// use gax::error::{Error, rpc::Code, rpc::Status};
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
     /// fn transient_error() -> Error {
     ///    // ... details omitted ...
     ///    # Error::io("something failed in the read request")
@@ -118,7 +118,7 @@ impl ResumeQuery {
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(0), io_error()), ResumeResult::Continue(_)));
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(0), other_error()), ResumeResult::Permanent(_)));
 ///
-/// use gax::error::{Error, rpc::Code, rpc::Status};
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
 /// fn io_error() -> Error {
 ///    // ... details omitted ...
 ///    # Error::io("something failed in the read request")
@@ -173,7 +173,7 @@ fn is_transient_code(code: Code) -> bool {
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(2), scary_error()), ResumeResult::Continue(_)));
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(3), scary_error()), ResumeResult::Exhausted(_)));
 ///
-/// use gax::error::{Error, rpc::Code, rpc::Status};
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
 /// fn scary_error() -> Error {
 ///    // ... details omitted ...
 ///    # Error::deser("something failed in the read request")
@@ -201,7 +201,7 @@ impl ReadResumePolicy for AlwaysResume {
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(2), io_error()), ResumeResult::Permanent(_)));
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(3), io_error()), ResumeResult::Permanent(_)));
 ///
-/// use gax::error::{Error, rpc::Code, rpc::Status};
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
 /// fn io_error() -> Error {
 ///    // ... details omitted ...
 ///    # Error::io("something failed in the read request")
@@ -226,7 +226,7 @@ impl ReadResumePolicy for NeverResume {
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(2), scary_error()), ResumeResult::Continue(_)));
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(3), scary_error()), ResumeResult::Exhausted(_)));
 ///
-/// use gax::error::{Error, rpc::Code, rpc::Status};
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
 /// fn scary_error() -> Error {
 ///    // ... details omitted ...
 ///    # Error::deser("something failed in the read request")
@@ -370,7 +370,7 @@ mod tests {
     }
 
     fn grpc_error(code: Code) -> Error {
-        let status = gax::error::rpc::Status::default().set_code(code);
+        let status = google_cloud_gax::error::rpc::Status::default().set_code(code);
         Error::service(status)
     }
 }

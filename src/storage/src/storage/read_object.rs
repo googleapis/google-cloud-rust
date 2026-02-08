@@ -278,7 +278,7 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::retry_policy::RetryableErrors;
     /// use std::time::Duration;
-    /// use gax::retry_policy::RetryPolicyExt;
+    /// use google_cloud_gax::retry_policy::RetryPolicyExt;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_retry_policy(
@@ -291,7 +291,10 @@ where
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn with_retry_policy<V: Into<gax::retry_policy::RetryPolicyArg>>(mut self, v: V) -> Self {
+    pub fn with_retry_policy<V: Into<google_cloud_gax::retry_policy::RetryPolicyArg>>(
+        mut self,
+        v: V,
+    ) -> Self {
         self.options.retry_policy = v.into().into();
         self
     }
@@ -303,7 +306,7 @@ where
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use std::time::Duration;
-    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_backoff_policy(ExponentialBackoff::default())
@@ -312,7 +315,7 @@ where
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn with_backoff_policy<V: Into<gax::backoff_policy::BackoffPolicyArg>>(
+    pub fn with_backoff_policy<V: Into<google_cloud_gax::backoff_policy::BackoffPolicyArg>>(
         mut self,
         v: V,
     ) -> Self {
@@ -337,12 +340,12 @@ where
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// fn adhoc_throttler() -> gax::retry_throttler::SharedRetryThrottler {
+    /// fn adhoc_throttler() -> google_cloud_gax::retry_throttler::SharedRetryThrottler {
     ///     # panic!();
     /// }
     /// # Ok(()) }
     /// ```
-    pub fn with_retry_throttler<V: Into<gax::retry_throttler::RetryThrottlerArg>>(
+    pub fn with_retry_throttler<V: Into<google_cloud_gax::retry_throttler::RetryThrottlerArg>>(
         mut self,
         v: V,
     ) -> Self {
@@ -424,7 +427,7 @@ impl Reader {
         let retry = self.options.retry_policy.clone();
         let backoff = self.options.backoff_policy.clone();
 
-        gax::retry_loop_internal::retry_loop(
+        google_cloud_gax::retry_loop_internal::retry_loop(
             async move |_| self.read_attempt().await,
             async |duration| tokio::time::sleep(duration).await,
             true,
