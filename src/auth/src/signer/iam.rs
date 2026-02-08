@@ -14,11 +14,13 @@
 
 use crate::credentials::{CacheableResource, Credentials};
 use crate::signer::{Result, SigningError, dynamic::SigningProvider};
-use gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
-use gax::exponential_backoff::ExponentialBackoff;
-use gax::retry_loop_internal::retry_loop;
-use gax::retry_policy::{Aip194Strict, RetryPolicyArg, RetryPolicyExt};
-use gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler};
+use google_cloud_gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::retry_loop_internal::retry_loop;
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyArg, RetryPolicyExt};
+use google_cloud_gax::retry_throttler::{
+    AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler,
+};
 use http::{Extensions, HeaderMap};
 use reqwest::Client;
 use std::sync::Arc;
@@ -114,7 +116,7 @@ async fn sign_blob_call_with_retry(
             let source_headers = credentials
                 .headers(Extensions::new())
                 .await
-                .map_err(gax::error::Error::authentication)?;
+                .map_err(google_cloud_gax::error::Error::authentication)?;
 
             sign_blob_call(&client, &url, source_headers, body.clone()).await
         },
@@ -133,7 +135,7 @@ async fn sign_blob_call(
     url: &str,
     source_headers: CacheableResource<HeaderMap>,
     body: SignBlobRequest,
-) -> gax::Result<reqwest::Response> {
+) -> google_cloud_gax::Result<reqwest::Response> {
     let source_headers = match source_headers {
         CacheableResource::New { data, .. } => data,
         CacheableResource::NotModified => {
@@ -148,7 +150,7 @@ async fn sign_blob_call(
         .json(&body)
         .send()
         .await
-        .map_err(gax::error::Error::io)?;
+        .map_err(google_cloud_gax::error::Error::io)?;
 
     let status = response.status();
     if !status.is_success() {
@@ -156,8 +158,8 @@ async fn sign_blob_call(
         let err_payload = response
             .bytes()
             .await
-            .map_err(|e| gax::error::Error::transport(err_headers.clone(), e))?;
-        return Err(gax::error::Error::http(
+            .map_err(|e| google_cloud_gax::error::Error::transport(err_headers.clone(), e))?;
+        return Err(google_cloud_gax::error::Error::http(
             status.as_u16(),
             err_headers,
             err_payload,

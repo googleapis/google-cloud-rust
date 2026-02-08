@@ -148,7 +148,7 @@ mod tests {
     use super::*;
     use crate::errors;
     use crate::token::tests::MockTokenProvider;
-    use gax::error::CredentialsError;
+    use google_cloud_gax::error::CredentialsError;
     use std::ops::{Add, Sub};
     use std::sync::{Arc, Mutex};
     use tokio::time::{Duration, Instant};

@@ -20,7 +20,7 @@ use crate::{
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     },
 };
-use gax::error::CredentialsError;
+use google_cloud_gax::error::CredentialsError;
 use serde::{Deserialize, Serialize};
 use std::{
     fmt::{Display, Formatter},
