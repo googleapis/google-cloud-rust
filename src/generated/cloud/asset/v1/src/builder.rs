@@ -20,7 +20,7 @@ pub mod asset_service {
     /// A builder for [AssetService][crate::client::AssetService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_asset_v1::*;
     /// # use builder::asset_service::ClientBuilder;
     /// # use client::AssetService;
@@ -30,19 +30,18 @@ pub mod asset_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::AssetService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = AssetService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod asset_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod asset_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::ExportAssets;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -105,7 +104,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -120,7 +119,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .export_assets(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_assets`.
@@ -139,7 +138,7 @@ pub mod asset_service {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -244,8 +243,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ExportAssets {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ExportAssets {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -255,8 +254,8 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::ListAssets;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -287,7 +286,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -297,13 +296,13 @@ pub mod asset_service {
             (*self.0.stub)
                 .list_assets(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListAssetsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -312,15 +311,17 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAssetsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListAssetsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -392,8 +393,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAssets {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAssets {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -403,7 +404,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::BatchGetAssetsHistory;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -434,7 +435,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -444,7 +445,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .batch_get_assets_history(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchGetAssetsHistoryRequest::parent].
@@ -503,8 +504,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for BatchGetAssetsHistory {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for BatchGetAssetsHistory {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -514,7 +515,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::CreateFeed;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -542,7 +543,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -552,7 +553,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .create_feed(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateFeedRequest::parent].
@@ -595,8 +596,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateFeed {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateFeed {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -606,7 +607,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::GetFeed;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -634,7 +635,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -644,7 +645,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .get_feed(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFeedRequest::name].
@@ -657,8 +658,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetFeed {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetFeed {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -668,7 +669,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::ListFeeds;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -696,7 +697,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -706,7 +707,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .list_feeds(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListFeedsRequest::parent].
@@ -719,8 +720,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListFeeds {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListFeeds {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -730,7 +731,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::UpdateFeed;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -758,7 +759,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -768,7 +769,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .update_feed(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [feed][crate::model::UpdateFeedRequest::feed].
@@ -817,8 +818,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateFeed {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateFeed {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -828,7 +829,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::DeleteFeed;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -856,7 +857,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -866,7 +867,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .delete_feed(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteFeedRequest::name].
@@ -879,8 +880,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteFeed {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteFeed {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -890,8 +891,8 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::SearchAllResources;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -925,7 +926,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -935,14 +936,16 @@ pub mod asset_service {
             (*self.0.stub)
                 .search_all_resources(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::SearchAllResourcesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::SearchAllResourcesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -950,17 +953,17 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::SearchAllResourcesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1027,8 +1030,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SearchAllResources {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SearchAllResources {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1038,8 +1041,8 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::SearchAllIamPolicies;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1073,7 +1076,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1083,14 +1086,16 @@ pub mod asset_service {
             (*self.0.stub)
                 .search_all_iam_policies(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::SearchAllIamPoliciesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::SearchAllIamPoliciesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1098,17 +1103,17 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::SearchAllIamPoliciesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1157,8 +1162,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SearchAllIamPolicies {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SearchAllIamPolicies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1168,7 +1173,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::AnalyzeIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1199,7 +1204,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1209,7 +1214,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .analyze_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [analysis_query][crate::model::AnalyzeIamPolicyRequest::analysis_query].
@@ -1260,8 +1265,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AnalyzeIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AnalyzeIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1271,7 +1276,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::AnalyzeIamPolicyLongrunning;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1305,7 +1310,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1320,7 +1325,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .analyze_iam_policy_longrunning(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `analyze_iam_policy_longrunning`.
@@ -1339,7 +1344,7 @@ pub mod asset_service {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1418,8 +1423,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AnalyzeIamPolicyLongrunning {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AnalyzeIamPolicyLongrunning {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1429,7 +1434,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::AnalyzeMove;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1457,7 +1462,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1467,7 +1472,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .analyze_move(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][crate::model::AnalyzeMoveRequest::resource].
@@ -1497,8 +1502,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AnalyzeMove {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AnalyzeMove {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1508,7 +1513,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::QueryAssets;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1536,7 +1541,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1546,7 +1551,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .query_assets(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::QueryAssetsRequest::parent].
@@ -1682,8 +1687,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for QueryAssets {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for QueryAssets {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1693,7 +1698,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::CreateSavedQuery;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1724,7 +1729,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1734,7 +1739,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .create_saved_query(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSavedQueryRequest::parent].
@@ -1777,8 +1782,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateSavedQuery {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateSavedQuery {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1788,7 +1793,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::GetSavedQuery;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1816,7 +1821,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1826,7 +1831,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .get_saved_query(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSavedQueryRequest::name].
@@ -1839,8 +1844,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSavedQuery {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSavedQuery {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1850,8 +1855,8 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::ListSavedQueries;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1885,7 +1890,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1895,14 +1900,16 @@ pub mod asset_service {
             (*self.0.stub)
                 .list_saved_queries(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSavedQueriesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListSavedQueriesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1910,15 +1917,17 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSavedQueriesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSavedQueriesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1950,8 +1959,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSavedQueries {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSavedQueries {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1961,7 +1970,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::UpdateSavedQuery;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1992,7 +2001,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2002,7 +2011,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .update_saved_query(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [saved_query][crate::model::UpdateSavedQueryRequest::saved_query].
@@ -2051,8 +2060,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateSavedQuery {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateSavedQuery {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2062,7 +2071,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::DeleteSavedQuery;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2093,7 +2102,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2103,7 +2112,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .delete_saved_query(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSavedQueryRequest::name].
@@ -2116,8 +2125,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSavedQuery {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSavedQuery {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2127,7 +2136,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::BatchGetEffectiveIamPolicies;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2160,7 +2169,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2170,7 +2179,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .batch_get_effective_iam_policies(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [scope][crate::model::BatchGetEffectiveIamPoliciesRequest::scope].
@@ -2196,8 +2205,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for BatchGetEffectiveIamPolicies {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for BatchGetEffectiveIamPolicies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2207,8 +2216,8 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::AnalyzeOrgPolicies;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2242,7 +2251,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2252,14 +2261,16 @@ pub mod asset_service {
             (*self.0.stub)
                 .analyze_org_policies(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::AnalyzeOrgPoliciesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::AnalyzeOrgPoliciesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2267,17 +2278,17 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::AnalyzeOrgPoliciesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2329,8 +2340,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AnalyzeOrgPolicies {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AnalyzeOrgPolicies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2340,8 +2351,8 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::AnalyzeOrgPolicyGovernedContainers;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2377,7 +2388,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2389,15 +2400,15 @@ pub mod asset_service {
             (*self.0.stub)
                 .analyze_org_policy_governed_containers(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::AnalyzeOrgPolicyGovernedContainersResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2406,17 +2417,17 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::AnalyzeOrgPolicyGovernedContainersResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2468,8 +2479,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AnalyzeOrgPolicyGovernedContainers {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AnalyzeOrgPolicyGovernedContainers {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2479,8 +2490,8 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::AnalyzeOrgPolicyGovernedAssets;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2516,7 +2527,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2526,15 +2537,15 @@ pub mod asset_service {
             (*self.0.stub)
                 .analyze_org_policy_governed_assets(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::AnalyzeOrgPolicyGovernedAssetsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2543,17 +2554,17 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::AnalyzeOrgPolicyGovernedAssetsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2605,8 +2616,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AnalyzeOrgPolicyGovernedAssets {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AnalyzeOrgPolicyGovernedAssets {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2616,7 +2627,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2647,7 +2658,7 @@ pub mod asset_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2657,7 +2668,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -2668,8 +2679,8 @@ pub mod asset_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

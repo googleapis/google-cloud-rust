@@ -41,8 +41,8 @@ where
     async fn publish_channel_connection_events(
         &self,
         req: crate::model::PublishChannelConnectionEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PublishChannelConnectionEventsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PublishChannelConnectionEventsResponse>> {
         self.inner
             .publish_channel_connection_events(req, options)
             .await
@@ -52,8 +52,8 @@ where
     async fn publish_events(
         &self,
         req: crate::model::PublishEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PublishEventsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PublishEventsResponse>> {
         self.inner.publish_events(req, options).await
     }
 
@@ -61,8 +61,8 @@ where
     async fn publish(
         &self,
         req: crate::model::PublishRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PublishResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PublishResponse>> {
         self.inner.publish(req, options).await
     }
 }

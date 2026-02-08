@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_apphub_v1::client::AppHub;
 /// let client = AppHub::builder().build().await?;
 /// // use `client` to make requests to the App Hub API.
@@ -66,13 +66,13 @@ impl AppHub {
     /// Returns a builder for [AppHub].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// let client = AppHub::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::app_hub::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::app_hub::client::Factory)
+        crate::new_client_builder(super::builder::app_hub::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl AppHub {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AppHub>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AppHub>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl AppHub {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AppHub> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AppHub> {
         super::transport::AppHub::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AppHub> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AppHub> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AppHub::new)

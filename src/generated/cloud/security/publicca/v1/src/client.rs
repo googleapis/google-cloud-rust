@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_security_publicca_v1::client::PublicCertificateAuthorityService;
 /// let client = PublicCertificateAuthorityService::builder().build().await?;
 /// // use `client` to make requests to the Public Certificate Authority API.
@@ -68,13 +68,13 @@ impl PublicCertificateAuthorityService {
     /// Returns a builder for [PublicCertificateAuthorityService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_security_publicca_v1::client::PublicCertificateAuthorityService;
     /// let client = PublicCertificateAuthorityService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::public_certificate_authority_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
+        crate::new_client_builder(
             super::builder::public_certificate_authority_service::client::Factory,
         )
     }
@@ -94,14 +94,14 @@ impl PublicCertificateAuthorityService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::PublicCertificateAuthorityService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -112,13 +112,13 @@ impl PublicCertificateAuthorityService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PublicCertificateAuthorityService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::PublicCertificateAuthorityService> {
         super::transport::PublicCertificateAuthorityService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PublicCertificateAuthorityService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::PublicCertificateAuthorityService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PublicCertificateAuthorityService::new)

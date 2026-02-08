@@ -20,7 +20,7 @@ pub mod access_approval {
     /// A builder for [AccessApproval][crate::client::AccessApproval].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_accessapproval_v1::*;
     /// # use builder::access_approval::ClientBuilder;
     /// # use client::AccessApproval;
@@ -30,19 +30,18 @@ pub mod access_approval {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::AccessApproval;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = AccessApproval;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod access_approval {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod access_approval {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,8 +75,8 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::ListApprovalRequests;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -111,7 +110,7 @@ pub mod access_approval {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -121,14 +120,16 @@ pub mod access_approval {
             (*self.0.stub)
                 .list_approval_requests(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListApprovalRequestsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListApprovalRequestsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -136,17 +137,17 @@ pub mod access_approval {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListApprovalRequestsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -176,8 +177,8 @@ pub mod access_approval {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListApprovalRequests {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListApprovalRequests {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -187,7 +188,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::GetApprovalRequest;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -218,7 +219,7 @@ pub mod access_approval {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -228,7 +229,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .get_approval_request(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetApprovalRequestMessage::name].
@@ -239,8 +240,8 @@ pub mod access_approval {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetApprovalRequest {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetApprovalRequest {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -250,7 +251,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::ApproveApprovalRequest;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -281,7 +282,7 @@ pub mod access_approval {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -291,7 +292,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .approve_approval_request(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApproveApprovalRequestMessage::name].
@@ -320,8 +321,8 @@ pub mod access_approval {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ApproveApprovalRequest {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ApproveApprovalRequest {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -331,7 +332,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::DismissApprovalRequest;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -362,7 +363,7 @@ pub mod access_approval {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -372,7 +373,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .dismiss_approval_request(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DismissApprovalRequestMessage::name].
@@ -383,8 +384,8 @@ pub mod access_approval {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DismissApprovalRequest {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DismissApprovalRequest {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -394,7 +395,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::InvalidateApprovalRequest;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -427,7 +428,7 @@ pub mod access_approval {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -437,7 +438,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .invalidate_approval_request(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::InvalidateApprovalRequestMessage::name].
@@ -448,8 +449,8 @@ pub mod access_approval {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for InvalidateApprovalRequest {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for InvalidateApprovalRequest {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -459,7 +460,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::GetAccessApprovalSettings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -492,7 +493,7 @@ pub mod access_approval {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -502,7 +503,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .get_access_approval_settings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAccessApprovalSettingsMessage::name].
@@ -513,8 +514,8 @@ pub mod access_approval {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAccessApprovalSettings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAccessApprovalSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -524,7 +525,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::UpdateAccessApprovalSettings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -557,7 +558,7 @@ pub mod access_approval {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -567,7 +568,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .update_access_approval_settings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
@@ -608,8 +609,8 @@ pub mod access_approval {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateAccessApprovalSettings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateAccessApprovalSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -619,7 +620,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::DeleteAccessApprovalSettings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -652,7 +653,7 @@ pub mod access_approval {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -662,7 +663,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .delete_access_approval_settings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAccessApprovalSettingsMessage::name].
@@ -673,8 +674,8 @@ pub mod access_approval {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteAccessApprovalSettings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteAccessApprovalSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -684,7 +685,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::GetAccessApprovalServiceAccount;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -717,7 +718,7 @@ pub mod access_approval {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -727,7 +728,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .get_access_approval_service_account(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAccessApprovalServiceAccountMessage::name].
@@ -738,8 +739,8 @@ pub mod access_approval {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAccessApprovalServiceAccount {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAccessApprovalServiceAccount {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

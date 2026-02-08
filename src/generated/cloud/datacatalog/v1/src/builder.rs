@@ -20,7 +20,7 @@ pub mod data_catalog {
     /// A builder for [DataCatalog][crate::client::DataCatalog].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_datacatalog_v1::*;
     /// # use builder::data_catalog::ClientBuilder;
     /// # use client::DataCatalog;
@@ -30,19 +30,18 @@ pub mod data_catalog {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::DataCatalog;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = DataCatalog;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod data_catalog {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod data_catalog {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,8 +75,8 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::SearchCatalog;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -108,7 +107,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -118,13 +117,13 @@ pub mod data_catalog {
             (*self.0.stub)
                 .search_catalog(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::SearchCatalogResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::SearchCatalogResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -133,15 +132,17 @@ pub mod data_catalog {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchCatalogResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::SearchCatalogResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -199,8 +200,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SearchCatalog {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SearchCatalog {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -210,7 +211,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::CreateEntryGroup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -241,7 +242,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -251,7 +252,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .create_entry_group(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateEntryGroupRequest::parent].
@@ -290,8 +291,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateEntryGroup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateEntryGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -301,7 +302,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::GetEntryGroup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -329,7 +330,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -339,7 +340,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .get_entry_group(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEntryGroupRequest::name].
@@ -370,8 +371,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetEntryGroup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetEntryGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -381,7 +382,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::UpdateEntryGroup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -412,7 +413,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -422,7 +423,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .update_entry_group(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
@@ -467,8 +468,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateEntryGroup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateEntryGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -478,7 +479,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::DeleteEntryGroup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -509,7 +510,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -519,7 +520,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .delete_entry_group(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteEntryGroupRequest::name].
@@ -538,8 +539,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteEntryGroup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteEntryGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -549,8 +550,8 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ListEntryGroups;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -581,7 +582,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -591,14 +592,16 @@ pub mod data_catalog {
             (*self.0.stub)
                 .list_entry_groups(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListEntryGroupsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListEntryGroupsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -606,15 +609,17 @@ pub mod data_catalog {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEntryGroupsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListEntryGroupsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -640,8 +645,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListEntryGroups {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListEntryGroups {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -651,7 +656,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::CreateEntry;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -679,7 +684,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -689,7 +694,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .create_entry(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateEntryRequest::parent].
@@ -732,8 +737,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateEntry {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateEntry {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -743,7 +748,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::UpdateEntry;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -771,7 +776,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -781,7 +786,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .update_entry(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [entry][crate::model::UpdateEntryRequest::entry].
@@ -826,8 +831,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateEntry {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateEntry {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -837,7 +842,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::DeleteEntry;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -865,7 +870,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -875,7 +880,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .delete_entry(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteEntryRequest::name].
@@ -888,8 +893,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteEntry {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteEntry {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -899,7 +904,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::GetEntry;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -927,7 +932,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -937,7 +942,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .get_entry(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEntryRequest::name].
@@ -950,8 +955,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetEntry {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetEntry {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -961,7 +966,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::LookupEntry;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -989,7 +994,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -999,7 +1004,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .lookup_entry(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::LookupEntryRequest::project].
@@ -1067,8 +1072,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for LookupEntry {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for LookupEntry {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1078,8 +1083,8 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ListEntries;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1110,7 +1115,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1120,13 +1125,13 @@ pub mod data_catalog {
             (*self.0.stub)
                 .list_entries(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListEntriesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListEntriesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1135,15 +1140,17 @@ pub mod data_catalog {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEntriesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListEntriesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1187,8 +1194,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListEntries {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListEntries {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1198,7 +1205,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ModifyEntryOverview;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1229,7 +1236,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1239,7 +1246,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .modify_entry_overview(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ModifyEntryOverviewRequest::name].
@@ -1274,8 +1281,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ModifyEntryOverview {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ModifyEntryOverview {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1285,7 +1292,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ModifyEntryContacts;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1316,7 +1323,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1326,7 +1333,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .modify_entry_contacts(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ModifyEntryContactsRequest::name].
@@ -1361,8 +1368,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ModifyEntryContacts {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ModifyEntryContacts {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1372,7 +1379,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::CreateTagTemplate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1403,7 +1410,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1413,7 +1420,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .create_tag_template(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTagTemplateRequest::parent].
@@ -1456,8 +1463,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateTagTemplate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateTagTemplate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1467,7 +1474,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::GetTagTemplate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1495,7 +1502,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1505,7 +1512,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .get_tag_template(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTagTemplateRequest::name].
@@ -1518,8 +1525,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetTagTemplate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetTagTemplate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1529,7 +1536,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::UpdateTagTemplate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1560,7 +1567,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1570,7 +1577,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .update_tag_template(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [tag_template][crate::model::UpdateTagTemplateRequest::tag_template].
@@ -1615,8 +1622,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateTagTemplate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateTagTemplate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1626,7 +1633,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::DeleteTagTemplate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1657,7 +1664,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1667,7 +1674,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .delete_tag_template(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTagTemplateRequest::name].
@@ -1688,8 +1695,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteTagTemplate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteTagTemplate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1699,7 +1706,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::CreateTagTemplateField;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1730,7 +1737,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1740,7 +1747,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .create_tag_template_field(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTagTemplateFieldRequest::parent].
@@ -1783,8 +1790,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateTagTemplateField {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateTagTemplateField {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1794,7 +1801,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::UpdateTagTemplateField;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1825,7 +1832,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1835,7 +1842,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .update_tag_template_field(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateTagTemplateFieldRequest::name].
@@ -1888,8 +1895,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateTagTemplateField {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateTagTemplateField {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1899,7 +1906,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::RenameTagTemplateField;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1930,7 +1937,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1940,7 +1947,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .rename_tag_template_field(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameTagTemplateFieldRequest::name].
@@ -1961,8 +1968,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RenameTagTemplateField {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RenameTagTemplateField {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1972,7 +1979,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::RenameTagTemplateFieldEnumValue;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2005,7 +2012,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2015,7 +2022,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .rename_tag_template_field_enum_value(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameTagTemplateFieldEnumValueRequest::name].
@@ -2039,8 +2046,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RenameTagTemplateFieldEnumValue {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RenameTagTemplateFieldEnumValue {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2050,7 +2057,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::DeleteTagTemplateField;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2081,7 +2088,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2091,7 +2098,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .delete_tag_template_field(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTagTemplateFieldRequest::name].
@@ -2112,8 +2119,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteTagTemplateField {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteTagTemplateField {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2123,7 +2130,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::CreateTag;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2151,7 +2158,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2161,7 +2168,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .create_tag(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTagRequest::parent].
@@ -2196,8 +2203,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateTag {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateTag {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2207,7 +2214,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::UpdateTag;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2235,7 +2242,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2245,7 +2252,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .update_tag(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [tag][crate::model::UpdateTagRequest::tag].
@@ -2290,8 +2297,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateTag {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateTag {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2301,7 +2308,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::DeleteTag;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2329,7 +2336,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2339,7 +2346,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .delete_tag(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTagRequest::name].
@@ -2352,8 +2359,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteTag {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteTag {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2363,8 +2370,8 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ListTags;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2395,7 +2402,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2405,13 +2412,13 @@ pub mod data_catalog {
             (*self.0.stub)
                 .list_tags(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListTagsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListTagsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2420,15 +2427,15 @@ pub mod data_catalog {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTagsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<crate::model::ListTagsResponse, crate::Error>
         {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2454,8 +2461,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListTags {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListTags {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2465,7 +2472,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ReconcileTags;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2494,7 +2501,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2509,7 +2516,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .reconcile_tags(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `reconcile_tags`.
@@ -2528,7 +2535,7 @@ pub mod data_catalog {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2590,8 +2597,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ReconcileTags {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ReconcileTags {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2601,7 +2608,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::StarEntry;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2629,7 +2636,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2639,7 +2646,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .star_entry(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StarEntryRequest::name].
@@ -2652,8 +2659,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StarEntry {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StarEntry {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2663,7 +2670,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::UnstarEntry;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2691,7 +2698,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2701,7 +2708,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .unstar_entry(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UnstarEntryRequest::name].
@@ -2714,8 +2721,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UnstarEntry {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UnstarEntry {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2725,7 +2732,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2756,7 +2763,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2766,7 +2773,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -2819,8 +2826,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2830,7 +2837,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2861,7 +2868,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2871,7 +2878,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -2902,8 +2909,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2913,7 +2920,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2946,7 +2953,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2956,7 +2963,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2982,8 +2989,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2993,7 +3000,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ImportEntries;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3022,7 +3029,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3037,7 +3044,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .import_entries(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_entries`.
@@ -3056,7 +3063,7 @@ pub mod data_catalog {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3124,8 +3131,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ImportEntries {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ImportEntries {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3135,7 +3142,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::SetConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3163,7 +3170,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3173,7 +3180,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .set_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SetConfigRequest::name].
@@ -3230,8 +3237,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3241,7 +3248,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::RetrieveConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3269,7 +3276,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3279,7 +3286,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .retrieve_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RetrieveConfigRequest::name].
@@ -3292,8 +3299,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RetrieveConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RetrieveConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3303,7 +3310,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::RetrieveEffectiveConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3336,7 +3343,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3346,7 +3353,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .retrieve_effective_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RetrieveEffectiveConfigRequest::name].
@@ -3359,8 +3366,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RetrieveEffectiveConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RetrieveEffectiveConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3370,8 +3377,8 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3407,7 +3414,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3417,15 +3424,15 @@ pub mod data_catalog {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3434,17 +3441,17 @@ pub mod data_catalog {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3480,8 +3487,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3491,7 +3498,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3522,7 +3529,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3532,7 +3539,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -3543,8 +3550,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3554,7 +3561,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3587,7 +3594,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3597,7 +3604,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -3608,8 +3615,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3619,7 +3626,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3652,7 +3659,7 @@ pub mod data_catalog {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3662,7 +3669,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -3673,8 +3680,8 @@ pub mod data_catalog {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3686,7 +3693,7 @@ pub mod policy_tag_manager {
     /// A builder for [PolicyTagManager][crate::client::PolicyTagManager].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_datacatalog_v1::*;
     /// # use builder::policy_tag_manager::ClientBuilder;
     /// # use client::PolicyTagManager;
@@ -3696,19 +3703,18 @@ pub mod policy_tag_manager {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::PolicyTagManager;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = PolicyTagManager;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -3719,7 +3725,7 @@ pub mod policy_tag_manager {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3732,7 +3738,7 @@ pub mod policy_tag_manager {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -3742,7 +3748,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::CreateTaxonomy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3770,7 +3776,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3780,7 +3786,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .create_taxonomy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTaxonomyRequest::parent].
@@ -3811,8 +3817,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateTaxonomy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateTaxonomy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3822,7 +3828,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::DeleteTaxonomy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3850,7 +3856,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3860,7 +3866,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .delete_taxonomy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTaxonomyRequest::name].
@@ -3873,8 +3879,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteTaxonomy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteTaxonomy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3884,7 +3890,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::UpdateTaxonomy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3912,7 +3918,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3922,7 +3928,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .update_taxonomy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [taxonomy][crate::model::UpdateTaxonomyRequest::taxonomy].
@@ -3963,8 +3969,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateTaxonomy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateTaxonomy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3974,8 +3980,8 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::ListTaxonomies;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4006,7 +4012,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4016,14 +4022,16 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .list_taxonomies(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListTaxonomiesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListTaxonomiesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4031,15 +4039,17 @@ pub mod policy_tag_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTaxonomiesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListTaxonomiesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4071,8 +4081,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListTaxonomies {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListTaxonomies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4082,7 +4092,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::GetTaxonomy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4110,7 +4120,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4120,7 +4130,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .get_taxonomy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTaxonomyRequest::name].
@@ -4133,8 +4143,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetTaxonomy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetTaxonomy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4144,7 +4154,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::CreatePolicyTag;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4172,7 +4182,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4182,7 +4192,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .create_policy_tag(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyTagRequest::parent].
@@ -4213,8 +4223,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreatePolicyTag {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreatePolicyTag {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4224,7 +4234,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::DeletePolicyTag;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4252,7 +4262,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4262,7 +4272,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .delete_policy_tag(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyTagRequest::name].
@@ -4275,8 +4285,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeletePolicyTag {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeletePolicyTag {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4286,7 +4296,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::UpdatePolicyTag;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4314,7 +4324,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4324,7 +4334,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .update_policy_tag(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [policy_tag][crate::model::UpdatePolicyTagRequest::policy_tag].
@@ -4365,8 +4375,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdatePolicyTag {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdatePolicyTag {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4376,8 +4386,8 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::ListPolicyTags;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4408,7 +4418,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4418,14 +4428,16 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .list_policy_tags(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListPolicyTagsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListPolicyTagsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4433,15 +4445,17 @@ pub mod policy_tag_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPolicyTagsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListPolicyTagsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4467,8 +4481,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListPolicyTags {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListPolicyTags {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4478,7 +4492,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::GetPolicyTag;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4506,7 +4520,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4516,7 +4530,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .get_policy_tag(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPolicyTagRequest::name].
@@ -4529,8 +4543,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetPolicyTag {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetPolicyTag {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4540,7 +4554,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4571,7 +4585,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4581,7 +4595,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -4612,8 +4626,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4623,7 +4637,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4654,7 +4668,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4664,7 +4678,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -4717,8 +4731,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4728,7 +4742,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4761,7 +4775,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4771,7 +4785,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -4797,8 +4811,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4808,8 +4822,8 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4845,7 +4859,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4855,15 +4869,15 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -4872,17 +4886,17 @@ pub mod policy_tag_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4918,8 +4932,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4929,7 +4943,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4960,7 +4974,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4970,7 +4984,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -4981,8 +4995,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4992,7 +5006,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5025,7 +5039,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5035,7 +5049,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -5046,8 +5060,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5057,7 +5071,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5090,7 +5104,7 @@ pub mod policy_tag_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5100,7 +5114,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -5111,8 +5125,8 @@ pub mod policy_tag_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5124,7 +5138,7 @@ pub mod policy_tag_manager_serialization {
     /// A builder for [PolicyTagManagerSerialization][crate::client::PolicyTagManagerSerialization].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_datacatalog_v1::*;
     /// # use builder::policy_tag_manager_serialization::ClientBuilder;
     /// # use client::PolicyTagManagerSerialization;
@@ -5134,19 +5148,18 @@ pub mod policy_tag_manager_serialization {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::PolicyTagManagerSerialization;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = PolicyTagManagerSerialization;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -5157,7 +5170,7 @@ pub mod policy_tag_manager_serialization {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -5170,7 +5183,7 @@ pub mod policy_tag_manager_serialization {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -5180,7 +5193,7 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::ReplaceTaxonomy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5208,7 +5221,7 @@ pub mod policy_tag_manager_serialization {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5218,7 +5231,7 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .replace_taxonomy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ReplaceTaxonomyRequest::name].
@@ -5253,8 +5266,8 @@ pub mod policy_tag_manager_serialization {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ReplaceTaxonomy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ReplaceTaxonomy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5264,7 +5277,7 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::ImportTaxonomies;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5295,7 +5308,7 @@ pub mod policy_tag_manager_serialization {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5305,7 +5318,7 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .import_taxonomies(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ImportTaxonomiesRequest::parent].
@@ -5360,8 +5373,8 @@ pub mod policy_tag_manager_serialization {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ImportTaxonomies {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ImportTaxonomies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5371,7 +5384,7 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::ExportTaxonomies;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5402,7 +5415,7 @@ pub mod policy_tag_manager_serialization {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5412,7 +5425,7 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .export_taxonomies(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ExportTaxonomiesRequest::parent].
@@ -5462,8 +5475,8 @@ pub mod policy_tag_manager_serialization {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ExportTaxonomies {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ExportTaxonomies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5473,8 +5486,8 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -5510,7 +5523,7 @@ pub mod policy_tag_manager_serialization {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5520,15 +5533,15 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -5537,17 +5550,17 @@ pub mod policy_tag_manager_serialization {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -5583,8 +5596,8 @@ pub mod policy_tag_manager_serialization {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5594,7 +5607,7 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5625,7 +5638,7 @@ pub mod policy_tag_manager_serialization {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5635,7 +5648,7 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -5646,8 +5659,8 @@ pub mod policy_tag_manager_serialization {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5657,7 +5670,7 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5690,7 +5703,7 @@ pub mod policy_tag_manager_serialization {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5700,7 +5713,7 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -5711,8 +5724,8 @@ pub mod policy_tag_manager_serialization {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5722,7 +5735,7 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5755,7 +5768,7 @@ pub mod policy_tag_manager_serialization {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5765,7 +5778,7 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -5776,8 +5789,8 @@ pub mod policy_tag_manager_serialization {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

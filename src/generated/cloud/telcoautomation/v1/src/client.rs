@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
 /// let client = TelcoAutomation::builder().build().await?;
 /// // use `client` to make requests to the Telco Automation API.
@@ -70,15 +70,13 @@ impl TelcoAutomation {
     /// Returns a builder for [TelcoAutomation].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// let client = TelcoAutomation::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::telco_automation::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::telco_automation::client::Factory,
-        )
+        crate::new_client_builder(super::builder::telco_automation::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -96,15 +94,14 @@ impl TelcoAutomation {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TelcoAutomation>>
-    {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::TelcoAutomation>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -113,13 +110,13 @@ impl TelcoAutomation {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TelcoAutomation> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TelcoAutomation> {
         super::transport::TelcoAutomation::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TelcoAutomation> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TelcoAutomation> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TelcoAutomation::new)

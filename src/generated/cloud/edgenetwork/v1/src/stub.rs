@@ -42,9 +42,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn initialize_zone(
         &self,
         _req: crate::model::InitializeZoneRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::InitializeZoneResponse>>,
+        Output = crate::Result<crate::Response<crate::model::InitializeZoneResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn list_zones(
         &self,
         _req: crate::model::ListZonesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListZonesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListZonesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,10 +64,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn get_zone(
         &self,
         _req: crate::model::GetZoneRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Zone>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Zone>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,9 +74,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn list_networks(
         &self,
         _req: crate::model::ListNetworksRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListNetworksResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListNetworksResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,10 +85,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn get_network(
         &self,
         _req: crate::model::GetNetworkRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Network>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Network>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -97,9 +95,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn diagnose_network(
         &self,
         _req: crate::model::DiagnoseNetworkRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DiagnoseNetworkResponse>>,
+        Output = crate::Result<crate::Response<crate::model::DiagnoseNetworkResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,9 +106,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn create_network(
         &self,
         _req: crate::model::CreateNetworkRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -119,9 +117,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn delete_network(
         &self,
         _req: crate::model::DeleteNetworkRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -130,9 +128,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn list_subnets(
         &self,
         _req: crate::model::ListSubnetsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSubnetsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListSubnetsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -141,10 +139,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn get_subnet(
         &self,
         _req: crate::model::GetSubnetRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Subnet>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Subnet>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -152,9 +149,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn create_subnet(
         &self,
         _req: crate::model::CreateSubnetRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -163,9 +160,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn update_subnet(
         &self,
         _req: crate::model::UpdateSubnetRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -174,9 +171,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn delete_subnet(
         &self,
         _req: crate::model::DeleteSubnetRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -185,9 +182,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn list_interconnects(
         &self,
         _req: crate::model::ListInterconnectsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListInterconnectsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListInterconnectsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -196,9 +193,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn get_interconnect(
         &self,
         _req: crate::model::GetInterconnectRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Interconnect>>,
+        Output = crate::Result<crate::Response<crate::model::Interconnect>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -207,9 +204,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn diagnose_interconnect(
         &self,
         _req: crate::model::DiagnoseInterconnectRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DiagnoseInterconnectResponse>>,
+        Output = crate::Result<crate::Response<crate::model::DiagnoseInterconnectResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -218,11 +215,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn list_interconnect_attachments(
         &self,
         _req: crate::model::ListInterconnectAttachmentsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListInterconnectAttachmentsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListInterconnectAttachmentsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -231,9 +226,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn get_interconnect_attachment(
         &self,
         _req: crate::model::GetInterconnectAttachmentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::InterconnectAttachment>>,
+        Output = crate::Result<crate::Response<crate::model::InterconnectAttachment>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -242,9 +237,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn create_interconnect_attachment(
         &self,
         _req: crate::model::CreateInterconnectAttachmentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -253,9 +248,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn delete_interconnect_attachment(
         &self,
         _req: crate::model::DeleteInterconnectAttachmentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -264,9 +259,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn list_routers(
         &self,
         _req: crate::model::ListRoutersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListRoutersResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListRoutersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -275,10 +270,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn get_router(
         &self,
         _req: crate::model::GetRouterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Router>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Router>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -286,9 +280,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn diagnose_router(
         &self,
         _req: crate::model::DiagnoseRouterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DiagnoseRouterResponse>>,
+        Output = crate::Result<crate::Response<crate::model::DiagnoseRouterResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -297,9 +291,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn create_router(
         &self,
         _req: crate::model::CreateRouterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -308,9 +302,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn update_router(
         &self,
         _req: crate::model::UpdateRouterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -319,9 +313,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn delete_router(
         &self,
         _req: crate::model::DeleteRouterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -330,10 +324,10 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -343,9 +337,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -354,10 +348,10 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -367,9 +361,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -378,8 +372,8 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -387,8 +381,8 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -398,9 +392,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -409,8 +403,8 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

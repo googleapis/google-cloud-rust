@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_domains_v1::client::Domains;
 /// let client = Domains::builder().build().await?;
 /// // use `client` to make requests to the Cloud Domains API.
@@ -66,13 +66,13 @@ impl Domains {
     /// Returns a builder for [Domains].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_domains_v1::client::Domains;
     /// let client = Domains::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::domains::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::domains::client::Factory)
+        crate::new_client_builder(super::builder::domains::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl Domains {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Domains>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Domains>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl Domains {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Domains> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Domains> {
         super::transport::Domains::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Domains> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Domains> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Domains::new)

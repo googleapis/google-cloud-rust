@@ -20,38 +20,38 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
     async fn create_challenge(
         &self,
         req: crate::model::CreateChallengeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Challenge>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Challenge>>;
 
     async fn verify_attestation(
         &self,
         req: crate::model::VerifyAttestationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VerifyAttestationResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VerifyAttestationResponse>>;
 
     async fn verify_confidential_space(
         &self,
         req: crate::model::VerifyConfidentialSpaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VerifyConfidentialSpaceResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VerifyConfidentialSpaceResponse>>;
 
     async fn verify_confidential_gke(
         &self,
         req: crate::model::VerifyConfidentialGkeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VerifyConfidentialGkeResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VerifyConfidentialGkeResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 }
 
 /// All implementations of [super::ConfidentialComputing] also implement [ConfidentialComputing].
@@ -61,8 +61,8 @@ impl<T: super::ConfidentialComputing> ConfidentialComputing for T {
     async fn create_challenge(
         &self,
         req: crate::model::CreateChallengeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Challenge>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Challenge>> {
         T::create_challenge(self, req, options).await
     }
 
@@ -70,8 +70,8 @@ impl<T: super::ConfidentialComputing> ConfidentialComputing for T {
     async fn verify_attestation(
         &self,
         req: crate::model::VerifyAttestationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VerifyAttestationResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VerifyAttestationResponse>> {
         T::verify_attestation(self, req, options).await
     }
 
@@ -79,8 +79,8 @@ impl<T: super::ConfidentialComputing> ConfidentialComputing for T {
     async fn verify_confidential_space(
         &self,
         req: crate::model::VerifyConfidentialSpaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VerifyConfidentialSpaceResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VerifyConfidentialSpaceResponse>> {
         T::verify_confidential_space(self, req, options).await
     }
 
@@ -88,8 +88,8 @@ impl<T: super::ConfidentialComputing> ConfidentialComputing for T {
     async fn verify_confidential_gke(
         &self,
         req: crate::model::VerifyConfidentialGkeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VerifyConfidentialGkeResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VerifyConfidentialGkeResponse>> {
         T::verify_confidential_gke(self, req, options).await
     }
 
@@ -97,9 +97,8 @@ impl<T: super::ConfidentialComputing> ConfidentialComputing for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -107,8 +106,8 @@ impl<T: super::ConfidentialComputing> ConfidentialComputing for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 }

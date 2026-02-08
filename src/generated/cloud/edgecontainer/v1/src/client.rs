@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
 /// let client = EdgeContainer::builder().build().await?;
 /// // use `client` to make requests to the Distributed Cloud Edge Container API.
@@ -67,13 +67,13 @@ impl EdgeContainer {
     /// Returns a builder for [EdgeContainer].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
     /// let client = EdgeContainer::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::edge_container::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::edge_container::client::Factory)
+        crate::new_client_builder(super::builder::edge_container::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -91,14 +91,14 @@ impl EdgeContainer {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EdgeContainer>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::EdgeContainer>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -107,13 +107,13 @@ impl EdgeContainer {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::EdgeContainer> {
+    ) -> crate::ClientBuilderResult<impl super::stub::EdgeContainer> {
         super::transport::EdgeContainer::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::EdgeContainer> {
+    ) -> crate::ClientBuilderResult<impl super::stub::EdgeContainer> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EdgeContainer::new)

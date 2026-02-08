@@ -41,8 +41,8 @@ where
     async fn batch_annotate_images(
         &self,
         req: crate::model::BatchAnnotateImagesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BatchAnnotateImagesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BatchAnnotateImagesResponse>> {
         self.inner.batch_annotate_images(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn batch_annotate_files(
         &self,
         req: crate::model::BatchAnnotateFilesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BatchAnnotateFilesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BatchAnnotateFilesResponse>> {
         self.inner.batch_annotate_files(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn async_batch_annotate_images(
         &self,
         req: crate::model::AsyncBatchAnnotateImagesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.async_batch_annotate_images(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn async_batch_annotate_files(
         &self,
         req: crate::model::AsyncBatchAnnotateFilesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.async_batch_annotate_files(req, options).await
     }
 
@@ -77,22 +77,22 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -123,8 +123,8 @@ where
     async fn create_product_set(
         &self,
         req: crate::model::CreateProductSetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ProductSet>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ProductSet>> {
         self.inner.create_product_set(req, options).await
     }
 
@@ -132,8 +132,8 @@ where
     async fn list_product_sets(
         &self,
         req: crate::model::ListProductSetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListProductSetsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListProductSetsResponse>> {
         self.inner.list_product_sets(req, options).await
     }
 
@@ -141,8 +141,8 @@ where
     async fn get_product_set(
         &self,
         req: crate::model::GetProductSetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ProductSet>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ProductSet>> {
         self.inner.get_product_set(req, options).await
     }
 
@@ -150,8 +150,8 @@ where
     async fn update_product_set(
         &self,
         req: crate::model::UpdateProductSetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ProductSet>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ProductSet>> {
         self.inner.update_product_set(req, options).await
     }
 
@@ -159,8 +159,8 @@ where
     async fn delete_product_set(
         &self,
         req: crate::model::DeleteProductSetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_product_set(req, options).await
     }
 
@@ -168,8 +168,8 @@ where
     async fn create_product(
         &self,
         req: crate::model::CreateProductRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Product>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Product>> {
         self.inner.create_product(req, options).await
     }
 
@@ -177,8 +177,8 @@ where
     async fn list_products(
         &self,
         req: crate::model::ListProductsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListProductsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListProductsResponse>> {
         self.inner.list_products(req, options).await
     }
 
@@ -186,8 +186,8 @@ where
     async fn get_product(
         &self,
         req: crate::model::GetProductRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Product>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Product>> {
         self.inner.get_product(req, options).await
     }
 
@@ -195,8 +195,8 @@ where
     async fn update_product(
         &self,
         req: crate::model::UpdateProductRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Product>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Product>> {
         self.inner.update_product(req, options).await
     }
 
@@ -204,8 +204,8 @@ where
     async fn delete_product(
         &self,
         req: crate::model::DeleteProductRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_product(req, options).await
     }
 
@@ -213,8 +213,8 @@ where
     async fn create_reference_image(
         &self,
         req: crate::model::CreateReferenceImageRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReferenceImage>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReferenceImage>> {
         self.inner.create_reference_image(req, options).await
     }
 
@@ -222,8 +222,8 @@ where
     async fn delete_reference_image(
         &self,
         req: crate::model::DeleteReferenceImageRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_reference_image(req, options).await
     }
 
@@ -231,8 +231,8 @@ where
     async fn list_reference_images(
         &self,
         req: crate::model::ListReferenceImagesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListReferenceImagesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListReferenceImagesResponse>> {
         self.inner.list_reference_images(req, options).await
     }
 
@@ -240,8 +240,8 @@ where
     async fn get_reference_image(
         &self,
         req: crate::model::GetReferenceImageRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReferenceImage>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReferenceImage>> {
         self.inner.get_reference_image(req, options).await
     }
 
@@ -249,8 +249,8 @@ where
     async fn add_product_to_product_set(
         &self,
         req: crate::model::AddProductToProductSetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.add_product_to_product_set(req, options).await
     }
 
@@ -258,8 +258,8 @@ where
     async fn remove_product_from_product_set(
         &self,
         req: crate::model::RemoveProductFromProductSetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner
             .remove_product_from_product_set(req, options)
             .await
@@ -269,8 +269,8 @@ where
     async fn list_products_in_product_set(
         &self,
         req: crate::model::ListProductsInProductSetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListProductsInProductSetResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListProductsInProductSetResponse>> {
         self.inner.list_products_in_product_set(req, options).await
     }
 
@@ -278,8 +278,8 @@ where
     async fn import_product_sets(
         &self,
         req: crate::model::ImportProductSetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.import_product_sets(req, options).await
     }
 
@@ -287,8 +287,8 @@ where
     async fn purge_products(
         &self,
         req: crate::model::PurgeProductsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.purge_products(req, options).await
     }
 
@@ -296,22 +296,22 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

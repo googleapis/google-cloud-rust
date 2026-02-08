@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
 /// let client = ManagedSchemaRegistry::builder().build().await?;
 /// // use `client` to make requests to the Managed Service for Apache Kafka API.
@@ -115,15 +115,13 @@ impl ManagedSchemaRegistry {
     /// Returns a builder for [ManagedSchemaRegistry].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// let client = ManagedSchemaRegistry::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::managed_schema_registry::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::managed_schema_registry::client::Factory,
-        )
+        crate::new_client_builder(super::builder::managed_schema_registry::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -141,14 +139,14 @@ impl ManagedSchemaRegistry {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedSchemaRegistry>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ManagedSchemaRegistry>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -158,13 +156,13 @@ impl ManagedSchemaRegistry {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedSchemaRegistry> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedSchemaRegistry> {
         super::transport::ManagedSchemaRegistry::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedSchemaRegistry> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedSchemaRegistry> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ManagedSchemaRegistry::new)

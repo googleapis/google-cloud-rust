@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
 /// let client = VpcAccessService::builder().build().await?;
 /// // use `client` to make requests to the Serverless VPC Access API.
@@ -68,15 +68,13 @@ impl VpcAccessService {
     /// Returns a builder for [VpcAccessService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
     /// let client = VpcAccessService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::vpc_access_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::vpc_access_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::vpc_access_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -94,14 +92,14 @@ impl VpcAccessService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VpcAccessService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::VpcAccessService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -111,13 +109,13 @@ impl VpcAccessService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VpcAccessService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::VpcAccessService> {
         super::transport::VpcAccessService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VpcAccessService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::VpcAccessService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VpcAccessService::new)

@@ -42,9 +42,9 @@ pub trait CloudQuotas: std::fmt::Debug + Send + Sync {
     fn list_quota_infos(
         &self,
         _req: crate::model::ListQuotaInfosRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListQuotaInfosResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListQuotaInfosResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait CloudQuotas: std::fmt::Debug + Send + Sync {
     fn get_quota_info(
         &self,
         _req: crate::model::GetQuotaInfoRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::QuotaInfo>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::QuotaInfo>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,9 +63,9 @@ pub trait CloudQuotas: std::fmt::Debug + Send + Sync {
     fn list_quota_preferences(
         &self,
         _req: crate::model::ListQuotaPreferencesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListQuotaPreferencesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListQuotaPreferencesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +74,9 @@ pub trait CloudQuotas: std::fmt::Debug + Send + Sync {
     fn get_quota_preference(
         &self,
         _req: crate::model::GetQuotaPreferenceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::QuotaPreference>>,
+        Output = crate::Result<crate::Response<crate::model::QuotaPreference>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +85,9 @@ pub trait CloudQuotas: std::fmt::Debug + Send + Sync {
     fn create_quota_preference(
         &self,
         _req: crate::model::CreateQuotaPreferenceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::QuotaPreference>>,
+        Output = crate::Result<crate::Response<crate::model::QuotaPreference>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,9 +96,9 @@ pub trait CloudQuotas: std::fmt::Debug + Send + Sync {
     fn update_quota_preference(
         &self,
         _req: crate::model::UpdateQuotaPreferenceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::QuotaPreference>>,
+        Output = crate::Result<crate::Response<crate::model::QuotaPreference>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_auditmanager_v1::client::AuditManager;
 /// let client = AuditManager::builder().build().await?;
 /// // use `client` to make requests to the Audit Manager API.
@@ -66,13 +66,13 @@ impl AuditManager {
     /// Returns a builder for [AuditManager].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_auditmanager_v1::client::AuditManager;
     /// let client = AuditManager::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::audit_manager::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::audit_manager::client::Factory)
+        crate::new_client_builder(super::builder::audit_manager::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl AuditManager {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AuditManager>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AuditManager>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl AuditManager {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AuditManager> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AuditManager> {
         super::transport::AuditManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AuditManager> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AuditManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AuditManager::new)

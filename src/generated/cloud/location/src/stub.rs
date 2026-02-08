@@ -42,9 +42,9 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: crate::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListLocationsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListLocationsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: crate::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Location>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Location>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }

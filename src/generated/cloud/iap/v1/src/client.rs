@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
 /// let client = IdentityAwareProxyAdminService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Identity-Aware Proxy API.
@@ -66,13 +66,13 @@ impl IdentityAwareProxyAdminService {
     /// Returns a builder for [IdentityAwareProxyAdminService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
     /// let client = IdentityAwareProxyAdminService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::identity_aware_proxy_admin_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
+        crate::new_client_builder(
             super::builder::identity_aware_proxy_admin_service::client::Factory,
         )
     }
@@ -92,14 +92,14 @@ impl IdentityAwareProxyAdminService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::IdentityAwareProxyAdminService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -110,13 +110,13 @@ impl IdentityAwareProxyAdminService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::IdentityAwareProxyAdminService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::IdentityAwareProxyAdminService> {
         super::transport::IdentityAwareProxyAdminService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::IdentityAwareProxyAdminService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::IdentityAwareProxyAdminService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::IdentityAwareProxyAdminService::new)
@@ -232,7 +232,7 @@ impl IdentityAwareProxyAdminService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
 /// let client = IdentityAwareProxyOAuthService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Identity-Aware Proxy API.
@@ -280,13 +280,13 @@ impl IdentityAwareProxyOAuthService {
     /// Returns a builder for [IdentityAwareProxyOAuthService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
     /// let client = IdentityAwareProxyOAuthService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::identity_aware_proxy_o_auth_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
+        crate::new_client_builder(
             super::builder::identity_aware_proxy_o_auth_service::client::Factory,
         )
     }
@@ -306,14 +306,14 @@ impl IdentityAwareProxyOAuthService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::IdentityAwareProxyOAuthService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -324,13 +324,13 @@ impl IdentityAwareProxyOAuthService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::IdentityAwareProxyOAuthService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::IdentityAwareProxyOAuthService> {
         super::transport::IdentityAwareProxyOAuthService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::IdentityAwareProxyOAuthService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::IdentityAwareProxyOAuthService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::IdentityAwareProxyOAuthService::new)

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
 /// let client = GSuiteAddOns::builder().build().await?;
 /// // use `client` to make requests to the Google Workspace add-ons API.
@@ -93,13 +93,13 @@ impl GSuiteAddOns {
     /// Returns a builder for [GSuiteAddOns].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
     /// let client = GSuiteAddOns::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::g_suite_add_ons::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::g_suite_add_ons::client::Factory)
+        crate::new_client_builder(super::builder::g_suite_add_ons::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -117,14 +117,14 @@ impl GSuiteAddOns {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GSuiteAddOns>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::GSuiteAddOns>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -133,13 +133,13 @@ impl GSuiteAddOns {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GSuiteAddOns> {
+    ) -> crate::ClientBuilderResult<impl super::stub::GSuiteAddOns> {
         super::transport::GSuiteAddOns::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GSuiteAddOns> {
+    ) -> crate::ClientBuilderResult<impl super::stub::GSuiteAddOns> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GSuiteAddOns::new)

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
 /// let client = Audit::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
@@ -66,13 +66,13 @@ impl Audit {
     /// Returns a builder for [Audit].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
     /// let client = Audit::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::audit::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::audit::client::Factory)
+        crate::new_client_builder(super::builder::audit::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl Audit {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Audit>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Audit>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl Audit {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Audit> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Audit> {
         super::transport::Audit::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Audit> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Audit> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Audit::new)
@@ -193,7 +193,7 @@ impl Audit {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
 /// let client = CmEnrollmentService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
@@ -240,15 +240,13 @@ impl CmEnrollmentService {
     /// Returns a builder for [CmEnrollmentService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
     /// let client = CmEnrollmentService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cm_enrollment_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::cm_enrollment_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::cm_enrollment_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -266,14 +264,14 @@ impl CmEnrollmentService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CmEnrollmentService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::CmEnrollmentService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -283,13 +281,13 @@ impl CmEnrollmentService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CmEnrollmentService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CmEnrollmentService> {
         super::transport::CmEnrollmentService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CmEnrollmentService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CmEnrollmentService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CmEnrollmentService::new)
@@ -360,7 +358,7 @@ impl CmEnrollmentService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
 /// let client = Config::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
@@ -407,13 +405,13 @@ impl Config {
     /// Returns a builder for [Config].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
     /// let client = Config::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::config::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::config::client::Factory)
+        crate::new_client_builder(super::builder::config::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -431,14 +429,14 @@ impl Config {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Config>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Config>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -447,13 +445,13 @@ impl Config {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Config> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Config> {
         super::transport::Config::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Config> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Config> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Config::new)
@@ -608,7 +606,7 @@ impl Config {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
 /// let client = Deployment::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
@@ -655,13 +653,13 @@ impl Deployment {
     /// Returns a builder for [Deployment].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
     /// let client = Deployment::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::deployment::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::deployment::client::Factory)
+        crate::new_client_builder(super::builder::deployment::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -679,14 +677,14 @@ impl Deployment {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Deployment>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Deployment>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -695,13 +693,13 @@ impl Deployment {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Deployment> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Deployment> {
         super::transport::Deployment::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Deployment> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Deployment> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Deployment::new)
@@ -813,7 +811,7 @@ impl Deployment {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
 /// let client = Monitoring::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
@@ -859,13 +857,13 @@ impl Monitoring {
     /// Returns a builder for [Monitoring].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
     /// let client = Monitoring::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::monitoring::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::monitoring::client::Factory)
+        crate::new_client_builder(super::builder::monitoring::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -883,14 +881,14 @@ impl Monitoring {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Monitoring>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Monitoring>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -899,13 +897,13 @@ impl Monitoring {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Monitoring> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Monitoring> {
         super::transport::Monitoring::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Monitoring> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Monitoring> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Monitoring::new)

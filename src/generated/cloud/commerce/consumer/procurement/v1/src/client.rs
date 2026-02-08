@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
 /// let client = LicenseManagementService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Commerce Consumer Procurement API.
@@ -66,15 +66,13 @@ impl LicenseManagementService {
     /// Returns a builder for [LicenseManagementService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
     /// let client = LicenseManagementService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::license_management_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::license_management_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::license_management_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,14 +90,14 @@ impl LicenseManagementService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::LicenseManagementService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -110,13 +108,13 @@ impl LicenseManagementService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::LicenseManagementService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::LicenseManagementService> {
         super::transport::LicenseManagementService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::LicenseManagementService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::LicenseManagementService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LicenseManagementService::new)
@@ -163,7 +161,7 @@ impl LicenseManagementService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
 /// let client = ConsumerProcurementService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Commerce Consumer Procurement API.
@@ -218,15 +216,13 @@ impl ConsumerProcurementService {
     /// Returns a builder for [ConsumerProcurementService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
     /// let client = ConsumerProcurementService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::consumer_procurement_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::consumer_procurement_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::consumer_procurement_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -244,14 +240,14 @@ impl ConsumerProcurementService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::ConsumerProcurementService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -262,13 +258,13 @@ impl ConsumerProcurementService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ConsumerProcurementService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ConsumerProcurementService> {
         super::transport::ConsumerProcurementService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ConsumerProcurementService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ConsumerProcurementService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConsumerProcurementService::new)

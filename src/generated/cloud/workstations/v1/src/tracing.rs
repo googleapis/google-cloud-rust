@@ -41,8 +41,8 @@ where
     async fn get_workstation_cluster(
         &self,
         req: crate::model::GetWorkstationClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::WorkstationCluster>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::WorkstationCluster>> {
         self.inner.get_workstation_cluster(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_workstation_clusters(
         &self,
         req: crate::model::ListWorkstationClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListWorkstationClustersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListWorkstationClustersResponse>> {
         self.inner.list_workstation_clusters(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn create_workstation_cluster(
         &self,
         req: crate::model::CreateWorkstationClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_workstation_cluster(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn update_workstation_cluster(
         &self,
         req: crate::model::UpdateWorkstationClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_workstation_cluster(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn delete_workstation_cluster(
         &self,
         req: crate::model::DeleteWorkstationClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_workstation_cluster(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_workstation_config(
         &self,
         req: crate::model::GetWorkstationConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::WorkstationConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::WorkstationConfig>> {
         self.inner.get_workstation_config(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn list_workstation_configs(
         &self,
         req: crate::model::ListWorkstationConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListWorkstationConfigsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListWorkstationConfigsResponse>> {
         self.inner.list_workstation_configs(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn list_usable_workstation_configs(
         &self,
         req: crate::model::ListUsableWorkstationConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListUsableWorkstationConfigsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListUsableWorkstationConfigsResponse>> {
         self.inner
             .list_usable_workstation_configs(req, options)
             .await
@@ -115,8 +115,8 @@ where
     async fn create_workstation_config(
         &self,
         req: crate::model::CreateWorkstationConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_workstation_config(req, options).await
     }
 
@@ -124,8 +124,8 @@ where
     async fn update_workstation_config(
         &self,
         req: crate::model::UpdateWorkstationConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_workstation_config(req, options).await
     }
 
@@ -133,8 +133,8 @@ where
     async fn delete_workstation_config(
         &self,
         req: crate::model::DeleteWorkstationConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_workstation_config(req, options).await
     }
 
@@ -142,8 +142,8 @@ where
     async fn get_workstation(
         &self,
         req: crate::model::GetWorkstationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Workstation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Workstation>> {
         self.inner.get_workstation(req, options).await
     }
 
@@ -151,8 +151,8 @@ where
     async fn list_workstations(
         &self,
         req: crate::model::ListWorkstationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListWorkstationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListWorkstationsResponse>> {
         self.inner.list_workstations(req, options).await
     }
 
@@ -160,8 +160,8 @@ where
     async fn list_usable_workstations(
         &self,
         req: crate::model::ListUsableWorkstationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListUsableWorkstationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListUsableWorkstationsResponse>> {
         self.inner.list_usable_workstations(req, options).await
     }
 
@@ -169,8 +169,8 @@ where
     async fn create_workstation(
         &self,
         req: crate::model::CreateWorkstationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_workstation(req, options).await
     }
 
@@ -178,8 +178,8 @@ where
     async fn update_workstation(
         &self,
         req: crate::model::UpdateWorkstationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_workstation(req, options).await
     }
 
@@ -187,8 +187,8 @@ where
     async fn delete_workstation(
         &self,
         req: crate::model::DeleteWorkstationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_workstation(req, options).await
     }
 
@@ -196,8 +196,8 @@ where
     async fn start_workstation(
         &self,
         req: crate::model::StartWorkstationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.start_workstation(req, options).await
     }
 
@@ -205,8 +205,8 @@ where
     async fn stop_workstation(
         &self,
         req: crate::model::StopWorkstationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.stop_workstation(req, options).await
     }
 
@@ -214,8 +214,8 @@ where
     async fn generate_access_token(
         &self,
         req: crate::model::GenerateAccessTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GenerateAccessTokenResponse>> {
         self.inner.generate_access_token(req, options).await
     }
 
@@ -223,8 +223,8 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -232,8 +232,8 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -241,9 +241,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -251,9 +250,8 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -261,8 +259,8 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -270,8 +268,8 @@ where
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -279,22 +277,22 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

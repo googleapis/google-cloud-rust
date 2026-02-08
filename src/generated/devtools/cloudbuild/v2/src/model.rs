@@ -19,9 +19,9 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_api;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -1215,7 +1215,7 @@ impl wkt::message::Message for FetchLinkableRepositoriesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for FetchLinkableRepositoriesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for FetchLinkableRepositoriesResponse {
     type PageItem = crate::model::Repository;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2604,7 +2604,7 @@ impl wkt::message::Message for ListConnectionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListConnectionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListConnectionsResponse {
     type PageItem = crate::model::Connection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3185,7 +3185,7 @@ impl wkt::message::Message for ListRepositoriesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRepositoriesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRepositoriesResponse {
     type PageItem = crate::model::Repository;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

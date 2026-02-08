@@ -20,62 +20,60 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
     async fn create_workload(
         &self,
         req: crate::model::CreateWorkloadRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_workload(
         &self,
         req: crate::model::UpdateWorkloadRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Workload>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Workload>>;
 
     async fn restrict_allowed_resources(
         &self,
         req: crate::model::RestrictAllowedResourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RestrictAllowedResourcesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestrictAllowedResourcesResponse>>;
 
     async fn delete_workload(
         &self,
         req: crate::model::DeleteWorkloadRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get_workload(
         &self,
         req: crate::model::GetWorkloadRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Workload>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Workload>>;
 
     async fn list_workloads(
         &self,
         req: crate::model::ListWorkloadsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListWorkloadsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListWorkloadsResponse>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::AssuredWorkloadsService] also implement [AssuredWorkloadsService].
@@ -85,8 +83,8 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
     async fn create_workload(
         &self,
         req: crate::model::CreateWorkloadRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_workload(self, req, options).await
     }
 
@@ -94,8 +92,8 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
     async fn update_workload(
         &self,
         req: crate::model::UpdateWorkloadRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Workload>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Workload>> {
         T::update_workload(self, req, options).await
     }
 
@@ -103,9 +101,8 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
     async fn restrict_allowed_resources(
         &self,
         req: crate::model::RestrictAllowedResourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RestrictAllowedResourcesResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestrictAllowedResourcesResponse>> {
         T::restrict_allowed_resources(self, req, options).await
     }
 
@@ -113,8 +110,8 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
     async fn delete_workload(
         &self,
         req: crate::model::DeleteWorkloadRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_workload(self, req, options).await
     }
 
@@ -122,8 +119,8 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
     async fn get_workload(
         &self,
         req: crate::model::GetWorkloadRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Workload>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Workload>> {
         T::get_workload(self, req, options).await
     }
 
@@ -131,8 +128,8 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
     async fn list_workloads(
         &self,
         req: crate::model::ListWorkloadsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListWorkloadsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListWorkloadsResponse>> {
         T::list_workloads(self, req, options).await
     }
 
@@ -140,10 +137,9 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -151,22 +147,22 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

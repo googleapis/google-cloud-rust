@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
 /// let client = EssentialContactsService::builder().build().await?;
 /// // use `client` to make requests to the Essential Contacts API.
@@ -66,15 +66,13 @@ impl EssentialContactsService {
     /// Returns a builder for [EssentialContactsService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
     /// let client = EssentialContactsService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::essential_contacts_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::essential_contacts_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::essential_contacts_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,14 +90,14 @@ impl EssentialContactsService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::EssentialContactsService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -110,13 +108,13 @@ impl EssentialContactsService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::EssentialContactsService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::EssentialContactsService> {
         super::transport::EssentialContactsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::EssentialContactsService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::EssentialContactsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EssentialContactsService::new)

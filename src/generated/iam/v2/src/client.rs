@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_iam_v2::client::Policies;
 /// let client = Policies::builder().build().await?;
 /// // use `client` to make requests to the Identity and Access Management (IAM) API.
@@ -66,13 +66,13 @@ impl Policies {
     /// Returns a builder for [Policies].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_iam_v2::client::Policies;
     /// let client = Policies::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::policies::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::policies::client::Factory)
+        crate::new_client_builder(super::builder::policies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl Policies {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Policies>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Policies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl Policies {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Policies> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Policies> {
         super::transport::Policies::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Policies> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Policies> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Policies::new)

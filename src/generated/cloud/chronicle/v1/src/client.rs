@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
 /// let client = DataAccessControlService::builder().build().await?;
 /// // use `client` to make requests to the Chronicle API.
@@ -67,15 +67,13 @@ impl DataAccessControlService {
     /// Returns a builder for [DataAccessControlService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
     /// let client = DataAccessControlService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::data_access_control_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::data_access_control_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::data_access_control_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -93,14 +91,14 @@ impl DataAccessControlService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::DataAccessControlService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -111,13 +109,13 @@ impl DataAccessControlService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DataAccessControlService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DataAccessControlService> {
         super::transport::DataAccessControlService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DataAccessControlService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DataAccessControlService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataAccessControlService::new)
@@ -238,7 +236,7 @@ impl DataAccessControlService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_chronicle_v1::client::EntityService;
 /// let client = EntityService::builder().build().await?;
 /// // use `client` to make requests to the Chronicle API.
@@ -284,13 +282,13 @@ impl EntityService {
     /// Returns a builder for [EntityService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_chronicle_v1::client::EntityService;
     /// let client = EntityService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::entity_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::entity_service::client::Factory)
+        crate::new_client_builder(super::builder::entity_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -308,14 +306,14 @@ impl EntityService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EntityService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::EntityService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -324,13 +322,13 @@ impl EntityService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::EntityService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::EntityService> {
         super::transport::EntityService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::EntityService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::EntityService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EntityService::new)
@@ -395,7 +393,7 @@ impl EntityService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_chronicle_v1::client::InstanceService;
 /// let client = InstanceService::builder().build().await?;
 /// // use `client` to make requests to the Chronicle API.
@@ -441,15 +439,13 @@ impl InstanceService {
     /// Returns a builder for [InstanceService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_chronicle_v1::client::InstanceService;
     /// let client = InstanceService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::instance_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::instance_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::instance_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -467,15 +463,14 @@ impl InstanceService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceService>>
-    {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::InstanceService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -484,13 +479,13 @@ impl InstanceService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::InstanceService> {
         super::transport::InstanceService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::InstanceService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::InstanceService::new)
@@ -534,7 +529,7 @@ impl InstanceService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_chronicle_v1::client::ReferenceListService;
 /// let client = ReferenceListService::builder().build().await?;
 /// // use `client` to make requests to the Chronicle API.
@@ -580,15 +575,13 @@ impl ReferenceListService {
     /// Returns a builder for [ReferenceListService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_chronicle_v1::client::ReferenceListService;
     /// let client = ReferenceListService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::reference_list_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::reference_list_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::reference_list_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -606,14 +599,14 @@ impl ReferenceListService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReferenceListService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ReferenceListService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -623,13 +616,13 @@ impl ReferenceListService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ReferenceListService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ReferenceListService> {
         super::transport::ReferenceListService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ReferenceListService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ReferenceListService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ReferenceListService::new)
@@ -694,7 +687,7 @@ impl ReferenceListService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_chronicle_v1::client::RuleService;
 /// let client = RuleService::builder().build().await?;
 /// // use `client` to make requests to the Chronicle API.
@@ -740,13 +733,13 @@ impl RuleService {
     /// Returns a builder for [RuleService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_chronicle_v1::client::RuleService;
     /// let client = RuleService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::rule_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::rule_service::client::Factory)
+        crate::new_client_builder(super::builder::rule_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -764,14 +757,14 @@ impl RuleService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RuleService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::RuleService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -780,13 +773,13 @@ impl RuleService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RuleService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::RuleService> {
         super::transport::RuleService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RuleService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::RuleService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RuleService::new)

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
 /// let client = VmwareEngine::builder().build().await?;
 /// // use `client` to make requests to the VMware Engine API.
@@ -66,13 +66,13 @@ impl VmwareEngine {
     /// Returns a builder for [VmwareEngine].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// let client = VmwareEngine::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::vmware_engine::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::vmware_engine::client::Factory)
+        crate::new_client_builder(super::builder::vmware_engine::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl VmwareEngine {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VmwareEngine>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::VmwareEngine>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl VmwareEngine {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VmwareEngine> {
+    ) -> crate::ClientBuilderResult<impl super::stub::VmwareEngine> {
         super::transport::VmwareEngine::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VmwareEngine> {
+    ) -> crate::ClientBuilderResult<impl super::stub::VmwareEngine> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VmwareEngine::new)

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
 /// let client = SecureSourceManager::builder().build().await?;
 /// // use `client` to make requests to the Secure Source Manager API.
@@ -68,15 +68,13 @@ impl SecureSourceManager {
     /// Returns a builder for [SecureSourceManager].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// let client = SecureSourceManager::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::secure_source_manager::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::secure_source_manager::client::Factory,
-        )
+        crate::new_client_builder(super::builder::secure_source_manager::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -94,14 +92,14 @@ impl SecureSourceManager {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecureSourceManager>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::SecureSourceManager>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -111,13 +109,13 @@ impl SecureSourceManager {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecureSourceManager> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SecureSourceManager> {
         super::transport::SecureSourceManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecureSourceManager> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SecureSourceManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SecureSourceManager::new)

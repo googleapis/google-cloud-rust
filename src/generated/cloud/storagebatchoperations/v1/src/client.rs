@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
 /// let client = StorageBatchOperations::builder().build().await?;
 /// // use `client` to make requests to the Storage Batch Operations API.
@@ -69,15 +69,13 @@ impl StorageBatchOperations {
     /// Returns a builder for [StorageBatchOperations].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
     /// let client = StorageBatchOperations::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::storage_batch_operations::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::storage_batch_operations::client::Factory,
-        )
+        crate::new_client_builder(super::builder::storage_batch_operations::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -95,14 +93,14 @@ impl StorageBatchOperations {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageBatchOperations>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::StorageBatchOperations>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -112,13 +110,13 @@ impl StorageBatchOperations {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::StorageBatchOperations> {
+    ) -> crate::ClientBuilderResult<impl super::stub::StorageBatchOperations> {
         super::transport::StorageBatchOperations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::StorageBatchOperations> {
+    ) -> crate::ClientBuilderResult<impl super::stub::StorageBatchOperations> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::StorageBatchOperations::new)

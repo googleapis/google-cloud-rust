@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_backupdr_v1::client::BackupDR;
 /// let client = BackupDR::builder().build().await?;
 /// // use `client` to make requests to the Backup and DR Service API.
@@ -66,13 +66,13 @@ impl BackupDR {
     /// Returns a builder for [BackupDR].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// let client = BackupDR::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::backup_dr::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::backup_dr::client::Factory)
+        crate::new_client_builder(super::builder::backup_dr::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl BackupDR {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BackupDR>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::BackupDR>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl BackupDR {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BackupDR> {
+    ) -> crate::ClientBuilderResult<impl super::stub::BackupDR> {
         super::transport::BackupDR::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BackupDR> {
+    ) -> crate::ClientBuilderResult<impl super::stub::BackupDR> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::BackupDR::new)
@@ -564,7 +564,7 @@ impl BackupDR {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
 /// let client = BackupDrProtectionSummary::builder().build().await?;
 /// // use `client` to make requests to the Backup and DR Service API.
@@ -610,15 +610,13 @@ impl BackupDrProtectionSummary {
     /// Returns a builder for [BackupDrProtectionSummary].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
     /// let client = BackupDrProtectionSummary::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::backup_dr_protection_summary::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::backup_dr_protection_summary::client::Factory,
-        )
+        crate::new_client_builder(super::builder::backup_dr_protection_summary::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -636,14 +634,14 @@ impl BackupDrProtectionSummary {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::BackupDrProtectionSummary>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -654,13 +652,13 @@ impl BackupDrProtectionSummary {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BackupDrProtectionSummary> {
+    ) -> crate::ClientBuilderResult<impl super::stub::BackupDrProtectionSummary> {
         super::transport::BackupDrProtectionSummary::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BackupDrProtectionSummary> {
+    ) -> crate::ClientBuilderResult<impl super::stub::BackupDrProtectionSummary> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::BackupDrProtectionSummary::new)

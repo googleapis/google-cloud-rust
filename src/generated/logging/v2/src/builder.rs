@@ -20,7 +20,7 @@ pub mod logging_service_v_2 {
     /// A builder for [LoggingServiceV2][crate::client::LoggingServiceV2].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_logging_v2::*;
     /// # use builder::logging_service_v_2::ClientBuilder;
     /// # use client::LoggingServiceV2;
@@ -30,19 +30,18 @@ pub mod logging_service_v_2 {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::LoggingServiceV2;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = LoggingServiceV2;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod logging_service_v_2 {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod logging_service_v_2 {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::DeleteLog;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -104,7 +103,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -114,7 +113,7 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .delete_log(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [log_name][crate::model::DeleteLogRequest::log_name].
@@ -127,8 +126,8 @@ pub mod logging_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteLog {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteLog {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -138,7 +137,7 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::WriteLogEntries;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -166,7 +165,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -176,7 +175,7 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .write_log_entries(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [log_name][crate::model::WriteLogEntriesRequest::log_name].
@@ -241,8 +240,8 @@ pub mod logging_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for WriteLogEntries {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for WriteLogEntries {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -252,8 +251,8 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::ListLogEntries;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -284,7 +283,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -294,14 +293,16 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .list_log_entries(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListLogEntriesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListLogEntriesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -309,15 +310,17 @@ pub mod logging_service_v_2 {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLogEntriesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListLogEntriesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -360,8 +363,8 @@ pub mod logging_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLogEntries {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLogEntries {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -371,8 +374,8 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::ListMonitoredResourceDescriptors;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -408,7 +411,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -418,15 +421,15 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .list_monitored_resource_descriptors(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListMonitoredResourceDescriptorsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -435,17 +438,17 @@ pub mod logging_service_v_2 {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListMonitoredResourceDescriptorsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -463,8 +466,8 @@ pub mod logging_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListMonitoredResourceDescriptors {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListMonitoredResourceDescriptors {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -474,7 +477,7 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::ListLogs;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -502,7 +505,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -512,7 +515,7 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .list_logs(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListLogsRequest::parent].
@@ -548,8 +551,8 @@ pub mod logging_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLogs {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLogs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -559,8 +562,8 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -596,7 +599,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -606,15 +609,15 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -623,17 +626,17 @@ pub mod logging_service_v_2 {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -669,8 +672,8 @@ pub mod logging_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -680,7 +683,7 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -711,7 +714,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -721,7 +724,7 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -732,8 +735,8 @@ pub mod logging_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -743,7 +746,7 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -776,7 +779,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -786,7 +789,7 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -797,8 +800,8 @@ pub mod logging_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -810,7 +813,7 @@ pub mod config_service_v_2 {
     /// A builder for [ConfigServiceV2][crate::client::ConfigServiceV2].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_logging_v2::*;
     /// # use builder::config_service_v_2::ClientBuilder;
     /// # use client::ConfigServiceV2;
@@ -820,19 +823,18 @@ pub mod config_service_v_2 {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::ConfigServiceV2;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = ConfigServiceV2;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -843,7 +845,7 @@ pub mod config_service_v_2 {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -856,7 +858,7 @@ pub mod config_service_v_2 {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -866,8 +868,8 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::ListBuckets;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -898,7 +900,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -908,13 +910,13 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .list_buckets(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBucketsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListBucketsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -923,15 +925,17 @@ pub mod config_service_v_2 {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBucketsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListBucketsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -957,8 +961,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListBuckets {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListBuckets {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -968,7 +972,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetBucket;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -996,7 +1000,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1006,7 +1010,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_bucket(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBucketRequest::name].
@@ -1019,8 +1023,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetBucket {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetBucket {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1030,7 +1034,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateBucketAsync;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1059,7 +1063,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1074,7 +1078,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .create_bucket_async(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_bucket_async`.
@@ -1091,7 +1095,7 @@ pub mod config_service_v_2 {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1158,8 +1162,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateBucketAsync {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateBucketAsync {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1169,7 +1173,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateBucketAsync;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1198,7 +1202,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1213,7 +1217,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_bucket_async(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_bucket_async`.
@@ -1230,7 +1234,7 @@ pub mod config_service_v_2 {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1311,8 +1315,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateBucketAsync {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateBucketAsync {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1322,7 +1326,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateBucket;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1350,7 +1354,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1360,7 +1364,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .create_bucket(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBucketRequest::parent].
@@ -1403,8 +1407,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateBucket {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateBucket {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1414,7 +1418,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateBucket;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1442,7 +1446,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1452,7 +1456,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_bucket(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateBucketRequest::name].
@@ -1509,8 +1513,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateBucket {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateBucket {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1520,7 +1524,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteBucket;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1548,7 +1552,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1558,7 +1562,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .delete_bucket(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBucketRequest::name].
@@ -1571,8 +1575,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteBucket {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteBucket {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1582,7 +1586,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UndeleteBucket;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1610,7 +1614,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1620,7 +1624,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .undelete_bucket(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UndeleteBucketRequest::name].
@@ -1633,8 +1637,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UndeleteBucket {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UndeleteBucket {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1644,8 +1648,8 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::ListViews;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1676,7 +1680,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1686,13 +1690,13 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .list_views(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListViewsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListViewsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1701,15 +1705,15 @@ pub mod config_service_v_2 {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListViewsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<crate::model::ListViewsResponse, crate::Error>
         {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1735,8 +1739,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListViews {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListViews {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1746,7 +1750,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1774,7 +1778,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1784,7 +1788,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetViewRequest::name].
@@ -1797,8 +1801,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1808,7 +1812,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1836,7 +1840,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1846,7 +1850,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .create_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateViewRequest::parent].
@@ -1889,8 +1893,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1900,7 +1904,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1928,7 +1932,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1938,7 +1942,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateViewRequest::name].
@@ -1991,8 +1995,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2002,7 +2006,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2030,7 +2034,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2040,7 +2044,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .delete_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteViewRequest::name].
@@ -2053,8 +2057,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2064,8 +2068,8 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::ListSinks;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2096,7 +2100,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2106,13 +2110,13 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .list_sinks(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSinksResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListSinksResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2121,15 +2125,15 @@ pub mod config_service_v_2 {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSinksResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<crate::model::ListSinksResponse, crate::Error>
         {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2155,8 +2159,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSinks {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSinks {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2166,7 +2170,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetSink;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2194,7 +2198,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2204,7 +2208,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_sink(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [sink_name][crate::model::GetSinkRequest::sink_name].
@@ -2217,8 +2221,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSink {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSink {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2228,7 +2232,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateSink;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2256,7 +2260,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2266,7 +2270,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .create_sink(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSinkRequest::parent].
@@ -2307,8 +2311,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateSink {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateSink {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2318,7 +2322,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateSink;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2346,7 +2350,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2356,7 +2360,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_sink(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [sink_name][crate::model::UpdateSinkRequest::sink_name].
@@ -2415,8 +2419,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateSink {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateSink {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2426,7 +2430,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteSink;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2454,7 +2458,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2464,7 +2468,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .delete_sink(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [sink_name][crate::model::DeleteSinkRequest::sink_name].
@@ -2477,8 +2481,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSink {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSink {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2488,7 +2492,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateLink;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2517,7 +2521,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2532,7 +2536,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .create_link(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_link`.
@@ -2548,7 +2552,7 @@ pub mod config_service_v_2 {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2615,8 +2619,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateLink {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateLink {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2626,7 +2630,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteLink;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2655,7 +2659,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2670,7 +2674,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .delete_link(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_link`.
@@ -2682,7 +2686,7 @@ pub mod config_service_v_2 {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2719,8 +2723,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteLink {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteLink {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2730,8 +2734,8 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::ListLinks;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2762,7 +2766,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2772,13 +2776,13 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .list_links(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListLinksResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListLinksResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2787,15 +2791,15 @@ pub mod config_service_v_2 {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLinksResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<crate::model::ListLinksResponse, crate::Error>
         {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2821,8 +2825,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLinks {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLinks {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2832,7 +2836,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetLink;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2860,7 +2864,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2870,7 +2874,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_link(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLinkRequest::name].
@@ -2883,8 +2887,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLink {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLink {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2894,8 +2898,8 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::ListExclusions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2926,7 +2930,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2936,14 +2940,16 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .list_exclusions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListExclusionsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListExclusionsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2951,15 +2957,17 @@ pub mod config_service_v_2 {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListExclusionsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListExclusionsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2985,8 +2993,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListExclusions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListExclusions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2996,7 +3004,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetExclusion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3024,7 +3032,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3034,7 +3042,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_exclusion(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetExclusionRequest::name].
@@ -3047,8 +3055,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetExclusion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetExclusion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3058,7 +3066,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateExclusion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3086,7 +3094,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3096,7 +3104,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .create_exclusion(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateExclusionRequest::parent].
@@ -3131,8 +3139,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateExclusion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateExclusion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3142,7 +3150,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateExclusion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3170,7 +3178,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3180,7 +3188,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_exclusion(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateExclusionRequest::name].
@@ -3237,8 +3245,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateExclusion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateExclusion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3248,7 +3256,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteExclusion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3276,7 +3284,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3286,7 +3294,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .delete_exclusion(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteExclusionRequest::name].
@@ -3299,8 +3307,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteExclusion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteExclusion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3310,7 +3318,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetCmekSettings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3338,7 +3346,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3348,7 +3356,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_cmek_settings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCmekSettingsRequest::name].
@@ -3361,8 +3369,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetCmekSettings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetCmekSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3372,7 +3380,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateCmekSettings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3403,7 +3411,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3413,7 +3421,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_cmek_settings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateCmekSettingsRequest::name].
@@ -3466,8 +3474,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateCmekSettings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateCmekSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3477,7 +3485,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetSettings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3505,7 +3513,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3515,7 +3523,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_settings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSettingsRequest::name].
@@ -3528,8 +3536,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSettings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3539,7 +3547,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateSettings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3567,7 +3575,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3577,7 +3585,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_settings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateSettingsRequest::name].
@@ -3630,8 +3638,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateSettings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3641,7 +3649,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CopyLogEntries;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3670,7 +3678,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3685,7 +3693,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .copy_log_entries(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `copy_log_entries`.
@@ -3704,7 +3712,7 @@ pub mod config_service_v_2 {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3755,8 +3763,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CopyLogEntries {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CopyLogEntries {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3766,8 +3774,8 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3803,7 +3811,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3813,15 +3821,15 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3830,17 +3838,17 @@ pub mod config_service_v_2 {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3876,8 +3884,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3887,7 +3895,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3918,7 +3926,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3928,7 +3936,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -3939,8 +3947,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3950,7 +3958,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3983,7 +3991,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3993,7 +4001,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -4004,8 +4012,8 @@ pub mod config_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4017,7 +4025,7 @@ pub mod metrics_service_v_2 {
     /// A builder for [MetricsServiceV2][crate::client::MetricsServiceV2].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_logging_v2::*;
     /// # use builder::metrics_service_v_2::ClientBuilder;
     /// # use client::MetricsServiceV2;
@@ -4027,19 +4035,18 @@ pub mod metrics_service_v_2 {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::MetricsServiceV2;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = MetricsServiceV2;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -4050,7 +4057,7 @@ pub mod metrics_service_v_2 {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -4063,7 +4070,7 @@ pub mod metrics_service_v_2 {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -4073,8 +4080,8 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::ListLogMetrics;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4105,7 +4112,7 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4115,14 +4122,16 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .list_log_metrics(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListLogMetricsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListLogMetricsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4130,15 +4139,17 @@ pub mod metrics_service_v_2 {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLogMetricsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListLogMetricsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4164,8 +4175,8 @@ pub mod metrics_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLogMetrics {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLogMetrics {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4175,7 +4186,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::GetLogMetric;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4203,7 +4214,7 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4213,7 +4224,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .get_log_metric(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [metric_name][crate::model::GetLogMetricRequest::metric_name].
@@ -4226,8 +4237,8 @@ pub mod metrics_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLogMetric {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLogMetric {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4237,7 +4248,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::CreateLogMetric;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4265,7 +4276,7 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4275,7 +4286,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .create_log_metric(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateLogMetricRequest::parent].
@@ -4310,8 +4321,8 @@ pub mod metrics_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateLogMetric {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateLogMetric {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4321,7 +4332,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::UpdateLogMetric;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4349,7 +4360,7 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4359,7 +4370,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .update_log_metric(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [metric_name][crate::model::UpdateLogMetricRequest::metric_name].
@@ -4394,8 +4405,8 @@ pub mod metrics_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateLogMetric {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateLogMetric {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4405,7 +4416,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::DeleteLogMetric;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4433,7 +4444,7 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4443,7 +4454,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .delete_log_metric(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [metric_name][crate::model::DeleteLogMetricRequest::metric_name].
@@ -4456,8 +4467,8 @@ pub mod metrics_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteLogMetric {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteLogMetric {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4467,8 +4478,8 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4504,7 +4515,7 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4514,15 +4525,15 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -4531,17 +4542,17 @@ pub mod metrics_service_v_2 {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4577,8 +4588,8 @@ pub mod metrics_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4588,7 +4599,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4619,7 +4630,7 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4629,7 +4640,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -4640,8 +4651,8 @@ pub mod metrics_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4651,7 +4662,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4684,7 +4695,7 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4694,7 +4705,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -4705,8 +4716,8 @@ pub mod metrics_service_v_2 {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

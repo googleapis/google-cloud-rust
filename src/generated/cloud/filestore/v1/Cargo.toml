@@ -40,9 +40,9 @@ all-features = true
 [dependencies]
 async-trait.workspace              = true
 bytes.workspace                    = true
-gax.workspace                      = true
 gaxi                               = { workspace = true, features = ["_internal-http-client"] }
 google-cloud-common.workspace      = true
+google-cloud-gax.workspace         = true
 google-cloud-location.workspace    = true
 google-cloud-longrunning.workspace = true
 google-cloud-lro.workspace         = true

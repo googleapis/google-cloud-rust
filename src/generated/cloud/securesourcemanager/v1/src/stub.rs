@@ -42,9 +42,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListInstancesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Instance>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Instance>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,9 +63,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +74,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +85,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn list_repositories(
         &self,
         _req: crate::model::ListRepositoriesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListRepositoriesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,10 +96,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn get_repository(
         &self,
         _req: crate::model::GetRepositoryRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Repository>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Repository>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -108,9 +106,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn create_repository(
         &self,
         _req: crate::model::CreateRepositoryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -119,9 +117,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn update_repository(
         &self,
         _req: crate::model::UpdateRepositoryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -130,9 +128,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn delete_repository(
         &self,
         _req: crate::model::DeleteRepositoryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -141,9 +139,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn list_hooks(
         &self,
         _req: crate::model::ListHooksRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListHooksResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListHooksResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -152,10 +150,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn get_hook(
         &self,
         _req: crate::model::GetHookRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Hook>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Hook>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -163,9 +160,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn create_hook(
         &self,
         _req: crate::model::CreateHookRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -174,9 +171,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn update_hook(
         &self,
         _req: crate::model::UpdateHookRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -185,9 +182,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn delete_hook(
         &self,
         _req: crate::model::DeleteHookRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -196,9 +193,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn get_iam_policy_repo(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -207,9 +204,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn set_iam_policy_repo(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -218,10 +215,10 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions_repo(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -231,9 +228,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn create_branch_rule(
         &self,
         _req: crate::model::CreateBranchRuleRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -242,9 +239,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn list_branch_rules(
         &self,
         _req: crate::model::ListBranchRulesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListBranchRulesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListBranchRulesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -253,10 +250,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn get_branch_rule(
         &self,
         _req: crate::model::GetBranchRuleRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BranchRule>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::BranchRule>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -264,9 +260,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn update_branch_rule(
         &self,
         _req: crate::model::UpdateBranchRuleRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -275,9 +271,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn delete_branch_rule(
         &self,
         _req: crate::model::DeleteBranchRuleRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -286,9 +282,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn create_pull_request(
         &self,
         _req: crate::model::CreatePullRequestRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -297,10 +293,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn get_pull_request(
         &self,
         _req: crate::model::GetPullRequestRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PullRequest>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::PullRequest>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -308,9 +303,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn list_pull_requests(
         &self,
         _req: crate::model::ListPullRequestsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListPullRequestsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListPullRequestsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -319,9 +314,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn update_pull_request(
         &self,
         _req: crate::model::UpdatePullRequestRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -330,9 +325,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn merge_pull_request(
         &self,
         _req: crate::model::MergePullRequestRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -341,9 +336,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn open_pull_request(
         &self,
         _req: crate::model::OpenPullRequestRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -352,9 +347,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn close_pull_request(
         &self,
         _req: crate::model::ClosePullRequestRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -363,11 +358,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn list_pull_request_file_diffs(
         &self,
         _req: crate::model::ListPullRequestFileDiffsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListPullRequestFileDiffsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListPullRequestFileDiffsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -376,9 +369,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn fetch_tree(
         &self,
         _req: crate::model::FetchTreeRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::FetchTreeResponse>>,
+        Output = crate::Result<crate::Response<crate::model::FetchTreeResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -387,9 +380,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn fetch_blob(
         &self,
         _req: crate::model::FetchBlobRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::FetchBlobResponse>>,
+        Output = crate::Result<crate::Response<crate::model::FetchBlobResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -398,9 +391,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn create_issue(
         &self,
         _req: crate::model::CreateIssueRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -409,10 +402,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn get_issue(
         &self,
         _req: crate::model::GetIssueRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Issue>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Issue>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -420,9 +412,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn list_issues(
         &self,
         _req: crate::model::ListIssuesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListIssuesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListIssuesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -431,9 +423,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn update_issue(
         &self,
         _req: crate::model::UpdateIssueRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -442,9 +434,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn delete_issue(
         &self,
         _req: crate::model::DeleteIssueRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -453,9 +445,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn open_issue(
         &self,
         _req: crate::model::OpenIssueRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -464,9 +456,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn close_issue(
         &self,
         _req: crate::model::CloseIssueRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -475,9 +467,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn get_pull_request_comment(
         &self,
         _req: crate::model::GetPullRequestCommentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PullRequestComment>>,
+        Output = crate::Result<crate::Response<crate::model::PullRequestComment>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -486,11 +478,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn list_pull_request_comments(
         &self,
         _req: crate::model::ListPullRequestCommentsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListPullRequestCommentsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListPullRequestCommentsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -499,9 +489,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn create_pull_request_comment(
         &self,
         _req: crate::model::CreatePullRequestCommentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -510,9 +500,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn update_pull_request_comment(
         &self,
         _req: crate::model::UpdatePullRequestCommentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -521,9 +511,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn delete_pull_request_comment(
         &self,
         _req: crate::model::DeletePullRequestCommentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -532,9 +522,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn batch_create_pull_request_comments(
         &self,
         _req: crate::model::BatchCreatePullRequestCommentsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -543,9 +533,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn resolve_pull_request_comments(
         &self,
         _req: crate::model::ResolvePullRequestCommentsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -554,9 +544,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn unresolve_pull_request_comments(
         &self,
         _req: crate::model::UnresolvePullRequestCommentsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -565,9 +555,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn create_issue_comment(
         &self,
         _req: crate::model::CreateIssueCommentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -576,9 +566,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn get_issue_comment(
         &self,
         _req: crate::model::GetIssueCommentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::IssueComment>>,
+        Output = crate::Result<crate::Response<crate::model::IssueComment>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -587,9 +577,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn list_issue_comments(
         &self,
         _req: crate::model::ListIssueCommentsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListIssueCommentsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListIssueCommentsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -598,9 +588,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn update_issue_comment(
         &self,
         _req: crate::model::UpdateIssueCommentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -609,9 +599,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn delete_issue_comment(
         &self,
         _req: crate::model::DeleteIssueCommentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -620,10 +610,10 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -633,9 +623,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -644,9 +634,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -655,9 +645,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -666,10 +656,10 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -679,10 +669,10 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -692,9 +682,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -703,8 +693,8 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -712,8 +702,8 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -723,9 +713,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -734,8 +724,8 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

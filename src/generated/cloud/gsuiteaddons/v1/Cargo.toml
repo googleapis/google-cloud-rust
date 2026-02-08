@@ -40,7 +40,6 @@ all-features = true
 [dependencies]
 async-trait.workspace                            = true
 bytes.workspace                                  = true
-gax.workspace                                    = true
 gaxi                                             = { workspace = true, features = ["_internal-http-client"] }
 google-cloud-apps-script-type-calendar.workspace = true
 google-cloud-apps-script-type-docs.workspace     = true
@@ -49,6 +48,7 @@ google-cloud-apps-script-type-gmail.workspace    = true
 google-cloud-apps-script-type-sheets.workspace   = true
 google-cloud-apps-script-type-slides.workspace   = true
 google-cloud-apps-script-type.workspace          = true
+google-cloud-gax.workspace                       = true
 lazy_static.workspace                            = true
 serde.workspace                                  = true
 serde_json.workspace                             = true

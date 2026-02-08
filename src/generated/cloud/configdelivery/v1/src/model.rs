@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -358,7 +358,7 @@ impl wkt::message::Message for ListResourceBundlesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListResourceBundlesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListResourceBundlesResponse {
     type PageItem = crate::model::ResourceBundle;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3569,7 +3569,7 @@ impl wkt::message::Message for ListFleetPackagesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListFleetPackagesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListFleetPackagesResponse {
     type PageItem = crate::model::FleetPackage;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4829,7 +4829,7 @@ impl wkt::message::Message for ListVariantsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListVariantsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListVariantsResponse {
     type PageItem = crate::model::Variant;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5408,7 +5408,7 @@ impl wkt::message::Message for ListReleasesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListReleasesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListReleasesResponse {
     type PageItem = crate::model::Release;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5944,7 +5944,7 @@ impl wkt::message::Message for ListRolloutsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRolloutsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRolloutsResponse {
     type PageItem = crate::model::Rollout;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

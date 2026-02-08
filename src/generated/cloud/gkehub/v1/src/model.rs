@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_gkehub_configmanagement_v1;
 extern crate google_cloud_gkehub_multiclusteringress_v1;
 extern crate google_cloud_gkehub_rbacrolebindingactuation_v1;
@@ -6971,7 +6971,7 @@ impl wkt::message::Message for ListScopeNamespacesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListScopeNamespacesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListScopeNamespacesResponse {
     type PageItem = crate::model::Namespace;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7374,7 +7374,7 @@ impl wkt::message::Message for ListScopeRBACRoleBindingsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListScopeRBACRoleBindingsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListScopeRBACRoleBindingsResponse {
     type PageItem = crate::model::RBACRoleBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7767,7 +7767,7 @@ impl wkt::message::Message for ListScopesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListScopesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListScopesResponse {
     type PageItem = crate::model::Scope;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7911,7 +7911,7 @@ impl wkt::message::Message for ListPermittedScopesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPermittedScopesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPermittedScopesResponse {
     type PageItem = crate::model::Scope;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8342,7 +8342,7 @@ impl wkt::message::Message for ListMembershipBindingsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListMembershipBindingsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListMembershipBindingsResponse {
     type PageItem = crate::model::MembershipBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8886,7 +8886,9 @@ impl wkt::message::Message for ListMembershipRBACRoleBindingsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListMembershipRBACRoleBindingsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListMembershipRBACRoleBindingsResponse
+{
     type PageItem = crate::model::RBACRoleBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9116,7 +9118,7 @@ impl wkt::message::Message for ListMembershipsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListMembershipsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListMembershipsResponse {
     type PageItem = crate::model::Membership;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9334,7 +9336,7 @@ impl wkt::message::Message for ListBoundMembershipsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBoundMembershipsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBoundMembershipsResponse {
     type PageItem = crate::model::Membership;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -10193,7 +10195,7 @@ impl wkt::message::Message for ListFeaturesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListFeaturesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListFeaturesResponse {
     type PageItem = crate::model::Feature;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -10960,7 +10962,7 @@ impl wkt::message::Message for ListFleetsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListFleetsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListFleetsResponse {
     type PageItem = crate::model::Fleet;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

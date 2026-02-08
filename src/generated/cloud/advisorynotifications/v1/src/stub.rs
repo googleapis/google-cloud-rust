@@ -42,9 +42,9 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
     fn list_notifications(
         &self,
         _req: crate::model::ListNotificationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListNotificationsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListNotificationsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
     fn get_notification(
         &self,
         _req: crate::model::GetNotificationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Notification>>,
+        Output = crate::Result<crate::Response<crate::model::Notification>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,10 +64,9 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
     fn get_settings(
         &self,
         _req: crate::model::GetSettingsRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Settings>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Settings>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,10 +74,9 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
     fn update_settings(
         &self,
         _req: crate::model::UpdateSettingsRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Settings>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Settings>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }

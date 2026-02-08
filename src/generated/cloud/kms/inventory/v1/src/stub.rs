@@ -42,9 +42,9 @@ pub trait KeyDashboardService: std::fmt::Debug + Send + Sync {
     fn list_crypto_keys(
         &self,
         _req: crate::model::ListCryptoKeysRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListCryptoKeysResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -66,9 +66,9 @@ pub trait KeyTrackingService: std::fmt::Debug + Send + Sync {
     fn get_protected_resources_summary(
         &self,
         _req: crate::model::GetProtectedResourcesSummaryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ProtectedResourcesSummary>>,
+        Output = crate::Result<crate::Response<crate::model::ProtectedResourcesSummary>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -77,11 +77,9 @@ pub trait KeyTrackingService: std::fmt::Debug + Send + Sync {
     fn search_protected_resources(
         &self,
         _req: crate::model::SearchProtectedResourcesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::SearchProtectedResourcesResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::SearchProtectedResourcesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

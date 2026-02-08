@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_kms_v1::client::Autokey;
 /// let client = Autokey::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
@@ -88,13 +88,13 @@ impl Autokey {
     /// Returns a builder for [Autokey].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_kms_v1::client::Autokey;
     /// let client = Autokey::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::autokey::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::autokey::client::Factory)
+        crate::new_client_builder(super::builder::autokey::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -112,14 +112,14 @@ impl Autokey {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Autokey>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Autokey>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -128,13 +128,13 @@ impl Autokey {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Autokey> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Autokey> {
         super::transport::Autokey::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Autokey> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Autokey> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Autokey::new)
@@ -226,7 +226,7 @@ impl Autokey {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_kms_v1::client::AutokeyAdmin;
 /// let client = AutokeyAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
@@ -281,13 +281,13 @@ impl AutokeyAdmin {
     /// Returns a builder for [AutokeyAdmin].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_kms_v1::client::AutokeyAdmin;
     /// let client = AutokeyAdmin::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::autokey_admin::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::autokey_admin::client::Factory)
+        crate::new_client_builder(super::builder::autokey_admin::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -305,14 +305,14 @@ impl AutokeyAdmin {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AutokeyAdmin>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AutokeyAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -321,13 +321,13 @@ impl AutokeyAdmin {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AutokeyAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AutokeyAdmin> {
         super::transport::AutokeyAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AutokeyAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AutokeyAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AutokeyAdmin::new)
@@ -411,7 +411,7 @@ impl AutokeyAdmin {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_kms_v1::client::EkmService;
 /// let client = EkmService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
@@ -464,13 +464,13 @@ impl EkmService {
     /// Returns a builder for [EkmService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_kms_v1::client::EkmService;
     /// let client = EkmService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::ekm_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::ekm_service::client::Factory)
+        crate::new_client_builder(super::builder::ekm_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -488,14 +488,14 @@ impl EkmService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EkmService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::EkmService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -504,13 +504,13 @@ impl EkmService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::EkmService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::EkmService> {
         super::transport::EkmService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::EkmService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::EkmService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EkmService::new)
@@ -621,7 +621,7 @@ impl EkmService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_kms_v1::client::HsmManagement;
 /// let client = HsmManagement::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
@@ -677,13 +677,13 @@ impl HsmManagement {
     /// Returns a builder for [HsmManagement].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_kms_v1::client::HsmManagement;
     /// let client = HsmManagement::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::hsm_management::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::hsm_management::client::Factory)
+        crate::new_client_builder(super::builder::hsm_management::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -701,14 +701,14 @@ impl HsmManagement {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::HsmManagement>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::HsmManagement>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -717,13 +717,13 @@ impl HsmManagement {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::HsmManagement> {
+    ) -> crate::ClientBuilderResult<impl super::stub::HsmManagement> {
         super::transport::HsmManagement::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::HsmManagement> {
+    ) -> crate::ClientBuilderResult<impl super::stub::HsmManagement> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::HsmManagement::new)
@@ -927,7 +927,7 @@ impl HsmManagement {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_kms_v1::client::KeyManagementService;
 /// let client = KeyManagementService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
@@ -989,15 +989,13 @@ impl KeyManagementService {
     /// Returns a builder for [KeyManagementService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_kms_v1::client::KeyManagementService;
     /// let client = KeyManagementService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::key_management_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::key_management_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::key_management_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1015,14 +1013,14 @@ impl KeyManagementService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::KeyManagementService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::KeyManagementService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -1032,13 +1030,13 @@ impl KeyManagementService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::KeyManagementService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::KeyManagementService> {
         super::transport::KeyManagementService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::KeyManagementService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::KeyManagementService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::KeyManagementService::new)

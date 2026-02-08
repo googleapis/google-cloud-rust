@@ -42,10 +42,9 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
     fn create_data_policy(
         &self,
         _req: crate::model::CreateDataPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DataPolicy>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::DataPolicy>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,10 +52,9 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
     fn add_grantees(
         &self,
         _req: crate::model::AddGranteesRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DataPolicy>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::DataPolicy>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,10 +62,9 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
     fn remove_grantees(
         &self,
         _req: crate::model::RemoveGranteesRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DataPolicy>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::DataPolicy>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,10 +72,9 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
     fn update_data_policy(
         &self,
         _req: crate::model::UpdateDataPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DataPolicy>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::DataPolicy>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -86,8 +82,8 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
     fn delete_data_policy(
         &self,
         _req: crate::model::DeleteDataPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -95,10 +91,9 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
     fn get_data_policy(
         &self,
         _req: crate::model::GetDataPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DataPolicy>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::DataPolicy>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -106,9 +101,9 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
     fn list_data_policies(
         &self,
         _req: crate::model::ListDataPoliciesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDataPoliciesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListDataPoliciesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -117,9 +112,9 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -128,9 +123,9 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -139,10 +134,10 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()

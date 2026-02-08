@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_apikeys_v2::client::ApiKeys;
 /// let client = ApiKeys::builder().build().await?;
 /// // use `client` to make requests to the API Keys API.
@@ -66,13 +66,13 @@ impl ApiKeys {
     /// Returns a builder for [ApiKeys].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_apikeys_v2::client::ApiKeys;
     /// let client = ApiKeys::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::api_keys::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::api_keys::client::Factory)
+        crate::new_client_builder(super::builder::api_keys::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl ApiKeys {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ApiKeys>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ApiKeys>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl ApiKeys {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ApiKeys> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ApiKeys> {
         super::transport::ApiKeys::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ApiKeys> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ApiKeys> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ApiKeys::new)

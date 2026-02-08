@@ -20,74 +20,74 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
     async fn list_constraints(
         &self,
         req: crate::model::ListConstraintsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListConstraintsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListConstraintsResponse>>;
 
     async fn list_policies(
         &self,
         req: crate::model::ListPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPoliciesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPoliciesResponse>>;
 
     async fn get_policy(
         &self,
         req: crate::model::GetPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
 
     async fn get_effective_policy(
         &self,
         req: crate::model::GetEffectivePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
 
     async fn create_policy(
         &self,
         req: crate::model::CreatePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
 
     async fn update_policy(
         &self,
         req: crate::model::UpdatePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
 
     async fn delete_policy(
         &self,
         req: crate::model::DeletePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn create_custom_constraint(
         &self,
         req: crate::model::CreateCustomConstraintRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CustomConstraint>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CustomConstraint>>;
 
     async fn update_custom_constraint(
         &self,
         req: crate::model::UpdateCustomConstraintRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CustomConstraint>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CustomConstraint>>;
 
     async fn get_custom_constraint(
         &self,
         req: crate::model::GetCustomConstraintRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CustomConstraint>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CustomConstraint>>;
 
     async fn list_custom_constraints(
         &self,
         req: crate::model::ListCustomConstraintsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCustomConstraintsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCustomConstraintsResponse>>;
 
     async fn delete_custom_constraint(
         &self,
         req: crate::model::DeleteCustomConstraintRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::OrgPolicy] also implement [OrgPolicy].
@@ -97,8 +97,8 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
     async fn list_constraints(
         &self,
         req: crate::model::ListConstraintsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListConstraintsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListConstraintsResponse>> {
         T::list_constraints(self, req, options).await
     }
 
@@ -106,8 +106,8 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
     async fn list_policies(
         &self,
         req: crate::model::ListPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPoliciesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPoliciesResponse>> {
         T::list_policies(self, req, options).await
     }
 
@@ -115,8 +115,8 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
     async fn get_policy(
         &self,
         req: crate::model::GetPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
         T::get_policy(self, req, options).await
     }
 
@@ -124,8 +124,8 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
     async fn get_effective_policy(
         &self,
         req: crate::model::GetEffectivePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
         T::get_effective_policy(self, req, options).await
     }
 
@@ -133,8 +133,8 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
     async fn create_policy(
         &self,
         req: crate::model::CreatePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
         T::create_policy(self, req, options).await
     }
 
@@ -142,8 +142,8 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
     async fn update_policy(
         &self,
         req: crate::model::UpdatePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
         T::update_policy(self, req, options).await
     }
 
@@ -151,8 +151,8 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
     async fn delete_policy(
         &self,
         req: crate::model::DeletePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_policy(self, req, options).await
     }
 
@@ -160,8 +160,8 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
     async fn create_custom_constraint(
         &self,
         req: crate::model::CreateCustomConstraintRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CustomConstraint>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CustomConstraint>> {
         T::create_custom_constraint(self, req, options).await
     }
 
@@ -169,8 +169,8 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
     async fn update_custom_constraint(
         &self,
         req: crate::model::UpdateCustomConstraintRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CustomConstraint>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CustomConstraint>> {
         T::update_custom_constraint(self, req, options).await
     }
 
@@ -178,8 +178,8 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
     async fn get_custom_constraint(
         &self,
         req: crate::model::GetCustomConstraintRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CustomConstraint>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CustomConstraint>> {
         T::get_custom_constraint(self, req, options).await
     }
 
@@ -187,8 +187,8 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
     async fn list_custom_constraints(
         &self,
         req: crate::model::ListCustomConstraintsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCustomConstraintsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCustomConstraintsResponse>> {
         T::list_custom_constraints(self, req, options).await
     }
 
@@ -196,8 +196,8 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
     async fn delete_custom_constraint(
         &self,
         req: crate::model::DeleteCustomConstraintRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_custom_constraint(self, req, options).await
     }
 }

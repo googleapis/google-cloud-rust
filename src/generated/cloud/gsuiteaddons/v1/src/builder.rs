@@ -20,7 +20,7 @@ pub mod g_suite_add_ons {
     /// A builder for [GSuiteAddOns][crate::client::GSuiteAddOns].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_gsuiteaddons_v1::*;
     /// # use builder::g_suite_add_ons::ClientBuilder;
     /// # use client::GSuiteAddOns;
@@ -30,19 +30,18 @@ pub mod g_suite_add_ons {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::GSuiteAddOns;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = GSuiteAddOns;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod g_suite_add_ons {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod g_suite_add_ons {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::GetAuthorization;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -107,7 +106,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -117,7 +116,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .get_authorization(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAuthorizationRequest::name].
@@ -130,8 +129,8 @@ pub mod g_suite_add_ons {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAuthorization {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAuthorization {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -141,7 +140,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::CreateDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -172,7 +171,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -182,7 +181,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .create_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeploymentRequest::parent].
@@ -225,8 +224,8 @@ pub mod g_suite_add_ons {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -236,7 +235,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::ReplaceDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -267,7 +266,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -277,7 +276,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .replace_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
@@ -304,8 +303,8 @@ pub mod g_suite_add_ons {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ReplaceDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ReplaceDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -315,7 +314,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::GetDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -343,7 +342,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -353,7 +352,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .get_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeploymentRequest::name].
@@ -366,8 +365,8 @@ pub mod g_suite_add_ons {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -377,8 +376,8 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::ListDeployments;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -409,7 +408,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -419,14 +418,16 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .list_deployments(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListDeploymentsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -434,15 +435,17 @@ pub mod g_suite_add_ons {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDeploymentsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListDeploymentsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -468,8 +471,8 @@ pub mod g_suite_add_ons {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListDeployments {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListDeployments {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -479,7 +482,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::DeleteDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -510,7 +513,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -520,7 +523,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .delete_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDeploymentRequest::name].
@@ -539,8 +542,8 @@ pub mod g_suite_add_ons {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -550,7 +553,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::InstallDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -581,7 +584,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -591,7 +594,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .install_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::InstallDeploymentRequest::name].
@@ -604,8 +607,8 @@ pub mod g_suite_add_ons {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for InstallDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for InstallDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -615,7 +618,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::UninstallDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -646,7 +649,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -656,7 +659,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .uninstall_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UninstallDeploymentRequest::name].
@@ -669,8 +672,8 @@ pub mod g_suite_add_ons {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UninstallDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UninstallDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -680,7 +683,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::GetInstallStatus;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -711,7 +714,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -721,7 +724,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .get_install_status(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstallStatusRequest::name].
@@ -734,8 +737,8 @@ pub mod g_suite_add_ons {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetInstallStatus {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetInstallStatus {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

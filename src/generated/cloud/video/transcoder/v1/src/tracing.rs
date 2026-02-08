@@ -41,8 +41,8 @@ where
     async fn create_job(
         &self,
         req: crate::model::CreateJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Job>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Job>> {
         self.inner.create_job(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_jobs(
         &self,
         req: crate::model::ListJobsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListJobsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListJobsResponse>> {
         self.inner.list_jobs(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn get_job(
         &self,
         req: crate::model::GetJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Job>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Job>> {
         self.inner.get_job(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn delete_job(
         &self,
         req: crate::model::DeleteJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_job(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn create_job_template(
         &self,
         req: crate::model::CreateJobTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::JobTemplate>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::JobTemplate>> {
         self.inner.create_job_template(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn list_job_templates(
         &self,
         req: crate::model::ListJobTemplatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListJobTemplatesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListJobTemplatesResponse>> {
         self.inner.list_job_templates(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn get_job_template(
         &self,
         req: crate::model::GetJobTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::JobTemplate>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::JobTemplate>> {
         self.inner.get_job_template(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn delete_job_template(
         &self,
         req: crate::model::DeleteJobTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_job_template(req, options).await
     }
 }

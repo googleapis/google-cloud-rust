@@ -41,8 +41,8 @@ where
     async fn create_device_session(
         &self,
         req: crate::model::CreateDeviceSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DeviceSession>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DeviceSession>> {
         self.inner.create_device_session(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_device_sessions(
         &self,
         req: crate::model::ListDeviceSessionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListDeviceSessionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDeviceSessionsResponse>> {
         self.inner.list_device_sessions(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn get_device_session(
         &self,
         req: crate::model::GetDeviceSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DeviceSession>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DeviceSession>> {
         self.inner.get_device_session(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn cancel_device_session(
         &self,
         req: crate::model::CancelDeviceSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_device_session(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn update_device_session(
         &self,
         req: crate::model::UpdateDeviceSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DeviceSession>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DeviceSession>> {
         self.inner.update_device_session(req, options).await
     }
 }

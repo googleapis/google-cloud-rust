@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
 /// let client = CloudRedisCluster::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Memorystore for Redis API.
@@ -82,15 +82,13 @@ impl CloudRedisCluster {
     /// Returns a builder for [CloudRedisCluster].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
     /// let client = CloudRedisCluster::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_redis_cluster::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::cloud_redis_cluster::client::Factory,
-        )
+        crate::new_client_builder(super::builder::cloud_redis_cluster::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -108,14 +106,14 @@ impl CloudRedisCluster {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudRedisCluster>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::CloudRedisCluster>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -125,13 +123,13 @@ impl CloudRedisCluster {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudRedisCluster> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CloudRedisCluster> {
         super::transport::CloudRedisCluster::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudRedisCluster> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CloudRedisCluster> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudRedisCluster::new)

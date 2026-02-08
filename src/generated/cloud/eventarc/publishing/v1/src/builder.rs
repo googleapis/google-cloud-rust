@@ -20,7 +20,7 @@ pub mod publisher {
     /// A builder for [Publisher][crate::client::Publisher].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_eventarc_publishing_v1::*;
     /// # use builder::publisher::ClientBuilder;
     /// # use client::Publisher;
@@ -30,19 +30,18 @@ pub mod publisher {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::Publisher;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = Publisher;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod publisher {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod publisher {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod publisher {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_publishing_v1::builder::publisher::PublishChannelConnectionEvents;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -109,7 +108,7 @@ pub mod publisher {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -119,7 +118,7 @@ pub mod publisher {
             (*self.0.stub)
                 .publish_channel_connection_events(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [channel_connection][crate::model::PublishChannelConnectionEventsRequest::channel_connection].
@@ -152,8 +151,8 @@ pub mod publisher {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for PublishChannelConnectionEvents {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for PublishChannelConnectionEvents {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -163,7 +162,7 @@ pub mod publisher {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_publishing_v1::builder::publisher::PublishEvents;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -191,7 +190,7 @@ pub mod publisher {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -201,7 +200,7 @@ pub mod publisher {
             (*self.0.stub)
                 .publish_events(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [channel][crate::model::PublishEventsRequest::channel].
@@ -234,8 +233,8 @@ pub mod publisher {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for PublishEvents {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for PublishEvents {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -245,7 +244,7 @@ pub mod publisher {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_publishing_v1::builder::publisher::Publish;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -273,7 +272,7 @@ pub mod publisher {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -283,7 +282,7 @@ pub mod publisher {
             (*self.0.stub)
                 .publish(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [message_bus][crate::model::PublishRequest::message_bus].
@@ -346,8 +345,8 @@ pub mod publisher {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Publish {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Publish {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

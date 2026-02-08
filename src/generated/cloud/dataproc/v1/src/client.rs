@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
 /// let client = AutoscalingPolicyService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -67,15 +67,13 @@ impl AutoscalingPolicyService {
     /// Returns a builder for [AutoscalingPolicyService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
     /// let client = AutoscalingPolicyService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::autoscaling_policy_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::autoscaling_policy_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::autoscaling_policy_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -93,14 +91,14 @@ impl AutoscalingPolicyService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::AutoscalingPolicyService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -111,13 +109,13 @@ impl AutoscalingPolicyService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AutoscalingPolicyService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AutoscalingPolicyService> {
         super::transport::AutoscalingPolicyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AutoscalingPolicyService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AutoscalingPolicyService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AutoscalingPolicyService::new)
@@ -223,7 +221,7 @@ impl AutoscalingPolicyService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_dataproc_v1::client::BatchController;
 /// let client = BatchController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -269,15 +267,13 @@ impl BatchController {
     /// Returns a builder for [BatchController].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_dataproc_v1::client::BatchController;
     /// let client = BatchController::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::batch_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::batch_controller::client::Factory,
-        )
+        crate::new_client_builder(super::builder::batch_controller::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -295,15 +291,14 @@ impl BatchController {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BatchController>>
-    {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::BatchController>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -312,13 +307,13 @@ impl BatchController {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BatchController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::BatchController> {
         super::transport::BatchController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BatchController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::BatchController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::BatchController::new)
@@ -414,7 +409,7 @@ impl BatchController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_dataproc_v1::client::ClusterController;
 /// let client = ClusterController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -461,15 +456,13 @@ impl ClusterController {
     /// Returns a builder for [ClusterController].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_dataproc_v1::client::ClusterController;
     /// let client = ClusterController::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cluster_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::cluster_controller::client::Factory,
-        )
+        crate::new_client_builder(super::builder::cluster_controller::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -487,14 +480,14 @@ impl ClusterController {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ClusterController>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ClusterController>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -504,13 +497,13 @@ impl ClusterController {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ClusterController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ClusterController> {
         super::transport::ClusterController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ClusterController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ClusterController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ClusterController::new)
@@ -700,7 +693,7 @@ impl ClusterController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_dataproc_v1::client::JobController;
 /// let client = JobController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -746,13 +739,13 @@ impl JobController {
     /// Returns a builder for [JobController].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_dataproc_v1::client::JobController;
     /// let client = JobController::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::job_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::job_controller::client::Factory)
+        crate::new_client_builder(super::builder::job_controller::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -770,14 +763,14 @@ impl JobController {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::JobController>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::JobController>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -786,13 +779,13 @@ impl JobController {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::JobController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::JobController> {
         super::transport::JobController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::JobController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::JobController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::JobController::new)
@@ -907,7 +900,7 @@ impl JobController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_dataproc_v1::client::NodeGroupController;
 /// let client = NodeGroupController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -954,15 +947,13 @@ impl NodeGroupController {
     /// Returns a builder for [NodeGroupController].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_dataproc_v1::client::NodeGroupController;
     /// let client = NodeGroupController::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::node_group_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::node_group_controller::client::Factory,
-        )
+        crate::new_client_builder(super::builder::node_group_controller::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -980,14 +971,14 @@ impl NodeGroupController {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NodeGroupController>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::NodeGroupController>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -997,13 +988,13 @@ impl NodeGroupController {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NodeGroupController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::NodeGroupController> {
         super::transport::NodeGroupController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NodeGroupController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::NodeGroupController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::NodeGroupController::new)
@@ -1114,7 +1105,7 @@ impl NodeGroupController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
 /// let client = SessionTemplateController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -1160,15 +1151,13 @@ impl SessionTemplateController {
     /// Returns a builder for [SessionTemplateController].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
     /// let client = SessionTemplateController::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::session_template_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::session_template_controller::client::Factory,
-        )
+        crate::new_client_builder(super::builder::session_template_controller::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1186,14 +1175,14 @@ impl SessionTemplateController {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::SessionTemplateController>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -1204,13 +1193,13 @@ impl SessionTemplateController {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SessionTemplateController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SessionTemplateController> {
         super::transport::SessionTemplateController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SessionTemplateController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SessionTemplateController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SessionTemplateController::new)
@@ -1312,7 +1301,7 @@ impl SessionTemplateController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_dataproc_v1::client::SessionController;
 /// let client = SessionController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -1358,15 +1347,13 @@ impl SessionController {
     /// Returns a builder for [SessionController].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_dataproc_v1::client::SessionController;
     /// let client = SessionController::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::session_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::session_controller::client::Factory,
-        )
+        crate::new_client_builder(super::builder::session_controller::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1384,14 +1371,14 @@ impl SessionController {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SessionController>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::SessionController>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -1401,13 +1388,13 @@ impl SessionController {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SessionController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SessionController> {
         super::transport::SessionController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SessionController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SessionController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SessionController::new)
@@ -1528,7 +1515,7 @@ impl SessionController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
 /// let client = WorkflowTemplateService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -1575,15 +1562,13 @@ impl WorkflowTemplateService {
     /// Returns a builder for [WorkflowTemplateService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
     /// let client = WorkflowTemplateService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::workflow_template_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::workflow_template_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::workflow_template_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1601,16 +1586,15 @@ impl WorkflowTemplateService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::WorkflowTemplateService>,
-    > {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::WorkflowTemplateService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1619,13 +1603,13 @@ impl WorkflowTemplateService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::WorkflowTemplateService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::WorkflowTemplateService> {
         super::transport::WorkflowTemplateService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::WorkflowTemplateService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::WorkflowTemplateService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::WorkflowTemplateService::new)

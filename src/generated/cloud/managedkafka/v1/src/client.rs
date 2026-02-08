@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
 /// let client = ManagedKafka::builder().build().await?;
 /// // use `client` to make requests to the Managed Service for Apache Kafka API.
@@ -67,13 +67,13 @@ impl ManagedKafka {
     /// Returns a builder for [ManagedKafka].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// let client = ManagedKafka::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::managed_kafka::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::managed_kafka::client::Factory)
+        crate::new_client_builder(super::builder::managed_kafka::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -91,14 +91,14 @@ impl ManagedKafka {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedKafka>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ManagedKafka>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -107,13 +107,13 @@ impl ManagedKafka {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedKafka> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedKafka> {
         super::transport::ManagedKafka::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedKafka> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedKafka> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ManagedKafka::new)
@@ -300,7 +300,7 @@ impl ManagedKafka {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
 /// let client = ManagedKafkaConnect::builder().build().await?;
 /// // use `client` to make requests to the Managed Service for Apache Kafka API.
@@ -347,15 +347,13 @@ impl ManagedKafkaConnect {
     /// Returns a builder for [ManagedKafkaConnect].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
     /// let client = ManagedKafkaConnect::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::managed_kafka_connect::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::managed_kafka_connect::client::Factory,
-        )
+        crate::new_client_builder(super::builder::managed_kafka_connect::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -373,14 +371,14 @@ impl ManagedKafkaConnect {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedKafkaConnect>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ManagedKafkaConnect>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -390,13 +388,13 @@ impl ManagedKafkaConnect {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedKafkaConnect> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedKafkaConnect> {
         super::transport::ManagedKafkaConnect::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedKafkaConnect> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedKafkaConnect> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ManagedKafkaConnect::new)

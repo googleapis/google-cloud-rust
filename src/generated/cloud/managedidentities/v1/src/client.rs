@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
 /// let client = ManagedIdentitiesService::builder().build().await?;
 /// // use `client` to make requests to the Managed Service for Microsoft Active Directory API.
@@ -98,15 +98,13 @@ impl ManagedIdentitiesService {
     /// Returns a builder for [ManagedIdentitiesService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
     /// let client = ManagedIdentitiesService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::managed_identities_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::managed_identities_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::managed_identities_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -124,14 +122,14 @@ impl ManagedIdentitiesService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::ManagedIdentitiesService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -142,13 +140,13 @@ impl ManagedIdentitiesService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedIdentitiesService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedIdentitiesService> {
         super::transport::ManagedIdentitiesService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedIdentitiesService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedIdentitiesService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ManagedIdentitiesService::new)

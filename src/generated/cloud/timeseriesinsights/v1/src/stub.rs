@@ -42,9 +42,9 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
     fn list_data_sets(
         &self,
         _req: crate::model::ListDataSetsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDataSetsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListDataSetsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
     fn create_data_set(
         &self,
         _req: crate::model::CreateDataSetRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DataSet>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::DataSet>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,8 +63,8 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
     fn delete_data_set(
         &self,
         _req: crate::model::DeleteDataSetRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -73,9 +72,9 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
     fn append_events(
         &self,
         _req: crate::model::AppendEventsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AppendEventsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::AppendEventsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -84,9 +83,9 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
     fn query_data_set(
         &self,
         _req: crate::model::QueryDataSetRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::QueryDataSetResponse>>,
+        Output = crate::Result<crate::Response<crate::model::QueryDataSetResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -95,9 +94,9 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
     fn evaluate_slice(
         &self,
         _req: crate::model::EvaluateSliceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EvaluatedSlice>>,
+        Output = crate::Result<crate::Response<crate::model::EvaluatedSlice>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -106,9 +105,9 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
     fn evaluate_timeseries(
         &self,
         _req: crate::model::EvaluateTimeseriesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EvaluatedSlice>>,
+        Output = crate::Result<crate::Response<crate::model::EvaluatedSlice>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

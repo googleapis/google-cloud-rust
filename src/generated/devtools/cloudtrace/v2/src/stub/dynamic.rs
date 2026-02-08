@@ -20,14 +20,14 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
     async fn batch_write_spans(
         &self,
         req: crate::model::BatchWriteSpansRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn create_span(
         &self,
         req: crate::model::Span,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Span>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Span>>;
 }
 
 /// All implementations of [super::TraceService] also implement [TraceService].
@@ -37,8 +37,8 @@ impl<T: super::TraceService> TraceService for T {
     async fn batch_write_spans(
         &self,
         req: crate::model::BatchWriteSpansRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::batch_write_spans(self, req, options).await
     }
 
@@ -46,8 +46,8 @@ impl<T: super::TraceService> TraceService for T {
     async fn create_span(
         &self,
         req: crate::model::Span,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Span>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Span>> {
         T::create_span(self, req, options).await
     }
 }

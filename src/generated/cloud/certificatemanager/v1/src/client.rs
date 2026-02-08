@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
 /// let client = CertificateManager::builder().build().await?;
 /// // use `client` to make requests to the Certificate Manager API.
@@ -92,15 +92,13 @@ impl CertificateManager {
     /// Returns a builder for [CertificateManager].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// let client = CertificateManager::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::certificate_manager::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::certificate_manager::client::Factory,
-        )
+        crate::new_client_builder(super::builder::certificate_manager::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -118,14 +116,14 @@ impl CertificateManager {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CertificateManager>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::CertificateManager>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -135,13 +133,13 @@ impl CertificateManager {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CertificateManager> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CertificateManager> {
         super::transport::CertificateManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CertificateManager> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CertificateManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CertificateManager::new)

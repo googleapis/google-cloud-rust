@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
 /// let client = AlloyDBCSQLAdmin::builder().build().await?;
 /// // use `client` to make requests to the AlloyDB API.
@@ -66,15 +66,13 @@ impl AlloyDBCSQLAdmin {
     /// Returns a builder for [AlloyDBCSQLAdmin].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
     /// let client = AlloyDBCSQLAdmin::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::alloy_dbcsql_admin::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::alloy_dbcsql_admin::client::Factory,
-        )
+        crate::new_client_builder(super::builder::alloy_dbcsql_admin::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,14 +90,14 @@ impl AlloyDBCSQLAdmin {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AlloyDBCSQLAdmin>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AlloyDBCSQLAdmin>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -109,13 +107,13 @@ impl AlloyDBCSQLAdmin {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AlloyDBCSQLAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AlloyDBCSQLAdmin> {
         super::transport::AlloyDBCSQLAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AlloyDBCSQLAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AlloyDBCSQLAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AlloyDBCSQLAdmin::new)
@@ -181,7 +179,7 @@ impl AlloyDBCSQLAdmin {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
 /// let client = AlloyDBAdmin::builder().build().await?;
 /// // use `client` to make requests to the AlloyDB API.
@@ -227,13 +225,13 @@ impl AlloyDBAdmin {
     /// Returns a builder for [AlloyDBAdmin].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
     /// let client = AlloyDBAdmin::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::alloy_db_admin::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::alloy_db_admin::client::Factory)
+        crate::new_client_builder(super::builder::alloy_db_admin::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -251,14 +249,14 @@ impl AlloyDBAdmin {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AlloyDBAdmin>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AlloyDBAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -267,13 +265,13 @@ impl AlloyDBAdmin {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AlloyDBAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AlloyDBAdmin> {
         super::transport::AlloyDBAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AlloyDBAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AlloyDBAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AlloyDBAdmin::new)

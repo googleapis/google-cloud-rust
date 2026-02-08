@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -3035,7 +3035,7 @@ impl wkt::message::Message for ListWorkstationClustersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListWorkstationClustersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListWorkstationClustersResponse {
     type PageItem = crate::model::WorkstationCluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3540,7 +3540,7 @@ impl wkt::message::Message for ListWorkstationConfigsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListWorkstationConfigsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListWorkstationConfigsResponse {
     type PageItem = crate::model::WorkstationConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3699,7 +3699,9 @@ impl wkt::message::Message for ListUsableWorkstationConfigsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListUsableWorkstationConfigsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListUsableWorkstationConfigsResponse
+{
     type PageItem = crate::model::WorkstationConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4204,7 +4206,7 @@ impl wkt::message::Message for ListWorkstationsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListWorkstationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListWorkstationsResponse {
     type PageItem = crate::model::Workstation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4363,7 +4365,7 @@ impl wkt::message::Message for ListUsableWorkstationsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListUsableWorkstationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListUsableWorkstationsResponse {
     type PageItem = crate::model::Workstation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

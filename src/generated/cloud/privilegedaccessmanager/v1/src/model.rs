@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -1820,7 +1820,7 @@ impl wkt::message::Message for ListEntitlementsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListEntitlementsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListEntitlementsResponse {
     type PageItem = crate::model::Entitlement;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2135,7 +2135,7 @@ impl wkt::message::Message for SearchEntitlementsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SearchEntitlementsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for SearchEntitlementsResponse {
     type PageItem = crate::model::Entitlement;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4613,7 +4613,7 @@ impl wkt::message::Message for ListGrantsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListGrantsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListGrantsResponse {
     type PageItem = crate::model::Grant;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4937,7 +4937,7 @@ impl wkt::message::Message for SearchGrantsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SearchGrantsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for SearchGrantsResponse {
     type PageItem = crate::model::Grant;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

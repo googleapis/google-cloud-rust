@@ -20,38 +20,38 @@ pub trait GkeInferenceQuickstart: std::fmt::Debug + Send + Sync {
     async fn fetch_models(
         &self,
         req: crate::model::FetchModelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchModelsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchModelsResponse>>;
 
     async fn fetch_model_servers(
         &self,
         req: crate::model::FetchModelServersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchModelServersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchModelServersResponse>>;
 
     async fn fetch_model_server_versions(
         &self,
         req: crate::model::FetchModelServerVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchModelServerVersionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchModelServerVersionsResponse>>;
 
     async fn fetch_profiles(
         &self,
         req: crate::model::FetchProfilesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchProfilesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchProfilesResponse>>;
 
     async fn generate_optimized_manifest(
         &self,
         req: crate::model::GenerateOptimizedManifestRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateOptimizedManifestResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateOptimizedManifestResponse>>;
 
     async fn fetch_benchmarking_data(
         &self,
         req: crate::model::FetchBenchmarkingDataRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchBenchmarkingDataResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchBenchmarkingDataResponse>>;
 }
 
 /// All implementations of [super::GkeInferenceQuickstart] also implement [GkeInferenceQuickstart].
@@ -61,8 +61,8 @@ impl<T: super::GkeInferenceQuickstart> GkeInferenceQuickstart for T {
     async fn fetch_models(
         &self,
         req: crate::model::FetchModelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchModelsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchModelsResponse>> {
         T::fetch_models(self, req, options).await
     }
 
@@ -70,8 +70,8 @@ impl<T: super::GkeInferenceQuickstart> GkeInferenceQuickstart for T {
     async fn fetch_model_servers(
         &self,
         req: crate::model::FetchModelServersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchModelServersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchModelServersResponse>> {
         T::fetch_model_servers(self, req, options).await
     }
 
@@ -79,9 +79,8 @@ impl<T: super::GkeInferenceQuickstart> GkeInferenceQuickstart for T {
     async fn fetch_model_server_versions(
         &self,
         req: crate::model::FetchModelServerVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchModelServerVersionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchModelServerVersionsResponse>> {
         T::fetch_model_server_versions(self, req, options).await
     }
 
@@ -89,8 +88,8 @@ impl<T: super::GkeInferenceQuickstart> GkeInferenceQuickstart for T {
     async fn fetch_profiles(
         &self,
         req: crate::model::FetchProfilesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchProfilesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchProfilesResponse>> {
         T::fetch_profiles(self, req, options).await
     }
 
@@ -98,9 +97,8 @@ impl<T: super::GkeInferenceQuickstart> GkeInferenceQuickstart for T {
     async fn generate_optimized_manifest(
         &self,
         req: crate::model::GenerateOptimizedManifestRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateOptimizedManifestResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateOptimizedManifestResponse>> {
         T::generate_optimized_manifest(self, req, options).await
     }
 
@@ -108,8 +106,8 @@ impl<T: super::GkeInferenceQuickstart> GkeInferenceQuickstart for T {
     async fn fetch_benchmarking_data(
         &self,
         req: crate::model::FetchBenchmarkingDataRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchBenchmarkingDataResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchBenchmarkingDataResponse>> {
         T::fetch_benchmarking_data(self, req, options).await
     }
 }

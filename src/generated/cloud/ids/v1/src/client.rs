@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_ids_v1::client::Ids;
 /// let client = Ids::builder().build().await?;
 /// // use `client` to make requests to the Cloud IDS API.
@@ -66,13 +66,13 @@ impl Ids {
     /// Returns a builder for [Ids].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_ids_v1::client::Ids;
     /// let client = Ids::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::ids::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::ids::client::Factory)
+        crate::new_client_builder(super::builder::ids::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl Ids {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Ids>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Ids>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl Ids {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Ids> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Ids> {
         super::transport::Ids::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Ids> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Ids> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Ids::new)

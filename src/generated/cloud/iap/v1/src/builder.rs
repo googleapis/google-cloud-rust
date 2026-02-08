@@ -20,7 +20,7 @@ pub mod identity_aware_proxy_admin_service {
     /// A builder for [IdentityAwareProxyAdminService][crate::client::IdentityAwareProxyAdminService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_iap_v1::*;
     /// # use builder::identity_aware_proxy_admin_service::ClientBuilder;
     /// # use client::IdentityAwareProxyAdminService;
@@ -30,19 +30,18 @@ pub mod identity_aware_proxy_admin_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::IdentityAwareProxyAdminService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = IdentityAwareProxyAdminService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod identity_aware_proxy_admin_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod identity_aware_proxy_admin_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -107,7 +106,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -117,7 +116,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -170,8 +169,8 @@ pub mod identity_aware_proxy_admin_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -181,7 +180,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -212,7 +211,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -222,7 +221,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -253,8 +252,8 @@ pub mod identity_aware_proxy_admin_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -264,7 +263,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -297,7 +296,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -307,7 +306,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -333,8 +332,8 @@ pub mod identity_aware_proxy_admin_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -344,7 +343,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::GetIapSettings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -372,7 +371,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -382,7 +381,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .get_iap_settings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIapSettingsRequest::name].
@@ -395,8 +394,8 @@ pub mod identity_aware_proxy_admin_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIapSettings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIapSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -406,7 +405,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::UpdateIapSettings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -437,7 +436,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -447,7 +446,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .update_iap_settings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
@@ -492,8 +491,8 @@ pub mod identity_aware_proxy_admin_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateIapSettings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateIapSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -503,7 +502,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::ValidateIapAttributeExpression;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -536,7 +535,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -546,7 +545,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .validate_iap_attribute_expression(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ValidateIapAttributeExpressionRequest::name].
@@ -567,8 +566,8 @@ pub mod identity_aware_proxy_admin_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ValidateIapAttributeExpression {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ValidateIapAttributeExpression {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -578,8 +577,8 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::ListTunnelDestGroups;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -613,7 +612,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -623,14 +622,16 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .list_tunnel_dest_groups(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListTunnelDestGroupsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListTunnelDestGroupsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -638,17 +639,17 @@ pub mod identity_aware_proxy_admin_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListTunnelDestGroupsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -674,8 +675,8 @@ pub mod identity_aware_proxy_admin_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListTunnelDestGroups {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListTunnelDestGroups {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -685,7 +686,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::CreateTunnelDestGroup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -716,7 +717,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -726,7 +727,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .create_tunnel_dest_group(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTunnelDestGroupRequest::parent].
@@ -769,8 +770,8 @@ pub mod identity_aware_proxy_admin_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateTunnelDestGroup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateTunnelDestGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -780,7 +781,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::GetTunnelDestGroup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -811,7 +812,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -821,7 +822,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .get_tunnel_dest_group(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTunnelDestGroupRequest::name].
@@ -834,8 +835,8 @@ pub mod identity_aware_proxy_admin_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetTunnelDestGroup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetTunnelDestGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -845,7 +846,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::DeleteTunnelDestGroup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -876,7 +877,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -886,7 +887,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .delete_tunnel_dest_group(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTunnelDestGroupRequest::name].
@@ -899,8 +900,8 @@ pub mod identity_aware_proxy_admin_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteTunnelDestGroup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteTunnelDestGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -910,7 +911,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::UpdateTunnelDestGroup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -941,7 +942,7 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -951,7 +952,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .update_tunnel_dest_group(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
@@ -996,8 +997,8 @@ pub mod identity_aware_proxy_admin_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateTunnelDestGroup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateTunnelDestGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1009,7 +1010,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// A builder for [IdentityAwareProxyOAuthService][crate::client::IdentityAwareProxyOAuthService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_iap_v1::*;
     /// # use builder::identity_aware_proxy_o_auth_service::ClientBuilder;
     /// # use client::IdentityAwareProxyOAuthService;
@@ -1019,19 +1020,18 @@ pub mod identity_aware_proxy_o_auth_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::IdentityAwareProxyOAuthService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = IdentityAwareProxyOAuthService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1042,7 +1042,7 @@ pub mod identity_aware_proxy_o_auth_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1055,7 +1055,7 @@ pub mod identity_aware_proxy_o_auth_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -1065,7 +1065,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::ListBrands;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1093,7 +1093,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1103,7 +1103,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .list_brands(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListBrandsRequest::parent].
@@ -1116,8 +1116,8 @@ pub mod identity_aware_proxy_o_auth_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListBrands {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListBrands {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1127,7 +1127,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::CreateBrand;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1155,7 +1155,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1165,7 +1165,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .create_brand(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBrandRequest::parent].
@@ -1200,8 +1200,8 @@ pub mod identity_aware_proxy_o_auth_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateBrand {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateBrand {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1211,7 +1211,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::GetBrand;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1239,7 +1239,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1249,7 +1249,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .get_brand(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBrandRequest::name].
@@ -1262,8 +1262,8 @@ pub mod identity_aware_proxy_o_auth_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetBrand {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetBrand {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1273,7 +1273,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1306,7 +1306,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1316,7 +1316,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .create_identity_aware_proxy_client(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateIdentityAwareProxyClientRequest::parent].
@@ -1354,8 +1354,8 @@ pub mod identity_aware_proxy_o_auth_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateIdentityAwareProxyClient {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateIdentityAwareProxyClient {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1365,8 +1365,8 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::ListIdentityAwareProxyClients;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1402,7 +1402,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1412,15 +1412,15 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .list_identity_aware_proxy_clients(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListIdentityAwareProxyClientsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1429,17 +1429,17 @@ pub mod identity_aware_proxy_o_auth_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListIdentityAwareProxyClientsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1465,8 +1465,8 @@ pub mod identity_aware_proxy_o_auth_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListIdentityAwareProxyClients {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListIdentityAwareProxyClients {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1476,7 +1476,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::GetIdentityAwareProxyClient;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1509,7 +1509,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1519,7 +1519,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .get_identity_aware_proxy_client(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIdentityAwareProxyClientRequest::name].
@@ -1532,8 +1532,8 @@ pub mod identity_aware_proxy_o_auth_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIdentityAwareProxyClient {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIdentityAwareProxyClient {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1543,7 +1543,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::ResetIdentityAwareProxyClientSecret;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1576,7 +1576,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1586,7 +1586,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .reset_identity_aware_proxy_client_secret(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResetIdentityAwareProxyClientSecretRequest::name].
@@ -1599,8 +1599,8 @@ pub mod identity_aware_proxy_o_auth_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ResetIdentityAwareProxyClientSecret {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ResetIdentityAwareProxyClientSecret {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1610,7 +1610,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::DeleteIdentityAwareProxyClient;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1643,7 +1643,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1653,7 +1653,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .delete_identity_aware_proxy_client(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIdentityAwareProxyClientRequest::name].
@@ -1666,8 +1666,8 @@ pub mod identity_aware_proxy_o_auth_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteIdentityAwareProxyClient {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteIdentityAwareProxyClient {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

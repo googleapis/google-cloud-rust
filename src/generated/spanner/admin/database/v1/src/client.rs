@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
 /// let client = DatabaseAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Spanner API.
@@ -73,13 +73,13 @@ impl DatabaseAdmin {
     /// Returns a builder for [DatabaseAdmin].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
     /// let client = DatabaseAdmin::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::database_admin::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::database_admin::client::Factory)
+        crate::new_client_builder(super::builder::database_admin::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -97,14 +97,14 @@ impl DatabaseAdmin {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DatabaseAdmin>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::DatabaseAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -113,13 +113,13 @@ impl DatabaseAdmin {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DatabaseAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DatabaseAdmin> {
         super::transport::DatabaseAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DatabaseAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DatabaseAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DatabaseAdmin::new)

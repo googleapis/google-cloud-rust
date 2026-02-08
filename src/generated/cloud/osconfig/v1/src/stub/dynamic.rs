@@ -20,86 +20,86 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
     async fn execute_patch_job(
         &self,
         req: crate::model::ExecutePatchJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchJob>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchJob>>;
 
     async fn get_patch_job(
         &self,
         req: crate::model::GetPatchJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchJob>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchJob>>;
 
     async fn cancel_patch_job(
         &self,
         req: crate::model::CancelPatchJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchJob>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchJob>>;
 
     async fn list_patch_jobs(
         &self,
         req: crate::model::ListPatchJobsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPatchJobsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPatchJobsResponse>>;
 
     async fn list_patch_job_instance_details(
         &self,
         req: crate::model::ListPatchJobInstanceDetailsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPatchJobInstanceDetailsResponse>>;
 
     async fn create_patch_deployment(
         &self,
         req: crate::model::CreatePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchDeployment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchDeployment>>;
 
     async fn get_patch_deployment(
         &self,
         req: crate::model::GetPatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchDeployment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchDeployment>>;
 
     async fn list_patch_deployments(
         &self,
         req: crate::model::ListPatchDeploymentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPatchDeploymentsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPatchDeploymentsResponse>>;
 
     async fn delete_patch_deployment(
         &self,
         req: crate::model::DeletePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn update_patch_deployment(
         &self,
         req: crate::model::UpdatePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchDeployment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchDeployment>>;
 
     async fn pause_patch_deployment(
         &self,
         req: crate::model::PausePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchDeployment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchDeployment>>;
 
     async fn resume_patch_deployment(
         &self,
         req: crate::model::ResumePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchDeployment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchDeployment>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::OsConfigService] also implement [OsConfigService].
@@ -109,8 +109,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn execute_patch_job(
         &self,
         req: crate::model::ExecutePatchJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchJob>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchJob>> {
         T::execute_patch_job(self, req, options).await
     }
 
@@ -118,8 +118,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn get_patch_job(
         &self,
         req: crate::model::GetPatchJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchJob>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchJob>> {
         T::get_patch_job(self, req, options).await
     }
 
@@ -127,8 +127,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn cancel_patch_job(
         &self,
         req: crate::model::CancelPatchJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchJob>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchJob>> {
         T::cancel_patch_job(self, req, options).await
     }
 
@@ -136,8 +136,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn list_patch_jobs(
         &self,
         req: crate::model::ListPatchJobsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPatchJobsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPatchJobsResponse>> {
         T::list_patch_jobs(self, req, options).await
     }
 
@@ -145,9 +145,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn list_patch_job_instance_details(
         &self,
         req: crate::model::ListPatchJobInstanceDetailsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPatchJobInstanceDetailsResponse>> {
         T::list_patch_job_instance_details(self, req, options).await
     }
 
@@ -155,8 +154,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn create_patch_deployment(
         &self,
         req: crate::model::CreatePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchDeployment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchDeployment>> {
         T::create_patch_deployment(self, req, options).await
     }
 
@@ -164,8 +163,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn get_patch_deployment(
         &self,
         req: crate::model::GetPatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchDeployment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchDeployment>> {
         T::get_patch_deployment(self, req, options).await
     }
 
@@ -173,8 +172,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn list_patch_deployments(
         &self,
         req: crate::model::ListPatchDeploymentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPatchDeploymentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPatchDeploymentsResponse>> {
         T::list_patch_deployments(self, req, options).await
     }
 
@@ -182,8 +181,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn delete_patch_deployment(
         &self,
         req: crate::model::DeletePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_patch_deployment(self, req, options).await
     }
 
@@ -191,8 +190,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn update_patch_deployment(
         &self,
         req: crate::model::UpdatePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchDeployment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchDeployment>> {
         T::update_patch_deployment(self, req, options).await
     }
 
@@ -200,8 +199,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn pause_patch_deployment(
         &self,
         req: crate::model::PausePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchDeployment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchDeployment>> {
         T::pause_patch_deployment(self, req, options).await
     }
 
@@ -209,8 +208,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn resume_patch_deployment(
         &self,
         req: crate::model::ResumePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PatchDeployment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PatchDeployment>> {
         T::resume_patch_deployment(self, req, options).await
     }
 
@@ -218,8 +217,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -227,8 +226,8 @@ impl<T: super::OsConfigService> OsConfigService for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -239,96 +238,96 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
     async fn create_os_policy_assignment(
         &self,
         req: crate::model::CreateOSPolicyAssignmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_os_policy_assignment(
         &self,
         req: crate::model::UpdateOSPolicyAssignmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_os_policy_assignment(
         &self,
         req: crate::model::GetOSPolicyAssignmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OSPolicyAssignment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OSPolicyAssignment>>;
 
     async fn list_os_policy_assignments(
         &self,
         req: crate::model::ListOSPolicyAssignmentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOSPolicyAssignmentsResponse>>;
 
     async fn list_os_policy_assignment_revisions(
         &self,
         req: crate::model::ListOSPolicyAssignmentRevisionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>>;
 
     async fn delete_os_policy_assignment(
         &self,
         req: crate::model::DeleteOSPolicyAssignmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_os_policy_assignment_report(
         &self,
         req: crate::model::GetOSPolicyAssignmentReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OSPolicyAssignmentReport>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OSPolicyAssignmentReport>>;
 
     async fn list_os_policy_assignment_reports(
         &self,
         req: crate::model::ListOSPolicyAssignmentReportsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentReportsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOSPolicyAssignmentReportsResponse>>;
 
     async fn get_inventory(
         &self,
         req: crate::model::GetInventoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Inventory>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Inventory>>;
 
     async fn list_inventories(
         &self,
         req: crate::model::ListInventoriesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListInventoriesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListInventoriesResponse>>;
 
     async fn get_vulnerability_report(
         &self,
         req: crate::model::GetVulnerabilityReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VulnerabilityReport>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VulnerabilityReport>>;
 
     async fn list_vulnerability_reports(
         &self,
         req: crate::model::ListVulnerabilityReportsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListVulnerabilityReportsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListVulnerabilityReportsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::OsConfigZonalService] also implement [OsConfigZonalService].
@@ -338,8 +337,8 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn create_os_policy_assignment(
         &self,
         req: crate::model::CreateOSPolicyAssignmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_os_policy_assignment(self, req, options).await
     }
 
@@ -347,8 +346,8 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn update_os_policy_assignment(
         &self,
         req: crate::model::UpdateOSPolicyAssignmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_os_policy_assignment(self, req, options).await
     }
 
@@ -356,8 +355,8 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn get_os_policy_assignment(
         &self,
         req: crate::model::GetOSPolicyAssignmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OSPolicyAssignment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OSPolicyAssignment>> {
         T::get_os_policy_assignment(self, req, options).await
     }
 
@@ -365,8 +364,8 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn list_os_policy_assignments(
         &self,
         req: crate::model::ListOSPolicyAssignmentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOSPolicyAssignmentsResponse>> {
         T::list_os_policy_assignments(self, req, options).await
     }
 
@@ -374,9 +373,8 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn list_os_policy_assignment_revisions(
         &self,
         req: crate::model::ListOSPolicyAssignmentRevisionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>> {
         T::list_os_policy_assignment_revisions(self, req, options).await
     }
 
@@ -384,8 +382,8 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn delete_os_policy_assignment(
         &self,
         req: crate::model::DeleteOSPolicyAssignmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_os_policy_assignment(self, req, options).await
     }
 
@@ -393,8 +391,8 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn get_os_policy_assignment_report(
         &self,
         req: crate::model::GetOSPolicyAssignmentReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OSPolicyAssignmentReport>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OSPolicyAssignmentReport>> {
         T::get_os_policy_assignment_report(self, req, options).await
     }
 
@@ -402,9 +400,8 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn list_os_policy_assignment_reports(
         &self,
         req: crate::model::ListOSPolicyAssignmentReportsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentReportsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOSPolicyAssignmentReportsResponse>> {
         T::list_os_policy_assignment_reports(self, req, options).await
     }
 
@@ -412,8 +409,8 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn get_inventory(
         &self,
         req: crate::model::GetInventoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Inventory>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Inventory>> {
         T::get_inventory(self, req, options).await
     }
 
@@ -421,8 +418,8 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn list_inventories(
         &self,
         req: crate::model::ListInventoriesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListInventoriesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListInventoriesResponse>> {
         T::list_inventories(self, req, options).await
     }
 
@@ -430,8 +427,8 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn get_vulnerability_report(
         &self,
         req: crate::model::GetVulnerabilityReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VulnerabilityReport>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VulnerabilityReport>> {
         T::get_vulnerability_report(self, req, options).await
     }
 
@@ -439,9 +436,8 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn list_vulnerability_reports(
         &self,
         req: crate::model::ListVulnerabilityReportsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListVulnerabilityReportsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListVulnerabilityReportsResponse>> {
         T::list_vulnerability_reports(self, req, options).await
     }
 
@@ -449,8 +445,8 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -458,22 +454,22 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

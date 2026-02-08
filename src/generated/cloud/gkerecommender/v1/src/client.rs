@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
 /// let client = GkeInferenceQuickstart::builder().build().await?;
 /// // use `client` to make requests to the GKE Recommender API.
@@ -69,15 +69,13 @@ impl GkeInferenceQuickstart {
     /// Returns a builder for [GkeInferenceQuickstart].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
     /// let client = GkeInferenceQuickstart::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::gke_inference_quickstart::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::gke_inference_quickstart::client::Factory,
-        )
+        crate::new_client_builder(super::builder::gke_inference_quickstart::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -95,14 +93,14 @@ impl GkeInferenceQuickstart {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GkeInferenceQuickstart>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::GkeInferenceQuickstart>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -112,13 +110,13 @@ impl GkeInferenceQuickstart {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GkeInferenceQuickstart> {
+    ) -> crate::ClientBuilderResult<impl super::stub::GkeInferenceQuickstart> {
         super::transport::GkeInferenceQuickstart::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GkeInferenceQuickstart> {
+    ) -> crate::ClientBuilderResult<impl super::stub::GkeInferenceQuickstart> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GkeInferenceQuickstart::new)

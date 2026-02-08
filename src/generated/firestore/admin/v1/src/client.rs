@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
 /// let client = FirestoreAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Firestore API.
@@ -93,13 +93,13 @@ impl FirestoreAdmin {
     /// Returns a builder for [FirestoreAdmin].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// let client = FirestoreAdmin::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::firestore_admin::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::firestore_admin::client::Factory)
+        crate::new_client_builder(super::builder::firestore_admin::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -117,14 +117,14 @@ impl FirestoreAdmin {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::FirestoreAdmin>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::FirestoreAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -133,13 +133,13 @@ impl FirestoreAdmin {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::FirestoreAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::FirestoreAdmin> {
         super::transport::FirestoreAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::FirestoreAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::FirestoreAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::FirestoreAdmin::new)

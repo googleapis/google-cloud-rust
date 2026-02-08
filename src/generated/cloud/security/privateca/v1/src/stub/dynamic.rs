@@ -20,244 +20,240 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
     async fn create_certificate(
         &self,
         req: crate::model::CreateCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Certificate>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Certificate>>;
 
     async fn get_certificate(
         &self,
         req: crate::model::GetCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Certificate>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Certificate>>;
 
     async fn list_certificates(
         &self,
         req: crate::model::ListCertificatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCertificatesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCertificatesResponse>>;
 
     async fn revoke_certificate(
         &self,
         req: crate::model::RevokeCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Certificate>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Certificate>>;
 
     async fn update_certificate(
         &self,
         req: crate::model::UpdateCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Certificate>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Certificate>>;
 
     async fn activate_certificate_authority(
         &self,
         req: crate::model::ActivateCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_certificate_authority(
         &self,
         req: crate::model::CreateCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn disable_certificate_authority(
         &self,
         req: crate::model::DisableCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn enable_certificate_authority(
         &self,
         req: crate::model::EnableCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn fetch_certificate_authority_csr(
         &self,
         req: crate::model::FetchCertificateAuthorityCsrRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchCertificateAuthorityCsrResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchCertificateAuthorityCsrResponse>>;
 
     async fn get_certificate_authority(
         &self,
         req: crate::model::GetCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CertificateAuthority>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CertificateAuthority>>;
 
     async fn list_certificate_authorities(
         &self,
         req: crate::model::ListCertificateAuthoritiesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateAuthoritiesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCertificateAuthoritiesResponse>>;
 
     async fn undelete_certificate_authority(
         &self,
         req: crate::model::UndeleteCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_certificate_authority(
         &self,
         req: crate::model::DeleteCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_certificate_authority(
         &self,
         req: crate::model::UpdateCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_ca_pool(
         &self,
         req: crate::model::CreateCaPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_ca_pool(
         &self,
         req: crate::model::UpdateCaPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_ca_pool(
         &self,
         req: crate::model::GetCaPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CaPool>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CaPool>>;
 
     async fn list_ca_pools(
         &self,
         req: crate::model::ListCaPoolsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCaPoolsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCaPoolsResponse>>;
 
     async fn delete_ca_pool(
         &self,
         req: crate::model::DeleteCaPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn fetch_ca_certs(
         &self,
         req: crate::model::FetchCaCertsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchCaCertsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchCaCertsResponse>>;
 
     async fn get_certificate_revocation_list(
         &self,
         req: crate::model::GetCertificateRevocationListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CertificateRevocationList>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CertificateRevocationList>>;
 
     async fn list_certificate_revocation_lists(
         &self,
         req: crate::model::ListCertificateRevocationListsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateRevocationListsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCertificateRevocationListsResponse>>;
 
     async fn update_certificate_revocation_list(
         &self,
         req: crate::model::UpdateCertificateRevocationListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_certificate_template(
         &self,
         req: crate::model::CreateCertificateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_certificate_template(
         &self,
         req: crate::model::DeleteCertificateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_certificate_template(
         &self,
         req: crate::model::GetCertificateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CertificateTemplate>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CertificateTemplate>>;
 
     async fn list_certificate_templates(
         &self,
         req: crate::model::ListCertificateTemplatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateTemplatesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCertificateTemplatesResponse>>;
 
     async fn update_certificate_template(
         &self,
         req: crate::model::UpdateCertificateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::CertificateAuthorityService] also implement [CertificateAuthorityService].
@@ -267,8 +263,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn create_certificate(
         &self,
         req: crate::model::CreateCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Certificate>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Certificate>> {
         T::create_certificate(self, req, options).await
     }
 
@@ -276,8 +272,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn get_certificate(
         &self,
         req: crate::model::GetCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Certificate>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Certificate>> {
         T::get_certificate(self, req, options).await
     }
 
@@ -285,8 +281,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn list_certificates(
         &self,
         req: crate::model::ListCertificatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCertificatesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCertificatesResponse>> {
         T::list_certificates(self, req, options).await
     }
 
@@ -294,8 +290,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn revoke_certificate(
         &self,
         req: crate::model::RevokeCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Certificate>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Certificate>> {
         T::revoke_certificate(self, req, options).await
     }
 
@@ -303,8 +299,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn update_certificate(
         &self,
         req: crate::model::UpdateCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Certificate>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Certificate>> {
         T::update_certificate(self, req, options).await
     }
 
@@ -312,8 +308,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn activate_certificate_authority(
         &self,
         req: crate::model::ActivateCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::activate_certificate_authority(self, req, options).await
     }
 
@@ -321,8 +317,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn create_certificate_authority(
         &self,
         req: crate::model::CreateCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_certificate_authority(self, req, options).await
     }
 
@@ -330,8 +326,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn disable_certificate_authority(
         &self,
         req: crate::model::DisableCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::disable_certificate_authority(self, req, options).await
     }
 
@@ -339,8 +335,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn enable_certificate_authority(
         &self,
         req: crate::model::EnableCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::enable_certificate_authority(self, req, options).await
     }
 
@@ -348,9 +344,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn fetch_certificate_authority_csr(
         &self,
         req: crate::model::FetchCertificateAuthorityCsrRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchCertificateAuthorityCsrResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchCertificateAuthorityCsrResponse>> {
         T::fetch_certificate_authority_csr(self, req, options).await
     }
 
@@ -358,8 +353,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn get_certificate_authority(
         &self,
         req: crate::model::GetCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CertificateAuthority>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CertificateAuthority>> {
         T::get_certificate_authority(self, req, options).await
     }
 
@@ -367,9 +362,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn list_certificate_authorities(
         &self,
         req: crate::model::ListCertificateAuthoritiesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateAuthoritiesResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCertificateAuthoritiesResponse>> {
         T::list_certificate_authorities(self, req, options).await
     }
 
@@ -377,8 +371,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn undelete_certificate_authority(
         &self,
         req: crate::model::UndeleteCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::undelete_certificate_authority(self, req, options).await
     }
 
@@ -386,8 +380,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn delete_certificate_authority(
         &self,
         req: crate::model::DeleteCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_certificate_authority(self, req, options).await
     }
 
@@ -395,8 +389,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn update_certificate_authority(
         &self,
         req: crate::model::UpdateCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_certificate_authority(self, req, options).await
     }
 
@@ -404,8 +398,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn create_ca_pool(
         &self,
         req: crate::model::CreateCaPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_ca_pool(self, req, options).await
     }
 
@@ -413,8 +407,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn update_ca_pool(
         &self,
         req: crate::model::UpdateCaPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_ca_pool(self, req, options).await
     }
 
@@ -422,8 +416,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn get_ca_pool(
         &self,
         req: crate::model::GetCaPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CaPool>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CaPool>> {
         T::get_ca_pool(self, req, options).await
     }
 
@@ -431,8 +425,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn list_ca_pools(
         &self,
         req: crate::model::ListCaPoolsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCaPoolsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCaPoolsResponse>> {
         T::list_ca_pools(self, req, options).await
     }
 
@@ -440,8 +434,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn delete_ca_pool(
         &self,
         req: crate::model::DeleteCaPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_ca_pool(self, req, options).await
     }
 
@@ -449,8 +443,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn fetch_ca_certs(
         &self,
         req: crate::model::FetchCaCertsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchCaCertsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchCaCertsResponse>> {
         T::fetch_ca_certs(self, req, options).await
     }
 
@@ -458,8 +452,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn get_certificate_revocation_list(
         &self,
         req: crate::model::GetCertificateRevocationListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CertificateRevocationList>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CertificateRevocationList>> {
         T::get_certificate_revocation_list(self, req, options).await
     }
 
@@ -467,9 +461,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn list_certificate_revocation_lists(
         &self,
         req: crate::model::ListCertificateRevocationListsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateRevocationListsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCertificateRevocationListsResponse>> {
         T::list_certificate_revocation_lists(self, req, options).await
     }
 
@@ -477,8 +470,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn update_certificate_revocation_list(
         &self,
         req: crate::model::UpdateCertificateRevocationListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_certificate_revocation_list(self, req, options).await
     }
 
@@ -486,8 +479,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn create_certificate_template(
         &self,
         req: crate::model::CreateCertificateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_certificate_template(self, req, options).await
     }
 
@@ -495,8 +488,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn delete_certificate_template(
         &self,
         req: crate::model::DeleteCertificateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_certificate_template(self, req, options).await
     }
 
@@ -504,8 +497,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn get_certificate_template(
         &self,
         req: crate::model::GetCertificateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CertificateTemplate>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CertificateTemplate>> {
         T::get_certificate_template(self, req, options).await
     }
 
@@ -513,9 +506,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn list_certificate_templates(
         &self,
         req: crate::model::ListCertificateTemplatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateTemplatesResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCertificateTemplatesResponse>> {
         T::list_certificate_templates(self, req, options).await
     }
 
@@ -523,8 +515,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn update_certificate_template(
         &self,
         req: crate::model::UpdateCertificateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_certificate_template(self, req, options).await
     }
 
@@ -532,9 +524,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -542,8 +533,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -551,8 +542,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -560,8 +551,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -569,10 +560,9 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -580,10 +570,9 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -591,8 +580,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -600,8 +589,8 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -609,22 +598,22 @@ impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

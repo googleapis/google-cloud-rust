@@ -42,9 +42,9 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
     fn create_migration_workflow(
         &self,
         _req: crate::model::CreateMigrationWorkflowRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::MigrationWorkflow>>,
+        Output = crate::Result<crate::Response<crate::model::MigrationWorkflow>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
     fn get_migration_workflow(
         &self,
         _req: crate::model::GetMigrationWorkflowRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::MigrationWorkflow>>,
+        Output = crate::Result<crate::Response<crate::model::MigrationWorkflow>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,11 +64,9 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
     fn list_migration_workflows(
         &self,
         _req: crate::model::ListMigrationWorkflowsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListMigrationWorkflowsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListMigrationWorkflowsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -77,8 +75,8 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
     fn delete_migration_workflow(
         &self,
         _req: crate::model::DeleteMigrationWorkflowRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -86,8 +84,8 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
     fn start_migration_workflow(
         &self,
         _req: crate::model::StartMigrationWorkflowRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -95,9 +93,9 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
     fn get_migration_subtask(
         &self,
         _req: crate::model::GetMigrationSubtaskRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::MigrationSubtask>>,
+        Output = crate::Result<crate::Response<crate::model::MigrationSubtask>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -106,11 +104,9 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
     fn list_migration_subtasks(
         &self,
         _req: crate::model::ListMigrationSubtasksRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListMigrationSubtasksResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListMigrationSubtasksResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

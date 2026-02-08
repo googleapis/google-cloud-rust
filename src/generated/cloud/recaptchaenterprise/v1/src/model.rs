@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_rpc;
 extern crate lazy_static;
 extern crate serde;
@@ -6219,7 +6219,7 @@ impl wkt::message::Message for ListKeysResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListKeysResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListKeysResponse {
     type PageItem = crate::model::Key;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6628,7 +6628,7 @@ impl wkt::message::Message for ListFirewallPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListFirewallPoliciesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListFirewallPoliciesResponse {
     type PageItem = crate::model::FirewallPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9667,7 +9667,9 @@ impl wkt::message::Message for ListRelatedAccountGroupMembershipsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRelatedAccountGroupMembershipsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListRelatedAccountGroupMembershipsResponse
+{
     type PageItem = crate::model::RelatedAccountGroupMembership;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9813,7 +9815,7 @@ impl wkt::message::Message for ListRelatedAccountGroupsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRelatedAccountGroupsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRelatedAccountGroupsResponse {
     type PageItem = crate::model::RelatedAccountGroup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -10001,7 +10003,9 @@ impl wkt::message::Message for SearchRelatedAccountGroupMembershipsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SearchRelatedAccountGroupMembershipsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for SearchRelatedAccountGroupMembershipsResponse
+{
     type PageItem = crate::model::RelatedAccountGroupMembership;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -10324,7 +10328,7 @@ impl wkt::message::Message for ListIpOverridesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListIpOverridesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListIpOverridesResponse {
     type PageItem = crate::model::IpOverrideData;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

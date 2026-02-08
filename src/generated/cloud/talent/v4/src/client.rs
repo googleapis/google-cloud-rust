@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_talent_v4::client::CompanyService;
 /// let client = CompanyService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
@@ -66,13 +66,13 @@ impl CompanyService {
     /// Returns a builder for [CompanyService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_talent_v4::client::CompanyService;
     /// let client = CompanyService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::company_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::company_service::client::Factory)
+        crate::new_client_builder(super::builder::company_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl CompanyService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CompanyService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::CompanyService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl CompanyService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CompanyService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CompanyService> {
         super::transport::CompanyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CompanyService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CompanyService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CompanyService::new)
@@ -156,7 +156,7 @@ impl CompanyService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_talent_v4::client::Completion;
 /// let client = Completion::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
@@ -202,13 +202,13 @@ impl Completion {
     /// Returns a builder for [Completion].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_talent_v4::client::Completion;
     /// let client = Completion::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::completion::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::completion::client::Factory)
+        crate::new_client_builder(super::builder::completion::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -226,14 +226,14 @@ impl Completion {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Completion>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Completion>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -242,13 +242,13 @@ impl Completion {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Completion> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Completion> {
         super::transport::Completion::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Completion> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Completion> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Completion::new)
@@ -272,7 +272,7 @@ impl Completion {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_talent_v4::client::EventService;
 /// let client = EventService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
@@ -318,13 +318,13 @@ impl EventService {
     /// Returns a builder for [EventService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_talent_v4::client::EventService;
     /// let client = EventService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::event_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::event_service::client::Factory)
+        crate::new_client_builder(super::builder::event_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -342,14 +342,14 @@ impl EventService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EventService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::EventService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -358,13 +358,13 @@ impl EventService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::EventService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::EventService> {
         super::transport::EventService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::EventService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::EventService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EventService::new)
@@ -393,7 +393,7 @@ impl EventService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_talent_v4::client::JobService;
 /// let client = JobService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
@@ -439,13 +439,13 @@ impl JobService {
     /// Returns a builder for [JobService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_talent_v4::client::JobService;
     /// let client = JobService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::job_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::job_service::client::Factory)
+        crate::new_client_builder(super::builder::job_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -463,14 +463,14 @@ impl JobService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::JobService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::JobService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -479,13 +479,13 @@ impl JobService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::JobService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::JobService> {
         super::transport::JobService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::JobService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::JobService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::JobService::new)
@@ -616,7 +616,7 @@ impl JobService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_talent_v4::client::TenantService;
 /// let client = TenantService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
@@ -662,13 +662,13 @@ impl TenantService {
     /// Returns a builder for [TenantService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_talent_v4::client::TenantService;
     /// let client = TenantService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::tenant_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::tenant_service::client::Factory)
+        crate::new_client_builder(super::builder::tenant_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -686,14 +686,14 @@ impl TenantService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TenantService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::TenantService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -702,13 +702,13 @@ impl TenantService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TenantService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TenantService> {
         super::transport::TenantService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TenantService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TenantService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TenantService::new)

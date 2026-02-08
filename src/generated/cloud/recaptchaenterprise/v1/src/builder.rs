@@ -20,7 +20,7 @@ pub mod recaptcha_enterprise_service {
     /// A builder for [RecaptchaEnterpriseService][crate::client::RecaptchaEnterpriseService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_recaptchaenterprise_v1::*;
     /// # use builder::recaptcha_enterprise_service::ClientBuilder;
     /// # use client::RecaptchaEnterpriseService;
@@ -30,19 +30,18 @@ pub mod recaptcha_enterprise_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::RecaptchaEnterpriseService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = RecaptchaEnterpriseService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod recaptcha_enterprise_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod recaptcha_enterprise_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::CreateAssessment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -107,7 +106,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -117,7 +116,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .create_assessment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAssessmentRequest::parent].
@@ -152,8 +151,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateAssessment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateAssessment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -163,7 +162,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::AnnotateAssessment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -194,7 +193,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -204,7 +203,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .annotate_assessment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AnnotateAssessmentRequest::name].
@@ -288,8 +287,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AnnotateAssessment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AnnotateAssessment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -299,7 +298,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::CreateKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -327,7 +326,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -337,7 +336,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .create_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyRequest::parent].
@@ -372,8 +371,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -383,8 +382,8 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListKeys;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -415,7 +414,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -425,13 +424,13 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .list_keys(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListKeysResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListKeysResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -440,15 +439,15 @@ pub mod recaptcha_enterprise_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListKeysResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<crate::model::ListKeysResponse, crate::Error>
         {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -474,8 +473,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListKeys {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListKeys {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -485,7 +484,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::RetrieveLegacySecretKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -518,7 +517,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -528,7 +527,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .retrieve_legacy_secret_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [key][crate::model::RetrieveLegacySecretKeyRequest::key].
@@ -541,8 +540,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RetrieveLegacySecretKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RetrieveLegacySecretKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -552,7 +551,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::GetKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -580,7 +579,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -590,7 +589,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .get_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetKeyRequest::name].
@@ -603,8 +602,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -614,7 +613,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::UpdateKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -642,7 +641,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -652,7 +651,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .update_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
@@ -697,8 +696,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -708,7 +707,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::DeleteKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -736,7 +735,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -746,7 +745,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .delete_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteKeyRequest::name].
@@ -759,8 +758,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -770,7 +769,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::MigrateKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -798,7 +797,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -808,7 +807,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .migrate_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MigrateKeyRequest::name].
@@ -827,8 +826,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for MigrateKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for MigrateKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -838,7 +837,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::AddIpOverride;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -866,7 +865,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -876,7 +875,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .add_ip_override(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AddIpOverrideRequest::name].
@@ -911,8 +910,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AddIpOverride {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AddIpOverride {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -922,7 +921,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::RemoveIpOverride;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -953,7 +952,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -963,7 +962,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .remove_ip_override(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RemoveIpOverrideRequest::name].
@@ -998,8 +997,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RemoveIpOverride {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RemoveIpOverride {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1009,8 +1008,8 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListIpOverrides;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1041,7 +1040,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1051,14 +1050,16 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .list_ip_overrides(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListIpOverridesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListIpOverridesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1066,15 +1067,17 @@ pub mod recaptcha_enterprise_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListIpOverridesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListIpOverridesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1100,8 +1103,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListIpOverrides {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListIpOverrides {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1111,7 +1114,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::GetMetrics;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1139,7 +1142,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1149,7 +1152,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .get_metrics(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMetricsRequest::name].
@@ -1162,8 +1165,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetMetrics {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetMetrics {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1173,7 +1176,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::CreateFirewallPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1204,7 +1207,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1214,7 +1217,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .create_firewall_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateFirewallPolicyRequest::parent].
@@ -1249,8 +1252,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateFirewallPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateFirewallPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1260,8 +1263,8 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListFirewallPolicies;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1295,7 +1298,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1305,14 +1308,16 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .list_firewall_policies(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListFirewallPoliciesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListFirewallPoliciesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1320,17 +1325,17 @@ pub mod recaptcha_enterprise_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListFirewallPoliciesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1356,8 +1361,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListFirewallPolicies {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListFirewallPolicies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1367,7 +1372,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::GetFirewallPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1398,7 +1403,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1408,7 +1413,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .get_firewall_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFirewallPolicyRequest::name].
@@ -1421,8 +1426,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetFirewallPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetFirewallPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1432,7 +1437,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::UpdateFirewallPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1463,7 +1468,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1473,7 +1478,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .update_firewall_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
@@ -1518,8 +1523,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateFirewallPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateFirewallPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1529,7 +1534,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::DeleteFirewallPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1560,7 +1565,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1570,7 +1575,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .delete_firewall_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteFirewallPolicyRequest::name].
@@ -1583,8 +1588,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteFirewallPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteFirewallPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1594,7 +1599,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ReorderFirewallPolicies;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1627,7 +1632,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1637,7 +1642,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .reorder_firewall_policies(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ReorderFirewallPoliciesRequest::parent].
@@ -1663,8 +1668,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ReorderFirewallPolicies {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ReorderFirewallPolicies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1674,8 +1679,8 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListRelatedAccountGroups;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1711,7 +1716,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1721,15 +1726,15 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .list_related_account_groups(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListRelatedAccountGroupsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1738,17 +1743,17 @@ pub mod recaptcha_enterprise_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListRelatedAccountGroupsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1774,8 +1779,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListRelatedAccountGroups {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListRelatedAccountGroups {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1785,8 +1790,8 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListRelatedAccountGroupMemberships;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1822,7 +1827,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1834,15 +1839,15 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .list_related_account_group_memberships(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListRelatedAccountGroupMembershipsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1851,17 +1856,17 @@ pub mod recaptcha_enterprise_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListRelatedAccountGroupMembershipsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1887,8 +1892,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListRelatedAccountGroupMemberships {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListRelatedAccountGroupMemberships {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1898,8 +1903,8 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::SearchRelatedAccountGroupMemberships;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1935,7 +1940,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1947,15 +1952,15 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .search_related_account_group_memberships(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::SearchRelatedAccountGroupMembershipsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1964,17 +1969,17 @@ pub mod recaptcha_enterprise_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::SearchRelatedAccountGroupMembershipsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2013,8 +2018,8 @@ pub mod recaptcha_enterprise_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SearchRelatedAccountGroupMemberships {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SearchRelatedAccountGroupMemberships {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

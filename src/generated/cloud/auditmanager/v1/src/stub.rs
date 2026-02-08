@@ -42,10 +42,9 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn enroll_resource(
         &self,
         _req: crate::model::EnrollResourceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Enrollment>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Enrollment>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,9 +52,9 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn generate_audit_scope_report(
         &self,
         _req: crate::model::GenerateAuditScopeReportRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AuditScopeReport>>,
+        Output = crate::Result<crate::Response<crate::model::AuditScopeReport>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,9 +63,9 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn generate_audit_report(
         &self,
         _req: crate::model::GenerateAuditReportRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +74,9 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn list_audit_reports(
         &self,
         _req: crate::model::ListAuditReportsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAuditReportsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAuditReportsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,10 +85,9 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn get_audit_report(
         &self,
         _req: crate::model::GetAuditReportRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AuditReport>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AuditReport>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -97,9 +95,9 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn get_resource_enrollment_status(
         &self,
         _req: crate::model::GetResourceEnrollmentStatusRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ResourceEnrollmentStatus>>,
+        Output = crate::Result<crate::Response<crate::model::ResourceEnrollmentStatus>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,10 +106,10 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn list_resource_enrollment_statuses(
         &self,
         _req: crate::model::ListResourceEnrollmentStatusesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::ListResourceEnrollmentStatusesResponse>,
+            crate::Response<crate::model::ListResourceEnrollmentStatusesResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -121,9 +119,9 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn list_controls(
         &self,
         _req: crate::model::ListControlsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListControlsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListControlsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -132,10 +130,10 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -145,9 +143,9 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -156,10 +154,10 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -169,9 +167,9 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -180,8 +178,8 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -189,8 +187,8 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -200,9 +198,9 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -211,8 +209,8 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

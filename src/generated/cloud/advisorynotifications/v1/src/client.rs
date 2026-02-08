@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
 /// let client = AdvisoryNotificationsService::builder().build().await?;
 /// // use `client` to make requests to the Advisory Notifications API.
@@ -66,15 +66,13 @@ impl AdvisoryNotificationsService {
     /// Returns a builder for [AdvisoryNotificationsService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
     /// let client = AdvisoryNotificationsService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::advisory_notifications_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::advisory_notifications_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::advisory_notifications_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,14 +90,14 @@ impl AdvisoryNotificationsService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::AdvisoryNotificationsService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -110,13 +108,13 @@ impl AdvisoryNotificationsService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AdvisoryNotificationsService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AdvisoryNotificationsService> {
         super::transport::AdvisoryNotificationsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AdvisoryNotificationsService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AdvisoryNotificationsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AdvisoryNotificationsService::new)

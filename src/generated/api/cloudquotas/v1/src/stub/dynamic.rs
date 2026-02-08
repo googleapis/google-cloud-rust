@@ -20,38 +20,38 @@ pub trait CloudQuotas: std::fmt::Debug + Send + Sync {
     async fn list_quota_infos(
         &self,
         req: crate::model::ListQuotaInfosRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListQuotaInfosResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListQuotaInfosResponse>>;
 
     async fn get_quota_info(
         &self,
         req: crate::model::GetQuotaInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QuotaInfo>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QuotaInfo>>;
 
     async fn list_quota_preferences(
         &self,
         req: crate::model::ListQuotaPreferencesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListQuotaPreferencesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListQuotaPreferencesResponse>>;
 
     async fn get_quota_preference(
         &self,
         req: crate::model::GetQuotaPreferenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QuotaPreference>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QuotaPreference>>;
 
     async fn create_quota_preference(
         &self,
         req: crate::model::CreateQuotaPreferenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QuotaPreference>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QuotaPreference>>;
 
     async fn update_quota_preference(
         &self,
         req: crate::model::UpdateQuotaPreferenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QuotaPreference>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QuotaPreference>>;
 }
 
 /// All implementations of [super::CloudQuotas] also implement [CloudQuotas].
@@ -61,8 +61,8 @@ impl<T: super::CloudQuotas> CloudQuotas for T {
     async fn list_quota_infos(
         &self,
         req: crate::model::ListQuotaInfosRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListQuotaInfosResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListQuotaInfosResponse>> {
         T::list_quota_infos(self, req, options).await
     }
 
@@ -70,8 +70,8 @@ impl<T: super::CloudQuotas> CloudQuotas for T {
     async fn get_quota_info(
         &self,
         req: crate::model::GetQuotaInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QuotaInfo>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QuotaInfo>> {
         T::get_quota_info(self, req, options).await
     }
 
@@ -79,8 +79,8 @@ impl<T: super::CloudQuotas> CloudQuotas for T {
     async fn list_quota_preferences(
         &self,
         req: crate::model::ListQuotaPreferencesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListQuotaPreferencesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListQuotaPreferencesResponse>> {
         T::list_quota_preferences(self, req, options).await
     }
 
@@ -88,8 +88,8 @@ impl<T: super::CloudQuotas> CloudQuotas for T {
     async fn get_quota_preference(
         &self,
         req: crate::model::GetQuotaPreferenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QuotaPreference>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QuotaPreference>> {
         T::get_quota_preference(self, req, options).await
     }
 
@@ -97,8 +97,8 @@ impl<T: super::CloudQuotas> CloudQuotas for T {
     async fn create_quota_preference(
         &self,
         req: crate::model::CreateQuotaPreferenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QuotaPreference>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QuotaPreference>> {
         T::create_quota_preference(self, req, options).await
     }
 
@@ -106,8 +106,8 @@ impl<T: super::CloudQuotas> CloudQuotas for T {
     async fn update_quota_preference(
         &self,
         req: crate::model::UpdateQuotaPreferenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QuotaPreference>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QuotaPreference>> {
         T::update_quota_preference(self, req, options).await
     }
 }

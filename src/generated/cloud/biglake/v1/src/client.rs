@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
 /// let client = IcebergCatalogService::builder().build().await?;
 /// // use `client` to make requests to the BigLake API.
@@ -94,15 +94,13 @@ impl IcebergCatalogService {
     /// Returns a builder for [IcebergCatalogService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
     /// let client = IcebergCatalogService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::iceberg_catalog_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::iceberg_catalog_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::iceberg_catalog_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -120,14 +118,14 @@ impl IcebergCatalogService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IcebergCatalogService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::IcebergCatalogService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -137,13 +135,13 @@ impl IcebergCatalogService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::IcebergCatalogService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::IcebergCatalogService> {
         super::transport::IcebergCatalogService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::IcebergCatalogService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::IcebergCatalogService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::IcebergCatalogService::new)

@@ -42,9 +42,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn list_certificates(
         &self,
         _req: crate::model::ListCertificatesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListCertificatesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListCertificatesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn get_certificate(
         &self,
         _req: crate::model::GetCertificateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Certificate>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Certificate>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,9 +63,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn create_certificate(
         &self,
         _req: crate::model::CreateCertificateRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +74,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn update_certificate(
         &self,
         _req: crate::model::UpdateCertificateRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +85,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn delete_certificate(
         &self,
         _req: crate::model::DeleteCertificateRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,9 +96,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn list_certificate_maps(
         &self,
         _req: crate::model::ListCertificateMapsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListCertificateMapsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListCertificateMapsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,9 +107,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn get_certificate_map(
         &self,
         _req: crate::model::GetCertificateMapRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CertificateMap>>,
+        Output = crate::Result<crate::Response<crate::model::CertificateMap>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -119,9 +118,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn create_certificate_map(
         &self,
         _req: crate::model::CreateCertificateMapRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -130,9 +129,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn update_certificate_map(
         &self,
         _req: crate::model::UpdateCertificateMapRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -141,9 +140,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn delete_certificate_map(
         &self,
         _req: crate::model::DeleteCertificateMapRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -152,11 +151,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn list_certificate_map_entries(
         &self,
         _req: crate::model::ListCertificateMapEntriesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListCertificateMapEntriesResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListCertificateMapEntriesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -165,9 +162,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn get_certificate_map_entry(
         &self,
         _req: crate::model::GetCertificateMapEntryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CertificateMapEntry>>,
+        Output = crate::Result<crate::Response<crate::model::CertificateMapEntry>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -176,9 +173,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn create_certificate_map_entry(
         &self,
         _req: crate::model::CreateCertificateMapEntryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -187,9 +184,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn update_certificate_map_entry(
         &self,
         _req: crate::model::UpdateCertificateMapEntryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -198,9 +195,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn delete_certificate_map_entry(
         &self,
         _req: crate::model::DeleteCertificateMapEntryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -209,11 +206,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn list_dns_authorizations(
         &self,
         _req: crate::model::ListDnsAuthorizationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListDnsAuthorizationsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListDnsAuthorizationsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -222,9 +217,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn get_dns_authorization(
         &self,
         _req: crate::model::GetDnsAuthorizationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DnsAuthorization>>,
+        Output = crate::Result<crate::Response<crate::model::DnsAuthorization>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -233,9 +228,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn create_dns_authorization(
         &self,
         _req: crate::model::CreateDnsAuthorizationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -244,9 +239,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn update_dns_authorization(
         &self,
         _req: crate::model::UpdateDnsAuthorizationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -255,9 +250,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn delete_dns_authorization(
         &self,
         _req: crate::model::DeleteDnsAuthorizationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -266,10 +261,10 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn list_certificate_issuance_configs(
         &self,
         _req: crate::model::ListCertificateIssuanceConfigsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::ListCertificateIssuanceConfigsResponse>,
+            crate::Response<crate::model::ListCertificateIssuanceConfigsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -279,9 +274,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn get_certificate_issuance_config(
         &self,
         _req: crate::model::GetCertificateIssuanceConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CertificateIssuanceConfig>>,
+        Output = crate::Result<crate::Response<crate::model::CertificateIssuanceConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -290,9 +285,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn create_certificate_issuance_config(
         &self,
         _req: crate::model::CreateCertificateIssuanceConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -301,9 +296,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn delete_certificate_issuance_config(
         &self,
         _req: crate::model::DeleteCertificateIssuanceConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -312,9 +307,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn list_trust_configs(
         &self,
         _req: crate::model::ListTrustConfigsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListTrustConfigsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListTrustConfigsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -323,10 +318,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn get_trust_config(
         &self,
         _req: crate::model::GetTrustConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::TrustConfig>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::TrustConfig>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -334,9 +328,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn create_trust_config(
         &self,
         _req: crate::model::CreateTrustConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -345,9 +339,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn update_trust_config(
         &self,
         _req: crate::model::UpdateTrustConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -356,9 +350,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn delete_trust_config(
         &self,
         _req: crate::model::DeleteTrustConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -367,10 +361,10 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -380,9 +374,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -391,10 +385,10 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -404,9 +398,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -415,8 +409,8 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -424,8 +418,8 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -435,9 +429,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -446,8 +440,8 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

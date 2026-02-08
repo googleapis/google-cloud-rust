@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
 /// let client = OrgPolicyViolationsPreviewService::builder().build().await?;
 /// // use `client` to make requests to the Policy Simulator API.
@@ -78,13 +78,13 @@ impl OrgPolicyViolationsPreviewService {
     /// Returns a builder for [OrgPolicyViolationsPreviewService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
     /// let client = OrgPolicyViolationsPreviewService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::org_policy_violations_preview_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
+        crate::new_client_builder(
             super::builder::org_policy_violations_preview_service::client::Factory,
         )
     }
@@ -104,14 +104,14 @@ impl OrgPolicyViolationsPreviewService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::OrgPolicyViolationsPreviewService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -122,13 +122,13 @@ impl OrgPolicyViolationsPreviewService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrgPolicyViolationsPreviewService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::OrgPolicyViolationsPreviewService> {
         super::transport::OrgPolicyViolationsPreviewService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrgPolicyViolationsPreviewService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::OrgPolicyViolationsPreviewService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::OrgPolicyViolationsPreviewService::new)
@@ -230,7 +230,7 @@ impl OrgPolicyViolationsPreviewService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_policysimulator_v1::client::Simulator;
 /// let client = Simulator::builder().build().await?;
 /// // use `client` to make requests to the Policy Simulator API.
@@ -289,13 +289,13 @@ impl Simulator {
     /// Returns a builder for [Simulator].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_policysimulator_v1::client::Simulator;
     /// let client = Simulator::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::simulator::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::simulator::client::Factory)
+        crate::new_client_builder(super::builder::simulator::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -313,14 +313,14 @@ impl Simulator {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Simulator>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Simulator>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -329,13 +329,13 @@ impl Simulator {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Simulator> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Simulator> {
         super::transport::Simulator::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Simulator> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Simulator> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Simulator::new)

@@ -20,7 +20,7 @@ pub mod public_certificate_authority_service {
     /// A builder for [PublicCertificateAuthorityService][crate::client::PublicCertificateAuthorityService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_security_publicca_v1::*;
     /// # use builder::public_certificate_authority_service::ClientBuilder;
     /// # use client::PublicCertificateAuthorityService;
@@ -30,19 +30,18 @@ pub mod public_certificate_authority_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::PublicCertificateAuthorityService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = PublicCertificateAuthorityService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod public_certificate_authority_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -68,7 +67,7 @@ pub mod public_certificate_authority_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -78,7 +77,7 @@ pub mod public_certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_publicca_v1::builder::public_certificate_authority_service::CreateExternalAccountKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -113,7 +112,7 @@ pub mod public_certificate_authority_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -123,7 +122,7 @@ pub mod public_certificate_authority_service {
             (*self.0.stub)
                 .create_external_account_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateExternalAccountKeyRequest::parent].
@@ -158,8 +157,8 @@ pub mod public_certificate_authority_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateExternalAccountKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateExternalAccountKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

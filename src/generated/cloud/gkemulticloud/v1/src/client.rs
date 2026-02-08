@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
 /// let client = AttachedClusters::builder().build().await?;
 /// // use `client` to make requests to the GKE Multi-Cloud API.
@@ -68,15 +68,13 @@ impl AttachedClusters {
     /// Returns a builder for [AttachedClusters].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
     /// let client = AttachedClusters::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::attached_clusters::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::attached_clusters::client::Factory,
-        )
+        crate::new_client_builder(super::builder::attached_clusters::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -94,14 +92,14 @@ impl AttachedClusters {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AttachedClusters>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AttachedClusters>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -111,13 +109,13 @@ impl AttachedClusters {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AttachedClusters> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AttachedClusters> {
         super::transport::AttachedClusters::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AttachedClusters> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AttachedClusters> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AttachedClusters::new)
@@ -300,7 +298,7 @@ impl AttachedClusters {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
 /// let client = AwsClusters::builder().build().await?;
 /// // use `client` to make requests to the GKE Multi-Cloud API.
@@ -348,13 +346,13 @@ impl AwsClusters {
     /// Returns a builder for [AwsClusters].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
     /// let client = AwsClusters::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::aws_clusters::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::aws_clusters::client::Factory)
+        crate::new_client_builder(super::builder::aws_clusters::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -372,14 +370,14 @@ impl AwsClusters {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AwsClusters>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AwsClusters>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -388,13 +386,13 @@ impl AwsClusters {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AwsClusters> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AwsClusters> {
         super::transport::AwsClusters::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AwsClusters> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AwsClusters> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AwsClusters::new)
@@ -676,7 +674,7 @@ impl AwsClusters {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
 /// let client = AzureClusters::builder().build().await?;
 /// // use `client` to make requests to the GKE Multi-Cloud API.
@@ -724,13 +722,13 @@ impl AzureClusters {
     /// Returns a builder for [AzureClusters].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
     /// let client = AzureClusters::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::azure_clusters::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::azure_clusters::client::Factory)
+        crate::new_client_builder(super::builder::azure_clusters::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -748,14 +746,14 @@ impl AzureClusters {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AzureClusters>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AzureClusters>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -764,13 +762,13 @@ impl AzureClusters {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AzureClusters> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AzureClusters> {
         super::transport::AzureClusters::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AzureClusters> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AzureClusters> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AzureClusters::new)

@@ -20,34 +20,32 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_vulnerability_occurrences_summary(
         &self,
         req: crate::model::GetVulnerabilityOccurrencesSummaryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VulnerabilityOccurrencesSummary>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VulnerabilityOccurrencesSummary>>;
 
     async fn export_sbom(
         &self,
         req: crate::model::ExportSBOMRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExportSBOMResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExportSBOMResponse>>;
 }
 
 /// All implementations of [super::ContainerAnalysis] also implement [ContainerAnalysis].
@@ -57,8 +55,8 @@ impl<T: super::ContainerAnalysis> ContainerAnalysis for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -66,8 +64,8 @@ impl<T: super::ContainerAnalysis> ContainerAnalysis for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -75,10 +73,9 @@ impl<T: super::ContainerAnalysis> ContainerAnalysis for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -86,8 +83,8 @@ impl<T: super::ContainerAnalysis> ContainerAnalysis for T {
     async fn get_vulnerability_occurrences_summary(
         &self,
         req: crate::model::GetVulnerabilityOccurrencesSummaryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VulnerabilityOccurrencesSummary>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VulnerabilityOccurrencesSummary>> {
         T::get_vulnerability_occurrences_summary(self, req, options).await
     }
 
@@ -95,8 +92,8 @@ impl<T: super::ContainerAnalysis> ContainerAnalysis for T {
     async fn export_sbom(
         &self,
         req: crate::model::ExportSBOMRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExportSBOMResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExportSBOMResponse>> {
         T::export_sbom(self, req, options).await
     }
 }

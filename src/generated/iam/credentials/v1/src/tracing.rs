@@ -41,8 +41,8 @@ where
     async fn generate_access_token(
         &self,
         req: crate::model::GenerateAccessTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GenerateAccessTokenResponse>> {
         self.inner.generate_access_token(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn generate_id_token(
         &self,
         req: crate::model::GenerateIdTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GenerateIdTokenResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GenerateIdTokenResponse>> {
         self.inner.generate_id_token(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn sign_blob(
         &self,
         req: crate::model::SignBlobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SignBlobResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SignBlobResponse>> {
         self.inner.sign_blob(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn sign_jwt(
         &self,
         req: crate::model::SignJwtRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SignJwtResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SignJwtResponse>> {
         self.inner.sign_jwt(req, options).await
     }
 }

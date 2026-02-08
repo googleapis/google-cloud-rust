@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
@@ -717,7 +717,7 @@ impl wkt::message::Message for ListAddressGroupsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAddressGroupsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAddressGroupsResponse {
     type PageItem = crate::model::AddressGroup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1449,7 +1449,9 @@ impl wkt::message::Message for ListAddressGroupReferencesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAddressGroupReferencesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListAddressGroupReferencesResponse
+{
     type PageItem = crate::model::list_address_group_references_response::AddressGroupReference;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2407,7 +2409,7 @@ impl wkt::message::Message for ListAuthorizationPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAuthorizationPoliciesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAuthorizationPoliciesResponse {
     type PageItem = crate::model::AuthorizationPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3035,7 +3037,7 @@ impl wkt::message::Message for ListClientTlsPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListClientTlsPoliciesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListClientTlsPoliciesResponse {
     type PageItem = crate::model::ClientTlsPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3906,7 +3908,7 @@ impl wkt::message::Message for ListServerTlsPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListServerTlsPoliciesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListServerTlsPoliciesResponse {
     type PageItem = crate::model::ServerTlsPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

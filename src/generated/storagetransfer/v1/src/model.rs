@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_rpc;
@@ -543,7 +543,7 @@ impl wkt::message::Message for ListTransferJobsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListTransferJobsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTransferJobsResponse {
     type PageItem = crate::model::TransferJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1103,7 +1103,7 @@ impl wkt::message::Message for ListAgentPoolsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAgentPoolsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAgentPoolsResponse {
     type PageItem = crate::model::AgentPool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

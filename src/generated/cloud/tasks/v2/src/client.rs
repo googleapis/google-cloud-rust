@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_tasks_v2::client::CloudTasks;
 /// let client = CloudTasks::builder().build().await?;
 /// // use `client` to make requests to the Cloud Tasks API.
@@ -67,13 +67,13 @@ impl CloudTasks {
     /// Returns a builder for [CloudTasks].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_tasks_v2::client::CloudTasks;
     /// let client = CloudTasks::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_tasks::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::cloud_tasks::client::Factory)
+        crate::new_client_builder(super::builder::cloud_tasks::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -91,14 +91,14 @@ impl CloudTasks {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudTasks>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::CloudTasks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -107,13 +107,13 @@ impl CloudTasks {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudTasks> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CloudTasks> {
         super::transport::CloudTasks::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudTasks> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CloudTasks> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudTasks::new)

@@ -41,8 +41,8 @@ where
     async fn create_key(
         &self,
         req: crate::model::CreateKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_key(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_keys(
         &self,
         req: crate::model::ListKeysRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListKeysResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListKeysResponse>> {
         self.inner.list_keys(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn get_key(
         &self,
         req: crate::model::GetKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Key>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Key>> {
         self.inner.get_key(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn get_key_string(
         &self,
         req: crate::model::GetKeyStringRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GetKeyStringResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GetKeyStringResponse>> {
         self.inner.get_key_string(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn update_key(
         &self,
         req: crate::model::UpdateKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_key(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn delete_key(
         &self,
         req: crate::model::DeleteKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_key(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn undelete_key(
         &self,
         req: crate::model::UndeleteKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.undelete_key(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn lookup_key(
         &self,
         req: crate::model::LookupKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::LookupKeyResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::LookupKeyResponse>> {
         self.inner.lookup_key(req, options).await
     }
 
@@ -113,22 +113,22 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

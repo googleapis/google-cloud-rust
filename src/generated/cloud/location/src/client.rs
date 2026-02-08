@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_location::client::Locations;
 /// let client = Locations::builder().build().await?;
 /// // use `client` to make requests to the Cloud Metadata API.
@@ -70,13 +70,13 @@ impl Locations {
     /// Returns a builder for [Locations].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_location::client::Locations;
     /// let client = Locations::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::locations::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::locations::client::Factory)
+        crate::new_client_builder(super::builder::locations::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -94,14 +94,14 @@ impl Locations {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Locations>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Locations>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -110,13 +110,13 @@ impl Locations {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Locations> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Locations> {
         super::transport::Locations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Locations> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Locations> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Locations::new)

@@ -19,9 +19,9 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_api;
+extern crate google_cloud_gax;
 extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate lazy_static;
@@ -4178,7 +4178,7 @@ impl wkt::message::Message for ListAlertPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAlertPoliciesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAlertPoliciesResponse {
     type PageItem = crate::model::AlertPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6038,7 +6038,7 @@ impl wkt::message::Message for ListGroupsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListGroupsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListGroupsResponse {
     type PageItem = crate::model::Group;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6519,7 +6519,7 @@ impl wkt::message::Message for ListGroupMembersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListGroupMembersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListGroupMembersResponse {
     type PageItem = google_cloud_api::model::MonitoredResource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7856,7 +7856,9 @@ impl wkt::message::Message for ListMonitoredResourceDescriptorsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListMonitoredResourceDescriptorsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListMonitoredResourceDescriptorsResponse
+{
     type PageItem = google_cloud_api::model::MonitoredResourceDescriptor;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8097,7 +8099,7 @@ impl wkt::message::Message for ListMetricDescriptorsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListMetricDescriptorsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListMetricDescriptorsResponse {
     type PageItem = google_cloud_api::model::MetricDescriptor;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8764,7 +8766,7 @@ impl wkt::message::Message for ListTimeSeriesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListTimeSeriesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTimeSeriesResponse {
     type PageItem = crate::model::TimeSeries;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9315,7 +9317,7 @@ impl wkt::message::Message for QueryTimeSeriesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for QueryTimeSeriesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for QueryTimeSeriesResponse {
     type PageItem = crate::model::TimeSeriesData;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -10233,7 +10235,9 @@ impl wkt::message::Message for ListNotificationChannelDescriptorsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListNotificationChannelDescriptorsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListNotificationChannelDescriptorsResponse
+{
     type PageItem = crate::model::NotificationChannelDescriptor;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -10566,7 +10570,7 @@ impl wkt::message::Message for ListNotificationChannelsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListNotificationChannelsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListNotificationChannelsResponse {
     type PageItem = crate::model::NotificationChannel;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -14597,7 +14601,7 @@ impl wkt::message::Message for ListServicesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListServicesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -15071,7 +15075,9 @@ impl wkt::message::Message for ListServiceLevelObjectivesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListServiceLevelObjectivesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListServiceLevelObjectivesResponse
+{
     type PageItem = crate::model::ServiceLevelObjective;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -15680,7 +15686,7 @@ impl wkt::message::Message for ListSnoozesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListSnoozesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSnoozesResponse {
     type PageItem = crate::model::Snooze;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -19321,7 +19327,7 @@ impl wkt::message::Message for ListUptimeCheckConfigsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListUptimeCheckConfigsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListUptimeCheckConfigsResponse {
     type PageItem = crate::model::UptimeCheckConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -19712,7 +19718,7 @@ impl wkt::message::Message for ListUptimeCheckIpsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListUptimeCheckIpsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListUptimeCheckIpsResponse {
     type PageItem = crate::model::UptimeCheckIp;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

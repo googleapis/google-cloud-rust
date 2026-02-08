@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> crate::ClientBuilderResult<()> {
 /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
 /// let client = IAMCredentials::builder().build().await?;
 /// // use `client` to make requests to the IAM Service Account Credentials API.
@@ -74,13 +74,13 @@ impl IAMCredentials {
     /// Returns a builder for [IAMCredentials].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
     /// let client = IAMCredentials::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::iam_credentials::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::iam_credentials::client::Factory)
+        crate::new_client_builder(super::builder::iam_credentials::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -98,14 +98,14 @@ impl IAMCredentials {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IAMCredentials>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::IAMCredentials>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -114,13 +114,13 @@ impl IAMCredentials {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::IAMCredentials> {
+    ) -> crate::ClientBuilderResult<impl super::stub::IAMCredentials> {
         super::transport::IAMCredentials::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::IAMCredentials> {
+    ) -> crate::ClientBuilderResult<impl super::stub::IAMCredentials> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::IAMCredentials::new)

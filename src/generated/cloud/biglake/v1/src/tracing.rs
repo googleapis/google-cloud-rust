@@ -41,8 +41,8 @@ where
     async fn get_iceberg_catalog_config(
         &self,
         req: crate::model::GetIcebergCatalogConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IcebergCatalogConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IcebergCatalogConfig>> {
         self.inner.get_iceberg_catalog_config(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_iceberg_namespaces(
         &self,
         req: crate::model::ListIcebergNamespacesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListIcebergNamespacesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListIcebergNamespacesResponse>> {
         self.inner.list_iceberg_namespaces(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn get_iceberg_namespace(
         &self,
         req: crate::model::GetIcebergNamespaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IcebergNamespace>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IcebergNamespace>> {
         self.inner.get_iceberg_namespace(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn create_iceberg_namespace(
         &self,
         req: crate::model::CreateIcebergNamespaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IcebergNamespace>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IcebergNamespace>> {
         self.inner.create_iceberg_namespace(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn delete_iceberg_namespace(
         &self,
         req: crate::model::DeleteIcebergNamespaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_iceberg_namespace(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn update_iceberg_namespace(
         &self,
         req: crate::model::UpdateIcebergNamespaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::UpdateIcebergNamespaceResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::UpdateIcebergNamespaceResponse>> {
         self.inner.update_iceberg_namespace(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn list_iceberg_table_identifiers(
         &self,
         req: crate::model::ListIcebergTableIdentifiersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListIcebergTableIdentifiersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListIcebergTableIdentifiersResponse>> {
         self.inner
             .list_iceberg_table_identifiers(req, options)
             .await
@@ -106,8 +106,8 @@ where
     async fn create_iceberg_table(
         &self,
         req: crate::model::CreateIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.create_iceberg_table(req, options).await
     }
 
@@ -115,8 +115,8 @@ where
     async fn delete_iceberg_table(
         &self,
         req: crate::model::DeleteIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_iceberg_table(req, options).await
     }
 
@@ -124,8 +124,8 @@ where
     async fn get_iceberg_table(
         &self,
         req: crate::model::GetIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.get_iceberg_table(req, options).await
     }
 
@@ -133,8 +133,8 @@ where
     async fn load_iceberg_table_credentials(
         &self,
         req: crate::model::GetIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::LoadIcebergTableCredentialsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::LoadIcebergTableCredentialsResponse>> {
         self.inner
             .load_iceberg_table_credentials(req, options)
             .await
@@ -144,8 +144,8 @@ where
     async fn update_iceberg_table(
         &self,
         req: crate::model::UpdateIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.update_iceberg_table(req, options).await
     }
 
@@ -153,8 +153,8 @@ where
     async fn register_iceberg_table(
         &self,
         req: crate::model::RegisterIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.register_iceberg_table(req, options).await
     }
 
@@ -162,8 +162,8 @@ where
     async fn get_iceberg_catalog(
         &self,
         req: crate::model::GetIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IcebergCatalog>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IcebergCatalog>> {
         self.inner.get_iceberg_catalog(req, options).await
     }
 
@@ -171,8 +171,8 @@ where
     async fn list_iceberg_catalogs(
         &self,
         req: crate::model::ListIcebergCatalogsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListIcebergCatalogsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListIcebergCatalogsResponse>> {
         self.inner.list_iceberg_catalogs(req, options).await
     }
 
@@ -180,8 +180,8 @@ where
     async fn delete_iceberg_catalog(
         &self,
         req: crate::model::DeleteIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_iceberg_catalog(req, options).await
     }
 
@@ -189,8 +189,8 @@ where
     async fn update_iceberg_catalog(
         &self,
         req: crate::model::UpdateIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IcebergCatalog>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IcebergCatalog>> {
         self.inner.update_iceberg_catalog(req, options).await
     }
 
@@ -198,8 +198,8 @@ where
     async fn create_iceberg_catalog(
         &self,
         req: crate::model::CreateIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IcebergCatalog>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IcebergCatalog>> {
         self.inner.create_iceberg_catalog(req, options).await
     }
 
@@ -207,8 +207,8 @@ where
     async fn failover_iceberg_catalog(
         &self,
         req: crate::model::FailoverIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FailoverIcebergCatalogResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FailoverIcebergCatalogResponse>> {
         self.inner.failover_iceberg_catalog(req, options).await
     }
 }

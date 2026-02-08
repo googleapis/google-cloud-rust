@@ -20,7 +20,7 @@ pub mod cluster_manager {
     /// A builder for [ClusterManager][crate::client::ClusterManager].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> crate::ClientBuilderResult<()> {
     /// # use google_cloud_container_v1::*;
     /// # use builder::cluster_manager::ClientBuilder;
     /// # use client::ClusterManager;
@@ -30,19 +30,18 @@ pub mod cluster_manager {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::ClusterManager;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = ClusterManager;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod cluster_manager {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod cluster_manager {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::ListClusters;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -104,7 +103,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -114,7 +113,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .list_clusters(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::ListClustersRequest::project_id].
@@ -139,8 +138,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListClusters {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListClusters {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -150,7 +149,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::GetCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -178,7 +177,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -188,7 +187,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .get_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetClusterRequest::project_id].
@@ -220,8 +219,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -231,7 +230,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::CreateCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -259,7 +258,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -269,7 +268,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CreateClusterRequest::project_id].
@@ -316,8 +315,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -327,7 +326,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::UpdateCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -355,7 +354,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -365,7 +364,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateClusterRequest::project_id].
@@ -419,8 +418,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -430,7 +429,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::UpdateNodePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -458,7 +457,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -468,7 +467,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .update_node_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateNodePoolRequest::project_id].
@@ -994,8 +993,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateNodePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateNodePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1005,7 +1004,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetNodePoolAutoscaling;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1036,7 +1035,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1046,7 +1045,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_node_pool_autoscaling(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetNodePoolAutoscalingRequest::project_id].
@@ -1107,8 +1106,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetNodePoolAutoscaling {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetNodePoolAutoscaling {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1118,7 +1117,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetLoggingService;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1149,7 +1148,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1159,7 +1158,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_logging_service(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetLoggingServiceRequest::project_id].
@@ -1199,8 +1198,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetLoggingService {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetLoggingService {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1210,7 +1209,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetMonitoringService;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1241,7 +1240,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1251,7 +1250,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_monitoring_service(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetMonitoringServiceRequest::project_id].
@@ -1291,8 +1290,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetMonitoringService {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetMonitoringService {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1302,7 +1301,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetAddonsConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1330,7 +1329,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1340,7 +1339,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_addons_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetAddonsConfigRequest::project_id].
@@ -1394,8 +1393,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetAddonsConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetAddonsConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1405,7 +1404,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetLocations;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1433,7 +1432,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1443,7 +1442,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_locations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetLocationsRequest::project_id].
@@ -1488,8 +1487,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetLocations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1499,7 +1498,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::UpdateMaster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1527,7 +1526,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1537,7 +1536,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .update_master(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateMasterRequest::project_id].
@@ -1577,8 +1576,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateMaster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateMaster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1588,7 +1587,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetMasterAuth;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1616,7 +1615,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1626,7 +1625,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_master_auth(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetMasterAuthRequest::project_id].
@@ -1691,8 +1690,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetMasterAuth {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetMasterAuth {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1702,7 +1701,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::DeleteCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1730,7 +1729,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1740,7 +1739,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteClusterRequest::project_id].
@@ -1772,8 +1771,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1783,7 +1782,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1811,7 +1810,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1821,7 +1820,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::ListOperationsRequest::project_id].
@@ -1846,8 +1845,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1857,7 +1856,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1885,7 +1884,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1895,7 +1894,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetOperationRequest::project_id].
@@ -1927,8 +1926,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1938,7 +1937,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1966,7 +1965,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1976,7 +1975,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CancelOperationRequest::project_id].
@@ -2008,8 +2007,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2019,7 +2018,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::GetServerConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2047,7 +2046,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2057,7 +2056,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .get_server_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetServerConfigRequest::project_id].
@@ -2082,8 +2081,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetServerConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetServerConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2093,7 +2092,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::GetJSONWebKeys;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2121,7 +2120,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2131,7 +2130,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .get_json_web_keys(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GetJSONWebKeysRequest::parent].
@@ -2142,8 +2141,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetJSONWebKeys {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetJSONWebKeys {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2153,7 +2152,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::ListNodePools;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2181,7 +2180,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2191,7 +2190,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .list_node_pools(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::ListNodePoolsRequest::project_id].
@@ -2223,8 +2222,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListNodePools {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListNodePools {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2234,7 +2233,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::GetNodePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2262,7 +2261,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2272,7 +2271,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .get_node_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetNodePoolRequest::project_id].
@@ -2311,8 +2310,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetNodePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetNodePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2322,7 +2321,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::CreateNodePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2350,7 +2349,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2360,7 +2359,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .create_node_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CreateNodePoolRequest::project_id].
@@ -2414,8 +2413,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateNodePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateNodePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2425,7 +2424,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::DeleteNodePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2453,7 +2452,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2463,7 +2462,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .delete_node_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteNodePoolRequest::project_id].
@@ -2502,8 +2501,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteNodePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteNodePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2513,7 +2512,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::CompleteNodePoolUpgrade;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2546,7 +2545,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2556,7 +2555,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .complete_node_pool_upgrade(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CompleteNodePoolUpgradeRequest::name].
@@ -2567,8 +2566,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CompleteNodePoolUpgrade {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CompleteNodePoolUpgrade {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2578,7 +2577,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::RollbackNodePoolUpgrade;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2611,7 +2610,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2621,7 +2620,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .rollback_node_pool_upgrade(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::RollbackNodePoolUpgradeRequest::project_id].
@@ -2666,8 +2665,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RollbackNodePoolUpgrade {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RollbackNodePoolUpgrade {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2677,7 +2676,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetNodePoolManagement;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2708,7 +2707,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2718,7 +2717,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_node_pool_management(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetNodePoolManagementRequest::project_id].
@@ -2779,8 +2778,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetNodePoolManagement {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetNodePoolManagement {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2790,7 +2789,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetLabels;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2818,7 +2817,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2828,7 +2827,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_labels(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetLabelsRequest::project_id].
@@ -2882,8 +2881,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetLabels {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetLabels {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2893,7 +2892,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetLegacyAbac;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2921,7 +2920,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2931,7 +2930,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_legacy_abac(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetLegacyAbacRequest::project_id].
@@ -2971,8 +2970,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetLegacyAbac {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetLegacyAbac {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2982,7 +2981,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::StartIPRotation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3010,7 +3009,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3020,7 +3019,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .start_ip_rotation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::StartIPRotationRequest::project_id].
@@ -3058,8 +3057,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StartIPRotation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StartIPRotation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3069,7 +3068,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::CompleteIPRotation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3100,7 +3099,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3110,7 +3109,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .complete_ip_rotation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CompleteIPRotationRequest::project_id].
@@ -3142,8 +3141,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CompleteIPRotation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CompleteIPRotation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3153,7 +3152,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetNodePoolSize;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3181,7 +3180,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3191,7 +3190,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_node_pool_size(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetNodePoolSizeRequest::project_id].
@@ -3238,8 +3237,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetNodePoolSize {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetNodePoolSize {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3249,7 +3248,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetNetworkPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3280,7 +3279,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3290,7 +3289,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_network_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetNetworkPolicyRequest::project_id].
@@ -3344,8 +3343,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetNetworkPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetNetworkPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3355,7 +3354,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetMaintenancePolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3386,7 +3385,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3396,7 +3395,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_maintenance_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetMaintenancePolicyRequest::project_id].
@@ -3453,8 +3452,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetMaintenancePolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetMaintenancePolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3464,8 +3463,8 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::ListUsableSubnetworks;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3499,7 +3498,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3509,14 +3508,16 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .list_usable_subnetworks(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListUsableSubnetworksResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListUsableSubnetworksResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3524,17 +3525,17 @@ pub mod cluster_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListUsableSubnetworksResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3564,8 +3565,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListUsableSubnetworks {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListUsableSubnetworks {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3575,7 +3576,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::CheckAutopilotCompatibility;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3608,7 +3609,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3618,7 +3619,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .check_autopilot_compatibility(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CheckAutopilotCompatibilityRequest::name].
@@ -3629,8 +3630,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CheckAutopilotCompatibility {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CheckAutopilotCompatibility {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3640,7 +3641,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::FetchClusterUpgradeInfo;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3673,7 +3674,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3683,7 +3684,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .fetch_cluster_upgrade_info(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FetchClusterUpgradeInfoRequest::name].
@@ -3702,8 +3703,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for FetchClusterUpgradeInfo {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for FetchClusterUpgradeInfo {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3713,7 +3714,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::FetchNodePoolUpgradeInfo;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3746,7 +3747,7 @@ pub mod cluster_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3756,7 +3757,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .fetch_node_pool_upgrade_info(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FetchNodePoolUpgradeInfoRequest::name].
@@ -3775,8 +3776,8 @@ pub mod cluster_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for FetchNodePoolUpgradeInfo {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for FetchNodePoolUpgradeInfo {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
