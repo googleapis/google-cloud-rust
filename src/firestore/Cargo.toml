@@ -39,7 +39,7 @@ serde_with.workspace  = true
 tokio                 = { workspace = true, features = ["macros", "rt-multi-thread"] }
 tracing.workspace     = true
 # Local crates
-gax.workspace     = true
+google-cloud-gax  = { workspace = true }
 gaxi              = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
 google-cloud-type = { workspace = true }
 google-cloud-rpc  = { workspace = true }

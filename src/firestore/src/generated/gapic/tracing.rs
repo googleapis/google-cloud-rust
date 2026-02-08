@@ -41,8 +41,8 @@ where
     async fn get_document(
         &self,
         req: crate::model::GetDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Document>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Document>> {
         self.inner.get_document(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_documents(
         &self,
         req: crate::model::ListDocumentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDocumentsResponse>> {
         self.inner.list_documents(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn update_document(
         &self,
         req: crate::model::UpdateDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Document>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Document>> {
         self.inner.update_document(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn delete_document(
         &self,
         req: crate::model::DeleteDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_document(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn begin_transaction(
         &self,
         req: crate::model::BeginTransactionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BeginTransactionResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BeginTransactionResponse>> {
         self.inner.begin_transaction(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn commit(
         &self,
         req: crate::model::CommitRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CommitResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CommitResponse>> {
         self.inner.commit(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn rollback(
         &self,
         req: crate::model::RollbackRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.rollback(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn partition_query(
         &self,
         req: crate::model::PartitionQueryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PartitionQueryResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PartitionQueryResponse>> {
         self.inner.partition_query(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn list_collection_ids(
         &self,
         req: crate::model::ListCollectionIdsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCollectionIdsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCollectionIdsResponse>> {
         self.inner.list_collection_ids(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn batch_write(
         &self,
         req: crate::model::BatchWriteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BatchWriteResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BatchWriteResponse>> {
         self.inner.batch_write(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn create_document(
         &self,
         req: crate::model::CreateDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Document>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Document>> {
         self.inner.create_document(req, options).await
     }
 }
