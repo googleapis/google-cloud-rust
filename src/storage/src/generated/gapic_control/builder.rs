@@ -22,7 +22,7 @@ pub mod storage_control {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -35,7 +35,7 @@ pub mod storage_control {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -45,7 +45,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::CreateFolder;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -73,7 +73,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -84,7 +84,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .create_folder(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         fn auto_populate(
@@ -149,8 +149,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateFolder {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateFolder {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -160,7 +160,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::DeleteFolder;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -188,7 +188,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -199,7 +199,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .delete_folder(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         fn auto_populate(
@@ -267,8 +267,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteFolder {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteFolder {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -278,7 +278,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetFolder;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -306,7 +306,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -317,7 +317,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .get_folder(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         fn auto_populate(
@@ -385,8 +385,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetFolder {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetFolder {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -396,8 +396,8 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::ListFolders;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -428,7 +428,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -438,13 +438,13 @@ pub mod storage_control {
             (*self.0.stub)
                 .list_folders(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListFoldersResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListFoldersResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -453,15 +453,17 @@ pub mod storage_control {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFoldersResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListFoldersResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -517,8 +519,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListFolders {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListFolders {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -528,7 +530,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::RenameFolder;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -557,7 +559,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -573,7 +575,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .rename_folder(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `rename_folder`.
@@ -590,7 +592,7 @@ pub mod storage_control {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -690,8 +692,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RenameFolder {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RenameFolder {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -701,7 +703,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetStorageLayout;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -732,7 +734,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -743,7 +745,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .get_storage_layout(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         fn auto_populate(
@@ -778,8 +780,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetStorageLayout {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetStorageLayout {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -789,7 +791,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::CreateManagedFolder;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -820,7 +822,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -831,7 +833,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .create_managed_folder(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         fn auto_populate(
@@ -890,8 +892,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateManagedFolder {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateManagedFolder {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -901,7 +903,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::DeleteManagedFolder;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -932,7 +934,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -943,7 +945,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .delete_managed_folder(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         fn auto_populate(
@@ -1017,8 +1019,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteManagedFolder {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteManagedFolder {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1028,7 +1030,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetManagedFolder;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1059,7 +1061,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1070,7 +1072,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .get_managed_folder(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         fn auto_populate(
@@ -1138,8 +1140,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetManagedFolder {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetManagedFolder {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1149,8 +1151,8 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::ListManagedFolders;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1184,7 +1186,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1195,14 +1197,16 @@ pub mod storage_control {
             (*self.0.stub)
                 .list_managed_folders(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListManagedFoldersResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListManagedFoldersResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1212,17 +1216,17 @@ pub mod storage_control {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListManagedFoldersResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1270,8 +1274,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListManagedFolders {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListManagedFolders {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1281,7 +1285,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::CreateAnywhereCache;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1313,7 +1317,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1329,7 +1333,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .create_anywhere_cache(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_anywhere_cache`.
@@ -1348,7 +1352,7 @@ pub mod storage_control {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1423,8 +1427,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateAnywhereCache {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateAnywhereCache {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1434,7 +1438,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::UpdateAnywhereCache;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1466,7 +1470,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1482,7 +1486,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .update_anywhere_cache(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_anywhere_cache`.
@@ -1501,7 +1505,7 @@ pub mod storage_control {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1590,8 +1594,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateAnywhereCache {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateAnywhereCache {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1601,7 +1605,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::DisableAnywhereCache;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1632,7 +1636,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1643,7 +1647,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .disable_anywhere_cache(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         fn auto_populate(
@@ -1672,8 +1676,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DisableAnywhereCache {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DisableAnywhereCache {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1683,7 +1687,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::PauseAnywhereCache;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1714,7 +1718,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1725,7 +1729,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .pause_anywhere_cache(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         fn auto_populate(
@@ -1754,8 +1758,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for PauseAnywhereCache {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for PauseAnywhereCache {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1765,7 +1769,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::ResumeAnywhereCache;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1796,7 +1800,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1807,7 +1811,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .resume_anywhere_cache(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         fn auto_populate(
@@ -1836,8 +1840,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ResumeAnywhereCache {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ResumeAnywhereCache {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1847,7 +1851,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetAnywhereCache;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1878,7 +1882,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1889,7 +1893,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .get_anywhere_cache(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         fn auto_populate(
@@ -1918,8 +1922,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAnywhereCache {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAnywhereCache {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1929,8 +1933,8 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::ListAnywhereCaches;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> crate::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1964,7 +1968,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1975,14 +1979,16 @@ pub mod storage_control {
             (*self.0.stub)
                 .list_anywhere_caches(req, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAnywhereCachesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAnywhereCachesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1992,17 +1998,17 @@ pub mod storage_control {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListAnywhereCachesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2044,8 +2050,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAnywhereCaches {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAnywhereCaches {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2055,7 +2061,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetProjectIntelligenceConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2088,7 +2094,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2098,7 +2104,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .get_project_intelligence_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProjectIntelligenceConfigRequest::name].
@@ -2111,8 +2117,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetProjectIntelligenceConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetProjectIntelligenceConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2122,7 +2128,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::UpdateProjectIntelligenceConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2155,7 +2161,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2165,7 +2171,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .update_project_intelligence_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [intelligence_config][crate::model::UpdateProjectIntelligenceConfigRequest::intelligence_config].
@@ -2220,8 +2226,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateProjectIntelligenceConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateProjectIntelligenceConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2231,7 +2237,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetFolderIntelligenceConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2264,7 +2270,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2274,7 +2280,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .get_folder_intelligence_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFolderIntelligenceConfigRequest::name].
@@ -2287,8 +2293,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetFolderIntelligenceConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetFolderIntelligenceConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2298,7 +2304,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::UpdateFolderIntelligenceConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2331,7 +2337,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2341,7 +2347,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .update_folder_intelligence_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [intelligence_config][crate::model::UpdateFolderIntelligenceConfigRequest::intelligence_config].
@@ -2396,8 +2402,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateFolderIntelligenceConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateFolderIntelligenceConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2407,7 +2413,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetOrganizationIntelligenceConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2440,7 +2446,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2450,7 +2456,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .get_organization_intelligence_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOrganizationIntelligenceConfigRequest::name].
@@ -2463,8 +2469,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOrganizationIntelligenceConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOrganizationIntelligenceConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2474,7 +2480,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::UpdateOrganizationIntelligenceConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2507,7 +2513,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2517,7 +2523,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .update_organization_intelligence_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [intelligence_config][crate::model::UpdateOrganizationIntelligenceConfigRequest::intelligence_config].
@@ -2572,8 +2578,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateOrganizationIntelligenceConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateOrganizationIntelligenceConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2583,7 +2589,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2614,7 +2620,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2624,7 +2630,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -2655,8 +2661,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2666,7 +2672,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2697,7 +2703,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2707,7 +2713,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -2760,8 +2766,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2771,7 +2777,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2804,7 +2810,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2814,7 +2820,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2840,8 +2846,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2851,7 +2857,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> crate::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2882,7 +2888,7 @@ pub mod storage_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2892,7 +2898,7 @@ pub mod storage_control {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -2903,8 +2909,8 @@ pub mod storage_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

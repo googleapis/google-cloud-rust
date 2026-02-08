@@ -38,14 +38,14 @@ impl StorageControl {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageControl>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::StorageControl>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -54,13 +54,13 @@ impl StorageControl {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::StorageControl> {
+    ) -> crate::ClientBuilderResult<impl super::stub::StorageControl> {
         super::transport::StorageControl::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::StorageControl> {
+    ) -> crate::ClientBuilderResult<impl super::stub::StorageControl> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::StorageControl::new)

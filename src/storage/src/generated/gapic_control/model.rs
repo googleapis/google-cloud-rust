@@ -809,7 +809,7 @@ impl wkt::message::Message for ListFoldersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListFoldersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListFoldersResponse {
     type PageItem = crate::model::Folder;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2174,7 +2174,7 @@ impl wkt::message::Message for ListManagedFoldersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListManagedFoldersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListManagedFoldersResponse {
     type PageItem = crate::model::ManagedFolder;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3359,7 +3359,7 @@ impl wkt::message::Message for ListAnywhereCachesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAnywhereCachesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAnywhereCachesResponse {
     type PageItem = crate::model::AnywhereCache;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

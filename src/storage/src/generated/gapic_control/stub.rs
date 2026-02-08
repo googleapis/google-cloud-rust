@@ -42,10 +42,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn create_folder(
         &self,
         _req: crate::model::CreateFolderRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Folder>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Folder>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,8 +52,8 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn delete_folder(
         &self,
         _req: crate::model::DeleteFolderRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -62,10 +61,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn get_folder(
         &self,
         _req: crate::model::GetFolderRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Folder>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Folder>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -73,9 +71,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn list_folders(
         &self,
         _req: crate::model::ListFoldersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListFoldersResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListFoldersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -84,9 +82,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn rename_folder(
         &self,
         _req: crate::model::RenameFolderRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -95,9 +93,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn get_storage_layout(
         &self,
         _req: crate::model::GetStorageLayoutRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::StorageLayout>>,
+        Output = crate::Result<crate::Response<crate::model::StorageLayout>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -106,9 +104,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn create_managed_folder(
         &self,
         _req: crate::model::CreateManagedFolderRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ManagedFolder>>,
+        Output = crate::Result<crate::Response<crate::model::ManagedFolder>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -117,8 +115,8 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn delete_managed_folder(
         &self,
         _req: crate::model::DeleteManagedFolderRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -126,9 +124,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn get_managed_folder(
         &self,
         _req: crate::model::GetManagedFolderRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ManagedFolder>>,
+        Output = crate::Result<crate::Response<crate::model::ManagedFolder>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -137,9 +135,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn list_managed_folders(
         &self,
         _req: crate::model::ListManagedFoldersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListManagedFoldersResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListManagedFoldersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -148,9 +146,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn create_anywhere_cache(
         &self,
         _req: crate::model::CreateAnywhereCacheRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -159,9 +157,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn update_anywhere_cache(
         &self,
         _req: crate::model::UpdateAnywhereCacheRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -170,9 +168,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn disable_anywhere_cache(
         &self,
         _req: crate::model::DisableAnywhereCacheRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+        Output = crate::Result<crate::Response<crate::model::AnywhereCache>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -181,9 +179,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn pause_anywhere_cache(
         &self,
         _req: crate::model::PauseAnywhereCacheRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+        Output = crate::Result<crate::Response<crate::model::AnywhereCache>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -192,9 +190,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn resume_anywhere_cache(
         &self,
         _req: crate::model::ResumeAnywhereCacheRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+        Output = crate::Result<crate::Response<crate::model::AnywhereCache>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -203,9 +201,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn get_anywhere_cache(
         &self,
         _req: crate::model::GetAnywhereCacheRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+        Output = crate::Result<crate::Response<crate::model::AnywhereCache>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -214,9 +212,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn list_anywhere_caches(
         &self,
         _req: crate::model::ListAnywhereCachesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAnywhereCachesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -225,9 +223,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn get_project_intelligence_config(
         &self,
         _req: crate::model::GetProjectIntelligenceConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
+        Output = crate::Result<crate::Response<crate::model::IntelligenceConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -236,9 +234,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn update_project_intelligence_config(
         &self,
         _req: crate::model::UpdateProjectIntelligenceConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
+        Output = crate::Result<crate::Response<crate::model::IntelligenceConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -247,9 +245,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn get_folder_intelligence_config(
         &self,
         _req: crate::model::GetFolderIntelligenceConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
+        Output = crate::Result<crate::Response<crate::model::IntelligenceConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -258,9 +256,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn update_folder_intelligence_config(
         &self,
         _req: crate::model::UpdateFolderIntelligenceConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
+        Output = crate::Result<crate::Response<crate::model::IntelligenceConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -269,9 +267,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn get_organization_intelligence_config(
         &self,
         _req: crate::model::GetOrganizationIntelligenceConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
+        Output = crate::Result<crate::Response<crate::model::IntelligenceConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -280,9 +278,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn update_organization_intelligence_config(
         &self,
         _req: crate::model::UpdateOrganizationIntelligenceConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
+        Output = crate::Result<crate::Response<crate::model::IntelligenceConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -291,9 +289,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -302,9 +300,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -313,10 +311,10 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -326,9 +324,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -339,9 +337,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -350,8 +348,8 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
