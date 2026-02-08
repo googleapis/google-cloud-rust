@@ -73,7 +73,7 @@ use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, credentials::idtoken::IDTokenCredentials};
 use async_trait::async_trait;
-use gax::error::CredentialsError;
+use google_cloud_gax::error::CredentialsError;
 use http::Extensions;
 use reqwest::Client;
 use serde_json::Value;

@@ -53,7 +53,7 @@
 //!     .await?;
 //! # Ok::<(), anyhow::Error>(())
 //! # });
-//! ```    
+//! ```
 //!
 //! [Application Default Credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
 //! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
@@ -77,9 +77,9 @@ use crate::{
     credentials::idtoken::{IDTokenCredentials, parse_id_token_from_str},
 };
 use async_trait::async_trait;
-use gax::backoff_policy::BackoffPolicyArg;
-use gax::retry_policy::RetryPolicyArg;
-use gax::retry_throttler::RetryThrottlerArg;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
+use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use http::Extensions;
 use std::sync::Arc;
 
@@ -156,7 +156,7 @@ impl Builder {
 
     /// Sets the endpoint for this credentials.
     ///
-    /// A trailing slash is significant, so specify the base URL without a trailing  
+    /// A trailing slash is significant, so specify the base URL without a trailing
     /// slash. If not set, the credentials use `http://metadata.google.internal`.
     ///
     /// # Example
@@ -233,7 +233,7 @@ impl Builder {
     ///
     /// ```no_run
     /// # use google_cloud_auth::credentials::idtoken;
-    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     ///
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::mds::Builder::new(audience)
@@ -253,7 +253,7 @@ impl Builder {
     ///
     /// ```no_run
     /// # use google_cloud_auth::credentials::idtoken;
-    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     ///
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::mds::Builder::new(audience)
@@ -280,7 +280,7 @@ impl Builder {
     ///
     /// ```no_run
     /// # use google_cloud_auth::credentials::idtoken;
-    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     ///
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::mds::Builder::new(audience)

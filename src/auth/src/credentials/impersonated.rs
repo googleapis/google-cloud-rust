@@ -61,8 +61,8 @@
 //! # use std::time::Duration;
 //! # use http::Extensions;
 //! # tokio_test::block_on(async {
-//! use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-//! use gax::exponential_backoff::ExponentialBackoff;
+//! use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+//! use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 //! # let source_credentials = json!({
 //! #     "type": "authorized_user",
 //! #     "client_id": "test-client-id",
@@ -107,9 +107,9 @@ use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
-use gax::backoff_policy::BackoffPolicyArg;
-use gax::retry_policy::RetryPolicyArg;
-use gax::retry_throttler::RetryThrottlerArg;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
+use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use http::{Extensions, HeaderMap};
 use reqwest::Client;
 use serde_json::Value;
@@ -345,7 +345,7 @@ impl Builder {
     /// # use google_cloud_auth::credentials::impersonated::Builder;
     /// # use serde_json::json;
     /// # tokio_test::block_on(async {
-    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let impersonated_credential = json!({ /* add details here */ });
     /// let credentials = Builder::new(impersonated_credential.into())
     ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
@@ -366,7 +366,7 @@ impl Builder {
     /// # use serde_json::json;
     /// # use std::time::Duration;
     /// # tokio_test::block_on(async {
-    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// let policy = ExponentialBackoff::default();
     /// let impersonated_credential = json!({ /* add details here */ });
     /// let credentials = Builder::new(impersonated_credential.into())
@@ -394,7 +394,7 @@ impl Builder {
     /// # use google_cloud_auth::credentials::impersonated::Builder;
     /// # use serde_json::json;
     /// # tokio_test::block_on(async {
-    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let impersonated_credential = json!({ /* add details here */ });
     /// let credentials = Builder::new(impersonated_credential.into())
     ///     .with_retry_throttler(AdaptiveThrottler::default())
